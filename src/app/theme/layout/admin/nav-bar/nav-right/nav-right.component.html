@@ -1,0 +1,122 @@
+<ul class="navbar-nav ml-auto">
+  
+  <li>
+    <div class="drp-user dropdown" ngbDropdown placement="auto">
+      <a href="javascript:" ngbDropdownToggle>
+        <i class="icon feather icon-bell pulse-button"></i>
+      </a>
+      <div class="notificationbox dropdown-menu-right profile-notification" ngbDropdownMenu>
+        
+        <div class="dropdown-menu dropdown-menu-end dropdown-menu-card dropdown-menu-notification show" aria-labelledby="navbarDropdownNotification" data-bs-popper="none">
+          <div class="card card-notification shadow-none">
+            <div class="card-header">
+              <div class="row justify-content-between align-items-center">
+                <div class="col-auto">
+                  <h6 class="card-header-title mb-0">Notifications</h6>
+                </div>
+                <div class="col-auto ps-0 ps-sm-3"><a class="card-link fw-normal" href="#">Mark all as read</a></div>
+              </div>
+            </div>
+            <div class="scrollbar-overlay os-host os-theme-dark os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition os-host-overflow os-host-overflow-y" style="max-height:19rem">
+              <div class="os-content-glue" style="margin: 0px; height: 497px; width: 317px;"></div>
+              <div class="os-padding">
+                    <div class="os-viewport os-viewport-native-scrollbars-invisible" style="overflow-y: scroll;">
+                      <div class="os-content" style="padding: 0px; height: auto; width: 100%;">
+                        <div class="list-group list-group-flush fw-normal fs--1">
+                          <div class="list-group-item">
+                            <a class="notification notification-flush notification-unread" href="#!">
+                              
+                              <div class="notification-body">
+                                <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
+                                <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="list-group-item">
+                            <a class="notification notification-flush notification-unread" href="#!">
+                              
+                              <div class="notification-body">
+                                <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
+                                <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="list-group-item">
+                            <a class="notification notification-flush notification-unread" href="#!">
+                              
+                              <div class="notification-body">
+                                <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
+                                <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="list-group-item">
+                            <a class="notification notification-flush notification-unread" href="#!">
+                              
+                              <div class="notification-body">
+                                <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
+                                <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="list-group-item">
+                            <a class="notification notification-flush notification-unread" href="#!">
+                              
+                              <div class="notification-body">
+                                <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
+                                <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="list-group-item">
+                            <a class="notification notification-flush notification-unread" href="#!">
+                              
+                              <div class="notification-body">
+                                <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
+                                <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                              </div>
+                            </a>
+                          </div>
+                          <div class="list-group-item">
+                            <a class="notification notification-flush notification-unread" href="#!">
+                              
+                              <div class="notification-body">
+                                <p class="mb-1"><strong>Emma Watson</strong> replied to your comment : "Hello world 😍"</p>
+                                <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">💬</span>Just now</span>
+                              </div>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+              </div>
+            </div>
+            <div class="card-footer text-center"><a class="card-link d-block" href="#">View all</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+   
+  </li>
+  <li>
+    <div class="drp-user dropdown" ngbDropdown placement="auto">
+      <a href="javascript:" ngbDropdownToggle>
+        <i class="icon feather icon-user pulse-button"></i>
+      </a>
+      <div class=" dropdown-menu-right profile-notification" ngbDropdownMenu>
+        <div class="pro-head">
+          <img src="assets/images/user/cs.png" class="img-radius" alt="User-Profile-Image">
+          <span>{{username}}</span>
+          <a href="javascript:" class="dud-logout" title="Logout">
+            <i class="feather icon-log-out"></i>
+          </a>
+        </div>
+        <ul class="pro-body">
+          <li><a href="javascript:" class="dropdown-item"><i class="fas fa-user-circle"></i> Profile</a></li>
+          <li><a href="javascript:" class="dropdown-item"><i class="fas fa-key"></i> Change Password</a></li>
+          <li><a href="javascript:" (click)="logout()" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </li>
+</ul>

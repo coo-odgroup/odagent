@@ -1,0 +1,245 @@
+<div class="auth-wrapper">
+    <div class="agent-content text-center">
+        <div class="card borderless">
+            <div class="row align-items-center text-center">
+                <div class="col-md-12">
+                    <div class="card-body">
+                        <div class="header-section-content">
+                            <div class="header-left">Agent Registration Form</div>
+                            <div class="header-right"><span class="mandatory-star">*</span> fields are mandatory</div>
+                        </div>
+                        <hr>
+                        <div class="form-title">Personal Details</div>
+                        <div class="right-icon-control">
+                            <form class="form-horizontal" style="text-align: right" [formGroup]="agentform"
+                                (ngSubmit)="onSubmit()">
+                                <div class="form-group row">
+                                    <label for="Name" class="col-sm-2 col-form-label">Name<span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" formControlName="name" id="name"
+                                            placeholder="Enter Name" />
+                                        <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                            <div *ngIf="f.name.errors.required">Name is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">email<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" formControlName="email"
+                                                    id="email" placeholder="Enter Email" />
+                                                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.email.errors.required">Email is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">Password<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <div class="input-group ">
+                                                    <input [type]="fieldTextType ? 'text' : 'password'"
+                                                        class="form-control" placeholder="Enter Password"
+                                                        formControlName="password" id="password" />
+                                                    <div *ngIf="submitted && f.password.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="f.password.errors.required">password is required
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fa" [ngClass]="{
+                                                        'fa-eye-slash': !fieldTextType,
+                                                        'fa-eye': fieldTextType
+                                                        }" (click)="toggleFieldTextType()"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">PanCard No<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" formControlName="pancard_no"
+                                                    id="pancard_no" placeholder="PAN CARD NUMBER" />
+                                                <div *ngIf="submitted && f.pancard_no.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.pancard_no.errors.required">PanCard No is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">Aadhar No<span
+                                                    class="text-danger">*</span></label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" formControlName="adhar_no"
+                                                    id="adhar_no" placeholder="Aadhar Card Number" />
+                                                <div *ngIf="submitted && f.adhar_no.errors" class="invalid-feedback">
+                                                    <div *ngIf="f.adhar_no.errors.required">adhar no is required</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="Name" class="col-sm-2 col-form-label">Location<span
+                                            class="text-danger">*</span></label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" formControlName="location" id="email"
+                                            placeholder="Location" />
+                                        <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                                            <div *ngIf="f.location.errors.required">location is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="Name" class="col-sm-2 col-form-label">Organization
+                                        Name</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" formControlName="organization_name"
+                                            id="organization_name" placeholder="Shop/Organization Name" />
+                                    </div>
+                                </div>
+                                <div class="form-title">Address Details</div>
+                                <div class="form-group row">
+                                    <label for="Name"
+                                        class="col-sm-4 col-form-label">Flat,HouseNo,Building,Apartment,Company</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" formControlName="address" id="address"
+                                            placeholder="Flat,HouseNo,Building,Apartment,Company" />
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="Name"
+                                        class="col-sm-4 col-form-label">Area,Colony,Street,Sector,Village</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" formControlName="street" id="street"
+                                            placeholder="Area,Colony,Street,Sector,Village" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">Land Mark</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" formControlName="landmark"
+                                                    id="landmark" placeholder="Land Mark" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">Town/City</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" formControlName="city" id="city"
+                                                    placeholder="Town/City" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">PinCode</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" class="form-control" formControlName="pincode"
+                                                    id="pincode" placeholder="PinCode" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-title">Bank Information</div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">Name On Bank
+                                                Account</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control"
+                                                    formControlName="name_on_bank_account" id="name_on_bank_account"
+                                                    placeholder="Your Name On Bank Account" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">Bank Name</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" formControlName="bank_name"
+                                                    id="bank_name" placeholder="Bank Name" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">IFSC Code</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" formControlName="ifsc_code"
+                                                    id="ifsc_code" placeholder="IFSC Code" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">Bank Account
+                                                Number</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control"
+                                                    formControlName="bank_account_no" id="bank_account_no"
+                                                    placeholder="Bank Account Number" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">Branch Name</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" formControlName="branch_name"
+                                                    id="branch_name" placeholder="Branch Name" />
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label for="Name" class="col-sm-4 col-form-label">UPI Id</label>
+                                            <div class="col-sm-7">
+                                                <input type="text" class="form-control" formControlName="upi_id"
+                                                    id="upi_id" placeholder="UPI Id" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="btn-position">
+                                    <button class="btn btn-primary" type="submit">Register</button>
+                                    <button class="cancel-btn" type="cancel" (click)="onCancel()">Cancel</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

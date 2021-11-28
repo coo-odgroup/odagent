@@ -1,0 +1,25 @@
+::ng-deep .sml_input
+{
+height: calc(1.5em + 1rem);
+padding:0px 10px;
+}
+
+@media print {
+    ::ng-deep .hide_print {
+      display: none !important;
+    }   
+  }
+
+  @media only screen and (min-width: 600px) {
+  ::ng-deep .hide_screen {
+    display: none !important;
+    }
+}
+
+
+
+::ng-deep .sml_input
+{
+height: calc(1.5em + 1rem);
+padding:0px 10px;
+}

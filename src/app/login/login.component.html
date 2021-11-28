@@ -1,0 +1,37 @@
+<div class="auth-wrapper">
+    <div class="auth-content text-center">
+      <img src="assets/images/odbus-logo.svg" alt="" class="img-fluid mb-4">
+      <div class="card borderless">
+        <div class="row align-items-center text-center">
+          <div class="col-md-12">
+            <div class="card-body">
+                    <h4 class="mb-3 f-w-400">Agent Login</h4>
+                    <form [formGroup]="form" class="editForm" novalidate>
+                      <div class=" mb-3">
+                        <input type="email" class="form-control" formControlName="email" placeholder="Email address">
+                        <span class="text-danger"
+                                *ngIf="form.controls['email'].touched && form.controls['email'].hasError('required')">
+                                Email is required! </span>
+                      </div>
+                      <div class=" mb-3">
+                        <input type="password" class="form-control" formControlName="password"  placeholder="Password">
+                        <span class="text-danger"
+                                *ngIf="form.controls['password'].touched && form.controls['password'].hasError('required')">
+                                Password is required! </span>
+                      </div>
+                    
+                      <div class="form-group text-left mt-2">
+                        <label>
+                        <input #saveUserNameCheckBox id="saveUserNameCheckBox" type="checkbox" [checked]="saveUsername"
+                          (change)="onSaveUsernameChanged(saveUserNameCheckBox.checked)" /> &nbsp;Save credentials</label>
+                      </div>
+                    
+                      <button class="btn btn-block btn-primary mb-4" type="button" (click)="check_credentials()">Login</button>
+                      <p class="text-center">Don't have an account? <a class="formlink" routerLink="/signup">Signup</a> </p>  
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

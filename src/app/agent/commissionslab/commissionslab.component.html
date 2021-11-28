@@ -1,0 +1,37 @@
+<div class="row">
+    <div class="col-sm-12">
+            <app-card [hidHeader]="false" cardTitle="Agent Commission Slab" cardClass="card-datatable" [options]="true"
+            cardClass=" table-border-style user-profile-list " [isCardFooter]="true">
+            <h6>(Commission on basis of no of seats booked in a month booking datewise)</h6>
+            <div class="table-responsive">
+                <table class="table table-striped ">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">No Of Seats Range From - To</th>
+                            <th scope="col">Commission (Rs.)</th>
+                          
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="completedata?.length != 0">
+                        <tr *ngFor="let complete of completedata; let i = index">
+                            <td>{{ i+1 }}</td>
+                            <td>
+                                From <strong>{{complete.range_from}}</strong>to <strong>{{complete.range_to}}</strong>  Seats                               
+                            </td>
+                            <td>
+                                <i class="fas fa-rupee-sign"></i> .<strong>{{ complete.comission_per_seat }}</strong><br>
+                            </td>                            
+                        </tr>
+                    </tbody> 
+                    <tbody *ngIf="completedata?.length == 0">
+                        <tr>
+                          <td colspan="10" class="no-data-available">No data!</td>
+                        </tr>
+                    <tbody>                   
+                </table>
+               
+            </div>
+        </app-card>
+    </div>
+</div>

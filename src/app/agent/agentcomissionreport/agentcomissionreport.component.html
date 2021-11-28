@@ -1,0 +1,341 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Agent Commission Report" cardClass="card-datatable" [options]="true" [isCardFooter]="true">
+           
+
+            <div class=" mb-3">
+                <div class="row p-0">
+                    <div class="col-12">
+                        <form [formGroup]="searchFrom">
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="form-group row">
+                                        <div class="col-sm-12">
+                                            <ng-select [items]="busoperators" bindLabel="operator_name" bindValue="id"
+                                                placeholder="Select Operator" formControlName="bus_operator_id"
+                                                [clearable]="false">
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-4">
+                                    <div class="row">
+                                        <input class="form-control hidden" ngbDatepicker #datepicker="ngbDatepicker"
+                                        [autoClose]="'outside'" (dateSelect)="onDateSelection($event)"
+                                        [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden"
+                                        [startDate]="fromDate!" tabindex="-1">
+                                    <ng-template #t let-date let-focused="focused">
+                                        <span class="custom-day" [class.focused]="focused" [class.range]="isRange(date)"
+                                            [class.faded]="isHovered(date) || isInside(date)"
+                                            (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                                            {{ date.day }}
+                                        </span>
+                                    </ng-template>
+                                    <div class="form-group col-6">
+                                        <div class="input-group">
+                                            <input #dpFromDate class="form-control sml_input" placeholder="yyyy-mm-dd"
+                                                formControlName="rangeFromDate" [value]="formatter.format(fromDate)"
+                                                (input)="fromDate = validateInput(fromDate, dpFromDate.value)">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary calendar"
+                                                    (click)="datepicker.toggle()" type="button"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <div class="input-group">
+                                            <input #dpToDate class="form-control sml_input" placeholder="yyyy-mm-dd"
+                                                formControlName="rangeToDate" [value]="formatter.format(toDate)"
+                                                (input)="toDate = validateInput(toDate, dpToDate.value)">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-outline-secondary calendar"
+                                                    (click)="datepicker.toggle()" type="button"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="col-2">
+
+                                    <div class="dropdown">
+                                        <select class="form-control sml_input" formControlName="date_type">
+                                            <option value='booking'>Booking Date</option>
+                                            <option value='journey'>Journey Date</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-2">
+                                    <div class="col-sm-12">
+                                        <div class="dropdown float-right">
+                                            <input type="text" class="form-control sml_input" placeholder="Payment Id" required
+                                                formControlName="payment_id" />
+                                        </div>
+                                    </div>
+                                </div>
+                                  
+
+                               
+
+                                <div class="col-1 p-0">
+                                    <div class="dropdown float-right">
+                                        <select class="form-control sml_input" formControlName="rows_number" (change)=search()>
+                                            <option value=10>10</option>
+                                            <option value=25>25</option>
+                                            <option value=50>50</option>
+                                            <option value=100>100</option>
+                                            <option value='all'>All</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row ">
+                                <div class="col-7 p-0">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group ">
+                                                <div class="col-sm-12"> 
+                                                  <ng-select 
+                                                  [items]="locations"
+                                                  bindLabel="name"
+                                                  bindValue="id"
+                                                  placeholder="Select Source"                                       
+                                                  formControlName="source_id"
+                                                  [clearable]="false"
+                                                  (change)="findSource($event)"
+                                                  >
+                                                  </ng-select>                                                
+                                                </div>                      
+                                              </div> 
+                                        </div>                                       
+                                        
+                                        
+                                        <div class="col-6">
+                                            <div class="form-group">
+                                                <div class="col-sm-12"> 
+                                                  <ng-select 
+                                                  [items]="locations"
+                                                  bindLabel="name"
+                                                  bindValue="id"
+                                                  placeholder="Select Destination"                                       
+                                                  formControlName="destination_id"
+                                                  [clearable]="false"
+                                                  (change)="findSource($event)"
+                                                  >
+                                                  </ng-select> 
+                                               
+                                                </div>                      
+                                              </div> 
+                                        </div>
+                                    </div>                                                                      
+                                </div>
+                                <div class="col-5">
+                                    <button type="button" class="btn btn-success  sml_input" (click)="search()" title="search">
+                                      <i class="fas fa-search"> </i> Search
+                                    </button>
+                                    <button type="button" class="btn btn-danger sml_input" (click)="refresh()" title="refresh">
+                                      <i class="fas fa-sync-alt"> </i> Refresh
+                                    </button>
+                                    <button type="button" (click)="exportexcel()" class="btn btn-warning  sml_input" title="Export">
+                                      <i class="fas fa-file-export"> </i> Export
+                                    </button>
+                                    <button type="button" printSectionId="print-section" ngxPrint class="btn btn-info sml_input"
+                                      [useExistingCss]="true" title="Print">
+                                      <i class="fas fa-print"> </i> Print
+                                    </button>
+                                  </div>
+                    
+                            </div>
+                        </form>
+                    </div>
+                   
+                </div>
+            </div>
+
+            
+            <div class="table-responsive"  id="print-section">
+                <table class="table table-striped ">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Ticket Details</th>
+                            <th scope="col">Boarding Point/Time</th>
+                            <th scope="col">Bus Details </th>
+                            <th scope="col">Source >> Destination</th>
+                            <th scope="col">Seat No</th>                            
+                            <th scope="col">Passenger Details</th>
+
+                            <th scope="col">Comm Inc TDS</th>
+                            <th scope="col">TDS Charges(5%)</th>
+                            <th scope="col">Agent Comm</th>
+
+                            <!-- <th scope="col">Seater / Sleeper </th> -->
+                            <th scope="col">Fare</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="completedata?.length != 0">
+                        <tr *ngFor="let complete of completedata?.data.data; let i = index">
+                            <td>{{ i+1 }}</td>
+                            <td>
+                                <strong>{{complete.pnr}}</strong> ( {{complete.journey_dt}} )                                
+                                <br>
+                                <strong style="color: brown;">{{complete.customer_payment.order_id}}</strong>
+                                <br>
+                                <strong style="color: darkgoldenrod;">{{complete.customer_payment.razorpay_id}}</strong>
+                            </td>
+                            <td>                               
+                                <span *ngFor="let frlocation of complete.from_location">
+                                    {{frlocation.name}}
+                                </span> -
+                                ( <b>{{complete.boarding_point}} </b> )<br>
+                                Time : <b>{{complete.boarding_time }}</b>
+                            </td>
+                            <td>
+                                <strong>{{ complete.bus.name }}<br>
+                                {{ complete.bus.bus_number }}</strong>
+                               
+                            </td>
+                            <td>
+                                <ng-template #tipContent1>
+                                    <table style="width: 350px;">
+                                        <tr>
+                                            <th style="text-align: left;">
+                                                Start
+                                            </th>
+                                            <th style="text-align: left;">
+                                                End
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <td style="text-align: left;">
+                                                <span *ngFor="let frlocation of complete.source">
+                                                    {{frlocation[0].name}}<br />
+                                                </span>
+                                            </td>
+                                            <td style="text-align: left;">
+                                                <span *ngFor="let tolocation of complete.destination">
+                                                    {{tolocation[0].name}} <br />
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </ng-template>
+
+                                <span [ngbTooltip]="tipContent1">
+                                    <!-- {{ complete.source_id }} - {{ complete.destination_id }} -->
+                                    <span *ngFor="let boarding of complete.from_location;">
+                                        <strong> {{boarding.name}}</strong>
+                                    </span> >>
+                                    <span *ngFor="let dropping of complete.to_location;">
+                                       <strong> {{dropping.name}}</strong> 
+                                    </span>
+                                </span>
+                            </td>
+                            <td>
+                                <p *ngFor="let seat of complete.booking_detail;">
+                                    {{seat.bus_seats.seats.seatText}}
+                                </p>
+                            </td>
+                            <!-- <td class="text-capitalize">
+                                <ng-template #tipContent>
+                                    Phone- <b>{{complete.users.phone}}</b>
+                                    <br>Email-{{complete.users.email}}
+                                    <table>
+                                        <tr>
+                                            <td>Phone-</td>
+                                            <td><b>{{complete.users.phone}}</b></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email-</td>
+                                            <td>{{complete.users.email}}</td>
+                                        </tr>
+                                    </table>
+                                </ng-template>
+
+                                <strong [ngbTooltip]="tipContent">
+                                    {{complete.users?.name}}
+                                </strong> <br>
+
+                                <button class="btn btn-sm btn-info text-light  mr-3 ml-2 mt-2 hide_print" placement="bottom"
+                                    ngbTooltip="Click to Copy Phone Number" (click)="copyMessage(complete.users.phone)">
+                                    <i class="fas fa-mobile-alt"></i>
+                                </button>
+
+                                <button class="btn btn-sm btn-danger text-light mt-2 hide_print" placement="bottom"
+                                    ngbTooltip=" Click to Copy Email" (click)="copyMessage(complete.users.email)">
+                                    <i class="far fa-envelope"></i>
+                                </button>
+
+                            </td> -->
+                            <td>
+                                <p *ngFor="let passanger of complete.booking_detail;">
+                                    <ng-template #tipContent1>
+                                        <table>
+                                            <tr>
+                                                <td>Gender-</td>
+                                                <td><b>{{passanger.passenger_gender}}</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Age-</td>
+                                                <td><b>{{passanger.passenger_age}}</b></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Seat No-</td>
+                                                <td><b>{{passanger.bus_seats.seats.seatText}}</b></td>
+                                            </tr>
+                                        </table>
+                                    </ng-template>
+                                    <strong [ngbTooltip]="tipContent1">{{passanger.passenger_name}}</strong>
+                                </p>
+                            </td>
+                            <td>
+                                <i class="fas fa-rupee-sign"></i> <b>{{complete.with_tds_commission}}</b>
+                            </td> 
+                            <td>
+                                <i class="fas fa-rupee-sign"></i> <b>{{complete.tds}}</b>
+                            </td> 
+                            <td>
+                                <i class="fas fa-rupee-sign"></i> <b>{{complete.agent_commission}}</b>
+                            </td>
+ 
+                            <td>
+                                <i class="fas fa-rupee-sign"></i> <b>{{complete.total_fare}}</b>
+                            </td>
+                        </tr>
+                    </tbody> 
+                    <tbody *ngIf="completedata?.length == 0">
+                        <tr>
+                          <td colspan="10" class="no-data-available">No data!</td>
+                        </tr>
+                    <tbody>                   
+                </table>
+                <div *ngIf="completedata?.length != 0">
+                    <div class="d-flex flex-row-reverse mb-4 text-center" *ngIf="completedata?.data.links">
+                        <nav class="my-1 pt-1 ">
+                            <ul class="pagination pagination-circle pg-blue mb-0 hide_print">
+                                <li (click)="search(completedata.data.links.first_page_url,statusLabel)"
+                                    class="page-item {{ completedata.data.current_page == 1 ? 'disabled' : '' }} clearfix d-none d-md-block">
+                                    <a class="page-link">First</a>
+                                </li>
+                                <li class="page-item " *ngFor="let b of completedata.data.links ; let i = index ">
+                                    <a class="page-link {{ completedata.data.current_page == b.label ? 'active' : '' }}"
+                                        (click)="(b.url) ? search(b.url) : ''"
+                                        [innerHTML]="page(b.label)"></a>
+                                </li>
+                                <li class="page-item {{ completedata.data.links.last_page == 1 ? 'disabled' : '' }} clearfix d-none d-md-block"
+                                    (click)="search(completedata.data.links.last_page_url,statusLabel)">
+                                    <a class="page-link">Last</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </app-card>
+    </div>
+</div>

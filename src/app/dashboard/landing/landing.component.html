@@ -1,0 +1,181 @@
+<div class="row"> 
+    <div class="col-xl-12 ">
+        <app-card   [hidHeader]="true" [options]="false">
+            <div class="btn-group btn-group-toggle float-right" ngbRadioGroup name="ticketSize" data-toggle="buttons">
+                <label ngbButtonLabel class="btn btn-info">All
+                  <input ngbButton type="radio" class="dateRange" name="dateRange" value="large-view" id="option5" (click)="getall('ALL')"> <i class="feather icon-award m-0"></i>
+                </label>
+                <label ngbButtonLabel class="btn btn-info">Today
+                  <input ngbButton type="radio" class="dateRange" name="dateRange" value="sm-view" id="option1" (click)="getall('Today')"><i class="feather icon-align-justify m-0"></i>
+                </label>
+                <label ngbButtonLabel class="btn btn-info">This Week
+                  <input ngbButton type="radio" class="dateRange" name="dateRange" value="md-view" id="option2" (click)="getall('This Week')"> <i class="feather icon-menu m-0"></i>
+                </label>
+                <label ngbButtonLabel class="btn btn-info">This Month
+                  <input ngbButton type="radio" class="dateRange" name="dateRange" value="large-view" id="option3" (click)="getall('This Month')"> <i class="feather icon-grid m-0"></i>
+                </label>
+                
+                <label ngbButtonLabel class="btn btn-info">Custom Range
+                    <input ngbButton type="radio" name="dateRange" value="large-view" id="option4"> <i class="feather icon-plus m-0"></i>
+                </label>
+              </div>             
+          </app-card>    
+    </div> 
+</div>
+<div class="row" *ngIf="dashboarddata">   
+    
+        <div class="col-md-3" *ngIf="RoleType==1">
+            <app-card [hidHeader]="true" cardClass="bg-c-blue text-white widget-visitor-card" blockClass="text-center">
+                <h2 class="text-white">{{dashboarddata.active_operator}}</h2>
+                <h6 class="text-white">Total Operators</h6>
+                <i class="feather icon-file-text"></i>
+              </app-card>
+          
+        </div>
+        <div class="col-md-3" *ngIf="RoleType==4">
+          <app-card [hidHeader]="true" cardClass="bg-c-blue text-white widget-visitor-card" blockClass="text-center">
+              <h2 class="text-white">{{dashboarddata.sales_data[0].today_amount || "0"}}</h2>
+              <h6 class="text-white">Sales {{RangeText}}</h6>
+              <i class="feather icon-file-text"></i>
+            </app-card>
+        
+        </div>
+        <div class="col-md-3">
+          <app-card [hidHeader]="true" cardClass="bg-c-green text-white widget-visitor-card" blockClass="text-center">
+                <h2 class="text-white">{{dashboarddata.active_bus}}</h2>
+                <h6 class="text-white">Active Buses</h6>
+                <i class="feather icon-file-text"></i>
+              </app-card>      
+        </div>
+        <div class="col-md-3">
+            <app-card [hidHeader]="true" cardClass="bg-c-red text-white widget-visitor-card" blockClass="text-center">
+                <h2 class="text-white">{{dashboarddata.today_pnr}}</h2>
+                <h6 class="text-white">PNR Bokked</h6>
+                <i class="feather icon-award"></i>
+              </app-card>
+          
+        </div>
+        <div class="col-md-3">
+            <app-card [hidHeader]="true" cardClass="bg-c-yellow text-white widget-visitor-card" blockClass="text-center">
+                <h2 class="text-white">{{dashboarddata.upcoming_pnr}}</h2>
+                <h6 class="text-white">PNR Upcoming Booking</h6>
+                <i class="feather icon-file-text"></i>
+              </app-card>
+          
+        </div>
+      
+    
+      <div class="col-xl-12">
+          <app-card cardTitle="{{RangeText}} Ticket Statistics" [options]="false">
+            <lib-highcharts-angular [Highcharts]="Highcharts" [options]="barBasicChartOptions" style="width: 100%; height: 450px; display: block;"></lib-highcharts-angular>
+          </app-card>
+        </div>
+   
+        <div class="col-md-6">
+            <app-card class="booking_device_height" cardTitle="Booking By Device {{RangeText}}" [options]="false">
+              <app-apex-chart chartID="pie-chart-2-cac" [chartConfig]="this.pie2CAC" style="height: 400px"></app-apex-chart>
+            </app-card>
+          </div>
+          <div class="col-md-6">
+            <app-card cardTitle="Weekly PNR Statistics" [options]="false">
+              <div #barBasicChart>
+                <chart id="bar_basic_chart" [type]="'bar'" [data]="barBasicChartData" [options]="barBasicChartOption"></chart>
+              </div>
+            </app-card>
+          </div>
+          
+          <div class="container"  *ngIf="RoleType==1">
+            <div class="row">
+              <div class="col-md-12 col-xl-4">
+
+                <app-card [hidHeader]="true" cardClass="bg-c-blue order-card borderless">
+                  <h6 class="text-white">Sales {{RangeText}}</h6>
+                  <h2 class="text-white">
+                    <span *ngFor="let book_pft of dashboarddata.booking_profit;">
+                      <i class="fas fa-rupee-sign"></i> {{dashboarddata.sales_data[0].today_amount || "0"}}
+                    </span>
+                  </h2>             
+                  <i class="card-icon feather icon-filter"></i>
+                </app-card>
+    
+    
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <app-card [hidHeader]="true" cardClass="bg-c-blue order-card borderless">
+                  <h6 class="text-white">Booking Profit {{RangeText}}</h6>
+                  <h2 class="text-white">
+                    <span *ngFor="let book_pft of dashboarddata.booking_profit;">
+                        <i class="fas fa-rupee-sign"></i> {{book_pft.odbus_amount || "0"}}
+                    </span>
+                  </h2>             
+                  <i class="card-icon feather icon-users"></i>
+                </app-card>
+              </div>
+              <div class="col-md-6 col-xl-4">
+                <app-card [hidHeader]="true" cardClass="bg-c-green order-card borderless">
+                  <h6 class="text-white">Cancellation Profit {{RangeText}}</h6>
+                  <h2 class="text-white">{{dashboarddata.cancellation_profit || "0"}}</h2>             
+                  <i class="card-icon feather icon-radio"></i>
+                </app-card>
+              </div>
+            </div>
+          </div>
+          
+            
+          <div class="col-xl-6 col-md-12">
+            <app-card cardTitle="TOP ROUTES BOOKINGS {{RangeText}}" cardClass="table-card" blockClass="p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>   
+                      <th>#</th>               
+                      <th>ROUTES</th>
+                      <th>PNR</th>
+                      <th>PRICE</th>                    
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let route of routedata; let i = index">
+                      <td>{{i+1}}</td>
+                      <td>
+                        {{route.from_location[0].name}} - {{route.to_location[0].name}}
+                      </td>
+                      <td>{{route.pnr_count}} PNR</td>
+                      <td><i class="fas fa-rupee-sign"></i> {{route.amount}}</td>                   
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </app-card>
+          </div>
+          <div class="col-xl-6 col-md-12">
+            <app-card cardTitle="BUS OPERATORS BOOKINGS {{RangeText}}" cardClass="table-card" blockClass="p-0">
+              <div class="table-responsive">
+                <table class="table table-hover mb-0">
+                  <thead>
+                  <tr>   
+                    <th>#</th>                      
+                    <th>OPERATORS</th>
+                    <th>PNR</th>
+                    <th>PRICE</th>                    
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let Operator of oprdata; let i = index">
+                    <td>{{i+1}}</td>
+                    <td> {{Operator.operatorName}} </td>
+                    <td> {{Operator.count}} PNR</td>
+                    <td><i class="fas fa-rupee-sign"></i> {{Operator.amount}}</td>                   
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </app-card>
+          </div>
+  </div>
+  
+  
+    
+    
+      
+    

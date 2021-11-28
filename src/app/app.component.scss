@@ -1,0 +1,39 @@
+::ng-deep .removebtn
+{
+    margin-top: 8px;
+    float: left;
+}
+::ng-deep .addbtn
+{
+    float: left;
+}
+::ng-deep .dt-buttons {
+    margin-left: 20px;
+}
+::ng-deep body{
+    padding: 0px;
+    margin: 0px;
+}
+::ng-deep .ng-select
+{
+    border: 2px solid rgba(0, 0, 0, 0.15);
+}
+::ng-deep .ng-select .ng-select-container
+{
+    border: none;
+}
+::ng-deep .ng-dropdown-panel.ng-select-top
+{
+    text-align: left;
+}
+::ng-deep img#main-logo
+{
+    width: 69%;
+}
+::ng-deep .pcoded-navbar .pcoded-inner-navbar app-nav-group:first-child > .pcoded-menu-caption {
+   margin-top: -26px !important;
+}
+::ng-deep .page-link
+{
+    cursor: pointer;
+}

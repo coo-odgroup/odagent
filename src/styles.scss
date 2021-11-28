@@ -1,0 +1,34 @@
+/* You can add global styles to this file, and also import other style files */
+@import "scss/style";
+
+.pointer{
+    cursor: pointer;
+}
+img#main-logo {
+    width: 100%;
+}
+
+
+@import "~@ng-select/ng-select/themes/default.theme.css";
+body {
+  padding: 20px;
+}
+a.active.page-link {
+  background: #2ecc71;
+  color: #FFF;
+}
+@media print {
+  .hide_print {
+    display: none !important;
+  }
+}
+
+.user-profile-list table tr td
+{
+  border-bottom: 1px solid #e3eaef;
+}
+.user-profile-list table tr th
+{
+  border-bottom: 2px solid #e3eaef;
+}
+

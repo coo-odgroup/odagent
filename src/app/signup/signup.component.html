@@ -1,0 +1,30 @@
+<div class="auth-wrapper">
+  <div class="auth-content text-center">
+    <img src="assets/images/odbus-logo.svg" alt="" class="img-fluid mb-4">
+    <div class="card borderless">
+      <div class="row align-items-center text-center">
+        <div class="col-md-12">
+          <div class="card-body">
+            <h4 class="mb-3 f-w-400">Signup</h4>
+            <form [formGroup]="form" class="editForm" novalidate>
+
+              <div class=" mb-4">
+                <input type="phone" class="form-control" formControlName="phone" placeholder="Enter mobile no">
+                <span class="text-danger"
+                  *ngIf="form.controls['phone'].touched && form.controls['phone'].hasError('required')">
+                  Phone is required! </span>
+                <span class="text-danger row col-12" *ngIf="form.controls['phone'].errors?.pattern">
+                  Enter 10 digit Mobile Number
+                </span>
+              </div>
+              <button class="btn btn-block btn-primary mb-4" type="button" (click)="check_credentials()">Get
+                OTP</button>
+              <p class="text-center"> <a class="formlink" routerLink="/dashboard/landing">Back to home</a> </p>
+              <!-- <p class="text-center">Already Registered? <a class="formlink" routerLink="/login">Login</a> </p>   -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

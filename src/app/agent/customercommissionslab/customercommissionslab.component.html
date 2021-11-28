@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col-sm-12">
+ 
+            <app-card [hidHeader]="false" cardTitle="Customer Commission Fee Slab" cardClass="card-datatable" [options]="true"
+        cardClass=" table-border-style user-profile-list " [isCardFooter]="true">
+            <h6> Agent can put commission value that received from customer according to following fare while booking</h6>
+            <div class="table-responsive">
+                <table class="table table-striped ">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Fare Range From - To</th>
+                            <th scope="col">Commission (Rs.)</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="completedata?.length != 0">
+                        <tr *ngFor="let complete of completedata; let i = index">
+                            <td>{{ i+1 }}</td>
+                            <td>
+                               Fare From <i class="fas fa-rupee-sign"></i>.<strong>{{complete.price_from}}</strong>   To   <i class="fas fa-rupee-sign"></i>.<strong>{{complete.price_to}}</strong>                                 
+                            </td>
+                            <td>
+                                <i class="fas fa-rupee-sign"></i> .<strong>{{ complete.max_comission }}</strong><br>
+                            </td>
+                            
+                        </tr>
+                    </tbody> 
+                    <tbody *ngIf="completedata?.length == 0">
+                        <tr>
+                          <td colspan="10" class="no-data-available">No data!</td>
+                        </tr>
+                    <tbody>                   
+                </table>
+               
+            </div>
+        </app-card>
+    </div>
+</div>

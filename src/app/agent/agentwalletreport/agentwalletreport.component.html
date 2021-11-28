@@ -1,0 +1,133 @@
+<div class="row">
+    <div class="col-sm-12">
+      <app-card [hidHeader]="false" cardTitle="Agent Wallet Report" cardClass="card-datatable" [options]="true"
+        cardClass=" table-border-style user-profile-list " [isCardFooter]="true">
+        <div class="row">
+          <!-- <div class="col-2">
+            <div class="from-group ">
+              <button class="btn sml_input btn-success mb-2 " (click)="ResetAttributes();OpenModal(content)">
+                Add Balance
+              </button>
+            </div>
+          </div> -->
+          <div class="col-12">
+            <form [formGroup]="searchForm">
+              <div class="row"> 
+  
+                <div class="col-4">
+                  <div class="form-group row">
+  
+                    <div class="col-sm-12">
+                      <input type="text" class="form-control sml_input" placeholder="Search Here " required
+                        formControlName="name" />
+                    </div>
+                  </div>
+                </div>
+  
+  
+                <div class="col-6">
+                  <button type="button" class="btn btn-success  sml_input" (click)="search()" title="search">
+                    <i class="fas fa-search"> </i> Search
+                  </button>
+                  <button type="button" class="btn btn-danger sml_input" (click)="refresh()" title="refresh">
+                    <i class="fas fa-sync-alt"> </i> Refresh
+                  </button>
+                  <button type="button" (click)="exportexcel()" class="btn btn-warning  sml_input" title="Export">
+                    <i class="fas fa-file-export"> </i> Export
+                  </button>
+                  <button type="button" printSectionId="print-section" ngxPrint class="btn btn-info sml_input"
+                    [useExistingCss]="true" title="Print">
+                    <i class="fas fa-print"> </i> Print
+                  </button>
+                </div>
+  
+  
+  
+                <div class="col-2">
+                  <div class="dropdown float-right">
+                    <select class="form-control sml_input" formControlName="rows_number" (change)=search()>
+                      <option value=10>10</option>
+                      <option value=25>25</option>
+                      <option value=50>50</option>
+                      <option value=100>100</option>
+                      <option value='all'>All</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </form>
+  
+  
+          </div>
+  
+        </div>
+        <div class="table-responsive" id="print-section">
+          <table class="table table-striped ">
+            <thead>
+              <tr>
+                <th scope="col" width="100px">#</th>
+                <th scope="col">Request Date</th>
+                <th scope="col">Tran ID</th>
+                <th scope="col">Tran Via</th> 
+                <th scope="col">Amount</th>
+                <th scope="col">Tran. Type</th>               
+                <th scope="col">Balance</th>
+                <th scope="col">Remarks</th>
+                
+              </tr>
+            </thead>
+            <tbody *ngIf="wallet?.length != 0">
+              <tr *ngFor="let page of wallet; let i=index;">
+                <td>{{i+1}}</td>
+                <td>{{page.created_at | date: 'dd/MM/yyyy'}}</td>
+                <td >{{page.transaction_id}}</td>
+                <td >{{page.payment_via}}</td>
+                <td >{{page.amount}}</td>
+                <td>
+                    <label *ngIf="page.transaction_type=='c'" class="btn btn-sm  bg-success  text-light"
+                     ><strong>Credit</strong></label>
+                    <label *ngIf="page.transaction_type=='d'" class="btn btn-sm bg-danger  text-light"
+                      ><strong>Debit</strong></label>
+                  </td>
+                <td >{{page.balance}}</td>
+                <td >{{page.remarks}}</td>
+                <!-- <td>
+                  <label *ngIf="page.status==1" class="btn btn-sm  bg-info  text-light"
+                   ><strong>Active</strong></label>
+                  <label *ngIf="page.status==0" class="btn btn-sm bg-danger  text-light"
+                    ><strong>Pending</strong></label>
+                </td> -->
+              </tr>
+            </tbody>
+          </table>
+  
+          <div *ngIf="pagination?.length!= 0" class="hide_print">
+            <div class="d-flex flex-row-reverse mb-4 text-center" *ngIf="pagination?.links">
+              <nav class="my-1 pt-1 ">
+                <ul class="pagination pagination-circle pg-blue mb-0">
+                  <li (click)="search(pagination.links.first_page_url,statusLabel)"
+                    class="page-item {{ pagination.current_page == 1 ? 'disabled' : '' }} clearfix d-none d-md-block">
+                    <a class="page-link">First</a>
+                  </li>
+                  <li class="page-item " *ngFor="let b of pagination.links ; let i = index ">
+                    <a class="page-link {{ pagination.current_page == b.label ? 'active' : '' }}"
+                      (click)="(b.url) ? search(b.url) : ''" [innerHTML]="page(b.label)"></a>
+                  </li>
+                  <li class="page-item {{ pagination.links.last_page == 1 ? 'disabled' : '' }} clearfix d-none d-md-block"
+                    (click)="search(pagination.links.last_page_url,statusLabel)">
+                    <a class="page-link">Last</a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+        </div>
+  
+  
+        <div class="app-card-footer">
+          
+          
+        </div>
+      </app-card>
+    </div>
+  </div>

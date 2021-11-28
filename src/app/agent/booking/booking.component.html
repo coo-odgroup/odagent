@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Book Ticket" cardClass="card-datatable" [options]="true" [isCardFooter]="true">
+           
+
+            <div class=" mb-3">
+                <div class="row p-0">
+                    <div class="col-12">
+                        <form [formGroup]="searchFrom">
+                           
+                            <div class="row ">
+                                <div class="col-10 p-0">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-group sml_input ">
+                                                <div class="col-sm-12"> 
+                                                  <ng-select 
+                                                  [items]="locations"
+                                                  bindLabel="name"
+                                                  bindValue="id"
+                                                  placeholder="Select Source"                                       
+                                                  formControlName="source_id"
+                                                  [clearable]="false"
+                                                  (change)="findSource($event)"
+                                                  >
+                                                  </ng-select>                                                
+                                                </div>                      
+                                              </div> 
+                                        </div>                                       
+                                        
+                                        
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <div class="col-sm-12 sml_input"> 
+                                                  <ng-select 
+                                                  [items]="locations"
+                                                  bindLabel="name"
+                                                  bindValue="id"
+                                                  placeholder="Select Destination"                                       
+                                                  formControlName="destination_id"
+                                                  [clearable]="false"
+                                                  (change)="findSource($event)"
+                                                  >
+                                                  </ng-select> 
+                                               
+                                                </div>                      
+                                              </div> 
+                                        </div>
+
+                                        <div class="col-4">
+                                            <div class="form-group">
+                                                <div class="col-sm-12"> 
+                                                  <input type="date" class="form-control sml_input"  formControlName="date" >
+                                                </div>                      
+                                              </div> 
+                                        </div>
+                                    </div>                                                                      
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="btn btn-success  sml_input" (click)="search()" title="search">
+                                      <i class="fas fa-search"> </i> Search
+                                    </button>
+                                   
+                                  </div>
+                    
+                            </div>
+                        </form>
+                    </div>                   
+                </div>
+            </div>
+
+          
+        </app-card>
+    </div>
+</div>
