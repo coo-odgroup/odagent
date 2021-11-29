@@ -32,3 +32,10 @@ a.active.page-link {
   border-bottom: 2px solid #e3eaef;
 }
 
+ngb-datepicker.dropdown-menu.show {
+  position: relative !important;
+  z-index: 99999;    
+  margin-top: 18%;
+  transform: none  !important;
+}
+

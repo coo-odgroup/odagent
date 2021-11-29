@@ -38,7 +38,10 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/fake-data"
+              "src/fake-data",
+              "src/styles.css",
+              "src/assets/css/style.css",
+              "src/assets/css/customwizard.css"
             ],
             "styles": [
               "src/styles.scss",
