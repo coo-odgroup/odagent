@@ -1,245 +1,179 @@
-import { Component, OnInit } from '@angular/core';
-import { AgentreportService } from '../../services/agentreport.service' ;
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { BusOperatorService } from './../../services/bus-operator.service';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {CompleteReport} from '../../model/completereport';
-import { LocationService } from '../../services/location.service';
-import { BusService} from '../../services/bus.service';
-import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LocationService } from 'src/app/services/location.service';
+import { Router } from '@angular/router';
+import { NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
+import { DomSanitizer } from '@angular/platform-browser';
 import {Constants} from '../../constant/constant' ;
-import * as XLSX from 'xlsx';
+import { Title, Meta } from '@angular/platform-browser';
+import { NotificationService } from '../../services/notification.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
   styleUrls: ['./booking.component.scss']
 })
-export class BookingComponent implements OnInit {
+export class BookingComponent implements OnInit { 
 
- 
-  public searchFrom: FormGroup;
+  public searchForm: FormGroup;
+  submitted = false;
 
-  completeReport: CompleteReport[];
-  completeReportRecord: CompleteReport;
+  public keyword = 'name';
+  swapdestination:any;
+  swapsource:any;
+  source: any;
+  source_id: any;
+  destination: any;
+  destination_id: any;
+  entdate: any;
 
-  completedata: any;
-  totalfare = 0  ;
-  busoperators: any;
-  url: any;
-  locations: any;
-  buses: any;
+  search:any;
+  location_list:any;
+  formatter:any;
 
-  hoveredDate: NgbDate | null = null;
-  fromDate: NgbDate | null;
-  toDate: NgbDate | null;
+  myDate:any = new Date();
+  sourceData:any;
+  destinationData:any;
 
-  constructor(
-    private http: HttpClient , 
-    private rs:AgentreportService, 
-    private busOperatorService: BusOperatorService, 
+
+  constructor(private router: Router,
     private fb: FormBuilder,
-    private locationService:LocationService,
-    private busService:BusService,
-    private calendar: NgbCalendar, 
-    public formatter: NgbDateParserFormatter
+    private locationService: LocationService,
+    private dtconfig: NgbDatepickerConfig,
+    private location: Location,
+    private notify: NotificationService
     ) { 
-      this.fromDate = calendar.getToday();
-      this.toDate = calendar.getToday();
-    }
-    title = 'angular-app';
-    fileName= 'Agent-Complete-Report.xlsx';
-  ngOnInit(): void {
 
-    this.searchFrom = this.fb.group({
-      bus_operator_id: [null],
-      rangeFromDate:[null],
-      rangeToDate:[null],
-      payment_id : [null],
-      date_type:['booking'],
-      rows_number: Constants.RecordLimit,
-      source_id:[null],
-      destination_id:[null]
-    })  
-   
+      
+      this.locationService.readAll().subscribe(
+        res=>{
 
-    this.search();
-    this.loadServices();
+          if(res.status==1)
+          { 
+            this.location_list =res.data;
+         }
+          else{ 
+            this.notify.notify(res.message,"Error");
+          }
+            
+        });
 
+          
+
+      this.search = (text$: Observable<string>) =>
+        text$.pipe(
+          debounceTime(200),
+          map((term) =>
+            term === ''
+              ? []
+              : this.location_list
+                  .filter(
+                    (v) =>
+                      v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
+                      v.synonym.toLowerCase().indexOf(term.toLowerCase()) > -1
+                  )
+                  .slice(0, 10)
+          )
+        );
+
+    this.formatter = (x: { name: string }) => x.name;               
+
+  const current = new Date();
+  this.dtconfig.minDate = { year: current.getFullYear(), month: 
+   current.getMonth() + 1, day: current.getDate() };
+      
+      this.searchForm = fb.group({
+        source: ['', Validators.required],
+        destination: ['', Validators.required],
+        entry_date: ['', Validators.required],
+      });
   }
 
-  exportexcel(): void
-  {
+  submitForm() {  
+
+       
+    if(this.searchForm.value.source==null || this.searchForm.value.source==''){
+
+      this.notify.notify("Enter Source !","Error");
+
+    }
+
+    else if(this.searchForm.value.destination==null || this.searchForm.value.destination==""){
+
+      this.notify.notify("Enter Destination !","Error");
+    }
+
+    else if(this.searchForm.value.entry_date==null || this.searchForm.value.entry_date==""){
+
+      this.notify.notify("Enter Journey Date !","Error");
+
+    }
+
+    else{     
+
+      let dt = this.searchForm.value.entry_date;
+
+      if(dt.month < 10){
+        dt.month = "0"+dt.month;
+      }
+      if(dt.day < 10){
+        dt.day = "0"+dt.day;
+      }
+
+      this.searchForm.value.entry_date= [dt.day,dt.month,dt.year].join("-");
+      
+      if(!this.searchForm.value.source.name){
+        this.notify.notify("Select Valid Source !","Error");        
+        
+        return false;
+      }
+
+      if(!this.searchForm.value.destination.name){
+        this.notify.notify("Select Valid Destination !","Error"); 
+        
+        return false;
+      }
+
+     let dat = this.searchForm.value.entry_date;
+
+    //  this.listingService.getlist(this.sourceData.name,this.destinationData.name,this.entdate).subscribe(
+    //   res=>{
+    //     localStorage.setItem('source', this.sourceData.name);
+    //     localStorage.setItem('source_id', this.sourceData.id);
+    //     localStorage.setItem('destination', this.destinationData.name);
+    //     localStorage.setItem('destination_id', this.destinationData.id);
+    //     localStorage.setItem('entdate', this.entdate); 
+              
+    //     if(res.data){
+    //       this.buslist = res.data; 
+    //       this.totalfound = res.data.length; 
+    //     }
+    //     this.swapdestination=this.destinationData ;
+    //     this.swapsource=this.sourceData ;
+    //   });
+
+     //this.listing(this.searchForm.value.source,this.searchForm.value.destination,dat);
+
     
-    /* pass here the table id */
-    let element = document.getElementById('print-section');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
- 
-    /* generate workbook and add the worksheet */
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
- 
-    /* save to file */  
-    XLSX.writeFile(wb, this.fileName);
- 
+    }
   }
 
-  page(label:any){
-    return label;
-   }
-  search(pageurl="")
-  {
-     this.completeReportRecord = this.searchFrom.value ; 
-     
-    const data = {
-      bus_operator_id: this.completeReportRecord.bus_operator_id,
-      payment_id:this.completeReportRecord.payment_id,
-      date_type :this.completeReportRecord.date_type,
-      rows_number:this.completeReportRecord.rows_number,
-      source_id:this.completeReportRecord.source_id,
-      destination_id:this.completeReportRecord.destination_id,
-      rangeFromDate:this.completeReportRecord.rangeFromDate,
-      rangeToDate :this.completeReportRecord.rangeToDate,
-      user_id : localStorage.getItem('USERID'),       
-    };
-   
-    if(pageurl!="")
-    {
-      this.rs.commissionpaginationReport(pageurl,data).subscribe(
-        res => {
-          this.completedata= res.data;
-        }
-      );
-    }
-    else
-    {
-      this.rs.commissionReport(data).subscribe(
-        res => {
-          this.completedata= res.data;
-        }
-      );
+  swap(){
+
+    if(this.searchForm.value.source){
+      this.swapdestination=  this.searchForm.value.source
     }
 
-
+    if(this.searchForm.value.destination){
+      this.swapsource= this.searchForm.value.destination; 
+    }
     
   }
-
-  
-
-
-///////////////Function to Copy data to Clipboard/////////////////
-  copyMessage($event:any ){
-    // console.log($event);
-    const selBox = document.createElement('textarea');
-    selBox.style.position = 'fixed';
-    selBox.style.left = '0';
-    selBox.style.top = '0';
-    selBox.style.opacity = '0';
-    selBox.value = $event;
-    document.body.appendChild(selBox);
-    selBox.focus();
-    selBox.select();
-    document.execCommand('copy');
-    document.body.removeChild(selBox);
-  }
-
-  refresh()
-  {
-    this.searchFrom = this.fb.group({
-      bus_operator_id: [null],
-      rangeFromDate:[null],
-      rangeToDate:[null],
-      payment_id : [null],
-      date_type:['booking'],
-      rows_number: Constants.RecordLimit,
-      source_id:[null],
-      destination_id:[null]
-
-    })
-    this.search();
-  }
-
-
-
-  loadServices() {
-
-    this.busOperatorService.readAll().subscribe(
-      res => {
-        this.busoperators = res.data;
-      }
-    );
-    this.locationService.readAll().subscribe(
-      records=>{
-        this.locations=records.data;
-      }
-    );
-  }
-
-  findSource(event:any)
-{
-  let source_id=this.searchFrom.controls.source_id.value;
-  let destination_id=this.searchFrom.controls.destination_id.value;
-
-
-  if(source_id!="" && destination_id!="")
-  {
-    this.busService.findSource(source_id,destination_id).subscribe(
-      res=>{
-        this.buses=res.data;
-      }
-    );
-  }
-  else
-  {
-    this.busService.all().subscribe(
-      res=>{
-        this.buses=res.data;
-      }
-    );
+    
+  ngOnInit(): void {   
   }
 }
 
-
-formatDate(date) {
-  var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-  if (month.length < 2) 
-      month = '0' + month;
-  if (day.length < 2) 
-      day = '0' + day;
-
-  return [year, month, day].join('-');
-}
-onDateSelection(date: NgbDate) {
-  if (!this.fromDate && !this.toDate) {
-    this.searchFrom.controls.rangeFromDate.setValue(date);
-    this.fromDate = date;
-  } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
-    this.toDate = date;
-    this.searchFrom.controls.rangeToDate.setValue(date);
-  } else {
-    this.toDate = null;
-    this.fromDate = date;
-    this.searchFrom.controls.rangeFromDate.setValue(date);
-  }
-}
-
-validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
-  const parsed = this.formatter.parse(input);
-  return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
-}
-isHovered(date: NgbDate) {
-  return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
-}
-
-isInside(date: NgbDate) {
-  return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
-}
-
-isRange(date: NgbDate) {
-  return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
-} 
-}

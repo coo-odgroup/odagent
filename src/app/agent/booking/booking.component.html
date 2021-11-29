@@ -6,7 +6,79 @@
             <div class=" mb-3">
                 <div class="row p-0">
                     <div class="col-12">
-                        <form [formGroup]="searchFrom">
+
+                        <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
+                            <div class="hero-banner-inner-srchbus">
+                                <div class="row no-gutters">
+                                   
+                                    <div class="col-md-10">
+                                        <div class="row no-gutters">
+                                            <div class="col-md-4 pr-1">
+                                                <label><b>From</b></label>
+                                                <div class="input-group mb-3 d-block">
+            
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text pr-0" id="basic-addon1"><img src="../../../assets/img/Icon-metro-location.svg"></span>
+                                                    
+                                                        <input autocomplete="off" id="typeahead-template" type="text" class="form-control"  [ngbTypeahead]="search" [resultTemplate]="rt" 
+                                                        [inputFormatter]="formatter" [ngModel]="swapsource" placeholder="Enter Source" formControlName="source"/>
+            
+                                                        <ng-template #rt let-r="result" let-t="term">
+                                                            <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+                                                        </ng-template>
+                                                    
+                                                    
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 pr-1 to_dest_block">
+                                                <label><b>To</b></label>
+                                                <div class="swap-srch cursor">
+                                                   <img (click)="swap();"  src="../../../assets/img/swap.svg">
+                                                </div>
+                                                <div class="input-group mb-3 d-block">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text pr-0 pl-4" id="basic-addon2"><img
+                                                                src="../../../assets/img/Icon-metro-location.svg"></span>
+            
+                                                                <input autocomplete="off" id="typeahead-template2" type="text" class="form-control"  [ngbTypeahead]="search" 
+                                                                [resultTemplate]="rt2" [inputFormatter]="formatter" [ngModel]="swapdestination" formControlName="destination" placeholder="Enter Destination"
+                                                                />
+                                                              
+                                                                    <ng-template #rt2 let-r="result" let-t="term">
+                                                                        <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+                                                                    </ng-template>
+                                                                
+                                                                
+                                                    </div>
+                                                   
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 date_inp">
+                                                <label><b>Date of Journey</b></label>
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text calendar pr-0" id="basic-addon3" (click)="d.toggle()" ><img src="assets/img/Icon-metro-calendar.svg"></span>
+                                                    </div>
+                                                    <input type="text" autocomplete="off" readonly class="form-control calendar rounded-0" formControlName="entry_date"  
+                                                    placeholder="Journey Date" aria-label="Journey Date" 
+                                                    aria-describedby="basic-addon3" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <p style="opacity: 0;">Search</p>
+                                        <div class="bus_search">
+                                            <button type="submit"  class="btn">Search</button>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- <form [formGroup]="searchFrom">
                            
                             <div class="row ">
                                 <div class="col-10 p-0">
@@ -64,7 +136,7 @@
                                   </div>
                     
                             </div>
-                        </form>
+                        </form> -->
                     </div>                   
                 </div>
             </div>
