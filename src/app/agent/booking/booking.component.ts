@@ -1,13 +1,10 @@
 import { Component, Input, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LocationService } from 'src/app/services/location.service';
+import { LocationdataService } from '../../services/locationdata.service';
 import { Router } from '@angular/router';
 import { NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
-import { DomSanitizer } from '@angular/platform-browser';
-import {Constants} from '../../constant/constant' ;
-import { Title, Meta } from '@angular/platform-browser';
 import { NotificationService } from '../../services/notification.service';
 import { Location } from '@angular/common';
 
@@ -41,14 +38,14 @@ export class BookingComponent implements OnInit {
 
   constructor(private router: Router,
     private fb: FormBuilder,
-    private locationService: LocationService,
+    private locationService: LocationdataService,
     private dtconfig: NgbDatepickerConfig,
     private location: Location,
     private notify: NotificationService
     ) { 
 
       
-      this.locationService.readAll().subscribe(
+      this.locationService.all().subscribe(
         res=>{
 
           if(res.status==1)
@@ -139,26 +136,19 @@ export class BookingComponent implements OnInit {
 
      let dat = this.searchForm.value.entry_date;
 
-    //  this.listingService.getlist(this.sourceData.name,this.destinationData.name,this.entdate).subscribe(
-    //   res=>{
-    //     localStorage.setItem('source', this.sourceData.name);
-    //     localStorage.setItem('source_id', this.sourceData.id);
-    //     localStorage.setItem('destination', this.destinationData.name);
-    //     localStorage.setItem('destination_id', this.destinationData.id);
-    //     localStorage.setItem('entdate', this.entdate); 
-              
-    //     if(res.data){
-    //       this.buslist = res.data; 
-    //       this.totalfound = res.data.length; 
-    //     }
-    //     this.swapdestination=this.destinationData ;
-    //     this.swapsource=this.sourceData ;
-    //   });
-
-     //this.listing(this.searchForm.value.source,this.searchForm.value.destination,dat);
+    
+     this.listing(this.searchForm.value.source,this.searchForm.value.destination,dat);
 
     
     }
+  }
+
+  listing(s:any,d:any,dt: any){
+   
+    this.locationService.setSource(s);
+    this.locationService.setDestination(d);
+    this.locationService.setDate(dt); 
+    this.router.navigate(['agent/listing']);
   }
 
   swap(){

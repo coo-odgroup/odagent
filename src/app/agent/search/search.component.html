@@ -1,0 +1,792 @@
+<section class="modify-section sticky-top">
+    <div class="container">
+        <div class="justify-content-center row">
+            <div class="col-md-6">
+                <div class="modify-section-left">
+                    <ul class="btn-show-modify" style="cursor: pointer;">
+                        <li><img class="icn-wh" src="../../../assets/img/Icon-metro-location-white.svg">{{ sourceData.name }}</li>
+                        <li><img src="../../../assets/img/long-arw-white.svg"></li>
+                        <li><img class="icn-wh" src="../../../assets/img/Icon-metro-location-white.svg">{{ destinationData.name }}</li>
+                        <li><img class="icn-wh" src="../../../assets/img/Icon-metro-calendar-white.svg">{{ entdate }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="modify-section-right">
+                    <div class="bus_search">
+                        <p class="btn btn-show-modify" (click)="toggleShow()">Modify</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <div class="row justify-content-center" *ngIf="isShown">
+
+            <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
+            <div class="col-md-12">
+                <div class="hero-banner-inner-srchbus">
+                    <h3>Modify Your Search</h3>
+                    <div class="row no-gutters">
+                        <div class="col-md-10">
+                            <div class="row no-gutters">
+                                <div class="col-md-4 pr-1">
+                                    <p>From</p>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1"><img src="assets/img/Icon-metro-location.svg"></span>
+                                            <input autocomplete="off" id="typeahead-template" type="text" class="form-control" [ngbTypeahead]="search"
+                                                [resultTemplate]="rt" [inputFormatter]="formatter" [ngModel]="swapsource" placeholder="Enter Source"
+                                                formControlName="source" />
+                                    
+                                            <ng-template #rt let-r="result" let-t="term">
+                                                <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 pr-1 to_dest_block">
+                                    <p>To</p>
+                                    <div class="swap-srch cursor">
+                                       <img (click)=swap(); src="assets/img/swap.svg">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon2"><img
+                                                    src="assets/img/Icon-metro-location.svg"></span>
+
+
+                                                    <input autocomplete="off" id="typeahead-template2" type="text" class="form-control"  [ngbTypeahead]="search" 
+                                                    [resultTemplate]="rt2" [inputFormatter]="formatter" [ngModel]="swapdestination" formControlName="destination" placeholder="Enter Destination"
+                                                    />
+                                                  
+                                                        <ng-template #rt2 let-r="result" let-t="term">
+                                                            <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+                                                        </ng-template>
+
+
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-4 date_inp">
+                                    <p>Date of Journey</p>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text calendar" id="basic-addon3" (click)="d.toggle()" ><img src="assets/img/Icon-metro-calendar.svg"></span>
+                                        </div>
+                                        <input type="text" autocomplete="off" class="form-control calendar" formControlName="entry_date"  
+                                        placeholder="Journey Date" 
+                                        [(ngModel)]="jrnyDt" 
+                                         ngbDatepicker 
+                                         (click)="d.toggle()"
+                                          #d="ngbDatepicker" readonly>
+   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <p style="opacity: 0;">Serach</p>
+                            <div class="bus_search" style="top:0px">
+                                <button type="submit" class="btn">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           </form>
+        </div>
+    </div>
+</section>
+
+<!-- Search results -->
+<section class="search-result">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <form [formGroup]="filterForm">
+                <p style="opacity: 0">Filters</p>
+                <div class="search-result-left">
+
+                    <h3 class="tit-filtr"><img src="assets/img/Icon-awesome-filter.svg">Filters</h3>
+                    
+
+                    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+
+                        <ngb-panel title="Sort By">
+                            <ng-template ngbPanelContent>
+  
+                                <div>
+                                    <label class="container-chkbox">PRICE
+                                        <input type="checkbox" [value]="1"  formControlName="price" (change)="updatePrice($event)" 
+                                        > 
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                              
+                            </ng-template>
+                          </ngb-panel>
+
+                        <ngb-panel title="Bus Type" *ngIf="busTypes.length != 0">
+                          <ng-template ngbPanelContent>
+
+                            <div *ngFor="let busType of busTypes; let i = index">
+                                <label class="container-chkbox">{{busType.class_name}}
+                                  <input type="checkbox"  [value]="busType.id" (change)="updateBusType($event)">                            
+                                  <span class="checkmark"></span>
+                                </label>
+                              </div>  
+                           
+                            
+                          </ng-template>
+                        </ngb-panel>
+                        <ngb-panel title="Seat Type" *ngIf="seatTypes.length != 0">
+                          <ng-template ngbPanelTitle>
+                          </ng-template>
+                          <ng-template ngbPanelContent>
+
+                            <div *ngFor="let seatType of seatTypes; let i = index">
+                                <label class="container-chkbox">{{seatType.name}}
+                                  <input type="checkbox"  [value]="seatType.id" (change)="updateSeatType($event)">                            
+                                  <span class="checkmark"></span>
+                                </label>
+                              </div>  
+                           
+                            
+                          </ng-template>
+                        </ngb-panel>   
+                        
+                        
+                        <ngb-panel title="Boarding Point" *ngIf="boardingPoints.length != 0">
+                            <ng-template ngbPanelTitle>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+  
+                                <div *ngFor="let boardingPointId of boardingPoints; let i = index">
+                                    <label class="container-chkbox">{{ boardingPointId.boarding_point }}
+                                        <input type="checkbox" [value]="boardingPointId.id" 
+                                        (change)="updateBoarding($event)" >
+                                        <span class="checkmark"></span>
+                                    </label></div> 
+                              
+                            </ng-template>
+                          </ngb-panel> 
+
+
+                          <ngb-panel title="Dropping Point" *ngIf="droppingPoints.length != 0">
+                            <ng-template ngbPanelTitle>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+                                <div *ngFor="let dropingingPointId of droppingPoints; let i=index; ">
+                                    <label class="container-chkbox">{{ dropingingPointId.boarding_point }}
+                                        <input type="checkbox" [value]="dropingingPointId.id" 
+                                        (change)="updateDropping($event)">
+                                        <span class="checkmark"></span>
+                                    </label></div> 
+                              
+                            </ng-template>
+                          </ngb-panel> 
+
+                          <ngb-panel title="Operator" *ngIf="busOperators.length != 0">
+                            <ng-template ngbPanelTitle>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+  
+                                <div *ngFor="let operatorId of busOperators; let i=index; ">
+                                    <label class="container-chkbox">{{ operatorId.operator_name }}
+                                        <input type="checkbox" [value]="operatorId.id" 
+                                        (change)="updateOperator($event)" >
+                                        <span class="checkmark"></span>
+                                    </label></div>
+                              
+                            </ng-template>
+                          </ngb-panel> 
+
+                          <ngb-panel title="amenities" *ngIf="amenities.length != 0">
+                            <ng-template ngbPanelTitle>
+                            </ng-template>
+                            <ng-template ngbPanelContent>
+                                <div *ngFor="let amenityId of amenities; let i=index; ">
+                                    <label class="container-chkbox">{{ amenityId.name }}
+                                        <input type="checkbox" [value]="amenityId.id" 
+                                        (change)="updateAmenity($event)">
+                                        <span class="checkmark"></span>
+                                    </label></div>   
+                            </ng-template>
+                          </ngb-panel> 
+                      </ngb-accordion>
+
+                     
+
+                  
+
+                    <div class="reset-apply-filter-btn">
+                        <button type="reset" class="btn btn-info reset" (click)="resetFilterForm()">Reset</button>
+                         <!-- <button type="submit" class="btn btn-warning applyFilter">Apply</button> -->
+                       
+                    </div>
+                </div>
+                </form>
+
+            </div>
+            <div class="col-md-9">
+                <p class="srch-rslt-found">{{ totalfound }} Buses Found</p>
+                <div class="search-result-right">
+                    <div class="sorting-tab">
+                        <div class="sorting-tab-in">
+                            <div class="col-md-12">
+                                <ul class="bs-srch-dt-dtl sort-bus-top">
+                                    <li class="bs-dtl-one tx-left">
+                                        <a  class="srt-by-opert">Operator<img class="pllygn-up"
+                                                src="assets/img/Polygon-icon.png"><img class="pllygn-dn"
+                                                src="assets/img/Polygon-icon-2.png"></a>
+                                    </li>
+                                    <li class="bs-dtl-one"> 
+                                        <!-- bs-dtl-from -->
+                                        <a  class="srt-by-dept">Departure<img class="pllygn-up"
+                                                src="assets/img/Polygon-icon.png"><img class="pllygn-dn"
+                                                src="assets/img/Polygon-icon-2.png"></a>
+                                    </li>
+                                    <li class="bs-dtl-one">
+                                         <!-- bs-dtl-bs-tm-take -->
+                                        <a  class="srt-by-duraton">Duration<img class="pllygn-up"
+                                                src="assets/img/Polygon-icon.png"><img class="pllygn-dn"
+                                                src="assets/img/Polygon-icon-2.png"></a>
+                                    </li>
+                                    <li class="bs-dtl-one">
+                                        <!-- bs-dtl-bs-reach -->
+                                        <a class="srt-by-arival">Arrival<img class="pllygn-up"
+                                                src="assets/img/Polygon-icon.png"><img class="pllygn-dn"
+                                                src="assets/img/Polygon-icon-2.png"></a>
+                                    </li>
+                                    <li class="bs-dtl-one">
+                                        <!-- bs-dtl-seat-dtl -->
+                                        <a class="srt-by-seats">Seats<img class="pllygn-up"
+                                                src="assets/img/Polygon-icon.png"><img class="pllygn-dn"
+                                                src="assets/img/Polygon-icon-2.png"></a>
+                                    </li>
+                                    <li class="bs-dtl-one">
+                                        <!-- bs-dtl-start-pont -->
+                                        <a  class="srt-by-prc">Price<img class="pllygn-up"
+                                                src="assets/img/Polygon-icon.png"><img class="pllygn-dn"
+                                                src="assets/img/Polygon-icon-2.png"></a>
+                                    </li>
+
+                                    <li class="bs-dtl-one"></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+<div *ngIf="totalfound == 0">  
+    <p>No Bus found ....</p>  
+</div>
+<div *ngIf="totalfound != 0">             
+    <div *ngFor="let bus of buslist; let i=index; ">             
+        <div class="search-result-bus-box">
+            <div class="col-md-12">
+                <div class="search-result-bus-box-inner">
+                <div class="row">
+                    <div class="col-md-12 pt-3 pb-1 bck-white bck-white-one">
+                        <div class="icon-assured">
+                            <img src="assets/img/icon-assured.svg">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 bck-white bck-white-two">
+                        <ul class="bs-srch-dt-dtl">
+                            <li class="p-2 flex-fill tx-left">
+                                <h4>{{ bus.busName }}</h4>
+                                <p class="bus-type"><span>{{ bus.busTypeName }}</span>&nbsp; <span>{{ bus.busType }}</span></p>
+                            </li>
+                            <li class="p-2 flex-fill">
+                                <div class="search-result-bus-box-inner-box">
+                                    <p class="tit-up">{{ bus.departureTime }}</p>
+                                    <p><b>{{ sourceData.name }}</b></p>
+                                </div>
+                            </li>
+                            <li class="p-2 flex-fill">
+                                <div class="search-result-bus-box-inner-box">
+                                    <p class="tit-up"><img src="assets/img/Icon-time-bus.svg"></p>
+                                    <p>{{ bus.totalJourneyTime }}</p>
+                                </div>
+                            </li>
+                            <li class="p-2 flex-fill">
+                                <div class="search-result-bus-box-inner-box">
+                                    <p class="tit-up">{{ bus.arrivalTime }}</p>
+                                    <p><b>{{ destinationData.name }}</b></p>
+                                </div>
+                            </li>
+                            <li class="p-2 flex-fill">
+                                <div class="search-result-bus-box-inner-box">
+                                    <p class="tit-up">{{ bus.totalSeats }}</p>
+                                    <p>
+                                        <b *ngIf="bus.seaters != 0">ST-{{ bus.seaters }}</b>
+
+                                        <b *ngIf="bus.seaters != 0 && bus.sleepers != 0"> , </b>
+
+                                        <b *ngIf="bus.sleepers != 0">SL-{{ bus.sleepers }}</b>
+                                    
+                                    </p>
+                                </div>
+                            </li>
+                            <li class="p-2 flex-fill">
+                                <div class="search-result-bus-box-inner-box">
+                                    <p class="tit-up"><b>Starting from</b></p>
+                                    <p><b>{{ bus.startingFromPrice }}/-</b></p>
+                                </div>
+                            </li>
+                            <li class="p-2 flex-fill">
+
+                                <a class="vw-sit cursor" id="showbtn{{i}}"  (click)="ShowLayout(i)" 
+                                *ngIf="bus.totalSeats > 0" >View Seat</a>
+                                
+                                <!-- <a class="vw-sit cursor"  (click)="ShowLayout(i,'show')" 
+                                *ngIf="bus.totalSeats > 0 && (bus.busId != busId || !bus.busId ) && type=='hide' " >View Seat </a>
+                                
+                                <a class="vw-sit cursor"  (click)="ShowLayout(i,'hide')" 
+                                *ngIf="bus.totalSeats > 0 && bus.busId == busId && type=='show' " >Hide Seat</a>                            -->
+                                
+                                <!-- <a class="vw-sit cursor"  (click)="ShowLayout(i)" *ngIf="bus.totalSeats > 0" >{{ (bus.busId == busId && seatsLayoutRecord.visibility) ? 'Hide Seat' : 'View Seat' }}</a> -->
+                                <a class="vw-sit sold_out" disabled  *ngIf="bus.totalSeats == 0" >SOLD OUT</a>
+                               
+                            </li>
+                        </ul>
+                        <ul class="bs-srch-dt-dtl">
+                            <li class="p-2 flex-fill tx-left">
+                                <h4>{{bus.couponCode}}</h4>
+                            </li>
+                        </ul>    
+                    </div>                                       
+                </div>
+
+            <!-- bus detail-btm-panel -->
+            <div class="row bus-dtl-btm-panel">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="bus-dtl-btm-panel-left">
+                                <ul *ngIf="bus.amenity.length != 0" >
+                                    <li *ngFor="let nm of bus.amenity; let i=index; ">
+                                        <div *ngIf = "nm.amenities && nm.amenities.amenities_image != ''">    
+                                        <img  src="{{url_path.amenity_url}}{{ nm.amenities.amenities_image }}" class="iconsize"/>     
+                                        
+                                        <!-- <div class="amenities-icon">
+                                            <img [attr.src]="getImagePath(bus.amenityIcon[i])"  class="iconsize">     
+                                        </div> -->
+                                        <div  
+                                         class="amenities-name">{{ nm.amenities.name }}
+                                        </div>
+                                    </div>
+                                    </li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+                <div class="col-md-7">
+                    <div class="bus-dtl-btm-panel-right">
+                            <ul>
+
+                                <li class="cursor"><a (click)="safety(i);">Safety</a></li>
+                                <li class="cursor"><a (click)="bus_pic(i);">Bus Photos</a></li>
+                                <li class="cursor"><a (click)="reviews(i);">Reviews</a></li>
+                                <li class="cursor"><a (click)="booking_policy(i);">Booking Policies</a></li>
+                        </ul>
+
+                                                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 p-0 angu-border" >
+            <div id="seatlayout{{i}}" *ngIf="seatlayoutShow === i">
+
+               
+        
+                
+            <form [formGroup]="seatForm" (ngSubmit)="submitSeat()"> 
+                
+                <div class="row">
+                <div class="col-md-8"> 
+                    
+                    <div *ngIf="seatLoader" class="seatLoader"><img src="assets/img/seat-loader.gif"></div>
+            
+                    <div class="layout2" *ngIf="busId==bus.busId && UpperberthArr.length">
+                        <h2 class="driver-sleeper">UPPER BERTH</h2>
+                        <div class="layout-bg">   
+                            <ol class="cabin fuselage">
+                            <li class="row" *ngFor="let UberthRecords of UpperberthArr; let r = index" >
+                                <ol class="sleepers" type="B">
+
+                                    <div class="driver-sleeper-img"> <img src="assets/img/vehicle-steering-wheel.svg"></div>
+                    
+                                    
+                                <li class="sleeper" *ngFor="let col of UberthRecords; let c = index">
+        
+                                    <div *ngIf="col.seatText == ''" >
+                                        <label class="hide"></label>
+                                    </div>
+
+                                    <div *ngIf="col.seatText != ''">
+                                        <input type="checkbox" disabled />                                    
+                                        <label class="lable-blue" *ngIf="!col.bus_seats && !col.Gender" >{{ col.seatText }}</label>
+                                        <label class="sleeper-green"  *ngIf="col.Gender && col.Gender =='M'" >{{ col.seatText }}</label>
+                                        <label class="sleeper-purpel"  *ngIf="col.Gender && col.Gender =='F'" >{{ col.seatText }}</label>
+                                    </div>                                
+
+                                    <div *ngIf="col.bus_seats" >
+                                    <input type="checkbox" id="upper{{col.id}}" [value]="col.id" (change)="updateUpperberth($event)"/> 
+                                    <label class="sleeper-blue" for=upper{{col.id}}>{{ col.seatText }}</label>
+                                    </div>
+                                </li>
+                                
+                                </ol>
+                            </li>
+                        </ol>
+                    </div>
+                
+                    </div>
+
+                    <div *ngIf="checkedIndex == maxSeat" align="center" style="color:red;font-weight:bold">You have selected maximum no of seats</div>
+                
+
+
+                    <div  class="layout1" *ngIf="busId==bus.busId &&  LowerberthArr.length">
+                        <h2 class="driver-seat">LOWER BERTH</h2>
+                        <div class="layout-bg">   
+                        <ol class="cabin fuselage">
+
+                            <div class="driver-seat-img"> <img src="assets/img/vehicle-steering-wheel.svg"></div>
+                    
+
+
+                            <li class="row" *ngFor="let LberthRecords of LowerberthArr; let r = index" >
+                            <ol class="seats" type="A">
+
+                                <li class="seat" *ngFor="let col of LberthRecords; let c = index">
+
+                                <div *ngIf="col.seatText != ''">
+                                    <input type="checkbox" disabled />
+                                    <label class="lable-blue fixsize" *ngIf="!col.bus_seats && !col.Gender" >{{ col.seatText }}</label>
+                                    <label class="seat-green fixsize"  *ngIf="col.Gender && col.Gender=='M'" >{{ col.seatText }}</label>
+                                    <label class="seat-purpel fixsize"  *ngIf="col.Gender && col.Gender=='F'" >{{ col.seatText }}</label>
+                                    
+                                </div>
+
+                                <div *ngIf="col.seatText == ''">
+                                    <label class="hide"></label>
+                                </div>
+
+                                <div *ngIf="col.bus_seats != null" >
+                                    <input type="checkbox" id="lower{{col.id}}" [value]="col.id" 
+                                    (change)="updateLowerberth($event)"/> 
+                                    <label *ngIf="col.bus_seats != '' " class="seat-blue fixsize"  for="lower{{col.id}}">{{ col.seatText }}</label>
+                                </div>
+                            
+                            
+                            </ol>
+                            </li>
+                
+                            
+                        </ol>
+                        </div>    
+                    </div> 
+
+
+                
+                
+                    <div class="row col-md-12 notify">
+
+                        <div class="col-md-2">
+                        <label><span class="available"></span>&nbsp;Available</label>
+                        </div>
+                        <div class="col-md-2">
+                        <label> <span class="reserved"></span>&nbsp;Reserved</label>
+                    </div>
+                        <div class="col-md-2">
+                        <label> <span class="selected"></span>&nbsp;Selected</label>
+                    </div>
+                        <div class="col-md-3">
+                        <label> <span class="ladies"></span>&nbsp;Ladies Booked</label>
+                    </div>
+                        <div class="col-md-3">
+                        <label> <span class="gents"></span>&nbsp;Gents Booked</label>
+                    </div>
+
+                    </div>    
+                </div>    
+                
+                <div class="col-md-4">
+                    <div class="seat-form">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Select Boarding Point</label>
+                            <!-- <ng-select                                                
+                            [items]="boardingPointArr"
+                            bindLabel="boardTime"
+                            bindValue="boardTime"
+                            placeholder="Select Boarding Point"                                       
+                            formControlName="boardingPoint"
+                            [clearable]="true"
+                            [(ngModel)]="selectedBoard"
+                            >
+                            </ng-select> -->
+
+                            <ng-select 
+                            [items]="boardingPointArr"
+                            bindLabel="boardTime"
+                            bindValue="boardTime"
+                            placeholder="Select Boarding Point"                                       
+                            formControlName="boardingPoint"
+                            [clearable]="true"
+                            [(ngModel)]="selectedBoard"
+                            >
+                            </ng-select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Select Dropping Point</label>
+                            <ng-select                                                 
+                            [items]="droppingPointArr"
+                            bindLabel="dropTime"
+                            bindValue="dropTime"
+                            placeholder="Select Dropping Point"                                       
+                            formControlName="droppingPoint"
+                            [clearable]="true"
+                            [(ngModel)]="selectedDrop"
+                            >
+                            </ng-select>
+                        </div>
+
+                        <div *ngIf="busId == bus.busId &&  (selectedLB.length != 0 || selectedUB.length != 0)">
+
+                        <div class="form-group">
+                            <label>Selected Seats</label> <br>
+                            <span class="selcted_seats" *ngIf="selectedUB.length !=0"><img src="assets/img/sleeper-blue.svg" style="width:40px"> {{ selectedUB }} </span>
+                            <span class="selcted_seats" *ngIf="selectedLB.length !=0 && selectedUB.length !=0 "> <br> </span>
+                        
+                            <span class="selcted_seats" *ngIf="selectedLB.length !=0"><img src="assets/img/seat-blue.svg" style="width:25px"> {{ selectedLB }} </span>
+                            
+                    
+                        </div>
+                        
+                        <div class="row form-group" *ngIf="PriceArray.ownerFare > 0">
+                            <div class="col-md-6">
+                            <label>Total Fare</label>
+                            </div>
+                            <div class="col-md-6">
+                            <label class="TotalPrice">₹<span id="TotalPrice{{bus.busId}}">{{ PriceArray.ownerFare }}</span></label>
+                            </div>
+                        </div>
+                        <div class="form-group" *ngIf="PriceArray.ownerFare > 0">
+                            <div class="col-md-12">
+                            <button type="submit" class="btn btn-warning btn-block bookNow">BOOK NOW</button>
+                            </div>
+                        </div>
+
+                        </div>
+                        
+
+
+                    </div>
+                </div>
+                </div>
+            </form>  
+        
+            </div>
+
+            <div id="safety{{i}}" *ngIf="safetyshow === i">
+                <div class="safety_box">
+                    <div *ngIf="bus.safety.length != 0 ; else safeiconempty">
+                        <div *ngFor="let sf of bus.safety; let i=index; " class="p-2 flex-fill de-angu">
+                            <img src = "{{url_path.safety_url}}{{ sf.safety.safety_image }}" class="iconsize" />
+                            <!-- <img [attr.src]="getImagePath(bus.safetyIcon[i])"> -->
+                            <p class="safety_span">{{ sf.safety.name }}</p>
+                        </div>
+                    </div>
+                    <ng-template #safeiconempty>No safety icons available...</ng-template>
+                </div>
+            </div>
+            <div id="bus_pic{{i}}" *ngIf="busPhotoshow === i">
+                <div class="safety_box">
+                    <div *ngIf="bus.busPhotos.length != 0 ; else busphotoempty">
+                        <div *ngFor="let sf of bus.busPhotos;" class="p-2 flex-fill de-angu border boxlayout2">
+                            <img src = "{{url_path.busphoto_url}}{{ sf.bus_image }}" class="iconsize" />
+                            <!-- <img [attr.src]="getImagePath(sf)"> -->
+                            <div class="p-2 flex-fill de-angu border boxlayout2"></div>
+                        </div>
+                    </div>
+                    <ng-template #busphotoempty>No bus photos available...</ng-template>
+                </div>
+            </div>
+
+            <div id="review{{i}}" *ngIf="reviewShow === i">
+                <div class="safety_box1">
+                    <div class="safety_box-flex">
+                    <div class="col-md-3 de-angu1 no-bg">
+                        <div><span class="rv_num">{{bus.Totalrating}}</span>  
+                            <span class="rv_img">
+                                <ngb-rating [rate]="bus.Totalrating" [max]="5" [readonly]="true"></ngb-rating>
+                                (Overall Rating)
+                            </span>
+                        </div>
+
+                <div class="card card-re">
+                    <div class="rating-bar0 justify-content-center">                       
+                        <div><span class="rv_num">{{bus.Totalrating_comfort}}</span>  
+                            <span class="rv_img">
+                                <ngb-rating [rate]="bus.Totalrating_comfort" [max]="5" [readonly]="true"></ngb-rating>
+                                (Comfort)
+                            </span>
+                        </div>
+
+                      
+                        <div><span class="rv_num">{{bus.Totalrating_clean}}</span>  
+                            <span class="rv_img">
+                                <ngb-rating [rate]="bus.Totalrating_clean" [max]="5" [readonly]="true"></ngb-rating>
+                                (Clean)
+                            </span>
+                        </div>
+
+                        
+                        <div><span class="rv_num">{{bus.Totalrating_behavior}}</span>  
+                            <span class="rv_img">
+                                <ngb-rating [rate]="bus.Totalrating_behavior" [max]="5" [readonly]="true"></ngb-rating>
+                                (Behavior)
+                            </span>
+                        </div>
+
+                       
+                        <div><span class="rv_num">{{bus.Totalrating_timing}}</span>  
+                            <span class="rv_img">
+                                <ngb-rating [rate]="bus.Totalrating_timing" [max]="5" [readonly]="true"></ngb-rating>
+                                (Timing)
+                            </span>
+                        </div>
+
+                    </div>
+                    <div> <span class="fa fa-star star-active"></span> <span class="fa fa-star star-active"></span> <span class="fa fa-star star-active"></span> <span class="fa fa-star star-active"></span> <span class="fa fa-star star-active"></span> </div>
+                </div>
+                    </div>
+
+                    <div *ngIf="bus.reviews.length > 0">
+                    <div class="col-md-4 testimonials-clean" *ngFor="let rv of bus.reviews">
+                        <div class="de-angu1 border">
+                        <div class="author item">
+
+                            
+                            <img class="rounded-circle" *ngIf="rv.users.profile_image=='' || rv.users.profile_image== null " src="../../assets/img/user.png">
+                            <img class="rounded-circle" *ngIf="rv.users.profile_image!='' && rv.users.profile_image!=null" 
+                            src="../../../assets/uploads/profile/{{ rv.users.profile_image }}">
+                            <h5 class="name">{{ rv.users.name }}</h5>
+                            <span class="rv_img">
+                                <ngb-rating [rate]="rv.rating_overall" [max]="5" [readonly]="true"></ngb-rating>
+                            </span>
+                        </div>
+                        <h2 class="heading-ser">{{ rv.title }}</h2>
+                        <div class="box">
+                            <div class="description">
+                                {{ rv.comments }}
+                            </div>                          
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <a class="all-btn cursor" routerLink="/testimonials">All Reviews</a>
+            </div>
+        </div>
+            </div>
+
+            <div id="booking_policy{{i}}" *ngIf="policyShow === i">
+                <ul class="ul-booking nav1 nav-pills1" ngbNav #policynav="ngbNav" [activeId] = "5">
+
+                    <li class="active" [ngbNavItem] =5>
+                    <a data-toggle="pill" ngbNavLink>Cancellation Policy</a>
+                    <ng-template ngbNavContent>
+
+                        <div class="policy_box">
+                            <div class="row">
+                            <div class="col-md-6">
+                                <div class="safety_box">
+                                    <h1 class="policy-h1">Your current ticket cancellation charges</h1>
+                                </div>
+                                <div class="safety_box">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Cancellation Time</th>
+                                            <th>Cancellation Charges</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody *ngIf="bus.cancellationDuration.length > 0 ">
+                                        <tr *ngFor="let can of bus.cancellationDuration; let i=index">                                            
+                                            <td>{{ can }} hr</td>
+                                            <td>{{ bus.cancellationDuduction[i] }}%</td>
+                                        </tr>
+                                       
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="safety_box" [innerHTML]="getContent(bus.cancellationPolicyContent)">
+                                </div>
+                            </div>
+                        </div>
+
+                        </div>    
+
+                    
+                    </ng-template>
+                    </li>
+
+                    <li [ngbNavItem] =6>
+                        <a data-toggle="pill" ngbNavLink>Travel Related Policy</a>
+                        <ng-template ngbNavContent>
+
+                        <div class="policy_box" style="padding-left: 4%;">                            
+                             
+                                <b>Child passenger policy</b><br>
+                                  Children above the age of 5 will need a ticket<br>
+                                 <hr>
+                                    <b>Luggage policy</b><br>
+                                    2 pieces of luggage will be accepted free of charge per passenger. Excess items will be chargeable
+                                    Excess baggage over 15 kgs per passenger will be chargeable <br><hr>
+                                    <b>Pets Policy</b><br>
+                                    Pets are not allowed <hr>
+
+                                    <b>Liquor Policy</b><br>
+                                    Carrying or consuming liquor inside the bus is prohibited. Bus operator reserves the right to deboard drunk passengers.
+                                    <hr>
+                                    <b>Pick up time policy</b><br>
+                                    Bus operator is not obligated to wait beyond the scheduled departure time of the bus. No refund request will be entertained for late arriving passengers.
+                               
+                        </div>    
+
+                    
+                    </ng-template>
+                    </li>
+
+                    </ul>
+
+                    <div [ngbNavOutlet]="policynav"></div>
+            </div>
+        </div>
+    </div> 
+</div> 
+
+</div>
+
+                </div>
+            </div>
+        </div>
+</section>

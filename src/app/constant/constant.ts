@@ -16,6 +16,7 @@ export class Constants {
     //public static BUS_OPERATOR_ID: any = 1;
     //FOR LOCAL
     public static BASE_URL:any ='http://127.0.0.1:8000/api';
+    public static CONSUMER_API_URL:any ='http://127.0.0.1:8001/api';
     //  public static PATHURL:any = 'http://127.0.0.1:8001/uploads/';
 
     //public static BASE_URL:any ='https://provider.neoflix.in/api';

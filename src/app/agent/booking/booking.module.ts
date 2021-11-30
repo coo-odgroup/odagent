@@ -23,4 +23,4 @@ import { NgxPrintModule } from 'ngx-print';
   providers: [NotificationService]
 })
 
-export class BookingReportModule { }
+export class BookingModule { }

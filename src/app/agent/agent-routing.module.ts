@@ -39,8 +39,19 @@ const routes: Routes = [
       },
       {
         path: 'booking',
-        loadChildren: () => import('./booking/booking.module').then(module => module.BookingReportModule)
+        loadChildren: () => import('./booking/booking.module').then(module => module.BookingModule)
       },
+
+      {
+        path: 'listing',
+        loadChildren: () => import('./search/search.module').then(module => module.SearchModule)
+      },
+
+      {
+        path: 'bookTicket',
+        loadChildren: () => import('./search/search.module').then(module => module.SearchModule)
+      },
+
      
      
     

@@ -1,0 +1,538 @@
+import { Component, OnInit, ChangeDetectorRef, Input } from '@angular/core';
+import { NgWizardConfig, NgWizardService, StepChangedArgs, StepValidationArgs, STEP_STATE, THEME } from 'ng-wizard';
+import { Router } from '@angular/router';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NotificationService } from '../../services/notification.service';
+import { GenderCheck } from '../../helpers/gender-check';
+import { DatePipe } from '@angular/common';
+import { AgentBookTicketService } from '../../services/agent-book-ticket.service';
+import { AgentPaymentService } from '../../services/agent-payment.service';
+import { AgentPaymentStatusService } from '../../services/agent-payment-status.service';
+
+declare let Razorpay: any;
+@Component({
+  selector: 'app-book-ticket',
+  templateUrl: './book-ticket.component.html',
+  styleUrls: ['./book-ticket.component.scss']
+})
+export class BookTicketComponent implements OnInit {
+
+  stepStates = {
+    normal: STEP_STATE.normal,
+    disabled: STEP_STATE.disabled,
+    error: STEP_STATE.error,
+    hidden: STEP_STATE.hidden
+  };
+ 
+  config: NgWizardConfig = {
+    selected: 0,
+    theme: THEME.arrows,
+    toolbarSettings: {
+      toolbarExtraButtons: [
+        { text: 'Finish', class: 'btn btn-info', event: () => { alert("Finished!!!"); } }
+      ],
+    }
+  };
+
+  genderArr:any=[];
+
+   Timer= 420;
+   public bookForm1: FormGroup;
+   public bookForm2: FormGroup;
+   public bookForm3: FormGroup;
+   public couponForm: FormGroup;
+
+   submitted1=false;
+   submitted2=false;
+   couponSubmitted=false;
+
+   bookingdata: any;
+   busRecord: any;
+   genderRestrictSeats: any;
+
+   passengerData: any=[];
+
+   bookTicketResponse :any=[];
+   MakePaymnetResponse :any=[];
+
+   source:any;
+   destination:any;
+   source_id:any;
+   destination_id:any;
+   entdate:any;
+   formatentdate:any;
+
+   razorpayResponse: any;
+   response: any;
+   tabclick :any = true;
+
+   customerInfoname:any=null;
+   customerInfoEmail:any=null;
+   customerInfoPhone:any=null;
+
+   isnameReadOnly:boolean=false;
+   isphoneReadOnly:boolean=false;
+   ismailReadOnly:boolean=false;
+
+   total_seat_name:any=[];
+   seat_ids:any=[];
+   lb_seats:any=[];
+   ub_seats:any=[];
+   loadingText: string = 'Loading...';
+
+   created_by:any='Customer';
+
+   agent:any;
+   applied_comission:number=0;
+   commissionError:Boolean=false;
+
+
+  constructor(private ngWizardService: NgWizardService,private fb : FormBuilder,
+    private router: Router,
+    private notify: NotificationService,
+    private datePipe: DatePipe,
+    private agentBookTicketService: AgentBookTicketService,
+    private agentPaymentService: AgentPaymentService,
+    private agentPaymentStatusService: AgentPaymentStatusService
+    ) {    
+
+    this.source=localStorage.getItem('source');
+    this.destination=localStorage.getItem('destination');   
+    const entdt:any =localStorage.getItem('entdate'); 
+
+    this.entdate = this.showformattedDate(entdt);
+
+    this.source_id=localStorage.getItem('source_id');
+    this.destination_id=localStorage.getItem('destination_id');
+
+
+    this.genderArr=[
+      {
+        'name' : 'Male',
+        'value' : 'M'
+      },
+      {
+        'name' : 'Female',
+        'value' : 'F'
+      },
+      {
+        'name' : 'Other',
+        'value' : 'O'
+      }
+    ];
+
+    this.bookingdata=localStorage.getItem('bookingdata');
+    this.busRecord=localStorage.getItem('busRecord');
+    this.genderRestrictSeats=localStorage.getItem('genderRestrictSeats');
+
+   
+
+    if(this.bookingdata == null && this.busRecord == null){
+      this.router.navigate(['/']);
+    }else{
+      this.bookingdata= JSON.parse(this.bookingdata);
+
+      this.busRecord= JSON.parse(this.busRecord);
+
+      this.genderRestrictSeats= JSON.parse(this.genderRestrictSeats);
+
+      let brdTm_arr = this.bookingdata.boardingPoint.split(" - ");
+      let drpTm_arr = this.bookingdata.droppingPoint.split(" - ");
+
+      this.bookingdata.boardingPoint=brdTm_arr[0];
+      this.bookingdata.droppingPoint=drpTm_arr[0];
+      this.busRecord.departureTime=brdTm_arr[1];
+      this.busRecord.arrivalTime=drpTm_arr[1];
+
+     
+    
+
+      if(this.bookingdata.UpperBerthSeats.length){
+        this.total_seat_name =this.total_seat_name.concat(this.bookingdata.UpperBerthSeats);
+        this.ub_seats = this.ub_seats.concat(this.bookingdata.UpperBerthSeats);
+
+      } 
+
+      if(this.bookingdata.LowerBerthSeats.length){
+        this.total_seat_name =this.total_seat_name.concat(this.bookingdata.LowerBerthSeats);
+        this.lb_seats = this.lb_seats.concat(this.bookingdata.LowerBerthSeats);
+      }
+      
+      
+
+      if(this.bookingdata.Upperberth.length){
+        this.seat_ids =this.seat_ids.concat(this.bookingdata.Upperberth);
+      }
+
+      if(this.bookingdata.Lowerberth.length){
+        this.seat_ids =this.seat_ids.concat(this.bookingdata.Lowerberth);
+      }
+      
+    }
+
+    this.bookForm2 = this.fb.group({
+      tnc:[true, Validators.requiredTrue]
+    });
+
+
+    this.bookForm3 = this.fb.group({});
+
+        this.bookForm1 = this.fb.group({
+          customerInfo: this.fb.group({          
+            email: [this.customerInfoEmail, [Validators.email]],
+            phone: [this.customerInfoPhone, [Validators.required,Validators.pattern("^[0-9]{10}$")]],  
+            name:[this.customerInfoname, Validators.required],
+          }),   
+          bookingInfo: this.fb.group({
+  
+            bus_id: [this.busRecord.busId],
+            source_id: [this.source_id],
+            destination_id: [this.destination_id],
+            journey_dt: [this.entdate],
+            boarding_point: [this.bookingdata.boardingPoint],
+            dropping_point: [this.bookingdata.droppingPoint],
+            boarding_time: [this.busRecord.departureTime],
+            dropping_time: [this.busRecord.arrivalTime],
+            origin: ["ODBUS"],
+            app_type: ["WEB"],
+            typ_id: ["1"],
+            total_fare: this.bookingdata.PriceArray.totalFare,
+            owner_fare: this.bookingdata.PriceArray.ownerFare,
+            odbus_service_Charges: this.bookingdata.PriceArray.odbusServiceCharges,
+            created_by: this.created_by,
+            bookingDetail: this.fb.array([]),        
+          })
+        });
+  
+    
+
+
+    const bookingInfo = this.bookForm1.controls["bookingInfo"] as FormGroup;
+    const passengerList = bookingInfo.get('bookingDetail') as FormArray;
+    
+      for(let i=0;i< this.bookingdata.Upperberth.length ;i++){
+        let seat= this.bookingdata.Upperberth[i];
+         passengerList.push(this.createItem(seat,this.busRecord.sleeperPrice)); 
+      }
+
+      for(let i=0;i< this.bookingdata.Lowerberth.length ;i++){
+        let seat= this.bookingdata.Lowerberth[i];
+         passengerList.push(this.createItem(seat,this.busRecord.seaterPrice)); 
+      }  
+
+
+      this.couponForm = this.fb.group({
+        coupon_code:[null, Validators.required]
+      });
+  
+  }
+
+  public tncStatus:boolean=true;
+
+  public tncStatusChange(value:boolean){
+      this.tncStatus = value;
+  }
+
+  onlyNumbers(event:any) {
+    var e = event ;
+    var charCode = e.which || e.keyCode;
+   
+      if ((charCode >= 48 && charCode <= 57) || (charCode >= 96 && charCode <= 105) || charCode ==8 || charCode==9)
+        return true;
+        return false;        
+}
+
+get_seatno(seat_id:any){
+  for(let i=0;i< this.bookingdata.Lowerberth.length ;i++){
+    let seat= this.bookingdata.Lowerberth[i];
+     if(seat==seat_id){
+      return this.bookingdata.LowerBerthSeats[i]
+     }
+  }  
+
+  for(let i=0;i< this.bookingdata.Upperberth.length ;i++){
+    let seat= this.bookingdata.Upperberth[i];
+    if(seat==seat_id){
+      return this.bookingdata.UpperBerthSeats[i]
+     }
+  }
+}
+
+  showformattedDate(date:any){
+    if(date){
+
+      let dt = date.split("-");
+    return dt[2]+'-'+dt[1]+'-'+dt[0];
+
+    }
+    
+
+  }
+
+   createItem(seat:any,fare:any): FormGroup{
+
+   // console.log(this.genderRestrictSeats);
+
+    return this.fb.group({
+      bus_seats_id: [seat], 
+      passenger_name: [null, Validators.required],
+      passenger_gender: [null, Validators.required],
+      passenger_age:  [null, [Validators.required]],
+      created_by: this.created_by
+    },
+    {
+      validator: GenderCheck('passenger_gender','bus_seats_id', this.genderRestrictSeats)
+    });
+  }
+
+  get passengerFormGroup() {
+    const bookingInfo = this.bookForm1.controls["bookingInfo"] as FormGroup;
+    const passengerList = bookingInfo.get('bookingDetail') as FormArray;    
+    return passengerList;
+  }
+
+  getPassengerFormGroup(index:any): FormGroup {
+    const bookingInfo = this.bookForm1.controls["bookingInfo"] as FormGroup;
+    const passengerList = bookingInfo.get('bookingDetail') as FormArray;
+    const formGroup = passengerList.controls[index] as FormGroup;
+    return formGroup;
+  }
+
+  get f() {     
+    return this.bookForm1.controls;
+   }
+
+   get GetcustomerInfo():FormGroup{
+
+    const FormGroup = this.bookForm1.get('customerInfo') as FormGroup;
+    //const FormControl = ele.controls[type] as FormControl;
+   // console.log(FormGroup);
+    return FormGroup;
+
+   }
+
+
+   setCommission(event:any){
+
+    if(event.target.value <= this.bookTicketResponse.customer_comission){
+      this.applied_comission=event.target.value;
+      this.commissionError=false;
+    }else{
+      this.commissionError=true;
+      return false;
+    }  
+   }
+  
+  submitForm1(){
+    this.submitted1=true;
+
+    if (this.bookForm1.invalid) {
+      return;
+     }else{
+      this.passengerData=this.bookForm1.value; 
+
+
+      this.agentBookTicketService.book(this.passengerData).subscribe(
+          res=>{          
+          if(res.status==1){
+            this.bookTicketResponse=res.data;
+            this.showNextStep();
+          }
+        },
+        error => {
+          this.notify.notify(error.error.message,"Error");
+        }
+        );
+
+    }
+
+  }
+
+  countdown:any;
+
+  submitForm2(){
+
+    this.submitted2=true;
+    if (this.bookForm2.invalid) {
+      return;
+     }else{
+     
+      let pass_det=this.bookForm1.value.bookingInfo.bookingDetail;
+
+      let gender:any=[];
+      pass_det.forEach((e: any) => {
+        gender.push(e.passenger_gender);
+        
+      });
+
+      const entdt:any =localStorage.getItem('entdate'); 
+
+      ///// call to make payment API to get RazorPayment Order ID and Total price   
+
+      const paymentParam={   
+        "user_id":     this.bookTicketResponse.user_id,
+        "busId" : this.busRecord.busId,
+        "sourceId":this.source_id, 
+        "destinationId":this.destination_id,
+        "applied_comission":this.applied_comission,
+        "transaction_id": this.bookTicketResponse.transaction_id,
+        "amount":this.bookingdata.PriceArray.totalFare,
+        "seatIds":this.seat_ids,
+        "entry_date":entdt
+      }
+
+      this.agentPaymentService.paymentRequest(paymentParam).subscribe(
+        res=>{
+        
+          if(res.status==1){
+
+            let bkdt = new Date();
+            let bkdt_mnth = ("0" + (bkdt.getMonth() + 1)).slice(-2);
+            let bkdt_day = ("0" + bkdt.getDate()).slice(-2);
+            let booking_date= [bkdt_day, bkdt_mnth,bkdt.getFullYear()].join("-");
+        
+            let j_date = new Date(this.entdate);
+            let j_mnth = ("0" + (j_date.getMonth() + 1)).slice(-2);
+            let j_day = ("0" + j_date.getDate()).slice(-2);
+            let journey_date= [j_day,j_mnth,j_date.getFullYear()].join("-");
+        
+            const param=  {
+              "transaction_id":this.bookTicketResponse.transaction_id, 
+              "name":this.passengerData.customerInfo.name,
+              "phone":this.passengerData.customerInfo.phone,    
+              "email":this.passengerData.customerInfo.email,    
+              "routedetails":this.source+'-'+this.destination,    
+              "bookingdate":booking_date,
+              "journeydate":journey_date,
+              "boarding_point":this.bookingdata.boardingPoint,
+              "departureTime":this.busRecord.departureTime,
+              "dropping_point":this.bookingdata.droppingPoint,
+              "arrivalTime":this.busRecord.arrivalTime,
+              "seat_id":this.seat_ids,  
+              "seat_no": this.total_seat_name ,
+              "bus_id" : this.busRecord.busId,
+              "source": this.source,
+              "destination": this.destination,
+              "busname": this.busRecord.busName,
+              "busNumber": this.busRecord.busNumber,
+              "bustype":this.busRecord.busType,
+              "busTypeName":this.busRecord.busTypeName,
+              "sittingType":this.busRecord.sittingType,
+              "conductor_number":this.busRecord.conductor_number,
+              "passengerDetails":this.passengerData.bookingInfo.bookingDetail,
+              "totalfare":this.bookingdata.PriceArray.totalFare, 
+              "discount":0,
+              "payable_amount":this.bookingdata.PriceArray.totalFare,
+              "odbus_charges":this.bookingdata.PriceArray.odbusServiceCharges,
+              "odbus_gst":this.bookingdata.PriceArray.transactionFee, 
+              "owner_fare":this.bookingdata.PriceArray.ownerFare   
+            }
+         
+            
+            this.agentPaymentStatusService.getPaymentStatus(param).subscribe(
+              res=>{
+        
+                if(res.status==1){ 
+        
+                  this.showNextStep();                 
+                  this.tabclick = false;           
+                 
+                    localStorage.removeItem('bookingdata');
+                    localStorage.removeItem('busRecord');
+                    localStorage.removeItem('genderRestrictSeats');
+                    localStorage.removeItem('source');
+                    localStorage.removeItem('source_id');
+                    localStorage.removeItem('destination');
+                    localStorage.removeItem('destination_id');
+                    localStorage.removeItem('entdate'); 
+
+                }
+        
+            });
+            
+            ////////////////  payment success ////////////
+            
+          }else{
+            this.notify.notify(res.message,"Error");
+          } 
+
+      });
+     
+  }
+
+   }
+
+
+ 
+  print(): void {
+    var printButton = document.getElementById('print_btn');
+    printButton.style.visibility = 'hidden';
+    const printContents = document.getElementById('print-section').innerHTML;
+    const popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+    popupWin.document.open();
+   
+    popupWin.document.write(`
+        <html>
+            <head>
+                <title>Print Page</title>
+            </head>
+            <body
+                style="font-size: 14px;
+                    font-family: 'Source Sans Pro', 'Helvetica Neue',
+                    Helvetica, Arial, sans-serif;
+                    color: #333";
+                onload="document.execCommand('print');window.close()">${printContents}</body>
+        </html>`
+    );
+    printButton.style.visibility = 'visible';
+    popupWin.document.close();
+  }  
+
+  user :any=[];
+  isSignedIn: boolean;
+
+   myDate:any = new Date();
+  ngOnInit() { 
+    this.passengerData=this.bookForm1.value;
+   
+    const entdt:any =localStorage.getItem('entdate'); 
+
+    this.myDate = this.datePipe.transform(this.myDate, 'dd-MM-yyyy');
+
+    if(this.myDate > entdt){
+      this.router.navigate(['/']);
+    }
+  }
+ 
+  showPreviousStep(event?: Event) {
+    this.ngWizardService.previous();
+  }
+ 
+  showNextStep(event?: Event) {
+    this.ngWizardService.next();
+    
+  }
+ 
+  resetWizard(event?: Event) {
+    this.ngWizardService.reset();
+  }
+ 
+  setTheme(theme: THEME) {
+    this.ngWizardService.theme(theme);
+  }
+ 
+  stepChanged(args: StepChangedArgs) {
+    //console.log(args);
+  }
+ 
+  isValidTypeBoolean: boolean = true;
+ 
+  isValidFunctionReturnsBoolean(args: StepValidationArgs) {
+    return true;
+  }
+ 
+  isValidFunctionReturnsObservable(args: StepValidationArgs) {    
+    return this.tabclick;
+  }
+
+}

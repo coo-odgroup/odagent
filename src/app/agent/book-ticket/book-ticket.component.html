@@ -1,0 +1,560 @@
+
+<section class="search-result">
+    <div class="container">
+        <div class="row">
+
+<div class="col-md-12">
+
+	<countdown #countdown [config]="{leftTime: Timer ,demand: true, format: 'mm:ss' }" (event)="handleEvent($event)" style="display: none;"></countdown>
+
+<ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
+
+
+
+	
+	<ng-wizard-step [title]="'Passenger Details'"  [canEnter]="isValidFunctionReturnsObservable.bind(this)" [canExit]="isValidFunctionReturnsBoolean.bind(this)">
+	  <form [formGroup]="bookForm1" (ngSubmit)="submitForm1()">
+	  <div class="row passenger">
+		<div class="col-md-8 passenger-detail">
+			<h5>Passenger Details</h5><hr>
+
+			<div formGroupName="bookingInfo">			
+			
+			<div formArrayName="bookingDetail" 
+			*ngFor="let item of passengerFormGroup.controls; let i = index;">
+				
+				<div class="row"  [formGroupName]="i">
+					<div class="col-md-3">
+						<label>PASSENGER {{i+1}}</label><br>						
+						<ng-select                                                 
+                        [items]="genderArr"
+                        bindLabel="name"
+                        bindValue="value"
+                        placeholder="Select Gender"                                       
+                        formControlName="passenger_gender"
+                        [clearable]="false"
+                        >
+                        </ng-select>						
+						<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_gender'].hasError('required')" class="invalid-feedback">Gender is required</div>
+						<div *ngIf="getPassengerFormGroup(i).controls['passenger_gender'].hasError('GenderError')" 
+						class="invalid-feedback">{{ getPassengerFormGroup(i).controls['passenger_gender'].errors.message }}</div>
+						
+					</div>
+					<div class="col-md-6">
+						<label><span class="grey">Seat No:</span> {{ get_seatno(item.value.bus_seats_id) }}</label><br>
+						<input type="text"  formControlName="passenger_name" class="form-control" placeholder="Full Name">			
+					
+						<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_name'].hasError('required')" class="invalid-feedback">Name is required</div>
+					</div>
+
+					<div class="col-md-3">
+						<label>&nbsp;</label><br>
+						<input type="text"  (keydown)="onlyNumbers($event);" maxlength ="2"  class="form-control" 
+						formControlName="passenger_age" class="form-control" placeholder="Age">	
+						
+						<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_age'].errors?.required" class="invalid-feedback">Age is required</div>
+						<div *ngIf="submitted1 &&  getPassengerFormGroup(i).controls['passenger_age'].errors?.pattern" class="invalid-feedback">Enter 2 Digit numbers</div>
+						
+					</div>
+				
+				</div>
+			</div>
+			</div>
+		
+			<div class="padding">
+
+			<h5>Contact Details</h5><hr>
+
+			<div class="row padding" formGroupName="customerInfo">
+				<div class="col-md-4">
+					<label>Name</label><br>
+					<input type="text"  class="form-control" [readonly]="isnameReadOnly" formControlName="name" placeholder="Enter Your Name" >	
+				
+					<div *ngIf="submitted1 && GetcustomerInfo.controls.name.errors" class="invalid-feedback">
+						<div *ngIf="GetcustomerInfo.controls.name.errors.required">Name required</div>
+					</div>			
+				</div>
+
+				
+
+				<div class="col-md-4">
+					<label>Mobile No.</label><br>
+					<input type="text"  (keydown)="onlyNumbers($event);" maxlength ="10"
+					  class="form-control" autocomplete="off" [readonly]="isphoneReadOnly" formControlName="phone" placeholder="Mobile Number" >
+					
+					<div *ngIf="submitted1 && GetcustomerInfo.controls.phone.errors" class="invalid-feedback">
+						<div *ngIf="GetcustomerInfo.controls.phone.errors.required">Mobile no. is required</div>
+						 <div *ngIf="GetcustomerInfo.controls.phone.errors.pattern">Please, Enter 10 digit Mobile Number</div>
+						
+					</div>		
+				</div>
+
+				<div class="col-md-4">
+					<label>Email</label><br>
+					<input type="text" class="form-control" [readonly]="ismailReadOnly" formControlName="email"  placeholder="Email" >
+					<div *ngIf="submitted1 && GetcustomerInfo.controls.email.errors" class="invalid-feedback">
+						<div *ngIf="GetcustomerInfo.controls.email.errors.required">Email ID is required</div>
+						<div *ngIf="GetcustomerInfo.controls.email.errors.email">Email must be a valid email address</div>
+						
+					</div>	
+				</div>
+			</div>
+
+			<div class="row padding" >
+				<div class="col-md-12">
+					<p class="paragraph"><span># </span> You will receive booking details in this mobile number and email address</p>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+		<div class="col-md-4 passenger-detail padding-left">
+			
+
+			<div class="row"> 
+				<div class="col-md-1">
+				<img src="assets/img/Icon metro-location (1).svg" class="img1"><br>
+				<img src="assets/img/Line 11.svg"  class="img2"> <br>
+				<img src="assets/img/Icon metro-location (1).svg"  class="img3">
+				</div>
+
+				<div class="col-md-11">
+
+					<h5>Bus Details:</h5><hr>
+					<span class="font">Bus Name</span>
+					<h5>{{ busRecord.busName }}</h5>
+					<h6>{{ busRecord.busType }} {{ busRecord.busTypeName }} {{ busRecord.sittingType}}</h6>
+					<h6> 	<b *ngIf="ub_seats!=''"> <img src="assets/img/sleeper-blue.svg" style="width:35px"> {{ ub_seats }}</b>
+						<span *ngIf="lb_seats!='' && ub_seats!='' "> <br> </span>
+						<b *ngIf="lb_seats!=''"><img src="assets/img/seat-blue.svg" style="width:25px"> {{ lb_seats }}</b>
+						
+					</h6>
+
+					<span class="font">From</span>			
+					<h5> {{ source }}</h5>
+					<h6>{{ bookingdata.boardingPoint }} - {{ busRecord.departureTime}}</h6>
+
+					<span class="font">To</span>
+					<h5>{{ destination }}</h5>
+					<h6>{{ bookingdata.droppingPoint }} - {{ busRecord.arrivalTime}}</h6>
+
+					<h5>Fare Details:</h5><hr>
+
+					<div class="row fare-detail">
+					
+					   <div class="col-md-8"><h6>Basic Fare</h6></div>
+	   
+					   <div class="col-md-4"><h6>₹ {{ bookingdata.PriceArray.ownerFare }}</h6></div>
+	   
+					 
+					   <div class="col-md-8"><h6>ODBUS Service Charges</h6></div>
+	   
+					   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.odbusServiceCharges }} </h6></div>
+	   
+				   
+					   <div class="col-md-8"><h6>Transaction fee + GST</h6></div>
+	   
+					   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.transactionFee }}</h6></div>
+	   
+					
+					   <!-- <div class="col-md-8"><h6>Discount</h6></div><div class="col-md-4"><h6>- ₹ {{ couponData.discount }}</h6></div> -->
+	   
+	   
+					   <!-- <div class="col-md-12" style="display: none;"><img src="assets/img/Icon awesome-check.svg"><span> Coupon Applied</span></div> -->
+	   
+					   <div class="col-md-8"><h5>Total</h5></div>
+	   
+					   <div class="col-md-4"><h5>₹ {{ couponData.totalAmount }}</h5></div>
+				   
+	   
+				   </div>
+	   
+				   <div class="padding">
+					   <div>
+					   <button type="submit" class="btn btn-warning proceed">PROCEED</button>
+					   </div>
+				   </div>
+				</div>
+			</div>
+		</div>
+      </div>
+    </form>
+</ng-wizard-step>
+	
+	
+	<ng-wizard-step [title]="'Review Details'"  
+	[canEnter]="isValidFunctionReturnsObservable.bind(this)"
+	[canExit]="isValidFunctionReturnsBoolean.bind(this)">
+
+	<form [formGroup]="bookForm2" (ngSubmit)="submitForm2()">
+
+	<div class="row passenger" >
+		<div class="col-md-12 passenger-detail">
+
+			<h5>Journey Details</h5><hr>
+
+			<div class="row">
+				<div class="col-md-3">
+					<h5><img src="assets/img/Icon metro-location (1).svg"> {{ source }}</h5>
+					
+					<h6 class="padding-left">{{ bookingdata.boardingPoint }} - {{ busRecord.departureTime}}</h6>
+									
+				</div>
+
+				<div class="col-md-3">
+					<div class="bus"></div>
+				</div>
+
+
+				<div class="col-md-3">
+					<h5><img src="assets/img/Icon metro-location (1).svg"> {{ destination }}</h5>
+
+					<h6 class="padding-left">{{ bookingdata.droppingPoint }} - {{ busRecord.arrivalTime }}</h6>
+								
+				</div>
+
+				<div class="col-md-3">
+					<h5>{{ entdate | date:'fullDate' }}</h5>					
+					<h5><img src="../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }}</h5>
+					
+					<h6 class="padding-left">{{ passengerFormGroup.length }} Passenger(s)</h6>
+									
+				</div>
+			</div>
+
+		</div>
+
+		<div class="col-md-12 passenger-detail box-padding">
+
+			<h5>Passenger Details</h5><hr>
+
+			<div class="row">
+
+				<div class="col-md-12">
+				<table class="tableclass" cellpadding="12">
+					<thead>
+						<th>Passenger Name</th>
+						<th>Seats</th>
+						<th>Gender</th>
+						<th>Age</th>
+					</thead>
+					<tbody>
+						<tr *ngFor="let dt of passengerData.bookingInfo.bookingDetail; let i = index;">
+							<td>{{ dt.passenger_name }}</td>
+							<td>{{ get_seatno(dt.bus_seats_id) }}</td>
+							<td>{{ dt.passenger_gender }}</td>
+							<td>{{ dt.passenger_age }}</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+				<h4 style="color: #bbadad;font-size: 17px;"><hr>Contact Details</h4>
+
+				<table class="tableclass2" cellpadding="10">
+					
+					<tbody>
+						<tr>
+							<td>Name</td>
+							<td>Mobile Number</td>
+							<td>Email Address</td>
+							<td>&nbsp;</td>
+						</tr>
+
+						<tr>
+							<td>{{ passengerData.customerInfo.name}}</td>
+							<td>+91 {{ passengerData.customerInfo.phone}}</td>
+							<td>{{ (passengerData.customerInfo.email) ? passengerData.customerInfo.email : 'N/A'}}</td>
+							<td>&nbsp;</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+				<p class="roboto"><img src="../../assets/img/Icon awesome-hashtag.svg"> will receive booking details in this mobile number & email address</p>
+
+				</div>
+
+				
+				
+			</div>
+
+			<div class="padding">
+				<form [formGroup]="couponForm" (ngSubmit)="ApplyCoupon()">
+				<h5>Have a Coupon Code ?</h5><hr>				
+				<div class="row padding" >
+					
+					<div class="col-md-6">
+						<input type="text"  class="form-control" autocomplete="off" formControlName="coupon_code" placeholder="Enter Coupon Code">
+
+						
+					<div *ngIf="couponSubmitted && couponForm.controls.coupon_code.errors" class="invalid-feedback">
+						<div *ngIf="couponForm.controls.coupon_code.errors.required">Coupon code is required</div>
+						
+					</div>
+
+					</div>	
+					<div class="col-md-2">
+						<button class="btn btn-warning" type="submit">APPLY</button>			
+					</div>
+					
+			    </div>
+
+			</form>
+
+		</div>
+
+		</div>
+
+		<div class="col-md-12 passenger-detail box-padding padding">
+			
+			<div class="row">
+					   <div class="col-md-8">
+						<h6 class="grey"><b>PAYABLE AMOUNT</b></h6>
+						   <h5>₹ {{ couponData.payableAmount }} <span *ngIf="couponData.discount > 0" 
+							   style="color: green;font-weight: bold;font-style: italic;">( ₹ {{couponData.discount}}/- OFF )</span></h5>
+
+						   <label class="terms">
+							<input formControlName="tnc" #tnc
+							id="tnc" 
+							type="checkbox" 
+							[checked]="tncStatus" 
+							(change)="tncStatusChange(tnc.checked)"> &nbsp;
+							<a style="color:#daad23" target="_blank" routerLink="/privacy-policy">I agree that I have read 
+								and understood the T&Cs and the Privacy Policy
+						</a></label>
+						   
+
+						<div *ngIf="submitted2 && bookForm2.controls.tnc.errors" class="invalid-feedback">
+							<div *ngIf="bookForm2.controls.tnc.errors.required">Agree the Terms & Conditions</div>
+							<div *ngIf="bookForm2.controls.tnc.errors.checked">Agree the Terms & Conditions</div>
+							
+						</div>
+					</div>
+				
+				<div class="col-md-4 payment_box">
+					<div class="row col-md-12">
+						<!-- make-payment -->
+						<input type="image" [disabled]="commissionError" name="submit" (click)="countdown.resume()" alt="Submit" style="cursor: pointer;" src="../../assets/img/makepayment.png">
+					
+				</div>
+
+				</div>				
+			</div>
+		</div>
+	</div>
+   </form>
+
+	</ng-wizard-step>		
+   
+	<ng-wizard-step [title]="'Print Ticket'" [id]="'print-section'">
+
+	
+
+		<div class="col-md-12 passenger-detail box-padding">
+
+			<div class="col-md-12" style="text-align: center;">
+				<img src="assets/img/odbus-logo.svg" alt="logo-ODBUS" title="Logo" />
+			</div>
+
+			<div class="print-ticket">
+				<h5>Hello {{ passengerData.customerInfo.name }}</h5>
+				<h6 class="print">Your Ticket is Confirmed. (PNR: {{ bookTicketResponse.pnr }}).</h6>
+				<h6 class="print">ODBUS Wishing You A Happy Journey <img class="smile" src="../../assets/img/Icon awesome-smile-beam.svg"></h6>
+				<h6 class="print-sm">We have sent booking details to your <b>{{ passengerData.customerInfo.phone}}</b>  <b *ngIf="passengerData.customerInfo.email"> & {{ passengerData.customerInfo.email}}</b> </h6>
+		   </div>
+		</div>
+	
+		<div class="col-md-12 passenger-detail box-padding">
+	
+			<div class="row" style="margin-top:10px">
+				<div class="col-md-6">
+					<h5>Journey Details</h5>
+				</div>
+	
+				<div class="col-md-6 print_btn" align="right" [id]="'print_btn'">
+					<button (click)="print();" class="btn btn-warning" style="color: #072c6b;font-weight: bold;">PRINT TICKET</button>
+				</div>
+		   </div>
+	
+		   <hr>
+	
+				<div class="row">
+
+					<table class="tableclass" cellpadding="12">
+						<thead>
+							<th ><h5><img src="assets/img/Icon metro-location (1).svg"> {{ source }}</h5>
+								<h5>{{ bookingdata.boardingPoint }} - {{ busRecord.departureTime }}</h5>
+							
+							</th>
+							<th width="20%"><img src="assets/img/bus.svg"></th>
+							<th><h5><img src="assets/img/Icon metro-location (1).svg"> {{ destination }}
+							</h5>
+							<h5>{{ bookingdata.droppingPoint }} - {{ busRecord.arrivalTime }}</h5>
+						</th>
+							<th>{{ entdate | date:'fullDate' }}
+								<h5><img src="../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }}</h5>
+							<h6 class="padding-left">{{ passengerFormGroup.length }} Passenger(s)</h6>
+						</th>
+						</thead>
+						
+					</table>
+					
+					
+				</div>
+	
+				
+			<h5>Passenger Details</h5><hr>
+	
+			<div class="row">
+	
+				<div class="col-md-12">
+					<table class="tableclass" cellpadding="12">
+						<thead>
+							<th>Passenger Name</th>
+							<th>Seats</th>
+							<th>Gender</th>
+							<th>Age</th>
+						</thead>
+						<tbody>
+							<tr *ngFor="let dt of passengerData.bookingInfo.bookingDetail; let i = index;">
+								<td>{{ dt.passenger_name }}</td>
+								<td>{{ get_seatno(dt.bus_seats_id) }}</td>
+								<td>{{ dt.passenger_gender }}</td>
+								<td>{{ dt.passenger_age }}</td>
+							</tr>
+	
+						</tbody>
+					</table>
+
+					<h5>Contact Details</h5><hr>
+	
+	
+				<table class="tableclass2" cellpadding="10">
+					
+					<tbody>
+						<tr>
+							<td>Name</td>
+							<td>Mobile Number</td>
+							<td>Email Address</td>
+							<td>&nbsp;</td>
+						</tr>
+	
+						<tr style="font-weight: normal;">
+							<td>{{ passengerData.customerInfo.name}}</td>
+							<td>+91 {{ passengerData.customerInfo.phone}}</td>
+							<td>{{ (passengerData.customerInfo.email) ? passengerData.customerInfo.email : 'N/A'}}</td>
+								
+							<td>&nbsp;</td>
+						</tr>
+	
+					</tbody>
+				</table>
+
+				<hr>
+	
+			<h4>Terms and Conditions :</h4>
+			<ol>
+					<li>
+					<p><strong>ODBUS</strong> is an Online Platform which provides online bus ticket booking services and does not operate bus services of its own, we have tied up with many bus operators for various Route in Orissa and its surrounding states.</p>
+					</li>
+					<li>
+					<p>The arrival and departure times written on the ticket are only approximate time, but you are requested to reach on the boarding points before 15 min.</p>
+					</li>
+					<li>
+					<p>Passengers are required to take a copy of the ticket and an Identity proof (Driving license, Student ID card, Company ID card, Passport, PAN card or Voter ID card) during their travel</p>
+					</li>
+					<li>
+					<p>We are at <strong>ODBUS</strong> advice to all customers is to choose bus operators they are aware of and whose service they are comfortable with.</p>
+					</li>
+					<li>
+					<p>In case the bus operator changes the type of bus due to some reason, <strong>ODBUS</strong> will refund the differential amount to the customer upon request by the customers in 24 hours of the journey.</p>
+					</li>
+					<li>
+					<p>The tickets booked through&nbsp;<strong>ODBUS</strong>&nbsp;Can be cancelled and note that Cancel Can be possible before 12 hours of the departure of the said bus. Refunded amount will be reflected in your respective account in 10 working days. For More Details Please refer Cancelation Policy..</p>
+					</li>
+					<li>
+					<p>If a booking confirmation e-mail and SMS get delayed or fails because of technical reasons or due to incorrect e-mail ID / phone number given by the user, The ticket will be considered as 'booked' as long as the ticket shows up on the confirmation page of&nbsp;<a href="https://www.odbus.in/" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://www.odbus.in/&amp;source=gmail&amp;ust=1628055619776000&amp;usg=AFQjCNEjICJ_c-ZDw7I5yAzneugLUVx1PQ">www.odbus.in</a></p>
+					</li>
+					<li>
+					<p>During booking, If an amount deducted and ticket not shown or SMS not delivered Please call to <a href="tel:9583918888" target="_blank">9583918888</a> and we will be more than happy to assist you .</p>
+					</li>
+					<li>
+					<p>Responsibility Includes :</p>
+					
+					<ul>
+					<li>
+					<p>Issuing a valid ticket which will be accepted by the bus operator</p>
+					</li>
+					<li>
+					<p>Providing refund and support in the event of cancellation</p>
+					</li>
+					<li>
+					<p>Providing customer support and information in case of any delays / inconvenience</p>
+					</li>
+					</ul>
+					</li>
+					<li>
+					<p><strong>Responsibilities</strong>&nbsp;do&nbsp;<strong>Not</strong>&nbsp;<wbr>include:</p>
+					
+					<ul>
+					<li>
+					<p>The bus operator’s bus not departing / reaching on time</p>
+					</li>
+					<li>
+					<p>The bus operator’s employees being rude</p>
+					</li>
+					<li>
+					<p>The bus operator’s bus seats etc not being up to the customer’s expectation</p>
+					</li>
+					<li>
+					<p>The bus operator canceling the trip due to unavoidable reasons</p>
+					</li>
+					<li>
+					<p>The baggage of the customer getting lost / stolen / damaged</p>
+					</li>
+					<li>
+					<p>The bus operator changing a customer’s seat at the last minute to accommodate a lady / child</p>
+					</li>
+					<li>
+					<p>The customer waiting at the wrong boarding point</p>
+					</li>
+					<li>
+					<p>The bus operator changing the boarding point and/or using a pick-up vehicle at the boarding point to take Customers to the bus departure point</p>
+					</li>
+					</ul>
+					</li>
+					<li>
+					<p>Grievances and claims related to the bus journey should be reported to ODBUS support team within 2 days of your travel date.</p>
+					</li>
+					<li>
+					<p>We may perdioaclly send promotionals SMS about new updates on our products,Special offers or other information which we think you may find intresting using your email address which you have provided.</p>
+					</li>
+					<li>
+					<p>From Time to Time, we may also use your information to contact you for market research purposes. We may contact you by Email, SMS,Fax or Mail. We may use the information to custromize the website/App according to your interests.</p>
+					</li>
+					<li>
+					<p>To conatct via Email,facsimile,Phone or text messages, to deliver certain services or information you have requested</p>
+					</li>
+			</ol>
+												
+	
+				
+				</div>
+				
+			</div>
+	
+		</div>
+	</ng-wizard-step>
+
+   
+	
+  </ng-wizard>
+ 
+
+
+  </div>
+  </div>
+  </div>
+  </section>

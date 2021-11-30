@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {  Observable, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {Constants} from '../constant/constant';
 @Injectable({
@@ -15,6 +15,7 @@ export class LocationService {
   }
 
   constructor(private httpClient: HttpClient) { }
+
   
   readAll(): Observable<any> {
     return this.httpClient.get(this.apiURL + '/locations').pipe(
