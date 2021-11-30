@@ -8,12 +8,14 @@ import { DatePipe } from '@angular/common';
 import { AgentBookTicketService } from '../../services/agent-book-ticket.service';
 import { AgentPaymentService } from '../../services/agent-payment.service';
 import { AgentPaymentStatusService } from '../../services/agent-payment-status.service';
+import * as moment from 'moment';
 
 declare let Razorpay: any;
 @Component({
   selector: 'app-book-ticket',
   templateUrl: './book-ticket.component.html',
-  styleUrls: ['./book-ticket.component.scss']
+  styleUrls: ['./book-ticket.component.scss'],
+  providers: [DatePipe]
 })
 export class BookTicketComponent implements OnInit {
 
@@ -85,6 +87,7 @@ export class BookTicketComponent implements OnInit {
    agent:any;
    applied_comission:number=0;
    commissionError:Boolean=false;
+   USERRECORDS:any=[];
 
 
   constructor(private ngWizardService: NgWizardService,private fb : FormBuilder,
@@ -124,13 +127,16 @@ export class BookTicketComponent implements OnInit {
     this.bookingdata=localStorage.getItem('bookingdata');
     this.busRecord=localStorage.getItem('busRecord');
     this.genderRestrictSeats=localStorage.getItem('genderRestrictSeats');
+    this.USERRECORDS=localStorage.getItem('USERRECORDS');
+
+    
 
    
-
     if(this.bookingdata == null && this.busRecord == null){
-      this.router.navigate(['/']);
+     this.router.navigate(['agent/booking']);
     }else{
       this.bookingdata= JSON.parse(this.bookingdata);
+      this.USERRECORDS= JSON.parse(this.USERRECORDS);
 
       this.busRecord= JSON.parse(this.busRecord);
 
@@ -143,9 +149,6 @@ export class BookTicketComponent implements OnInit {
       this.bookingdata.droppingPoint=drpTm_arr[0];
       this.busRecord.departureTime=brdTm_arr[1];
       this.busRecord.arrivalTime=drpTm_arr[1];
-
-     
-    
 
       if(this.bookingdata.UpperBerthSeats.length){
         this.total_seat_name =this.total_seat_name.concat(this.bookingdata.UpperBerthSeats);
@@ -178,6 +181,12 @@ export class BookTicketComponent implements OnInit {
     this.bookForm3 = this.fb.group({});
 
         this.bookForm1 = this.fb.group({
+
+          agentInfo: this.fb.group({          
+            email: this.USERRECORDS.email,
+            phone: this.USERRECORDS.phone,  
+            name:this.USERRECORDS.name,
+          }),  
           customerInfo: this.fb.group({          
             email: [this.customerInfoEmail, [Validators.email]],
             phone: [this.customerInfoPhone, [Validators.required,Validators.pattern("^[0-9]{10}$")]],  
@@ -370,7 +379,7 @@ get_seatno(seat_id:any){
       ///// call to make payment API to get RazorPayment Order ID and Total price   
 
       const paymentParam={   
-        "user_id":     this.bookTicketResponse.user_id,
+        "user_id": this.bookTicketResponse.user_id,
         "busId" : this.busRecord.busId,
         "sourceId":this.source_id, 
         "destinationId":this.destination_id,
@@ -498,9 +507,9 @@ get_seatno(seat_id:any){
     const entdt:any =localStorage.getItem('entdate'); 
 
     this.myDate = this.datePipe.transform(this.myDate, 'dd-MM-yyyy');
-
-    if(this.myDate > entdt){
-      this.router.navigate(['/']);
+   
+    if(moment(this.myDate) > moment(entdt)){     
+      this.router.navigate(['agent/booking']);
     }
   }
  

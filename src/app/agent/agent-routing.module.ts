@@ -49,7 +49,7 @@ const routes: Routes = [
 
       {
         path: 'bookTicket',
-        loadChildren: () => import('./search/search.module').then(module => module.SearchModule)
+        loadChildren: () => import('./book-ticket/book-ticket.module').then(module => module.BookTicketModule)
       },
 
      

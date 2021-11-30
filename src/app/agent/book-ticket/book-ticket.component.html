@@ -5,8 +5,6 @@
 
 <div class="col-md-12">
 
-	<countdown #countdown [config]="{leftTime: Timer ,demand: true, format: 'mm:ss' }" (event)="handleEvent($event)" style="display: none;"></countdown>
-
 <ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
 
 
@@ -113,21 +111,16 @@
 			
 
 			<div class="row"> 
-				<div class="col-md-1">
-				<img src="assets/img/Icon metro-location (1).svg" class="img1"><br>
-				<img src="assets/img/Line 11.svg"  class="img2"> <br>
-				<img src="assets/img/Icon metro-location (1).svg"  class="img3">
-				</div>
-
+				
 				<div class="col-md-11">
 
 					<h5>Bus Details:</h5><hr>
 					<span class="font">Bus Name</span>
 					<h5>{{ busRecord.busName }}</h5>
 					<h6>{{ busRecord.busType }} {{ busRecord.busTypeName }} {{ busRecord.sittingType}}</h6>
-					<h6> 	<b *ngIf="ub_seats!=''"> <img src="assets/img/sleeper-blue.svg" style="width:35px"> {{ ub_seats }}</b>
+					<h6> 	<b *ngIf="ub_seats!=''"> <img src="../../../assets/img/sleeper-blue.svg" style="width:35px"> {{ ub_seats }}</b>
 						<span *ngIf="lb_seats!='' && ub_seats!='' "> <br> </span>
-						<b *ngIf="lb_seats!=''"><img src="assets/img/seat-blue.svg" style="width:25px"> {{ lb_seats }}</b>
+						<b *ngIf="lb_seats!=''"><img src="../../../assets/img/seat-blue.svg" style="width:25px"> {{ lb_seats }}</b>
 						
 					</h6>
 
@@ -157,15 +150,9 @@
 	   
 					   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.transactionFee }}</h6></div>
 	   
-					
-					   <!-- <div class="col-md-8"><h6>Discount</h6></div><div class="col-md-4"><h6>- ₹ {{ couponData.discount }}</h6></div> -->
+					 <div class="col-md-8"><h5>Total</h5></div>
 	   
-	   
-					   <!-- <div class="col-md-12" style="display: none;"><img src="assets/img/Icon awesome-check.svg"><span> Coupon Applied</span></div> -->
-	   
-					   <div class="col-md-8"><h5>Total</h5></div>
-	   
-					   <div class="col-md-4"><h5>₹ {{ couponData.totalAmount }}</h5></div>
+					   <div class="col-md-4"><h5>₹ {{ bookingdata.PriceArray.totalFare }}</h5></div>
 				   
 	   
 				   </div>
@@ -196,7 +183,7 @@
 
 			<div class="row">
 				<div class="col-md-3">
-					<h5><img src="assets/img/Icon metro-location (1).svg"> {{ source }}</h5>
+					<h5><img src="../../../assets/img/Icon metro-location (1).svg"> {{ source }}</h5>
 					
 					<h6 class="padding-left">{{ bookingdata.boardingPoint }} - {{ busRecord.departureTime}}</h6>
 									
@@ -208,7 +195,7 @@
 
 
 				<div class="col-md-3">
-					<h5><img src="assets/img/Icon metro-location (1).svg"> {{ destination }}</h5>
+					<h5><img src="../../../assets/img/Icon metro-location (1).svg"> {{ destination }}</h5>
 
 					<h6 class="padding-left">{{ bookingdata.droppingPoint }} - {{ busRecord.arrivalTime }}</h6>
 								
@@ -216,7 +203,7 @@
 
 				<div class="col-md-3">
 					<h5>{{ entdate | date:'fullDate' }}</h5>					
-					<h5><img src="../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }}</h5>
+					<h5><img src="../../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }}</h5>
 					
 					<h6 class="padding-left">{{ passengerFormGroup.length }} Passenger(s)</h6>
 									
@@ -272,38 +259,13 @@
 					</tbody>
 				</table>
 
-				<p class="roboto"><img src="../../assets/img/Icon awesome-hashtag.svg"> will receive booking details in this mobile number & email address</p>
+				<p class="roboto"><img src="../../../assets/img/Icon awesome-hashtag.svg"> will receive booking details in this mobile number & email address</p>
 
 				</div>
 
 				
 				
 			</div>
-
-			<div class="padding">
-				<form [formGroup]="couponForm" (ngSubmit)="ApplyCoupon()">
-				<h5>Have a Coupon Code ?</h5><hr>				
-				<div class="row padding" >
-					
-					<div class="col-md-6">
-						<input type="text"  class="form-control" autocomplete="off" formControlName="coupon_code" placeholder="Enter Coupon Code">
-
-						
-					<div *ngIf="couponSubmitted && couponForm.controls.coupon_code.errors" class="invalid-feedback">
-						<div *ngIf="couponForm.controls.coupon_code.errors.required">Coupon code is required</div>
-						
-					</div>
-
-					</div>	
-					<div class="col-md-2">
-						<button class="btn btn-warning" type="submit">APPLY</button>			
-					</div>
-					
-			    </div>
-
-			</form>
-
-		</div>
 
 		</div>
 
@@ -312,8 +274,7 @@
 			<div class="row">
 					   <div class="col-md-8">
 						<h6 class="grey"><b>PAYABLE AMOUNT</b></h6>
-						   <h5>₹ {{ couponData.payableAmount }} <span *ngIf="couponData.discount > 0" 
-							   style="color: green;font-weight: bold;font-style: italic;">( ₹ {{couponData.discount}}/- OFF )</span></h5>
+						   <h5>₹ {{ bookingdata.PriceArray.totalFare }} </h5>
 
 						   <label class="terms">
 							<input formControlName="tnc" #tnc
@@ -336,7 +297,7 @@
 				<div class="col-md-4 payment_box">
 					<div class="row col-md-12">
 						<!-- make-payment -->
-						<input type="image" [disabled]="commissionError" name="submit" (click)="countdown.resume()" alt="Submit" style="cursor: pointer;" src="../../assets/img/makepayment.png">
+						<input type="image" [disabled]="commissionError" name="submit"  alt="Submit" style="cursor: pointer;" src="../../../assets/img/makepayment.png">
 					
 				</div>
 
@@ -355,13 +316,13 @@
 		<div class="col-md-12 passenger-detail box-padding">
 
 			<div class="col-md-12" style="text-align: center;">
-				<img src="assets/img/odbus-logo.svg" alt="logo-ODBUS" title="Logo" />
+				<img src="../../../assets/img/odbus-logo.svg" alt="logo-ODBUS" title="Logo" />
 			</div>
 
 			<div class="print-ticket">
 				<h5>Hello {{ passengerData.customerInfo.name }}</h5>
 				<h6 class="print">Your Ticket is Confirmed. (PNR: {{ bookTicketResponse.pnr }}).</h6>
-				<h6 class="print">ODBUS Wishing You A Happy Journey <img class="smile" src="../../assets/img/Icon awesome-smile-beam.svg"></h6>
+				<h6 class="print">ODBUS Wishing You A Happy Journey <img class="smile" src="../../../assets/img/Icon awesome-smile-beam.svg"></h6>
 				<h6 class="print-sm">We have sent booking details to your <b>{{ passengerData.customerInfo.phone}}</b>  <b *ngIf="passengerData.customerInfo.email"> & {{ passengerData.customerInfo.email}}</b> </h6>
 		   </div>
 		</div>
@@ -384,17 +345,17 @@
 
 					<table class="tableclass" cellpadding="12">
 						<thead>
-							<th ><h5><img src="assets/img/Icon metro-location (1).svg"> {{ source }}</h5>
+							<th ><h5><img src="../../../assets/img/Icon metro-location (1).svg"> {{ source }}</h5>
 								<h5>{{ bookingdata.boardingPoint }} - {{ busRecord.departureTime }}</h5>
 							
 							</th>
-							<th width="20%"><img src="assets/img/bus.svg"></th>
-							<th><h5><img src="assets/img/Icon metro-location (1).svg"> {{ destination }}
+							<th width="20%"><img src="../../../assets/img/bus.svg"></th>
+							<th><h5><img src="../../../assets/img/Icon metro-location (1).svg"> {{ destination }}
 							</h5>
 							<h5>{{ bookingdata.droppingPoint }} - {{ busRecord.arrivalTime }}</h5>
 						</th>
 							<th>{{ entdate | date:'fullDate' }}
-								<h5><img src="../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }}</h5>
+								<h5><img src="../../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }}</h5>
 							<h6 class="padding-left">{{ passengerFormGroup.length }} Passenger(s)</h6>
 						</th>
 						</thead>

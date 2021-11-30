@@ -20,6 +20,7 @@ export class Constants {
     //  public static PATHURL:any = 'http://127.0.0.1:8001/uploads/';
 
     //public static BASE_URL:any ='https://provider.neoflix.in/api';
+    //public static CONSUMER_API_URL:any ='https://consumer.neoflix.in/api';
     //public static PATHURL:any = 'https://consumer.neoflix.in/public/uploads/';
 
     //public static BASE_URL:any ='https://provider.odbus.co.in/api';

@@ -38,14 +38,14 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/fake-data",
-              "src/styles.css",
-              "src/assets/css/style.css",
-              "src/assets/css/customwizard.css"
+              "src/fake-data"
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "src/assets/css/style.scss",
+              "src/assets/css/customwizard.scss",
+              "src/assets/css/bootstarp.min.scss"              
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js"                           

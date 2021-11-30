@@ -1,4 +1,4 @@
-<section class="modify-section sticky-top">
+<section class="modify-section">
     <div class="container">
         <div class="justify-content-center row">
             <div class="col-md-6">
@@ -416,7 +416,7 @@
                 <div class="row">
                 <div class="col-md-8"> 
                     
-                    <div *ngIf="seatLoader" class="seatLoader"><img src="assets/img/seat-loader.gif"></div>
+                    <div *ngIf="seatLoader" class="seatLoader"><img src="../../../assets/img/seat-loader.gif"></div>
             
                     <div class="layout2" *ngIf="busId==bus.busId && UpperberthArr.length">
                         <h2 class="driver-sleeper">UPPER BERTH</h2>
@@ -425,7 +425,7 @@
                             <li class="row" *ngFor="let UberthRecords of UpperberthArr; let r = index" >
                                 <ol class="sleepers" type="B">
 
-                                    <div class="driver-sleeper-img"> <img src="assets/img/vehicle-steering-wheel.svg"></div>
+                                    <div class="driver-sleeper-img"> <img src="../../../assets/img/vehicle-steering-wheel.svg"></div>
                     
                                     
                                 <li class="sleeper" *ngFor="let col of UberthRecords; let c = index">
@@ -463,7 +463,7 @@
                         <div class="layout-bg">   
                         <ol class="cabin fuselage">
 
-                            <div class="driver-seat-img"> <img src="assets/img/vehicle-steering-wheel.svg"></div>
+                            <div class="driver-seat-img"> <img src="../../../assets/img/vehicle-steering-wheel.svg"></div>
                     
 
 
@@ -568,10 +568,10 @@
 
                         <div class="form-group">
                             <label>Selected Seats</label> <br>
-                            <span class="selcted_seats" *ngIf="selectedUB.length !=0"><img src="assets/img/sleeper-blue.svg" style="width:40px"> {{ selectedUB }} </span>
+                            <span class="selcted_seats" *ngIf="selectedUB.length !=0"><img src="../../../assets/img/sleeper-blue.svg" style="width:40px"> {{ selectedUB }} </span>
                             <span class="selcted_seats" *ngIf="selectedLB.length !=0 && selectedUB.length !=0 "> <br> </span>
                         
-                            <span class="selcted_seats" *ngIf="selectedLB.length !=0"><img src="assets/img/seat-blue.svg" style="width:25px"> {{ selectedLB }} </span>
+                            <span class="selcted_seats" *ngIf="selectedLB.length !=0"><img src="../../../assets/img/seat-blue.svg" style="width:25px"> {{ selectedLB }} </span>
                             
                     
                         </div>

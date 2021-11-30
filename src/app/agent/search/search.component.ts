@@ -31,7 +31,7 @@ export const DATEPICKER_VALUE_ACCESSOR =  {
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
+  styleUrls: ['./search.component.scss'],
   providers: [DatePipe]
 })
 
@@ -311,7 +311,11 @@ export class SearchComponent  implements ControlValueAccessor {
 
       localStorage.setItem('bookingdata',JSON.stringify(bookingdata));
       localStorage.setItem('busRecord',JSON.stringify(this.buslistRecord));
-      this.router.navigate(['booking']);     
+
+      //console.log(JSON.stringify(bookingdata));
+      //console.log(JSON.stringify(this.buslistRecord));
+      
+      this.router.navigate(['agent/bookTicket']);     
     }else{
 
       if(this.seatForm.value.boardingPoint==null || this.searchForm.value.boardingPoint==''){
@@ -768,12 +772,15 @@ export class SearchComponent  implements ControlValueAccessor {
     });
 
    }  
+
+
+   console.log(filterparam);
    
     this.filterService.getlist(filterparam).subscribe(
       res=>{
          this.buslist = res.data;
          this.totalfound = res.data.length;   
-        //console.log(this.buslist);
+         console.log(this.buslist);
       });
 
  }
@@ -1139,8 +1146,6 @@ export class SearchComponent  implements ControlValueAccessor {
 
     this.filterOptionsService.getoptions(this.source_id,this.destination_id).subscribe(
       res=>{ 
-
-        console.log(res.data);
         this.busTypes = res.data[0].busTypes;        
         this.seatTypes = res.data[0].seatTypes;        
         this.boardingPoints = res.data[0].boardingPoints;  
