@@ -338,8 +338,7 @@ get_seatno(seat_id:any){
       this.passengerData=this.bookForm1.value; 
 
       this.agentBookTicketService.book(this.passengerData).subscribe(
-          res=>{  
-
+          res=>{ 
           if(res.status==1){
             this.bookTicketResponse=res.data;
             this.showNextStep();
