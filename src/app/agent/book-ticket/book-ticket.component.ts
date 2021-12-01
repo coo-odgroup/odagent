@@ -128,9 +128,6 @@ export class BookTicketComponent implements OnInit {
     this.busRecord=localStorage.getItem('busRecord');
     this.genderRestrictSeats=localStorage.getItem('genderRestrictSeats');
     this.USERRECORDS=localStorage.getItem('USERRECORDS');
-
-    
-
    
     if(this.bookingdata == null && this.busRecord == null){
      this.router.navigate(['agent/booking']);
@@ -340,13 +337,18 @@ get_seatno(seat_id:any){
      }else{
       this.passengerData=this.bookForm1.value; 
 
-
       this.agentBookTicketService.book(this.passengerData).subscribe(
-          res=>{          
+          res=>{  
+
           if(res.status==1){
             this.bookTicketResponse=res.data;
             this.showNextStep();
           }
+
+          if(res.status==0){
+            this.notify.notify(res.message,"Error");
+          }
+
         },
         error => {
           this.notify.notify(error.error.message,"Error");
@@ -455,6 +457,10 @@ get_seatno(seat_id:any){
                     localStorage.removeItem('destination_id');
                     localStorage.removeItem('entdate'); 
 
+                }
+
+                if(res.status==0){
+                  this.notify.notify(res.message,"Error");
                 }
         
             });
