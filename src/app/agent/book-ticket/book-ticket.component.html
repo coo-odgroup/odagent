@@ -267,6 +267,23 @@
 				
 			</div>
 
+			<div class="padding">
+				
+				<h5>Agent Commission (Amount upto ₹ {{bookTicketResponse.customer_comission}})</h5><hr>				
+				<div class="row padding" >
+					
+					<div class="col-md-3">
+						<input type="text" (keydown)="onlyNumbers($event);" (input)="setCommission($event)" [value]="applied_comission"  class="form-control" autocomplete="off" placeholder="Enter Commission">
+	
+						
+					<div *ngIf="commissionError" class="invalid-feedback">Amount shouldn't be greater than max Commission Limit </div>
+	
+					</div>	
+				
+				</div>
+		</div>
+
+
 		</div>
 
 		<div class="col-md-12 passenger-detail box-padding padding">
