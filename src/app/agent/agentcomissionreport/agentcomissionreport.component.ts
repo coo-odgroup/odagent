@@ -9,6 +9,7 @@ import { BusService} from '../../services/bus.service';
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import {Constants} from '../../constant/constant' ;
 import * as XLSX from 'xlsx';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 @Component({
@@ -34,7 +35,8 @@ export class AgentcomissionreportComponent implements OnInit {
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
 
-  constructor(
+  constructor(    
+    private spinner: NgxSpinnerService ,
     private http: HttpClient , 
     private rs:AgentreportService, 
     private busOperatorService: BusOperatorService, 
@@ -50,7 +52,7 @@ export class AgentcomissionreportComponent implements OnInit {
     title = 'angular-app';
     fileName= 'Agent-Complete-Report.xlsx';
   ngOnInit(): void {
-
+    this.spinner.show();
     this.searchFrom = this.fb.group({
       bus_operator_id: [null],
       rangeFromDate:[null],
@@ -88,7 +90,7 @@ export class AgentcomissionreportComponent implements OnInit {
     return label;
    }
   search(pageurl="")
-  {
+  {this.spinner.show();
      this.completeReportRecord = this.searchFrom.value ; 
      
     const data = {
@@ -108,6 +110,7 @@ export class AgentcomissionreportComponent implements OnInit {
       this.rs.commissionpaginationReport(pageurl,data).subscribe(
         res => {
           this.completedata= res.data;
+          this.spinner.hide();
         }
       );
     }
@@ -116,6 +119,7 @@ export class AgentcomissionreportComponent implements OnInit {
       this.rs.commissionReport(data).subscribe(
         res => {
           this.completedata= res.data;
+          this.spinner.hide();
         }
       );
     }
@@ -145,6 +149,7 @@ export class AgentcomissionreportComponent implements OnInit {
 
   refresh()
   {
+    this.spinner.show();
     this.searchFrom = this.fb.group({
       bus_operator_id: [null],
       rangeFromDate:[null],

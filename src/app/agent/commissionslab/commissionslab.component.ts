@@ -3,6 +3,7 @@ import { AgentreportService } from '../../services/agentreport.service' ;
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { AgentcommissionslabService} from './../../services/agentcommissionslab.service';
 import {Agentcommissionslab} from '../../model/agentcommissionslab';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 @Component({
@@ -23,20 +24,23 @@ export class CommissionslabComponent implements OnInit {
   buses: any;
 
   constructor(
+    private spinner: NgxSpinnerService ,
     private http: HttpClient , 
     private rs:AgentreportService, 
     private acs: AgentcommissionslabService
     ) {   }
   ngOnInit(): void {
-
+    this.spinner.show();
     this.getAll();
   }
 
  getAll()
  {
+  this.spinner.show();
   this.acs.allagentslab().subscribe(
     res => {
       this.completedata= res.data;
+      this.spinner.hide();
     }
   );
  }

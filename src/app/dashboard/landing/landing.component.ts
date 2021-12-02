@@ -8,7 +8,7 @@ HC_drilldown(Highcharts);
 
 import {HttpClient} from '@angular/common/http';
 import 'rxjs/add/operator/map';
-
+import { NgxSpinnerService } from "ngx-spinner";
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -49,7 +49,7 @@ export class LandingComponent implements OnInit {
     pnr_label: any;
 
 
-    constructor(private http: HttpClient , private ds:DashboardService) {
+    constructor(private spinner: NgxSpinnerService ,private http: HttpClient , private ds:DashboardService) {
 
       
       this.RoleType=localStorage.getItem("ROLE_ID");
@@ -182,6 +182,7 @@ export class LandingComponent implements OnInit {
     }
   
     ngOnInit() {
+      this.spinner.show();
       const data={
         rangeFor:"",
         rangeFrom:"",
@@ -216,7 +217,7 @@ export class LandingComponent implements OnInit {
           // var chart = new ApexCharts(document.querySelector("#pie-chart-2-cac"),this.pie2CAC);
          // this.pie2CAC.render();
          
-          
+         this.spinner.hide();
           
         }
       );

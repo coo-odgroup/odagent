@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgxSpinnerModule } from "ngx-spinner";
 import { CommonModule } from '@angular/common';
 import { AgentDetailsRoutingModule } from './agent-details-routing.module';
 import {SharedModule} from '../theme/shared/shared.module';
@@ -12,8 +13,9 @@ import {NotificationService} from '../services/notification.service';
     CommonModule,
     AgentDetailsRoutingModule,
     SharedModule,
-    FormsModule,
+    FormsModule,NgxSpinnerModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [ AgentDetailsComponent],
   providers:[NotificationService]
 })

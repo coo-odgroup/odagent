@@ -7,6 +7,7 @@ import { WalletService } from '../../services/wallet.service'
 import { AgentWallet } from '../../model/agentwallet';
 import { Constants } from '../../constant/constant';
 import * as XLSX from 'xlsx';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-wallet',
@@ -33,6 +34,7 @@ export class WalletComponent implements OnInit {
   busoperators: any;
 
   constructor(
+    private spinner: NgxSpinnerService ,
     private http: HttpClient,
     private notificationService: NotificationService,
     private fb: FormBuilder, 
@@ -52,6 +54,8 @@ export class WalletComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.spinner.show();
     this.form = this.fb.group({
       id: [null],
       transaction_id: [null, Validators.compose([Validators.required])],
@@ -103,6 +107,7 @@ export class WalletComponent implements OnInit {
 
 
   search(pageurl = "") {
+    this.spinner.show();
     const data = {
       name: this.searchForm.value.name,
       rows_number: this.searchForm.value.rows_number,
@@ -116,6 +121,7 @@ export class WalletComponent implements OnInit {
           this.wallet = res.data.data.data;
           this.pagination = res.data.data;
           // console.log( this.BusOperators);
+          this.spinner.hide();
         }
       );
     }
@@ -125,6 +131,7 @@ export class WalletComponent implements OnInit {
           this.wallet = res.data.data.data;
           this.pagination = res.data.data;
           // console.log( res.data);
+          this.spinner.hide();
         }
       );
     }
@@ -132,6 +139,7 @@ export class WalletComponent implements OnInit {
 
 
   refresh() {
+    this.spinner.show();
     this.searchForm = this.fb.group({
       name: [null],
       rows_number: Constants.RecordLimit,
@@ -161,6 +169,7 @@ export class WalletComponent implements OnInit {
 
 
   addData() {
+    this.spinner.show();
     const data = {
       transaction_id: this.form.value.transaction_id,
       reference_id: this.form.value.reference_id,

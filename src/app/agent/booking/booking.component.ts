@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { NotificationService } from '../../services/notification.service';
 import { Location } from '@angular/common';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-booking',
@@ -37,6 +38,7 @@ export class BookingComponent implements OnInit {
 
 
   constructor(private router: Router,
+    private spinner: NgxSpinnerService ,
     private fb: FormBuilder,
     private locationService: LocationdataService,
     private dtconfig: NgbDatepickerConfig,

@@ -1,4 +1,5 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgxSpinnerModule } from "ngx-spinner";
 import { CommonModule } from '@angular/common';
 
 import { LandigRoutingModule } from './landing-routing.module';
@@ -20,7 +21,8 @@ import {ChartModule} from 'angular2-chartjs';
     NgbNavModule,
     NgbCollapseModule,
     NgbDropdownModule,
-    ChartModule
-  ]
+    ChartModule,
+    NgxSpinnerModule
+  ],schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LandingModule { }

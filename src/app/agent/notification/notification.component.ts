@@ -6,7 +6,7 @@ import { Agentnotification } from '../../model/agentnotification';
 import {AgentnotificationService } from '../../services/agentnotification.service';
 import {Constants} from '../../constant/constant' ;
 import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
-
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-notification',
@@ -35,6 +35,7 @@ export class NotificationComponent implements OnInit {
   busoperators: any;
 
   constructor(
+    private spinner: NgxSpinnerService ,
     private http: HttpClient, 
     private fb: FormBuilder,
     private ans: AgentnotificationService,
@@ -53,7 +54,7 @@ export class NotificationComponent implements OnInit {
     
 
   ngOnInit(): void {
-   
+    this.spinner.show();
     this.searchFrom = this.fb.group({
       rows_number: Constants.RecordLimit,
       rangeFromDate:[null],
@@ -72,7 +73,7 @@ export class NotificationComponent implements OnInit {
     return label;
    }
    search(pageurl="")
-  {      
+  {      this.spinner.show();
     const data = {
       rows_number:this.searchFrom.value.rows_number,  
       rangeFromDate:this.searchFrom.value.rangeFromDate,
@@ -86,6 +87,7 @@ export class NotificationComponent implements OnInit {
         res => {
           this.notificationcontent= res.data.data.data;
           this.pagination= res.data.data;
+          this.spinner.hide();
         }
       );
     }
@@ -96,6 +98,7 @@ export class NotificationComponent implements OnInit {
           this.notificationcontent= res.data.data.data;
           this.pagination= res.data.data;
           // console.log(res.data.data);
+          this.spinner.hide();
         }
       );
     }
@@ -103,6 +106,7 @@ export class NotificationComponent implements OnInit {
 
   refresh()
   {
+    this.spinner.show();
     this.searchFrom = this.fb.group({
       rows_number: Constants.RecordLimit,
       rangeFromDate:[null],

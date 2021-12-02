@@ -9,6 +9,7 @@ import { AgentBookTicketService } from '../../services/agent-book-ticket.service
 import { AgentPaymentService } from '../../services/agent-payment.service';
 import { AgentPaymentStatusService } from '../../services/agent-payment-status.service';
 import * as moment from 'moment';
+import { NgxSpinnerService } from "ngx-spinner";
 
 declare let Razorpay: any;
 @Component({
@@ -90,7 +91,7 @@ export class BookTicketComponent implements OnInit {
    USERRECORDS:any=[];
 
 
-  constructor(private ngWizardService: NgWizardService,private fb : FormBuilder,
+  constructor(private ngWizardService: NgWizardService,private fb : FormBuilder,private spinner: NgxSpinnerService ,
     private router: Router,
     private notify: NotificationService,
     private datePipe: DatePipe,
@@ -277,6 +278,7 @@ get_seatno(seat_id:any){
 
    createItem(seat:any,fare:any): FormGroup{
 
+    
    // console.log(this.genderRestrictSeats);
 
     return this.fb.group({

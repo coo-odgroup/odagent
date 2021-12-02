@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import {Constants} from '../../constant/constant' ;
 import { CommonService  } from '../../services/common.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 
 
@@ -159,6 +160,7 @@ export class SearchComponent  implements ControlValueAccessor {
   currentUrl:any;
  
   constructor(
+        private spinner: NgxSpinnerService ,
         private router: Router,
         private fb : FormBuilder , 
         config: NgbNavConfig,

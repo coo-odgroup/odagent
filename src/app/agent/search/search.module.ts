@@ -1,5 +1,6 @@
 
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgxSpinnerModule } from "ngx-spinner";
 import { SearchComponent } from './search.component';
 import { CommonModule } from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -12,6 +13,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SearchComponent
   ],
   imports: [
+    NgxSpinnerModule,
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
@@ -19,6 +21,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SearchRoutingModule  ,
     NgSelectModule 
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [],
   providers: [],
   bootstrap: [SearchComponent]

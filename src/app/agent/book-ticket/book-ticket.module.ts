@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
-import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BookTicketComponent } from './book-ticket.component';
 import { BookTicketRoutingModule } from './book-ticket-routing.module';
 import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
@@ -10,17 +11,18 @@ import { CountdownModule } from 'ngx-countdown';
 
 
 const ngWizardConfig: NgWizardConfig = {
-    theme: THEME.default
-  };
+  theme: THEME.default
+};
 
 @NgModule({
-  imports: [ CommonModule,
+  imports: [CommonModule,
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
     CountdownModule,
-    BookTicketRoutingModule,
-     NgWizardModule.forRoot(ngWizardConfig)],
+    BookTicketRoutingModule,NgxSpinnerModule,
+    NgWizardModule.forRoot(ngWizardConfig)],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [BookTicketComponent],
   declarations: [
     BookTicketComponent
