@@ -89,9 +89,9 @@ export class AgentDetailsComponent implements OnInit {
         res=>{ 
           //console.log(res);
           if(res.status==1){ 
-            localStorage.setItem('user', JSON.stringify(res.data[0]));
+            //localStorage.setItem('user', JSON.stringify(res.data[0]));
             this.notify.notify('Agent Registration Successful',"Success");
-            this.router.navigate(['dashboard/landing']);
+            this.router.navigate(['login']);
               
           }
           else{
