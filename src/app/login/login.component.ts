@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
     this.form = this.fb.group({
       email: [null, Validators.compose([Validators.required])],
       password: [null, Validators.compose([Validators.required])],
-      user_type: [null, Validators.compose([Validators.required])],
+      user_type: [null ],
     });  
   }
   ResetForm()
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.form = this.fb.group({
       email: [null, Validators.compose([Validators.required])],
       password: [null, Validators.compose([Validators.required])],
-      user_type: [null, Validators.compose([Validators.required])],
+      user_type: [null],
     });
   }
   check_credentials()
