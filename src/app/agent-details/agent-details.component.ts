@@ -58,7 +58,8 @@ export class AgentDetailsComponent implements OnInit {
   get f() { return this.agentform.controls; }
 
   onSubmit() {
-    this.spinner.show();
+    // console.log(this.agentform.value);return;
+    // this.spinner.show();
 
     this.submitted = true;
 
@@ -90,13 +91,10 @@ export class AgentDetailsComponent implements OnInit {
 
       this.agentDetailsService.submit(param).subscribe(
         res => {
-          //console.log(res);
+
           if (res.status == 1) {
-            //localStorage.setItem('user', JSON.stringify(res.data[0]));
             this.notify.notify('Agent Registration Successful', "Success");
             this.router.navigate(['login']);
-            this.spinner.hide();
-
           }
           else {
             this.notify.notify(res.message, "Error");
