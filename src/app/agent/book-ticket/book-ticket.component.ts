@@ -471,17 +471,17 @@ get_seatno(seat_id:any){
                 if(res.status==0){
                   this.notify.notify(res.message,"Error");
                 }
+
+                this.spinner.hide();  
         
             });
             
             ////////////////  payment success ////////////
-            
-         
-            this.spinner.hide();  
-         
          
           
           }else{
+
+            this.spinner.hide();  
 
             this.spinner.hide();  
             this.notify.notify(res.message,"Error");
