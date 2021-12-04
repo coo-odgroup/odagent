@@ -338,9 +338,9 @@
 
 			<div class="print-ticket">
 				<h5>Hello {{ passengerData.customerInfo.name }}</h5>
-				<h6 class="print">Your Ticket is Confirmed. (PNR: {{ bookTicketResponse.pnr }}).</h6>
+				<h6 class="print">Ticket is Confirmed. (PNR: {{ bookTicketResponse.pnr }}).</h6>
 				<h6 class="print">ODBUS Wishing You A Happy Journey <img class="smile" src="../../../assets/img/Icon awesome-smile-beam.svg"></h6>
-				<h6 class="print-sm">We have sent booking details to your <b>{{ passengerData.customerInfo.phone}}</b>  <b *ngIf="passengerData.customerInfo.email"> & {{ passengerData.customerInfo.email}}</b> </h6>
+				<h6 class="print-sm">We have sent booking details to <b>{{ passengerData.customerInfo.phone}}</b>  <b *ngIf="passengerData.customerInfo.email"> & {{ passengerData.customerInfo.email}}</b> </h6>
 		   </div>
 		</div>
 	
