@@ -894,9 +894,14 @@ export class SearchComponent  implements ControlValueAccessor {
 
   getbuslist() {
 
+    console.log(this.sourceData.name+"--"+this.destinationData.name+"--"+this.entdate);
+
     
     this.listingService.getlist(this.sourceData.name,this.destinationData.name,this.entdate).subscribe(
       res=>{
+
+        console.log(res);
+
         localStorage.setItem('source', this.sourceData.name);
         localStorage.setItem('source_id', this.sourceData.id);
         localStorage.setItem('destination', this.destinationData.name);
