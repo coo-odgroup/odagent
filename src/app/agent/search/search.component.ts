@@ -237,7 +237,7 @@ export class SearchComponent  implements ControlValueAccessor {
                       .filter(
                         (v) =>
                           v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
-                          v.synonym.toLowerCase().indexOf(term.toLowerCase()) > -1
+                          ( v.synonym!='' && v.synonym!=null && v.synonym.toLowerCase().indexOf(term.toLowerCase()) > -1)
                       )
                       .slice(0, 10)
               )
