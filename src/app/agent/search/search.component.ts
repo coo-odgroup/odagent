@@ -534,6 +534,8 @@ export class SearchComponent  implements ControlValueAccessor {
     //console.log(genderRestrictSeatarray);
 
     localStorage.setItem('genderRestrictSeats', JSON.stringify(genderRestrictSeatarray));
+
+    this.spinner.show();
    
     if(this.selectedLB.length != 0 || this.selectedUB.length != 0){
 
@@ -550,6 +552,7 @@ export class SearchComponent  implements ControlValueAccessor {
         res=>{
         // console.log(res);        
           this.PriceArray=res.data[0];  
+          this.spinner.hide();
           // this.buslistRecord.seaterPrice =res.data[0].seaterPrice; 
           // this.buslistRecord.sleeperPrice =res.data[0].sleeperPrice; 
         });
@@ -557,6 +560,7 @@ export class SearchComponent  implements ControlValueAccessor {
        
 
     }else{
+      this.spinner.hide();
       this.PriceArray=[];
     }
 
@@ -710,6 +714,9 @@ export class SearchComponent  implements ControlValueAccessor {
   }
 
   submitFilterForm() {
+
+    this.spinner.show();
+
     this.seatsLayoutRecord.visibility =false;
     this.checkedIndex=0;
     this.seatlayoutShow='';
@@ -774,15 +781,14 @@ export class SearchComponent  implements ControlValueAccessor {
     });
 
    }  
-
-
-   console.log(filterparam);
    
     this.filterService.getlist(filterparam).subscribe(
       res=>{
          this.buslist = res.data;
          this.totalfound = res.data.length;   
-         console.log(this.buslist);
+        
+         this.spinner.hide();
+
       });
 
  }
@@ -892,16 +898,11 @@ export class SearchComponent  implements ControlValueAccessor {
    }
   }
 
-  getbuslist() {
-
-    console.log(this.sourceData.name+"--"+this.destinationData.name+"--"+this.entdate);
-
+  getbuslist() { 
+    this.spinner.show();
     
     this.listingService.getlist(this.sourceData.name,this.destinationData.name,this.entdate).subscribe(
       res=>{
-
-        console.log(res);
-
         localStorage.setItem('source', this.sourceData.name);
         localStorage.setItem('source_id', this.sourceData.id);
         localStorage.setItem('destination', this.destinationData.name);
@@ -914,6 +915,8 @@ export class SearchComponent  implements ControlValueAccessor {
         }
         this.swapdestination=this.destinationData ;
         this.swapsource=this.sourceData ;
+
+        this.spinner.hide();
       }
       );
   }  

@@ -337,6 +337,7 @@ get_seatno(seat_id:any){
     if (this.bookForm1.invalid) {
       return;
      }else{
+      this.spinner.show();
       this.passengerData=this.bookForm1.value; 
 
       this.agentBookTicketService.book(this.passengerData).subscribe(
@@ -350,8 +351,12 @@ get_seatno(seat_id:any){
             this.notify.notify(res.message,"Error");
           }
 
+          this.spinner.hide();
+
         },
         error => {
+
+          this.spinner.hide();
           this.notify.notify(error.error.message,"Error");
         }
         );
@@ -368,6 +373,8 @@ get_seatno(seat_id:any){
     if (this.bookForm2.invalid) {
       return;
      }else{
+
+     
      
       let pass_det=this.bookForm1.value.bookingInfo.bookingDetail;
 
@@ -380,6 +387,7 @@ get_seatno(seat_id:any){
       const entdt:any =localStorage.getItem('entdate'); 
 
       ///// call to make payment API to get RazorPayment Order ID and Total price   
+      this.spinner.show();
 
       const paymentParam={   
         "user_id": this.bookTicketResponse.user_id,
@@ -468,7 +476,14 @@ get_seatno(seat_id:any){
             
             ////////////////  payment success ////////////
             
+         
+            this.spinner.hide();  
+         
+         
+          
           }else{
+
+            this.spinner.hide();  
             this.notify.notify(res.message,"Error");
           } 
 
