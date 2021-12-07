@@ -372,14 +372,15 @@
                             <div class="bus-dtl-btm-panel-left">
                                 <ul *ngIf="bus.amenity.length != 0" >
                                     <li *ngFor="let nm of bus.amenity; let i=index; ">
-                                        <div *ngIf = "nm.amenities && nm.amenities.amenities_image != ''">    
-                                        <img  src="{{url_path.amenity_url}}{{ nm.amenities.amenities_image }}" class="iconsize"/>     
-                                        
+                                        <div *ngIf = "nm && nm.amenities_image != ''">    
+                                        <!-- <img  src="{{url_path.amenity_url}}{{ nm.amenities.amenities_image }}" class="iconsize"/>      -->
+                                        <img src="{{ nm.amenity_image }}" class="iconsize" />
+                                                                            
                                         <!-- <div class="amenities-icon">
                                             <img [attr.src]="getImagePath(bus.amenityIcon[i])"  class="iconsize">     
                                         </div> -->
                                         <div  
-                                         class="amenities-name">{{ nm.amenities.name }}
+                                         class="amenities-name">{{ nm.name }}
                                         </div>
                                     </div>
                                     </li>
@@ -591,25 +592,20 @@
                             <button type="submit" class="btn btn-warning btn-block bookNow">BOOK NOW</button>
                             </div>
                         </div>
-
                         </div>
-                        
-
-
                     </div>
                 </div>
                 </div>
             </form>  
-        
             </div>
-
             <div id="safety{{i}}" *ngIf="safetyshow === i">
                 <div class="safety_box">
                     <div *ngIf="bus.safety.length != 0 ; else safeiconempty">
                         <div *ngFor="let sf of bus.safety; let i=index; " class="p-2 flex-fill de-angu">
-                            <img src = "{{url_path.safety_url}}{{ sf.safety.safety_image }}" class="iconsize" />
+                            <!-- <img src = "{{url_path.safety_url}}{{ sf.safety.safety_image }}" class="iconsize" /> -->
                             <!-- <img [attr.src]="getImagePath(bus.safetyIcon[i])"> -->
-                            <p class="safety_span">{{ sf.safety.name }}</p>
+                            <img src="{{ sf.safety_image }}" class="iconsize" />
+                            <p class="safety_span">{{ sf.name }}</p>
                         </div>
                     </div>
                     <ng-template #safeiconempty>No safety icons available...</ng-template>
@@ -619,15 +615,15 @@
                 <div class="safety_box">
                     <div *ngIf="bus.busPhotos.length != 0 ; else busphotoempty">
                         <div *ngFor="let sf of bus.busPhotos;" class="p-2 flex-fill de-angu border boxlayout2">
-                            <img src = "{{url_path.busphoto_url}}{{ sf.bus_image }}" class="iconsize" />
+                            <!-- <img src = "{{url_path.busphoto_url}}{{ sf.bus_image }}" class="iconsize" /> -->
                             <!-- <img [attr.src]="getImagePath(sf)"> -->
+                            <img src="{{ sf.bus_image }}" class="iconsize" />
                             <div class="p-2 flex-fill de-angu border boxlayout2"></div>
                         </div>
                     </div>
                     <ng-template #busphotoempty>No bus photos available...</ng-template>
                 </div>
             </div>
-
             <div id="review{{i}}" *ngIf="reviewShow === i">
                 <div class="safety_box1">
                     <div class="safety_box-flex">
@@ -638,7 +634,6 @@
                                 (Overall Rating)
                             </span>
                         </div>
-
                 <div class="card card-re">
                     <div class="rating-bar0 justify-content-center">                       
                         <div><span class="rv_num">{{bus.Totalrating_comfort}}</span>  
