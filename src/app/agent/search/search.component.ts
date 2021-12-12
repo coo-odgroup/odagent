@@ -14,7 +14,7 @@ import { Buslist } from '../../model/buslist';
 import { DomSanitizer } from '@angular/platform-browser';
 import { NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { NotificationService } from '../../services/notification.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, formatDate } from '@angular/common';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import {Constants} from '../../constant/constant' ;
@@ -158,6 +158,9 @@ export class SearchComponent  implements ControlValueAccessor {
   location_list:any;
   formatter:any;
   currentUrl:any;
+
+  prevDate:any;
+  nextDate:any;
  
   constructor(
         private spinner: NgxSpinnerService ,
@@ -606,6 +609,50 @@ export class SearchComponent  implements ControlValueAccessor {
     this.submitFilterForm();
   }
 
+
+  search_prev(){
+
+    this.seatsLayoutRecord.visibility =false;
+    this.seatlayoutShow='';
+    this.safetyshow='';
+    this.busPhotoshow='';
+    this.reviewShow='';
+    this.policyShow='';
+    this.checkedIndex=0;
+
+    this.totalfound=0;
+    this.buslist=[];
+
+    this.entdate = this.prevDate; 
+    this.getbuslist();
+    this.isShown = false ; 
+    this.setPrevNextDate(this.entdate);
+    this.showformattedDate(this.entdate);
+
+  }
+
+  search_next(){
+
+    this.seatsLayoutRecord.visibility =false;
+    this.seatlayoutShow='';
+    this.safetyshow='';
+    this.busPhotoshow='';
+    this.reviewShow='';
+    this.policyShow='';
+    this.checkedIndex=0;
+
+    this.totalfound=0;
+    this.buslist=[];
+    
+    this.entdate = this.nextDate; 
+    this.getbuslist();
+    this.isShown = false ; 
+    this.setPrevNextDate(this.entdate);
+    this.showformattedDate(this.entdate);
+
+
+  }
+
   
   updateBoarding(e : any){
     
@@ -880,6 +927,8 @@ export class SearchComponent  implements ControlValueAccessor {
       this.getbuslist();
       this.isShown = false ; 
       this.showformattedDate(this.searchForm.value.entry_date);
+      this.setPrevNextDate(this.entdate);
+
     }
     else{
 
@@ -1219,10 +1268,48 @@ export class SearchComponent  implements ControlValueAccessor {
       this.showformattedDate(this.entdate);
       this.getbuslist();
       this.filteroptions();
+      this.setPrevNextDate(this.entdate);
     }
 
     
   }
+
+  setPrevNextDate(entdate:any){    
+
+    let dt = entdate.split("-");
+    let dd=dt[2]+'-'+dt[1]+'-'+dt[0];
+    entdate = dd;
+
+    let currentDate = formatDate(new Date(),'yyyy-MM-dd','en_US');
+    let entrdate = formatDate(new Date(entdate),'yyyy-MM-dd','en_US');
+
+      let fentdate = new Date(entdate);
+   
+      if(currentDate == entrdate){
+
+        this.nextDate = new Date();
+        this.nextDate.setDate( fentdate.getDate() + 1 );
+
+        this.nextDate = formatDate(this.nextDate,'dd-MM-yyyy','en_US');
+
+        this.prevDate = '';
+        
+       }
+       if(currentDate < entrdate){
+
+        this.nextDate = new Date();
+        this.nextDate.setDate( fentdate.getDate() + 1 );
+        this.nextDate = formatDate(this.nextDate,'dd-MM-yyyy','en_US');
+
+
+        this.prevDate = new Date();
+        this.prevDate.setDate( fentdate.getDate() - 1 );
+        this.prevDate = formatDate(this.prevDate,'dd-MM-yyyy','en_US');
+        
+      }
+
+  }
+
 }
 
 

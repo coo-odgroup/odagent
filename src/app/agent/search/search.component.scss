@@ -783,6 +783,7 @@ cursor: not-allowed;
   background-image: url("../../../assets/img/sleeper-gray.svg");
 }
 
+
 .sleeper label:before {
 content: "";
   position: absolute;
@@ -873,4 +874,18 @@ cursor: pointer;
 
 ngb-rating.d-inline-flex {
   color: #efc317 !important;
+}
+
+
+label.vertical-gray.fixsize.ng-star-inserted {
+  background-image: url("../../../assets/img/sleeper-gray.svg");
+  padding: 24px 72px 53px 6px;
+  margin-left: 40%;
+  cursor: not-allowed;
+  transform: rotateZ(270deg);
+}
+
+label.sleeper-gray.fixsize.ng-star-inserted {
+  padding: 18px 49px 23px 31px;
+  background-image: url("../../../assets/img/sleeper-gray.svg"); 
 }
