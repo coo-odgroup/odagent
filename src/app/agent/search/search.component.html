@@ -418,7 +418,7 @@
         <div class="col-md-12 p-0 angu-border">
             <div id="seatlayout{{i}}" *ngIf="seatlayoutShow === i">
                 <form [formGroup]="seatForm" (ngSubmit)="submitSeat()">
-                    <div class="row">
+                    <div class="row paddtb40">
                         <div class="col-md-8">
                             <div *ngIf="seatLoader" class="seatLoader"><img
                                     src="assets/img/seat-loader.gif"></div>
@@ -434,10 +434,10 @@
                                                 </div>
                                                 <li class="sleeper"
                                                     *ngFor="let col of UberthRecords; let c = index">
-                                                    <div *ngIf="col.seat_class_id == 4">
+                                                    <div *ngIf="col.seat_class_id == 4 || col.seatText=='' ">
                                                         <label class="hide"></label>
                                                     </div>
-                                                    <div *ngIf="col.seat_class_id != 4">
+                                                    <div *ngIf="col.seat_class_id != 4  && col.seatText!=''">
 
                                                         <input type="checkbox" disabled />
                                                         
@@ -514,7 +514,12 @@
                                             <ol class="seats" type="A">
                                                 <li class="seat"
                                                     *ngFor="let col of LberthRecords; let c = index">
-                                                    <div *ngIf="col.seat_class_id != 4">
+                                                   
+                                                    <div *ngIf="col.seat_class_id == 4 || col.seatText=='' ">
+                                                        <label class="hide"></label>
+                                                    </div>
+
+                                                    <div *ngIf="col.seat_class_id != 4 && col.seatText!='' ">
                                                         <input type="checkbox" disabled />
 
                                                        
@@ -554,9 +559,7 @@
 
                                                        
                                                     </div>
-                                                    <div *ngIf="col.seat_class_id == 4">
-                                                        <label class="hide"></label>
-                                                    </div>
+                                                   
                                                     <div *ngIf="col.bus_seats != null">
 
                                                         <input type="checkbox" id="lower{{col.id}}"
@@ -578,19 +581,19 @@
                                 </div>
                             </div>
                             <div class="row col-md-12 notify">
-                                <div class="col-md-2">
+                                <div class="col-md-2 p-0">
                                     <label><span class="available"></span>&nbsp;Available</label>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 p-0">
                                     <label> <span class="reserved"></span>&nbsp;Reserved</label>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 p-0">
                                     <label> <span class="selected"></span>&nbsp;Selected</label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 p-0">
                                     <label> <span class="ladies"></span>&nbsp;Ladies Booked</label>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 p-0">
                                     <label> <span class="gents"></span>&nbsp;Gents Booked</label>
                                 </div>
                             </div>
@@ -621,15 +624,15 @@
                                         <label>Selected Seats</label> <br>
                                         <span class="selcted_seats"
                                             *ngIf="selectedUB.length !=0"><img
-                                                src="assets/img/sleeper-blue.svg"
-                                                style="width:40px"> {{ selectedUB }} </span>
+                                                src="assets/img/sleeper-blue.svg" class="sl-56"
+                                                > {{ selectedUB }} </span>
                                         <span class="selcted_seats"
                                             *ngIf="selectedLB.length !=0 && selectedUB.length !=0 ">
                                             <br> </span>
 
                                         <span class="selcted_seats"
                                             *ngIf="selectedLB.length !=0"><img
-                                                src="assets/img/seat-blue.svg" style="width:25px">
+                                                src="assets/img/seat-blue.svg" class="se-56">
                                             {{ selectedLB }} </span>
                                     </div>
                                     <div class="row form-group" *ngIf="PriceArray.ownerFare > 0">
@@ -743,7 +746,7 @@
                                             src="../../assets/img/user.png">
                                         <img class="rounded-circle"
                                             *ngIf="rv.users.profile_image!='' && rv.users.profile_image!=null"
-                                            src="../../../assets/uploads/profile/{{ rv.users.profile_image }}">
+                                            src="{{ rv.users.profile_image }}">
                                         <h5 class="name">{{ rv.users.name }}</h5>
                                         <span class="rv_img">
                                             <ngb-rating [rate]="rv.rating_overall" [max]="5"

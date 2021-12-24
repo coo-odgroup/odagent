@@ -12,6 +12,9 @@ import{ Constants } from '../constant/constant';
 export class FilterService {
 
   private apiURL = Constants.CONSUMER_API_URL;
+  private USER_ID = Constants.USER_ID;
+
+  
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -21,7 +24,7 @@ export class FilterService {
   constructor(private httpClient: HttpClient) { }
 
   getlist(params :any): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/Filter?'+ params,this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/Filter?'+ params+'&user_id='+this.USER_ID,this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
