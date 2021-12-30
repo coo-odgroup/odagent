@@ -27,7 +27,13 @@ export interface Berth {
     seats_id: number,
     category: any,
     duration: any,
-    new_fare: any
+    new_fare: any,
+    ticket_price:TicketPrice
+  }
+
+  export interface TicketPrice{
+    "base_seat_fare": any,
+    "base_sleeper_fare": any,
   }
 
   

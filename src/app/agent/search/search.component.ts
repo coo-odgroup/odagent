@@ -94,6 +94,9 @@ export class SearchComponent  implements ControlValueAccessor {
   currentSeatlayoutIndex:any='';
 
   busId: any;
+
+  busIds: any=[];
+
   seatsLayouts :  SeatsLayout[];
   seatsLayoutRecord :  SeatsLayout;  
 
@@ -948,6 +951,8 @@ export class SearchComponent  implements ControlValueAccessor {
   }
 
   getbuslist() { 
+
+    this.busIds=[];
     this.spinner.show();
     
     this.listingService.getlist(this.sourceData.name,this.destinationData.name,this.entdate).subscribe(
@@ -961,6 +966,18 @@ export class SearchComponent  implements ControlValueAccessor {
         if(res.data){
           this.buslist = res.data; 
           this.totalfound = res.data.length; 
+
+          if(this.totalfound>0){
+
+            this.buslist.forEach((a) => {  
+              this.busIds.push(a.busId);
+            }); 
+
+          }
+
+          ///////// get filter options after getting bus list          
+          this.filteroptions();
+
         }
         this.swapdestination=this.destinationData ;
         this.swapsource=this.sourceData ;
@@ -1201,9 +1218,19 @@ export class SearchComponent  implements ControlValueAccessor {
   filteroptions(){
 
    
+    let busIDs ="";
 
+    if(this.busIds.length>0){
+    
+      this.busIds.forEach((i) => {
+        busIDs +="&busIDs[]= "+i;
+      });
 
-    this.filterOptionsService.getoptions(this.source_id,this.destination_id).subscribe(
+    }else{
+      busIDs ="&busIDs[]= ";
+    }
+
+    this.filterOptionsService.getoptions(this.source_id,this.destination_id,busIDs).subscribe(
       res=>{ 
         this.busTypes = res.data[0].busTypes;        
         this.seatTypes = res.data[0].seatTypes;        
@@ -1267,7 +1294,6 @@ export class SearchComponent  implements ControlValueAccessor {
 
       this.showformattedDate(this.entdate);
       this.getbuslist();
-      this.filteroptions();
       this.setPrevNextDate(this.entdate);
     }
 
@@ -1275,7 +1301,6 @@ export class SearchComponent  implements ControlValueAccessor {
   }
 
   setPrevNextDate(entdate:any){    
-
     let dt = entdate.split("-");
     let dd=dt[2]+'-'+dt[1]+'-'+dt[0];
     entdate = dd;
@@ -1284,26 +1309,18 @@ export class SearchComponent  implements ControlValueAccessor {
     let entrdate = formatDate(new Date(entdate),'yyyy-MM-dd','en_US');
 
       let fentdate = new Date(entdate);
-   
+
       if(currentDate == entrdate){
-
-        this.nextDate = new Date();
-        this.nextDate.setDate( fentdate.getDate() + 1 );
-
+        this.nextDate = fentdate.setDate(fentdate.getDate() + 1); 
         this.nextDate = formatDate(this.nextDate,'dd-MM-yyyy','en_US');
-
-        this.prevDate = '';
-        
+        this.prevDate = '';        
        }
-       if(currentDate < entrdate){
 
-        this.nextDate = new Date();
-        this.nextDate.setDate( fentdate.getDate() + 1 );
+       if(currentDate < entrdate){
+        this.nextDate = fentdate.setDate(fentdate.getDate() + 1); 
         this.nextDate = formatDate(this.nextDate,'dd-MM-yyyy','en_US');
 
-
-        this.prevDate = new Date();
-        this.prevDate.setDate( fentdate.getDate() - 1 );
+       this.prevDate = fentdate.setDate(fentdate.getDate() - 2); 
         this.prevDate = formatDate(this.prevDate,'dd-MM-yyyy','en_US');
         
       }
