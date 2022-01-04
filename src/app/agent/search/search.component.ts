@@ -20,6 +20,8 @@ import { debounceTime, map } from 'rxjs/operators';
 import {Constants} from '../../constant/constant' ;
 import { CommonService  } from '../../services/common.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Lightbox } from 'ngx-lightbox';
+
 
 
 
@@ -42,6 +44,8 @@ export class SearchComponent  implements ControlValueAccessor {
 
   selectedDate: any;
   disabled = false;
+
+  _albums = [];
 
   // Function to call when the date changes.
   onChange = (date?: Date) => {};
@@ -151,6 +155,7 @@ export class SearchComponent  implements ControlValueAccessor {
   busPhotoshow: any='';
   reviewShow: any='';
   policyShow: any='';
+  amenityShow: any='';
   btnstatus :any='hide';
 
   isShown: boolean = false ; // hidden by default
@@ -164,6 +169,8 @@ export class SearchComponent  implements ControlValueAccessor {
 
   prevDate:any;
   nextDate:any;
+
+  show = 5;
  
   constructor(
         private spinner: NgxSpinnerService ,
@@ -180,7 +187,9 @@ export class SearchComponent  implements ControlValueAccessor {
         private notify: NotificationService,
         private dtconfig:NgbDatepickerConfig,
         private datePipe: DatePipe,
-        private common : CommonService
+        private common : CommonService,
+        private _lightbox: Lightbox
+
      ) {
           const current = new Date();
           this.dtconfig.minDate = { year: current.getFullYear(), month: 
@@ -251,6 +260,16 @@ export class SearchComponent  implements ControlValueAccessor {
 
         this.formatter = (x: { name: string }) => x.name; 
 
+  }
+
+  open(index: number): void {
+    // open lightbox
+    this._lightbox.open(this._albums, index);
+  }
+ 
+  close(): void {
+    // close lightbox programmatically
+    this._lightbox.close();
   }
 
   
@@ -621,6 +640,7 @@ export class SearchComponent  implements ControlValueAccessor {
     this.busPhotoshow='';
     this.reviewShow='';
     this.policyShow='';
+    this.amenityShow='';
     this.checkedIndex=0;
 
     this.totalfound=0;
@@ -642,6 +662,8 @@ export class SearchComponent  implements ControlValueAccessor {
     this.busPhotoshow='';
     this.reviewShow='';
     this.policyShow='';
+    this.amenityShow='';
+
     this.checkedIndex=0;
 
     this.totalfound=0;
@@ -774,6 +796,8 @@ export class SearchComponent  implements ControlValueAccessor {
     this.busPhotoshow='';
     this.reviewShow='';
     this.policyShow='';
+    this.amenityShow='';
+
 
    let filterparam='';
     let et= this.entdate;
@@ -888,6 +912,7 @@ export class SearchComponent  implements ControlValueAccessor {
     this.busPhotoshow='';
     this.reviewShow='';
     this.policyShow='';
+    this.amenityShow='';
     this.checkedIndex=0;
 
     this.totalfound=0;
@@ -1103,6 +1128,7 @@ export class SearchComponent  implements ControlValueAccessor {
     this.busPhotoshow='';
     this.reviewShow='';
     this.policyShow='';
+    this.amenityShow='';
     this.checkedIndex=0;
 
     if(this.seatsLayoutRecord.visibility== true){
@@ -1158,6 +1184,19 @@ export class SearchComponent  implements ControlValueAccessor {
     
   }
 
+  showAllAmenity(id:any){
+
+    this.seatsLayoutRecord.visibility =false;
+    this.checkedIndex=0;
+    this.seatlayoutShow='';
+    this.safetyshow='';
+    this.busPhotoshow='';
+    this.reviewShow='';
+    this.policyShow='';
+    this.amenityShow=id;
+
+  }
+
  
   safety(id:any){
     this.seatsLayoutRecord.visibility =false;
@@ -1167,16 +1206,103 @@ export class SearchComponent  implements ControlValueAccessor {
     this.busPhotoshow='';
     this.reviewShow='';
     this.policyShow='';
+    this.amenityShow='';
+
   }
 
   bus_pic(id:any){
+    this._albums=[];
+
     this.seatsLayoutRecord.visibility =false;
     this.checkedIndex=0;
     this.seatlayoutShow='';
     this.safetyshow='';
     this.busPhotoshow=id;
+
+    let busRecord= this.buslist[id];
+
+    if(busRecord.busPhotos.length>0){
+
+      busRecord.busPhotos.forEach((sf) => {
+
+        if(sf.bus_image_1 !='' && sf.bus_image_1 != null ){
+
+          const src = sf.bus_image_1;
+          const caption = '';
+          const thumb = sf.bus_image_1;
+          const album = {
+             src: src,
+             caption: caption,
+             thumb: thumb
+          };   
+          this._albums.push(album);
+
+        }
+
+        if(sf.bus_image_2 !='' && sf.bus_image_2 != null ){
+
+          const src = sf.bus_image_2;
+          const caption = '';
+          const thumb = sf.bus_image_2;
+          const album = {
+             src: src,
+             caption: caption,
+             thumb: thumb
+          };   
+          this._albums.push(album);
+
+        }
+
+        if(sf.bus_image_3 !='' && sf.bus_image_3 != null ){
+
+          const src = sf.bus_image_3;
+          const caption = '';
+          const thumb = sf.bus_image_3;
+          const album = {
+             src: src,
+             caption: caption,
+             thumb: thumb
+          };   
+          this._albums.push(album);
+
+        }
+
+        if(sf.bus_image_4 !='' && sf.bus_image_4 != null ){
+
+          const src = sf.bus_image_4;
+          const caption = '';
+          const thumb = sf.bus_image_4;
+          const album = {
+             src: src,
+             caption: caption,
+             thumb: thumb
+          };   
+          this._albums.push(album);
+
+        }
+
+        if(sf.bus_image_5 !='' && sf.bus_image_5 != null ){
+
+          const src = sf.bus_image_5;
+          const caption = '';
+          const thumb = sf.bus_image_5;
+          const album = {
+             src: src,
+             caption: caption,
+             thumb: thumb
+          };   
+          this._albums.push(album);
+
+        }
+       
+
+      });
+
+    } 
+
     this.reviewShow='';
     this.policyShow='';
+    this.amenityShow='';
 
   }
 
@@ -1188,6 +1314,8 @@ export class SearchComponent  implements ControlValueAccessor {
     this.busPhotoshow='';
     this.reviewShow=id;
     this.policyShow='';
+    this.amenityShow='';
+
 
   }
 
@@ -1200,6 +1328,8 @@ export class SearchComponent  implements ControlValueAccessor {
     this.busPhotoshow='';
     this.reviewShow='';
     this.policyShow=id;
+    this.amenityShow='';
+
   }
 
   getImagePath(icon :any){  

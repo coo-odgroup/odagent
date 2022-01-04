@@ -375,30 +375,30 @@
             <div class="row bus-dtl-btm-panel">
                 <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <div class="bus-dtl-btm-panel-left">
                                 <ul *ngIf="bus.amenity.length != 0" >
-                                    <li *ngFor="let nm of bus.amenity; let i=index; ">
-                                        <div *ngIf = "nm && nm.amenities_image != ''">    
-                                        <!-- <img  src="{{url_path.amenity_url}}{{ nm.amenities.amenities_image }}" class="iconsize"/>      -->
-                                        <img src="{{ nm.amenity_image }}" class="iconsize" />
-                                                                            
-                                        <!-- <div class="amenities-icon">
-                                            <img [attr.src]="getImagePath(bus.amenityIcon[i])"  class="iconsize">     
-                                        </div> -->
-                                        <div  
-                                         class="amenities-name">{{ nm.name }}
-                                        </div>
-                                    </div>
+                                    <li *ngFor="let nm of bus.amenity|slice:0:show; let am=index; ">
+                                        <div *ngIf="nm && nm.amenity_image != ''">
+                                            <img src="{{ nm.amenity_image }}" class="iconsize" />
+            
+                                            &nbsp;&nbsp; <a class="cursor" *ngIf="am==4 && show == 5" (click)="showAllAmenity(i)" 
+                                            style="color: #fff;">( +{{ bus.amenity.length-show}}) More </a>
+                                            
+                                        </div>  
+                                        
+                                       
+                                      
+                                            
                                     </li>
                                     
                                 </ul>
                             </div>
                         </div>
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <div class="bus-dtl-btm-panel-right">
                             <ul>
-
+                                <li class="cursor"><a (click)="showAllAmenity(i)">Amenities</a></li>
                                 <li class="cursor"><a (click)="safety(i);">Safety</a></li>
                                 <li class="cursor"><a (click)="bus_pic(i);">Bus Photos</a></li>
                                 <li class="cursor"><a (click)="reviews(i);">Reviews</a></li>
@@ -658,6 +658,22 @@
                     </div>
                 </form>
             </div>
+
+            <div id="amenity_div{{i}}" *ngIf="amenityShow === i">
+                <div class="safety_box">
+                    <div *ngIf="bus.amenity.length != 0" class="bus-dtl-btm-panel-left">
+                        <div *ngFor="let nm of bus.amenity; let am=index; " class="p-2 flex-fill de-angu">
+                            <div *ngIf="nm && nm.amenity_image != ''"  >
+                                <img src="{{ nm.amenity_image }}" class="iconsize" />
+                                <p class="safety_span">{{nm.name}}</p>
+                            </div> 
+                        </div>
+                
+                    </div>
+                </div>
+            </div>
+
+
             <div id="safety{{i}}" *ngIf="safetyshow === i">
                 <div class="safety_box">
                     <div *ngIf="bus.safety.length != 0 ; else safeiconempty">
@@ -674,99 +690,111 @@
             </div>
             <div id="bus_pic{{i}}" *ngIf="busPhotoshow === i">
                 <div class="safety_box">
-                    <div *ngIf="bus.busPhotos.length != 0 ; else busphotoempty">
-                        <div *ngFor="let sf of bus.busPhotos;"
-                            class="p-2 flex-fill de-angu border boxlayout2">
-                            <!-- <img src = "{{url_path.busphoto_url}}{{ sf.bus_image }}" class="iconsize" /> -->
-                            <img src="{{ sf.bus_image }}" class="iconsize" />
-                            <!-- <img [attr.src]="getImagePath(sf)"> -->
-                            <div class="p-2 flex-fill de-angu border boxlayout2"></div>
-                        </div>
-                    </div>
-                    <ng-template #busphotoempty>No bus photos available...</ng-template>
+            
+                <div *ngIf="bus.busPhotos.length != 0 ; else busphotoempty">
+                    <div *ngFor="let sf of bus.busPhotos;" >
+                        <div  class="flex-fill de-angu-bus">
+                          <img *ngIf="sf.bus_image_1 !='' && sf.bus_image_1 != null "  src="{{ sf.bus_image_1 }}" (click)="open(0)"/>
+                     </div>
+            
+                     <div  class="flex-fill de-angu-bus"> <img *ngIf="sf.bus_image_2 !='' && sf.bus_image_2 != null "  src="{{ sf.bus_image_2 }}" (click)="open(1)"/>
+                     </div>
+            
+                     <div  class="flex-fill de-angu-bus"> <img *ngIf="sf.bus_image_3 !='' && sf.bus_image_3 != null "  src="{{ sf.bus_image_3 }}" (click)="open(2)"/>
+                     </div>
+                     <div  class="flex-fill de-angu-bus">
+                        <img *ngIf="sf.bus_image_4 !='' && sf.bus_image_4 != null "  src="{{ sf.bus_image_4 }}" (click)="open(3)"/>
+                         </div>
+                     <div  class="flex-fill de-angu-bus"><img *ngIf="sf.bus_image_5 !='' && sf.bus_image_5 != null "  src="{{ sf.bus_image_5 }}" (click)="open(4)" />
+                     </div>
+             
                 </div>
-            </div>
+                </div>
+                <ng-template #busphotoempty>No bus photos available...</ng-template>
+                </div>
+                </div>
             <div id="review{{i}}" *ngIf="reviewShow === i">
-                <div class="safety_box1">
-                    <div class="safety_box-flex">
-                        <div class="col-md-3 de-angu1 no-bg">
-                            <div><span class="rv_num">{{bus.Totalrating}}</span>
-                                <span class="rv_img">
-                                    <ngb-rating [rate]="bus.Totalrating" [max]="5"
-                                        [readonly]="true"></ngb-rating>
-                                    (Overall Rating)
-                                </span>
-                            </div>
-                            <div class="card card-re">
-                                <div class="rating-bar0 justify-content-center">
-                                    <div><span class="rv_num">{{bus.Totalrating_comfort}}</span>
-                                        <span class="rv_img">
-                                            <ngb-rating [rate]="bus.Totalrating_comfort" [max]="5"
-                                                [readonly]="true"></ngb-rating>
-                                            (Comfort)
-                                        </span>
-                                    </div>
-                                    <div><span class="rv_num">{{bus.Totalrating_clean}}</span>
-                                        <span class="rv_img">
-                                            <ngb-rating [rate]="bus.Totalrating_clean" [max]="5"
-                                                [readonly]="true"></ngb-rating>
-                                            (Clean)
-                                        </span>
-                                    </div>
-
-
-                                    <div><span class="rv_num">{{bus.Totalrating_behavior}}</span>
-                                        <span class="rv_img">
-                                            <ngb-rating [rate]="bus.Totalrating_behavior" [max]="5"
-                                                [readonly]="true"></ngb-rating>
-                                            (Behavior)
-                                        </span>
-                                    </div>
-                                    <div><span class="rv_num">{{bus.Totalrating_timing}}</span>
-                                        <span class="rv_img">
-                                            <ngb-rating [rate]="bus.Totalrating_timing" [max]="5"
-                                                [readonly]="true"></ngb-rating>
-                                            (Timing)
-                                        </span>
-                                    </div>
-                                </div>
-                                <div> <span class="fa fa-star star-active"></span> <span
-                                        class="fa fa-star star-active"></span> <span
-                                        class="fa fa-star star-active"></span> <span
-                                        class="fa fa-star star-active"></span> <span
-                                        class="fa fa-star star-active"></span> </div>
-                            </div>
+                
+                <ng-template #reviewempty>No bus reviews available...</ng-template>
+       
+                <div class="safety_box1" *ngIf="bus.reviews.length > 0 ; else reviewempty ">
+                <div class="row safety_box-flex">
+                    <div class="col-md-4 de-angu1 no-bg">
+                        <div><span class="rv_num">{{bus.Totalrating}}</span>
+                            <span class="rv_img">
+                                <ngb-rating [rate]="bus.Totalrating" [max]="5"
+                                    [readonly]="true"></ngb-rating>
+                                (Overall Rating)
+                            </span>
                         </div>
-                        <div *ngIf="bus.reviews.length > 0">
-                            <div class="col-md-4 testimonials-clean" *ngFor="let rv of bus.reviews">
-                                <div class="de-angu1 border">
-                                    <div class="author item">
-                                        <img class="rounded-circle"
-                                            *ngIf="rv.users.profile_image=='' || rv.users.profile_image== null "
-                                            src="../../assets/img/user.png">
-                                        <img class="rounded-circle"
-                                            *ngIf="rv.users.profile_image!='' && rv.users.profile_image!=null"
-                                            src="{{ rv.users.profile_image }}">
-                                        <h5 class="name">{{ rv.users.name }}</h5>
-                                        <span class="rv_img">
-                                            <ngb-rating [rate]="rv.rating_overall" [max]="5"
-                                                [readonly]="true"></ngb-rating>
-                                        </span>
-                                    </div>
-                                    <h2 class="heading-ser">{{ rv.title }}</h2>
-                                    <div class="box">
-                                        <div class="description">
-                                            {{ rv.comments }}
-                                        </div>
-                                    </div>
+                        <div class="card card-re">
+                            <div class="rating-bar0 justify-content-center">
+                                <div><span class="rv_num">{{bus.Totalrating_comfort}}</span>
+                                    <span class="rv_img">
+                                        <ngb-rating [rate]="bus.Totalrating_comfort" [max]="5"
+                                            [readonly]="true"></ngb-rating>
+                                        (Comfort)
+                                    </span>
+                                </div>
+                                <div><span class="rv_num">{{bus.Totalrating_clean}}</span>
+                                    <span class="rv_img">
+                                        <ngb-rating [rate]="bus.Totalrating_clean" [max]="5"
+                                            [readonly]="true"></ngb-rating>
+                                        (Clean)
+                                    </span>
+                                </div>
+                
+                
+                                <div><span class="rv_num">{{bus.Totalrating_behavior}}</span>
+                                    <span class="rv_img">
+                                        <ngb-rating [rate]="bus.Totalrating_behavior" [max]="5"
+                                            [readonly]="true"></ngb-rating>
+                                        (Behavior)
+                                    </span>
+                                </div>
+                                <div><span class="rv_num">{{bus.Totalrating_timing}}</span>
+                                    <span class="rv_img">
+                                        <ngb-rating [rate]="bus.Totalrating_timing" [max]="5"
+                                            [readonly]="true"></ngb-rating>
+                                        (Timing)
+                                    </span>
                                 </div>
                             </div>
+                            <div> <span class="fa fa-star star-active"></span> <span
+                                    class="fa fa-star star-active"></span> <span
+                                    class="fa fa-star star-active"></span> <span
+                                    class="fa fa-star star-active"></span> <span
+                                    class="fa fa-star star-active"></span> </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <a class="all-btn cursor" routerLink="/testimonials">All Reviews</a>
+                    
+                        <div class="col-md-4 testimonials-clean" *ngFor="let rv of bus.reviews">
+                            <div class="de-angu1 border">
+                                <div class="author item">
+                                    <img class="rounded-circle"
+                                        *ngIf="rv.profile_image=='' || rv.profile_image== null "
+                                        src="../../assets/img/user.png">
+                                    <img class="rounded-circle"
+                                        *ngIf="rv.profile_image!='' && rv.profile_image!=null"
+                                        src="{{ rv.profile_image }}">
+                                    <h5 class="name">{{ rv.name }}</h5>
+                                    <span class="rv_img">
+                                        <ngb-rating [rate]="rv.rating_overall" [max]="5"
+                                            [readonly]="true"></ngb-rating>
+                                    </span>
+                                </div>
+                                <h2 class="heading-ser">{{ rv.title }}</h2>
+                                <div class="box">
+                                    <div class="description">
+                                        {{ rv.comments }}
+                                    </div>
+                                </div>
+                            </div>
+                       
                     </div>
                 </div>
+                </div>
+
             </div>
             <div id="booking_policy{{i}}" *ngIf="policyShow === i">
                 <ul class="ul-booking nav1 nav-pills1" ngbNav #policynav="ngbNav" [activeId]="5">

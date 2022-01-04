@@ -7,6 +7,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {SearchRoutingModule} from  './search-routing.module';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { LightboxModule } from 'ngx-lightbox';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     NgbModule ,
     SearchRoutingModule  ,
-    NgSelectModule 
+    NgSelectModule ,
+    LightboxModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [],
