@@ -484,13 +484,13 @@
                                                         <input type="checkbox" id="upper{{col.id}}"
                                                         [value]="col.id"
                                                         (change)="updateUpperberth($event)" />                                                                                                                                                    
-                                                            <label *ngIf="col.seat_class_id == 2 " class="sleeper-blue"
+                                                            <label title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_sleeper_fare }}" *ngIf="col.seat_class_id == 2 " class="sleeper-blue"
                                                             for=upper{{col.id}}>{{ col.seatText }}</label>                                                         
                                                             
-                                                            <label *ngIf="col.seat_class_id == 1 " class="seat-blue fixsize"
+                                                            <label title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_sleeper_fare }}" *ngIf="col.seat_class_id == 1 " class="seat-blue fixsize"
                                                             for="upper{{col.id}}">{{ col.seatText }}</label>
 
-                                                            <label *ngIf="col.seat_class_id == 3 " class="vertical-sleeper"
+                                                            <label title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_sleeper_fare }}" *ngIf="col.seat_class_id == 3 " class="vertical-sleeper"
                                                             for="upper{{col.id}}">{{ col.seatText }}</label>                                                                           
                                                         
                                                     </div>
@@ -565,13 +565,13 @@
                                                         <input type="checkbox" id="lower{{col.id}}"
                                                         [value]="col.id"
                                                         (change)="updateLowerberth($event)" />                                                                                                                                                    
-                                                            <label *ngIf="col.seat_class_id == 2 " class="sleeper-blue"
+                                                            <label title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_seat_fare }}" *ngIf="col.seat_class_id == 2 " class="sleeper-blue"
                                                             for=lower{{col.id}}>{{ col.seatText }}</label>                                                         
                                                             
-                                                            <label *ngIf="col.seat_class_id == 1 " class="seat-blue fixsize"
+                                                            <label title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_seat_fare }}" *ngIf="col.seat_class_id == 1 " class="seat-blue fixsize"
                                                             for="lower{{col.id}}">{{ col.seatText }}</label>
 
-                                                            <label *ngIf="col.seat_class_id == 3 " class="vertical-sleeper"
+                                                            <label title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_seat_fare }}" *ngIf="col.seat_class_id == 3 " class="vertical-sleeper"
                                                             for="lower{{col.id}}">{{ col.seatText }}</label> 
                                                     </div>
                                                 </li>
@@ -624,7 +624,7 @@
                                         <label>Selected Seats</label> <br>
                                         <span class="selcted_seats"
                                             *ngIf="selectedUB.length !=0"><img
-                                                src="assets/img/sleeper-blue.svg" class="sl-56"
+                                                src="assets/img/sleeper-blue.svg"  class="sl-56"
                                                 > {{ selectedUB }} </span>
                                         <span class="selcted_seats"
                                             *ngIf="selectedLB.length !=0 && selectedUB.length !=0 ">
