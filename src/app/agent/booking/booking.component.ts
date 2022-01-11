@@ -8,6 +8,8 @@ import { debounceTime, map } from 'rxjs/operators';
 import { NotificationService } from '../../services/notification.service';
 import { Location } from '@angular/common';
 import { NgxSpinnerService } from "ngx-spinner";
+import {Constants} from '../../constant/constant' ;
+import { CommonService  } from '../../services/common.service';
 
 @Component({
   selector: 'app-booking',
@@ -41,10 +43,27 @@ export class BookingComponent implements OnInit {
     private spinner: NgxSpinnerService ,
     private fb: FormBuilder,
     private locationService: LocationdataService,
-    private dtconfig: NgbDatepickerConfig,
+    public dtconfig: NgbDatepickerConfig,
     private location: Location,
-    private notify: NotificationService
+    private notify: NotificationService,
+    private common : CommonService
     ) { 
+
+      const data={
+        user_id:Constants.MASTER_SETTING_USER_ID
+      };
+
+      this.common.getCommonData(data).subscribe(
+        resp => {
+
+            const current = new Date();
+            this.dtconfig.minDate = { year: current.getFullYear(), month: 
+            current.getMonth() + 1, day: current.getDate() };
+
+            this.dtconfig.maxDate = { year: current.getFullYear(), month: 
+            current.getMonth() + 1, day: current.getDate()+ resp.data.common.advance_days_show  };
+
+        });
 
       
       this.locationService.all().subscribe(

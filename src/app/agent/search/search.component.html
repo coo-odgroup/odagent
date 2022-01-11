@@ -88,7 +88,7 @@
                                         [(ngModel)]="jrnyDt" 
                                          ngbDatepicker 
                                          (click)="d.toggle()"
-                                          #d="ngbDatepicker" readonly>
+                                          #d="ngbDatepicker" readonly [min]="dtconfig.minDate" [max]="dtconfig.maxDate">
    
                                     </div>
                                 </div>
@@ -349,17 +349,13 @@
                             </li>
                             <li class="p-2 flex-fill">
 
+                                <a class="vw-sit sold_out" disabled
+                                *ngIf="bus.display == 'hide'" style="font-size: 10px;">TIME EXCEEDED</a> 
+
                                 <a class="vw-sit cursor" id="showbtn{{i}}"  (click)="ShowLayout(i)" 
-                                *ngIf="bus.totalSeats > 0" >View Seat</a>
+                                *ngIf="bus.totalSeats > 0 && bus.display  == 'show'" >View Seat</a>
                                 
-                                <!-- <a class="vw-sit cursor"  (click)="ShowLayout(i,'show')" 
-                                *ngIf="bus.totalSeats > 0 && (bus.busId != busId || !bus.busId ) && type=='hide' " >View Seat </a>
-                                
-                                <a class="vw-sit cursor"  (click)="ShowLayout(i,'hide')" 
-                                *ngIf="bus.totalSeats > 0 && bus.busId == busId && type=='show' " >Hide Seat</a>                            -->
-                                
-                                <!-- <a class="vw-sit cursor"  (click)="ShowLayout(i)" *ngIf="bus.totalSeats > 0" >{{ (bus.busId == busId && seatsLayoutRecord.visibility) ? 'Hide Seat' : 'View Seat' }}</a> -->
-                                <a class="vw-sit sold_out" disabled  *ngIf="bus.totalSeats == 0" >SOLD OUT</a>
+                                  <a class="vw-sit sold_out" disabled  *ngIf="bus.totalSeats == 0" >SOLD OUT</a>
                                
                             </li>
                         </ul>
@@ -713,59 +709,91 @@
                 <ng-template #busphotoempty>No bus photos available...</ng-template>
                 </div>
                 </div>
-            <div id="review{{i}}" *ngIf="reviewShow === i">
-                
-                <ng-template #reviewempty>No bus reviews available...</ng-template>
-       
+                <div id="review{{i}}" *ngIf="reviewShow === i">
+    
+                    <ng-template #reviewempty>No bus reviews available...</ng-template>
+                   
                 <div class="safety_box1" *ngIf="bus.reviews.length > 0 ; else reviewempty ">
                 <div class="row safety_box-flex">
                     <div class="col-md-4 de-angu1 no-bg">
-                        <div><span class="rv_num">{{bus.Totalrating}}</span>
-                            <span class="rv_img">
-                                <ngb-rating [rate]="bus.Totalrating" [max]="5"
-                                    [readonly]="true"></ngb-rating>
-                                (Overall Rating)
-                            </span>
-                        </div>
-                        <div class="card card-re">
-                            <div class="rating-bar0 justify-content-center">
-                                <div><span class="rv_num">{{bus.Totalrating_comfort}}</span>
-                                    <span class="rv_img">
-                                        <ngb-rating [rate]="bus.Totalrating_comfort" [max]="5"
-                                            [readonly]="true"></ngb-rating>
-                                        (Comfort)
-                                    </span>
+            
+                        <div class="review" id="review">
+                            
+                            <div class="row mb-3">
+                                <div class="col-3 p-0">
+                                    <h6 class="font-weight-normal">Review</h6>
+                                    <p class="mb-0"><span class="h4 mb-0">{{bus.Totalrating}}</span><span class="h6">/5</span></p>
+                                 </div>
+                                <div class="start-rating f-8 col-7 p-0 pt-44">
+                                   <i class="fas fa-star text-danger"></i>
+                                   <i class="fas fa-star text-danger"></i>
+                                   <i class="fas fa-star text-danger"></i>
+                                   <i class="fas fa-star text-danger"></i>
+                                   <i class="fas fa-star text-danger"></i>
                                 </div>
-                                <div><span class="rv_num">{{bus.Totalrating_clean}}</span>
-                                    <span class="rv_img">
-                                        <ngb-rating [rate]="bus.Totalrating_clean" [max]="5"
-                                            [readonly]="true"></ngb-rating>
-                                        (Clean)
-                                    </span>
+                                <div class="col-2">
+                                 </div>
+                              
+                             </div>
+                            <div class="review-rating row align-items-center mb-1">
+                                <div class="col-2 p-0">
+                                    <span class="small">5.0</span>
                                 </div>
-                
-                
-                                <div><span class="rv_num">{{bus.Totalrating_behavior}}</span>
-                                    <span class="rv_img">
-                                        <ngb-rating [rate]="bus.Totalrating_behavior" [max]="5"
-                                            [readonly]="true"></ngb-rating>
-                                        (Behavior)
-                                    </span>
-                                </div>
-                                <div><span class="rv_num">{{bus.Totalrating_timing}}</span>
-                                    <span class="rv_img">
-                                        <ngb-rating [rate]="bus.Totalrating_timing" [max]="5"
-                                            [readonly]="true"></ngb-rating>
-                                        (Timing)
-                                    </span>
-                                </div>
+                               <div class="progress col-8 p-0">
+                                  <div class="progress-bar bg-danger" role="progressbar" style="width:100%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                               </div>
+                               <div class="col-2 p-0">
+                                  <span class="small">{{bus.Totalrating_5star}}</span>
+                               </div>
                             </div>
-                            <div> <span class="fa fa-star star-active"></span> <span
-                                    class="fa fa-star star-active"></span> <span
-                                    class="fa fa-star star-active"></span> <span
-                                    class="fa fa-star star-active"></span> <span
-                                    class="fa fa-star star-active"></span> </div>
-                        </div>
+                            <div class="review-rating row align-items-center mb-1">
+                                <div class="col-2 p-0">
+                                    <span class="small">4.0</span>
+                                 </div>
+                               <div class="progress col-8 p-0">
+                                  <div class="progress-bar bg-danger" role="progressbar" style="width: 80%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="75"></div>
+                               </div>
+                               <div class="col-2 p-0">
+                                  <span class="small">{{bus.Totalrating_4star}}</span>
+                               </div>
+                            </div>
+                            <div class="review-rating row align-items-center mb-1">
+                                <div class="col-2 p-0">
+                                    <span class="small">3.0</span>
+                                 </div>
+                               <div class="progress col-8 p-0">
+                                  <div class="progress-bar bg-danger" role="progressbar" style="width: 60%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="50"></div>
+                               </div>
+                               <div class="col-2 p-0">
+                                  <span class="small">{{bus.Totalrating_3star}}</span>
+                               </div>
+                            </div>
+                            <div class="review-rating row align-items-center mb-1">
+                               
+                                <div class="col-2 p-0">
+                                    <span class="small">2.0</span>
+                                 </div>
+                               <div class="progress col-8 p-0">
+                                  <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="25"></div>
+                               </div>
+                               <div class="col-2 p-0">
+                                  <span class="small">{{bus.Totalrating_2star}}</span>
+                               </div>
+                            </div>
+                            <div class="review-rating row align-items-center mb-1">
+                                <div class="col-2 p-0">
+                                    <span class="small">1.0</span>
+                                 </div>
+                               <div class="progress col-8 p-0">
+                                  <div class="progress-bar bg-danger" role="progressbar" style="width:20%" aria-valuenow="5" aria-valuemin="0" aria-valuemax="5"></div>
+                               </div>
+                               <div class="col-2 p-0">
+                                  <span class="small">{{bus.Totalrating_1star}}</span>
+                               </div>
+                            </div>
+                            
+                         </div>
+            
                     </div>
                     
                         <div class="col-md-4 testimonials-clean" *ngFor="let rv of bus.reviews">
@@ -792,10 +820,9 @@
                             </div>
                        
                     </div>
+                </div>               
                 </div>
                 </div>
-
-            </div>
             <div id="booking_policy{{i}}" *ngIf="policyShow === i">
                 <ul class="ul-booking nav1 nav-pills1" ngbNav #policynav="ngbNav" [activeId]="5">
                     <li class="active" [ngbNavItem]=5>

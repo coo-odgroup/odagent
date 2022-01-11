@@ -14,6 +14,8 @@ export class Constants {
     public static RecordDeleteTitle: any = "Record Deleted Successfully";
     public static RecordLimit: any = 10 ;
     public static USER_ID:any = "";
+    public static MASTER_SETTING_USER_ID:any = 1;
+    
 
     //FOR LOCAL
     //public static BASE_URL:any ='http://127.0.0.1:8000/api';

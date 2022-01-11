@@ -62,7 +62,7 @@
                                                     </div>
                                                     <input type="text" autocomplete="off" readonly class="form-control calendar rounded-0" formControlName="entry_date"  
                                                     placeholder="Journey Date" aria-label="Journey Date" 
-                                                    aria-describedby="basic-addon3" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker">
+                                                    aria-describedby="basic-addon3" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker" [min]="dtconfig.minDate" [max]="dtconfig.maxDate">
                                                 </div>
                                             </div>
                                         </div>

@@ -25,6 +25,7 @@ import { Lightbox } from 'ngx-lightbox';
 
 
 
+
 export const DATEPICKER_VALUE_ACCESSOR =  {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SearchComponent),
@@ -191,11 +192,24 @@ export class SearchComponent  implements ControlValueAccessor {
         private _lightbox: Lightbox
 
      ) {
-          const current = new Date();
-          this.dtconfig.minDate = { year: current.getFullYear(), month: 
-          current.getMonth() + 1, day: current.getDate() };
 
+      const data={
+        user_id:Constants.MASTER_SETTING_USER_ID
+      };
 
+      this.common.getCommonData(data).subscribe(
+        resp => {
+
+            const current = new Date();
+            this.dtconfig.minDate = { year: current.getFullYear(), month: 
+            current.getMonth() + 1, day: current.getDate() };
+
+            this.dtconfig.maxDate = { year: current.getFullYear(), month: 
+            current.getMonth() + 1, day: current.getDate()+ resp.data.common.advance_days_show  };
+
+        });
+
+        
           this.buslistRecord = {} as Buslist;
 
           this.seatsLayouts=[];
