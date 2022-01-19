@@ -1,5 +1,5 @@
 <ngx-spinner bdColor = "rgba(60,55,55,0.8)" size = "large" color = "#fff" type = "ball-clip-rotate-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
-
+<div class="search-bgbg">
 <section class="modify-section">
     <div class="container">
         <div class="justify-content-center row">
@@ -29,10 +29,15 @@
             </div>
         </div>
 
-            <div class="row justify-content-center" *ngIf="isShown">
+            <div class="justify-content-center" *ngIf="isShown">
 
             <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
-            <div class="col-md-12">
+                <div class="row">
+                    <span class="list-close" (click)="toggleShow()">Close</span>
+                </div>
+            <div class="row">
+           
+            <div class="col-md-12 plr0">
                 <div class="hero-banner-inner-srchbus">
                     <h3>Modify Your Search</h3>
                     <div class="row no-gutters">
@@ -40,7 +45,7 @@
                             <div class="row no-gutters">
                                 <div class="col-md-4 pr-1">
                                     <p>From</p>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1"><img src="assets/img/Icon-metro-location.svg"></span>
                                             <input autocomplete="off" id="typeahead-template" type="text" class="form-control" [ngbTypeahead]="search"
@@ -58,7 +63,7 @@
                                     <div class="swap-srch cursor">
                                        <img (click)=swap(); src="assets/img/swap.svg">
                                     </div>
-                                    <div class="input-group mb-3">
+                                    <div class="mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon2"><img
                                                     src="assets/img/Icon-metro-location.svg"></span>
@@ -97,11 +102,13 @@
                         <div class="col-md-2">
                             <p style="opacity: 0;">Serach</p>
                             <div class="bus_search" style="top:0px">
-                                <button type="submit" class="btn">Search</button>
+                                <button type="submit" class="btn">Modify Search</button>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            
             </div>
            </form>
         </div>
@@ -299,7 +306,7 @@
                 <div class="row">
                     <div class="col-md-12 pt-3 pb-1 bck-white bck-white-one">
                         <div class="icon-assured">
-                            <img src="assets/img/icon-assured.svg">
+                            <img src="assets/img/icon-assured.png">
                         </div>
                     </div>
                 </div>
@@ -619,17 +626,16 @@
                                     <div class="form-group">
                                         <label>Selected Seats</label> <br>
                                         <span class="selcted_seats"
-                                            *ngIf="selectedUB.length !=0"><img
-                                                src="assets/img/sleeper-blue.svg"  class="sl-56"
-                                                > {{ selectedUB }} </span>
+                                            *ngIf="selectedUB.length !=0">
+                                            <b>Sleeper No.</b>  <span>{{ selectedUB }}</span> </span>
+                                            
                                         <span class="selcted_seats"
                                             *ngIf="selectedLB.length !=0 && selectedUB.length !=0 ">
                                             <br> </span>
 
                                         <span class="selcted_seats"
-                                            *ngIf="selectedLB.length !=0"><img
-                                                src="assets/img/seat-blue.svg" class="se-56">
-                                            {{ selectedLB }} </span>
+                                            *ngIf="selectedLB.length !=0"><b>Seat No.</b> 
+                                            <span>{{ selectedLB }} </span> </span>
                                     </div>
                                     <div class="row form-group" *ngIf="PriceArray.ownerFare > 0">
                                         <div class="col-md-6">
@@ -830,7 +836,7 @@
                         <ng-template ngbNavContent>
                             <div class="policy_box">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-7">
                                         <div class="safety_box">
                                             <h1 class="policy-h1">Your current ticket cancellation
                                                 charges</h1>
@@ -854,7 +860,7 @@
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-5">
                                         <div class="safety_box"
                                             [innerHTML]="getContent(bus.cancellationPolicyContent)">
                                         </div>
@@ -866,26 +872,56 @@
                     <li [ngbNavItem]=6>
                         <a data-toggle="pill" ngbNavLink>Travel Related Policy</a>
                         <ng-template ngbNavContent>
-                            <div class="policy_box" style="padding-left: 4%;">
-                                <b>Child passenger policy</b><br>
-                                Children above the age of 5 will need a ticket<br>
+                            <div class="policy_box">
+                                <div class="row pol-box">
+                                    <div class="col-md-1"><i class="fas fa-child"></i></div>
+                                    <div class="col-md-11 p-0">
+                                        <h5>Child Passenger Policy</h5>
+                                        <p>Children above the age of 5 will need a ticket.</p>
+                                    </div>
+                                    
+                                </div>
                                 <hr>
-                                <b>Luggage policy</b><br>
-                                2 pieces of luggage will be accepted free of charge per passenger.
-                                Excess items will be chargeable
-                                Excess baggage over 15 kgs per passenger will be chargeable <br>
+                                <div class="row pol-box">
+                                    <div class="col-md-1"><i class="fas fa-suitcase-rolling"></i></div>
+                                    <div class="col-md-11 p-0">
+                                        <h5>Luggage Policy</h5>
+                                        <p>2 pieces of luggage will be accepted free of charge per passenger.
+                                            Excess items will be chargeable Excess baggage over 15 kgs per passenger will be chargeable.</p>
+                                    </div>
+                                    
+                                </div>
                                 <hr>
-                                <b>Pets Policy</b><br>
-                                Pets are not allowed
+                                <div class="row pol-box">
+                                    <div class="col-md-1"><i class="fas fa-paw"></i></div>
+                                    <div class="col-md-11 p-0">
+                                        <h5>Pets Policy</h5>
+                                        <p>Pets are not allowed.</p>
+                                    </div>
+                                    
+                                </div>
                                 <hr>
-                                <b>Liquor Policy</b><br>
-                                Carrying or consuming liquor inside the bus is prohibited. Bus
-                                operator reserves the right to deboard drunk passengers.
+                                <div class="row pol-box">
+                                    <div class="col-md-1"><i class="fas fa-glass-martini-alt"></i></div>
+                                    <div class="col-md-11 p-0">
+                                        <h5>Liquor Policy</h5>
+                                        <p>Carrying or consuming liquor inside the bus is prohibited. Bus operator reserves the right to deboard drunk passengers.</p>
+                                    </div>
+                                    
+                                </div>
                                 <hr>
-                                <b>Pick up time policy</b><br>
-                                Bus operator is not obligated to wait beyond the scheduled departure
-                                time of the bus. No refund request will be entertained for late
-                                arriving passengers.
+                                <div class="row pol-box">
+                                    <div class="col-md-1"><i class="fas fa-history"></i></div>
+                                    <div class="col-md-11 p-0">
+                                        <h5>Pick Up Time Policy</h5>
+                                        <p>Bus operator is not obligated to wait beyond the scheduled departure
+                                            time of the bus. No refund request will be entertained for late
+                                            arriving passengers.</p>
+                                    </div>
+                                    
+                                </div>
+                               
+                               
                             </div>
                         </ng-template>
                     </li>
@@ -902,3 +938,5 @@
             </div>
         </div>
 </section>
+
+</div>

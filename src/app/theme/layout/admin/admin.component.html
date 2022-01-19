@@ -1,12 +1,12 @@
 <app-navigation class="pcoded-navbar" [ngClass]="{'navbar-collapsed' : navCollapsed, 'theme-horizontal': this.flatConfig['layout'] === 'horizontal', 'mob-open' : navCollapsedMob}" (onNavMobCollapse)="navMobClick()"></app-navigation>
 <app-nav-bar class="navbar pcoded-header navbar-expand-lg navbar-light" (onNavCollapse)="this.navCollapsed = !this.navCollapsed;" (onNavHeaderMobCollapse)="navMobClick()"></app-nav-bar>
-<div class="pcoded-main-container">
-    <div class="pcoded-content" [ngClass]="{'container': this.flatConfig.layout === 'horizontal' && this.flatConfig.subLayout === 'horizontal-2'}">
+<div class="pcoded-main-container xxd">
+    <div class="pcoded-content search-boxls" [ngClass]="{'container': this.flatConfig.layout === 'horizontal' && this.flatConfig.subLayout === 'horizontal-2'}">
       <app-breadcrumb></app-breadcrumb>
       <router-outlet></router-outlet>
     </div>
 </div>
-<div class="card card mb-0 pb-0">
+<div class="card card mb-0 pb-0 ft-box">
   <div class="card-body text-center ">
     All Rights Reserved @ SEOFIED IT SERVICES PVT. LTD.
   </div>

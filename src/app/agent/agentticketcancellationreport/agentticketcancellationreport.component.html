@@ -11,17 +11,17 @@
                         <form [formGroup]="searchFrom">
                             <div class="row">
                                 <div class="col-3">
-                                    <div class="form-group row">
-                                        <div class="col-sm-12">
+                                    <div class="form-group">
                                             <ng-select [items]="busoperators" bindLabel="operator_name" bindValue="id"
                                                 placeholder="Select Operator" formControlName="bus_operator_id"
                                                 [clearable]="false">
                                             </ng-select>
-                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-9">
                                     <div class="row">
+                                        <div class="form-group col-4">
+                                            <div class="input-group">
                                         <input class="form-control hidden" ngbDatepicker #datepicker="ngbDatepicker"
                                             [autoClose]="'outside'" (dateSelect)="onDateSelection($event)"
                                             [displayMonths]="2" [dayTemplate]="t" outsideDays="hidden"
@@ -34,7 +34,9 @@
                                                 {{ date.day }}
                                             </span>
                                         </ng-template>
-                                        <div class="form-group col-6">
+                                        </div>
+                                        </div>
+                                        <div class="form-group col-4">
                                             <div class="input-group">
                                                 <input #dpFromDate class="form-control sml_input"
                                                     placeholder="yyyy-mm-dd" formControlName="rangeFromDate"
@@ -46,7 +48,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-group col-6">
+                                        <div class="form-group col-4">
                                             <div class="input-group">
                                                 <input #dpToDate class="form-control sml_input" placeholder="yyyy-mm-dd"
                                                     formControlName="rangeToDate" [value]="formatter.format(toDate)"
@@ -61,7 +63,8 @@
 
                                 </div>
 
-                                <div class="col-2">
+
+                                <div class="col-3">
 
                                     <div class="dropdown">
                                         <select class="form-control sml_input" formControlName="date_type">
@@ -72,16 +75,58 @@
 
                                 </div>
 
-                                <div class="col-2">
-                                    <div class="col-sm-12">
-                                        <div class="dropdown float-right">
+                                <div class="col-3">
+                                    
+                                        <div class="dropdown ">
                                             <input type="text" class="form-control sml_input" placeholder="Payment Id"
                                                 required formControlName="payment_id" />
                                         </div>
+                                   
+                                </div>
+
+                                <div class="col-3">
+                                    <div class="form-group ">
+                                            <ng-select [items]="locations" bindLabel="name" bindValue="id"
+                                                placeholder="Select Source" formControlName="source_id"
+                                                [clearable]="false" (change)="findSource($event)">
+                                            </ng-select>
                                     </div>
                                 </div>
 
-                                <div class="col-1">
+                                <div class="col-3">
+                                    <div class="form-group">
+                                            <ng-select [items]="locations" bindLabel="name" bindValue="id"
+                                                placeholder="Select Destination"
+                                                formControlName="destination_id" [clearable]="false"
+                                                (change)="findSource($event)">
+                                            </ng-select>
+                                    </div>
+                                </div>
+
+                                
+
+                            </div>
+                            <div class="row ">
+                                
+                                <div class="col-6">
+                                    <button type="button" class="btn btn-success  sml_input mr-10" (click)="search()"
+                                        title="search">
+                                        <i class="fas fa-search"> </i> Search
+                                    </button>
+                                    <button type="button" class="btn btn-danger sml_input mr-10" (click)="refresh()"
+                                        title="refresh">
+                                        <i class="fas fa-sync-alt"> </i> Refresh
+                                    </button>
+                                    <button type="button" (click)="exportexcel()" class="btn btn-warning  sml_input mr-10"
+                                        title="Export">
+                                        <i class="fas fa-file-export"> </i> Export
+                                    </button>
+                                    <button type="button" printSectionId="print-section" ngxPrint
+                                        class="btn btn-info sml_input" [useExistingCss]="true" title="Print">
+                                        <i class="fas fa-print"> </i> Print
+                                    </button>
+                                </div>
+                                <div class="col-6">
                                     <div class="dropdown float-right">
                                         <select class="form-control sml_input" formControlName="rows_number"
                                             (change)=search()>
@@ -93,56 +138,9 @@
                                         </select>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="row ">
-                                <div class="col-8 p-0">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <div class="form-group ">
-                                                <div class="col-sm-12">
-                                                    <ng-select [items]="locations" bindLabel="name" bindValue="id"
-                                                        placeholder="Select Source" formControlName="source_id"
-                                                        [clearable]="false" (change)="findSource($event)">
-                                                    </ng-select>
-                                                </div>
-                                            </div>
-                                        </div>
 
-
-                                        <div class="col-6">
-                                            <div class="form-group">
-                                                <div class="col-sm-12">
-                                                    <ng-select [items]="locations" bindLabel="name" bindValue="id"
-                                                        placeholder="Select Destination"
-                                                        formControlName="destination_id" [clearable]="false"
-                                                        (change)="findSource($event)">
-                                                    </ng-select>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <button type="button" class="btn btn-success  sml_input" (click)="search()"
-                                        title="search">
-                                        <i class="fas fa-search"> </i> Search
-                                    </button>
-                                    <button type="button" class="btn btn-danger sml_input" (click)="refresh()"
-                                        title="refresh">
-                                        <i class="fas fa-sync-alt"> </i> Refresh
-                                    </button>
-                                    <button type="button" (click)="exportexcel()" class="btn btn-warning  sml_input"
-                                        title="Export">
-                                        <i class="fas fa-file-export"> </i> Export
-                                    </button>
-                                    <button type="button" printSectionId="print-section" ngxPrint
-                                        class="btn btn-info sml_input" [useExistingCss]="true" title="Print">
-                                        <i class="fas fa-print"> </i> Print
-                                    </button>
-                                </div>
-                            </div>
+                           
                         </form>
                     </div>
 
@@ -153,7 +151,7 @@
                 <table class="table table-striped ">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
+                            <th scope="col" width="80px" style="text-align: center;">#</th>
                             <th scope="col">Ticket Details</th>
                             <th scope="col">Boarding Point/Time</th>
                             <th scope="col">Cancel Date/Time</th>
@@ -170,7 +168,7 @@
                     </thead>
                     <tbody *ngIf="cancelticketdata?.data.data?.length != 0">
                         <tr *ngFor="let complete of cancelticketdata?.data.data; let i = index">
-                            <td>{{ i+1 }}</td>
+                            <td style="text-align: center;">{{ i+1 }}</td>
                             <td>
                                 <strong>{{complete.pnr}}</strong> ( {{complete.journey_dt}} )
                                 <br>
@@ -334,7 +332,7 @@
                 </table>
                 <div *ngIf="cancelticketdata?.data.data?.length != 0" class="hide_print">
                     <div class="d-flex flex-row-reverse mb-4 text-center" *ngIf="cancelticketdata?.data.links">
-                        <nav class="my-1 pt-1 ">
+                        <nav class="my-1 pt-4 ">
                             <ul class="pagination pagination-circle pg-blue mb-0">
                                 <li (click)="search(cancelticketdata.data.links.first_page_url,statusLabel)"
                                     class="page-item {{ cancelticketdata.data.current_page == 1 ? 'disabled' : '' }} clearfix d-none d-md-block">
