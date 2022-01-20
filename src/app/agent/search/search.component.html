@@ -14,7 +14,7 @@
                        
                         <li><img class="icn-wh" src="../../../assets/img/Icon-metro-calendar-white.svg">{{ entdate }}</li>
                         
-                        <li (click)="search_next();"> <i class="fas fa-angle-right"></i> </li>
+                        <li *ngIf="nextDate!=''"  (click)="search_next();"> <i class="fas fa-angle-right"></i> </li>
 
                    
                     </ul>
@@ -358,11 +358,12 @@
 
                                 <a class="vw-sit sold_out" disabled
                                 *ngIf="bus.display == 'hide'" style="font-size: 10px;">TIME EXCEEDED</a> 
+                                <a class="vw-sit cursor showbtn" id="showbtn{{i}}"
+                                (click)="ShowLayout(i)" *ngIf="bus.totalSeats > 0 && bus.display  == 'show'">View
+                                Seat</a>
+                               <a class="vw-sit sold_out" disabled
+                                *ngIf="bus.totalSeats == 0">SOLD OUT</a> 
 
-                                <a class="vw-sit cursor" id="showbtn{{i}}"  (click)="ShowLayout(i)" 
-                                *ngIf="bus.totalSeats > 0 && bus.display  == 'show'" >View Seat</a>
-                                
-                                  <a class="vw-sit sold_out" disabled  *ngIf="bus.totalSeats == 0" >SOLD OUT</a>
                                
                             </li>
                         </ul>
@@ -420,6 +421,12 @@
 
         <div class="col-md-12 p-0 angu-border">
             <div id="seatlayout{{i}}" *ngIf="seatlayoutShow === i">
+
+                <div align="right" class="bt-close">
+                    <button (click)="closeTab(i)" class="btn btn-default btn-xs"><i class="fa fa-close"></i> Close</button>
+            
+                   </div> 
+
                 <form [formGroup]="seatForm" (ngSubmit)="submitSeat()">
                     <div class="row paddtb40">
                         <div class="col-md-8">
@@ -662,6 +669,12 @@
             </div>
 
             <div id="amenity_div{{i}}" *ngIf="amenityShow === i">
+
+                <div align="right" class="bt-close">
+                    <button (click)="closeTab(i)" class="btn btn-default btn-xs"><i class="fa fa-close"></i> Close</button>
+            
+                   </div> 
+
                 <div class="safety_box">
                     <div *ngIf="bus.amenity.length != 0" class="bus-dtl-btm-panel-left">
                         <div *ngFor="let nm of bus.amenity; let am=index; " class="p-2 flex-fill de-angu">
@@ -677,6 +690,12 @@
 
 
             <div id="safety{{i}}" *ngIf="safetyshow === i">
+
+                <div align="right" class="bt-close">
+                    <button (click)="closeTab(i)" class="btn btn-default btn-xs"><i class="fa fa-close"></i> Close</button>
+            
+                   </div> 
+
                 <div class="safety_box">
                     <div *ngIf="bus.safety.length != 0 ; else safeiconempty">
                         <div *ngFor="let sf of bus.safety; let i=index; "
@@ -691,6 +710,11 @@
                 </div>
             </div>
             <div id="bus_pic{{i}}" *ngIf="busPhotoshow === i">
+
+                <div align="right" class="bt-close">
+                    <button (click)="closeTab(i)" class="btn btn-default btn-xs"><i class="fa fa-close"></i> Close</button>
+            
+                   </div> 
                 <div class="safety_box">
             
                 <div *ngIf="bus.busPhotos.length != 0 ; else busphotoempty">
@@ -716,6 +740,11 @@
                 </div>
                 </div>
                 <div id="review{{i}}" *ngIf="reviewShow === i">
+
+                    <div align="right" class="bt-close">
+                        <button (click)="closeTab(i)" class="btn btn-default btn-xs"><i class="fa fa-close"></i> Close</button>
+                
+                       </div> 
     
                     <ng-template #reviewempty>No bus reviews available...</ng-template>
                    
@@ -830,6 +859,11 @@
                 </div>
                 </div>
             <div id="booking_policy{{i}}" *ngIf="policyShow === i">
+
+                <div align="right" class="bt-close">
+                    <button (click)="closeTab(i)" class="btn btn-default btn-xs"><i class="fa fa-close"></i> Close</button>
+            
+                   </div> 
                 <ul class="ul-booking nav1 nav-pills1" ngbNav #policynav="ngbNav" [activeId]="5">
                     <li class="active" [ngbNavItem]=5>
                         <a data-toggle="pill" ngbNavLink>Cancellation Policy</a>

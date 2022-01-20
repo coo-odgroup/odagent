@@ -6,7 +6,7 @@ import { NgbDatepickerConfig} from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { NotificationService } from '../../services/notification.service';
-import { Location } from '@angular/common';
+import { formatDate, Location } from '@angular/common';
 import { NgxSpinnerService } from "ngx-spinner";
 import {Constants} from '../../constant/constant' ;
 import { CommonService  } from '../../services/common.service';
@@ -38,7 +38,6 @@ export class BookingComponent implements OnInit {
   sourceData:any;
   destinationData:any;
 
-
   constructor(private router: Router,
     private spinner: NgxSpinnerService ,
     private fb: FormBuilder,
@@ -60,8 +59,12 @@ export class BookingComponent implements OnInit {
             this.dtconfig.minDate = { year: current.getFullYear(), month: 
             current.getMonth() + 1, day: current.getDate() };
 
-            this.dtconfig.maxDate = { year: current.getFullYear(), month: 
-            current.getMonth() + 1, day: current.getDate()+ resp.data.common.advance_days_show  };
+            let maxDate = current.setDate(current.getDate() + resp.data.common.advance_days_show); 
+
+            const max = new Date(maxDate);
+            this.dtconfig.maxDate = { year: max.getFullYear(), month: 
+              max.getMonth() + 1, day: max.getDate() };
+
 
         });
 

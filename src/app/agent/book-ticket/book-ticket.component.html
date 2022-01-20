@@ -116,7 +116,7 @@
 
 					<h5>Bus Details:</h5><hr>
 					<span class="font">Bus Name</span>
-					<h5>{{ busRecord.busName }}</h5>
+					<h5>{{ busRecord.busName }} ({{ busRecord.busNumber }})</h5>
 					<h6>{{ busRecord.busType }} {{ busRecord.busTypeName }} {{ busRecord.sittingType}}</h6>
 					<h6> 	<b *ngIf="ub_seats!=''"> <img src="../../../assets/img/sleeper-blue.svg" style="width:35px"> {{ ub_seats }}</b>
 						<span *ngIf="lb_seats!='' && ub_seats!='' "> <br> </span>
@@ -202,8 +202,8 @@
 				</div>
 
 				<div class="col-md-3">
-					<h5>{{ entdate | date:'fullDate' }}</h5>					
-					<h5><img src="../../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }}</h5>
+					<h5>{{ entdate | date:'EEEE, d MMMM , y' }}</h5>					
+					<h5><img src="../../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }} ({{ busRecord.busNumber }})</h5>
 					
 					<h6 class="padding-left">{{ passengerFormGroup.length }} Passenger(s)</h6>
 									
@@ -291,7 +291,7 @@
 			<div class="row">
 					   <div class="col-md-8">
 						<h6 class="grey"><b>PAYABLE AMOUNT</b></h6>
-						   <h5>₹ {{ bookingdata.PriceArray.totalFare }} </h5>
+						   <h5>₹ {{ payableAmount }} </h5>
 
 						   <label class="terms">
 							<input formControlName="tnc" #tnc
@@ -371,8 +371,8 @@
 							</h5>
 							<h5>{{ bookingdata.droppingPoint }} - {{ busRecord.arrivalTime }}</h5>
 						</th>
-							<th>{{ entdate | date:'fullDate' }}
-								<h5><img src="../../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }}</h5>
+							<th>{{ entdate | date:'EEEE, d MMMM , y' }}
+								<h5><img src="../../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }} ({{ busRecord.busNumber }})</h5>
 							<h6 class="padding-left">{{ passengerFormGroup.length }} Passenger(s)</h6>
 						</th>
 						</thead>

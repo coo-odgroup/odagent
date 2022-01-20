@@ -96,7 +96,7 @@ export class SearchComponent  implements ControlValueAccessor {
   jrnyDt:any;
   buslist :Buslist[] =[];
   buslistRecord :Buslist;
-  currentSeatlayoutIndex:any='';
+  currentSeatlayoutIndex:boolean=false;
 
   busId: any;
 
@@ -170,7 +170,7 @@ export class SearchComponent  implements ControlValueAccessor {
 
   prevDate:any;
   nextDate:any;
-
+  maxAllowedDate:any=new Date();
   show = 5;
  
   constructor(
@@ -193,22 +193,7 @@ export class SearchComponent  implements ControlValueAccessor {
 
      ) {
 
-      const data={
-        user_id:Constants.MASTER_SETTING_USER_ID
-      };
-
-      this.common.getCommonData(data).subscribe(
-        resp => {
-
-            const current = new Date();
-            this.dtconfig.minDate = { year: current.getFullYear(), month: 
-            current.getMonth() + 1, day: current.getDate() };
-
-            this.dtconfig.maxDate = { year: current.getFullYear(), month: 
-            current.getMonth() + 1, day: current.getDate()+ resp.data.common.advance_days_show  };
-
-        });
-
+     
         
           this.buslistRecord = {} as Buslist;
 
@@ -449,7 +434,7 @@ export class SearchComponent  implements ControlValueAccessor {
       busId: this.busId
     }
 
-        let params='';
+    let params='entry_date='+this.entdate;
         let seaterparam='';
         let sleeperparam='';
 
@@ -578,7 +563,7 @@ export class SearchComponent  implements ControlValueAccessor {
    
     if(this.selectedLB.length != 0 || this.selectedUB.length != 0){
 
-      params +='destinationId='+SeatPriceParams.destinationId+'&sourceId='+SeatPriceParams.sourceId+'&busId='+SeatPriceParams.busId
+      params +='&destinationId='+SeatPriceParams.destinationId+'&sourceId='+SeatPriceParams.sourceId+'&busId='+SeatPriceParams.busId
       if(seaterparam){
         params += seaterparam;
       }
@@ -1125,18 +1110,11 @@ export class SearchComponent  implements ControlValueAccessor {
     this.maxSeat=this.buslistRecord.maxSeatBook;
     let currentBusId=this.buslist[id].busId;
 
-    this.currentSeatlayoutIndex=id;
+    this.currentSeatlayoutIndex=true;
    
     let showbtn = document.getElementById('showbtn'+id).innerHTML;
 
-    if(showbtn == 'View Seat'){
-      document.getElementById('showbtn'+id).innerHTML = 'Hide Seat';
-    }
-    if(showbtn =='Hide Seat'){
-      document.getElementById('showbtn'+id).innerHTML = 'View Seat';
-    }
-
-    
+    this.checkSeatHTML(id);    
 
     this.safetyshow='';
     this.busPhotoshow='';
@@ -1151,7 +1129,10 @@ export class SearchComponent  implements ControlValueAccessor {
         this.buslist.forEach((item, index) => { 
           
           if(id!=index){
-            document.getElementById('showbtn'+index).innerHTML = 'View Seat';
+            if(document.getElementById('showbtn'+index) != null){
+              document.getElementById('showbtn'+index).innerHTML = 'View Seat';
+            }
+            
           }          
         }); 
 
@@ -1200,6 +1181,9 @@ export class SearchComponent  implements ControlValueAccessor {
 
   showAllAmenity(id:any){
 
+    this.currentSeatlayoutIndex=false;
+
+
     this.seatsLayoutRecord.visibility =false;
     this.checkedIndex=0;
     this.seatlayoutShow='';
@@ -1209,10 +1193,54 @@ export class SearchComponent  implements ControlValueAccessor {
     this.policyShow='';
     this.amenityShow=id;
 
+
+   this.checkSeatHTML(id);
+
+
   }
 
+  closeTab(id:any){
+    this.seatsLayoutRecord.visibility =false;
+    this.checkedIndex=0;
+    this.seatlayoutShow='';
+    this.safetyshow='';
+    this.busPhotoshow='';
+    this.reviewShow='';
+    this.policyShow='';
+    this.amenityShow='';
+     this.checkSeatHTML(id);
+
+  }
+
+  checkSeatHTML(id:any){  
+
+    if(this.currentSeatlayoutIndex==true){
+
+      let showbtn = document.getElementById('showbtn'+id).innerHTML;
+
+      if(showbtn == 'View Seat'){
+        document.getElementById('showbtn'+id).innerHTML = 'Hide Seat';
+      }
+      if(showbtn =='Hide Seat'){
+        document.getElementById('showbtn'+id).innerHTML = 'View Seat';
+      }
+
+    }else{
+        for (var i = 0; i < this.totalfound; i++) {
+
+          if(document.getElementById('showbtn'+i) != null){
+            document.getElementById('showbtn'+i).innerHTML = 'View Seat';   
+          }
+                  
+        }
+
+    
+    }
+   
+  }
  
   safety(id:any){
+    this.currentSeatlayoutIndex=false;
     this.seatsLayoutRecord.visibility =false;
     this.checkedIndex=0;
     this.seatlayoutShow='';
@@ -1221,16 +1249,21 @@ export class SearchComponent  implements ControlValueAccessor {
     this.reviewShow='';
     this.policyShow='';
     this.amenityShow='';
+    this.checkSeatHTML(id);
 
   }
 
   bus_pic(id:any){
+
+    this.currentSeatlayoutIndex=false;
+
     this._albums=[];
 
     this.seatsLayoutRecord.visibility =false;
     this.checkedIndex=0;
     this.seatlayoutShow='';
     this.safetyshow='';
+
     this.busPhotoshow=id;
 
     let busRecord= this.buslist[id];
@@ -1315,35 +1348,45 @@ export class SearchComponent  implements ControlValueAccessor {
     } 
 
     this.reviewShow='';
-    this.policyShow='';
     this.amenityShow='';
+    this.policyShow='';
+
+    this.checkSeatHTML(id);
 
   }
 
   reviews(id:any){
+
+    this.currentSeatlayoutIndex=false;
+
     this.seatsLayoutRecord.visibility =false;
     this.checkedIndex=0;
     this.seatlayoutShow='';
     this.safetyshow='';
     this.busPhotoshow='';
     this.reviewShow=id;
-    this.policyShow='';
     this.amenityShow='';
+    this.policyShow='';
 
+    this.checkSeatHTML(id);
 
   }
 
 
   booking_policy(id:any){
+
+    this.currentSeatlayoutIndex=false;
+
     this.seatsLayoutRecord.visibility =false;
     this.checkedIndex=0;
     this.seatlayoutShow='';
     this.safetyshow='';
     this.busPhotoshow='';
     this.reviewShow='';
-    this.policyShow=id;
     this.amenityShow='';
+    this.policyShow=id;
 
+    this.checkSeatHTML(id);
   }
 
   getImagePath(icon :any){  
@@ -1436,31 +1479,69 @@ export class SearchComponent  implements ControlValueAccessor {
       localStorage.setItem('source_id', this.sourceData.id);
       localStorage.setItem('destination_id', this.destinationData.id);
 
+    
       this.showformattedDate(this.entdate);
       this.getbuslist();
-      this.setPrevNextDate(this.entdate);
+
+
+      const data={
+        user_id:Constants.MASTER_SETTING_USER_ID
+      };
+  
+      this.common.getCommonData(data).subscribe(
+        resp => {
+  
+            const current = new Date();
+            this.dtconfig.minDate = { year: current.getFullYear(), month: 
+            current.getMonth() + 1, day: current.getDate() };
+  
+            let maxDate = current.setDate(current.getDate() + resp.data.common.advance_days_show); 
+  
+            const max = new Date(maxDate);
+            this.dtconfig.maxDate = { year: max.getFullYear(), month: 
+              max.getMonth() + 1, day: max.getDate() };
+  
+            this.maxAllowedDate = this.maxAllowedDate.setDate(this.maxAllowedDate.getDate() + resp.data.common.advance_days_show); 
+            this.maxAllowedDate = formatDate(this.maxAllowedDate,'dd-MM-yyyy','en_US'); 
+
+            this.setPrevNextDate(this.entdate);
+  
+        });
+        
+
+      
     }
 
     
   }
 
-  setPrevNextDate(entdate:any){    
-    let dt = entdate.split("-");
+
+  setPrevNextDate(entDate:any){     
+    
+    
+    let dt = entDate.split("-");
     let dd=dt[2]+'-'+dt[1]+'-'+dt[0];
-    entdate = dd;
+    let entdate = dd;
 
     let currentDate = formatDate(new Date(),'yyyy-MM-dd','en_US');
     let entrdate = formatDate(new Date(entdate),'yyyy-MM-dd','en_US');
 
       let fentdate = new Date(entdate);
 
-      if(currentDate == entrdate){
+      if(this.maxAllowedDate == entDate){
+        this.nextDate = ''; 
+        this.prevDate = fentdate.setDate(fentdate.getDate() - 1); 
+        this.prevDate = formatDate(this.prevDate,'dd-MM-yyyy','en_US');
+      }
+
+
+      else if(currentDate == entrdate){
         this.nextDate = fentdate.setDate(fentdate.getDate() + 1); 
         this.nextDate = formatDate(this.nextDate,'dd-MM-yyyy','en_US');
         this.prevDate = '';        
        }
 
-       if(currentDate < entrdate){
+       else if(currentDate < entrdate){
         this.nextDate = fentdate.setDate(fentdate.getDate() + 1); 
         this.nextDate = formatDate(this.nextDate,'dd-MM-yyyy','en_US');
 
@@ -1468,7 +1549,7 @@ export class SearchComponent  implements ControlValueAccessor {
         this.prevDate = formatDate(this.prevDate,'dd-MM-yyyy','en_US');
         
       }
-
+     
   }
 
 }

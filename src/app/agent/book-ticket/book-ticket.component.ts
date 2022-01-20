@@ -65,6 +65,8 @@ export class BookTicketComponent implements OnInit {
    entdate:any;
    formatentdate:any;
 
+   payableAmount:any=0;
+
    razorpayResponse: any;
    response: any;
    tabclick :any = true;
@@ -168,6 +170,9 @@ export class BookTicketComponent implements OnInit {
       if(this.bookingdata.Lowerberth.length){
         this.seat_ids =this.seat_ids.concat(this.bookingdata.Lowerberth);
       }
+
+
+      this.payableAmount=this.bookingdata.PriceArray.totalFare;
       
     }
 
@@ -204,6 +209,9 @@ export class BookTicketComponent implements OnInit {
             app_type: ["AGENT"],
             typ_id: ["1"],
             total_fare: this.bookingdata.PriceArray.totalFare,
+            specialFare: this.bookingdata.PriceArray.specialFare,
+            addOwnerFare:this.bookingdata.PriceArray.addOwnerFare,
+            festiveFare:this.bookingdata.PriceArray.festiveFare,
             owner_fare: this.bookingdata.PriceArray.ownerFare,
             odbus_service_Charges: this.bookingdata.PriceArray.odbusServiceCharges,
             created_by: this.created_by,
@@ -322,13 +330,22 @@ get_seatno(seat_id:any){
 
    setCommission(event:any){
 
+    this.commissionError=false;
+
+    this.payableAmount =this.bookingdata.PriceArray.totalFare;
+
+    if(event.target.value!='' &&  event.target.value!=null){
+
     if(event.target.value <= this.bookTicketResponse.customer_comission){
       this.applied_comission=event.target.value;
+
+      this.payableAmount = parseFloat(this.payableAmount) +  parseFloat(event.target.value);
       this.commissionError=false;
     }else{
       this.commissionError=true;
       return false;
-    }  
+    }
+   } 
    }
   
   submitForm1(){
