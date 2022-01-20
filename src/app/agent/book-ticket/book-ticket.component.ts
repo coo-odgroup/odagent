@@ -462,7 +462,8 @@ get_seatno(seat_id:any){
               "payable_amount":this.bookingdata.PriceArray.totalFare,
               "odbus_charges":this.bookingdata.PriceArray.odbusServiceCharges,
               "odbus_gst":this.bookingdata.PriceArray.transactionFee, 
-              "owner_fare":this.bookingdata.PriceArray.ownerFare   
+              "owner_fare":this.bookingdata.PriceArray.ownerFare ,  
+              "customer_comission":this.applied_comission 
             }
          
             
