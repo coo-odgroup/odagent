@@ -85,7 +85,7 @@ export class BookTicketComponent implements OnInit {
    ub_seats:any=[];
    loadingText: string = 'Loading...';
 
-   created_by:any='Customer';
+   created_by = localStorage.getItem('USERNAME');
 
    agent:any;
    applied_comission:number=0;
@@ -408,6 +408,7 @@ get_seatno(seat_id:any){
 
       const paymentParam={   
         "user_id": this.bookTicketResponse.user_id,
+        "user_name": this.created_by,        
         "busId" : this.busRecord.busId,
         "sourceId":this.source_id, 
         "destinationId":this.destination_id,
