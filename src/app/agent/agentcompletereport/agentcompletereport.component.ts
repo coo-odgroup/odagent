@@ -103,7 +103,7 @@ export class AgentcompletereportComponent implements OnInit {
       rangeToDate: this.completeReportRecord.rangeToDate,
       user_id: localStorage.getItem('USERID'),
     };
-
+    // console.log(data);
     if (pageurl != "") {
       this.rs.completepaginationReport(pageurl, data).subscribe(
         res => {

@@ -34,22 +34,22 @@
               </app-card>
           
         </div>
-        <div class="col-md-3" *ngIf="RoleType==4">
+        <!-- <div class="col-md-3" *ngIf="RoleType==4">
           <app-card [hidHeader]="true" cardClass="bg-c-blue text-white widget-visitor-card" blockClass="text-center">
               <h2 class="text-white">{{dashboarddata.sales_data[0].today_amount || "0"}}</h2>
               <h6 class="text-white">Sales {{RangeText}}</h6>
               <i class="feather icon-file-text"></i>
             </app-card>
         
-        </div>
-        <div class="col-md-3">
+        </div> -->
+        <div class="col-md-4">
           <app-card [hidHeader]="true" cardClass="bg-c-green text-white widget-visitor-card" blockClass="text-center">
                 <h2 class="text-white">{{dashboarddata.active_bus}}</h2>
                 <h6 class="text-white">Active Buses</h6>
                 <i class="feather icon-file-text"></i>
               </app-card>      
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <app-card [hidHeader]="true" cardClass="bg-c-red text-white widget-visitor-card" blockClass="text-center">
                 <h2 class="text-white">{{dashboarddata.today_pnr}}</h2>
                 <h6 class="text-white">PNR Bokked</h6>
@@ -57,7 +57,7 @@
               </app-card>
           
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <app-card [hidHeader]="true" cardClass="bg-c-yellow text-white widget-visitor-card" blockClass="text-center">
                 <h2 class="text-white">{{dashboarddata.upcoming_pnr}}</h2>
                 <h6 class="text-white">PNR Upcoming Booking</h6>
@@ -165,7 +165,7 @@
                   <tbody>
                   <tr *ngFor="let Operator of oprdata; let i = index">
                     <td>{{i+1}}</td>
-                    <td> {{Operator.operatorName}} </td>
+                    <td style="font-size: 12px;"> {{Operator.operatorName[0].bus_operator.organisation_name}} [ <strong>{{Operator.operatorName[0].bus_operator.operator_name}}</strong> ] </td>
                     <td> {{Operator.count}} PNR</td>
                     <td><i class="fas fa-rupee-sign"></i> {{Operator.amount}}</td>                   
                   </tr>
