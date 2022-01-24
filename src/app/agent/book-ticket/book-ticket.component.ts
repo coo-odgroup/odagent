@@ -424,6 +424,14 @@ get_seatno(seat_id:any){
         
           if(res.status==1){
 
+            if(res.data=='SEAT UN-AVAIL'){
+
+              this.spinner.hide();
+
+              this.notify.notify(res.message,"Error");
+
+            }else{
+          
             let bkdt = new Date();
             let bkdt_mnth = ("0" + (bkdt.getMonth() + 1)).slice(-2);
             let bkdt_day = ("0" + bkdt.getDate()).slice(-2);
@@ -496,11 +504,13 @@ get_seatno(seat_id:any){
             });
             
             ////////////////  payment success ////////////
+
+                
+          }
+
          
           
           }else{
-
-            this.spinner.hide();  
 
             this.spinner.hide();  
             this.notify.notify(res.message,"Error");
