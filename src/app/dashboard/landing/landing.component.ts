@@ -227,7 +227,8 @@ export class LandingComponent implements OnInit {
 
     toproute() {
       const data={
-        USERID:localStorage.getItem("USERID")
+        USERID:localStorage.getItem("USERID"),
+        ROLE_ID:localStorage.getItem("ROLE_ID"),
       };
       this.ds.toproute(data).subscribe(
         res => {
