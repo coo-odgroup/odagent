@@ -1,6 +1,6 @@
 <ngx-spinner bdColor = "rgba(60,55,55,0.8)" size = "large" color = "#fff" type = "ball-clip-rotate-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
-<section class="search-result">
-    <div class="container">
+<section class="search-result pt-40 pb-60">
+    <div class="container-fluid">
         <div class="row">
 
 <div class="col-md-12">
@@ -12,8 +12,9 @@
 	
 	<ng-wizard-step [title]="'Passenger Details'"  [canEnter]="isValidFunctionReturnsObservable.bind(this)" [canExit]="isValidFunctionReturnsBoolean.bind(this)">
 	  <form [formGroup]="bookForm1" (ngSubmit)="submitForm1()">
-	  <div class="row passenger">
-		<div class="col-md-8 passenger-detail">
+	  <div class="row passenger pt-25">
+		<div class="col-md-8 ">
+			<div class="passenger-detail">
 			<h5>Passenger Details</h5><hr>
 
 			<div formGroupName="bookingInfo">			
@@ -104,23 +105,24 @@
 				</div>
 			</div>
 
-		</div>
+		</div></div>
 	</div>
 
-		<div class="col-md-4 passenger-detail padding-left">
-			
+		<div class="col-md-4">
+			<div class="passenger-detail">
+
 
 			<div class="row"> 
 				
-				<div class="col-md-11">
+				<div class="col-md-12">
 
 					<h5>Bus Details:</h5><hr>
 					<span class="font">Bus Name</span>
 					<h5>{{ busRecord.busName }} ({{ busRecord.busNumber }})</h5>
 					<h6>{{ busRecord.busType }} {{ busRecord.busTypeName }} {{ busRecord.sittingType}}</h6>
-					<h6> 	<b *ngIf="ub_seats!=''"> <img src="../../../assets/img/sleeper-blue.svg" style="width:35px"> {{ ub_seats }}</b>
+					<h6> 	<b *ngIf="ub_seats!=''"> Sleeper No. :-  {{ ub_seats }}</b>
 						<span *ngIf="lb_seats!='' && ub_seats!='' "> <br> </span>
-						<b *ngIf="lb_seats!=''"><img src="../../../assets/img/seat-blue.svg" style="width:25px"> {{ lb_seats }}</b>
+						<b *ngIf="lb_seats!=''">Seat No. :-   {{ lb_seats }}</b>
 						
 					</h6>
 
@@ -141,12 +143,12 @@
 					   <div class="col-md-4"><h6>₹ {{ bookingdata.PriceArray.ownerFare }}</h6></div>
 	   
 					 
-					   <div class="col-md-8"><h6>ODBUS Service Charges</h6></div>
+					   <div class="col-md-8"><h6>Service Charges</h6></div>
 	   
 					   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.odbusServiceCharges }} </h6></div>
 	   
 				   
-					   <div class="col-md-8"><h6>Transaction fee + GST</h6></div>
+					   <div class="col-md-8"><h6>Transaction Fee</h6></div>
 	   
 					   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.transactionFee }}</h6></div>
 	   
@@ -165,6 +167,7 @@
 				</div>
 			</div>
 		</div>
+		</div>
       </div>
     </form>
 </ng-wizard-step>
@@ -177,43 +180,46 @@
 	<form [formGroup]="bookForm2" (ngSubmit)="submitForm2()">
 
 	<div class="row passenger" >
-		<div class="col-md-12 passenger-detail">
-
+		<div class="col-md-12">
+           <div class=" passenger-detail">
 			<h5>Journey Details</h5><hr>
 
 			<div class="row">
 				<div class="col-md-3">
-					<h5><img src="../../../assets/img/Icon metro-location (1).svg"> {{ source }}</h5>
+					<h5><i class="fas fa-map-marker-alt icon-color"></i> {{ source }}</h5>
 					
 					<h6 class="padding-left">{{ bookingdata.boardingPoint }} - {{ busRecord.departureTime}}</h6>
 									
 				</div>
 
-				<div class="col-md-3">
-					<div class="bus"></div>
-				</div>
+				
 
 
 				<div class="col-md-3">
-					<h5><img src="../../../assets/img/Icon metro-location (1).svg"> {{ destination }}</h5>
+					<h5><i class="fas fa-map-marker-alt icon-color"></i> {{ destination }}</h5>
 
 					<h6 class="padding-left">{{ bookingdata.droppingPoint }} - {{ busRecord.arrivalTime }}</h6>
 								
 				</div>
 
 				<div class="col-md-3">
-					<h5>{{ entdate | date:'EEEE, d MMMM , y' }}</h5>					
-					<h5><img src="../../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }} ({{ busRecord.busNumber }})</h5>
+										
+					<h5><i class="fas fa-bus-alt icon-color"></i> {{ busRecord.busName }} ({{ busRecord.busNumber }})</h5>
+					<h6 class="padding-left">({{ busRecord.busNumber }})</h6>
 					
-					<h6 class="padding-left">{{ passengerFormGroup.length }} Passenger(s)</h6>
 									
 				</div>
-			</div>
 
+				<div class="col-md-3">
+					<h5><i class="far fa-calendar-alt icon-color"></i> {{ entdate | date:'EEEE, d MMMM , y' }}</h5>
+					<h6 class="padding-left">{{ passengerFormGroup.length }} Passenger(s)</h6>
+				</div>
+			</div>
+		</div>
 		</div>
 
-		<div class="col-md-12 passenger-detail box-padding">
-
+		<div class="col-md-12  box-padding">
+           <div class="passenger-detail">
 			<h5>Passenger Details</h5><hr>
 
 			<div class="row">
@@ -281,15 +287,15 @@
 					</div>	
 				
 				</div>
-		</div>
+		</div></div>
 
 
 		</div>
 
-		<div class="col-md-12 passenger-detail box-padding padding">
-			
+		<div class="col-md-12  box-padding padding">
+			<div class="passenger-detail">
 			<div class="row">
-					   <div class="col-md-8">
+					   <div class="col-md-8 py">
 						<h6 class="grey"><b>PAYABLE AMOUNT</b></h6>
 						   <h5>₹ {{ payableAmount }} </h5>
 
@@ -311,15 +317,16 @@
 						</div>
 					</div>
 				
-				<div class="col-md-4 payment_box">
-					<div class="row col-md-12">
+				<div class="col-md-4">
+					    <div class="payment_box">
 						<!-- make-payment -->
 						<input type="image" [disabled]="commissionError" name="submit"  alt="Submit" style="cursor: pointer;" src="../../../assets/img/makepayment.png">
-					
-				</div>
+					</div>
+				
 
 				</div>				
 			</div>
+		</div>
 		</div>
 	</div>
    </form>

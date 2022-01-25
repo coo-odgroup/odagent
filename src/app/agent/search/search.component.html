@@ -314,7 +314,9 @@
                     <div class="col-md-12 bck-white bck-white-two">
                         <ul class="bs-srch-dt-dtl">
                             <li class="p-2 flex-fill tx-left">
-                                <h4>{{ bus.busName }}</h4>
+                                <h4>{{ bus.busName }} <br>
+                                    <span>({{ bus.busNumber }})</span>
+                                </h4>
                                 <p class="bus-type"><span>{{ bus.busTypeName }}</span>&nbsp; <span>{{ bus.busType }}</span></p>
                             </li>
                             <li class="p-2 flex-fill">
@@ -384,7 +386,7 @@
                                 <ul *ngIf="bus.amenity.length != 0" >
                                     <li *ngFor="let nm of bus.amenity|slice:0:show; let am=index; ">
                                         <div *ngIf="nm && nm.amenity_image != ''">
-                                            <img src="{{ nm.amenity_image }}" class="iconsize" />
+                                            <img src="{{ nm.amenity_image }}" class="iconsize" alt="{{nm.name}}" title="{{nm.name}}" />
             
                                             &nbsp;&nbsp; <a class="cursor" *ngIf="am==4 && show == 5" (click)="showAllAmenity(i)" 
                                             style="color: #fff;">( +{{ bus.amenity.length-show}}) More </a>
@@ -644,18 +646,19 @@
                                             *ngIf="selectedLB.length !=0"><b>Seat No.</b> 
                                             <span>{{ selectedLB }} </span> </span>
                                     </div>
-                                    <div class="row form-group" *ngIf="PriceArray.ownerFare > 0">
+                                    <div class="clearfix"></div>
+                                    <div class="row form-group mt10" *ngIf="PriceArray.ownerFare > 0">
                                         <div class="col-md-6">
                                             <label>Total Fare</label>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6" style="text-align: right;">
                                             <label class="TotalPrice">₹<span
                                                     id="TotalPrice{{bus.busId}}">{{
                                                     PriceArray.ownerFare }}</span></label>
                                         </div>
                                     </div>
                                     <div class="form-group" *ngIf="PriceArray.ownerFare > 0">
-                                        <div class="col-md-12">
+                                        <div>
                                             <button type="submit"
                                                 class="btn btn-warning btn-block bookNow">BOOK
                                                 NOW</button>

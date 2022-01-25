@@ -364,6 +364,15 @@ a.active.page-link {
     font-size:13.6px !important;
 }
 
+.ng-select span {
+    text-transform: uppercase !important;
+}
+
+.ng-select, .ng-select div, .ng-select input, .ng-select span{
+    text-transform:uppercase !important;
+    font-size:14px;
+}
+
 
 
 

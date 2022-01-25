@@ -7,6 +7,17 @@
     margin-top: 20px; 
 }
 
+.pt-40{
+    padding-top:20px;
+}
+
+.pt-60{
+    padding-top: 60px;
+}
+.pb-60{
+    padding-bottom: 60px;
+}
+
 .passenger-detail{
     font-size: 16px;
     font-weight: bold;
@@ -14,6 +25,7 @@
     border: 1px solid #00000026;
     border-radius: 3px;
     opacity: 1; 
+    padding: 20px 25px;
 }
 
 .padding{
@@ -40,7 +52,14 @@ h5{
     padding-top: 10px;
     color: #072C6B;
     font-weight: bold;
-    font-size: 15px;
+    font-size:18px;
+}
+
+.py h5{
+    padding-top:1px !important;
+    color: #072C6B;
+    font-weight: bold;
+    font-size:28px !important;
 }
 
 .grey{
@@ -53,9 +72,10 @@ h5{
 }
 
 h6{
-    color: #072C6B;
-    font-size: 13px;
-    line-height: 25px;
+    color: #545454;
+    font-size: 14.5px;
+    line-height: 22px;
+    font-weight: 600;
 }
 
 label{
@@ -76,7 +96,7 @@ span{
 }
 .padding-left{
     left: 15px;
-    padding-left: 15px;
+    padding-left: 20px;
 }
 
 
@@ -86,16 +106,18 @@ span{
     font-size: 13px;
 }
 .proceed{
-    width:200px;
+    width: 100%;
+    font-weight: 600;
+    color: #072c6b;
 }
 .img1{
-    margin-top: 226px;
+    margin-top:34px;
     margin-left: 9px;
 }
 
 .img2{
     margin-left: 13px;
-    height: 95px;
+    height: 74px;
 }
 
 .img3{
@@ -121,7 +143,8 @@ thead{
 
 tbody{
     color: #072C6B;
-    font-size: 13px;
+    font-size: 14px;
+    text-transform: uppercase;
     
 }
 .roboto{
@@ -239,19 +262,63 @@ input[type="radio"]:checked {
   }
 
   .ng-select .ng-has-value .ng-placeholder {
-    font-size: 12px !important;
+    font-size: 15px !important;
     font-weight: lighter !important;
 }
 .ng-select, .ng-select div, .ng-select input, .ng-select span {
-    font-size: 12px !important;
+    font-size: 15px !important;
     font-weight: lighter !important;
 }
 
+.pt-25{
+    margin-top:28px;
+}
 
+.form-control {
+    border: 1px solid #072c6b;
+    border-radius:3px;
+    font-size: 17px;
+    height: 40px;
+    font-weight: 400;
+    line-height: 20px;
+    text-transform: uppercase;
+}
 
+.ng-select.ng-select-single .ng-select-container {
+    height: 40px;
+}
 
+.pd2{
+    text-align: center !important;
+}
 
+.payable{
+    padding-top: 15px;
+}
+.payable h5{
+    font-size: 24px !important;
+    padding-top: 2px;
+}
 
+.payment_box{
+    margin: 0 auto ;
+    margin-top:12px;
+}
+.padding20{
+    padding-top: 20px;
+}
+.cl-blue{
+    color:#072C6B;
+    font-size: 17px;
+}
 
+.icon-color{
+    color: #efc003;
+    font-size: 18px;
+    margin-right: 4px;
+}
 
+.ng-select span {
+    text-transform: uppercase !important;
+}
 
