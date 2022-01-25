@@ -3,9 +3,10 @@
 <div class="row"> 
     <div class="col-xl-12 ">
         <app-card   [hidHeader]="true" [options]="false">
+          <b>{{RangeText}}</b>
             <div class="btn-group btn-group-toggle float-right" ngbRadioGroup name="ticketSize" data-toggle="buttons">
                 <label ngbButtonLabel class="btn btn-info">All
-                  <input ngbButton type="radio" class="dateRange" name="dateRange" value="large-view" id="option5" (click)="getall('ALL')"> <i class="feather icon-award m-0"></i>
+                  <input ngbButton type="radio" class="dateRange" name="dateRange" value="large-view" id="option5" (click)="getall('All')"> <i class="feather icon-award m-0"></i>
                 </label>
                 <label ngbButtonLabel class="btn btn-info">Today
                   <input ngbButton type="radio" class="dateRange" name="dateRange" value="sm-view" id="option1" (click)="getall('Today')"><i class="feather icon-align-justify m-0"></i>
@@ -17,57 +18,55 @@
                   <input ngbButton type="radio" class="dateRange" name="dateRange" value="large-view" id="option3" (click)="getall('This Month')"> <i class="feather icon-grid m-0"></i>
                 </label>
                 
-                <label ngbButtonLabel class="btn btn-info">Custom Range
+                <!-- <label ngbButtonLabel class="btn btn-info">Custom Range
                     <input ngbButton type="radio" name="dateRange" value="large-view" id="option4"> <i class="feather icon-plus m-0"></i>
-                </label>
+                </label> -->
               </div>             
           </app-card>    
     </div> 
 </div>
 <div class="row" *ngIf="dashboarddata">   
-    
-        <div class="col-md-3" *ngIf="RoleType==1">
-            <app-card [hidHeader]="true" cardClass="bg-c-blue text-white widget-visitor-card" blockClass="text-center">
-                <h2 class="text-white">{{dashboarddata.active_operator}}</h2>
-                <h6 class="text-white">Total Operators</h6>
-                <i class="feather icon-file-text"></i>
-              </app-card>
-          
-        </div>
-        <!-- <div class="col-md-3" *ngIf="RoleType==4">
+        <div class="col-md-3">
           <app-card [hidHeader]="true" cardClass="bg-c-blue text-white widget-visitor-card" blockClass="text-center">
-              <h2 class="text-white">{{dashboarddata.sales_data[0].today_amount || "0"}}</h2>
-              <h6 class="text-white">Sales {{RangeText}}</h6>
+              <h2 class="text-white">{{dashboarddata.today_pnr || "0"}}</h2>
+              <h6 class="text-white">Total No Of PNR</h6>
               <i class="feather icon-file-text"></i>
             </app-card>
         
-        </div> -->
-        <div class="col-md-4">
+        </div>
+        <div class="col-md-3">
           <app-card [hidHeader]="true" cardClass="bg-c-green text-white widget-visitor-card" blockClass="text-center">
-                <h2 class="text-white">{{dashboarddata.active_bus}}</h2>
-                <h6 class="text-white">Active Buses</h6>
+                <h2 class="text-white">{{dashboarddata.upcoming_pnr}}</h2>
+                <h6 class="text-white">Upcoming PNR</h6>
                 <i class="feather icon-file-text"></i>
               </app-card>      
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
+          <app-card [hidHeader]="true" cardClass="bg-c-blue text-white widget-visitor-card" blockClass="text-center">
+                <h2 class="text-white">{{dashboarddata.sales_data[0].today_amount || "0"}}</h2>
+                <h6 class="text-white">Sales</h6>
+                <i class="feather icon-file-text"></i>
+              </app-card>      
+        </div>
+        <div class="col-md-3">
             <app-card [hidHeader]="true" cardClass="bg-c-red text-white widget-visitor-card" blockClass="text-center">
-                <h2 class="text-white">{{dashboarddata.today_pnr}}</h2>
-                <h6 class="text-white">PNR Bokked</h6>
+                <h2 class="text-white">{{dashboarddata.booking_profit[0].odbus_amount || "0"}}</h2>
+                <h6 class="text-white">Commission from Odbus</h6>
                 <i class="feather icon-award"></i>
               </app-card>
           
         </div>
-        <div class="col-md-4">
+        <!-- <div class="col-md-3">
             <app-card [hidHeader]="true" cardClass="bg-c-yellow text-white widget-visitor-card" blockClass="text-center">
                 <h2 class="text-white">{{dashboarddata.upcoming_pnr}}</h2>
-                <h6 class="text-white">PNR Upcoming Booking</h6>
+                <h6 class="text-white">Commission From Customer</h6>
                 <i class="feather icon-file-text"></i>
               </app-card>
           
-        </div>
+        </div> -->
       
     
-      <div class="col-xl-12">
+      <!-- <div class="col-xl-12">
           <app-card cardTitle="{{RangeText}} Ticket Statistics" [options]="false">
             <lib-highcharts-angular [Highcharts]="Highcharts" [options]="barBasicChartOptions" style="width: 100%; height: 450px; display: block;"></lib-highcharts-angular>
           </app-card>
@@ -84,7 +83,7 @@
                 <chart id="bar_basic_chart" [type]="'bar'" [data]="barBasicChartData" [options]="barBasicChartOption"></chart>
               </div>
             </app-card>
-          </div>
+          </div> -->
           
           <div class="container"  *ngIf="RoleType==1">
             <div class="row">
@@ -124,8 +123,8 @@
           </div>
           
             
-          <div class="col-xl-6 col-md-12">
-            <app-card cardTitle="Top Routes Bookings {{RangeText}}" cardClass="table-card" blockClass="p-0">
+          <div class="col-xl-12 col-md-12">
+            <app-card cardTitle="Top Routes Bookings" cardClass="table-card" blockClass="p-0">
               <div class="table-responsive">
                 <table class="table table-hover mb-0">
                   <thead>
@@ -150,7 +149,7 @@
               </div>
             </app-card>
           </div>
-          <div class="col-xl-6 col-md-12">
+          <!-- <div class="col-xl-6 col-md-12">
             <app-card cardTitle="Bus Operators Bookings {{RangeText}}" cardClass="table-card" blockClass="p-0">
               <div class="table-responsive">
                 <table class="table table-hover mb-0">
@@ -173,7 +172,7 @@
                 </table>
               </div>
             </app-card>
-          </div>
+          </div> -->
   </div>
   
   

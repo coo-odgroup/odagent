@@ -182,7 +182,7 @@ export class LandingComponent implements OnInit {
     }
   
     ngOnInit() {
-      this.spinner.show();
+      // this.spinner.show();
       const data={
         rangeFor:"",
         rangeFrom:"",
@@ -201,16 +201,18 @@ export class LandingComponent implements OnInit {
    
     getall(range:any) {
       this.RangeText=range;
+    
       const data={
         rangeFor:range,
         rangeFrom:"",
         rangeTo:"",
-        USER_BUS_OPERATOR_ID:localStorage.getItem("USER_BUS_OPERATOR_ID")
+        USER_BUS_OPERATOR_ID:localStorage.getItem("USER_BUS_OPERATOR_ID"),
+        USERID:localStorage.getItem("USERID")
       };
       this.ds.dashboard(data).subscribe(
         res => {
           this.dashboarddata= res.data;
-          
+          // console.log( this.dashboarddata);
           this.pieChart();
 
           
@@ -224,7 +226,10 @@ export class LandingComponent implements OnInit {
     }
 
     toproute() {
-      this.ds.toproute().subscribe(
+      const data={
+        USERID:localStorage.getItem("USERID")
+      };
+      this.ds.toproute(data).subscribe(
         res => {
           this.routedata= res.data;
          

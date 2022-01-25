@@ -173,9 +173,9 @@
                                 <strong>{{complete.pnr}}</strong> ( {{complete.journey_dt}} )
                                 <br>
                               
-                                {{complete.customer_payment?.order_id}}
+                                <!-- {{complete.customer_payment?.order_id}}
                                 <br>
-                                {{complete.customer_payment?.razorpay_id}}
+                                {{complete.customer_payment?.razorpay_id}} -->
                             </td>
                             <td>
                                 <span *ngFor="let frlocation of complete.from_location">
@@ -241,36 +241,7 @@
                                 </div>
 
                             </td>
-                            <!-- <td class="text-capitalize">
-                                <ng-template #tipContent>
-
-                                    <table>
-                                        <tr>
-                                            <td>Phone-</td>
-                                            <td><b>{{complete.users.phone}}</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email-</td>
-                                            <td>{{complete.users.email}}</td>
-                                        </tr>
-                                    </table>
-                                </ng-template>
-
-                                <strong [ngbTooltip]="tipContent">
-                                    {{complete.users.name}}
-                                </strong> <br>
-
-                                <button class="btn btn-sm btn-info text-light  mr-3 ml-2 mt-2" placement="bottom"
-                                    ngbTooltip="Click to Copy Phone Number" (click)="copyMessage(complete.users.phone)">
-                                    <i class="fas fa-mobile-alt"></i>
-                                </button>
-
-                                <button class="btn btn-sm btn-danger text-light mt-2" placement="bottom"
-                                    ngbTooltip=" Click to Copy Email" (click)="copyMessage(complete.users.email)">
-                                    <i class="far fa-envelope"></i>
-                                </button>
-
-                            </td> -->
+                        
                             <td>
                                 <div *ngIf="complete.booking_detail?.length != 0">
                                     <p *ngFor="let passanger of complete.booking_detail;">
@@ -295,31 +266,19 @@
                                 </div>
                             </td>
 
-                            <!-- <td>
-                                <div *ngIf="complete.booking_detail?.length != 0">
-                                    <strong placement="top"
-                                        ngbTooltip="Seat Fare">{{complete.booking_detail[0].bus_seats.ticket_price.base_seat_fare}}</strong>
-                                    /
-                                    <strong placement="top"
-                                        ngbTooltip="Sleeper Fare">{{complete.booking_detail[0].bus_seats.ticket_price.base_sleeper_fare}}</strong>
-                                </div>
-                            </td> -->
                             <td>
 
                                 <i class="fas fa-rupee-sign"></i> &nbsp;<b>{{complete.total_fare}}</b>
                             </td>
                             <td>
 
-                                <p class="text-danger">
-                                    <!-- <i class="fas fa-rupee-sign"></i> &nbsp; <b>{{complete.total_fare}}</b> -->
-                                    Coming<br> Soon
+                                <p class="text-danger text-center">
+                                    <i class="fas fa-rupee-sign"></i> &nbsp;<b>{{complete.refund_amount}}</b>                                   
                                 </p>
 
 
                             </td>
-                            <!-- <td>
-                                -----
-                            </td> -->
+                           
                         </tr>
                     </tbody>
 

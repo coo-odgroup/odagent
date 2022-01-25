@@ -19,17 +19,25 @@ export class DashboardService {
   constructor(private httpClient: HttpClient) { }
 
   dashboard(post:any): Observable<any> {
-    return this.httpClient.post<any>(this.apiURL+ '/dashboarddata', JSON.stringify(post), this.httpOptions)
+    return this.httpClient.post<any>(this.apiURL+ '/agentdashboarddata', JSON.stringify(post), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
-  toproute(): Observable<any> {
-    return this.httpClient.get(this.apiURL + '/toproutedata').pipe(
+  // toproute(): Observable<any> {
+  //   return this.httpClient.get(this.apiURL + '/toproutedata').pipe(
+  //     catchError(this.errorHandler)
+  //   )
+  // }
+
+  toproute(data:any): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL+ '/toproutedata', JSON.stringify(data), this.httpOptions)
+    .pipe(
       catchError(this.errorHandler)
     )
   }
+
   operatordata(): Observable<any> {
     return this.httpClient.get(this.apiURL + '/operatordata').pipe(
       catchError(this.errorHandler)
