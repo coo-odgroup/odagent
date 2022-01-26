@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Constants} from '../constant/constant';
+import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,18 @@ export class WalletbalanceService {
       'Content-Type': 'application/json'
     })
   }
+
+  
+  public walletBalance = new BehaviorSubject<number>(0);
   constructor(private httpClient: HttpClient) { }
+
+  setWalletBalance(val : number){
+    this.walletBalance.next(val);
+  }
+
+  WalletBalance(){
+    return this.walletBalance.asObservable();
+  }
 
 
   getWalletBalance(id): Observable<any> {

@@ -10,6 +10,8 @@ import { AgentPaymentService } from '../../services/agent-payment.service';
 import { AgentPaymentStatusService } from '../../services/agent-payment-status.service';
 import * as moment from 'moment';
 import { NgxSpinnerService } from "ngx-spinner";
+import { WalletbalanceService } from '../../services/walletbalance.service';
+
 
 declare let Razorpay: any;
 @Component({
@@ -101,7 +103,8 @@ export class BookTicketComponent implements OnInit {
     private datePipe: DatePipe,
     private agentBookTicketService: AgentBookTicketService,
     private agentPaymentService: AgentPaymentService,
-    private agentPaymentStatusService: AgentPaymentStatusService
+    private agentPaymentStatusService: AgentPaymentStatusService,
+    public balance: WalletbalanceService
     ) {    
 
     this.source=localStorage.getItem('source');
@@ -497,13 +500,27 @@ get_seatno(seat_id:any){
                     localStorage.removeItem('destination_id');
                     localStorage.removeItem('entdate'); 
 
+                   
+                   let user_id=localStorage.getItem("USERID");
+                    this.balance.getWalletBalance(user_id).subscribe(
+                      res=>{      
+                       if(res.status==1){
+                        if(res.data.length > 0){
+                          this.balance.setWalletBalance(res.data[0].balance); 
+                        }
+                       }
+                       
+                      });
+
+                    this.spinner.hide();  
                 }
 
                 if(res.status==0){
                   this.notify.notify(res.message,"Error");
+                  this.spinner.hide();  
                 }
 
-                this.spinner.hide();  
+               
         
             });
             

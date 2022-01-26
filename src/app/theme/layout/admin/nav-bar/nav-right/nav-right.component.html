@@ -99,7 +99,7 @@
    
   </li> -->
 
-  <li class="wallet-bg"> <i class="fas fa-wallet"></i> Wallet Balance : <b>Rs {{ wallet_balance }} /- </b></li>
+  <li class="wallet-bg"> <i class="fas fa-wallet"></i> Wallet Balance : <b>Rs {{ wallet_balance | async }} /- </b></li>
   <li>
     <div class="drp-user dropdown" ngbDropdown placement="auto">
       <a href="javascript:" ngbDropdownToggle>
