@@ -322,3 +322,106 @@ input[type="radio"]:checked {
     text-transform: uppercase !important;
 }
 
+
+.container {
+    max-width:1320px !important;
+    margin:0 auto ;
+}
+
+.od-body{
+    border:3px solid #323232;
+    padding: 25px;
+    margin-top: 20px;
+}
+
+.row {
+ display: flex;
+ flex-wrap: wrap;
+ margin-right: -15px;
+ margin-left: -15px;
+}
+
+.od-logo{
+   height: 80px;
+}
+
+.odtext24 h3{
+   font-size:20px;
+   text-align: left;
+   line-height:26px;
+   font-weight:600;
+   color: #323232;
+}
+
+.odtext32{
+   font-size:28px;
+   text-align: center;
+   line-height:34px;
+   font-weight:600;
+   padding-top: 8px;
+   color: #043c5d;
+}
+
+.odtext32 span{
+   font-weight: 800;
+}
+
+.od-bktext{
+   font-size:18px;
+   text-align: center;
+   line-height: 22px;
+   color: #000000;
+   border:1px solid #c4c4c4 ;
+   padding:8px ;
+   font-weight: 600;
+}
+.od-banner{
+   width: 100%;
+}
+.od-qrcode{
+   background:#c4c4c4;
+   padding: 15px;
+   width: 100%;
+   margin-top: 34px;
+}
+.mt30{
+ margin-top: 35px;
+}
+.mb25{
+   
+   margin-bottom: 35px;
+}
+
+.mb40{
+   margin-bottom: 40px;
+}
+
+.odbox1{
+ border: 1px solid #c4c4c4;
+ padding:25px 15px;
+}
+
+.odbox1 ol{
+ margin-left: -20px;
+}
+
+.odbox2{
+ border: 1px solid #000000;
+ padding:25px 15px;
+}
+
+.odbox2 p{
+ font-size:18px;
+ color: #000000;
+ font-weight: 600;
+ margin-bottom: 8px;
+}
+
+.odbox3 p{
+ font-size:18px;
+ color: #000000;
+ font-weight: 600;
+ margin-bottom: 8px;
+ text-align: right;
+}
+

@@ -339,9 +339,9 @@
 
 		<div class="col-md-12 passenger-detail box-padding">
 
-			<div class="col-md-12" style="text-align: center;">
+			<!-- <div class="col-md-12" style="text-align: center;">
 				<img src="../../../assets/img/odbus-logo.svg" alt="logo-ODBUS" title="Logo" />
-			</div>
+			</div> -->
 
 			<div class="print-ticket">
 				<h5>Hello {{ passengerData.customerInfo.name }}</h5>
@@ -351,185 +351,206 @@
 		   </div>
 		</div>
 	
-		<div class="col-md-12 passenger-detail box-padding">
-	
-			<div class="row" style="margin-top:10px">
-				<div class="col-md-6">
-					<h5>Journey Details</h5>
-				</div>
-	
-				<div class="col-md-6 print_btn" align="right" [id]="'print_btn'">
-					<button (click)="print();" class="btn btn-warning" style="color: #072c6b;font-weight: bold;">PRINT TICKET</button>
-				</div>
-		   </div>
-	
-		   <hr>
-	
-				<div class="row">
-
-					<table class="tableclass" cellpadding="12">
+		<div class="container">
+			<div class="od-body mb25">
+			   <div class="row mb40">
+				   <div class="col-md-3"><img src="../../../assets/img/email-logo.png" class="od-logo"/></div>
+				   <div class="col-md-6 odtext32"><span>ODBUS</span> e-Ticketing Service<br/> Electronic Reservation Slip</div>
+				   <div class="col-md-3">
+					   <div class="od-bktext">Booking Date</div>
+					   <div class="od-bktext">{{bookingDate | date:'EEEE, d MMMM , y' }}</div>
+				   </div>
+			   </div>
+			   <div class="row  mt30 mb25">
+				<div class="col-md-9 odtext24">
+					<h3>JOURNEY DETAILS:</h3>
+					<table class="table table-bordered">
 						<thead>
-							<th ><h5><img src="../../../assets/img/Icon metro-location (1).svg"> {{ source }}</h5>
-								<h5>{{ bookingdata.boardingPoint }} - {{ busRecord.departureTime }}</h5>
-							
-							</th>
-							<th width="20%"><img src="../../../assets/img/bus.svg"></th>
-							<th><h5><img src="../../../assets/img/Icon metro-location (1).svg"> {{ destination }}
-							</h5>
-							<h5>{{ bookingdata.droppingPoint }} - {{ busRecord.arrivalTime }}</h5>
-						</th>
-							<th>{{ entdate | date:'EEEE, d MMMM , y' }}
-								<h5><img src="../../../assets/img/Icon awesome-bus-alt (1).svg"> {{ busRecord.busName }} ({{ busRecord.busNumber }})</h5>
-							<h6 class="padding-left">{{ passengerFormGroup.length }} Passenger(s)</h6>
-						</th>
-						</thead>
-						
-					</table>
-					
-					
-				</div>
-	
-				
-			<h5>Passenger Details</h5><hr>
-	
-			<div class="row">
-	
-				<div class="col-md-12">
-					<table class="tableclass" cellpadding="12">
-						<thead>
-							<th>Passenger Name</th>
-							<th>Seats</th>
-							<th>Gender</th>
-							<th>Age</th>
+						  <tr>
+							<th scope="col">PNR No: {{ bookTicketResponse.pnr }}</th>
+							<th scope="col">Bus Name/Number: {{ busRecord.busName }}-{{ busRecord.busNumber }}</th>
+						   
+						  </tr>
 						</thead>
 						<tbody>
-							<tr *ngFor="let dt of passengerData.bookingInfo.bookingDetail; let i = index;">
-								<td>{{ dt.passenger_name }}</td>
-								<td>{{ get_seatno(dt.bus_seats_id) }}</td>
-								<td>{{ dt.passenger_gender }}</td>
-								<td>{{ dt.passenger_age }}</td>
-							</tr>
-	
+						  <tr>
+							<td>Journey Date: {{ entdate | date:'EEEE, d MMMM , y' }}</td>
+							<td>Bus Route: {{ source }}-{{ destination }}</td>
+						  </tr>
+						  <tr>
+							<td>Diparature Timing: {{ busRecord.departureTime}}</td>
+							<td>Arrival Timing: {{ busRecord.arrivalTime }}</td>
+						  </tr>
+						  <tr>
+							<td>From: {{ source }} ({{ bookingdata.boardingPoint }})</td>
+							<td>To: {{ destination }} ({{ bookingdata.droppingPoint }})</td>
+						  </tr>
+						  <tr>
+							<td>Boarding At :{{ source }} ({{ bookingdata.boardingPoint }})</td>
+							<td>Droping At: {{ destination }} ({{ bookingdata.droppingPoint }})</td>
+						  </tr>
+						  <tr>
+							<td>Passenger Mobile No: +91 {{ passengerData.customerInfo.phone}}</td>
+							<td>Conductor Mobile No: {{busRecord.conductor_number}}</td>
+						  </tr>
+						  <tr>
+							<td>Total Fare: Rs.{{ couponData.payableAmount }}/-</td>
+							<td>Seat({{total_seat_name.length}})- {{total_seat_name}}</td>
+						  </tr>
+						  
 						</tbody>
-					</table>
+					  </table>
+					
+				</div>
+				<div class="col-md-3"><img src="../../../assets/img/qr-code.png" class="od-qrcode"/></div>
+			</div>
+	
+			<div class="row mt30 mb25">
+				<div class="col-md-12 odtext24">
+					<h3>PASSENGER DETAILS:</h3>
+					<table class="table table-bordered">
+						<thead>
+						  <tr>
+							<th scope="col">Sl No.</th>
+							<th scope="col">Name</th>
+							<th scope="col">Age</th>
+							<th scope="col">Sex</th>
+							<th scope="col">Seat No</th>
+						  </tr>
+						</thead>
+						<tbody>
 
-					<h5>Contact Details</h5><hr>
-	
-	
-				<table class="tableclass2" cellpadding="10">
-					
-					<tbody>
-						<tr>
-							<td>Name</td>
-							<td>Mobile Number</td>
-							<td>Email Address</td>
-							<td>&nbsp;</td>
-						</tr>
-	
-						<tr style="font-weight: normal;">
-							<td>{{ passengerData.customerInfo.name}}</td>
-							<td>+91 {{ passengerData.customerInfo.phone}}</td>
-							<td>{{ (passengerData.customerInfo.email) ? passengerData.customerInfo.email : 'N/A'}}</td>
-								
-							<td>&nbsp;</td>
-						</tr>
-	
-					</tbody>
-				</table>
-
-				<hr>
-	
-			<h4>Terms and Conditions :</h4>
-			<ol>
-					<li>
-					<p><strong>ODBUS</strong> is an Online Platform which provides online bus ticket booking services and does not operate bus services of its own, we have tied up with many bus operators for various Route in Orissa and its surrounding states.</p>
-					</li>
-					<li>
-					<p>The arrival and departure times written on the ticket are only approximate time, but you are requested to reach on the boarding points before 15 min.</p>
-					</li>
-					<li>
-					<p>Passengers are required to take a copy of the ticket and an Identity proof (Driving license, Student ID card, Company ID card, Passport, PAN card or Voter ID card) during their travel</p>
-					</li>
-					<li>
-					<p>We are at <strong>ODBUS</strong> advice to all customers is to choose bus operators they are aware of and whose service they are comfortable with.</p>
-					</li>
-					<li>
-					<p>In case the bus operator changes the type of bus due to some reason, <strong>ODBUS</strong> will refund the differential amount to the customer upon request by the customers in 24 hours of the journey.</p>
-					</li>
-					<li>
-					<p>The tickets booked through&nbsp;<strong>ODBUS</strong>&nbsp;Can be cancelled and note that Cancel Can be possible before 12 hours of the departure of the said bus. Refunded amount will be reflected in your respective account in 10 working days. For More Details Please refer Cancelation Policy..</p>
-					</li>
-					<li>
-					<p>If a booking confirmation e-mail and SMS get delayed or fails because of technical reasons or due to incorrect e-mail ID / phone number given by the user, The ticket will be considered as 'booked' as long as the ticket shows up on the confirmation page of&nbsp;<a href="https://www.odbus.in/" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://www.odbus.in/&amp;source=gmail&amp;ust=1628055619776000&amp;usg=AFQjCNEjICJ_c-ZDw7I5yAzneugLUVx1PQ">www.odbus.in</a></p>
-					</li>
-					<li>
-					<p>During booking, If an amount deducted and ticket not shown or SMS not delivered Please call to <a href="tel:9583918888" target="_blank">9583918888</a> and we will be more than happy to assist you .</p>
-					</li>
-					<li>
-					<p>Responsibility Includes :</p>
-					
-					<ul>
-					<li>
-					<p>Issuing a valid ticket which will be accepted by the bus operator</p>
-					</li>
-					<li>
-					<p>Providing refund and support in the event of cancellation</p>
-					</li>
-					<li>
-					<p>Providing customer support and information in case of any delays / inconvenience</p>
-					</li>
-					</ul>
-					</li>
-					<li>
-					<p><strong>Responsibilities</strong>&nbsp;do&nbsp;<strong>Not</strong>&nbsp;<wbr>include:</p>
-					
-					<ul>
-					<li>
-					<p>The bus operator’s bus not departing / reaching on time</p>
-					</li>
-					<li>
-					<p>The bus operator’s employees being rude</p>
-					</li>
-					<li>
-					<p>The bus operator’s bus seats etc not being up to the customer’s expectation</p>
-					</li>
-					<li>
-					<p>The bus operator canceling the trip due to unavoidable reasons</p>
-					</li>
-					<li>
-					<p>The baggage of the customer getting lost / stolen / damaged</p>
-					</li>
-					<li>
-					<p>The bus operator changing a customer’s seat at the last minute to accommodate a lady / child</p>
-					</li>
-					<li>
-					<p>The customer waiting at the wrong boarding point</p>
-					</li>
-					<li>
-					<p>The bus operator changing the boarding point and/or using a pick-up vehicle at the boarding point to take Customers to the bus departure point</p>
-					</li>
-					</ul>
-					</li>
-					<li>
-					<p>Grievances and claims related to the bus journey should be reported to ODBUS support team within 2 days of your travel date.</p>
-					</li>
-					<li>
-					<p>We may perdioaclly send promotionals SMS about new updates on our products,Special offers or other information which we think you may find intresting using your email address which you have provided.</p>
-					</li>
-					<li>
-					<p>From Time to Time, we may also use your information to contact you for market research purposes. We may contact you by Email, SMS,Fax or Mail. We may use the information to custromize the website/App according to your interests.</p>
-					</li>
-					<li>
-					<p>To conatct via Email,facsimile,Phone or text messages, to deliver certain services or information you have requested</p>
-					</li>
-			</ol>
-												
-	
-				
+						  <tr *ngFor="let dt of passengerData.bookingInfo.bookingDetail; let i = index;">
+							<th scope="row">{{i+1}}</th>
+							<td>{{ dt.passenger_name }}</td>
+							<td>{{ dt.passenger_age }}</td>
+							<td>{{ dt.passenger_gender }}</td>
+							<td>{{ get_seatno(dt.bus_seats_id) }}</td>
+						  </tr>
+						
+						</tbody>
+					  </table>
 				</div>
 				
 			</div>
 	
+			<div class="row mt30 mb25">
+				<div class="col-md-12"><img src="../../../assets/img/banner-01.png" class="od-banner"/></div>
+			</div>
+	
+			<div class="row mt30">
+				<div class="col-md-12 odtext24"><h3>TERMS & CONDITIONS</h3></div>
+				<div class="col-md-12 ">
+				  <div class="odbox1">
+				  <div class="row ">
+					<div class="col-md-6">
+					  <ol>
+	
+					  <li>ODBUS is an Online Platform which provides online bus ticket booking services and does not operate bus services.</li>
+	
+					  <li>Arrival and departure times written on the ticket approximate time, to reach on the boarding points before 15 min.</li>
+					  
+					  <li>Passengers are required to take a copy of the ticket and an Identity proof  during their travel</li>
+					  
+					  <li>We are at ODBUS advice to all customers is to choose bus operators they are aware of and whose service they are comfortable with.</li>
+					  
+					  <li>In case the bus operator changes the type of bus due to some reason, ODBUS will refund the equest by the customers in 24 hours of the journey.</li>
+					  
+					  <li>The tickets booked through ODBUS Can be cancelled and note that Cancel Can be possible before 12 hours For More Details Please refer Cancelation Policy.</li>
+					  
+					  <li>If a booking confirmation e-mail and SMS get delayed or fails because of technical reasons www.odbus.in</li>
+					  
+					  <li>During booking, If an amount deducted and ticket not shown or SMS not delivered Please call to 9583918888.</li>
+					  <li>The tickets booked through ODBUS Can be cancelled and note that Cancel Can be possible before 12 hours For More Details Please refer Cancelation Policy.</li>
+					 </ol>
+					</div>
+					<div class="col-md-6 odtext24">
+	
+					  <ol>
+	
+						
+						<li>We are at ODBUS advice to all customers is to choose bus  they are comfortable with.</li>
+						
+						<li>In case the bus operator changes the typ reason, ODBUS will refund in 24 hours of the journey.</li>
+						
+						<li>The tickets booked through ODBUS be possible before 12 hours.</li>
+						
+						
+					   </ol>
+	
+					   <h3>CANCELATION POLICY</h3>
+					   <table class="table table-bordered">
+						<thead>
+						  <tr>
+							<th scope="col">Cancellation Cut Off Time</th>
+							<th scope="col">Cancellation Return Amount</th>
+						   
+						  </tr>
+						</thead>
+						<tbody>
+						  <tr>
+							<td>4 Hours To 8 Hours</td>
+							<td>25%</td>
+						  </tr>
+						  <tr>
+							<td>8 Hours To 24 Hours</td>
+							<td>35%</td>
+						  </tr>
+						  <tr>
+							<td>24 Hours To 72 Hours</td>
+							<td>80%</td>
+						  </tr>
+						  <tr>
+							<td>More than 72 Hours</td>
+							<td>90%</td>
+						  </tr>
+						  
+						  <tr>
+							<td colspan="2">
+							  <ol>
+								<li>All customers is to choose bus they are comfortable.</li>
+								
+								<li>Bus operator changes ODBUS wilustomers in 24 hours of the journey.</li>
+								
+								<li>The tickets booked through ODBUS  before 12 hours.</li>
+								
+							   </ol>
+							</td>
+							 
+						  </tr>
+						  
+						</tbody>
+					  </table>
+					</div>
+				  </div>
+				</div>
+				</div>
+	
+				<div class="col-md-12 mt30">
+				  <div class="odbox2">
+					<div class="row ">
+					  <div class="col-md-12">
+						<p>Contact Information</p>
+						<p>ODBUS Helpline (07:00 AM To 11:00 PM):9583-918-888 (For Online Booking issue or Online Cancellation issue.) </p>
+						<p>ODBUS Customer Support Email (Response time 3 working days): support@odbus.in</p>
+					  </div>
+					</div>
+				  </div>
+				</div>
+	
+				<div class="col-md-12 mt30">
+				  <div class="odbox3">
+					<div class="row ">
+					  <div class="col-md-12">
+						<p>Thankyou</p>
+						<p>Team ODBUS</p>
+					  </div>
+					</div>
+				  </div>
+				</div>
+				
+			</div>
+			</div>
 		</div>
 	</ng-wizard-step>
 

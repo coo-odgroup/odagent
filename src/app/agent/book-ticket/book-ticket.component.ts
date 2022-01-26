@@ -49,6 +49,8 @@ export class BookTicketComponent implements OnInit {
    submitted2=false;
    couponSubmitted=false;
 
+   bookingDate:any;
+
    bookingdata: any;
    busRecord: any;
    genderRestrictSeats: any;
@@ -436,6 +438,8 @@ get_seatno(seat_id:any){
             let bkdt_mnth = ("0" + (bkdt.getMonth() + 1)).slice(-2);
             let bkdt_day = ("0" + bkdt.getDate()).slice(-2);
             let booking_date= [bkdt_day, bkdt_mnth,bkdt.getFullYear()].join("-");
+
+            this.bookingDate= [bkdt.getFullYear(),bkdt_mnth,bkdt_day].join("-");
         
             let j_date = new Date(this.entdate);
             let j_mnth = ("0" + (j_date.getMonth() + 1)).slice(-2);
