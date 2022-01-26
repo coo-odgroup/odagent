@@ -394,7 +394,7 @@
 							<td>Conductor Mobile No: {{busRecord.conductor_number}}</td>
 						  </tr>
 						  <tr>
-							<td>Total Fare: Rs.{{ couponData.payableAmount }}/-</td>
+							<td>Total Fare: Rs.{{ payableAmount }}/-</td>
 							<td>Seat({{total_seat_name.length}})- {{total_seat_name}}</td>
 						  </tr>
 						  
@@ -404,7 +404,7 @@
 				</div>
 				<div class="col-md-3"><img src="../../../assets/img/qr-code.png" class="od-qrcode"/></div>
 			</div>
-	
+		
 			<div class="row mt30 mb25">
 				<div class="col-md-12 odtext24">
 					<h3>PASSENGER DETAILS:</h3>
@@ -419,7 +419,7 @@
 						  </tr>
 						</thead>
 						<tbody>
-
+		
 						  <tr *ngFor="let dt of passengerData.bookingInfo.bookingDetail; let i = index;">
 							<th scope="row">{{i+1}}</th>
 							<td>{{ dt.passenger_name }}</td>
@@ -433,11 +433,11 @@
 				</div>
 				
 			</div>
-	
+		
 			<div class="row mt30 mb25">
 				<div class="col-md-12"><img src="../../../assets/img/banner-01.png" class="od-banner"/></div>
 			</div>
-	
+		
 			<div class="row mt30">
 				<div class="col-md-12 odtext24"><h3>TERMS & CONDITIONS</h3></div>
 				<div class="col-md-12 ">
@@ -445,9 +445,9 @@
 				  <div class="row ">
 					<div class="col-md-6">
 					  <ol>
-	
+		
 					  <li>ODBUS is an Online Platform which provides online bus ticket booking services and does not operate bus services.</li>
-	
+		
 					  <li>Arrival and departure times written on the ticket approximate time, to reach on the boarding points before 15 min.</li>
 					  
 					  <li>Passengers are required to take a copy of the ticket and an Identity proof  during their travel</li>
@@ -465,9 +465,9 @@
 					 </ol>
 					</div>
 					<div class="col-md-6 odtext24">
-	
+		
 					  <ol>
-	
+		
 						
 						<li>We are at ODBUS advice to all customers is to choose bus  they are comfortable with.</li>
 						
@@ -477,7 +477,7 @@
 						
 						
 					   </ol>
-	
+		
 					   <h3>CANCELATION POLICY</h3>
 					   <table class="table table-bordered">
 						<thead>
@@ -525,7 +525,7 @@
 				  </div>
 				</div>
 				</div>
-	
+		
 				<div class="col-md-12 mt30">
 				  <div class="odbox2">
 					<div class="row ">
@@ -537,7 +537,7 @@
 					</div>
 				  </div>
 				</div>
-	
+		
 				<div class="col-md-12 mt30">
 				  <div class="odbox3">
 					<div class="row ">
