@@ -19,7 +19,7 @@ export class Constants {
 
     //FOR LOCAL
     //public static BASE_URL:any ='http://127.0.0.1:8000/api';
-   //public static CONSUMER_API_URL:any ='http://127.0.0.1:8001/api';
+   //public static CONSUMER_API_URL:any ='http://127.0.0.1:8000/api';
 
    public static BASE_URL:any ='https://provider.odbus.co.in/api';
    public static CONSUMER_API_URL:any ='https://consumer.odbus.co.in/api';

@@ -1,0 +1,286 @@
+
+
+<ngx-spinner bdColor = "rgba(60,55,55,0.8)" size = "large" color = "#fff" type = "ball-clip-rotate-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="search-box">
+        <div class=" mb-3">
+            <div class="row p-0">
+                
+                <div class="col-12">
+
+                    <form class="form-horizontal" [formGroup]="cancelForm" (ngSubmit)="onSubmit()">
+                        <div class="hero-banner-inner-srchbus">
+                            <div class="row no-gutters">
+                               
+                                <div class="col-md-10">
+                                    <div class="row no-gutters">
+                                        <div class="col-md-6 pr-1">
+                                            <label><b>PNR</b></label>
+                                            <div class="input-group mb-3 d-block">
+        
+                                                <div class="input-group-prepend">
+                                                    <input type="text" class="form-control modul-text" formControlName="pnr" id="pnr" placeholder="Enter PNR" />
+                                                </div>
+                                            </div>
+                                            <div *ngIf="submitted && f.pnr.errors" class="invalid-feedback">
+                                                <div *ngIf="f.pnr.errors.required">PNR is required</div>
+                                            </div>
+                                        
+                                        </div>
+                                        <div class="col-md-6 pr-1 to_dest_block">
+                                            <label><b>MOBILE</b></label>
+                                           
+                                            <div class="input-group mb-3 d-block">
+                                                <div class="input-group-prepend">
+                                                   
+                                                        <input type="text"  (keydown)="onlyNumbers($event);" maxlength ="10" class="form-control modul-text" formControlName="mobile" id="mobile" placeholder="Enter Mobile No." />														
+                                                       
+                                                </div>
+                                               
+                                            </div>
+
+                                            <div *ngIf="submitted && f.mobile.errors" class="invalid-feedback">
+                                                <div *ngIf="f.mobile.errors.required">Mobile no. is required</div>
+                                                <div *ngIf="f.mobile.errors.pattern">Enter 10 digit Mobile Number</div>
+                                            </div>
+                                                
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <p style="opacity: 0;">Search</p>
+                                    <div class="bus_search">
+                                        <button type="submit"  class="btn">Search</button>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </form>
+                </div> 
+            
+            </div>
+        </div>
+    </div>
+       
+    </div>
+
+    <section class="search-result2 mt60" *ngIf="bookingDetails">
+        <div class="container ">
+           
+                    <div id="print_ticket">
+                    <div class="passenger">
+
+                        <h5>Journey Details</h5><hr>
+                                <div class="passenger-detail">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <table class="tableclass2" cellpadding="10">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="st-ri">PNR Number:</td>
+                                                        <td class="st-le">{{ bookingDetails.booking[0].pnr }}</td>
+                                                    </tr>
+    
+                                                    <tr>
+                                                        <td class="st-ri">Boarding Point:</td>
+                                                        <td class="st-le">{{ bookingDetails.booking[0].boarding_point}}, {{bookingDetails.booking[0].source[0].name}}</td>
+                                                    </tr>
+    
+                                                    <tr>
+                                                        <td class="st-ri">Bus Name:</td>
+                                                        <td class="st-le">{{bookingDetails.booking[0].bus.name}}</td>
+                                                    </tr>
+    
+                                                    <tr>
+                                                        <td class="st-ri">No.of Seats:</td>
+                                                        <td class="st-le">{{ totalseats }}</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="st-ri">Total fare:</td>
+                                                        <td class="st-le">Rs {{ bookingDetails.booking[0].total_fare }} /-</td>
+                                                    </tr>
+                                                  
+                                                    <tr>
+                                                        <td class="st-ri">Commision From Customer:</td>
+                                                        <td class="st-le">Rs {{ bookingDetails.booking[0].customer_comission }} /-</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="st-ri">Total Paid By Customer:</td>
+                                                        <td class="st-le">Rs {{ bookingDetails.booking[0].total_fare + bookingDetails.booking[0].customer_comission }} /-</td>
+                                                    </tr>
+    
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                                <table class="tableclass2" cellpadding="10" > 
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="st-ri">Date of Journey:</td>
+                                                            <td class="st-le">{{ bookingDetails.booking[0].journey_dt | date:'EEEE, d MMMM , y' }} {{ bookingDetails.booking[0].boarding_time }}</td>
+                                                        </tr>
+    
+                                                        <tr>
+                                                            <td class="st-ri">Dropping Point:</td>
+                                                            <td class="st-le">{{ bookingDetails.booking[0].dropping_point}} , {{bookingDetails.booking[0].destination[0].name}}</td>
+                                                        </tr>
+    
+                                                        <tr>
+                                                            <td class="st-ri">Bus Type:</td>
+                                                            <td class="st-le"> {{ bookingDetails.booking[0].bus.bus_type.name}} 
+                                                                {{ bookingDetails.booking[0].bus.bus_type.bus_class.class_name}}
+                                                                {{ bookingDetails.booking[0].bus.bus_sitting.name}}
+                                                            </td>
+                                                        </tr>
+    
+                                                        <tr>
+                                                            <td class="st-ri">Seat No:</td>
+                                                            <td class="st-le">{{ seats }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                        </div>
+                                    </div>
+    
+                                </div>
+
+                                <h5>Passenger Details</h5><hr>
+                        
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="tableclass" cellpadding="12">
+                                            <thead>
+                                                <th>Passenger Name</th>
+                                                <th class="mb-center">Seats</th>
+                                                <th class="mb-center">Gender</th>
+                                                <th class="mb-center">Age</th>
+                                                <th class="mb-center">&nbsp;</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let dt of bookingDetails.booking[0].booking_detail; let i = index;">
+                                                    <td>{{ dt.passenger_name }}</td>
+                                                    <td class="mb-center">{{ dt.bus_seats.seats.seatText }}</td>
+                                                    <td class="mb-center">{{ dt.passenger_gender }}</td>
+                                                    <td class="mb-center">{{ dt.passenger_age }}</td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                            
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            
+                                <h5>Contact Details</h5><hr>
+                            
+                                <div class="row mb25">
+                                    <div class="col-md-12">
+                                        <table class="tableclass2" cellpadding="10">
+                                            
+                                            
+                                                <thead>
+                                                    <th>Name</th>
+                                                    <th>Mobile Number</th>
+                                                    <th>Email Address</th>
+                                                    <th>&nbsp;</th>
+                                                </thead>
+                                                <tbody>
+                                                <tr style="font-weight: normal;">
+                                                    <td>{{bookingDetails.name}}</td>
+                                                    <td>+91 {{bookingDetails.phone}}</td>
+                                                    <td>{{bookingDetails.email}}</td>
+                                                    <td>&nbsp;</td>
+                                                </tr>
+                                
+                                            </tbody>
+                                        </table>
+                                    </div> 
+                                </div>
+
+                                <a *ngIf="bookingDetails.booking[0].user_id!= null " (click)="cancelTicketTab(content)" class="btn btn-warning btn-xs btn-anup">Cancel Ticket</a>
+
+                                <span style="color:red;font-weight:bold" *ngIf="bookingDetails.booking[0].user_id == null " >You can't cancel this ticket. This ticket has been booked by Customer</span>
+                           
+    
+                        </div>
+                    </div>
+    
+    </div>
+    </section>
+
+</div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Cancellation Info</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross Click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  
+    <div class="modal-body">
+      
+      <div class="row">
+        <div class="col-md-12" style="margin: 0 auto;">
+        <table width="100%" cellpadding="10">
+        <tbody>
+            <tr>
+                <td class="st-ri">Amount Paid:</td>
+                <td class="st-le">₹{{ cancelInfo.totalfare }}</td>
+            </tr>
+  
+            <tr>
+                <td class="st-ri">Cancellation Fees:</td>
+                <td class="st-le">₹{{ cancelInfo.deductAmount }} ( {{ cancelInfo.deductionPercentage }})</td>
+            </tr>
+  
+            <tr>
+                <td class="st-ri">Refund Amount:</td>
+                <td class="st-le">₹{{ cancelInfo.refundAmount}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div align="center">
+        <form class="form-horizontal" [formGroup]="FinalcancelForm" (ngSubmit)="onSubmitOtp()">
+            <div class="hero-banner-inner-srchbus">
+                <div class="row no-gutters">
+                   
+                    <div class="col-md-6">
+                        <div class="row no-gutters">
+                                <label><b>Enter OTP</b></label>
+                                <div class="input-group mb-3 d-block">
+
+                                    <div class="input-group-prepend">
+                                        <input type="text" class="form-control modul-text" formControlName="otp" id="otp" placeholder="Enter OTP" />
+                                    </div>
+                                </div>
+                                <div *ngIf="Otpsubmitted && fo.otp.errors" class="invalid-feedback">
+                                    <div *ngIf="fo.otp.errors.required">OTP is required</div>
+                                </div>                     
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <p style="opacity: 0;">Search</p>
+                        <div class="bus_search">
+                            <button type="submit"  class="btn">Cancel Ticket</button>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </form>
+    
+    </div>
+  </div>
+    </div>
+  
+      
+    </div>
+  
+  </ng-template>

@@ -52,6 +52,11 @@ const routes: Routes = [
         loadChildren: () => import('./book-ticket/book-ticket.module').then(module => module.BookTicketModule)
       },
 
+      {
+        path: 'cancelTicket',
+        loadChildren: () => import('./cancel-ticket/cancel-ticket.module').then(module => module.CancelTicketModule)
+      },
+
      
      
     

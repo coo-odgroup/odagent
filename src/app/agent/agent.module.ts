@@ -11,8 +11,7 @@ import { CustomercommissionslabComponent } from './customercommissionslab/custom
 import { BookingComponent } from './booking/booking.component';
 
 @NgModule({
-  declarations: [
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     SharedModule,

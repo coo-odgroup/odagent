@@ -1,0 +1,57 @@
+
+::ng-deep .sml_input
+{
+height: calc(1.5em + 1rem);
+padding:0px 10px;
+}
+
+// .bookingDiv {
+//     height: 400px !important;
+// }
+
+.search-box{
+    background:#323232;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.search-box h2{
+    font-size: 32px;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom:25px;
+}
+
+.hero-banner-inner-srchbus label{
+    color: #ffffff;
+}
+
+.input-group-prepend {
+    margin-right: 0px !important;
+}
+.form-control[readonly] {
+    background-color: #ffffff;
+    opacity: 1;
+}
+
+.hero-banner-inner-srchbus input {
+    height: 50px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+span#basic-addon2 img {
+    position: relative;
+    right: 0px !important;
+}
+.to_dest_block input {
+    padding-left: 10px !important;
+}
+
+ngb-datepicker.dropdown-menu.show {
+    position: absolute !important;
+    z-index: 99999;
+    margin-top: 18%;
+    transform: none !important;
+}
+

@@ -46,6 +46,14 @@ const AgentItems = [
         icon: 'feather icon-gitlab',
         url: 'agent/booking'
       },
+
+      {
+        id: 'cancelticket',
+        title: 'Cancel Ticket',
+        type: 'item',       
+        icon: 'feather icon-gitlab',
+        url: 'agent/cancelTicket'
+      },
       {
         id: 'notification',
         title: 'Notification',
