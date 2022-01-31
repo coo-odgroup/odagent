@@ -196,9 +196,9 @@ export class BookTicketComponent implements OnInit {
             name:this.USERRECORDS.name,
           }),  
           customerInfo: this.fb.group({          
-            email: [this.customerInfoEmail, [Validators.email]],
-            phone: [this.customerInfoPhone, [Validators.required,Validators.pattern("^[0-9]{10}$")]],  
-            name:[this.customerInfoname, Validators.required],
+            email: [this.USERRECORDS.email, [Validators.email]],
+            phone: [this.USERRECORDS.phone, [Validators.required,Validators.pattern("^[0-9]{10}$")]],  
+            name:[this.USERRECORDS.name, Validators.required],
           }),   
           bookingInfo: this.fb.group({
   

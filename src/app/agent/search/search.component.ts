@@ -1454,6 +1454,11 @@ export class SearchComponent  implements ControlValueAccessor {
   sourceData:any;
   destinationData:any;
 
+  tabChange(val){
+    document.getElementById(val).focus();
+    document.getElementById(val).click();
+  }
+
   ngOnInit() :void{ 
 
     this.common.getPathUrls().subscribe( res=>{          

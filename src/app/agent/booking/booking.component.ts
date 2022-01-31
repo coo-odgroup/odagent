@@ -167,6 +167,11 @@ export class BookingComponent implements OnInit {
     }
   }
 
+  tabChange(val){
+    document.getElementById(val).focus();
+    document.getElementById(val).click();
+  }
+
   listing(s:any,d:any,dt: any){
    
     this.locationService.setSource(s);

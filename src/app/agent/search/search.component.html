@@ -50,7 +50,7 @@
                                             <span class="input-group-text" id="basic-addon1"><img src="assets/img/Icon-metro-location.svg"></span>
                                             <input autocomplete="off" id="typeahead-template" type="text" class="form-control" [ngbTypeahead]="search"
                                                 [resultTemplate]="rt" [inputFormatter]="formatter" [ngModel]="swapsource" placeholder="Enter Source"
-                                                formControlName="source" />
+                                                formControlName="source" (selectItem)="tabChange('to')" />
                                     
                                             <ng-template #rt let-r="result" let-t="term">
                                                 <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
@@ -69,8 +69,8 @@
                                                     src="assets/img/Icon-metro-location.svg"></span>
 
 
-                                                    <input autocomplete="off" id="typeahead-template2" type="text" class="form-control"  [ngbTypeahead]="search" 
-                                                    [resultTemplate]="rt2" [inputFormatter]="formatter" [ngModel]="swapdestination" formControlName="destination" placeholder="Enter Destination"
+                                                    <input autocomplete="off" id="to" type="text" class="form-control"  [ngbTypeahead]="search" 
+                                                    [resultTemplate]="rt2" [inputFormatter]="formatter" [ngModel]="swapdestination" formControlName="destination" placeholder="Enter Destination" (selectItem)="tabChange('entryDate')"
                                                     />
                                                   
                                                         <ng-template #rt2 let-r="result" let-t="term">
@@ -88,7 +88,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text calendar" id="basic-addon3" (click)="d.toggle()" ><img src="assets/img/Icon-metro-calendar.svg"></span>
                                         </div>
-                                        <input type="text" autocomplete="off" class="form-control calendar" formControlName="entry_date"  
+                                        <input type="text" id="entryDate" autocomplete="off" class="form-control calendar" formControlName="entry_date"  
                                         placeholder="Journey Date" 
                                         [(ngModel)]="jrnyDt" 
                                          ngbDatepicker 
