@@ -55,6 +55,7 @@ export class CancelTicketComponent implements OnInit {
     
   onSubmit() {   
 
+    this.bookingDetails=[];
     this.submitted = true;
      // stop here if form is invalid
      if (this.cancelForm.invalid) {      
