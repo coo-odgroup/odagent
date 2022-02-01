@@ -14,7 +14,7 @@ const routes: Routes = [
         loadChildren: () => import('./wallet/wallet.module').then(module => module.WalletModule)
       },
       {
-        path: 'walletreport',
+        path: 'alltransactionreport',
         loadChildren: () => import('./agentwalletreport/agentwalletreport.module').then(module => module.AgentWalletReportModule)
       },
       {
@@ -55,6 +55,10 @@ const routes: Routes = [
       {
         path: 'cancelTicket',
         loadChildren: () => import('./cancel-ticket/cancel-ticket.module').then(module => module.CancelTicketModule)
+      },
+      {
+        path: 'agentprofile',
+        loadChildren: () => import('./agentprofile/agentprofile.module').then(module => module.AgentprofileModule)
       },
 
      

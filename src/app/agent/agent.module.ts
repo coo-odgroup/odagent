@@ -9,9 +9,12 @@ import { AgentwalletreportComponent } from './agentwalletreport/agentwalletrepor
 import { CommissionslabComponent } from './commissionslab/commissionslab.component';
 import { CustomercommissionslabComponent } from './customercommissionslab/customercommissionslab.component';
 import { BookingComponent } from './booking/booking.component';
+import { AgentprofileComponent } from './agentprofile/agentprofile.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    
+  ],
   imports: [
     CommonModule,
     SharedModule,

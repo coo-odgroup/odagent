@@ -46,7 +46,13 @@ const AgentItems = [
         icon: 'feather icon-gitlab',
         url: 'agent/booking'
       },
-
+      {
+        id: 'agentprofile',
+        title: 'Agent Profile',
+        type: 'item',       
+        icon: 'feather icon-gitlab',
+        url: 'agent/agentprofile'
+      },
       {
         id: 'cancelticket',
         title: 'Cancel Ticket',
@@ -70,10 +76,10 @@ const AgentItems = [
       },
       {
         id: 'walletreport',
-        title: 'Wallet Report',
+        title: 'All Transaction Report',
         type: 'item',
         icon: 'ng-tns-c12-3 feather icon-file-text',
-        url: 'agent/walletreport'
+        url: 'agent/alltransactionreport'
       },
       {
         id: 'cancellationreport',

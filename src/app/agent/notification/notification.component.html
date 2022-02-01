@@ -93,7 +93,7 @@
               <tr>
                 <th scope="col" width="80px" style="text-align: center;">#</th>
                 <th scope="col" width="150px">Date</th>
-                <th scope="col">Heading</th>
+                <th scope="col">Subject</th>
                 <!-- <th scope="col">Phone Number</th>
                 <th scope="col">Operator</th>
                 <th scope="col">Email Id</th> -->
@@ -104,7 +104,7 @@
               <tr *ngFor="let contact of notificationcontent; let i=index;">
                 <td style="text-align: center;">{{i+1}}</td>
                 <td>{{contact.created_at | date: 'dd/MM/yyyy'}}</td>
-                <td>{{contact.notification_heading}}</td>
+                <td><strong>{{contact.notification_heading}} </strong></td>
                
                 <td class="hide_print">
                   <div class="overlay-edit">

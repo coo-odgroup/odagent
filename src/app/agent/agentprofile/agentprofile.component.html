@@ -1,0 +1,328 @@
+<ngx-spinner bdColor = "rgba(60,55,55,0.8)" size = "large" color = "#fff" type = "ball-clip-rotate-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <app-card cardTitle="Agent Profile" cardClass="card-datatable" [options]="false" [isCardFooter]="false">
+            <div class="row">
+                <div class="col-sm-12">
+                  <div class="form-material">
+                    <div class="right-icon-control">
+                      <form [formGroup]="form" class="editForm" novalidate>
+                        <div class="row">
+                          <div class="col-md-12 text-center"><span class="heading_label"><h5>Personal Details</h5></span></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="form-group row">
+                              <label for="name" class="col-sm-4 col-form-label">Name<span
+                                  class="text-danger">*</span></label>
+                              <div class="col-sm-8">
+                                <input type="text" class="form-control" placeholder="Enter Your Name" formControlName="name">
+                                <span class="text-danger"
+                                  *ngIf="form.controls['name'].touched && form.controls['name'].hasError('required')">
+                                  Agent Name is required! </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group row">
+                              <label for="email" class="col-sm-4 col-form-label">Email<span
+                                  class="text-danger">*</span></label>
+                              <div class="col-sm-8">
+                                <input type="text" class="form-control" placeholder="Login Email id" formControlName="email" pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*">
+
+                                <span class="text-danger row col-12" *ngIf="form.controls['email'].errors?.pattern">
+                                  Email Id not valid.
+                                 </span>
+                                <span class="text-danger"
+                                  *ngIf="form.controls['email'].touched && form.controls['email'].hasError('required')">
+                                  Email is required! </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group row">
+                              <label for="phone" class="col-sm-4 col-form-label">Phone<span
+                                  class="text-danger">*</span></label>
+                              <div class="col-sm-8">
+                                <input type="text" class="form-control" oninput="this.value=this.value.replace(/[^\d]/,'')"  placeholder="Contact Phone Number" formControlName="phone" minlength="10" maxlength="10">
+                                <span class="text-danger"
+                                  *ngIf="form.controls['phone'].touched && form.controls['phone'].hasError('required')">
+                                  Phone is required! </span>
+
+                                <span class="text-danger"
+                                *ngIf="form.controls['phone'].touched && form.controls['phone'].hasError('minlength')">
+                                Minimum 10 Characters Required
+                              </span>
+                              <span class="text-danger"
+                              *ngIf="form.controls['phone'].touched && form.controls['phone'].hasError('maxlength')">
+                              Maximum 10 Characters Allowed
+                            </span>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                              <div class="form-group row">
+                                <label for="password" class="col-sm-4 col-form-label">Password<span
+                                    class="text-danger">*</span></label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control" placeholder="Password" formControlName="password" minlength="6">
+
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['password'].touched && form.controls['password'].hasError('minlength')">
+                                    Minimum 6 Characters Required
+                                  </span>
+
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['password'].touched && form.controls['password'].hasError('required')" >
+                                    Password is required! </span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group row">
+                                <label for="location" class="col-sm-4 col-form-label">Location<span
+                                    class="text-danger">*</span></label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control" placeholder="Business Location" formControlName="location">
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['location'].touched && form.controls['location'].hasError('required')">
+                                    Location is required! </span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="form-group row">
+                                <label for="organization_name" class="col-sm-4 col-form-label">Organization<span
+                                    class="text-danger">*</span></label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control" placeholder="Orgaization/Shop Name" formControlName="organization_name">
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['organization_name'].touched && form.controls['organization_name'].hasError('required')">
+                                    Organization is required! </span>
+                                </div>
+                              </div>
+                            </div>
+                            
+  
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                  <label for="adhar_no" class="col-sm-4 col-form-label">Aadhaar<span
+                                    class="text-danger">*</span></label>
+                                  <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="Aadhaar Number" formControlName="adhar_no" minlength="12" maxlength="12" oninput="this.value=this.value.replace(/[^\d]/,'')" >
+                                    <span class="text-danger"
+                                      *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].hasError('required')">
+                                      Aadhaar is required! </span>
+                                    <span class="text-danger"
+                                      *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].hasError('minlength')">
+                                      Aadhaar has Minimum 12 characters.
+                                    </span>
+                                    <span class="text-danger"
+                                      *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].hasError('maxlength')">
+                                      Aadhaar has Maximum 12 characters.
+                                    </span>
+
+                                    <!-- <span class="text-danger"
+                                      *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].errors?.pattern">
+                                      Enter a valid Aadhaar number! </span> -->
+                                  </div>
+                                </div>
+                              </div>
+                            <div class="col-md-4">
+                              <div class="form-group row">
+                                <label for="pancard_no" class="col-sm-4 col-form-label">Pan Card<span
+                                    class="text-danger">*</span></label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control" placeholder="Valid Pan Number" formControlName="pancard_no" pattern="^[A-Za-z]{5}[0-9]{4}[A-Za-z]$">
+
+                                  <span class="text-danger row col-12" *ngIf="form.controls['pancard_no'].errors?.pattern">
+                                   Pan Card not valid.
+                                  </span>
+
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['pancard_no'].touched && form.controls['pancard_no'].hasError('required')">
+                                    Pan Card is required! </span>
+                                </div>
+                              </div>
+                            </div>                           
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 text-center"><span class="heading_label"><h5>Address Details</h5></span></div>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label for="address" class="col-sm-4 col-form-label">Flat,HouseNo,Building,Apartment,Company<span
+                                      class="text-danger">*</span></label>
+                                  <div class="col-sm-8 m-0 p-0">
+                                    <input type="text" class="form-control" formControlName="address" placeholder="Flat,HouseNo,Building,Apartment,Company">
+                                    <span class="text-danger"
+                                      *ngIf="form.controls['address'].touched && form.controls['address'].hasError('required')">
+                                      Address is required! </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label for="landmark" class="col-sm-4 col-form-label">Area,Colony,Street,Sector,Village<span
+                                      class="text-danger">*</span></label>
+                                  <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="Area,Colony,Street,Sector,Village" formControlName="area">
+                                    <span class="text-danger"
+                                      *ngIf="form.controls['area'].touched && form.controls['area'].hasError('required')">
+                                      Area,Colony,Street,Sector,Village </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group row">
+                                  <label for="landmark" class="col-sm-4 col-form-label">Land Mark<span
+                                      class="text-danger">*</span></label>
+                                  <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="Landmark" formControlName="landmark">
+                                    <span class="text-danger"
+                                      *ngIf="form.controls['landmark'].touched && form.controls['landmark'].hasError('required')">
+                                      Landmark is required! </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group row">
+                                  <label for="landmark" class="col-sm-4 col-form-label">Town/City<span
+                                      class="text-danger">*</span></label>
+                                  <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="Town/City" formControlName="town">
+                                    <span class="text-danger"
+                                      *ngIf="form.controls['town'].touched && form.controls['town'].hasError('required')">
+                                      Town is required! </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4">
+                                <div class="form-group row">
+                                  <label for="pincode" class="col-sm-4 col-form-label">Pincode<span
+                                      class="text-danger">*</span></label>
+                                  <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="Zip Code / Pin Code" formControlName="pincode" minlength="6" maxlength="6" oninput="this.value=this.value.replace(/[^\d]/,'')">
+                                    <span class="text-danger"
+                                      *ngIf="form.controls['pincode'].touched && form.controls['pincode'].hasError('required')">
+                                      Pincode is required! </span>
+                               
+  
+                                    <span class="text-danger"
+                                      *ngIf="form.controls['pincode'].touched && form.controls['pincode'].hasError('minlength')">
+                                      Pincode is of 6 character required! </span>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                        <div class="row">
+                          <div class="col-md-12 text-center"><span class="heading_label"><h5>Bank Details</h5></span></div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group row">
+                              <label for="bank_name" class="col-sm-4 col-form-label">Name On Bank Account<span
+                                class="text-danger">*</span></label>
+                              <div class="col-sm-8">
+                                <input type="text" class="form-control" placeholder="Name On Bank Account" formControlName="bank_acc_name">
+                                <span class="text-danger"
+                                  *ngIf="form.controls['bank_acc_name'].touched && form.controls['bank_acc_name'].hasError('required')">
+                                  Name On Bank Account is required! </span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group row">
+                              <label for="bank_name" class="col-sm-4 col-form-label">Bank Name<span
+                                class="text-danger">*</span></label>
+                              <div class="col-sm-8">
+                                <input type="text" class="form-control" placeholder="Bank Name" formControlName="bank_name">
+                                <span class="text-danger"
+                                  *ngIf="form.controls['bank_name'].touched && form.controls['bank_name'].hasError('required')">
+                                  Bank name is required! </span>
+                              </div>
+                            </div>
+                          </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label for="name_on_bank_account" class="col-sm-4 col-form-label pr-0">Branch Name<span
+                                    class="text-danger">*</span></label>
+                                  <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="Name On Branch Name" formControlName="branch_name">
+                                    <span class="text-danger"
+                                      *ngIf="form.controls['branch_name'].touched && form.controls['branch_name'].hasError('required')">
+                                      Branch Name is Required! </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label for="bank_account_no" class="col-sm-4 col-form-label">Bank Account Number<span
+                                    class="text-danger">*</span></label>
+                                  <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="Bank Account Number" formControlName="bank_account_no">
+                                    <span class="text-danger"
+                                      *ngIf="form.controls['bank_account_no'].touched && form.controls['bank_account_no'].hasError('required')">
+                                      Bank Account Number required! </span>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                            <div class="col-md-6">
+                              <div class="form-group row">
+                                <label for="ifsc_code" class="col-sm-4 col-form-label"><span
+                                  class="text-danger">*</span>IFSC code</label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control" placeholder="BANK IFSC Code" formControlName="ifsc_code" (change)="checkIfsc()" >
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['ifsc_code'].touched && form.controls['ifsc_code'].hasError('required')">
+                                    IFSC code is required! </span>
+
+                                    <label for="ifsc_code" class="col-sm-12 col-form-label">{{validIFSC}}</label>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                  <label for="bank_account_no" class="col-sm-4 col-form-label">UPI Id</label>
+                                  <div class="col-sm-8">
+                                    <input type="text" class="form-control" placeholder="UPI Id" formControlName="upi_id">
+                                    <!-- <span class="text-danger"
+                                      *ngIf="form.controls['bank_account_no'].touched && form.controls['bank_account_no'].hasError('required')">
+                                      Bank Account Number required! </span> -->
+                                  </div>
+                                </div>
+                              </div>
+                            
+                            <!-- <div class="col-md-8 ml-0 pl-0">
+                             
+                            </div> -->
+                     
+  
+                        </div>
+
+                        <button type="button" [disabled]="!form.valid"  class="btn btn-primary btn-lg"
+                ngbAutofocus>{{ModalBtn}}</button>
+              <!-- <button type="button" class="btn btn-default" data-dismiss="modal" #defaultClick
+                (click)="modal.dismiss('Cross click')">Close</button> -->
+  
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+           
+            
+        </app-card>
+    </div>
+</div>

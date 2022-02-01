@@ -101,6 +101,7 @@ export class AgentwalletreportComponent implements OnInit {
         res => {
           this.wallet = res.data.data.data;
           this.pagination = res.data.data;
+          // console.log(this.wallet);
           this.spinner.hide();
         }
       );

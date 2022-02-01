@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-sm-12">
-      <app-card [hidHeader]="false" cardTitle="Agent Wallet Report" cardClass="card-datatable" [options]="false"
+      <app-card [hidHeader]="false" cardTitle="All Transaction Report" cardClass="card-datatable" [options]="false"
         cardClass=" table-border-style user-profile-list " [isCardFooter]="false">
         <div class="row">
           <!-- <div class="col-2">
@@ -75,7 +75,7 @@
                 <th scope="col">Amount</th>
                 <th scope="col">Tran. Type</th>               
                 <th scope="col">Balance</th>
-                <th scope="col">Remarks</th>
+                <th scope="col">Note</th>
                 
               </tr>
             </thead>
@@ -93,7 +93,18 @@
                       ><strong>Debit</strong></label>
                   </td>
                 <td >{{page.balance}}</td>
-                <td >{{page.remarks}}</td>
+                <td>
+                  <span *ngIf='page.payment_via == "" && page.transaction_type=="c"'>
+                          Commission Request
+                  </span>
+                  <span *ngIf='page.payment_via == "" && page.transaction_type=="d"'>
+                          Ticket Book
+                  </span>
+                  <span *ngIf='page.payment_via != "" && page.transaction_type=="c"'>
+                            Wallet Recharge
+                  </span>
+                  <!-- {{page.remarks}} -->
+                </td>
                 <!-- <td>
                   <label *ngIf="page.status==1" class="btn btn-sm  bg-info  text-light"
                    ><strong>Active</strong></label>
