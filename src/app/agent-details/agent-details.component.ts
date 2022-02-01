@@ -107,6 +107,27 @@ export class AgentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('USERID');
+    this.agentform = this.fb.group({  
+      name: [null, Validators.compose([Validators.required])],
+      email: [null, Validators.compose([Validators.required])],
+      password: [null, Validators.compose([Validators.required])],
+      location: [null, Validators.compose([Validators.required])],
+      adhar_no: [null, Validators.compose([ Validators.required,Validators.minLength(12),Validators.maxLength(12)])],
+      pancard_no: [null, Validators.compose([Validators.required])],
+      organization_name: [null,Validators.compose([Validators.required])],
+      address: [null, Validators.compose([Validators.required])],
+      street: [null, Validators.compose([Validators.required])],
+      city: [null, Validators.compose([Validators.required])],      
+      landmark: [null, Validators.compose([Validators.required])],
+      pincode: [null, Validators.compose([Validators.required])],
+      branch_name: [null, Validators.compose([Validators.required])],
+      name_on_bank_account: [null, Validators.compose([Validators.required])],
+      bank_name: [null, Validators.compose([Validators.required])],
+      ifsc_code: [null, Validators.compose([Validators.required])],
+      bank_account_no: [null, Validators.compose([Validators.required])],
+      upi_id: [null],
+      
+    }); 
   }
   fieldTextType: boolean;
 

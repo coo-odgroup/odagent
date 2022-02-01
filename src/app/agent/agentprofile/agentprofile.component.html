@@ -65,24 +65,7 @@
 
                         </div>
                         <div class="row">
-                            <div class="col-md-4">
-                              <div class="form-group row">
-                                <label for="password" class="col-sm-4 col-form-label">Password<span
-                                    class="text-danger">*</span></label>
-                                <div class="col-sm-8">
-                                  <input type="text" class="form-control" placeholder="Password" formControlName="password" minlength="6">
-
-                                  <span class="text-danger"
-                                    *ngIf="form.controls['password'].touched && form.controls['password'].hasError('minlength')">
-                                    Minimum 6 Characters Required
-                                  </span>
-
-                                  <span class="text-danger"
-                                    *ngIf="form.controls['password'].touched && form.controls['password'].hasError('required')" >
-                                    Password is required! </span>
-                                </div>
-                              </div>
-                            </div>
+                            
                             <div class="col-md-4">
                               <div class="form-group row">
                                 <label for="location" class="col-sm-4 col-form-label">Location<span
@@ -107,34 +90,34 @@
                                 </div>
                               </div>
                             </div>
+                            <div class="col-md-4">
+                              <div class="form-group row">
+                                <label for="adhar_no" class="col-sm-4 col-form-label">Aadhaar<span
+                                  class="text-danger">*</span></label>
+                                <div class="col-sm-8">
+                                  <input type="text" class="form-control" placeholder="Aadhaar Number" formControlName="adhar_no" minlength="12" maxlength="12" oninput="this.value=this.value.replace(/[^\d]/,'')" >
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].hasError('required')">
+                                    Aadhaar is required! </span>
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].hasError('minlength')">
+                                    Aadhaar has Minimum 12 characters.
+                                  </span>
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].hasError('maxlength')">
+                                    Aadhaar has Maximum 12 characters.
+                                  </span>
+
+                                  <!-- <span class="text-danger"
+                                    *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].errors?.pattern">
+                                    Enter a valid Aadhaar number! </span> -->
+                                </div>
+                              </div>
+                            </div>
                             
   
                         </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group row">
-                                  <label for="adhar_no" class="col-sm-4 col-form-label">Aadhaar<span
-                                    class="text-danger">*</span></label>
-                                  <div class="col-sm-8">
-                                    <input type="text" class="form-control" placeholder="Aadhaar Number" formControlName="adhar_no" minlength="12" maxlength="12" oninput="this.value=this.value.replace(/[^\d]/,'')" >
-                                    <span class="text-danger"
-                                      *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].hasError('required')">
-                                      Aadhaar is required! </span>
-                                    <span class="text-danger"
-                                      *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].hasError('minlength')">
-                                      Aadhaar has Minimum 12 characters.
-                                    </span>
-                                    <span class="text-danger"
-                                      *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].hasError('maxlength')">
-                                      Aadhaar has Maximum 12 characters.
-                                    </span>
-
-                                    <!-- <span class="text-danger"
-                                      *ngIf="form.controls['adhar_no'].touched && form.controls['adhar_no'].errors?.pattern">
-                                      Enter a valid Aadhaar number! </span> -->
-                                  </div>
-                                </div>
-                              </div>
+                        <div class="row">                            
                             <div class="col-md-4">
                               <div class="form-group row">
                                 <label for="pancard_no" class="col-sm-4 col-form-label">Pan Card<span
@@ -151,7 +134,33 @@
                                     Pan Card is required! </span>
                                 </div>
                               </div>
-                            </div>                           
+                            </div>   
+                            <div class="col-md-3">
+                              <div class="form-group row">
+                                                               
+                                <label for="pwd"> DO you want to change password</label>
+                                <div class="col-sm-2">
+                                  <input type="checkbox" id="pwd" formControlName="pwd_check" value="0">
+                                </div> 
+                              </div>
+                            </div> 
+                            <div class="col-md-5" *ngIf="form.controls.pwd_check.value==true">
+                              <div class="form-group row">
+                              
+                                <div class="col-sm-12">
+                                  <input type="text" class="form-control" placeholder="Password" formControlName="password" minlength="6">
+
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['password'].touched && form.controls['password'].hasError('minlength')">
+                                    Minimum 6 Characters Required
+                                  </span>
+
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['password'].touched && form.controls['password'].hasError('required')" >
+                                    Password is required! </span>
+                                </div>
+                              </div>
+                            </div>                       
                         </div>
 
                         <div class="row">
@@ -310,7 +319,7 @@
   
                         </div>
 
-                        <button type="button" [disabled]="!form.valid"  class="btn btn-primary btn-lg"
+                        <button type="button" [disabled]="!form.valid" (click)="updateDetails()"  class="btn btn-primary btn-lg"
                 ngbAutofocus>{{ModalBtn}}</button>
               <!-- <button type="button" class="btn btn-default" data-dismiss="modal" #defaultClick
                 (click)="modal.dismiss('Cross click')">Close</button> -->
