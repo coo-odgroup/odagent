@@ -73,7 +73,30 @@ const AgentItems = [
         type: 'item',
         icon: 'feather icon-shield',
         url: 'agent/wallet'
+      },     
+      {
+        id: 'commissionslab',
+        title: 'Commission Slab',
+        type: 'item',
+        icon: 'feather icon-upload-cloud',
+        url: 'agent/commissionslab'
       },
+      {
+        id: 'customercommissionslab',
+        title: 'Customer Commission Slab',
+        type: 'item',
+        icon: 'feather icon-wind',
+        url: 'agent/customercommissionslab'
+      }
+
+    ]
+  },
+  {
+    id: 'report',
+    title: 'Reports',
+    type: 'collapse',
+    icon: 'feather icon-thermometer',
+    children: [
       {
         id: 'walletreport',
         title: 'All Transaction Report',
@@ -102,23 +125,24 @@ const AgentItems = [
         icon: 'feather icon-pie-chart',
         url: 'agent/commissionreport'
       },
-      {
-        id: 'commissionslab',
-        title: 'Commission Slab',
-        type: 'item',
-        icon: 'feather icon-upload-cloud',
-        url: 'agent/commissionslab'
-      },
-      {
-        id: 'customercommissionslab',
-        title: 'Customer Commission Slab',
-        type: 'item',
-        icon: 'feather icon-wind',
-        url: 'agent/customercommissionslab'
-      }
-
+     
+      // {
+      //   id: 'user',
+      //   title: 'Operators',
+      //   type: 'item',
+      //   icon:'feather icon-users',
+      //   url: 'setting/user'
+      // },          
+      // {
+      //   id: 'association',
+      //   title: 'Association',
+      //   type: 'item',
+      //   icon:'feather icon-user-plus',
+      //   url: 'setting/association'
+      // },
+      
     ]
-  }
+  },
 ];
 
 // const NavigationItems = [

@@ -7,5 +7,6 @@ export interface CompleteReport {
     destination_id:any ;
     rangeFromDate:any;
     rangeToDate:any;
+    tran_type:any;
 
 }

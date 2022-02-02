@@ -141,75 +141,85 @@
                     <form [formGroup]="form" class="editForm" novalidate>
                       <div class="row">
                         <div class="col-md-8">
-                          <div class="from-group">
-                            <label for="name" class="col-sm-4 col-form-label">Transaction Id:<span
-                                class="text-danger">*</span></label>
-                            <div class="col-sm-12">
-                              <input type="text" class="form-control" ngbAutofocus placeholder="Enter Transaction Id" required
-                                formControlName="transaction_id" />
-                              <span class="text-danger"
-                                *ngIf="form.controls['transaction_id'].touched && form.controls['transaction_id'].hasError('required')">
-                                Transaction Id is Required
-                              </span>
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="from-group">
+                                <label for="name" class="col-sm-4 col-form-label">Transaction Id:<span
+                                    class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                  <input type="text" class="form-control sml_input" ngbAutofocus placeholder="Enter Transaction Id" required
+                                    formControlName="transaction_id" />
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['transaction_id'].touched && form.controls['transaction_id'].hasError('required')">
+                                    Transaction Id is Required
+                                  </span>
+                                </div>
+                              </div>
                             </div>
+                            <div class="col-6">
+                              <div class="from-group">
+                                <label for="name" class="col-sm-4 col-form-label">Reference No:</label>
+                                <div class="col-sm-12">
+                                  <input type="text" class="form-control sml_input" ngbAutofocus placeholder="Enter Reference No here"
+                                    formControlName="reference_id" />
+                                </div>
+                              </div>
+                            </div>                           
                           </div>
-
-                          <div class="from-group">
-                            <label for="name" class="col-sm-4 col-form-label">Reference No:</label>
-                            <div class="col-sm-12">
-                              <input type="text" class="form-control" ngbAutofocus placeholder="Enter Reference No here"
-                                formControlName="reference_id" />
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="from-group">
+                                <label for="name" class="col-sm-4 col-form-label"> Amount:<span
+                                    class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                  <input type="text" class="form-control sml_input" ngbAutofocus placeholder="Amount Minimum 2000 & Maximum 49000" required
+                                    formControlName="amount" />
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('required')">
+                                    Amount is Required
+                                  </span>
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('min')">
+                                    Amount Minimum 2000
+                                  </span>
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('max')">
+                                    Amount Maximum 49000
+                                  </span>
+                                </div>
+                              </div>
                             </div>
-                          </div>
 
-                          <div class="from-group">
-                            <label for="name" class="col-sm-4 col-form-label"> Amount:<span
-                                class="text-danger">*</span></label>
-                            <div class="col-sm-12">
-                              <input type="text" class="form-control" ngbAutofocus placeholder="Amount Minimum 2000 & Maximum 49000" required
-                                formControlName="amount" />
-                              <span class="text-danger"
-                                *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('required')">
-                                Amount is Required
-                              </span>
-                              <span class="text-danger"
-                                *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('min')">
-                                Amount Minimum 2000
-                              </span>
-                              <span class="text-danger"
-                                *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('max')">
-                                Amount Maximum 49000
-                              </span>
+                            <div class="col-6">
+                              <div class="from-group">
+                                <label for="name" class="col-sm-6 col-form-label"> Payment Via:<span
+                                    class="text-danger">*</span></label>
+                                <div class="col-sm-12">
+                                  <!-- <input type="text" class="form-control" ngbAutofocus placeholder="Enter URL here" required
+                                    formControlName="payment_via" /> -->
+    
+                                  <select class="form-control input-sm" required="required" formControlName="payment_via">
+                                    <!-- <option value=""> Select Transaction Via</option> -->
+                                    <option value="PhonePe">PhonePe</option>
+                                    <option value="Google Pay">Google Pay</option>
+                                    <option value="PayTM">PayTM</option>
+                                    <option value="Amazon Pay">Amazon Pay</option>
+                                    <option value="Mobikwik">Mobikwik</option>
+                                    <option value="BHIM Axis Pay">BHIM Axis Pay</option>
+                                    <option value="SBI Yono">SBI Yono</option>
+                                    <option value="Citi Master Pass">Citi Master Pass</option>
+                                    <option value="HDFC PayZapp">HDFC PayZapp</option>
+                                    <option value="ICICI Pockets">ICICI Pockets</option>
+                                    <option value="Bank Transfer">Bank Transfer</option>
+                                  </select>
+                                  <span class="text-danger"
+                                    *ngIf="form.controls['payment_via'].touched && form.controls['payment_via'].hasError('required')">
+                                    Payment Via is Required
+                                  </span>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-
-                          <div class="from-group">
-                            <label for="name" class="col-sm-4 col-form-label"> Payment Via:<span
-                                class="text-danger">*</span></label>
-                            <div class="col-sm-12">
-                              <!-- <input type="text" class="form-control" ngbAutofocus placeholder="Enter URL here" required
-                                formControlName="payment_via" /> -->
-
-                              <select class="form-control input-sm" required="required" formControlName="payment_via">
-                                <!-- <option value=""> Select Transaction Via</option> -->
-                                <option value="PhonePe">PhonePe</option>
-                                <option value="Google Pay">Google Pay</option>
-                                <option value="PayTM">PayTM</option>
-                                <option value="Amazon Pay">Amazon Pay</option>
-                                <option value="Mobikwik">Mobikwik</option>
-                                <option value="BHIM Axis Pay">BHIM Axis Pay</option>
-                                <option value="SBI Yono">SBI Yono</option>
-                                <option value="Citi Master Pass">Citi Master Pass</option>
-                                <option value="HDFC PayZapp">HDFC PayZapp</option>
-                                <option value="ICICI Pockets">ICICI Pockets</option>
-                                <option value="Bank Transfer">Bank Transfer</option>
-                              </select>
-                              <span class="text-danger"
-                                *ngIf="form.controls['payment_via'].touched && form.controls['payment_via'].hasError('required')">
-                                Payment Via is Required
-                              </span>
-                            </div>
-                          </div>
+                          </div>                      
 
                           <div class="from-group">
                             <label for="name" class="col-sm-4 col-form-label">Remark:</label>
@@ -249,7 +259,7 @@
                             </div>
                             <div class="widget-body">
                               <div>
-                                <img src="../../../assets/images/pay.jpg" style="width: 100%;">
+                                <img src="../../../assets/images/pay.jpg" style="width: 80%;">
                               </div>
                             </div>
                           </div>

@@ -16,7 +16,7 @@
             <form [formGroup]="searchForm">
               <div class="row"> 
   
-                <div class="col-4">
+                <div class="col-3">
                   <div class="form-group row">
   
                     <div class="col-sm-12">
@@ -25,9 +25,23 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="col-2">
+                  <!-- <small>Trans.type</small> -->
+                  <div class="form-group row">
+                    <div class="dropdown">
+                      <select class="form-control sml_input" formControlName="tran_type" >
+                          <option value='c'>Credit</option>
+                          <option value='d'>Debit</option>
+                      </select>
+                  </div><br>
+            
+                  </div>
+                     
+                </div>
   
   
-                <div class="col-6">
+                <div class="col-5">
                   <button type="button" class="btn btn-success  sml_input mr-10" (click)="search()" title="search">
                     <i class="fas fa-search"> </i> Search
                   </button>
@@ -95,7 +109,7 @@
                 <td >{{page.balance}}</td>
                 <td>
                   <span *ngIf='page.payment_via == "" && page.transaction_type=="c"'>
-                          Commission Request
+                          Commission Received
                   </span>
                   <span *ngIf='page.payment_via == "" && page.transaction_type=="d"'>
                           Ticket Book

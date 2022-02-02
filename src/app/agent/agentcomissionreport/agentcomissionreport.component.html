@@ -11,16 +11,16 @@
                     <div class="col-12">
                         <form [formGroup]="searchFrom">
                             <div class="row">
-                                <div class="col-3">
+                                <!-- <div class="col-3">
                                     <div class="form-group">
                                             <ng-select [items]="busoperators" bindLabel="operator_name" bindValue="id"
                                                 placeholder="Select Operator" formControlName="bus_operator_id"
                                                 [clearable]="false">
                                             </ng-select>
                                     </div>
-                                </div>
+                                </div> -->
                                 
-                                <div class="col-6">
+                                <div class="col-8">
                                     <div class="row">                                    
                                             <div class="input-group">
                                                 <input type="hidden" class="form-control hidden" ngbDatepicker #datepicker="ngbDatepicker"
@@ -61,7 +61,7 @@
                                     
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-4">
 
                                     <div class="dropdown">
                                         <select class="form-control sml_input" formControlName="date_type">
@@ -72,14 +72,14 @@
 
                                 </div>
 
-                                <div class="col-3">
+                                <!-- <div class="col-3">
                                         <div class="dropdown">
                                             <input type="text" class="form-control sml_input" placeholder="Payment Id" required
                                                 formControlName="payment_id" />
                                         </div>
-                                </div>
+                                </div> -->
 
-                                <div class="col-3">
+                                <div class="col-4">
                                     <div class="form-group">
                                           <ng-select 
                                           [items]="locations"
@@ -95,7 +95,7 @@
                                 </div>                                       
                                 
                                 
-                                <div class="col-3">
+                                <div class="col-4">
                                     <div class="form-group">
                                           <ng-select 
                                           [items]="locations"
@@ -160,15 +160,17 @@
                         <tr>
                             <th scope="col" width="80px" style="text-align: center;">#</th>
                             <th scope="col">Ticket Details</th>
-                            <th scope="col">Boarding Point/Time</th>
                             <th scope="col">Bus Details </th>
                             <th scope="col">Source >> Destination</th>
+                            <th scope="col">Boarding Point/Time</th>
+                            
                             <th scope="col">Seat No</th>                            
                             <th scope="col">Passenger Details</th>
-
-                            <th scope="col">Comm Inc TDS</th>
+                            <th scope="col">Total Comm</th>
+                            
                             <th scope="col">TDS Charges(5%)</th>
-                            <th scope="col">Agent Comm</th>
+                            <th scope="col">Comm after TDS</th>
+                          
 
                             <!-- <th scope="col">Seater / Sleeper </th> -->
                             <th scope="col">Fare</th>
@@ -178,18 +180,13 @@
                         <tr *ngFor="let complete of completedata?.data.data; let i = index">
                             <td style="text-align: center;">{{ i+1 }}</td>
                             <td>
-                                <strong>{{complete.pnr}}</strong> ( {{complete.journey_dt}} )                                
+                                <strong>{{complete.pnr}}</strong> (<strong style="color: darkgoldenrod;">DOj- {{complete.journey_dt}} )  </strong>                              
+                                <br>
+                                 <strong style="color: brown;">DOB-{{complete.created_at | date: 'dd/MM/yyyy HH:mm:ss'}}</strong>                                
                                 <!-- <br>
                                 <strong style="color: brown;">{{complete.customer_payment.order_id}}</strong>
                                 <br>
                                 <strong style="color: darkgoldenrod;">{{complete.customer_payment.razorpay_id}}</strong> -->
-                            </td>
-                            <td>                               
-                                <span *ngFor="let frlocation of complete.from_location">
-                                    {{frlocation.name}}
-                                </span> -
-                                ( <b>{{complete.boarding_point}} </b> )<br>
-                                Time : <b>{{complete.boarding_time }}</b>
                             </td>
                             <td>
                                 <strong>{{ complete.bus.name }}<br>
@@ -232,6 +229,14 @@
                                     </span>
                                 </span>
                             </td>
+                            <td>                               
+                                <span *ngFor="let frlocation of complete.from_location">
+                                    {{frlocation.name}}
+                                </span> -
+                                ( <b>{{complete.boarding_point}} </b> )<br>
+                                Time : <b>{{complete.boarding_time }}</b>
+                            </td>
+                           
                             <td>
                                 <p *ngFor="let seat of complete.booking_detail;">
                                     {{seat.bus_seats.seats.seatText}}
@@ -290,14 +295,16 @@
                                 </p>
                             </td>
                             <td>
-                                <i class="fas fa-rupee-sign"></i> <b>{{complete.with_tds_commission}}</b>
-                            </td> 
+                                <i class="fas fa-rupee-sign"></i> <b>{{complete.agent_commission}}</b>
+                            </td>
                             <td>
                                 <i class="fas fa-rupee-sign"></i> <b>{{complete.tds}}</b>
                             </td> 
                             <td>
-                                <i class="fas fa-rupee-sign"></i> <b>{{complete.agent_commission}}</b>
-                            </td>
+                                <i class="fas fa-rupee-sign"></i> <b>{{complete.with_tds_commission}}</b>
+                            </td> 
+                           
+                           
  
                             <td>
                                 <i class="fas fa-rupee-sign"></i> <b>{{complete.total_fare}}</b>

@@ -11,16 +11,16 @@
                     <div class="col-12">
                         <form [formGroup]="searchFrom">
                             <div class="row">
-                                <div class="col-3">
+                                <!-- <div class="col-3">
                                     <div class="form-group">
                                             <ng-select [items]="busoperators" bindLabel="operator_name" bindValue="id"
                                                 placeholder="Select Operator" formControlName="bus_operator_id"
                                                 [clearable]="false">
                                             </ng-select>
                                     </div>
-                                </div>
+                                </div> -->
                                 
-                                <div class="col-6">
+                                <div class="col-8">
                                     <div class="row">
                                         
                                     <div class="input-group">
@@ -62,7 +62,7 @@
                                     
                                 </div>
 
-                                <div class="col-3">
+                                <div class="col-4">
                                     <div class="dropdown">
                                         <select class="form-control sml_input" formControlName="date_type">
                                             <option value='booking'>Booking Date</option>
@@ -71,12 +71,12 @@
                                     </div>
                                 </div>
 
-                                <div class="col-3">
+                                <!-- <div class="col-3">
                                         <div class="dropdown">
                                             <input type="text" class="form-control sml_input" placeholder="Payment Id" required
                                                 formControlName="payment_id" />
                                         </div>
-                                </div>
+                                </div> -->
 
                                 <div class="col-3">
                                     <div class="form-group ">
@@ -158,8 +158,8 @@
                         <tr>
                             <th scope="col"  width="80px" style="text-align: center;">#</th>
                             <th scope="col">Ticket Details</th>
-                            <th scope="col">Boarding Point/Time</th>
                             <th scope="col">Bus Details </th>
+                            <th scope="col">Boarding Point/Time</th>                            
                             <th scope="col">Source >> Destination</th>
                             <th scope="col">Seat No</th>                            
                             <th scope="col">Passenger Details</th>
@@ -171,11 +171,16 @@
                         <tr *ngFor="let complete of completedata?.data.data; let i = index">
                             <td style="text-align: center;">{{ i+1 }}</td>
                             <td>
-                                <strong>{{complete.pnr}}</strong> ( {{complete.journey_dt}} )                                
+                                <strong>{{complete.pnr}}</strong> (<strong style="color: darkgoldenrod;">DOj- {{complete.journey_dt}} )  </strong>                              
                                 <br>
-                                <!-- <strong style="color: brown;">{{complete.customer_payment.order_id}}</strong>
-                                <br>
+                                 <strong style="color: brown;">DOB-{{complete.created_at | date: 'dd/MM/yyyy HH:mm:ss'}}</strong>
+                                <!--<br>
                                 <strong style="color: darkgoldenrod;">{{complete.customer_payment.razorpay_id}}</strong> -->
+                            </td>
+                            <td>
+                                <strong>{{ complete.bus.name }}<br>
+                                {{ complete.bus.bus_number }}</strong>
+                               
                             </td>
                             <td>                               
                                 <span *ngFor="let frlocation of complete.from_location">
@@ -184,11 +189,7 @@
                                 ( <b>{{complete.boarding_point}} </b> )<br>
                                 Time : <b>{{complete.boarding_time }}</b>
                             </td>
-                            <td>
-                                <strong>{{ complete.bus.name }}<br>
-                                {{ complete.bus.bus_number }}</strong>
-                               
-                            </td>
+                           
                             <td>
                                 <ng-template #tipContent1>
                                     <table style="width: 350px;">
