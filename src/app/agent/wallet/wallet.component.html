@@ -18,18 +18,46 @@
 
 
 
-              <div class="col-4">
+              <div class="col-3">
                 <div class="form-group row">
 
                   <div class="col-sm-12">
-                    <input type="text" class="form-control sml_input" placeholder="Search Here " required
+                    <input type="text" class="form-control sml_input" placeholder="Transaction Id Search Here " required
                       formControlName="name" />
                   </div>
                 </div>
               </div>
+              <div class="col-3">
+                <!-- <small>Trans.type</small> -->
+                <div class="form-group row">
+                  <div class="dropdown">
+                    <!-- <select class="form-control sml_input" formControlName="tran_type" >
+                     
+                        <option value='c'>Credit</option>
+                        <option value='d'>Debit</option>
+                    </select> -->
+                    <select class="form-control input-sm" formControlName="payment_via">
+                      <!-- <option value=""> Select Transaction Via</option> -->
+                      <option value="PhonePe">PhonePe</option>
+                      <option value="Google Pay">Google Pay</option>
+                      <option value="PayTM">PayTM</option>
+                      <option value="Amazon Pay">Amazon Pay</option>
+                      <option value="Mobikwik">Mobikwik</option>
+                      <option value="BHIM Axis Pay">BHIM Axis Pay</option>
+                      <option value="SBI Yono">SBI Yono</option>
+                      <option value="Citi Master Pass">Citi Master Pass</option>
+                      <option value="HDFC PayZapp">HDFC PayZapp</option>
+                      <option value="ICICI Pockets">ICICI Pockets</option>
+                      <option value="Bank Transfer">Bank Transfer</option>
+                    </select>
+                </div><br>
+          
+                </div>
+                   
+              </div>
 
 
-              <div class="col-6">
+              <div class="col-4">
                 <button type="button" class="btn btn-success  sml_input mr-10" (click)="search()" title="search">
                   <i class="fas fa-search"> </i> Search
                 </button>
@@ -73,9 +101,11 @@
               <th scope="col" width="80px" style="text-align: center;">#</th>
               <th scope="col">Request Date</th>
               <th scope="col">Tran ID</th>
+              <th scope="col">Ref No</th>
               <th scope="col">Tran Via</th>
               <th scope="col">Amount</th>
               <th scope="col">Balance</th>
+              <th scope="col">Activated On</th>
               <th scope="col">Message</th>
               <th scope="col">Status </th>
               
@@ -85,16 +115,48 @@
             <tr *ngFor="let page of wallet; let i=index;">
               <td style="text-align: center;">{{i+1}}</td>
               <td>{{page.created_at | date: 'dd/MM/yyyy'}}</td>
-              <td >{{page.transaction_id}}</td>
-              <td >{{page.payment_via}}</td>
-              <td >{{page.amount}}</td>
-              <td >{{page.balance}}</td>
-              <td >{{page.remarks}}</td>
+              <td >
+                <span *ngIf="page.transaction_id!=null">
+                  {{page.transaction_id}}
+                </span>
+                <span *ngIf="page.transaction_id==null">
+                  -----
+                </span>
+              
+              </td>
+              <td >
+                <span *ngIf="page.reference_id!=null">
+                  {{page.reference_id}}
+                </span>
+                <span *ngIf="page.reference_id==null">
+                  -----
+                </span>
+              </td>
+              <td >
+                <span *ngIf="page.payment_via!=''">
+                  {{page.payment_via}}
+                </span>
+                <span *ngIf="page.payment_via==''">
+                  -----
+                </span>
+              </td>
+              <td class="text-primary">{{page.amount}}</td>
+              <td class="text-success"><strong>{{page.balance}}</strong></td>
+              <td>{{page.updated_at | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
+             
               <td>
                 <label *ngIf="page.status==1" class="btn btn-sm  bg-info  text-light"
                  ><strong>Active</strong></label>
                 <label *ngIf="page.status==0" class="btn btn-sm bg-danger  text-light"
                   ><strong>Pending</strong></label>
+              </td>
+              <td >
+                <span *ngIf="page.remarks!=null">
+                  {{page.remarks}}
+                </span>
+                <span *ngIf="page.remarks==null">
+                  -----
+                </span>
               </td>
             </tr>
           </tbody>
