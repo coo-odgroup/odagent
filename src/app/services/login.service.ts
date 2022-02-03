@@ -28,6 +28,29 @@ export class LoginService {
       catchError(this.errorHandler)
     )
   }
+
+  sendOtp(post): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL + '/AgentForgetPasswordOtp', JSON.stringify(post), this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  verifyOtp(post): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL + '/AgentVerifyOtp', JSON.stringify(post), this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  resetPassword(post): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL + '/AgentResetPassword', JSON.stringify(post), this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  
   
   errorHandler(error) {
     let errorMessage = '';

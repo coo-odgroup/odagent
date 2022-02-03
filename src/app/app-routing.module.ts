@@ -24,6 +24,10 @@ const routes: Routes = [
         loadChildren: () => import('./signup/signup.module').then(module =>module.SignupModule)
       },
       {
+        path: 'forget-password',
+        loadChildren: () => import('./forgetpassword/forgetpassword.module').then(module =>module.ForgetPasswordModule)
+      },
+      {
         path: 'otp',
         loadChildren: () => import('./otp/otp.module').then(module =>module.OtpModule)
       },

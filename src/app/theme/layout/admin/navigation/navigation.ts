@@ -87,6 +87,13 @@ const AgentItems = [
         type: 'item',
         icon: 'feather icon-wind',
         url: 'agent/customercommissionslab'
+      },
+      {
+        id: 'forget-password',
+        title: 'Forget Password',
+        type: 'item',
+        icon: 'feather icon-wind',
+        url: 'agent/forget-password'
       }
 
     ]
@@ -125,6 +132,7 @@ const AgentItems = [
         icon: 'feather icon-pie-chart',
         url: 'agent/commissionreport'
       },
+     
      
       // {
       //   id: 'user',

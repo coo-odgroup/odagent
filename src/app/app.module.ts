@@ -46,7 +46,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     NavSearchComponent,
     NavRightComponent,
     ConfigurationComponent,
-    ToggleFullScreenDirective,
+    ToggleFullScreenDirective
     
   ],
   imports: [
