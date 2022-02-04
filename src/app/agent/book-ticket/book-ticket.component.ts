@@ -472,6 +472,7 @@ get_seatno(seat_id:any){
               "busTypeName":this.busRecord.busTypeName,
               "sittingType":this.busRecord.sittingType,
               "conductor_number":this.busRecord.conductor_number,
+              "agent_number":this.USERRECORDS.phone,           
               "passengerDetails":this.passengerData.bookingInfo.bookingDetail,
               "totalfare":this.bookingdata.PriceArray.totalFare, 
               "discount":0,
