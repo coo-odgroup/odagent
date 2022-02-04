@@ -367,8 +367,8 @@
 					<table class="table table-bordered">
 						<thead>
 						  <tr>
-							<th scope="col">PNR No: {{ bookTicketResponse.pnr }}</th>
-							<th scope="col">Bus Name/Number: {{ busRecord.busName }}-{{ busRecord.busNumber }}</th>
+							<th scope="col" style="color: #000;">PNR No: {{ bookTicketResponse.pnr }}</th>
+							<th scope="col" style="color: #000;">Bus Name/Number: {{ busRecord.busName }}-{{ busRecord.busNumber }}</th>
 						   
 						  </tr>
 						</thead>
@@ -393,6 +393,12 @@
 							<td>Passenger Mobile No: +91 {{ passengerData.customerInfo.phone}}</td>
 							<td>Conductor Mobile No: {{busRecord.conductor_number}}</td>
 						  </tr>
+
+						  <tr>
+							<td>Agent Mobile No: +91 {{ USERRECORDS.phone}}</td>
+							<td></td>
+						  </tr>
+
 						  <tr>
 							<td>Total Fare: Rs.{{ payableAmount }}/-</td>
 							<td>Seat({{total_seat_name.length}})- {{total_seat_name}}</td>
