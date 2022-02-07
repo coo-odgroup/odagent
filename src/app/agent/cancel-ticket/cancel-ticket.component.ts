@@ -6,6 +6,8 @@ import { ManagebookingService } from '../../services/managebooking.service';
 import {Constants} from '../../constant/constant' ;
 import { NotificationService } from '../../services/notification.service';
 import { NgbDatepickerConfig,NgbModal,NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { WalletbalanceService } from '../../services/walletbalance.service';
+
 
 
 
@@ -34,7 +36,7 @@ export class CancelTicketComponent implements OnInit {
   cancelInfo:any=[];
 
     
-    constructor( public fb: FormBuilder,public router: Router,private spinner: NgxSpinnerService,private managebookingService: ManagebookingService, private notify: NotificationService,public activeModal: NgbActiveModal,private modalService: NgbModal) { 
+    constructor( public fb: FormBuilder,public router: Router,private spinner: NgxSpinnerService,private managebookingService: ManagebookingService, private notify: NotificationService,public activeModal: NgbActiveModal,private modalService: NgbModal,public balance: WalletbalanceService) { 
 
     this.cancelForm = this.fb.group({
       pnr: ['', Validators.required],
@@ -55,7 +57,7 @@ export class CancelTicketComponent implements OnInit {
     
   onSubmit() {   
 
-    this.bookingDetails=[];
+    this.bookingDetails= null;
     this.submitted = true;
      // stop here if form is invalid
      if (this.cancelForm.invalid) {      
@@ -67,9 +69,14 @@ export class CancelTicketComponent implements OnInit {
        const request= {
         "pnr":this.cancelForm.value.pnr,
         "mobile":this.cancelForm.value.mobile
-       };     
+       };  
+
+       console.log(request);
+
        this.managebookingService.getbookingdetails(request).subscribe(
         res=>{ 
+
+         
           
           if(res.status==1){
             
@@ -88,6 +95,8 @@ export class CancelTicketComponent implements OnInit {
           this.spinner.hide();
         },
       error => {
+
+        console.log(error);
         this.spinner.hide();
         this.notify.notify(error.error.message,"Error");
       });
@@ -116,6 +125,20 @@ export class CancelTicketComponent implements OnInit {
          if(res.status==1){          
           this.notify.notify("Ticket is cancelled succesfully","Success");
           this.modalService.dismissAll();
+
+
+          let user_id=localStorage.getItem("USERID");
+          this.balance.getWalletBalance(user_id).subscribe(
+            res=>{      
+             if(res.status==1){
+              if(res.data.length > 0){
+                this.balance.setWalletBalance(res.data[0].balance); 
+              }
+             }
+             
+            });
+
+
           this.router.navigate(['agent/cancellationreport']);
 
 
@@ -159,7 +182,7 @@ cancelTicketTab(content:any) {
   this.managebookingService.AgentcancelTicketOTP(request).subscribe(
     res=>{
 
-      console.log(res);
+     // console.log(res);
 
       if(res.status==1){
         if(typeof res.data ==='string'){
