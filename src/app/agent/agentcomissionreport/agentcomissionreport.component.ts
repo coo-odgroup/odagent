@@ -119,6 +119,7 @@ export class AgentcomissionreportComponent implements OnInit {
       this.rs.commissionReport(data).subscribe(
         res => {
           this.completedata= res.data;
+          // console.log( this.completedata);
           this.spinner.hide();
         }
       );

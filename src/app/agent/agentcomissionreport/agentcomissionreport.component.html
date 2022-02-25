@@ -109,12 +109,6 @@
                                           </ng-select> 
                                       </div> 
                                 </div>
-                                  
-
-                               
-
-                                
-
                             </div>
                             <div class="row ">
                                
@@ -166,10 +160,11 @@
                             
                             <th scope="col">Seat No</th>                            
                             <th scope="col">Passenger Details</th>
-                            <th scope="col">Total Comm</th>
-                            
+                            <th scope="col">Total Comm</th>                            
                             <th scope="col">TDS Charges(5%)</th>
                             <th scope="col">Comm after TDS</th>
+                            <th scope="col">Comm From Customer</th>
+
                           
 
                             <!-- <th scope="col">Seater / Sleeper </th> -->
@@ -302,6 +297,9 @@
                             </td> 
                             <td>
                                 <i class="fas fa-rupee-sign"></i> <b>{{complete.with_tds_commission}}</b>
+                            </td> 
+                            <td>
+                                <i class="fas fa-rupee-sign"></i> <b>{{complete.customer_comission}}</b>
                             </td> 
                            
                            

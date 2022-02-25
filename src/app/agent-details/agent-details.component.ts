@@ -120,11 +120,11 @@ export class AgentDetailsComponent implements OnInit {
       city: [null, Validators.compose([Validators.required])],      
       landmark: [null, Validators.compose([Validators.required])],
       pincode: [null, Validators.compose([Validators.required])],
-      branch_name: [null, Validators.compose([Validators.required])],
-      name_on_bank_account: [null, Validators.compose([Validators.required])],
-      bank_name: [null, Validators.compose([Validators.required])],
-      ifsc_code: [null, Validators.compose([Validators.required])],
-      bank_account_no: [null, Validators.compose([Validators.required])],
+      branch_name: [null],
+      name_on_bank_account: [null],
+      bank_name: [null],
+      ifsc_code: [null],
+      bank_account_no: [null],
       upi_id: [null],
       
     }); 

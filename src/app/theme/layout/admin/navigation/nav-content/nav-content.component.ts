@@ -24,6 +24,7 @@ export class NavContentComponent implements OnInit, AfterViewInit {
 
   @ViewChild('navbarContent') navbarContent: ElementRef;
   @ViewChild('navbarWrapper') navbarWrapper: ElementRef;
+  userEmail: any;
 
   constructor(public nav: NavigationItem, private zone: NgZone, private location: Location) {
     this.flatConfig = NextConfig.config;
@@ -40,21 +41,28 @@ export class NavContentComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.roleId=localStorage.getItem("ROLE_ID");
-    switch(this.roleId)
-    {
-      case "1":
-        this.adminType="Super Admin";
-        break;
-      case "2":
-        this.adminType="Admin";
-        break;
-      case "3":
-        this.adminType="Agent";
-        break;
-      case "4":
-        this.adminType="Operator";
-        break;    
-    }
+    this.adminType=localStorage.getItem("USERNAME");
+    // this.userEmail=localStorage.getItem("USERRECORDS");
+    // this.userEmail= this.userEmail.split(",")
+
+    // console.log(this.userEmail[2].replace("", "email:"));
+    
+
+    // switch(this.roleId)
+    // {
+    //   case "1":
+    //     this.adminType="Super Admin";
+    //     break;
+    //   case "2":
+    //     this.adminType="Admin";
+    //     break;
+    //   case "3":
+    //     this.adminType="Agent";
+    //     break;
+    //   case "4":
+    //     this.adminType="Operator";
+    //     break;    
+    // }
     if (this.windowWidth < 992) {
       this.flatConfig['layout'] = 'vertical';
       setTimeout(() => {

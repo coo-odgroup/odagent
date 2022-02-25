@@ -81,11 +81,11 @@ export class AgentprofileComponent implements OnInit {
       town: [null, Validators.compose([Validators.required])],      
       landmark: [null, Validators.compose([Validators.required])],
       pincode: [null, Validators.compose([Validators.required])],
-      branch_name: [null, Validators.compose([Validators.required])],
-      bank_acc_name: [null, Validators.compose([Validators.required])],
-      bank_name: [null, Validators.compose([Validators.required])],
-      ifsc_code: [null, Validators.compose([Validators.required])],
-      bank_account_no: [null, Validators.compose([Validators.required])],
+      branch_name: [null],
+      bank_acc_name: [null],
+      bank_name: [null],
+      ifsc_code: [null],
+      bank_account_no: [null],
       upi_id: [null],
       
     }); 
@@ -193,11 +193,11 @@ export class AgentprofileComponent implements OnInit {
       town: [null, Validators.compose([Validators.required])],      
       landmark: [null, Validators.compose([Validators.required])],
       pincode: [null, Validators.compose([Validators.required])],
-      branch_name: [null, Validators.compose([Validators.required])],
-      bank_acc_name: [null, Validators.compose([Validators.required])],
-      bank_name: [null, Validators.compose([Validators.required])],
-      ifsc_code: [null, Validators.compose([Validators.required])],
-      bank_account_no: [null, Validators.compose([Validators.required])],
+      branch_name: [null],
+      bank_acc_name: [null],
+      bank_name: [null],
+      ifsc_code: [null],
+      bank_account_no: [null],
       upi_id: [null],
       
     }); 

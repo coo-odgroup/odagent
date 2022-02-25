@@ -239,63 +239,46 @@
                         <div class="row">
                           <div class="col-md-6">
                             <div class="form-group row">
-                              <label for="bank_name" class="col-sm-4 col-form-label">Name On Bank Account<span
-                                class="text-danger">*</span></label>
+                              <label for="bank_name" class="col-sm-4 col-form-label">Name On Bank Account</label>
                               <div class="col-sm-8">
                                 <input type="text" class="form-control" placeholder="Name On Bank Account" formControlName="bank_acc_name">
-                                <span class="text-danger"
-                                  *ngIf="form.controls['bank_acc_name'].touched && form.controls['bank_acc_name'].hasError('required')">
-                                  Name On Bank Account is required! </span>
+                              
                               </div>
                             </div>
                           </div>
                           <div class="col-md-6">
                             <div class="form-group row">
-                              <label for="bank_name" class="col-sm-4 col-form-label">Bank Name<span
-                                class="text-danger">*</span></label>
+                              <label for="bank_name" class="col-sm-4 col-form-label">Bank Name</label>
                               <div class="col-sm-8">
                                 <input type="text" class="form-control" placeholder="Bank Name" formControlName="bank_name">
-                                <span class="text-danger"
-                                  *ngIf="form.controls['bank_name'].touched && form.controls['bank_name'].hasError('required')">
-                                  Bank name is required! </span>
+                            
                               </div>
                             </div>
                           </div>
                             <div class="col-md-6">
                                 <div class="form-group row">
-                                  <label for="name_on_bank_account" class="col-sm-4 col-form-label pr-0">Branch Name<span
-                                    class="text-danger">*</span></label>
+                                  <label for="name_on_bank_account" class="col-sm-4 col-form-label pr-0">Branch Name</label>
                                   <div class="col-sm-8">
                                     <input type="text" class="form-control" placeholder="Name On Branch Name" formControlName="branch_name">
-                                    <span class="text-danger"
-                                      *ngIf="form.controls['branch_name'].touched && form.controls['branch_name'].hasError('required')">
-                                      Branch Name is Required! </span>
+                                
                                   </div>
                                 </div>
                               </div>
                               <div class="col-md-6">
                                 <div class="form-group row">
-                                  <label for="bank_account_no" class="col-sm-4 col-form-label">Bank Account Number<span
-                                    class="text-danger">*</span></label>
+                                  <label for="bank_account_no" class="col-sm-4 col-form-label">Bank Account Number</label>
                                   <div class="col-sm-8">
                                     <input type="text" class="form-control" placeholder="Bank Account Number" formControlName="bank_account_no">
-                                    <span class="text-danger"
-                                      *ngIf="form.controls['bank_account_no'].touched && form.controls['bank_account_no'].hasError('required')">
-                                      Bank Account Number required! </span>
+                                  
                                   </div>
                                 </div>
                               </div>
                               
                             <div class="col-md-6">
                               <div class="form-group row">
-                                <label for="ifsc_code" class="col-sm-4 col-form-label"><span
-                                  class="text-danger">*</span>IFSC code</label>
+                                <label for="ifsc_code" class="col-sm-4 col-form-label">IFSC code</label>
                                 <div class="col-sm-8">
                                   <input type="text" class="form-control" placeholder="BANK IFSC Code" formControlName="ifsc_code" (change)="checkIfsc()" >
-                                  <span class="text-danger"
-                                    *ngIf="form.controls['ifsc_code'].touched && form.controls['ifsc_code'].hasError('required')">
-                                    IFSC code is required! </span>
-
                                     <label for="ifsc_code" class="col-sm-12 col-form-label">{{validIFSC}}</label>
                                 </div>
                               </div>
@@ -305,9 +288,6 @@
                                   <label for="bank_account_no" class="col-sm-4 col-form-label">UPI Id</label>
                                   <div class="col-sm-8">
                                     <input type="text" class="form-control" placeholder="UPI Id" formControlName="upi_id">
-                                    <!-- <span class="text-danger"
-                                      *ngIf="form.controls['bank_account_no'].touched && form.controls['bank_account_no'].hasError('required')">
-                                      Bank Account Number required! </span> -->
                                   </div>
                                 </div>
                               </div>

@@ -123,7 +123,7 @@ export class LandingComponent implements OnInit {
           height: 270,
           type: 'donut',
         },
-        series:[ this.dashboarddata.mobile_booking.length, this.dashboarddata.web_booking.length, this.dashboarddata.app_booking.length],
+        // series:[ this.dashboarddata.mobile_booking.length, this.dashboarddata.web_booking.length, this.dashboarddata.app_booking.length],
         labels: ['Mobile', 'Desktop', 'App'],
         colors: [ '#00acc1', '#ffa21d', '#ff5252'],
         legend: { show: true, position: 'bottom',},
