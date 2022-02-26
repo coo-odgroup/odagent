@@ -344,15 +344,25 @@
 			</div> -->
 
 			<div class="print-ticket">
-				<h5>Hello {{ passengerData.customerInfo.name }}</h5>
-				<h6 class="print">Ticket is Confirmed. (PNR: {{ bookTicketResponse.pnr }}).</h6>
-				<h6 class="print">ODBUS Wishing You A Happy Journey <img class="smile" src="../../../assets/img/Icon awesome-smile-beam.svg"></h6>
-				<h6 class="print-sm">We have sent booking details to <b>{{ passengerData.customerInfo.phone}}</b>  <b *ngIf="passengerData.customerInfo.email"> & {{ passengerData.customerInfo.email}}</b> </h6>
+				<div class="row">
+					<div class="col-md-9">
+						<h5>Hello {{ passengerData.customerInfo.name }}</h5>
+						<h6 class="print">Ticket is Confirmed. (PNR: {{ bookTicketResponse.pnr }}).</h6>
+						<h6 class="print">ODBUS Wishing You A Happy Journey <img class="smile" src="../../../assets/img/Icon awesome-smile-beam.svg"></h6>
+						<h6 class="print-sm">We have sent booking details to <b>{{ passengerData.customerInfo.phone}}</b>  <b *ngIf="passengerData.customerInfo.email"> & {{ passengerData.customerInfo.email}}</b> </h6>
+					</div>
+					<div class="col-md-3 text-center">
+						<button type="button" printSectionId="print-section" ngxPrint class="btn btn-info mt-5"
+							[useExistingCss]="true" title="Print">
+							<i class="fas fa-print"> </i> Print Ticket
+						</button>
+					</div>
+				</div>
 		   </div>
 		</div>
 	
-		<div class="container">
-			<div class="od-body mb25">
+		<div class="container" id="print-section">
+			<div class="od-body mb25" >
 			   <div class="row mb40">
 				   <div class="col-md-3"><img src="../../../assets/img/email-logo.png" class="od-logo"/></div>
 				   <div class="col-md-6 odtext32"><span>ODBUS</span> e-Ticketing Service<br/> Electronic Reservation Slip</div>

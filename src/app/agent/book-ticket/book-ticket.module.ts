@@ -7,7 +7,7 @@ import { NgWizardModule, NgWizardConfig, THEME } from 'ng-wizard';
 import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CountdownModule } from 'ngx-countdown';
-
+import { NgxPrintModule } from 'ngx-print';
 
 
 const ngWizardConfig: NgWizardConfig = {
@@ -20,6 +20,7 @@ const ngWizardConfig: NgWizardConfig = {
     ReactiveFormsModule,
     NgSelectModule,
     CountdownModule,
+    NgxPrintModule,
     BookTicketRoutingModule,NgxSpinnerModule,
     NgWizardModule.forRoot(ngWizardConfig)],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

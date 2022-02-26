@@ -425,3 +425,9 @@ input[type="radio"]:checked {
  text-align: right;
 }
 
+@media print {
+    .passenger-detail {
+       visibility: hidden;
+       display: none;
+    }
+ }
