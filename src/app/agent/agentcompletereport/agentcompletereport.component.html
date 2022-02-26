@@ -162,6 +162,7 @@
                             <th scope="col">Boarding Point/Time</th>                            
                             <th scope="col">Source >> Destination</th>
                             <th scope="col">Seat No</th>                            
+                            <th scope="col">User Details</th>                            
                             <th scope="col">Passenger Details</th>
                             <!-- <th scope="col">Seater / Sleeper </th> -->
                             <th scope="col">Fare</th>
@@ -231,10 +232,10 @@
                                     {{seat.bus_seats.seats.seatText}}
                                 </p>
                             </td>
-                            <!-- <td class="text-capitalize">
+                            <td class="text-capitalize">
                                 <ng-template #tipContent>
-                                    Phone- <b>{{complete.users.phone}}</b>
-                                    <br>Email-{{complete.users.email}}
+                                    <!-- Phone- <b>{{complete.users.phone}}</b>
+                                    <br>Email-{{complete.users.email}} -->
                                     <table>
                                         <tr>
                                             <td>Phone-</td>
@@ -250,8 +251,8 @@
                                 <strong [ngbTooltip]="tipContent">
                                     {{complete.users?.name}}
                                 </strong> <br>
-
-                                <button class="btn btn-sm btn-info text-light  mr-3 ml-2 mt-2 hide_print" placement="bottom"
+                                <div class="text-center">
+                                    <button class="btn btn-sm btn-info text-light  mr-3 ml-2 mt-2 hide_print" placement="bottom"
                                     ngbTooltip="Click to Copy Phone Number" (click)="copyMessage(complete.users.phone)">
                                     <i class="fas fa-mobile-alt"></i>
                                 </button>
@@ -261,7 +262,10 @@
                                     <i class="far fa-envelope"></i>
                                 </button>
 
-                            </td> -->
+                                </div>
+                              
+
+                            </td>
                             <td>
                                 <p *ngFor="let passanger of complete.booking_detail;">
                                     <ng-template #tipContent1>
