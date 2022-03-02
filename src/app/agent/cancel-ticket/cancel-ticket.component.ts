@@ -133,6 +133,8 @@ export class CancelTicketComponent implements OnInit {
              if(res.status==1){
               if(res.data.length > 0){
                 this.balance.setWalletBalance(res.data[0].balance); 
+              }else{
+                this.balance.setWalletBalance(0); 
               }
              }
              

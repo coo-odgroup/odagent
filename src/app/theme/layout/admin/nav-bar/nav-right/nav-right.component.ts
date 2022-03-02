@@ -32,6 +32,10 @@ export class NavRightComponent implements OnInit {
           //this.wallet_balance= res.data[0].balance;   
           this.balance.setWalletBalance(res.data[0].balance); 
           this.wallet_balance = this.balance.WalletBalance(); 
+        }else{
+          this.balance.setWalletBalance(0); 
+          this.wallet_balance = this.balance.WalletBalance(); 
+
         }
        }
        

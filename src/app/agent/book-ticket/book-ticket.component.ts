@@ -509,6 +509,9 @@ get_seatno(seat_id:any){
                         if(res.data.length > 0){
                           this.balance.setWalletBalance(res.data[0].balance); 
                         }
+                        else{
+                          this.balance.setWalletBalance(0); 
+                        }
                        }
                        
                       });
