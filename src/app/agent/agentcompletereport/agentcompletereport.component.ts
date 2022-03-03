@@ -9,6 +9,9 @@ import { BusService } from '../../services/bus.service';
 import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { Constants } from '../../constant/constant';
 import * as XLSX from 'xlsx';
+import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { NotificationService } from '../../services/notification.service';
+
 
 import { NgxSpinnerService } from "ngx-spinner";
 
@@ -30,22 +33,30 @@ export class AgentcompletereportComponent implements OnInit {
   url: any;
   locations: any;
   buses: any;
+  currentDate = new Date();
 
   hoveredDate: NgbDate | null = null;
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
+  singleRecord: any;
+  modalReference: NgbModalRef;
+  confirmDialogReference: NgbModalRef;
+
 
   constructor(
     private spinner: NgxSpinnerService,
     private http: HttpClient,
-    private rs: AgentreportService,
+    private rs: AgentreportService,   
+     private notificationService: NotificationService,
     private busOperatorService: BusOperatorService,
     private fb: FormBuilder,
     private locationService: LocationService,
     private busService: BusService,
     private calendar: NgbCalendar,
-    public formatter: NgbDateParserFormatter
+    public formatter: NgbDateParserFormatter,    private modalService: NgbModal,config: NgbModalConfig
   ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getToday();
   }
@@ -73,7 +84,7 @@ export class AgentcompletereportComponent implements OnInit {
   exportexcel(): void {
 
     /* pass here the table id */
-    let element = document.getElementById('print-section');
+    let element = document.getElementById('export-section');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
     /* generate workbook and add the worksheet */
@@ -162,6 +173,17 @@ export class AgentcompletereportComponent implements OnInit {
     this.search();
   }
 
+  OpenModal(content) {
+    this.modalReference = this.modalService.open(content, { scrollable: true, size: 'xl' });
+  }
+
+  // openConfirmDialog(content,i){
+  //   this.singleRecord=[];
+  //   this.confirmDialogReference=this.modalService.open(content,{ scrollable: true, size: 'md' });
+  //   // console.log(i);
+  //   this.singleRecord=this.completedata.data.data[i];
+
+  // }
 
 
   loadServices() {
@@ -198,6 +220,40 @@ export class AgentcompletereportComponent implements OnInit {
       );
     }
   }
+
+  print_tkt(i)
+  {
+    // this.singleRecord=[];
+    // console.log(this.singleRecord);
+    this.singleRecord=this.completedata.data.data[i];
+  }
+
+  emailSms(i)
+  {
+    
+    this.singleRecord=this.completedata.data.data[i];
+    const data=
+    {
+      pnr:this.singleRecord.pnr,
+      mobile:this.singleRecord.user.phone
+    }
+
+    if(confirm("Are you sure cancel the ticket ? ")) {
+      this.spinner.show();
+      this.rs.emailSms(data).subscribe(
+        res => {
+          this.notificationService.addToast({ title: 'Success', msg: res.data, type: 'success' });
+          this.spinner.hide();
+        }
+      );
+    }
+  }
+
+  // cancelTkt(i)
+  // {
+  //   this.singleRecord=this.completedata.data.data[i];
+  //   console.log(this.singleRecord);
+  // }
 
 
   formatDate(date) {
@@ -242,6 +298,10 @@ export class AgentcompletereportComponent implements OnInit {
   isRange(date: NgbDate) {
     return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
   }
+
+
+ 
+ 
 
 
 }

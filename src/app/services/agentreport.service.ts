@@ -10,6 +10,7 @@ import { Constants} from '../constant/constant';
 export class AgentreportService {
 
   private apiURL = Constants.BASE_URL;
+  private conURL = Constants.CONSUMER_API_URL;
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -68,6 +69,13 @@ export class AgentreportService {
 
   agentwalletpaginationReport(url,data): Observable<any> {
     return this.httpClient.post<any>(url,JSON.stringify(data), this.httpOptions).pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+
+  emailSms(data): Observable<any> {
+    return this.httpClient.post<any>(this.conURL + '/EmailSms',JSON.stringify(data), this.httpOptions).pipe(
       catchError(this.errorHandler)
     )
   }

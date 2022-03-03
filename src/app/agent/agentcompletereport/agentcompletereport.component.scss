@@ -51,3 +51,438 @@ padding:0px 10px;
       display: none !important;
     }
   }
+
+
+  
+.passenger{
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 3px;
+  opacity: 1;   
+  margin-top: 20px; 
+}
+
+.pt-40{
+  padding-top:20px;
+}
+
+.pt-60{
+  padding-top: 60px;
+}
+.pb-60{
+  padding-bottom: 60px;
+}
+
+.passenger-detail{
+  font-size: 16px;
+  font-weight: bold;
+  background: #f8f8f8 0% 0% no-repeat padding-box;
+  border: 1px solid #00000026;
+  border-radius: 3px;
+  opacity: 1; 
+  padding: 20px 25px;
+}
+
+.padding{
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+}
+
+.box-padding{
+  margin-top: 30px;
+
+}
+
+
+
+
+label ,p{
+  padding-top: 10px;
+  color: #072C6B;
+  font-size: 14px;
+}
+
+h5{
+  padding-top: 10px;
+  color: #072C6B;
+  font-weight: bold;
+  font-size:18px;
+}
+
+.py h5{
+  padding-top:1px !important;
+  color: #072C6B;
+  font-weight: bold;
+  font-size:28px !important;
+}
+
+.grey{
+  color:#B2ADAD;
+  font-size: 14px;
+}
+.terms{
+  color:#B2ADAD;
+  font-size: 12px;
+}
+
+h6{
+  color: #545454;
+  font-size: 14.5px;
+  line-height: 22px;
+  font-weight: 600;
+}
+
+label{
+  text-transform: capitalize;
+}
+
+hr{
+  border: 1px solid #efc003;
+}
+
+span{
+  color:#efc003;
+}
+
+.font{
+  color:#efc003;
+  font-size: 15px;
+}
+.padding-left{
+  left: 15px;
+  padding-left: 20px;
+}
+
+
+
+.fare-detail{
+  color: #072C6B;
+  font-size: 13px;
+}
+.proceed{
+  width: 100%;
+  font-weight: 600;
+  color: #072c6b;
+}
+.img1{
+  margin-top:34px;
+  margin-left: 9px;
+}
+
+.img2{
+  margin-left: 13px;
+  height: 74px;
+}
+
+.img3{
+  margin-left: 9px;
+}
+
+
+.tableclass{
+  width:100%;
+}
+
+
+.tableclass2{
+  width:100%;
+  margin-top: 20px;
+}
+
+
+
+thead{
+  color: #000000;
+}
+
+tbody{
+  color: #072C6B;
+  font-size: 14px;
+  text-transform: uppercase;
+  
+}
+.roboto{
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.make-payment{
+  
+  width: 300px;
+  height: 75px;
+  background: var(--unnamed-color-efc003) 0% 0% no-repeat padding-box;
+  background: #EFC003 0% 0% no-repeat padding-box;
+  border-radius: 3px;
+  opacity: 1;
+  padding-top: 20px;
+  margin-bottom: 27px;
+  margin-bottom: 15px;
+  
+}
+
+.payment_box{
+  top: 15px;
+}
+
+h4{
+  font-size: 20px;
+  font-weight: bold;
+  color: #072C6B;
+  text-align: left;
+ 
+}
+
+.payment-btn{
+  padding-left:45px;
+}
+.small_tag {
+  font-size: 11px;
+  margin-left: 6px;
+  font-weight: 600;
+  line-height: 0;
+}
+
+.option > img{
+
+  width: 24px;
+  margin: 1px 10px 5px 10px;
+
+}
+
+.option > span{
+
+ color: #072C6B;
+ font-size: 12px;
+
+}
+
+input[type="radio"]:checked {
+
+  background: transparent url('../../../assets/img/Group631.svg') 0% 0% no-repeat padding-box;
+
+  
+}
+
+.option > label{
+    margin: 0px 34px;
+}
+
+.input-group-append {
+  margin-left: -20px !important;
+}
+.continue{
+  margin: 0px 12px;
+  font-size: 10px;
+  padding: 0px 28px;
+  border-radius: 0px;
+  color: #072c6b;
+}
+
+.text-field{
+  width: 85px;
+  padding: 3px 14px;
+  color: #072c6b;
+}
+
+::placeholder{
+  font-size: 12px;
+  color:#072C6B
+}
+
+.grey_tag{
+
+  margin: 0px 20px;
+  font-size: 11px;
+  line-height: 0px;
+
+}
+
+.print-ticket{
+  margin: 10px 40px;
+}
+
+.smile{
+    width: 25px;
+    margin: 4px 7px 8px;
+}
+
+.print{
+    font-weight: bold;
+}
+
+.paragraph{
+    color:#B2ADAD;
+    font-size: 13px;
+}
+
+.ng-select .ng-has-value .ng-placeholder {
+  font-size: 15px !important;
+  font-weight: lighter !important;
+}
+.ng-select, .ng-select div, .ng-select input, .ng-select span {
+  font-size: 15px !important;
+  font-weight: lighter !important;
+}
+
+.pt-25{
+  margin-top:28px;
+}
+
+.form-control {
+  border: 1px solid #072c6b;
+  border-radius:3px;
+  font-size: 17px;
+  height: 40px;
+  font-weight: 400;
+  line-height: 20px;
+  text-transform: uppercase;
+}
+
+.ng-select.ng-select-single .ng-select-container {
+  height: 40px;
+}
+
+.pd2{
+  text-align: center !important;
+}
+
+.payable{
+  padding-top: 15px;
+}
+.payable h5{
+  font-size: 24px !important;
+  padding-top: 2px;
+}
+
+.payment_box{
+  margin: 0 auto ;
+  margin-top:12px;
+}
+.padding20{
+  padding-top: 20px;
+}
+.cl-blue{
+  color:#072C6B;
+  font-size: 17px;
+}
+
+.icon-color{
+  color: #efc003;
+  font-size: 18px;
+  margin-right: 4px;
+}
+
+.ng-select span {
+  text-transform: uppercase !important;
+}
+
+
+.container {
+  max-width:1320px !important;
+  margin:0 auto ;
+}
+
+.od-body{
+  border:3px solid #323232;
+  padding: 25px;
+  margin-top: 20px;
+}
+
+.row {
+display: flex;
+flex-wrap: wrap;
+margin-right: -15px;
+margin-left: -15px;
+}
+
+.od-logo{
+ height: 80px;
+}
+
+.odtext24 h3{
+ font-size:20px;
+ text-align: left;
+ line-height:26px;
+ font-weight:600;
+ color: #323232;
+}
+
+.odtext32{
+ font-size:28px;
+ text-align: center;
+ line-height:34px;
+ font-weight:600;
+ padding-top: 8px;
+ color: #043c5d;
+}
+
+.odtext32 span{
+ font-weight: 800;
+}
+
+.od-bktext{
+ font-size:18px;
+ text-align: center;
+ line-height: 22px;
+ color: #000000;
+ border:1px solid #c4c4c4 ;
+ padding:8px ;
+ font-weight: 600;
+}
+.od-banner{
+ width: 100%;
+}
+.od-qrcode{
+ background:#c4c4c4;
+ padding: 15px;
+ width: 100%;
+ margin-top: 34px;
+}
+.mt30{
+margin-top: 35px;
+}
+.mb25{
+ 
+ margin-bottom: 35px;
+}
+
+.mb40{
+ margin-bottom: 40px;
+}
+
+.odbox1{
+border: 1px solid #c4c4c4;
+padding:25px 15px;
+}
+
+.odbox1 ol{
+margin-left: -20px;
+}
+
+.odbox2{
+border: 1px solid #000000;
+padding:25px 15px;
+}
+
+.odbox2 p{
+font-size:18px;
+color: #000000;
+font-weight: 600;
+margin-bottom: 8px;
+}
+
+.odbox3 p{
+font-size:18px;
+color: #000000;
+font-weight: 600;
+margin-bottom: 8px;
+text-align: right;
+}
+
+@media print {
+  .passenger-detail {
+     visibility: hidden;
+     display: none;
+  }
+}

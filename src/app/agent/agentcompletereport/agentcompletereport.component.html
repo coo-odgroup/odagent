@@ -80,43 +80,35 @@
 
                                 <div class="col-3">
                                     <div class="form-group ">
-                                       
                                           <ng-select 
-                                          [items]="locations"
-                                          bindLabel="name"
-                                          bindValue="id"
-                                          placeholder="Select Source"                                       
-                                          formControlName="source_id"
-                                          [clearable]="false"
-                                          (change)="findSource($event)"
-                                          >
-                                          </ng-select>                                                
-                                                           
+                                            [items]="locations"
+                                            bindLabel="name"
+                                            bindValue="id"
+                                            placeholder="Select Source"                                       
+                                            formControlName="source_id"
+                                            [clearable]="false"
+                                            (change)="findSource($event)">
+                                          </ng-select>                                                             
                                       </div> 
                                 </div>                                       
                                 
                                 
                                 <div class="col-3">
                                     <div class="form-group">
-                                        
                                           <ng-select 
-                                          [items]="locations"
-                                          bindLabel="name"
-                                          bindValue="id"
-                                          placeholder="Select Destination"                                       
-                                          formControlName="destination_id"
-                                          [clearable]="false"
-                                          (change)="findSource($event)"
-                                          >
-                                          </ng-select> 
-                                       
-                                                         
+                                            [items]="locations"
+                                            bindLabel="name"
+                                            bindValue="id"
+                                            placeholder="Select Destination"                                       
+                                            formControlName="destination_id"
+                                            [clearable]="false"
+                                            (change)="findSource($event)">
+                                          </ng-select>      
                                       </div> 
                                 </div>
                                 
                             </div>
                             <div class="row">
-                                
                                 <div class="col-7">
                                     <button type="button" class="btn btn-success  sml_input mr-10" (click)="search()" title="search">
                                       <i class="fas fa-search"> </i> Search
@@ -126,10 +118,6 @@
                                     </button>
                                     <button type="button" (click)="exportexcel()" class="btn btn-warning  sml_input mr-10" title="Export">
                                       <i class="fas fa-file-export"> </i> Export
-                                    </button>
-                                    <button type="button" printSectionId="print-section" ngxPrint class="btn btn-info sml_input"
-                                      [useExistingCss]="true" title="Print">
-                                      <i class="fas fa-print"> </i> Print
                                     </button>
                                 </div>
                                 <div class="col-5">
@@ -143,16 +131,13 @@
                                         </select>
                                     </div>
                                 </div>
-                    
                             </div>
                         </form>
                     </div>
-                   
                 </div>
             </div>
             <!-- class="table-responsive"   -->
-            
-            <div id="print-section">
+            <div id="export-section">
                 <table class="table table-striped ">
                     <thead>
                         <tr>
@@ -166,6 +151,7 @@
                             <th scope="col">Passenger Details</th>
                             <!-- <th scope="col">Seater / Sleeper </th> -->
                             <th scope="col">Fare</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody *ngIf="completedata?.length != 0">
@@ -291,6 +277,25 @@
                             <td>
                                 <i class="fas fa-rupee-sign"></i> <b>{{complete.total_fare}}</b>
                             </td>
+                            <td>
+                                <div class="text-center">
+                                    <button class="btn btn-sm btn-primary text-light  mr-1 ml-1 mt-1 hide_print" placement="bottom"
+                                        ngbTooltip="Click to Print the pnr" (click)="OpenModal(content);print_tkt(i)">
+                                        <i class="fa-solid fa-print"></i>
+                                    </button>
+                                    
+
+                                    <button class="btn btn-sm btn-success text-light mr-1 ml-1 mt-1 hide_print" placement="bottom"
+                                        ngbTooltip=" Click to Send Message and Email"   (click)="emailSms(i)" >
+                                        <i class="fa-solid fa-message"></i>
+                                    </button>
+
+                                    <!-- <button class="btn btn-sm btn-danger text-light mr-1 ml-1 mt-1 hide_print" placement="bottom"
+                                        ngbTooltip=" Click to Cancel the PNR" (click)="openConfirmDialog(confirmDialogofCancel,i)">
+                                       <i class="fa-solid fa-xmark"></i>
+                                    </button> -->
+                                </div>
+                            </td>
                         </tr>
                     </tbody> 
                     <tbody *ngIf="completedata?.length == 0">
@@ -321,6 +326,306 @@
                     </div>
                 </div>
             </div>
+
+            <div class="app-card-footer">
+
+                <ng-template #confirmDialog let-modal>
+                    <div class="modal-header">
+                      <h5 class="ng-tns-c116-5"> Please Confirm</h5>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
+                          aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-material">
+                            <div class="right-icon-control">
+                              Would you Like to Send Email And SMS ??          
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" (click)="emailSms()" class="btn btn-primary" ngbAutofocus>Confirm Delete</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal" #defaultClick
+                        (click)="modal.dismiss('Cross click')">Cancel</button>
+                    </div>
+                  </ng-template>
+                
+                
+                  <!-- <ng-template #confirmDialogofCancel let-modal>
+                    <div class="modal-header">
+                      <h5 class="ng-tns-c116-5"> Please Confirm</h5>
+                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
+                          aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-material">
+                            <div class="right-icon-control">
+                              Would you Like to Cancel The Ticket ??          
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" (click)="deleteRecord()" class="btn btn-primary" ngbAutofocus>Confirm Delete</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal" #defaultClick
+                        (click)="modal.dismiss('Cross click')">Cancel</button>
+                    </div>
+                  </ng-template> -->
+
+                <ng-template #content let-modal>
+                  <div class="modal-header">
+                    <h5 class="ng-tns-c116-5">{{ModalHeading}}</h5>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
+                        aria-hidden="true">&times;</span></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-material">
+                          <div class="right-icon-control">
+                            <!-- <div id="print-section">
+                                HI
+                            </div> -->
+                            <div class="container" id="print-section">
+                                <div class="od-body mb25" >
+                                   <div class="row mb40">
+                                       <div class="col-md-3"><img src="../../../assets/img/email-logo.png" class="od-logo"/></div>
+                                       <div class="col-md-6 odtext32"><span>ODBUS</span> e-Ticketing Service<br/> Electronic Reservation Slip</div>
+                                       <div class="col-md-3">
+                                           <div class="od-bktext">Booking Date</div>
+                                           <div class="od-bktext">{{singleRecord.created_at | date:'EEEE, d MMMM , y' }}</div>
+                                       </div>
+                                   </div>
+                                   <div class="row  mt30 mb25">
+                                    <div class="col-md-9 odtext24">
+                                        <h3>JOURNEY DETAILS:</h3>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col" style="color: #000;">PNR No: {{ singleRecord.pnr }}</th>
+                                                <th scope="col" style="color: #000;">Bus Name/Number: {{ singleRecord.bus.name }}-{{ singleRecord.bus.bus_number }}</th>
+                                               
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>Journey Date: {{ singleRecord.journey_dt | date:'EEEE, d MMMM , y' }}</td>
+                                                <td>Bus Route: {{ singleRecord.source[0][0].name }}-{{ singleRecord.destination[0][0].name }}</td>
+                                              </tr>
+                                              <tr>
+                                                <td>Diparature Timing: {{ singleRecord.boarding_time}}</td>
+                                                <td>Arrival Timing: {{ singleRecord.dropping_time }}</td>
+                                              </tr>
+                                              <tr>
+                                                <td>From: {{ singleRecord.from_location[0].name }} ({{ singleRecord.boarding_point }})</td>
+                                                <td>To: {{ singleRecord.to_location[0].name }} ({{ singleRecord.dropping_point }})</td>
+                                              </tr>
+                                              <tr>
+                                                <td>Boarding At : ({{ singleRecord.boarding_point }})</td>
+                                                <td>Droping At:  ({{ singleRecord.dropping_point }})</td>
+                                              </tr>
+                                              <tr>
+                                                <td>Passenger Mobile No: +91 {{ singleRecord.users.phone}}</td>
+                                                <td>Conductor Mobile No:
+                                                    <span *ngFor="let contacts of singleRecord.bus.bus_contacts;">
+                                                        <span *ngIf="contacts.type == 2">
+                                                            {{contacts.phone}}
+                                                        </span>
+                                                    </span>
+                                                </td>
+                                              </tr>                    
+                                              <tr>
+                                                <td>Agent Mobile No: +91 {{ singleRecord.user.phone}}</td>
+                                                <td></td>
+                                              </tr>
+                    
+                                              <tr>
+                                                <td>Total Fare: Rs.{{ singleRecord.total_fare }}/-</td>
+                                                <td>Seat({{singleRecord.booking_detail.length}})- 
+                                                    <span *ngFor="let seats of singleRecord.booking_detail">
+                                                        {{seats.bus_seats.seats.seatText}}.
+                                                    </span>
+                                                   
+                                                </td>
+                                              </tr> 
+                                              
+                                            </tbody>
+                                          </table>
+                                        
+                                    </div>
+                                    <div class="col-md-3"><img src="../../../assets/img/qr-code.png" class="od-qrcode"/></div>
+                                </div>
+                            
+                                <div class="row mt30 mb25">
+                                    <div class="col-md-12 odtext24">
+                                        <h3>PASSENGER DETAILS:</h3>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">Sl No.</th>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">Age</th>
+                                                <th scope="col">Sex</th>
+                                                <th scope="col">Seat No</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                            
+                                              <tr *ngFor="let dt of singleRecord.booking_detail; let i = index;">
+                                                <th scope="row">{{i+1}}</th>
+                                                <td>{{ dt.passenger_name }}</td>
+                                                <td>{{ dt.passenger_age }}</td>
+                                                <td>{{ dt.passenger_gender }}</td>
+                                                <td>{{ dt.bus_seats.seats.seatText }}</td>
+                                              </tr>
+                                            
+                                            </tbody>
+                                          </table>
+                                    </div>
+                                    
+                                </div>
+                            
+                                <!-- <div class="row mt30 mb25">
+                                    <div class="col-md-12"><img src="../../../assets/img/banner-01.png" class="od-banner"/></div>
+                                </div>
+                             -->
+                                <div class="row mt30">
+                                    <div class="col-md-12 odtext24"><h3>TERMS & CONDITIONS</h3></div>
+                                    <div class="col-md-12 ">
+                                      <div class="odbox1">
+                                      <div class="row ">
+                                        <div class="col-md-6">
+                                          <ol>
+                            
+                                          <li>ODBUS is an Online Platform which provides online bus ticket booking services and does not operate bus services.</li>
+                            
+                                          <li>Arrival and departure times written on the ticket approximate time, to reach on the boarding points before 15 min.</li>
+                                          
+                                          <li>Passengers are required to take a copy of the ticket and an Identity proof  during their travel</li>
+                                          
+                                          <li>We are at ODBUS advice to all customers is to choose bus operators they are aware of and whose service they are comfortable with.</li>
+                                          
+                                          <li>In case the bus operator changes the type of bus due to some reason, ODBUS will refund the equest by the customers in 24 hours of the journey.</li>
+                                          
+                                          <li>The tickets booked through ODBUS Can be cancelled and note that Cancel Can be possible before 12 hours For More Details Please refer Cancelation Policy.</li>
+                                          
+                                          <li>If a booking confirmation e-mail and SMS get delayed or fails because of technical reasons www.odbus.in</li>
+                                          
+                                          <li>During booking, If an amount deducted and ticket not shown or SMS not delivered Please call to 9583918888.</li>
+                                          <li>The tickets booked through ODBUS Can be cancelled and note that Cancel Can be possible before 12 hours For More Details Please refer Cancelation Policy.</li>
+                                         </ol>
+                                        </div>
+                                        <div class="col-md-6 odtext24">
+                            
+                                          <ol>
+                            
+                                            
+                                            <li>We are at ODBUS advice to all customers is to choose bus  they are comfortable with.</li>
+                                            
+                                            <li>In case the bus operator changes the typ reason, ODBUS will refund in 24 hours of the journey.</li>
+                                            
+                                            <li>The tickets booked through ODBUS be possible before 12 hours.</li>
+                                            
+                                            
+                                           </ol>
+                            
+                                           <h3>CANCELATION POLICY</h3>
+                                           <table class="table table-bordered">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">Cancellation Cut Off Time</th>
+                                                <th scope="col">Cancellation Return Amount</th>
+                                               
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>4 Hours To 8 Hours</td>
+                                                <td>25%</td>
+                                              </tr>
+                                              <tr>
+                                                <td>8 Hours To 24 Hours</td>
+                                                <td>35%</td>
+                                              </tr>
+                                              <tr>
+                                                <td>24 Hours To 72 Hours</td>
+                                                <td>80%</td>
+                                              </tr>
+                                              <tr>
+                                                <td>More than 72 Hours</td>
+                                                <td>90%</td>
+                                              </tr>
+                                              
+                                              <tr>
+                                                <td colspan="2">
+                                                  <ol>
+                                                    <li>All customers is to choose bus they are comfortable.</li>
+                                                    
+                                                    <li>Bus operator changes ODBUS wilustomers in 24 hours of the journey.</li>
+                                                    
+                                                    <li>The tickets booked through ODBUS  before 12 hours.</li>
+                                                    
+                                                   </ol>
+                                                </td>
+                                                 
+                                              </tr>
+                                              
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    </div>
+                            
+                                    <div class="col-md-12 mt30">
+                                      <div class="odbox2">
+                                        <div class="row ">
+                                          <div class="col-md-12">
+                                            <p>Contact Information</p>
+                                            <p>ODBUS Helpline (07:00 AM To 11:00 PM):9583-918-888 (For Online Booking issue or Online Cancellation issue.) </p>
+                                            <p>ODBUS Customer Support Email (Response time 3 working days): support@odbus.in</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                            
+                                    <div class="col-md-12 mt30">
+                                      <div class="odbox3">
+                                        <div class="row ">
+                                          <div class="col-md-12">
+                                            <p>Thankyou</p>
+                                            <p>Team ODBUS</p>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    
+                                </div>
+                                </div>
+                            </div>
+                                
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" printSectionId="print-section" ngxPrint class="btn btn-info sml_input"
+                                      [useExistingCss]="true" title="Print">
+                                      <i class="fas fa-print"> </i> Print
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" #defaultClick
+                      (click)="modal.dismiss('Cross click')">Close</button>
+                  </div>
+                </ng-template>
+        
+              </div>
         </app-card>
     </div>
 </div>
