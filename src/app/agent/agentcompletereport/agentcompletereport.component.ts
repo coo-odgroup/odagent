@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, VERSION } from '@angular/core';
 import { AgentreportService } from '../../services/agentreport.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BusOperatorService } from './../../services/bus-operator.service';
@@ -11,6 +11,7 @@ import { Constants } from '../../constant/constant';
 import * as XLSX from 'xlsx';
 import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationService } from '../../services/notification.service';
+import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 
 
 import { NgxSpinnerService } from "ngx-spinner";
@@ -34,13 +35,17 @@ export class AgentcompletereportComponent implements OnInit {
   locations: any;
   buses: any;
   currentDate = new Date();
-
+  qrCode:any='';
   hoveredDate: NgbDate | null = null;
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
   singleRecord: any;
   modalReference: NgbModalRef;
   confirmDialogReference: NgbModalRef;
+
+  elementType = NgxQrcodeElementTypes.URL;
+  correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
+  qrcode:any = '';
 
 
   constructor(
@@ -226,6 +231,29 @@ export class AgentcompletereportComponent implements OnInit {
     // this.singleRecord=[];
     // console.log(this.singleRecord);
     this.singleRecord=this.completedata.data.data[i];
+
+    let conductor_no='';
+
+    this.singleRecord.bus.bus_contacts.forEach(e => {
+
+      if(e.type==2){
+        conductor_no=e.phone;
+      }
+      
+    });
+
+    let seat=[];
+
+
+    this.singleRecord.booking_detail.forEach(e => {
+
+      seat.push(e.bus_seats.seats.seatText);
+      
+    });
+
+    let seat_name= seat.join(',');
+
+    this.qrcode = "PNR - "+this.singleRecord.pnr+" , Customer Phone No- "+this.singleRecord.users.phone+", Conductor No- "+conductor_no+" , Bus Name- "+this.singleRecord.bus.name+", Bus No- "+this.singleRecord.bus.bus_number+" , Journey Date- "+this.singleRecord.journey_dt+", Bus Route- "+this.singleRecord.source[0][0].name+' -> '+this.singleRecord.destination[0][0].name+", Seat- "+seat_name;
   }
 
   emailSms(i)

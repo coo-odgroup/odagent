@@ -10,6 +10,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AgentCompleteReportRoutingModule } from './agentcompletereport-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPrintModule } from 'ngx-print';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 
 @NgModule({
@@ -19,7 +20,7 @@ import { NgxPrintModule } from 'ngx-print';
     SharedModule,
     FormsModule,
     NgSelectModule,
-    NgbModule,NgxPrintModule,NgxSpinnerModule
+    NgbModule,NgxPrintModule,NgxSpinnerModule,NgxQRCodeModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [ AgentcompletereportComponent],

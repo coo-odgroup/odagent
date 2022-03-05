@@ -10,6 +10,9 @@ import { CommissionslabComponent } from './commissionslab/commissionslab.compone
 import { CustomercommissionslabComponent } from './customercommissionslab/customercommissionslab.component';
 import { BookingComponent } from './booking/booking.component';
 import { AgentprofileComponent } from './agentprofile/agentprofile.component';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+
+
 
 @NgModule({
   declarations: [
@@ -18,7 +21,8 @@ import { AgentprofileComponent } from './agentprofile/agentprofile.component';
   imports: [
     CommonModule,
     SharedModule,
-    AgentRoutingModule
+    AgentRoutingModule,
+    NgxQRCodeModule
   ]
 })
 export class AgentModule { }

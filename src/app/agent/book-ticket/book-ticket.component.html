@@ -418,7 +418,13 @@
 					  </table>
 					
 				</div>
-				<div class="col-md-3"><img src="../../../assets/img/qr-code.png" class="od-qrcode"/></div>
+				<div class="col-md-3">
+					<ngx-qrcode
+					[elementType]="elementType"
+					[errorCorrectionLevel]="correctionLevel"
+					[value]="qrcode"
+					cssClass="bshadow" [width]=200></ngx-qrcode>
+				</div>
 			</div>
 		
 			<div class="row mt30 mb25">

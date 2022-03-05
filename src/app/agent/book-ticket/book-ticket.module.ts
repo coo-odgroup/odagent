@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CountdownModule } from 'ngx-countdown';
 import { NgxPrintModule } from 'ngx-print';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 
 const ngWizardConfig: NgWizardConfig = {
@@ -22,6 +23,7 @@ const ngWizardConfig: NgWizardConfig = {
     CountdownModule,
     NgxPrintModule,
     BookTicketRoutingModule,NgxSpinnerModule,
+    NgxQRCodeModule,
     NgWizardModule.forRoot(ngWizardConfig)],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [BookTicketComponent],
