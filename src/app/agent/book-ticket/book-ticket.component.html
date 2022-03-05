@@ -48,12 +48,13 @@
 
 					<div class="col-md-3">
 						<label>&nbsp;</label><br>
-						<input type="text"  (keydown)="onlyNumbers($event);" maxlength ="2"  class="form-control" 
-						formControlName="passenger_age" class="form-control" placeholder="Age">	
-						
-						<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_age'].errors?.required" class="invalid-feedback">Age is required</div>
-						<div *ngIf="submitted1 &&  getPassengerFormGroup(i).controls['passenger_age'].errors?.pattern" class="invalid-feedback">Enter 2 Digit numbers</div>
-						
+						<input type="number" class="form-control" 
+					   formControlName="passenger_age" placeholder="Passenger Age" />
+	
+					   <div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_age'].errors?.required" class="invalid-feedback">Age is required</div>
+					   <div *ngIf="submitted1 &&  getPassengerFormGroup(i).controls['passenger_age'].errors?.min" class="invalid-feedback">Age must be from 1 to 100</div>
+
+					   <div *ngIf="submitted1 &&  getPassengerFormGroup(i).controls['passenger_age'].errors?.max" class="invalid-feedback">Age must be from 1 to 100</div>
 					</div>
 				
 				</div>

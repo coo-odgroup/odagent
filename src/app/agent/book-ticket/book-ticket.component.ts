@@ -305,7 +305,8 @@ get_seatno(seat_id:any){
       bus_seats_id: [seat], 
       passenger_name: [null, Validators.required],
       passenger_gender: [null, Validators.required],
-      passenger_age:  [null, [Validators.required]],
+      passenger_age:  [null, [Validators.required, Validators.pattern("^[1-9]*$"),
+      Validators.min(1),Validators.max(100)]],
       created_by: this.created_by
     },
     {
