@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
 
     this.auth.getToken().subscribe(
       res=>{
-        localStorage.setItem('APIAccessToken',res.data.access_token);         
+        localStorage.setItem('APIAccessToken',res.data);         
       }
     );
 
