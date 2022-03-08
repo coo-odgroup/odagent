@@ -20,10 +20,11 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class AgentprofileComponent implements OnInit {
   ModalHeading: string;
   ModalBtn: string;
-
+  modalReference: NgbModalRef;
   public form: FormGroup;
   validIFSC: string;
   profileDetails: any;
+  AgentProfileDetails: any;
   constructor(
     private spinner: NgxSpinnerService ,
     private http: HttpClient,
@@ -100,7 +101,7 @@ export class AgentprofileComponent implements OnInit {
     };
     this.aps.agentProfile(data).subscribe(
       res => {
-        // console.log(res.data[0]);
+        //console.log(res.data[0]);
         this.profileDetails=res.data[0];
         this.form.controls['name'].setValue(this.profileDetails.name);
         this.form.controls['email'].setValue(this.profileDetails.email);
@@ -203,5 +204,9 @@ export class AgentprofileComponent implements OnInit {
     }); 
   }
 
+  
+  OpenModal(content) {
+    this.modalReference = this.modalService.open(content, { scrollable: true, size: 'xl' });
+  }
  
 }

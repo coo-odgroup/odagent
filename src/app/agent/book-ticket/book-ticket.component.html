@@ -49,7 +49,7 @@
 					<div class="col-md-3">
 						<label>&nbsp;</label><br>
 						<input type="number" class="form-control" 
-					   formControlName="passenger_age" placeholder="Passenger Age" />
+					   formControlName="passenger_age" min="0"  placeholder="Passenger Age"  />
 	
 					   <div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_age'].errors?.required" class="invalid-feedback">Age is required</div>
 					   <div *ngIf="submitted1 &&  getPassengerFormGroup(i).controls['passenger_age'].errors?.min" class="invalid-feedback">Age must be from 1 to 100</div>
