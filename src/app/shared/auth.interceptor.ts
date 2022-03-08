@@ -60,36 +60,7 @@ collectFailedRequest(request): void {
 
 retryFailedRequests(request: HttpRequest<any>, next: HttpHandler): void {
 
-   // window.location.reload();
-
-    const APIAccessToken =  localStorage.getItem('APIAccessToken');        
-
-
-   this.cachedRequests.forEach( request => {
-   request = request.clone( {
-       setHeaders: {
-           Accept: 'application/json',
-           'Content-Type': 'application/json',
-           Authorization: "Bearer " + APIAccessToken
-       }
-   } );  
-   
-   console.log(request);
-  
-   return  next.handle(request).pipe(catchError( (err: HttpErrorResponse) => {  
-
-    console.log("cached Response");
-    console.log(err);
-   
-     return throwError(err);
-        
-   }))
-
-
-   } );
-
+    window.location.reload();
 }
-
-
 
 }
