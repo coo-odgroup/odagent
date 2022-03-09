@@ -11,13 +11,14 @@ import { AgentCompleteReportRoutingModule } from './agentcompletereport-routing.
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPrintModule } from 'ngx-print';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
-
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   imports: [
     CommonModule,
     AgentCompleteReportRoutingModule,
     SharedModule,
+    CountdownModule,
     FormsModule,
     NgSelectModule,
     NgbModule,NgxPrintModule,NgxSpinnerModule,NgxQRCodeModule

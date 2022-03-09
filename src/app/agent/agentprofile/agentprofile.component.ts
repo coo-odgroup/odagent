@@ -23,8 +23,9 @@ export class AgentprofileComponent implements OnInit {
   modalReference: NgbModalRef;
   public form: FormGroup;
   validIFSC: string;
-  profileDetails: any;
-  AgentProfileDetails: any;
+  profileDetails: any=[];
+  
+  
   constructor(
     private spinner: NgxSpinnerService ,
     private http: HttpClient,
@@ -66,6 +67,7 @@ export class AgentprofileComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.form = this.fb.group({
       user_id: localStorage.getItem('USERID'),
       name: [null, Validators.compose([Validators.required])],
@@ -90,8 +92,10 @@ export class AgentprofileComponent implements OnInit {
       upi_id: [null],
       
     }); 
+   
 
     this.user_details();
+    
   }
   
   user_details()
@@ -124,7 +128,7 @@ export class AgentprofileComponent implements OnInit {
         this.form.controls['upi_id'].setValue(this.profileDetails.upi_id);       
       }
     );
-
+    this.spinner.hide();
 
   }
 
@@ -167,6 +171,7 @@ export class AgentprofileComponent implements OnInit {
            this.resetAttr();
            this.user_details();
            this.spinner.hide();
+           this.modalReference.close();
         }
         else {
           this.notificationService.addToast({ title: 'Error', msg: res.message, type: 'error' });

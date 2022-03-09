@@ -262,8 +262,9 @@
                                 </div>
                                 <div *ngIf="Otpsubmitted && fo.otp.errors" class="invalid-feedback">
                                     <div *ngIf="fo.otp.errors.required">OTP is required</div>
-                                </div>                     
+                                </div>              
                         </div>
+                        
                     </div>
                     <div class="col-md-4">
                         <p style="opacity: 0;">Search</p>
@@ -275,7 +276,12 @@
                 </div>
             </div>
         </form>
-    
+        
+        <p class="text-center" *ngIf="ResendTimer">
+            Resend OTP after <countdown #countdown [config]="{leftTime: Timer, format: 'ss' }" (event)="OtpHandleEvent($event)"></countdown> Seconds..
+        </p>
+        <p class="text-center" *ngIf="ResendOtp" >Did not receive the Code? <a class="formlink cursor"  (click)="cancelTicketTab(content)"> Resend OTP  </a> </p> 
+
     </div>
   </div>
     </div>

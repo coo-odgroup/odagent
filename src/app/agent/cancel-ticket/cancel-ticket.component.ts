@@ -35,6 +35,12 @@ export class CancelTicketComponent implements OnInit {
   
   cancelInfo:any=[];
 
+  
+  ResendOtp :boolean=false;
+  ResendTimer :boolean=true;
+  Timer= 20;  
+  alert:any='';
+
     
     constructor( public fb: FormBuilder,public router: Router,private spinner: NgxSpinnerService,private managebookingService: ManagebookingService, private notify: NotificationService,public activeModal: NgbActiveModal,private modalService: NgbModal,public balance: WalletbalanceService) { 
 
@@ -49,6 +55,14 @@ export class CancelTicketComponent implements OnInit {
 
   }
 
+
+
+  OtpHandleEvent(event:any){    
+    if(event.action === 'done'){
+      this.ResendOtp=true;
+      this.ResendTimer=false;
+    }
+  }
 
   get f() { return this.cancelForm.controls; }
 
@@ -102,7 +116,6 @@ export class CancelTicketComponent implements OnInit {
       });
 
      }
-   
   }
 
   onSubmitOtp(){
@@ -193,10 +206,14 @@ cancelTicketTab(content:any) {
 
         }
         if(typeof res.data ==='object'){
-
-          this.open(content);
+          if(this.ResendOtp == false){
+            this.open(content);
+            
+          }
+          
 
           this.cancelInfo=res.data; 
+          this.notify.notify('OTP has been sent',"Success");
 
         }              
       }

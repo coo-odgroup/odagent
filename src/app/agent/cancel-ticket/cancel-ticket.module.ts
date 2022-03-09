@@ -9,12 +9,14 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CancelTicketRoutingModule } from './cancel-ticket-routing.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPrintModule } from 'ngx-print';
+import { CountdownModule } from 'ngx-countdown';
 
 
 @NgModule({
   imports: [
     CommonModule,
     CancelTicketRoutingModule,
+    CountdownModule,
     SharedModule,
     FormsModule,
     NgSelectModule,

@@ -266,7 +266,7 @@ export class AgentcompletereportComponent implements OnInit {
       mobile:this.singleRecord.user.phone
     }
 
-    if(confirm("Are you sure cancel the ticket ? ")) {
+    if(confirm("Are you sure want to resend Email and Message ? ")) {
       this.spinner.show();
       this.rs.emailSms(data).subscribe(
         res => {
