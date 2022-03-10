@@ -1,6 +1,8 @@
 import { Component, OnInit, VERSION } from '@angular/core';
 import { AgentreportService } from '../../services/agentreport.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { DatePipe} from '@angular/common';
+import { ManagebookingService } from '../../services/managebooking.service';
 import { BusOperatorService } from './../../services/bus-operator.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompleteReport } from '../../model/completereport';
@@ -12,14 +14,15 @@ import * as XLSX from 'xlsx';
 import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationService } from '../../services/notification.service';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
-
-
+import { WalletbalanceService } from '../../services/walletbalance.service';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-agentcompletereport',
   templateUrl: './agentcompletereport.component.html',
-  styleUrls: ['./agentcompletereport.component.scss']
+  styleUrls: ['./agentcompletereport.component.scss'],
+  providers: [DatePipe]
 })
 export class AgentcompletereportComponent implements OnInit {
 
@@ -27,7 +30,7 @@ export class AgentcompletereportComponent implements OnInit {
 
   completeReport: CompleteReport[];
   completeReportRecord: CompleteReport;
-
+  todayDate:any;
   completedata: any;
   totalfare = 0;
   busoperators: any;
@@ -47,23 +50,59 @@ export class AgentcompletereportComponent implements OnInit {
   correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
   qrcode:any = '';
 
+  cancelInfo:any=[];
+
+
+  submitted = false;
+  Otpsubmitted = false;
+  ResendOtp :boolean=false;
+  ResendTimer :boolean=true;
+  Timer= 20;  
+  alert:any='';
+
+  public cancelForm: FormGroup;
+  public FinalcancelForm: FormGroup;
+  index: any;
+  
+
 
   constructor(
+    
     private spinner: NgxSpinnerService,
     private http: HttpClient,
     private rs: AgentreportService,   
-     private notificationService: NotificationService,
+    private notificationService: NotificationService,
     private busOperatorService: BusOperatorService,
     private fb: FormBuilder,
     private locationService: LocationService,
     private busService: BusService,
     private calendar: NgbCalendar,
-    public formatter: NgbDateParserFormatter,    private modalService: NgbModal,config: NgbModalConfig
+    private managebookingService: ManagebookingService,
+    public balance: WalletbalanceService,
+    public router: Router,
+    public formatter: NgbDateParserFormatter,    
+    private modalService: NgbModal,
+    config: NgbModalConfig,
+    private datePipe: DatePipe
   ) {
+    
+    this.todayDate =this.datePipe.transform((new Date), 'yyyy-MM-dd'); 
+   
+
+
     config.backdrop = 'static';
     config.keyboard = false;
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getToday();
+
+    this.cancelForm = this.fb.group({
+      pnr: ['', Validators.required],
+      mobile: ['', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]]
+    });
+
+    this.FinalcancelForm = this.fb.group({
+      otp: ['', Validators.required],
+    });
   }
   title = 'angular-app';
   fileName = 'Agent-Complete-Report.xlsx';
@@ -182,6 +221,132 @@ export class AgentcompletereportComponent implements OnInit {
     this.modalReference = this.modalService.open(content, { scrollable: true, size: 'xl' });
   }
 
+  OpenCancelModal(content,i){
+    console.log(i); 
+    this.confirmDialogReference=this.modalService.open(content,{ scrollable: true, size: 'md' });
+
+    this.singleRecord=[];
+    this.singleRecord=this.completedata.data.data[i];
+    // console.log(this.singleRecord);
+    this.index = i;
+    //return;
+    this.spinner.show();
+
+
+  const data= {
+    "pnr":this.singleRecord.pnr,
+    "mobile":this.singleRecord.users.phone
+   };
+  //  console.log(data);
+
+  this.managebookingService.AgentcancelTicketOTP(data).subscribe(
+    res=>{
+      if(res.status==1){
+        if(typeof res.data ==='string'){
+
+          this.notificationService.notify(res.data,"Error");
+
+        }
+        if(typeof res.data ==='object'){
+          if(this.ResendOtp == false){
+            //this.open(content);
+            
+          }
+          
+
+          this.cancelInfo=res.data; 
+          this.notificationService.notify('OTP has been sent',"Success");
+
+        }              
+      }
+
+      if(res.status==0){
+        this.notificationService.notify(res.message,"Error");
+      }
+
+      this.spinner.hide();
+       
+
+    },
+  error => {
+    this.spinner.hide();
+    this.notificationService.notify(error.error.message,"Error");
+  }
+  );
+    
+  }
+
+  OtpHandleEvent(event:any){    
+    if(event.action === 'done'){
+      this.ResendOtp=true;
+      this.ResendTimer=false;
+    }
+  }
+
+  get f() { return this.cancelForm.controls; }
+
+  get fo() { return this.FinalcancelForm.controls; }
+
+
+  onSubmitOtp(){
+    console.log(this.FinalcancelForm.value);
+
+    this.Otpsubmitted = true;
+    // stop here if form is invalid
+    if (this.FinalcancelForm.invalid) {      
+     return;
+    }else{  
+      
+     this.spinner.show();
+
+      const request= {
+        "pnr":this.singleRecord.pnr,
+        "mobile":this.singleRecord.users.phone,
+        "otp":this.FinalcancelForm.value.otp,
+      };   
+      console.log(request);  
+      this.managebookingService.AgentCancelTicket(request).subscribe(
+       res=>{ 
+         if(res.status==1){          
+          this.notificationService.notify("Ticket is cancelled succesfully","Success");
+          this.modalService.dismissAll();
+          this.refresh();
+
+
+
+          let user_id=localStorage.getItem("USERID");
+          this.balance.getWalletBalance(user_id).subscribe(
+            res=>{      
+             if(res.status==1){
+              if(res.data.length > 0){
+                this.balance.setWalletBalance(res.data[0].balance); 
+              }else{
+                this.balance.setWalletBalance(0); 
+              }
+             }
+             
+            });
+
+
+          this.router.navigate(['agent/completereport']);
+
+
+
+         } 
+         if(res.status==0){
+           this.notificationService.notify(res.message,"Error");
+         } 
+
+         this.spinner.hide();
+       },
+     error => {
+       this.spinner.hide();
+       this.notificationService.notify(error.error.message,"Error");
+     });
+
+    }
+
+  }
   // openConfirmDialog(content,i){
   //   this.singleRecord=[];
   //   this.confirmDialogReference=this.modalService.open(content,{ scrollable: true, size: 'md' });
@@ -190,6 +355,8 @@ export class AgentcompletereportComponent implements OnInit {
 
   // }
 
+
+  
 
   loadServices() {
 
