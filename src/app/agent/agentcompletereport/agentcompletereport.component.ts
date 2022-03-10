@@ -222,6 +222,9 @@ export class AgentcompletereportComponent implements OnInit {
   }
 
   OpenCancelModal(content,i){
+
+
+    if(confirm("Are you sure want to cancel ? ")) {
     //console.log(i); 
     
 
@@ -274,6 +277,7 @@ export class AgentcompletereportComponent implements OnInit {
     this.notificationService.notify(error.error.message,"Error");
   }
   );
+}
     
   }
 
