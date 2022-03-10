@@ -222,8 +222,8 @@ export class AgentcompletereportComponent implements OnInit {
   }
 
   OpenCancelModal(content,i){
-    console.log(i); 
-    this.confirmDialogReference=this.modalService.open(content,{ scrollable: true, size: 'md' });
+    //console.log(i); 
+    
 
     this.singleRecord=[];
     this.singleRecord=this.completedata.data.data[i];
@@ -248,9 +248,10 @@ export class AgentcompletereportComponent implements OnInit {
 
         }
         if(typeof res.data ==='object'){
+          
           if(this.ResendOtp == false){
             //this.open(content);
-            
+            this.confirmDialogReference=this.modalService.open(content,{ scrollable: true, size: 'md' });
           }
           
 
