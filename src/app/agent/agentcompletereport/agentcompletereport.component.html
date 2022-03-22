@@ -676,14 +676,19 @@
                       <div class="text-center" align="center"> 
                         <form class="form-horizontal" [formGroup]="FinalcancelForm" (ngSubmit)="onSubmitOtp()">
 
-                          <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Enter OTP" formControlName="otp" aria-label="Recipient's username" aria-describedby="button-addon2">
-                            <div class="input-group-append">
+                          <div class="row g-0 mb-3">
+                            <div class="col-md-8 g-0">
+                              <input type="text" class="form-control" placeholder="Enter OTP" formControlName="otp" aria-label="Recipient's username" aria-describedby="button-addon2">
+                              <div *ngIf="Otpsubmitted && fo.otp.errors" class="invalid-feedback">
+                                <div *ngIf="fo.otp.errors.required">OTP is required</div>
+                              </div>
+                            </div>
+                            <div class="col-md-4 g-0">
                               <button class="btn btn-secondary" type="submit" id="button-addon2">Cancel Ticket</button>
                             </div>
-                            <div *ngIf="Otpsubmitted && fo.otp.errors" class="invalid-feedback">
-                              <div *ngIf="fo.otp.errors.required">OTP is required</div>
-                            </div> 
+                            
+                            
+                             
                           </div>
 
                             
@@ -695,10 +700,6 @@
                             Resend OTP after <countdown #countdown [config]="{leftTime: Timer, format: 'ss' }" (event)="OtpHandleEvent($event)"></countdown> Seconds..
                         </p>
                         <p class="text-center" *ngIf="ResendOtp" >Did not receive the Code? <a class="formlink cursor"  (click)="OpenCancelModal(cancelTicketTab,index)"> Resend OTP  </a> </p> 
-
-                        
-                
-                    
                        
                   
                   </div>

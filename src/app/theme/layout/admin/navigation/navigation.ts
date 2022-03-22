@@ -53,13 +53,13 @@ const AgentItems = [
         icon: 'feather icon-gitlab',
         url: 'agent/agentprofile'
       },
-      {
-        id: 'cancelticket',
-        title: 'Cancel Ticket',
-        type: 'item',       
-        icon: 'feather icon-gitlab',
-        url: 'agent/cancelTicket'
-      },
+      // {
+      //   id: 'cancelticket',
+      //   title: 'Cancel Ticket',
+      //   type: 'item',       
+      //   icon: 'feather icon-gitlab',
+      //   url: 'agent/cancelTicket'
+      // },
       {
         id: 'notification',
         title: 'Notification',
