@@ -120,7 +120,7 @@
 					<h5>Bus Details:</h5><hr>
 					<span class="font">Bus Name</span>
 					<h5>{{ busRecord.busName }} ({{ busRecord.busNumber }})</h5>
-					<h6>{{ busRecord.busType }} {{ busRecord.busTypeName }} {{ busRecord.sittingType}}</h6>
+					<h6>{{ busRecord.bus_description }} {{ busRecord.sittingType}}</h6>
 					<h6> 	<b *ngIf="ub_seats!=''"> Sleeper No. :-  {{ ub_seats }}</b>
 						<span *ngIf="lb_seats!='' && ub_seats!='' "> <br> </span>
 						<b *ngIf="lb_seats!=''">Seat No. :-   {{ lb_seats }}</b>
@@ -205,8 +205,8 @@
 
 				<div class="col-md-3">
 										
-					<h5><i class="fas fa-bus-alt icon-color"></i> {{ busRecord.busName }} ({{ busRecord.busNumber }})</h5>
-					<h6 class="padding-left">({{ busRecord.busNumber }})</h6>
+					<h5><i class="fas fa-bus-alt icon-color"></i> {{ busRecord.busName }}</h5>
+					<h6 class="padding-left">{{ busRecord.busNumber }}</h6>
 					
 									
 				</div>
