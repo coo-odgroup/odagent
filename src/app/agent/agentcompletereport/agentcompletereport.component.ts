@@ -429,13 +429,13 @@ export class AgentcompletereportComponent implements OnInit {
   }
 
   emailSms(i)
-  {
-    
+  {    
     this.singleRecord=this.completedata.data.data[i];
+
     const data=
     {
-      pnr:this.singleRecord.pnr,
-      mobile:this.singleRecord.user.phone
+        pnr:this.singleRecord.pnr,
+        mobile:this.singleRecord.users.phone
     }
 
     if(confirm("Are you sure want to resend Email and Message ? ")) {
@@ -454,8 +454,4 @@ export class AgentcompletereportComponent implements OnInit {
   //   this.singleRecord=this.completedata.data.data[i];
   //   console.log(this.singleRecord);
   // }
-
-
-  
-
 }
