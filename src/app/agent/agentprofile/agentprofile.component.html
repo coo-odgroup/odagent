@@ -24,9 +24,9 @@
       <ng-template ngbTabContent>
         <br/>
         <p><strong>Flat,HouseNo,Building,Apartment,Company :</strong>  {{profileDetails.address}} </p>
-        <p><strong>Area,Colony,Street,Sector,Village :</strong>  {{profileDetails.area}} </p>
+        <p><strong>Area,Colony,Street,Sector,Village :</strong>  {{profileDetails.street}} </p>
         <p><strong>Land Mark :</strong>  {{profileDetails.landmark}} </p>
-        <p><strong>Town/City :</strong>  {{profileDetails.town}} </p>
+        <p><strong>Town/City :</strong>  {{profileDetails.city}} </p>
         <p><strong>Pincode :</strong>  {{profileDetails.pincode}} </p>
       </ng-template>
     </ngb-tab>
@@ -329,7 +329,6 @@
                                     <label for="bank_account_no" class="col-sm-4 col-form-label">Bank Account Number</label>
                                     <div class="col-sm-8">
                                       <input type="text" class="form-control" placeholder="Bank Account Number" formControlName="bank_account_no">
-                                    
                                     </div>
                                   </div>
                                 </div>
