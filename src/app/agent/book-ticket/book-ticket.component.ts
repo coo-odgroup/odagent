@@ -207,12 +207,11 @@ export class BookTicketComponent implements OnInit {
             phone: [this.USERRECORDS.phone, [Validators.required,Validators.pattern("^[0-9]{10}$")]],  
             name:[this.USERRECORDS.name, Validators.required],
           }),   
-          bookingInfo: this.fb.group({  
-            coupon_code: '',
+          bookingInfo: this.fb.group({ 
             bus_id: [this.busRecord.busId],
             source_id: [this.source_id],
             destination_id: [this.destination_id],
-            journey_date: [this.entdate],
+            journey_dt: [this.entdate],
             boarding_point: [this.bookingdata.boardingPoint],
             dropping_point: [this.bookingdata.droppingPoint],
             boarding_time: [this.busRecord.departureTime],
