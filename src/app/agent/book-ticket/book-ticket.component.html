@@ -362,7 +362,7 @@
 		   </div>
 		</div>
 	
-		<div class="container" id="print-section">
+		<!-- <div class="container" id="print-section">
 			<div class="od-body mb25" >
 			   <div class="row mb40">
 				   <div class="col-md-3"><img src="../../../assets/img/email-logo.png" class="od-logo"/></div>
@@ -574,7 +574,285 @@
 				
 			</div>
 			</div>
-		</div>
+		</div> -->
+	
+		<div class="container" [id]="'print-section'">
+			<div class="od-body mb25">
+			   <div class="row mb40">
+				<table class="tableclass2" cellpadding="10">
+					<tbody>
+					  <tr>
+						<td>
+						  <img	src="../../assets/img/email-logo.png"	class="od-logo"  />
+						</td>
+						<td>
+						  <span>ODBUS</span> e-Ticketing Service<br />
+						  Electronic Reservation Slip
+						</td>
+						<td>
+						  <div class="od-bktext">Booking Date</div>
+						  <div class="od-bktext">{{bookingDate | date:'EEEE, d MMMM , y' }}</div>
+
+						  <!-- <div class="od-bktext" *ngIf="bookingDetails.booking[0].status==2" style="color:red;font-size:bold">
+							STATUS:- CANCELLED
+						   </div>
+
+						   <div class="od-bktext" *ngIf="bookingDetails.booking[0].status==1" style="color:green;font-size:bold">
+							 STATUS:- CONFIREMED
+							</div> -->
+						</td>
+					  </tr>
+					</tbody>
+				  </table>				   
+			   </div>
+			   <div class="row  mt30 mb25">
+				<div class="col-md-12 odtext24">
+					<h3>JOURNEY DETAILS:</h3>
+				<table width="100%">
+				 <tr>
+				  <td>		
+					<table class="table table-bordered">
+						<tbody>
+							<tr>
+								<td>Journey Date: {{ entdate | date:'EEEE, d MMMM , y' }}</td>
+								<td>Bus Route: {{ source }}-{{ destination }}</td>
+							  </tr>
+							  <tr>
+								<td>Deparature Timing: {{ busRecord.departureTime}}</td>
+								<td>Arrival Timing: {{ busRecord.arrivalTime }}</td>
+							  </tr>
+							  <tr>
+								<td>From: {{ source }} ({{ bookingdata.boardingPoint }})</td>
+								<td>To: {{ destination }} ({{ bookingdata.droppingPoint }})</td>
+							  </tr>
+							  <tr>
+								<td>Boarding At :{{ source }} ({{ bookingdata.boardingPoint }})</td>
+								<td>Droping At: {{ destination }} ({{ bookingdata.droppingPoint }})</td>
+							  </tr>
+							  <tr>
+								<td>Passenger Mobile No: +91 {{ passengerData.customerInfo.phone}}</td>
+								<td>Conductor Mobile No: {{busRecord.conductor_number}}</td>
+							  </tr>
+	
+							  <tr>
+								<td>Agent Mobile No: +91 {{ USERRECORDS.phone}}</td>
+								<td></td>
+							  </tr>
+	
+							  <tr>
+								<td>Total Fare: Rs.{{ payableAmount }}/-</td>
+								<td>Seat({{total_seat_name.length}})- {{total_seat_name}}</td>
+							  </tr>
+						  
+						</tbody>
+					</table>
+				 </td>	
+				 <td>
+					<table>
+					  <tr>
+						<td>
+							<div class="col-md-3">
+								<ngx-qrcode
+								[elementType]="elementType"
+								[errorCorrectionLevel]="correctionLevel"
+								[value]="qrcode"
+								cssClass="bshadow" [width]=200></ngx-qrcode>
+							</div>
+						</td>
+					  </tr>
+					</table>
+				  </td>
+				 </tr>
+				</table>  
+				</div>				
+			</div>
+	
+			<div class="row mt30 mb25">
+				<div class="col-md-12 odtext24">
+					<h3>PASSENGER DETAILS:</h3>
+					<table class="table table-bordered">
+						<thead>
+						  <tr style="color: black !important;background-color: #fff !important;">
+							<th scope="col">Sl.</th>
+							<th scope="col">Name</th>
+							<th scope="col">Age</th>
+							<th scope="col">Sex</th>
+							<th scope="col">Seat</th>
+						  </tr>
+						</thead>
+						<tbody>
+
+						  <tr *ngFor="let dt of passengerData.bookingInfo.bookingDetail; let i = index;">
+							<th scope="row">{{i+1}}</th>
+							<td>{{ dt.passenger_name }}</td>
+							<td>{{ dt.passenger_age }}</td>
+							<td>{{ dt.passenger_gender }}</td>
+							<td>{{ get_seatno(dt.bus_seats_id) }}</td>
+						  </tr>
+						
+						</tbody>
+					  </table>
+				</div>
+				
+			</div>
+	
+			<!-- <div class="row mt30 mb25">
+				<div class="col-md-12"><img src="../../assets/img/banner-01.png" class="od-banner"/></div>
+			</div> -->
+	
+			
+
+			<div class="row mt30">
+
+				<div class="col-12 odtext24">
+
+					<div class="col-12 odtext24"><h3 class="mb-font16">CANCELLATION POLICY</h3></div>
+		
+		
+						<ol>				  
+						  <li>We are at ODBUS advice to all customers is to choose bus  they are comfortable with.</li>
+						  
+						  <li>In case the bus operator changes the typ reason, ODBUS will refund in 24 hours of the journey.</li>
+						  
+						  <li>The tickets booked through ODBUS be possible before 12 hours.</li>
+						  
+						  
+						 </ol>
+		
+						 <table class="table table-bordered">
+							<thead>
+								<tr style="color: black !important;background-color: #fff !important;">
+									<th scope="col">Cancellation Time</th>
+									<th scope="col">Cancellation Charges</th>
+								</tr>
+							</thead>
+							<tbody *ngIf="busRecord.cancellationDuration.length > 0 ">
+								<tr
+									*ngFor="let can of busRecord.cancellationDuration; let i=index">
+									<td>{{ can }} hr</td>
+									<td>{{ busRecord.cancellationDuduction[i] }}%</td>
+								</tr>
+		
+								<tr>
+									<td colspan="2">
+									  <ol>
+										<li>All customers is to choose bus they are comfortable.</li>
+										
+										<li>Bus operator changes ODBUS wilustomers in 24 hours of the journey.</li>
+										
+										<li>The tickets booked through ODBUS  before 12 hours.</li>
+										
+									   </ol>
+									</td>
+									 
+								  </tr>
+		
+							</tbody>
+						</table>
+					  </div>
+
+				<div class="col-md-12 odtext24">
+				  <h3>TERMS & CONDITIONS</h3>
+				</div>
+				<div class="col-md-12">
+				  <div class="odbox1">
+					<div class="row">
+					  <div class="col-md-12">
+						<ol>
+						  <li>
+							ODBUS is an Online Platform which provides
+							online bus ticket booking services and does
+							not operate bus services.
+						  </li>
+
+						  <li>
+							Arrival and departure times written on the
+							ticket approximate time, to reach on the
+							boarding points before 15 min.
+						  </li>
+
+						  <li>
+							Passengers are required to take a copy of the
+							ticket and an Identity proof during their
+							travel
+						  </li>
+
+						  <li>
+							We are at ODBUS advice to all customers is to
+							choose bus operators they are aware of and
+							whose service they are comfortable with.
+						  </li>
+
+						  <li>
+							In case the bus operator changes the type of
+							bus due to some reason, ODBUS will refund the
+							equest by the customers in 24 hours of the
+							journey.
+						  </li>
+
+						  <li>
+							The tickets booked through ODBUS Can be
+							cancelled and note that Cancel Can be possible
+							before 12 hours For More Details Please refer
+							CancelLation Policy.
+						  </li>
+
+						  <li>
+							If a booking confirmation e-mail and SMS get
+							delayed or fails because of technical reasons
+							www.odbus.in
+						  </li>
+
+						  <li>
+							During booking, If an amount deducted and
+							ticket not shown or SMS not delivered Please
+							call to 9583918888.
+						  </li>
+						  <li>
+							The tickets booked through ODBUS Can be
+							cancelled and note that Cancel Can be possible
+							before 12 hours For More Details Please refer
+							CancelLation Policy.
+						  </li>
+						</ol>
+					  </div>					
+					</div>
+				  </div>
+				</div>
+
+				<div class="col-md-12 mt30">
+				  <div class="odbox2">
+					<div class="row">
+					  <div class="col-md-12">
+						<p>Contact Information</p>
+						<p>
+						  ODBUS Helpline (07:00 AM To 11:00
+						  PM):9583-918-888 (For Online Booking issue or
+						  Online Cancellation issue.)
+						</p>
+						<p>
+						  ODBUS Customer Support Email (Response time 3
+						  working days): support@odbus.in
+						</p>
+					  </div>
+					</div>
+				  </div>
+				</div>
+
+				<div class="col-md-12 mt30">
+				  <div class="odbox3">
+					<div class="row">
+					  <div class="col-md-12">
+						<p>Thankyou</p>
+						<p>Team ODBUS</p>
+					  </div>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			</div>
+		</div>	
+	
 	</ng-wizard-step>
 
    
