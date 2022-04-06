@@ -225,6 +225,7 @@ export class BookTicketComponent implements OnInit {
             addOwnerFare:this.bookingdata.PriceArray.addOwnerFare,
             festiveFare:this.bookingdata.PriceArray.festiveFare,
             owner_fare: this.bookingdata.PriceArray.ownerFare,
+            transactionFee: this.bookingdata.PriceArray.transactionFee,
             odbus_service_Charges: this.bookingdata.PriceArray.odbusServiceCharges,
             created_by: this.created_by,
             bookingDetail: this.fb.array([]),        
@@ -492,6 +493,9 @@ get_seatno(seat_id:any){
               "owner_fare":this.bookingdata.PriceArray.ownerFare ,  
               "customer_comission":this.applied_comission 
             }
+
+            //console.log(JSON.stringify(param));
+            //return;
          
             
             this.agentPaymentStatusService.getPaymentStatus(param).subscribe(
