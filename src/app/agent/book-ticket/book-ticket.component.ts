@@ -143,7 +143,7 @@ export class BookTicketComponent implements OnInit {
     this.busRecord=localStorage.getItem('busRecord');
     this.genderRestrictSeats=localStorage.getItem('genderRestrictSeats');
     this.USERRECORDS=localStorage.getItem('USERRECORDS');
-   
+
     if(this.bookingdata == null && this.busRecord == null){
      this.router.navigate(['agent/booking']);
     }else{
@@ -154,13 +154,14 @@ export class BookTicketComponent implements OnInit {
 
       this.genderRestrictSeats= JSON.parse(this.genderRestrictSeats);
 
-      let brdTm_arr = this.bookingdata.boardingPoint.split(" - ");
-      let drpTm_arr = this.bookingdata.droppingPoint.split(" - ");
+      let brdTm_arr = this.bookingdata.boardingPoint.split(" | ");
+      let drpTm_arr = this.bookingdata.droppingPoint.split(" | ");
 
       this.bookingdata.boardingPoint=brdTm_arr[0];
       this.bookingdata.droppingPoint=drpTm_arr[0];
       this.busRecord.departureTime=brdTm_arr[1];
-      this.busRecord.arrivalTime=drpTm_arr[1];
+      this.busRecord.arrivalTime=drpTm_arr[1]; 
+
 
       if(this.bookingdata.UpperBerthSeats.length){
         this.total_seat_name =this.total_seat_name.concat(this.bookingdata.UpperBerthSeats);
@@ -208,17 +209,17 @@ export class BookTicketComponent implements OnInit {
             name:[this.USERRECORDS.name, Validators.required],
           }),   
           bookingInfo: this.fb.group({ 
-            bus_id: [this.busRecord.busId],
-            source_id: [this.source_id],
-            destination_id: [this.destination_id],
-            journey_dt: [this.entdate],
-            boarding_point: [this.bookingdata.boardingPoint],
-            dropping_point: [this.bookingdata.droppingPoint],
-            boarding_time: [this.busRecord.departureTime],
-            dropping_time: [this.busRecord.arrivalTime],
-            origin: ["ODBUS"],
-            app_type: ["AGENT"],
-            typ_id: ["1"],
+            bus_id: this.busRecord.busId,
+            source_id: this.source_id,
+            destination_id: this.destination_id,
+            journey_dt: this.entdate,
+            boarding_point: this.bookingdata.boardingPoint,
+            dropping_point: this.bookingdata.droppingPoint,
+            boarding_time: this.busRecord.departureTime,
+            dropping_time: this.busRecord.arrivalTime,
+            origin: "ODBUS",
+            app_type: "AGENT",
+            typ_id: "1",
             total_fare: this.bookingdata.PriceArray.totalFare,
             specialFare: this.bookingdata.PriceArray.specialFare,
             addOwnerFare:this.bookingdata.PriceArray.addOwnerFare,
@@ -368,6 +369,8 @@ get_seatno(seat_id:any){
      }else{
       this.spinner.show();
       this.passengerData=this.bookForm1.value; 
+
+      console.log( this.passengerData);
 
       this.agentBookTicketService.book(this.passengerData).subscribe(
           res=>{ 

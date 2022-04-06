@@ -135,30 +135,35 @@
 					<h5>{{ destination }}</h5>
 					<h6>{{ bookingdata.droppingPoint }} - {{ busRecord.arrivalTime}}</h6>
 
-					<h5>Fare Details:</h5><hr>
+					<span class="font">Journey Date</span>
+					<h5>{{ entdate | date:'EEEE, d MMMM , y' }}</h5>
 
-					<div class="row fare-detail">
-					
-					   <div class="col-md-8"><h6>Base Fare</h6></div>
-	   
-					   <div class="col-md-4"><h6>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare }}</h6></div>
-	   
-					 
-					   <!-- <div class="col-md-8"><h6>Service Charges</h6></div>
-	   
-					   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.odbusServiceCharges }} </h6></div> -->
-	   
-				   
-					   <div class="col-md-8"><h6>Transaction Fee</h6></div>
-	   
-					   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.transactionFee }}</h6></div>
-	   
-					 <div class="col-md-8"><h5>Total</h5></div>
-	   
-					   <div class="col-md-4"><h5>₹ {{ bookingdata.PriceArray.totalFare }}</h5></div>
-				   
-	   
-				   </div>
+
+						<!-- <h5>Fare Details:</h5> -->
+						<hr>
+
+						<div class="row fare-detail">
+						
+						   <div class="col-md-8"><h6>Base Fare</h6></div>
+		   
+						   <div class="col-md-4"><h6>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare }}</h6></div>
+		   
+						 
+						   <!-- <div class="col-md-8"><h6>Service Charges</h6></div>
+		   
+						   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.odbusServiceCharges }} </h6></div> -->
+	<!-- 	   
+					   
+						   <div class="col-md-8"><h6>Transaction Fee</h6></div>
+		   
+						   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.transactionFee }}</h6></div>
+		   
+						 <div class="col-md-8"><h5>Total</h5></div>
+		   
+						   <div class="col-md-4"><h5>₹ {{ bookingdata.PriceArray.totalFare }}</h5></div> -->
+					   
+		   
+					   </div>
 	   
 				   <div class="padding">
 					   <div>
@@ -297,8 +302,26 @@
 			<div class="passenger-detail">
 			<div class="row">
 					   <div class="col-md-8 py">
-						<h6 class="grey"><b>PAYABLE AMOUNT</b></h6>
-						   <h5>₹ {{ payableAmount }} </h5>
+						<div class="row fare-detail">
+					
+							<div class="col-md-8"><h6>Base Fare</h6></div>
+			
+							<div class="col-md-4"><h6><strong>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare }}</strong></h6></div>
+
+							<div class="col-md-8"><h6>Transaction Fee</h6></div>
+			
+							<div class="col-md-4"><h6><strong>+ ₹ {{ bookingdata.PriceArray.transactionFee }}</strong></h6></div>
+
+							<div class="col-md-8" *ngIf="applied_comission > 0"><h6>Commission</h6></div>
+			
+							<div class="col-md-4" *ngIf="applied_comission > 0"><h6><strong>+ ₹ {{ applied_comission }}</strong></h6></div>
+
+			
+						   <div class="col-md-8"><h5>Total</h5></div>
+			
+							<div class="col-md-4"><h5>₹ {{ payableAmount }}</h5></div>	 
+							
+						 </div> 
 
 						   <label class="terms">
 							<input formControlName="tnc" #tnc
@@ -706,20 +729,44 @@
 
 				<div class="col-12 odtext24">
 
-					<div class="col-12 odtext24"><h3 class="mb-font16">CANCELLATION POLICY</h3></div>
-		
-		
-						<ol>				  
-						  <li>We are at ODBUS advice to all customers is to choose bus  they are comfortable with.</li>
-						  
-						  <li>In case the bus operator changes the typ reason, ODBUS will refund in 24 hours of the journey.</li>
-						  
-						  <li>The tickets booked through ODBUS be possible before 12 hours.</li>
-						  
-						  
-						 </ol>
-		
-						 <table class="table table-bordered">
+					<table style="width: 100%; margin-top: 20px;">
+						<tr>
+						  <td style="width: 50%;" vertical-align="top" >
+							<div class="col-md-12 pl-0 odtext24 fare-backup">
+							<h3>FARE BREAKUP</h3>
+							<table class="table table-bordered" cellpadding="0" cellspacing="0" border="1" style="width: 100%;" >
+			
+								<tbody>
+									<tr>
+									  <td class="text-left">Base Fare</td>
+									  <td class="text-right"><b>₹{{bookingdata.PriceArray.odbus_charges_ownerFare}}</b></td>
+									</tr>									
+									
+									<tr>
+									  <td class="text-left">Transaction Fee</td>
+									  <td class="text-right"><b>+₹{{bookingdata.PriceArray.transactionFee}}</b></td>
+									</tr>
+									
+									<tr *ngIf="applied_comission > 0">
+										<td class="text-left">Commission</td>
+										<td class="text-right"><b>+₹{{applied_comission}}</b></td>
+									  </tr>
+								
+									<tr>
+									  <td class="text-left"><strong>Total Fare</strong></td>
+									  <td class="text-right"><strong>₹{{payableAmount}}</strong></td>
+									</tr>
+								  </tbody>
+							  
+							</table>
+						  </div></td>
+						  <td style="width: 50%;" vertical-align="top">
+							
+						<div class="col-md-12 odtext24 pr-0">
+						  <h3>CANCELLATION POLICY</h3>					  
+
+
+						  <table class="table table-bordered odbus-journey" cellpadding="0" cellspacing="0" border="1" style="width: 100%;">
 							<thead>
 								<tr style="color: black !important;background-color: #fff !important;">
 									<th scope="col">Cancellation Time</th>
@@ -731,25 +778,17 @@
 									*ngFor="let can of busRecord.cancellationDuration; let i=index">
 									<td>{{ can }} hr</td>
 									<td>{{ busRecord.cancellationDuduction[i] }}%</td>
-								</tr>
-		
-								<tr>
-									<td colspan="2">
-									  <ol>
-										<li>All customers is to choose bus they are comfortable.</li>
-										
-										<li>Bus operator changes ODBUS wilustomers in 24 hours of the journey.</li>
-										
-										<li>The tickets booked through ODBUS  before 12 hours.</li>
-										
-									   </ol>
-									</td>
-									 
-								  </tr>
-		
+								</tr>	
+
 							</tbody>
 						</table>
-					  </div>
+	
+						</div>
+						  </td>
+						</tr>
+					  </table>
+		 
+				</div>
 
 				<div class="col-md-12 odtext24">
 				  <h3>TERMS & CONDITIONS</h3>
