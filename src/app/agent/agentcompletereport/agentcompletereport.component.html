@@ -418,18 +418,13 @@
                                               </tr>                    
                                               <tr>
                                                 <td>Agent Mobile No: +91 {{ singleRecord.user.phone}}</td>
-                                                <td></td>
-                                              </tr>
-                    
-                                              <tr>
-                                                <td>Total Fare: Rs.{{ singleRecord.total_fare }}/-</td>
                                                 <td>Seat({{singleRecord.booking_detail.length}})- 
-                                                    <span *ngFor="let seats of singleRecord.booking_detail">
-                                                        {{seats.bus_seats.seats.seatText}}.
-                                                    </span>
-                                                   
-                                                </td>
-                                              </tr> 
+                                                  <span *ngFor="let seats of singleRecord.booking_detail">
+                                                      {{seats.bus_seats.seats.seatText}}.
+                                                  </span>
+                                                 
+                                              </td>
+                                              </tr>
                                               
                                             </tbody>
                                           </table>
@@ -478,6 +473,68 @@
                                     <div class="col-md-12"><img src="../../../assets/img/banner-01.png" class="od-banner"/></div>
                                 </div>
                              -->
+
+                             <table style="width: 100%; margin-top: 20px;">
+                              <tr>
+                                <td style="width: 50%;"><div class="col-md-12 pl-0 odtext24 fare-backup">
+                                  <h3>FARE BREAKUP</h3>
+                                  <table class="table table-bordered" cellpadding="0" cellspacing="0" border="1" style="width: 100%;" >
+                  
+                                    <tbody>
+                                      <tr>
+                                        <td class="text-left">Base Fare</td>
+                                        <td class="text-right"><b>₹{{singleRecord.owner_fare + singleRecord.odbus_charges}}</b></td>
+                                      </tr>
+                                      <tr *ngIf="singleRecord.coupon_discount > 0">
+                                        <td class="text-left">Coupon Discount</td>
+                                        <td class="text-right"><b>- ₹{{singleRecord.coupon_discount}}</b></td>
+                                      </tr>
+                                      <tr *ngIf="singleRecord.customer_gst_status == 1">
+                                        <td class="text-left">GST ({{singleRecord.customer_gst_percent}}%)</td>
+                                        <td class="text-right"><b>+ ₹{{singleRecord.customer_gst_amount}}</b></td>
+                                      </tr>
+                                      <tr>
+                                        <td class="text-left">Transaction Fee</td>
+                                        <td class="text-right"><b>+₹{{singleRecord.transactionFee}}</b></td>
+                                      </tr>
+          
+                                      <tr *ngIf="singleRecord.customer_comission > 0">
+                                        <td class="text-left">Agent Commission</td>
+                                        <td class="text-right"><b>+₹{{singleRecord.customer_comission}}</b></td>
+                                      </tr>
+          
+                                      <tr>
+                                        <td class="text-left"><strong>Total Fare</strong></td>
+                                        <td class="text-right"><strong>₹{{singleRecord.payable_amount + singleRecord.customer_comission}}</strong></td>
+                                      </tr>
+                                    </tbody>
+                                    
+                                  </table>
+                                </div></td>
+                                <td style="width: 50%;">
+                                  
+                              <div class="col-md-12 odtext24 pr-0">
+                                <h3>CANCELLATION POLICY</h3>
+                                <table class="table table-bordered odbus-journey" cellpadding="0" cellspacing="0" border="1">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Cancellation Time</th>
+                                      <th scope="col">Cancellation Charges</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody *ngIf="singleRecord.bus.cancellationslabs.cancellation_slab_info.length > 0 ">
+                                    <tr
+                                      *ngFor="let can of singleRecord.bus.cancellationslabs.cancellation_slab_info; let i=index">
+                                      <td>{{ can.duration }} hr</td>
+                                      <td>{{ can.deduction }}%</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+          
+                              </div>
+                                </td>
+                              </tr>
+                            </table>
                                 <div class="row mt30">
                                     <div class="col-md-12 odtext24"><h3>TERMS & CONDITIONS</h3></div>
                                     <div class="col-md-12 ">

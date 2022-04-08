@@ -229,8 +229,7 @@ export class AgentcompletereportComponent implements OnInit {
     
 
     this.singleRecord=[];
-    this.singleRecord=this.completedata.data.data[i];
-    // console.log(this.singleRecord);
+    this.singleRecord=this.completedata.data.data[i];    
     this.index = i;
     //return;
     this.spinner.show();
@@ -294,7 +293,7 @@ export class AgentcompletereportComponent implements OnInit {
 
 
   onSubmitOtp(){
-    console.log(this.FinalcancelForm.value);
+  //  console.log(this.FinalcancelForm.value);
 
     this.Otpsubmitted = true;
     // stop here if form is invalid
@@ -309,7 +308,7 @@ export class AgentcompletereportComponent implements OnInit {
         "mobile":this.singleRecord.users.phone,
         "otp":this.FinalcancelForm.value.otp,
       };   
-      console.log(request);  
+     // console.log(request);  
       this.managebookingService.AgentCancelTicket(request).subscribe(
        res=>{ 
          if(res.status==1){          
@@ -403,6 +402,8 @@ export class AgentcompletereportComponent implements OnInit {
     // this.singleRecord=[];
     // console.log(this.singleRecord);
     this.singleRecord=this.completedata.data.data[i];
+
+    //console.log(this.singleRecord);
 
     let conductor_no='';
 
