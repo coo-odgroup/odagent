@@ -44,6 +44,9 @@
 						<input type="text"  formControlName="passenger_name" class="form-control" placeholder="Full Name">			
 					
 						<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_name'].hasError('required')" class="invalid-feedback">Name is required</div>
+
+						<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_name'].hasError('pattern')" class="invalid-feedback">Alphabets only</div>
+
 					</div>
 
 					<div class="col-md-3">
@@ -72,6 +75,7 @@
 				
 					<div *ngIf="submitted1 && GetcustomerInfo.controls.name.errors" class="invalid-feedback">
 						<div *ngIf="GetcustomerInfo.controls.name.errors.required">Name required</div>
+						<div *ngIf="GetcustomerInfo.controls.name.errors.pattern">Alphabets only</div>
 					</div>			
 				</div>
 

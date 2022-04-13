@@ -206,7 +206,7 @@ export class BookTicketComponent implements OnInit {
           customerInfo: this.fb.group({          
             email: [this.USERRECORDS.email, [Validators.email,Validators.required]],
             phone: [this.USERRECORDS.phone, [Validators.required,Validators.pattern("^[0-9]{10}$")]],  
-            name:[this.USERRECORDS.name, Validators.required],
+            name:[this.USERRECORDS.name, [Validators.required,Validators.pattern('^[a-zA-Z \-\']+')]],
           }),   
           bookingInfo: this.fb.group({ 
             bus_id: this.busRecord.busId,
@@ -304,7 +304,7 @@ get_seatno(seat_id:any){
 
     return this.fb.group({
       bus_seats_id: [seat], 
-      passenger_name: [null, Validators.required],
+      passenger_name: [null, [Validators.required,Validators.pattern('^[a-zA-Z \-\']+')]],
       passenger_gender: [null, Validators.required],
       passenger_age:  [null, [Validators.required,
         Validators.min(1),Validators.max(100)]],
