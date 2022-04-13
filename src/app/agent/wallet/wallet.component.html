@@ -2,7 +2,7 @@
 
 <div class="row">
   <div class="col-sm-12">
-    <app-card [hidHeader]="false" cardTitle="Wallet" cardClass="card-datatable" [options]="true"
+    <app-card [hidHeader]="false" cardTitle="Wallet Request" cardClass="card-datatable" [options]="true"
       cardClass=" table-border-style user-profile-list " [isCardFooter]="true">
       <div class="row">
         <div class="col-2">
@@ -104,8 +104,8 @@
               <th scope="col">Ref No</th>
               <th scope="col">Tran Via</th>
               <th scope="col">Amount</th>
-              <th scope="col">Balance</th>
-              <th scope="col">Activated On</th>
+              <!-- <th scope="col">Balance</th> -->
+              <!-- <th scope="col">Activated On</th> -->
               <th scope="col">Status </th>              
               <th scope="col">Message</th>
               
@@ -140,9 +140,9 @@
                   -----
                 </span>
               </td>
-              <td class="text-primary">{{page.amount}}</td>
-              <td class="text-success"><strong>{{page.balance}}</strong></td>
-              <td>{{page.updated_at | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
+              <td class="text-primary"><b><i class="fas fa-rupee-sign"></i>{{page.amount}}  /-</b></td>
+              <!-- <td class="text-success"><strong>{{page.balance}}</strong></td> -->
+              <!-- <td>{{page.updated_at | date: 'dd/MM/yyyy hh:mm:ss'}}</td> -->
              
               <td>
                 <label *ngIf="page.status==1" class="btn btn-sm  bg-info  text-light"

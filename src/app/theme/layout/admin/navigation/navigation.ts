@@ -69,7 +69,7 @@ const AgentItems = [
       },
       {
         id: 'wallet',
-        title: 'Wallet',
+        title: 'Wallet Request',
         type: 'item',
         icon: 'feather icon-shield',
         url: 'agent/wallet'
