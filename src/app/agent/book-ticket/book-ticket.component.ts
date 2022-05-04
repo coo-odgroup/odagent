@@ -430,10 +430,13 @@ get_seatno(seat_id:any){
         "destinationId":this.destination_id,
         "applied_comission":this.applied_comission,
         "transaction_id": this.bookTicketResponse.transaction_id,
-        "amount":this.bookingdata.PriceArray.totalFare,
         "seatIds":this.seat_ids,
         "entry_date":entdt
       }
+
+
+      //console.log(JSON.stringify(paymentParam));
+     
 
       this.agentPaymentService.paymentRequest(paymentParam).subscribe(
         res=>{
@@ -484,18 +487,12 @@ get_seatno(seat_id:any){
               "sittingType":this.busRecord.sittingType,
               "conductor_number":this.busRecord.conductor_number,
               "agent_number":this.USERRECORDS.phone,           
-              "passengerDetails":this.passengerData.bookingInfo.bookingDetail,
-              "totalfare":this.bookingdata.PriceArray.totalFare, 
-              "discount":0,
-              "payable_amount":this.bookingdata.PriceArray.totalFare,
-              "odbus_charges":this.bookingdata.PriceArray.odbusServiceCharges,
-              "odbus_gst":this.bookingdata.PriceArray.transactionFee, 
-              "owner_fare":this.bookingdata.PriceArray.ownerFare ,  
+              "passengerDetails":this.passengerData.bookingInfo.bookingDetail,             
               "customer_comission":this.applied_comission 
             }
 
-            //console.log(JSON.stringify(param));
-            //return;
+          //  console.log(JSON.stringify(param));
+           // return;
          
             
             this.agentPaymentStatusService.getPaymentStatus(param).subscribe(

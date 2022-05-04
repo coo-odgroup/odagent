@@ -209,7 +209,7 @@
                             <ng-template ngbPanelContent>
   
                                 <div *ngFor="let operatorId of busOperators; let i=index; ">
-                                    <label class="container-chkbox">{{ operatorId.operator_name }}
+                                    <label class="container-chkbox">{{ operatorId.organisation_name }}
                                         <input type="checkbox" [value]="operatorId.id" 
                                         (change)="updateOperator($event)" >
                                         <span class="checkmark"></span>
