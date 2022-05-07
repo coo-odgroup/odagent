@@ -12,6 +12,8 @@ import * as moment from 'moment';
 import { NgxSpinnerService } from "ngx-spinner";
 import { WalletbalanceService } from '../../services/walletbalance.service';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
+import { Constants } from '../../constant/constant';
+
 
 
 
@@ -501,7 +503,9 @@ get_seatno(seat_id:any){
                 if(res.status==1){ 
 
 
-                  this.qrcode ="PNR - "+this.bookTicketResponse.pnr+" , Customer Phone No- "+this.passengerData.customerInfo.phone+", Conductor No- "+this.busRecord.conductor_number+" , Bus Name- "+this.busRecord.busName+", Bus No- "+this.busRecord.busNumber+" , Journey Date- "+this.entdate+", Bus Route- "+this.source+' -> '+this.destination+", Seat- "+this.total_seat_name;
+                  //this.qrcode ="PNR - "+this.bookTicketResponse.pnr+" , Customer Phone No- "+this.passengerData.customerInfo.phone+", Conductor No- "+this.busRecord.conductor_number+" , Bus Name- "+this.busRecord.busName+", Bus No- "+this.busRecord.busNumber+" , Journey Date- "+this.entdate+", Bus Route- "+this.source+' -> '+this.destination+", Seat- "+this.total_seat_name;
+
+                  this.qrcode = Constants.CONSUMER_BASE_URL+"pnr/"+this.bookTicketResponse.pnr;
         
                   this.showNextStep();                 
                   this.tabclick = false;           
