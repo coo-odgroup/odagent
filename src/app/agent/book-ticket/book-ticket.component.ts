@@ -466,31 +466,8 @@ get_seatno(seat_id:any){
             let journey_date= [j_day,j_mnth,j_date.getFullYear()].join("-");
         
             const param=  {
-              "transaction_id":this.bookTicketResponse.transaction_id, 
-              "name":this.passengerData.customerInfo.name,
-              "phone":this.passengerData.customerInfo.phone,    
-              "email":this.passengerData.customerInfo.email,    
-              "routedetails":this.source+'-'+this.destination,    
-              "bookingdate":booking_date,
-              "journeydate":journey_date,
-              "boarding_point":this.bookingdata.boardingPoint,
-              "departureTime":this.busRecord.departureTime,
-              "dropping_point":this.bookingdata.droppingPoint,
-              "arrivalTime":this.busRecord.arrivalTime,
-              "seat_id":this.seat_ids,  
-              "seat_no": this.total_seat_name ,
-              "bus_id" : this.busRecord.busId,
-              "source": this.source,
-              "destination": this.destination,
-              "busname": this.busRecord.busName,
-              "busNumber": this.busRecord.busNumber,
-              "bustype":this.busRecord.busType,
-              "busTypeName":this.busRecord.busTypeName,
-              "sittingType":this.busRecord.sittingType,
-              "conductor_number":this.busRecord.conductor_number,
-              "agent_number":this.USERRECORDS.phone,           
-              "passengerDetails":this.passengerData.bookingInfo.bookingDetail,             
-              "customer_comission":this.applied_comission 
+              "transaction_id":this.bookTicketResponse.transaction_id,  
+              "customer_comission":this.applied_comission 
             }
 
           //  console.log(JSON.stringify(param));
