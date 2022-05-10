@@ -43,7 +43,7 @@
         </div>
         <div class="col-md-3">
           <app-card [hidHeader]="true" cardClass="bg-c-blue text-white widget-visitor-card" blockClass="text-center">
-                <h2 class="text-white">{{dashboarddata.sales_data[0].today_amount || "0"}}</h2>
+                <h2 class="text-white">{{dashboarddata.sales_data[0].today_amount | number : '1.2-2'}}</h2>
                 <h6 class="text-white">Sales</h6>
                 <i class="feather icon-file-text"></i>
               </app-card>      
