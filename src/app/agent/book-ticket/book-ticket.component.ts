@@ -219,7 +219,6 @@ export class BookTicketComponent implements OnInit {
             dropping_point: this.bookingdata.droppingPoint,
             boarding_time: this.busRecord.departureTime,
             dropping_time: this.busRecord.arrivalTime,
-            origin: "ODBUS",
             app_type: "AGENT",
             typ_id: "1",
             total_fare: this.bookingdata.PriceArray.totalFare,
