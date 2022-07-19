@@ -18,13 +18,19 @@ export class FilterOptionsService {
 
   constructor(private httpClient: HttpClient) { }
 
-
-  getoptions(srcId :any,destId : any,busIDs: any): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/FilterOptions?sourceID=' + srcId + '&destinationID=' +destId+ '&' +busIDs,  this.httpOptions)
+  getoptions(param :any): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL + '/FilterOptions',JSON.stringify(param),  this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
+
+  // getoptions(srcId :any,destId : any,busIDs: any): Observable<any> {
+  //   return this.httpClient.get<any>(this.apiURL + '/FilterOptions?sourceID=' + srcId + '&destinationID=' +destId+ '&' +busIDs,  this.httpOptions)
+  //   .pipe(
+  //     catchError(this.errorHandler)
+  //   )
+  // }
 
   errorHandler(error:HttpErrorResponse) {
     let errorMessage :any;

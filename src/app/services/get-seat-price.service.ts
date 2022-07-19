@@ -20,8 +20,16 @@ export class GetSeatPriceService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getprice(queryparam:any): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/PriceOnSeatsSelection?' +queryparam ,this.httpOptions)
+  // getprice(queryparam:any): Observable<any> {
+  //   return this.httpClient.get<any>(this.apiURL + '/PriceOnSeatsSelection?' +queryparam ,this.httpOptions)
+  //   .pipe(
+  //     catchError(this.errorHandler)
+  //   )
+
+  // }
+
+   getprice(queryparam:any): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL + '/PriceOnSeatsSelection' ,JSON.stringify(queryparam) ,this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )

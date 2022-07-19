@@ -220,6 +220,7 @@ export class BookTicketComponent implements OnInit {
             boarding_time: this.busRecord.departureTime,
             dropping_time: this.busRecord.arrivalTime,
             app_type: "AGENT",
+            origin: "ODBUS AGENT",
             typ_id: "1",
             total_fare: this.bookingdata.PriceArray.totalFare,
             specialFare: this.bookingdata.PriceArray.specialFare,
@@ -372,7 +373,7 @@ get_seatno(seat_id:any){
       this.spinner.show();
       this.passengerData=this.bookForm1.value; 
 
-      console.log( this.passengerData);
+      //console.log( this.passengerData);
 
       this.agentBookTicketService.book(this.passengerData).subscribe(
           res=>{ 
