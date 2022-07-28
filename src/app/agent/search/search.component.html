@@ -505,7 +505,7 @@
                                                     <div *ngIf="col.bus_seats">
 
                                                         <input type="checkbox" id="upper{{col.id}}"
-                                                        [value]="col.id"
+                                                        [value]="col.id+'-'+col.seatText"
                                                         (change)="updateUpperberth($event)" />                                                                                                                                                    
                                                             <label title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_sleeper_fare }}" *ngIf="col.seat_class_id == 2 " class="sleeper-blue"
                                                             for=upper{{col.id}}>{{ col.seatText }}</label>                                                         
@@ -598,7 +598,7 @@
                                                     <div *ngIf="col.bus_seats != null">
 
                                                         <input type="checkbox" id="lower{{col.id}}"
-                                                        [value]="col.id"
+                                                        [value]="col.id+'-'+col.seatText"
                                                         (change)="updateLowerberth($event)" />                                                                                                                                                    
                                                             <label title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_seat_fare }}" *ngIf="col.seat_class_id == 2 " class="sleeper-blue"
                                                             for=lower{{col.id}}>{{ col.seatText }}</label>                                                         

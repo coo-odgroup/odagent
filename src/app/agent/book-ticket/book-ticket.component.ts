@@ -165,26 +165,26 @@ export class BookTicketComponent implements OnInit {
       this.busRecord.arrivalTime=drpTm_arr[1]; 
 
 
-      if(this.bookingdata.UpperBerthSeats.length){
-        this.total_seat_name =this.total_seat_name.concat(this.bookingdata.UpperBerthSeats);
-        this.ub_seats = this.ub_seats.concat(this.bookingdata.UpperBerthSeats);
+      // if(this.bookingdata.UpperBerthSeats.length){
+      //   this.total_seat_name =this.total_seat_name.concat(this.bookingdata.UpperBerthSeats);
+      //   this.ub_seats = this.ub_seats.concat(this.bookingdata.UpperBerthSeats);
 
-      } 
+      // } 
 
-      if(this.bookingdata.LowerBerthSeats.length){
-        this.total_seat_name =this.total_seat_name.concat(this.bookingdata.LowerBerthSeats);
-        this.lb_seats = this.lb_seats.concat(this.bookingdata.LowerBerthSeats);
-      }
+      // if(this.bookingdata.LowerBerthSeats.length){
+      //   this.total_seat_name =this.total_seat_name.concat(this.bookingdata.LowerBerthSeats);
+      //   this.lb_seats = this.lb_seats.concat(this.bookingdata.LowerBerthSeats);
+      // }
       
       
 
-      if(this.bookingdata.Upperberth.length){
-        this.seat_ids =this.seat_ids.concat(this.bookingdata.Upperberth);
-      }
+      // if(this.bookingdata.Upperberth.length){
+      //   this.seat_ids =this.seat_ids.concat(this.bookingdata.Upperberth);
+      // }
 
-      if(this.bookingdata.Lowerberth.length){
-        this.seat_ids =this.seat_ids.concat(this.bookingdata.Lowerberth);
-      }
+      // if(this.bookingdata.Lowerberth.length){
+      //   this.seat_ids =this.seat_ids.concat(this.bookingdata.Lowerberth);
+      // }
 
 
       this.payableAmount=this.bookingdata.PriceArray.totalFare;
@@ -239,16 +239,44 @@ export class BookTicketComponent implements OnInit {
 
     const bookingInfo = this.bookForm1.controls["bookingInfo"] as FormGroup;
     const passengerList = bookingInfo.get('bookingDetail') as FormArray;
-    
-      for(let i=0;i< this.bookingdata.Upperberth.length ;i++){
-        let seat= this.bookingdata.Upperberth[i];
-         passengerList.push(this.createItem(seat,this.busRecord.sleeperPrice)); 
-      }
 
-      for(let i=0;i< this.bookingdata.Lowerberth.length ;i++){
-        let seat= this.bookingdata.Lowerberth[i];
-         passengerList.push(this.createItem(seat,this.busRecord.seaterPrice)); 
-      }  
+
+    if(this.bookingdata.Upperberth.length){
+      this.bookingdata.Upperberth.forEach(u => {
+       let uar= u.split('-');
+       this.seat_ids.push(uar[0]);
+       this.total_seat_name.concat(uar[1]);
+
+       passengerList.push(this.createItem(uar[0],this.busRecord.sleeperPrice)); 
+        
+      });
+      //this.seat_ids =this.seat_ids.concat();
+     
+    }
+
+    if(this.bookingdata.Lowerberth.length){
+
+      this.bookingdata.Lowerberth.forEach(u => {
+        let lar= u.split('-');
+        this.seat_ids.push(lar[0]);
+        this.total_seat_name.concat(lar[1]);
+
+        passengerList.push(this.createItem(lar[0],this.busRecord.seaterPrice)); 
+         
+       });
+
+      //this.seat_ids =this.seat_ids.concat(this.bookingdata.Lowerberth);
+    }
+    
+      // for(let i=0;i< this.bookingdata.Upperberth.length ;i++){
+      //   let seat= this.bookingdata.Upperberth[i];
+      //    passengerList.push(this.createItem(seat,this.busRecord.sleeperPrice)); 
+      // }
+
+      // for(let i=0;i< this.bookingdata.Lowerberth.length ;i++){
+      //   let seat= this.bookingdata.Lowerberth[i];
+      //    passengerList.push(this.createItem(seat,this.busRecord.seaterPrice)); 
+      // }  
 
 
       this.couponForm = this.fb.group({
@@ -274,16 +302,20 @@ export class BookTicketComponent implements OnInit {
 
 get_seatno(seat_id:any){
   for(let i=0;i< this.bookingdata.Lowerberth.length ;i++){
-    let seat= this.bookingdata.Lowerberth[i];
+    let seat_ar= this.bookingdata.Lowerberth[i].split('-');    
+    let seat= seat_ar[0];
      if(seat==seat_id){
-      return this.bookingdata.LowerBerthSeats[i]
+      return seat_ar[1];
+      //return this.bookingdata.LowerBerthSeats[i]
      }
   }  
 
   for(let i=0;i< this.bookingdata.Upperberth.length ;i++){
-    let seat= this.bookingdata.Upperberth[i];
+    let seat_ar= this.bookingdata.Upperberth[i].split('-');
+    let seat= seat_ar[0];
     if(seat==seat_id){
-      return this.bookingdata.UpperBerthSeats[i]
+      return seat_ar[1];
+     // return this.bookingdata.UpperBerthSeats[i]
      }
   }
 }
