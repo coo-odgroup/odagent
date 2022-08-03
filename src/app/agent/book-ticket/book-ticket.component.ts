@@ -245,7 +245,7 @@ export class BookTicketComponent implements OnInit {
       this.bookingdata.Upperberth.forEach(u => {
        let uar= u.split('-');
        this.seat_ids.push(uar[0]);
-       this.total_seat_name.concat(uar[1]);
+       this.total_seat_name.push(uar[1]);
 
        passengerList.push(this.createItem(uar[0],this.busRecord.sleeperPrice)); 
         
@@ -259,7 +259,7 @@ export class BookTicketComponent implements OnInit {
       this.bookingdata.Lowerberth.forEach(u => {
         let lar= u.split('-');
         this.seat_ids.push(lar[0]);
-        this.total_seat_name.concat(lar[1]);
+        this.total_seat_name.push(lar[1]);
 
         passengerList.push(this.createItem(lar[0],this.busRecord.seaterPrice)); 
          
