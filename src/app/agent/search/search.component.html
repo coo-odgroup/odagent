@@ -638,20 +638,45 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Select Boarding
                                         Point</label>
-                                    <ng-select [items]="boardingPointArr" bindLabel="boardTime"
+                                    <!-- <ng-select [items]="boardingPointArr" bindLabel="boardTime"
                                         bindValue="boardTime" placeholder="Select Boarding Point"
                                         formControlName="boardingPoint" [clearable]="true"
                                         [(ngModel)]="selectedBoard">
+                                    </ng-select> -->
+
+                                    <ng-select
+                                        placeholder="Select Boarding Point"
+                                        [clearable]="true"
+                                        formControlName="boardingPoint"
+                                    >
+                                        <ng-option
+                                        *ngFor="let s of boardingPointArr"
+                                        [value]="s"
+                                        >{{ s.boardTime }}</ng-option
+                                        >
                                     </ng-select>
                                 </div>
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Select Dropping
                                         Point</label>
-                                    <ng-select [items]="droppingPointArr" bindLabel="dropTime"
+                                    <!-- <ng-select [items]="droppingPointArr" bindLabel="dropTime"
                                         bindValue="dropTime" placeholder="Select Dropping Point"
                                         formControlName="droppingPoint" [clearable]="true"
                                         [(ngModel)]="selectedDrop">
-                                    </ng-select>
+                                    </ng-select> -->
+
+                                    <ng-select
+                                    placeholder="Select Dropping Point"
+                                    [clearable]="true"
+                                    formControlName="droppingPoint"
+                                    
+                                  >
+                                    <ng-option
+                                      *ngFor="let d of droppingPointArr"
+                                      [value]="d"
+                                      >{{ d.dropTime }}</ng-option
+                                    >
+                                  </ng-select>
                                 </div>
                                 <div
                                     *ngIf="busId == bus.busId &&  (selectedLB.length != 0 || selectedUB.length != 0)">

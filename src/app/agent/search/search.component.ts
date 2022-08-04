@@ -1134,8 +1134,6 @@ if(this.filterForm.value.busType.length>0){
 
   getBoardingDroppingPoints(){
 
-    let bus_id=this.busId;
-
     let bdparam={
       "busId":this.busId,
       "sourceId":this.source_id,
@@ -1150,8 +1148,12 @@ if(this.filterForm.value.busType.length>0){
        this.boardingPointArr.map((i:any) => { i.boardTime = i.boardingPoints + ' | ' + i.boardingTimes; return i; });
        this.droppingPointArr.map((i:any) => { i.dropTime = i.droppingPoints + ' | ' + i.droppingTimes; return i; });
 
-       this.selectedBoard= this.boardingPointArr[0].boardTime;
-       this.selectedDrop= this.droppingPointArr[0].dropTime;
+      //  this.selectedBoard= this.boardingPointArr[0].boardTime;
+      //  this.selectedDrop= this.droppingPointArr[0].dropTime;
+
+      this.seatForm.controls['boardingPoint'].setValue(this.boardingPointArr[0]); 
+      this.seatForm.controls['droppingPoint'].setValue(this.droppingPointArr[0]); 
+
       }); 
     
   }
