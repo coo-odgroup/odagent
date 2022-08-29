@@ -156,11 +156,11 @@ export class BookTicketComponent implements OnInit {
 
       this.genderRestrictSeats= JSON.parse(this.genderRestrictSeats);
 
-      let brdTm_arr = this.bookingdata.boardingPoint.split(" | ");
-      let drpTm_arr = this.bookingdata.droppingPoint.split(" | ");
+      let brdTm_arr = this.bookingdata.boardingPoint.boardTime.split(" | ");
+      let drpTm_arr = this.bookingdata.droppingPoint.dropTime.split(" | ");
 
-      this.bookingdata.boardingPoint=brdTm_arr[0];
-      this.bookingdata.droppingPoint=drpTm_arr[0];
+      // this.bookingdata.boardingPoint=brdTm_arr[0];
+      // this.bookingdata.droppingPoint=drpTm_arr[0];
       this.busRecord.departureTime=brdTm_arr[1];
       this.busRecord.arrivalTime=drpTm_arr[1]; 
 
@@ -215,8 +215,8 @@ export class BookTicketComponent implements OnInit {
             source_id: this.source_id,
             destination_id: this.destination_id,
             journey_dt: this.entdate,
-            boarding_point: this.bookingdata.boardingPoint,
-            dropping_point: this.bookingdata.droppingPoint,
+            boarding_point: this.bookingdata.boardingPoint.boardTime,
+            dropping_point: this.bookingdata.droppingPoint.dropTime,
             boarding_time: this.busRecord.departureTime,
             dropping_time: this.busRecord.arrivalTime,
             app_type: "AGENT",
@@ -245,7 +245,7 @@ export class BookTicketComponent implements OnInit {
       this.bookingdata.Upperberth.forEach(u => {
        let uar= u.split('-');
        this.seat_ids.push(uar[0]);
-       this.total_seat_name.concat(uar[1]);
+       this.total_seat_name.push(uar[1]);
 
        passengerList.push(this.createItem(uar[0],this.busRecord.sleeperPrice)); 
         
@@ -259,7 +259,7 @@ export class BookTicketComponent implements OnInit {
       this.bookingdata.Lowerberth.forEach(u => {
         let lar= u.split('-');
         this.seat_ids.push(lar[0]);
-        this.total_seat_name.concat(lar[1]);
+        this.total_seat_name.push(lar[1]);
 
         passengerList.push(this.createItem(lar[0],this.busRecord.seaterPrice)); 
          
