@@ -50,8 +50,7 @@ export class AgentticketcancellationreportComponent implements OnInit {
       this.toDate = calendar.getToday();
      }
 
-     title = 'angular-app';
-     fileName= 'Cancel-Ticket-Report.xlsx';
+     
 
   ngOnInit(): void {
     this.spinner.show();
@@ -112,6 +111,9 @@ export class AgentticketcancellationreportComponent implements OnInit {
     
   }
 
+
+  title = 'angular-app';
+  fileName= 'Cancel-Ticket-Report.xlsx';
 
   exportexcel(): void
   {

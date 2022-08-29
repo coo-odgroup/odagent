@@ -123,7 +123,7 @@ export class AgentwalletreportComponent implements OnInit {
   }
 
   title = 'angular-app';
-  fileName = 'Seo-Setting.xlsx';
+  fileName = 'All-Transaction-Report.xlsx';
 
   exportexcel(): void {
 

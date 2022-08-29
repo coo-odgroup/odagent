@@ -50,7 +50,7 @@ export class AgentcomissionreportComponent implements OnInit {
       this.toDate = calendar.getToday();
     }
     title = 'angular-app';
-    fileName= 'Agent-Complete-Report.xlsx';
+    fileName= 'Agent-Comission-Report.xlsx';
   ngOnInit(): void {
     this.spinner.show();
     this.searchFrom = this.fb.group({
