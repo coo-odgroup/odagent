@@ -163,8 +163,11 @@
 
 
                             <td>
-                                <strong>{{ complete.bus.name }}<br>
+                                <strong *ngIf="complete.origin!='DOLPHIN'">{{ complete.bus.name }}<br>
                                 {{ complete.bus.bus_number }}</strong>
+
+                                <strong *ngIf="complete.origin=='DOLPHIN'">{{ complete.bus_name }}<br>
+                                {{ complete.bus_number}}</strong>
                                 
                             </td>
                             <td>
@@ -207,8 +210,14 @@
                             <td>
                                 <div *ngIf="complete.booking_detail?.length != 0">
                                     <p *ngFor="let seat of complete.booking_detail;">
-
+                                    <span *ngIf="complete.origin=='DOLPHIN'">
+                                        {{seat.seat_name}}
+                                    </span>
+                                    <span *ngIf="complete.origin!='DOLPHIN'">
                                         {{seat.bus_seats.seats.seatText}}
+                                    </span>
+
+                                       
                                     </p>
                                 </div>
 

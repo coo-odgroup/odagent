@@ -101,7 +101,8 @@ export class AgentticketcancellationreportComponent implements OnInit {
     {
       this.rs.cancelticketReport(data).subscribe(
         res => {
-          this.cancelticketdata= res.data;
+          this.cancelticketdata = res.data;
+          // console.log(this.cancelticketdata);
           this.spinner.hide();
         }
       );
