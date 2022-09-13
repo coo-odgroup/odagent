@@ -161,8 +161,8 @@ export class BookTicketComponent implements OnInit {
 
       // this.bookingdata.boardingPoint=brdTm_arr[0];
       // this.bookingdata.droppingPoint=drpTm_arr[0];
-      this.busRecord.departureTime=brdTm_arr[1];
-      this.busRecord.arrivalTime=drpTm_arr[1]; 
+      // this.busRecord.departureTime=brdTm_arr[1];
+      // this.busRecord.arrivalTime=drpTm_arr[1]; 
 
 
       // if(this.bookingdata.UpperBerthSeats.length){
@@ -220,7 +220,6 @@ export class BookTicketComponent implements OnInit {
             boarding_time: this.busRecord.departureTime,
             dropping_time: this.busRecord.arrivalTime,
             app_type: "AGENT",
-            origin: "ODBUS AGENT",
             typ_id: "1",
             total_fare: this.bookingdata.PriceArray.totalFare,
             specialFare: this.bookingdata.PriceArray.specialFare,
@@ -230,6 +229,12 @@ export class BookTicketComponent implements OnInit {
             transactionFee: this.bookingdata.PriceArray.transactionFee,
             odbus_service_Charges: this.bookingdata.PriceArray.odbusServiceCharges,
             created_by: this.created_by,
+            CompanyID: this.busRecord.CompanyID,
+            PickupID: this.bookingdata.boardingPoint.id,
+            DropID: this.bookingdata.droppingPoint.id,
+            origin: this.busRecord.origin,
+            ReferenceNumber: this.busRecord.ReferenceNumber,
+            RouteTimeID: this.busRecord.RouteTimeID,
             bookingDetail: this.fb.array([]),        
           })
         });
@@ -607,13 +612,13 @@ get_seatno(seat_id:any){
   ngOnInit() { 
     this.passengerData=this.bookForm1.value;
    
-    const entdt:any =localStorage.getItem('entdate'); 
+    // const entdt:any =localStorage.getItem('entdate'); 
 
-    this.myDate = this.datePipe.transform(this.myDate, 'dd-MM-yyyy');
+    // this.myDate = this.datePipe.transform(this.myDate, 'dd-MM-yyyy');
    
-    if(moment(this.myDate) > moment(entdt)){     
-      this.router.navigate(['agent/booking']);
-    }
+    // if(moment(this.myDate) > moment(entdt)){     
+    //   this.router.navigate(['agent/booking']);
+    // }
   }
  
   showPreviousStep(event?: Event) {

@@ -304,7 +304,7 @@
             <div class="col-md-12">
                 <div class="search-result-bus-box-inner">
                 <div class="row">
-                    <div class="col-md-12 pt-3 pb-1 bck-white bck-white-one">
+                    <div class="col-md-12 pt-3 pb-1 bck-white bck-white-one"  *ngIf="bus.origin=='ODBUS'">
                         <div class="icon-assured">
                             <img src="assets/img/icon-assured.png">
                         </div>
@@ -315,7 +315,7 @@
                         <ul class="bs-srch-dt-dtl">
                             <li class="p-2 flex-fill tx-left">
                                 <h4>{{ bus.busName }} <br>
-                                    <span>({{ bus.busNumber }})</span>
+                                    <span *ngIf="bus.busNumber!=''">({{ bus.busNumber }})</span>
                                 </h4>
                                 <p class="bus-type"><span>{{ bus.bus_description }}</span>&nbsp; <span>{{ bus.sittingType }}</span></p>
                             </li>

@@ -171,6 +171,8 @@ export class SearchComponent  implements ControlValueAccessor {
   prevDate:any;
   nextDate:any;
   maxAllowedDate:any=new Date();
+  referenceNumber:any='';
+  origin:any='';
   show = 5;
  
   constructor(
@@ -593,6 +595,8 @@ export class SearchComponent  implements ControlValueAccessor {
         "busId": SeatPriceParams.busId,
         "sleeper": sleeperparam,
         "seater": seaterparam,
+        "ReferenceNumber":this.referenceNumber,
+        "origin":this.origin
       }
 
       this.getSeatPriceService.getprice(params).subscribe(
@@ -1064,7 +1068,9 @@ if(this.filterForm.value.busType.length>0){
       "entry_date":this.entdate,
       "busId":bus_id,
       "sourceId":this.source_id,
-      "destinationId":this.destination_id
+      "destinationId":this.destination_id,      
+      "ReferenceNumber":this.referenceNumber,
+      "origin":this.origin,
     };
 
       //this.seatLayoutService.getSeats(this.entdate,bus_id,this.source_id,this.destination_id).subscribe(
@@ -1137,8 +1143,13 @@ if(this.filterForm.value.busType.length>0){
     let bdparam={
       "busId":this.busId,
       "sourceId":this.source_id,
-      "destinationId":this.destination_id
+      "destinationId":this.destination_id,
+      "journey_date":this.entdate,
+      "origin":this.origin,
+      "ReferenceNumber":this.referenceNumber
     };
+
+    console.log(bdparam);
 
     this.boardingDropingPointService.getdata(bdparam).subscribe(
       res=>{
@@ -1216,6 +1227,8 @@ if(this.filterForm.value.busType.length>0){
     }
 
     this.busId=this.buslistRecord.busId;
+    this.referenceNumber=this.buslistRecord.ReferenceNumber;
+    this.origin=this.buslistRecord.origin;
     this.LowerberthArr=[];
     this.UpperberthArr=[];
     this.PriceArray=[];
@@ -1223,6 +1236,9 @@ if(this.filterForm.value.busType.length>0){
     this.boardingPointArr=[];
     this.selectedLB=[];
     this.selectedUB=[];
+    this.selectedBoard= '';
+    this.selectedDrop= '';
+
 
     if(currentBusId == this.busId){
     }else{
@@ -1482,7 +1498,8 @@ if(this.filterForm.value.busType.length>0){
     let param={
       "sourceID":this.source_id,
       "destinationID":this.destination_id,
-      "busIDs":this.busIds
+      "busIDs":this.busIds,      
+      "entry_date":this.entdate
     };
 
 

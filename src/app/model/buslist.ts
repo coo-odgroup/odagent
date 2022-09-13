@@ -1,12 +1,19 @@
 
-export interface Buslist {    
+export interface Buslist {
+    origin : any,
+    CompanyID : any,
+    ReferenceNumber : any,
+    BoardingPoints : any,
+    DroppingPoints : any,
+    RouteTimeID : any,    
     busId:number,
     busName:string,
     popularity:any,
     busNumber:string,
-    maxSeatBook:any;
+    maxSeatBook:number;
     operatorId:number,
     operatorName:string,
+    operatorUrl:string,
     sittingType:string
     busType:string
     busTypeName:string
@@ -17,10 +24,6 @@ export interface Buslist {
     departureTime:string,
     arrivalTime:string,
     totalJourneyTime:string,
-    //amenityName:any[],
-    //amenityIcon:any[],
-    //safetyIconName:any[],
-    //safetyIcon:any[],
     safety:any[],
     amenity:any[],
     busPhotos:any[],
