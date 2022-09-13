@@ -398,14 +398,16 @@
                                             <thead>
                                               <tr>
                                                 <th scope="col" style="color: #000;">PNR No: {{ singleRecord.pnr }}</th>
-                                                <th scope="col" style="color: #000;">Bus Name/Number: {{ singleRecord.bus.name }}-{{ singleRecord.bus.bus_number }}</th>
+                                                <th *ngIf="singleRecord.origin!='DOLPHIN'" scope="col" style="color: #000;">Bus Name/Number: {{ singleRecord.bus.name }}-{{ singleRecord.bus.bus_number }}</th>
+                                                <th *ngIf="singleRecord.origin=='DOLPHIN'" scope="col" style="color: #000;">Bus Name/Number: {{ singleRecord.bus_name }}-{{ singleRecord.bus_number }}</th>
                                                
                                               </tr>
                                             </thead>
                                             <tbody>
                                               <tr>
                                                 <td>Journey Date: {{ singleRecord.journey_dt | date:'EEEE, d MMMM , y' }}</td>
-                                                <td>Bus Route: {{ singleRecord.source[0][0].name }}-{{ singleRecord.destination[0][0].name }}</td>
+                                                <td *ngIf="singleRecord.origin!='DOLPHIN'">Bus Route: {{ singleRecord.source[0][0].name }}-{{ singleRecord.destination[0][0].name }}</td>
+                                                <td *ngIf="singleRecord.origin=='DOLPHIN'">Bus Route: {{ singleRecord.from_location[0].name }}-{{ singleRecord.to_location[0].name }}</td>
                                               </tr>
                                               <tr>
                                                 <td>Deparature Timing: {{ singleRecord.boarding_time}}</td>
@@ -421,7 +423,7 @@
                                               </tr>
                                               <tr>
                                                 <td>Passenger Mobile No: +91 {{ singleRecord.users.phone}}</td>
-                                                <td>Conductor Mobile No:
+                                                <td *ngIf="singleRecord.origin!='DOLPHIN'">Conductor Mobile No:
                                                     <span *ngFor="let contacts of singleRecord.bus.bus_contacts;">
                                                         <span *ngIf="contacts.type == 2">
                                                             {{contacts.phone}}
@@ -433,7 +435,8 @@
                                                 <td>Agent Mobile No: +91 {{ singleRecord.user.phone}}</td>
                                                 <td>Seat({{singleRecord.booking_detail.length}})- 
                                                   <span *ngFor="let seats of singleRecord.booking_detail">
-                                                      {{seats.bus_seats.seats.seatText}}.
+                                                      <span *ngIf="singleRecord.origin!='DOLPHIN'">{{seats.bus_seats.seats.seatText}}.</span>
+                                                      <span *ngIf="singleRecord.origin=='DOLPHIN'">{{seats.seat_name}}.</span>
                                                   </span>
                                                  
                                               </td>
@@ -473,7 +476,8 @@
                                                 <td>{{ dt.passenger_name }}</td>
                                                 <td>{{ dt.passenger_age }}</td>
                                                 <td>{{ dt.passenger_gender }}</td>
-                                                <td>{{ dt.bus_seats.seats.seatText }}</td>
+                                                <td *ngIf="singleRecord.origin!='DOLPHIN'">{{ dt.bus_seats.seats.seatText }}</td>
+                                                <td *ngIf="singleRecord.origin=='DOLPHIN'">{{ dt.seat_name }}</td>
                                               </tr>
                                             
                                             </tbody>
@@ -526,7 +530,7 @@
                                 </div></td>
                                 <td style="width: 50%;">
                                   
-                              <div class="col-md-12 odtext24 pr-0">
+                              <div class="col-md-12 odtext24 pr-0" *ngIf="singleRecord.origin!='DOLPHIN'">
                                 <h3>CANCELLATION POLICY</h3>
                                 <table class="table table-bordered odbus-journey" cellpadding="0" cellspacing="0" border="1">
                                   <thead>
