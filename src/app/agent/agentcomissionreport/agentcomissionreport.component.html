@@ -159,8 +159,15 @@
                                 <strong style="color: darkgoldenrod;">{{complete.customer_payment.razorpay_id}}</strong> -->
                             </td>
                             <td>
-                                <strong>{{ complete.bus.name }}<br>
-                                {{ complete.bus.bus_number }}</strong>
+                                <span *ngIf="complete.origin=='DOLPHIN'">
+                                    <strong>{{ complete.bus_name }}<br>
+                                        {{ complete.bus_number }}</strong>
+                                </span>
+                                <span *ngIf="complete.origin!='DOLPHIN'">
+                                    <strong>{{ complete.bus.name }}<br>
+                                        {{ complete.bus.bus_number }}</strong>
+                                </span>
+                              
                                
                             </td>
                             <td>
@@ -208,9 +215,16 @@
                             </td>
                            
                             <td>
-                                <p *ngFor="let seat of complete.booking_detail;">
-                                    {{seat.bus_seats.seats.seatText}}
-                                </p>
+                                <span *ngIf="complete.origin=='DOLPHIN'">
+                                    <p *ngFor="let seat of complete.booking_detail;">
+                                        {{seat.seat_name}}
+                                    </p>
+                                </span>
+                                <span *ngIf="complete.origin!='DOLPHIN'">
+                                    <p *ngFor="let seat of complete.booking_detail;">
+                                        {{seat.bus_seats.seats.seatText}}
+                                    </p>
+                                </span>
                             </td>
                             <!-- <td class="text-capitalize">
                                 <ng-template #tipContent>
@@ -257,7 +271,15 @@
                                             </tr>
                                             <tr>
                                                 <td>Seat No-</td>
-                                                <td><b>{{passanger.bus_seats.seats.seatText}}</b></td>
+                                                <td>
+                                                    <span *ngIf="complete.origin!='DOLPHIN'">
+                                                        <b>{{passanger.bus_seats.seats.seatText}}</b>
+                                                    </span>
+                                                    <span *ngIf="complete.origin=='DOLPHIN'">
+                                                        <b>{{passanger.seat_name}}</b>
+                                                    </span>
+                                                  
+                                                </td>
                                             </tr>
                                         </table>
                                     </ng-template>
