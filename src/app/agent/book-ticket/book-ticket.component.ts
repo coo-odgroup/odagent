@@ -134,10 +134,6 @@ export class BookTicketComponent implements OnInit {
       {
         'name' : 'Female',
         'value' : 'F'
-      },
-      {
-        'name' : 'Other',
-        'value' : 'O'
       }
     ];
 
