@@ -375,7 +375,7 @@
 				<div class="row">
 					<div class="col-md-9">
 						<h5>Hello {{ passengerData.customerInfo.name }}</h5>
-						<h6 class="print">Ticket is Confirmed. (PNR: {{ bookTicketResponse.pnr }}).</h6>
+						<h6 class="print">Ticket is Confirmed. (PNR: {{ pnr }}).</h6>
 						<h6 class="print">ODBUS Wishing You A Happy Journey <img class="smile" src="../../../assets/img/Icon awesome-smile-beam.svg"></h6>
 						<h6 class="print-sm">We have sent booking details to <b>{{ passengerData.customerInfo.phone}}</b>  <b *ngIf="passengerData.customerInfo.email"> & {{ passengerData.customerInfo.email}}</b> </h6>
 					</div>
@@ -429,7 +429,7 @@
 
 						<thead>
 							<tr>
-								<th scope="col" style="color: #000;">PNR No: {{ bookTicketResponse.pnr }}</th>
+								<th scope="col" style="color: #000;">PNR No: {{ pnr }}</th>
 								<th scope="col" style="color: #000;">Bus Name/Number: {{ busRecord.busName }}-{{ busRecord.busNumber }}</th>
 							   
 							  </tr>

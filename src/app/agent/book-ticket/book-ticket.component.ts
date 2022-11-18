@@ -435,6 +435,8 @@ get_seatno(seat_id:any){
 
   countdown:any;
 
+  pnr:any;
+
   submitForm2(){
 
     this.submitted2=true;
@@ -515,7 +517,24 @@ get_seatno(seat_id:any){
 
                   //this.qrcode ="PNR - "+this.bookTicketResponse.pnr+" , Customer Phone No- "+this.passengerData.customerInfo.phone+", Conductor No- "+this.busRecord.conductor_number+" , Bus Name- "+this.busRecord.busName+", Bus No- "+this.busRecord.busNumber+" , Journey Date- "+this.entdate+", Bus Route- "+this.source+' -> '+this.destination+", Seat- "+this.total_seat_name;
 
-                  this.qrcode = Constants.CONSUMER_BASE_URL+"pnr/"+this.bookTicketResponse.pnr;
+                     //////// get pnr from transaction id
+
+
+                    this.agentPaymentStatusService.GetPnr(this.bookTicketResponse.transaction_id).subscribe(
+                      (res) => { 
+                        if(res.status==1){   
+                          
+                          this.pnr= res.data;
+                          this.qrcode =Constants.CONSUMER_BASE_URL+"pnr/"+res.data;   
+                        
+                        } 
+                        
+                    
+                      }
+                    );
+
+
+                  //this.qrcode = Constants.CONSUMER_BASE_URL+"pnr/"+this.bookTicketResponse.pnr;
         
                   this.showNextStep();                 
                   this.tabclick = false;           

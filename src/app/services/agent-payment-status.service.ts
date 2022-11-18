@@ -27,6 +27,15 @@ export class AgentPaymentStatusService {
     )
   }
 
+  GetPnr(trans_id:any): Observable<any> {     
+
+    return this.httpClient.get<any>(this.apiURL + '/GetPnr/'+trans_id, this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+
 
   errorHandler(error:HttpErrorResponse) {
     let errorMessage :any;
