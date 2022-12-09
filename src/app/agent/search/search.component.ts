@@ -1093,18 +1093,39 @@ if(this.filterForm.value.busType.length>0){
       let col = this.seatsLayoutRecord.upperBerth_totalColumns;
 
       if(upper_berth.length){
-        
-      for(let i=0; i < row;i++){  
-        this.colarr=[];         
-        for(let k=0; k < col;k++){
-          upper_berth.forEach((a) => {  
-            if(a.rowNumber== i && a.colNumber== k){
-              this.colarr.push(a);
+
+        if(this.origin=='MANTIS'){
+
+          for(let k=col; k >=0;k--){
+            this.colarr=[];   
+            for(let i=0; i<row ;i++){
+              upper_berth.forEach((a) => {  
+                if(a.rowNumber== i && a.colNumber== k){
+                  this.colarr.push(a);                 
+                }
+              });               
             }
-          });               
+          
+  
+            this.UpperberthArr[k]=this.colarr;      
+          } 
+
+            
+        }else{
+        
+          for(let i=0; i < row;i++){  
+            this.colarr=[];         
+            for(let k=0; k < col;k++){
+              upper_berth.forEach((a) => {  
+                if(a.rowNumber== i && a.colNumber== k){
+                  this.colarr.push(a);
+                }
+              });               
+            }
+            this.UpperberthArr[i]=this.colarr;     
+          }
         }
-        this.UpperberthArr[i]=this.colarr;     
-      }
+
      }
 
     }
@@ -1117,6 +1138,27 @@ if(this.filterForm.value.busType.length>0){
     let lower_berth = this.seatsLayoutRecord.lower_berth; 
     
       if(lower_berth.length){
+
+        if(this.origin=='MANTIS'){
+
+          for(let k=col2; k >=0;k--){
+            this.colarr=[]; 
+  
+            for(let i=0; i<row2 ;i++){
+              lower_berth.forEach((a) => {  
+                if(a.rowNumber== i && a.colNumber== k){
+                  this.colarr.push(a);
+                }
+              });               
+            }
+
+  
+            this.LowerberthArr[k]=this.colarr;      
+          } 
+
+            
+        }else{
+
         for(let i=0; i < row2;i++){  
           this.colarr=[];         
           for(let k=0; k < col2;k++){
@@ -1127,7 +1169,8 @@ if(this.filterForm.value.busType.length>0){
             });               
           }
           this.LowerberthArr[i]=this.colarr;      
-        } 
+        }
+      } 
     }
   }
 
