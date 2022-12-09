@@ -159,11 +159,11 @@
                                 <strong style="color: darkgoldenrod;">{{complete.customer_payment.razorpay_id}}</strong> -->
                             </td>
                             <td>
-                                <span *ngIf="complete.origin=='DOLPHIN'">
+                                <span *ngIf="complete.origin == 'DOLPHIN'  || complete.origin == 'MANTIS'">
                                     <strong>{{ complete.bus_name }}<br>
                                         {{ complete.bus_number }}</strong>
                                 </span>
-                                <span *ngIf="complete.origin!='DOLPHIN'">
+                                <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
                                     <strong>{{ complete.bus.name }}<br>
                                         {{ complete.bus.bus_number }}</strong>
                                 </span>
@@ -215,12 +215,12 @@
                             </td>
                            
                             <td>
-                                <span *ngIf="complete.origin=='DOLPHIN'">
+                                <span *ngIf="complete.origin == 'DOLPHIN'  || complete.origin == 'MANTIS'">
                                     <p *ngFor="let seat of complete.booking_detail;">
                                         {{seat.seat_name}}
                                     </p>
                                 </span>
-                                <span *ngIf="complete.origin!='DOLPHIN'">
+                                <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
                                     <p *ngFor="let seat of complete.booking_detail;">
                                         {{seat.bus_seats.seats.seatText}}
                                     </p>
@@ -272,10 +272,10 @@
                                             <tr>
                                                 <td>Seat No-</td>
                                                 <td>
-                                                    <span *ngIf="complete.origin!='DOLPHIN'">
+                                                    <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
                                                         <b>{{passanger.bus_seats.seats.seatText}}</b>
                                                     </span>
-                                                    <span *ngIf="complete.origin=='DOLPHIN'">
+                                                    <span *ngIf="complete.origin == 'DOLPHIN'  || complete.origin == 'MANTIS'">
                                                         <b>{{passanger.seat_name}}</b>
                                                     </span>
                                                   

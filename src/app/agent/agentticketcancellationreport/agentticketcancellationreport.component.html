@@ -4,7 +4,6 @@
 <div class="row">
     <div class="col-sm-12">
         <app-card cardTitle="Agent Cancel Ticket Report" cardClass="card-datatable" [options]="false" [isCardFooter]="false">
-
             <div class=" mb-3">
                 <div class="row p-0">
                     <div class="col-12">
@@ -12,10 +11,10 @@
                             <div class="row">
                                 <div class="col-3">
                                     <div class="form-group">
-                                            <ng-select [items]="busoperators" bindLabel="operator_name" bindValue="id"
-                                                placeholder="Select Operator" formControlName="bus_operator_id"
-                                                [clearable]="false">
-                                            </ng-select>
+                                        <ng-select [items]="busoperators" bindLabel="operator_name" bindValue="id"
+                                            placeholder="Select Operator" formControlName="bus_operator_id"
+                                            [clearable]="false">
+                                        </ng-select>
                                     </div>
                                 </div>
                                 <div class="col-6">
@@ -37,49 +36,41 @@
 
 
                                 <div class="col-3">
-
                                     <div class="dropdown">
                                         <select class="form-control sml_input" formControlName="date_type">
                                             <option value='booking'>Booking Date</option>
                                             <option value='journey'>Journey Date</option>
                                         </select>
                                     </div>
-
                                 </div>
 
-                                <div class="col-3">
-                                    
-                                        <div class="dropdown ">
-                                            <input type="text" class="form-control sml_input" placeholder="Payment Id"
-                                                required formControlName="payment_id" />
-                                        </div>
-                                   
+                                <div class="col-3">                                    
+                                    <div class="dropdown ">
+                                        <input type="text" class="form-control sml_input" placeholder="Payment Id"
+                                            required formControlName="payment_id" />
+                                    </div>                                   
                                 </div>
 
                                 <div class="col-3">
                                     <div class="form-group ">
-                                            <ng-select [items]="locations" bindLabel="name" bindValue="id"
-                                                placeholder="Select Source" formControlName="source_id"
-                                                [clearable]="false" (change)="findSource($event)">
-                                            </ng-select>
+                                        <ng-select [items]="locations" bindLabel="name" bindValue="id"
+                                            placeholder="Select Source" formControlName="source_id"
+                                            [clearable]="false" (change)="findSource($event)">
+                                        </ng-select>
                                     </div>
                                 </div>
 
                                 <div class="col-3">
                                     <div class="form-group">
-                                            <ng-select [items]="locations" bindLabel="name" bindValue="id"
-                                                placeholder="Select Destination"
-                                                formControlName="destination_id" [clearable]="false"
-                                                (change)="findSource($event)">
-                                            </ng-select>
+                                        <ng-select [items]="locations" bindLabel="name" bindValue="id"
+                                            placeholder="Select Destination"
+                                            formControlName="destination_id" [clearable]="false"
+                                            (change)="findSource($event)">
+                                        </ng-select>
                                     </div>
-                                </div>
-
-                                
-
+                                </div>                               
                             </div>
-                            <div class="row ">
-                                
+                            <div class="row ">                                
                                 <div class="col-6">
                                     <button type="button" class="btn btn-success  sml_input mr-10" (click)="search()"
                                         title="search">
@@ -110,12 +101,9 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-
-                           
+                            </div>                           
                         </form>
                     </div>
-
                 </div>
             </div>
 
@@ -144,31 +132,22 @@
                             <td>
                                 <strong>{{complete.pnr}}</strong> ( {{complete.journey_dt}} )
                                 <br>
-                              
-                                <!-- {{complete.customer_payment?.order_id}}
-                                <br>
-                                {{complete.customer_payment?.razorpay_id}} -->
                             </td>
                             <td>
                                 <span *ngFor="let frlocation of complete.from_location">
                                     {{frlocation.name}}
                                 </span> -
                                 ( <b>{{complete.boarding_point}} </b> )<br>
-                                 Time : <b>{{complete.boarding_time}}</b>
-                                
+                                 Time : <b>{{complete.boarding_time}}</b>                                
                             </td>
                             <td>
                                 {{ complete.updated_at | date }}
                             </td>
-
-
                             <td>
-                                <strong *ngIf="complete.origin!='DOLPHIN'">{{ complete.bus.name }}<br>
+                                <strong *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">{{ complete.bus.name }}<br>
                                 {{ complete.bus.bus_number }}</strong>
-
-                                <strong *ngIf="complete.origin=='DOLPHIN'">{{ complete.bus_name }}<br>
-                                {{ complete.bus_number}}</strong>
-                                
+                                <strong *ngIf="complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'">{{ complete.bus_name }}<br>
+                                {{ complete.bus_number}}</strong>                                
                             </td>
                             <td>
                                 <ng-template #tipContent1>
@@ -195,7 +174,6 @@
                                         </tr>
                                     </table>
                                 </ng-template>
-
                                 <span [ngbTooltip]="tipContent1">
                                     <!-- {{ complete.source_id }} - {{ complete.destination_id }} -->
                                     <span *ngFor="let boarding of complete.from_location;">
@@ -210,17 +188,14 @@
                             <td>
                                 <div *ngIf="complete.booking_detail?.length != 0">
                                     <p *ngFor="let seat of complete.booking_detail;">
-                                    <span *ngIf="complete.origin=='DOLPHIN'">
-                                        {{seat.seat_name}}
-                                    </span>
-                                    <span *ngIf="complete.origin!='DOLPHIN'">
-                                        {{seat.bus_seats.seats.seatText}}
-                                    </span>
-
-                                       
+                                        <span *ngIf="complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'">
+                                            {{seat.seat_name}}
+                                        </span>
+                                        <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
+                                            {{seat.bus_seats.seats.seatText}}
+                                        </span>                                       
                                     </p>
                                 </div>
-
                             </td>
                         
                             <td>
@@ -238,7 +213,10 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Seat No-</td>
-                                                    <td><b>{{passanger.bus_seats.seats.seatText}}</b></td>
+                                                    <td>
+                                                        <b *ngIf="complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'">{{seat.seat_name}}</b>
+                                                        <b  *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">{{passanger.bus_seats.seats.seatText}}</b>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </ng-template>
@@ -246,20 +224,14 @@
                                     </p>
                                 </div>
                             </td>
-
                             <td>
-
                                 <i class="fas fa-rupee-sign"></i> &nbsp;<b>{{complete.total_fare}}</b>
                             </td>
                             <td>
-
                                 <p class="text-danger text-center">
                                     <i class="fas fa-rupee-sign"></i> &nbsp;<b>{{complete.refund_amount}}</b>                                   
                                 </p>
-
-
-                            </td>
-                           
+                            </td>                           
                         </tr>
                     </tbody>
 
