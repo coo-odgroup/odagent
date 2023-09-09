@@ -422,11 +422,11 @@ export class SearchComponent  implements ControlValueAccessor {
   }
 
   
-
+  dualsleeper_warning:any='';
   
   getPriceOnSeatSelect(){
 
-    
+    this.dualsleeper_warning='';
 
     const SeatPriceParams={
       seater: this.seatForm.value.Lowerberth,
@@ -442,20 +442,28 @@ export class SearchComponent  implements ControlValueAccessor {
 
         let lbIds=[];
         let ubIds=[];
+        let ubnames=[];
+        let lbnames=[];
         
         SeatPriceParams.seater.forEach(e => {
           let ar=e.split('-');
-          lbIds.push(ar[0]);          
+          lbIds.push(ar[0]);  
+          lbnames.push(ar[1]);          
+
         });
 
 
         SeatPriceParams.sleeper.forEach(e => {
           let ar=e.split('-');
-          ubIds.push(ar[0]);          
+          ubIds.push(ar[0]);   
+          ubnames.push(ar[1]);          
+
         });
 
 
         let genderRestrictSeatarray: any=[];
+        let double_sleeper_restrict: any=[];
+
         let Seatdistance=0;
 
     if(this.seatsLayoutRecord.lower_berth){
@@ -563,6 +571,27 @@ export class SearchComponent  implements ControlValueAccessor {
 
               } 
             });
+
+
+              /////////// logic for double sleeper single booking restrict /////////
+
+           
+              this.seatsLayoutRecord.upper_berth.filter((at) =>{  
+                if( t.colNumber == at.colNumber && 
+                  (t.rowNumber - at.rowNumber == -1 || t.rowNumber - at.rowNumber == 1)  
+                  && at.seatText!='' && t.seatText !=at.seatText && at.bus_seats){ 
+  
+                    if(ubnames.indexOf(at.seatText) === -1){
+                      this.dualsleeper_warning='Please note that ODBUS has the right to cancel single sleeper booking in double sleepers without notice as well the traveler will be bound to share the adjacent sleeper with other passenger. For details contact customer support.';
+                       
+                    }
+                    double_sleeper_restrict.push(at);
+                 
+                } 
+              });
+  
+              ////////////////////////////////////////////////////
+              
 
           }
           return ubIds.indexOf(t.id.toString()) > -1; 

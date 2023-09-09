@@ -431,6 +431,9 @@
 
                 <form [formGroup]="seatForm" (ngSubmit)="submitSeat()">
                     <div class="row paddtb40">
+
+                        <p style="color:red;font-weight: bold;">{{dualsleeper_warning}}</p>
+                        
                         <div class="col-md-8">
                             <div *ngIf="seatLoader" class="seatLoader"><img
                                     src="assets/img/seat-loader.gif"></div>
