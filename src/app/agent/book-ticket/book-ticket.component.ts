@@ -435,7 +435,7 @@ get_seatno(seat_id:any){
 
   countdown:any;
 
-  pnr:any;
+  pnr:any='';
 
   submitForm2(){
 
@@ -524,8 +524,8 @@ get_seatno(seat_id:any){
                       (res) => { 
                         if(res.status==1){   
                           
-                          this.pnr= res.data;
-                          this.qrcode =Constants.CONSUMER_BASE_URL+"pnr/"+res.data;   
+                          this.pnr= res.data.pnr;
+                          this.qrcode =Constants.CONSUMER_BASE_URL+"pnr/"+res.data.pnr;   
                         
                         } 
                         
