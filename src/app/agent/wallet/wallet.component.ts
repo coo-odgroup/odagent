@@ -90,7 +90,7 @@ export class WalletComponent implements OnInit {
       transaction_id: [null, Validators.compose([Validators.required])],
       reference_id: [null],
       payment_via: [null, Validators.compose([Validators.required])],
-      amount:  [null, Validators.compose([Validators.required,Validators.min(2000),Validators.required,Validators.max(49000)])],
+      amount:  [null, Validators.compose([Validators.required,Validators.min(50),Validators.required,Validators.max(49999)])],
       remarks: [null], 
       user_id: localStorage.getItem('USERID'),
       user_name: localStorage.getItem('USERNAME')

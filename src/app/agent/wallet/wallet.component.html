@@ -234,19 +234,19 @@
                                 <label for="name" class="col-sm-4 col-form-label"> Amount:<span
                                     class="text-danger">*</span></label>
                                 <div class="col-sm-12">
-                                  <input type="text" class="form-control sml_input" ngbAutofocus placeholder="Amount Minimum 2000 & Maximum 49000" required
-                                    formControlName="amount" />
+                                  <input type="text" class="form-control sml_input" ngbAutofocus 
+                                  placeholder="Amount Minimum 50 & Maximum 49999" required formControlName="amount" />
                                   <span class="text-danger"
                                     *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('required')">
                                     Amount is Required
                                   </span>
                                   <span class="text-danger"
                                     *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('min')">
-                                    Amount Minimum 2000
+                                    Amount Minimum 50
                                   </span>
                                   <span class="text-danger"
                                     *ngIf="form.controls['amount'].touched && form.controls['amount'].hasError('max')">
-                                    Amount Maximum 49000
+                                    Amount Maximum 49999
                                   </span>
                                 </div>
                               </div>
@@ -321,7 +321,7 @@
                             </div>
                             <div class="widget-body">
                               <div>
-                                <img src="../../../assets/images/pay.jpg" style="width: 80%;">
+                                <img src="../../../assets/images/odqr.png" style="width: 80%;">
                               </div>
                             </div>
                           </div>
