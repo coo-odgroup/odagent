@@ -8,6 +8,7 @@ import { NotificationService } from '../services/notification.service';
 import{Constants} from '../constant/constant';
 import { NgxSpinnerService } from "ngx-spinner";
 import { MustMatch } from "../helpers/must-match.validator";
+import { EncryptionService } from '../encrypt.service';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class ForgetpasswordComponent implements OnInit {
   
   OtpData:any;
 
-  constructor(public router: Router,protected fb:FormBuilder, private loginService: LoginService, private notificationService: NotificationService,private notify: NotificationService,private roleService: RoleService,private spinner: NgxSpinnerService) { }
+  constructor(public router: Router,protected fb:FormBuilder, private loginService: LoginService, private notificationService: NotificationService,private notify: NotificationService,private roleService: RoleService,private spinner: NgxSpinnerService,private enc:EncryptionService) { }
 
   get f() { return this.forgotPasswordForm.controls; }
 
@@ -130,7 +131,9 @@ export class ForgetpasswordComponent implements OnInit {
 
         res=>{                   
           if(res.status==1){ 
-            this.OtpData=res.data;
+            let OtpData:any=this.enc.decrypt(res.data);
+            OtpData=JSON.parse(OtpData);
+            this.OtpData=OtpData;
             this.notify.notify("OTP has been sent","Success");
           }else{
             this.notify.notify(res.message,"Error");

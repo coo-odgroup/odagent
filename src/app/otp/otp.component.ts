@@ -8,6 +8,7 @@ import { LoginService } from '../services/login.service';
 import { SignupService } from '../services/signup.service';
 //import { LoginChecker } from '../helpers/loginChecker';
 import {NgbAlertConfig} from '@ng-bootstrap/ng-bootstrap';
+import { EncryptionService } from '../encrypt.service';
 
 
 @Component({
@@ -35,7 +36,8 @@ export class OtpComponent implements OnInit {
       //private spinner: NgxSpinnerService,
       public loginService: LoginService,
       private signupService: SignupService,  
-      private alertConfig: NgbAlertConfig  
+      private alertConfig: NgbAlertConfig  ,
+      private enc:EncryptionService
   ) { 
 
     alertConfig.type = 'success';
@@ -64,7 +66,9 @@ export class OtpComponent implements OnInit {
         res=>{ 
           if(res.status==1){
             //console.log(JSON.stringify(res));
-            localStorage.setItem('user', JSON.stringify(res.data[0]));
+            let data:any=this.enc.decrypt(res.data[0]);
+            data=JSON.parse(data);
+            localStorage.setItem('user', JSON.stringify(data));
 
             this.router.navigate(['agentDetails']);     
           }

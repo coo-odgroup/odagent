@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {  BehaviorSubject,Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {Constants} from '../constant/constant';
+import { EncryptionService } from '../encrypt.service';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -14,7 +16,7 @@ export class LoginService {
     })
   }
   private alert = new  BehaviorSubject('');
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,private enc:EncryptionService) { }
   currentalert = this.alert.asObservable();
 
   setAlert(message: any) {
@@ -23,28 +25,44 @@ export class LoginService {
   
   
   checkLogin(post): Observable<any> {
-    return this.httpClient.post<any>(this.apiURL + '/Login', JSON.stringify(post), this.httpOptions)
+    let requestParam = this.enc.encrypt(JSON.stringify(post));
+
+		let reqData = { 'REQUEST_DATA': requestParam};
+    return this.httpClient.post<any>(this.apiURL + '/Login', reqData, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   sendOtp(post): Observable<any> {
-    return this.httpClient.post<any>(this.apiURL + '/AgentForgetPasswordOtp', JSON.stringify(post), this.httpOptions)
+    let requestParam = this.enc.encrypt(JSON.stringify(post));
+
+		let reqData = { 'REQUEST_DATA': requestParam};
+    return this.httpClient.post<any>(this.apiURL + '/AgentForgetPasswordOtp', reqData, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   verifyOtp(post): Observable<any> {
-    return this.httpClient.post<any>(this.apiURL + '/AgentVerifyOtp', JSON.stringify(post), this.httpOptions)
+
+    let requestParam = this.enc.encrypt(JSON.stringify(post));
+
+		let reqData = { 'REQUEST_DATA': requestParam};
+
+    return this.httpClient.post<any>(this.apiURL + '/AgentVerifyOtp', reqData, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
   }
 
   resetPassword(post): Observable<any> {
-    return this.httpClient.post<any>(this.apiURL + '/AgentResetPassword', JSON.stringify(post), this.httpOptions)
+
+    let requestParam = this.enc.encrypt(JSON.stringify(post));
+
+		let reqData = { 'REQUEST_DATA': requestParam};
+    
+    return this.httpClient.post<any>(this.apiURL + '/AgentResetPassword', reqData, this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
