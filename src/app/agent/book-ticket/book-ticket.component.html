@@ -133,11 +133,11 @@
 
 					<span class="font">From</span>			
 					<h5> {{ source }}</h5>
-					<h6>{{ bookingdata.boardingPoint.boardingPoints }} - {{ busRecord.departureTime}}</h6>
+					<h6>{{ bookingdata.boardingPoint.boardingPoints }} - {{ bookingdata.boardingPoint.boardingTimes}}</h6>
 
 					<span class="font">To</span>
 					<h5>{{ destination }}</h5>
-					<h6>{{ bookingdata.droppingPoint.droppingPoints }} - {{ busRecord.arrivalTime}}</h6>
+					<h6>{{ bookingdata.droppingPoint.droppingPoints }} - {{ bookingdata.droppingPoint.droppingTimes}}</h6>
 
 					<span class="font">Journey Date</span>
 					<h5>{{ entdate | date:'EEEE, d MMMM , y' }}</h5>
@@ -312,9 +312,14 @@
 			
 							<div class="col-md-4"><h6><strong>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare }}</strong></h6></div>
 
-							<div class="col-md-8"><h6>Transaction Fee</h6></div>
+							<div class="col-md-8"><h6>Customer GST</h6></div>
+
+								<div class="col-md-4" 
+									style="color: green;font-weight: bold;font-style: italic;"><h6><strong>+ ₹ {{bookingdata.PriceArray.customerGst}}</strong></h6></div>
+
+							<!-- <div class="col-md-8"><h6>Transaction Fee</h6></div>
 			
-							<div class="col-md-4"><h6><strong>+ ₹ {{ bookingdata.PriceArray.transactionFee }}</strong></h6></div>
+							<div class="col-md-4"><h6><strong>+ ₹ {{ bookingdata.PriceArray.transactionFee }}</strong></h6></div> -->
 
 							<div class="col-md-8" *ngIf="applied_comission > 0"><h6>Commission</h6></div>
 			
@@ -536,12 +541,17 @@
 									<tr>
 									  <td class="text-left">Base Fare</td>
 									  <td class="text-right"><b>₹{{bookingdata.PriceArray.odbus_charges_ownerFare}}</b></td>
-									</tr>									
-									
+									</tr>
+
 									<tr>
+										<td class="text-left">Customet GST</td>
+										<td class="text-right"><b>+₹{{bookingdata.PriceArray.customerGst}}</b></td>
+									  </tr>
+									
+									<!-- <tr>
 									  <td class="text-left">Transaction Fee</td>
 									  <td class="text-right"><b>+₹{{bookingdata.PriceArray.transactionFee}}</b></td>
-									</tr>
+									</tr> -->
 									
 									<tr *ngIf="applied_comission > 0">
 										<td class="text-left">Commission</td>
