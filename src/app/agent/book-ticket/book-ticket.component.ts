@@ -210,7 +210,7 @@ export class BookTicketComponent implements OnInit {
             bus_id: this.busRecord.busId,
             source_id: this.source_id,
             destination_id: this.destination_id,
-            journey_dt: this.entdate,
+            journey_date: this.entdate,
             boarding_point: this.bookingdata.boardingPoint.boardTime,
             dropping_point: this.bookingdata.droppingPoint.dropTime,
             boarding_time: this.busRecord.departureTime,
