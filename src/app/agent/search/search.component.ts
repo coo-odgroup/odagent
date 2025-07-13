@@ -364,11 +364,10 @@ export class SearchComponent  implements ControlValueAccessor {
   }
 
   
-
-  updateUpperberth(e:any){
+updateUpperberth(e:any){  
+    
     const Upperberth: FormArray = this.seatForm.get('Upperberth') as FormArray;  
     if (e.target.checked) {
-
       if(this.maxSeat!=0 && this.checkedIndex < this.maxSeat ){
         this.checkedIndex++;
         Upperberth.push(new FormControl(e.target.value));
@@ -376,19 +375,47 @@ export class SearchComponent  implements ControlValueAccessor {
         e.target.checked = false;
        }
 
+     //  console.log(Upperberth);
      
     } else {
+    console.log(e);
+      let vl=e.target.value.split('-');
       let i: number = 0;
       Upperberth.controls.forEach((item: AbstractControl) => {
         if (item.value == e.target.value) {
           this.checkedIndex--; 
           Upperberth.removeAt(i);
+          
+          if(this.double_sleeper_restrict){            
+             this.double_sleeper_restrict.forEach(e => {
+
+              if(e.linkedseat.id == vl[0] && e.linkedseat.seatText == vl[1]){
+
+              const index = this.selectedUB.indexOf(e.seatText);
+              if (index !== -1) {
+                this.selectedUB.splice(index, 1);
+              }
+              let otherId = 'upper'+e.id   ;
+                let otherElement = document.getElementById(otherId) as HTMLInputElement;
+                otherElement.checked = false;
+                const valueToRemove = otherElement.value;
+
+                const idx = Upperberth.controls.findIndex(control => control.value === valueToRemove);
+
+                if (idx !== -1) {
+                  Upperberth.removeAt(idx);
+                }
+              }
+            });     
+
+          }
           return;
         }
         i++;
       });
     }
 
+  
     this.getPriceOnSeatSelect();
 
   }
@@ -422,11 +449,13 @@ export class SearchComponent  implements ControlValueAccessor {
   }
 
   
-  dualsleeper_warning:any='';
+ dualsleeper_warning:any='';
+  double_sleeper_restrict: any=[];
   
-  getPriceOnSeatSelect(){
-
+  getPriceOnSeatSelect(){   
+    
     this.dualsleeper_warning='';
+   this.double_sleeper_restrict=[];
 
     const SeatPriceParams={
       seater: this.seatForm.value.Lowerberth,
@@ -462,7 +491,6 @@ export class SearchComponent  implements ControlValueAccessor {
 
 
         let genderRestrictSeatarray: any=[];
-        let double_sleeper_restrict: any=[];
 
         let Seatdistance=0;
 
@@ -582,10 +610,11 @@ export class SearchComponent  implements ControlValueAccessor {
                   && at.seatText!='' && t.seatText !=at.seatText && at.bus_seats){ 
   
                     if(ubnames.indexOf(at.seatText) === -1){
-                      this.dualsleeper_warning='Please note that ODBUS has the right to cancel single sleeper booking in double sleepers without notice as well the traveler will be bound to share the adjacent sleeper with other passenger. For details contact customer support.';
+                      this.dualsleeper_warning='Double sleeper auto-selected as Single booking not allowed. Continue or pick a different seat/sleeper or Bus.';
                        
                     }
-                    double_sleeper_restrict.push(at);
+                    at['linkedseat']=t;
+                    this.double_sleeper_restrict.push(at); 
                  
                 } 
               });
@@ -600,6 +629,32 @@ export class SearchComponent  implements ControlValueAccessor {
     }
 
     //console.log(genderRestrictSeatarray);
+
+    if(this.double_sleeper_restrict){
+    this.double_sleeper_restrict.forEach(e => {     
+       if (!sleeperparam.includes(e.id)) {
+        sleeperparam.push(e.id);
+      }
+
+      if (!this.selectedUB.includes(e.seatText)) {
+        this.selectedUB.push(e.seatText);
+      }
+
+       let otherId =  'upper'+e.id   ;
+     
+        let otherElement = document.getElementById(otherId) as HTMLInputElement;
+        otherElement.checked = true;
+
+       const Upperberth: FormArray = this.seatForm.get('Upperberth') as FormArray;
+        const newValue = otherElement.value;
+        const exists = Upperberth.controls.some(control => control.value === newValue);
+
+        if (!exists) {
+          Upperberth.push(new FormControl(newValue));
+        }
+
+    });     
+   }
 
     localStorage.setItem('genderRestrictSeats', JSON.stringify(genderRestrictSeatarray));
 
