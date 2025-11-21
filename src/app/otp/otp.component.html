@@ -9,6 +9,7 @@
                      <ngb-alert *ngIf="alert!=''">
                         {{ alert }}
                       </ngb-alert>
+                      <h5 class="send-otp f-w-600">OTP send to kis*****gmail.com</h5>
                       <div class="otp-msg">OTP has been send to: {{mobileNo}}</div>
                       <div class="form-group phone">
                         <div class="cols-sm-10">
@@ -29,6 +30,12 @@
                      </p>                                          -->
                      <!-- <p class="text-center">Already Registered? <a class="formlink" routerLink="/otp">Login</a> </p>    -->
                     <!-- <p class="text-center" *ngIf="ResendOtp" >Did not receive the Code? <a class="formlink cursor"(click)="resend_otp()"> Resend OTP  </a> </p>  -->
+
+                    <div class="footer-card ">
+                        <p class="f-w-600">OTP not received ? </p>
+                        <p class="f-w-600">you can resend otp after <span class="r-time">00:34</span> Sec</p>
+                      </div>
+
                 </form>
             </div>
           </div>
