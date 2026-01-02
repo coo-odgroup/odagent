@@ -26,7 +26,7 @@
     </div> 
 </div>
 <div class="row" *ngIf="dashboarddata">   
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
           <app-card [hidHeader]="true" cardClass="bg-c-blue text-white widget-visitor-card" blockClass="text-center">
               <h2 class="text-white">{{dashboarddata.today_pnr || "0"}}</h2>
               <h6 class="text-white">Total No Of PNR</h6>
@@ -34,21 +34,21 @@
             </app-card>
         
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
           <app-card [hidHeader]="true" cardClass="bg-c-green text-white widget-visitor-card" blockClass="text-center">
                 <h2 class="text-white">{{dashboarddata.upcoming_pnr}}</h2>
                 <h6 class="text-white">Upcoming PNR</h6>
                 <i class="feather icon-file-text"></i>
               </app-card>      
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
           <app-card [hidHeader]="true" cardClass="bg-c-blue text-white widget-visitor-card" blockClass="text-center">
                 <h2 class="text-white">{{dashboarddata.sales_data[0].today_amount | number : '1.2-2'}}</h2>
                 <h6 class="text-white">Sales</h6>
                 <i class="feather icon-file-text"></i>
               </app-card>      
         </div>
-        <div class="col-md-3">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
             <app-card [hidHeader]="true" cardClass="bg-c-red text-white widget-visitor-card" blockClass="text-center">
                 <h2 class="text-white">{{dashboarddata.booking_profit[0].odbus_amount || "0"}}</h2>
                 <h6 class="text-white">Commission from Odbus</h6>
