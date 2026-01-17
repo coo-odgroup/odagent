@@ -109,7 +109,7 @@
             <!-- class="table-responsive"   -->
             <div id="export-section">
                 <table class="table table-striped ">
-                    <thead>
+                    <thead *ngIf="completedata?.data?.data?.length > 0">
                         <tr>
                             <th scope="col"  width="80px" style="text-align: center;">#</th>
                             <th scope="col">Ticket Details</th>
@@ -124,7 +124,7 @@
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
-                    <tbody *ngIf="completedata?.length != 0">
+                    <tbody *ngIf="completedata?.data?.data?.length > 0">
                         <tr *ngFor="let complete of completedata?.data.data; let i = index">
                             <td style="text-align: center;">{{ i+1 }}</td>
                             <td>
@@ -287,13 +287,13 @@
                             </td>
                         </tr>
                     </tbody> 
-                    <tbody *ngIf="completedata?.length == 0">
+                    <tbody *ngIf="completedata?.data?.data?.length == 0">
                         <tr>
-                          <td colspan="10" class="no-data-available">No data!</td>
+                          <td colspan="10" class="no-data-available text-center">No Record Found!</td>
                         </tr>
                     <tbody>                   
                 </table>
-                <div *ngIf="completedata?.length != 0">
+                <div *ngIf="completedata?.data?.data?.length > 0">
                     <div class="d-flex flex-row-reverse mb-4 text-center" *ngIf="completedata?.data.links">
                         <nav class="my-1 pt-1 ">
                             <ul class="pagination pagination-circle pg-blue mb-0 hide_print">

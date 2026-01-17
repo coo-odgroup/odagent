@@ -109,7 +109,7 @@
 
             <div class="table-responsive" id="print-section">
                 <table class="table table-striped ">
-                    <thead>
+                    <thead *ngIf="cancelticketdata?.data.data?.length != 0">
                         <tr>
                             <th scope="col" width="80px" style="text-align: center;">#</th>
                             <th scope="col">Ticket Details</th>
@@ -237,7 +237,7 @@
 
                     <tbody *ngIf="cancelticketdata?.data.data?.length == 0">
                         <tr>
-                          <td colspan="10" class="no-data-available">No data!</td>
+                          <td colspan="10" class="no-data-available text-center">No Record Found!</td>
                         </tr>
                     <tbody>
 
