@@ -16,6 +16,65 @@ padding:0px 10px;
     }
 }
 
+/* fix search section on small screens */
+@media (max-width:768px){
+
+.col-2,
+.col-3,
+.col-4,
+.col-10{
+width:100% !important;
+max-width:100% !important;
+flex:0 0 100% !important;
+}
+
+.sml_input{
+width:100%;
+margin-bottom:10px;
+}
+
+.btn{
+margin-bottom:8px;
+}
+
+.table td,
+.table th{
+font-size:12px;
+padding:6px !important;
+overflow-x: auto;
+}
+.payment_sec{
+  margin: 0 auto;
+  display: table;
+  width: 90%;
+}
+
+.table{
+    display:block;
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+}
+
+.table thead,
+.table tbody,
+.table tr{
+    width:100%;
+}
+
+.d-flex.flex-row-reverse{
+    justify-content:center !important;
+}
+
+.pagination{
+    display:flex;
+    justify-content:center;
+    width:100%;
+}
+
+
+}
 
 
 ::ng-deep .sml_input

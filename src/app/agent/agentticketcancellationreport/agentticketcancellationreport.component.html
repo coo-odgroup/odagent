@@ -1,15 +1,24 @@
-<ngx-spinner bdColor = "rgba(60,55,55,0.8)" size = "large" color = "#fff" type = "ball-clip-rotate-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
-
+<ngx-spinner bdColor="rgba(60,55,55,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+    [fullScreen]="true">
+    <p style="color:white">Loading...</p>
+</ngx-spinner>
 
 <div class="row">
     <div class="col-sm-12">
-        <app-card cardTitle="Agent Cancel Ticket Report" cardClass="card-datatable" [options]="false" [isCardFooter]="false">
-            <div class=" mb-3">
+
+        <app-card cardTitle="Agent Cancel Ticket Report" cardClass="card-datatable" [options]="false"
+            [isCardFooter]="false">
+
+            <div class="mb-3">
                 <div class="row p-0">
                     <div class="col-12">
+
                         <form [formGroup]="searchFrom">
-                            <div class="row">
-                                <div class="col-3">
+
+                            <div class="row responsive-form">
+
+                                <!-- Operator -->
+                                <div class="col-md-3 col-sm-12 form-item">
                                     <div class="form-group">
                                         <ng-select [items]="busoperators" bindLabel="operator_name" bindValue="id"
                                             placeholder="Select Operator" formControlName="bus_operator_id"
@@ -17,98 +26,120 @@
                                         </ng-select>
                                     </div>
                                 </div>
-                                <div class="col-6">
-                                    <div class="row">  
-                                        <div class="form-group col-6">
-                                            <div class="form-group row">
-                                                <input type="date" class="form-control sml_input" placeholder="Enter pnr"
+
+                                <!-- Date Range -->
+                                <div class="col-md-6 col-sm-12">
+                                    <div class="row">
+
+                                        <div class="col-md-6 col-sm-6 form-item">
+                                            <input type="date" class="form-control sml_input" placeholder="Enter pnr"
                                                 required formControlName="rangeFromDate" />
-                                            </div> 
                                         </div>
-                                        <div class="form-group col-6">
-                                            <div class="form-group row">
-                                                <input type="date" class="form-control sml_input" placeholder="Enter pnr"
+
+                                        <div class="col-md-6 col-sm-6 form-item">
+                                            <input type="date" class="form-control sml_input" placeholder="Enter pnr"
                                                 required formControlName="rangeToDate" />
-                                            </div>                                            
                                         </div>
+
                                     </div>
                                 </div>
 
-
-                                <div class="col-3">
-                                    <div class="dropdown">
-                                        <select class="form-control sml_input" formControlName="date_type">
-                                            <option value='booking'>Booking Date</option>
-                                            <option value='journey'>Journey Date</option>
-                                        </select>
-                                    </div>
+                                <!-- Date Type -->
+                                <div class="col-md-3 col-sm-6 form-item">
+                                    <select class="form-control sml_input" formControlName="date_type">
+                                        <option value='booking'>Booking Date</option>
+                                        <option value='journey'>Journey Date</option>
+                                    </select>
                                 </div>
 
-                                <div class="col-3">                                    
-                                    <div class="dropdown ">
-                                        <input type="text" class="form-control sml_input" placeholder="Payment Id"
-                                            required formControlName="payment_id" />
-                                    </div>                                   
+                                <!-- Payment -->
+                                <div class="col-md-3 col-sm-6 form-item">
+                                    <input type="text" class="form-control sml_input" placeholder="Payment Id" required
+                                        formControlName="payment_id" />
                                 </div>
 
-                                <div class="col-3">
-                                    <div class="form-group ">
+                                <!-- Source -->
+                                <div class="col-md-3 col-sm-6 form-item">
+                                    <div class="form-group">
                                         <ng-select [items]="locations" bindLabel="name" bindValue="id"
-                                            placeholder="Select Source" formControlName="source_id"
+                                            placeholder="Select Source" formControlName="source_id" [clearable]="false"
+                                            (change)="findSource($event)">
+                                        </ng-select>
+                                    </div>
+                                </div>
+
+                                <!-- Destination -->
+                                <div class="col-md-3 col-sm-6 form-item">
+                                    <div class="form-group">
+                                        <ng-select [items]="locations" bindLabel="name" bindValue="id"
+                                            placeholder="Select Destination" formControlName="destination_id"
                                             [clearable]="false" (change)="findSource($event)">
                                         </ng-select>
                                     </div>
                                 </div>
 
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <ng-select [items]="locations" bindLabel="name" bindValue="id"
-                                            placeholder="Select Destination"
-                                            formControlName="destination_id" [clearable]="false"
-                                            (change)="findSource($event)">
-                                        </ng-select>
-                                    </div>
-                                </div>                               
                             </div>
-                            <div class="row ">                                
-                                <div class="col-6">
-                                    <button type="button" class="btn btn-success  sml_input mr-10" (click)="search()"
+
+
+                            <!-- BUTTON ROW -->
+
+                            <div class="row button-row">
+
+                                <div class="col-md-6 col-sm-12 action-buttons">
+
+                                    <button type="button" class="btn btn-success sml_input" (click)="search()"
                                         title="search">
-                                        <i class="fas fa-search"> </i> Search
+                                        <i class="fas fa-search"></i> Search
                                     </button>
-                                    <button type="button" class="btn btn-danger sml_input mr-10" (click)="refresh()"
+
+                                    <button type="button" class="btn btn-danger sml_input" (click)="refresh()"
                                         title="refresh">
-                                        <i class="fas fa-sync-alt"> </i> Refresh
+                                        <i class="fas fa-sync-alt"></i> Refresh
                                     </button>
-                                    <button type="button" (click)="exportexcel()" class="btn btn-warning  sml_input mr-10"
+
+                                    <button type="button" (click)="exportexcel()" class="btn btn-warning sml_input"
                                         title="Export">
-                                        <i class="fas fa-file-export"> </i> Export
+                                        <i class="fas fa-file-export"></i> Export
                                     </button>
+
                                     <button type="button" printSectionId="print-section" ngxPrint
                                         class="btn btn-info sml_input" [useExistingCss]="true" title="Print">
-                                        <i class="fas fa-print"> </i> Print
+                                        <i class="fas fa-print"></i> Print
                                     </button>
+
                                 </div>
-                                <div class="col-6">
-                                    <div class="dropdown float-right">
-                                        <select class="form-control sml_input" formControlName="rows_number"
-                                            (change)=search()>
-                                            <option value=10>10</option>
-                                            <option value=25>25</option>
-                                            <option value=50>50</option>
-                                            <option value=100>100</option>
-                                            <option value='all'>All</option>
-                                        </select>
-                                    </div>
+
+
+                                <div class="col-md-6 col-sm-12 page-selector">
+
+                                    <select class="form-control sml_input" formControlName="rows_number"
+                                        (change)=search()>
+
+                                        <option value=10>10</option>
+                                        <option value=25>25</option>
+                                        <option value=50>50</option>
+                                        <option value=100>100</option>
+                                        <option value='all'>All</option>
+
+                                    </select>
+
                                 </div>
-                            </div>                           
+
+                            </div>
+
                         </form>
+
                     </div>
                 </div>
             </div>
 
-            <div class="table-responsive" id="print-section">
+
+            <!-- TABLE -->
+
+            <div class="table-responsive-mobile" id="print-section">
+
                 <table class="table table-striped ">
+
                     <thead *ngIf="cancelticketdata?.data.data?.length != 0">
                         <tr>
                             <th scope="col" width="80px" style="text-align: center;">#</th>
@@ -118,70 +149,50 @@
                             <th scope="col">Bus Details </th>
                             <th scope="col">Source >> Destination</th>
                             <th scope="col">Seat No</th>
-                            <!-- <th scope="col">User Details</th> -->
                             <th scope="col">Passenger Details</th>
-                            <!-- <th scope="col">Seater / Sleeper </th> -->
                             <th scope="col">Fare</th>
                             <th scope="col">Refund Price</th>
-                            <!-- <th scope="col">Cancel By</th> -->
                         </tr>
                     </thead>
+
                     <tbody *ngIf="cancelticketdata?.data.data?.length != 0">
                         <tr *ngFor="let complete of cancelticketdata?.data.data; let i = index">
                             <td style="text-align: center;">{{ i+1 }}</td>
+
                             <td>
                                 <strong>{{complete.pnr}}</strong> ( {{complete.journey_dt}} )
-                                <br>
                             </td>
+
                             <td>
                                 <span *ngFor="let frlocation of complete.from_location">
                                     {{frlocation.name}}
                                 </span> -
                                 ( <b>{{complete.boarding_point}} </b> )<br>
-                                 Time : <b>{{complete.boarding_time}}</b>                                
+                                Time : <b>{{complete.boarding_time}}</b>
                             </td>
+
                             <td>
                                 {{ complete.updated_at | date }}
                             </td>
+
                             <td>
-                                <strong *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">{{ complete.bus.name }}<br>
-                                {{ complete.bus.bus_number }}</strong>
-                                <strong *ngIf="complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'">{{ complete.bus_name }}<br>
-                                {{ complete.bus_number}}</strong>                                
+                                <strong *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
+                                    {{ complete.bus.name }}<br>
+                                    {{ complete.bus.bus_number }}
+                                </strong>
+
+                                <strong *ngIf="complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'">
+                                    {{ complete.bus_name }}<br>
+                                    {{ complete.bus_number}}
+                                </strong>
                             </td>
+
                             <td>
-                                <ng-template #tipContent1>
-                                    <table style="width: 350px;">
-                                        <tr>
-                                            <th style="text-align: left;">
-                                                Start
-                                            </th>
-                                            <th style="text-align: left;">
-                                                End
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: left;">
-                                                <span *ngFor="let frlocation of complete.source">
-                                                    {{frlocation[0].name}}<br />
-                                                </span>
-                                            </td>
-                                            <td style="text-align: left;">
-                                                <span *ngFor="let tolocation of complete.destination">
-                                                    {{tolocation[0].name}} <br />
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </ng-template>
-                                <span [ngbTooltip]="tipContent1">
-                                    <!-- {{ complete.source_id }} - {{ complete.destination_id }} -->
-                                    <span *ngFor="let boarding of complete.from_location;">
-                                        <strong>{{boarding.name}}</strong>
-                                    </span> -
-                                    <span *ngFor="let dropping of complete.to_location;">
-                                        <strong>{{dropping.name}}</strong>
-                                    </span>
+                                <span *ngFor="let boarding of complete.from_location;">
+                                    <strong>{{boarding.name}}</strong>
+                                </span> -
+                                <span *ngFor="let dropping of complete.to_location;">
+                                    <strong>{{dropping.name}}</strong>
                                 </span>
                             </td>
 
@@ -193,77 +204,96 @@
                                         </span>
                                         <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
                                             {{seat.bus_seats.seats.seatText}}
-                                        </span>                                       
+                                        </span>
                                     </p>
                                 </div>
                             </td>
-                        
+
                             <td>
                                 <div *ngIf="complete.booking_detail?.length != 0">
                                     <p *ngFor="let passanger of complete.booking_detail;">
-                                        <ng-template #tipContent1>
-                                            <table>
-                                                <tr>
-                                                    <td>Gender-</td>
-                                                    <td><b>{{passanger.passenger_gender}}</b></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Age-</td>
-                                                    <td><b>{{passanger.passenger_age}}</b></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Seat No-</td>
-                                                    <td>
-                                                        <b *ngIf="complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'">{{seat.seat_name}}</b>
-                                                        <b  *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">{{passanger.bus_seats.seats.seatText}}</b>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </ng-template>
-                                        <strong [ngbTooltip]="tipContent1">{{passanger.passenger_name}}</strong>
+                                        <strong>{{passanger.passenger_name}}</strong>
                                     </p>
                                 </div>
                             </td>
+
                             <td>
-                                <i class="fas fa-rupee-sign"></i> &nbsp;<b>{{complete.total_fare}}</b>
+                                <i class="fas fa-rupee-sign"></i> &nbsp;
+                                <b>{{complete.total_fare}}</b>
                             </td>
+
                             <td>
                                 <p class="text-danger text-center">
-                                    <i class="fas fa-rupee-sign"></i> &nbsp;<b>{{complete.refund_amount}}</b>                                   
+                                    <i class="fas fa-rupee-sign"></i> &nbsp;
+                                    <b>{{complete.refund_amount}}</b>
                                 </p>
-                            </td>                           
+                            </td>
+
                         </tr>
                     </tbody>
 
                     <tbody *ngIf="cancelticketdata?.data.data?.length == 0">
                         <tr>
-                          <td colspan="10" class="no-data-available text-center">No Record Found!</td>
+                            <td colspan="10" class="no-data-available text-center">
+                                No Record Found!
+                            </td>
                         </tr>
-                    <tbody>
+                    </tbody>
 
                 </table>
-                <div *ngIf="cancelticketdata?.data.data?.length != 0" class="hide_print">
-                    <div class="d-flex flex-row-reverse mb-4 text-center" *ngIf="cancelticketdata?.data.links">
-                        <nav class="my-1 pt-4 ">
-                            <ul class="pagination pagination-circle pg-blue mb-0">
-                                <li (click)="search(cancelticketdata.data.links.first_page_url,statusLabel)"
-                                    class="page-item {{ cancelticketdata.data.current_page == 1 ? 'disabled' : '' }} clearfix d-none d-md-block">
-                                    <a class="page-link">First</a>
-                                </li>
-                                <li class="page-item " *ngFor="let b of cancelticketdata.data.links ; let i = index ">
-                                    <a class="page-link {{ cancelticketdata.data.current_page == b.label ? 'active' : '' }}"
-                                        (click)="(b.url) ? search(b.url) : ''" [innerHTML]="page(b.label)"></a>
-                                </li>
-                                <li class="page-item {{ cancelticketdata.data.links.last_page == 1 ? 'disabled' : '' }} clearfix d-none d-md-block"
-                                    (click)="search(cancelticketdata.data.links.last_page_url,statusLabel)">
-                                    <a class="page-link">Last</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
 
             </div>
+
+
+            <!-- PAGINATION SAME -->
+
+            <div *ngIf="cancelticketdata?.data.data?.length != 0" class="hide_print">
+                <div class="d-flex flex-row-reverse mb-4 text-center" *ngIf="cancelticketdata?.data.links">
+
+                    <nav class="my-1 pt-4">
+                        <ul class="pagination pagination-circle pg-blue mb-0 hide_print">
+
+                            <!-- First -->
+                            <li class="page-item" [class.disabled]="completedata.data.current_page == 1"
+                                (click)="search(completedata.data.links.first_page_url,statusLabel)">
+                                <a class="page-link">First</a>
+                            </li>
+
+                            <!-- Prev -->
+                            <li class="page-item" [class.disabled]="completedata.data.current_page == 1"
+                                (click)="search(completedata.data.prev_page_url,statusLabel)">
+                                <a class="page-link">Prev</a>
+                            </li>
+
+                            <!-- Page Numbers -->
+                            <li class="page-item" *ngFor="let b of completedata.data.links | slice:1:4">
+
+                                <a class="page-link" [class.active]="completedata.data.current_page == b.label"
+                                    (click)="b.url ? search(b.url) : ''" [innerHTML]="page(b.label)">
+                                </a>
+
+                            </li>
+
+                            <!-- Next -->
+                            <li class="page-item" [class.disabled]="!completedata.data.next_page_url"
+                                (click)="search(completedata.data.next_page_url,statusLabel)">
+                                <a class="page-link">Next</a>
+                            </li>
+
+                            <!-- Last -->
+                            <li class="page-item"
+                                [class.disabled]="completedata.data.current_page == completedata.data.last_page"
+                                (click)="search(completedata.data.links.last_page_url,statusLabel)">
+                                <a class="page-link">Last</a>
+                            </li>
+
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+
+
         </app-card>
     </div>
 </div>
