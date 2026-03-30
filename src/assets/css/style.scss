@@ -373,9 +373,48 @@ a.active.page-link {
 }
 
 
+// added by Siraz
 
+@media (max-width: 768px) {
 
+  .mobile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: #0a2a4a;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 99999;
+  }
 
+  .mobile-bottom-nav .nav-item {
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    flex: 1;
+  }
+
+  .mobile-bottom-nav i {
+    display: block;
+    font-size: 18px;
+  }
+
+  body {
+    padding-bottom: 70px;
+  }
+
+  a.mob-toggler{
+    display: none !important;
+  }
+
+  .collapse.navbar-collapse.ng-star-inserted{
+    display: block !important;
+  }
+
+}
 
 
   
