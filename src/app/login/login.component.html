@@ -14,7 +14,17 @@
                                 Email is required! </span>
                       </div>
                       <div class=" mb-3">
-                        <input type="password" class="form-control" formControlName="password"  placeholder="Password">
+                        <div class="input-group password-toggle-group">
+                          <input [type]="fieldTextType ? 'text' : 'password'" class="form-control" formControlName="password" placeholder="Password">
+                          <div class="input-group-append">
+                            <button class="input-group-text password-toggle-btn" type="button" (click)="toggleFieldTextType()">
+                              <i class="fa" [ngClass]="{
+                                'fa-eye-slash': !fieldTextType,
+                                'fa-eye': fieldTextType
+                              }"></i>
+                            </button>
+                          </div>
+                        </div>
                         <span class="text-danger"
                                 *ngIf="form.controls['password'].touched && form.controls['password'].hasError('required')">
                                 Password is required! </span>

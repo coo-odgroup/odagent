@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   public form: FormGroup;
   public loginRecord:Login;
   usertypes: [] ;
+  fieldTextType = false;
 
   public saveUsername:boolean;
   public onSaveUsernameChanged(value:boolean){
@@ -38,6 +39,11 @@ export class LoginComponent implements OnInit {
       user_type: [null ],
     });  
   }
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
+
   ResetForm()
   {
     this.form = this.fb.group({
