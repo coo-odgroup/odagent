@@ -431,3 +431,10 @@ input[type="radio"]:checked {
        display: none;
     }
  }
+
+ @media (max-width: 767px) {
+  .desktop_only {
+    display: none !important;
+  }
+  
+}

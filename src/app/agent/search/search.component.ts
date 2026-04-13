@@ -156,7 +156,7 @@ export class SearchComponent implements ControlValueAccessor {
 
   seatlayoutShow: any = '';
   mobileBerthTab: 'lower' | 'upper' = 'lower';
-  mobileBookingStep: 'seat' | 'boarding' | 'dropping' = 'seat';
+  mobileBookingStep: 'seat' | 'boarding' | 'dropping' | 'passenger' = 'seat';
   safetyshow: any = '';
   busPhotoshow: any = '';
   reviewShow: any = '';

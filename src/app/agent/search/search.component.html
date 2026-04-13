@@ -98,7 +98,8 @@
                                                 <p>Date of Journey</p>
                                                 <div class="input-group mb-3">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text" id="basic-addon3" (click)="d.toggle()"><img
+                                                        <span class="input-group-text" id="basic-addon3"
+                                                            (click)="d.toggle()"><img
                                                                 src="assets/img/Icon-metro-calendar.svg"></span>
                                                     </div>
                                                     <input type="text" id="entryDate" autocomplete="off"
@@ -1328,227 +1329,271 @@
                         <div class="mobile-seat-body">
                             <div *ngIf="seatLoader" class="mobile-seat-loader">Loading seats...</div>
                             <div *ngIf="mobileBookingStep === 'seat'">
-                            <p class="mobile-seat-warning" *ngIf="dualsleeper_warning">{{ dualsleeper_warning }}</p>
+                                <p class="mobile-seat-warning" *ngIf="dualsleeper_warning">{{ dualsleeper_warning }}</p>
 
-                            <div class="mobile-berth-tabs">
-                                <button type="button" class="mobile-berth-tab"
-                                    [class.active]="mobileBerthTab === 'lower'" (click)="setMobileBerthTab('lower')">
-                                    Seater
-                                </button>
-                                <button type="button" class="mobile-berth-tab"
-                                    [class.active]="mobileBerthTab === 'upper'" (click)="setMobileBerthTab('upper')">
-                                    Sleeper
-                                </button>
-                            </div>
+                                <div class="mobile-berth-tabs">
+                                    <button type="button" class="mobile-berth-tab"
+                                        [class.active]="mobileBerthTab === 'lower'"
+                                        (click)="setMobileBerthTab('lower')">
+                                        Seater
+                                    </button>
+                                    <button type="button" class="mobile-berth-tab"
+                                        [class.active]="mobileBerthTab === 'upper'"
+                                        (click)="setMobileBerthTab('upper')">
+                                        Sleeper
+                                    </button>
+                                </div>
 
-                            <div *ngIf="checkedIndex == maxSeat" class="mobile-seat-limit">
-                                You have selected maximum no of seats
-                            </div>
+                                <div *ngIf="checkedIndex == maxSeat" class="mobile-seat-limit">
+                                    You have selected maximum no of seats
+                                </div>
 
-                            <div class="mobile-seat-layout-scroll">
-                                <div class="mobile-seat-layout-scale">
-                                    <div class="layout1"
-                                        *ngIf="mobileBerthTab === 'lower' && busId==bus.busId && LowerberthMobileArr.length">
-                                        <h2 class="driver-seat">LOWER BERTH</h2>
-                                        <div class="layout-bg">
-                                            <ol class="cabin fuselage">
-                                                <div class="driver-seat-img"> <img
-                                                        src="assets/img/vehicle-steering-wheel.svg">
-                                                </div>
-                                                <li class="row"
-                                                    *ngFor="let LberthRecords of LowerberthMobileArr; let r = index">
-                                                    <ol class="mobile-seats" type="A">
-                                                        <li class="mobile-seat"
-                                                            *ngFor="let col of LberthRecords; let c = index">
+                                <div class="mobile-seat-layout-scroll">
+                                    <div class="mobile-seat-layout-scale">
+                                        <div class="layout1"
+                                            *ngIf="mobileBerthTab === 'lower' && busId==bus.busId && LowerberthMobileArr.length">
+                                            <h2 class="driver-seat">LOWER BERTH</h2>
+                                            <div class="layout-bg">
+                                                <ol class="cabin fuselage">
+                                                    <div class="driver-seat-img"> <img
+                                                            src="assets/img/vehicle-steering-wheel.svg">
+                                                    </div>
+                                                    <li class="row"
+                                                        *ngFor="let LberthRecords of LowerberthMobileArr; let r = index">
+                                                        <ol class="mobile-seats" type="A">
+                                                            <li class="mobile-seat"
+                                                                *ngFor="let col of LberthRecords; let c = index">
 
-                                                            <div *ngIf="col.seat_class_id == 4 || col.seatText=='' ">
-                                                                <label class="mobile-hide mobile-fixsize"></label>
-                                                            </div>
+                                                                <div
+                                                                    *ngIf="col.seat_class_id == 4 || col.seatText=='' ">
+                                                                    <label class="mobile-hide mobile-fixsize"></label>
+                                                                </div>
 
-                                                            <div
-                                                                *ngIf="col.seat_class_id != 4 && col.seatText!='' ">
-                                                                <input type="checkbox" disabled />
+                                                                <div
+                                                                    *ngIf="col.seat_class_id != 4 && col.seatText!='' ">
+                                                                    <input type="checkbox" disabled />
 
-                                                                <label class="mobile-seat-gray mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 1 && !col.bus_seats && !col.Gender"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-seat-green mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='M'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-seat-purpel mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='F'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
+                                                                    <label class="mobile-seat-gray mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 1 && !col.bus_seats && !col.Gender"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label class="mobile-seat-green mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='M'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label class="mobile-seat-purpel mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='F'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
 
-                                                                <label class="mobile-seat-gray mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='O'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
+                                                                    <label class="mobile-seat-gray mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='O'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
 
-                                                                <label class="mobile-sleeper-gray mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 2 && !col.bus_seats && !col.Gender"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-sleeper-green mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender=='M'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-sleeper-purpel mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender=='F'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-gray mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 2 && !col.bus_seats && !col.Gender"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-green mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender=='M'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-purpel mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender=='F'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
 
-                                                                <label class="mobile-sleeper-gray mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender=='O'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-gray mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender=='O'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
 
-                                                                <label class="mobile-vertical-sleeper-gray mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 3 && !col.bus_seats && !col.Gender"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-vertical-sleeper-green mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='M'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-vertical-sleeper-purpel mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='F'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
+                                                                    <label
+                                                                        class="mobile-vertical-sleeper-gray mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 3 && !col.bus_seats && !col.Gender"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label
+                                                                        class="mobile-vertical-sleeper-green mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='M'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label
+                                                                        class="mobile-vertical-sleeper-purpel mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='F'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
 
-                                                                <label class="mobile-vertical-sleeper-gray mobile-fixsize"
-                                                                    *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='O'">{{
-                                                                    col.seatText }}</label>
-                                                            </div>
+                                                                    <label
+                                                                        class="mobile-vertical-sleeper-gray mobile-fixsize"
+                                                                        *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='O'">{{
+                                                                        col.seatText }}</label>
+                                                                </div>
 
-                                                            <div *ngIf="col.bus_seats != null">
-                                                                <input type="checkbox" id="lower_mo{{col.id}}"
-                                                                    [value]="col.id+'-'+col.seatText"
-                                                                    (change)="updateLowerberth($event)" />
-                                                                <label
-                                                                    title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_seat_fare }}"
-                                                                    *ngIf="col.seat_class_id == 2 "
-                                                                    class="mobile-sleeper-blue mobile-fixsize"
-                                                                    for="lower_mo{{col.id}}"><span class="mobile-sleeper-text">{{ col.seatText }}</span></label>
+                                                                <div *ngIf="col.bus_seats != null">
+                                                                    <input type="checkbox" id="lower_mo{{col.id}}"
+                                                                        [value]="col.id+'-'+col.seatText"
+                                                                        (change)="updateLowerberth($event)" />
+                                                                    <label
+                                                                        title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_seat_fare }}"
+                                                                        *ngIf="col.seat_class_id == 2 "
+                                                                        class="mobile-sleeper-blue mobile-fixsize"
+                                                                        for="lower_mo{{col.id}}"><span
+                                                                            class="mobile-sleeper-text">{{ col.seatText
+                                                                            }}</span></label>
 
-                                                                <label
-                                                                    title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_seat_fare }}"
-                                                                    *ngIf="col.seat_class_id == 1 "
-                                                                    class="mobile-seat-blue mobile-fixsize"
-                                                                    for="lower_mo{{col.id}}"><span class="mobile-sleeper-text">{{ col.seatText }}</span></label>
+                                                                    <label
+                                                                        title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_seat_fare }}"
+                                                                        *ngIf="col.seat_class_id == 1 "
+                                                                        class="mobile-seat-blue mobile-fixsize"
+                                                                        for="lower_mo{{col.id}}"><span
+                                                                            class="mobile-sleeper-text">{{ col.seatText
+                                                                            }}</span></label>
 
-                                                                <label
-                                                                    title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_seat_fare }}"
-                                                                    *ngIf="col.seat_class_id == 3 "
-                                                                    class="mobile-vertical-sleeper-blue mobile-fixsize"
-                                                                    for="lower_mo{{col.id}}"><span class="mobile-sleeper-text">{{ col.seatText }}</span></label>
-                                                            </div>
-                                                        </li>
-                                                    </ol>
-                                                </li>
-                                            </ol>
+                                                                    <label
+                                                                        title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_seat_fare }}"
+                                                                        *ngIf="col.seat_class_id == 3 "
+                                                                        class="mobile-vertical-sleeper-blue mobile-fixsize"
+                                                                        for="lower_mo{{col.id}}"><span
+                                                                            class="mobile-sleeper-text">{{ col.seatText
+                                                                            }}</span></label>
+                                                                </div>
+                                                            </li>
+                                                        </ol>
+                                                    </li>
+                                                </ol>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="layout2"
-                                        *ngIf="mobileBerthTab === 'upper' && busId==bus.busId && UpperberthMobileArr.length">
-                                        <h2 class="driver-sleeper">UPPER BERTH</h2>
-                                        <div class="layout-bg">
-                                            <ol class="cabin fuselage">
-                                                <li class="row"
-                                                    *ngFor="let UberthRecords of UpperberthMobileArr; let r = index">
-                                                    <ol class="mobile-sleepers" type="B">
-                                                        <div class="driver-sleeper-img"> <img
-                                                                src="assets/img/vehicle-steering-wheel.svg">
-                                                        </div>
-                                                        <li class="mobile-sleeper"
-                                                            *ngFor="let col of UberthRecords; let c = index">
-                                                            <div *ngIf="col.seat_class_id == 4 || col.seatText=='' ">
-                                                                <label class="hide"></label>
+                                        <div class="layout2"
+                                            *ngIf="mobileBerthTab === 'upper' && busId==bus.busId && UpperberthMobileArr.length">
+                                            <h2 class="driver-sleeper">UPPER BERTH</h2>
+                                            <div class="layout-bg">
+                                                <ol class="cabin fuselage">
+                                                    <li class="row"
+                                                        *ngFor="let UberthRecords of UpperberthMobileArr; let r = index">
+                                                        <ol class="mobile-sleepers" type="B">
+                                                            <div class="driver-sleeper-img"> <img
+                                                                    src="assets/img/vehicle-steering-wheel.svg">
                                                             </div>
-                                                            <div *ngIf="col.seat_class_id != 4  && col.seatText!=''">
-                                                                <input type="checkbox" disabled />
+                                                            <li class="mobile-sleeper"
+                                                                *ngFor="let col of UberthRecords; let c = index">
+                                                                <div
+                                                                    *ngIf="col.seat_class_id == 4 || col.seatText=='' ">
+                                                                    <label class="hide"></label>
+                                                                </div>
+                                                                <div
+                                                                    *ngIf="col.seat_class_id != 4  && col.seatText!=''">
+                                                                    <input type="checkbox" disabled />
 
-                                                                <label class="mobile-sleeper-gray"
-                                                                    *ngIf="col.seat_class_id == 1 && !col.bus_seats && !col.Gender"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-sleeper-green"
-                                                                    *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='M'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-sleeper-purpel"
-                                                                    *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='F'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-gray"
+                                                                        *ngIf="col.seat_class_id == 1 && !col.bus_seats && !col.Gender"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-green"
+                                                                        *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='M'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-purpel"
+                                                                        *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='F'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
 
-                                                                <label class="mobile-sleeper-gray"
-                                                                    *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='O'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-gray"
+                                                                        *ngIf="col.seat_class_id == 1 && col.Gender && col.Gender=='O'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
 
-                                                                <label class="mobile-sleeper-gray"
-                                                                    *ngIf="col.seat_class_id == 2 && !col.bus_seats && !col.Gender"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-sleeper-green"
-                                                                    *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender =='M'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-sleeper-purpel"
-                                                                    *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender =='F'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-sleeper-gray"
-                                                                    *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender =='O'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-gray"
+                                                                        *ngIf="col.seat_class_id == 2 && !col.bus_seats && !col.Gender"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-green"
+                                                                        *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender =='M'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-purpel"
+                                                                        *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender =='F'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label class="mobile-sleeper-gray"
+                                                                        *ngIf="col.seat_class_id == 2 && col.Gender && col.Gender =='O'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
 
-                                                                <label class="mobile-vertical-sleeper-gray"
-                                                                    *ngIf="col.seat_class_id == 3 && !col.bus_seats && !col.Gender"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-vertical-sleeper-green"
-                                                                    *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='M'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                                <label class="mobile-vertical-sleeper-purpel"
-                                                                    *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='F'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
+                                                                    <label class="mobile-vertical-sleeper-gray"
+                                                                        *ngIf="col.seat_class_id == 3 && !col.bus_seats && !col.Gender"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label class="mobile-vertical-sleeper-green"
+                                                                        *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='M'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                    <label class="mobile-vertical-sleeper-purpel"
+                                                                        *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='F'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
 
-                                                                <label class="mobile-vertical-sleeper-gray"
-                                                                    *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='O'"><span class="mobile-sleeper-text">{{
-                                                                    col.seatText }}</span></label>
-                                                            </div>
-                                                            <div *ngIf="col.bus_seats">
-                                                                <input type="checkbox" id="upper_mo{{col.id}}"
-                                                                    [value]="col.id+'-'+col.seatText"
-                                                                    (change)="updateUpperberth($event)" />
-                                                                <label
-                                                                    title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_sleeper_fare }}"
-                                                                    *ngIf="col.seat_class_id == 2 "
-                                                                    class="mobile-sleeper-blue"
-                                                                    for="upper_mo{{col.id}}"><span class="mobile-sleeper-text">{{ col.seatText }}</span></label>
+                                                                    <label class="mobile-vertical-sleeper-gray"
+                                                                        *ngIf="col.seat_class_id == 3 && col.Gender && col.Gender=='O'"><span
+                                                                            class="mobile-sleeper-text">{{
+                                                                            col.seatText }}</span></label>
+                                                                </div>
+                                                                <div *ngIf="col.bus_seats">
+                                                                    <input type="checkbox" id="upper_mo{{col.id}}"
+                                                                        [value]="col.id+'-'+col.seatText"
+                                                                        (change)="updateUpperberth($event)" />
+                                                                    <label
+                                                                        title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_sleeper_fare }}"
+                                                                        *ngIf="col.seat_class_id == 2 "
+                                                                        class="mobile-sleeper-blue"
+                                                                        for="upper_mo{{col.id}}"><span
+                                                                            class="mobile-sleeper-text">{{ col.seatText
+                                                                            }}</span></label>
 
-                                                                <label
-                                                                    title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_sleeper_fare }}"
-                                                                    *ngIf="col.seat_class_id == 1 "
-                                                                    class="mobile-seat-blue"
-                                                                    for="upper_mo{{col.id}}"><span class="mobile-sleeper-text">{{ col.seatText }}</span></label>
+                                                                    <label
+                                                                        title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_sleeper_fare }}"
+                                                                        *ngIf="col.seat_class_id == 1 "
+                                                                        class="mobile-seat-blue"
+                                                                        for="upper_mo{{col.id}}"><span
+                                                                            class="mobile-sleeper-text">{{ col.seatText
+                                                                            }}</span></label>
 
-                                                                <label
-                                                                    title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_sleeper_fare }}"
-                                                                    *ngIf="col.seat_class_id == 3 "
-                                                                    class="mobile-vertical-sleeper-blue"
-                                                                    for="upper_mo{{col.id}}"><span class="mobile-sleeper-text">{{ col.seatText }}</span></label>
-                                                            </div>
-                                                        </li>
-                                                    </ol>
-                                                </li>
-                                            </ol>
+                                                                    <label
+                                                                        title="{{ (col.bus_seats.new_fare > 0 ) ? col.bus_seats.new_fare : col.bus_seats.ticket_price.base_sleeper_fare }}"
+                                                                        *ngIf="col.seat_class_id == 3 "
+                                                                        class="mobile-vertical-sleeper-blue"
+                                                                        for="upper_mo{{col.id}}"><span
+                                                                            class="mobile-sleeper-text">{{ col.seatText
+                                                                            }}</span></label>
+                                                                </div>
+                                                            </li>
+                                                        </ol>
+                                                    </li>
+                                                </ol>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="mob-layout-bottom mob-layout-bottom-fixed"
-                                *ngIf="selectedUB.length>0 || selectedLB.length>0">
-                                <div class="row m-0">
-                                    <div class="col-6 pl-3 pr-1 mob-seat-no">
-                                        <b>Seats: </b><span *ngIf="selectedUB.length>0">{{ selectedUB }}</span>
-                                        <span *ngIf="selectedUB.length>0 && selectedLB.length>0">,</span>
-                                        <span *ngIf="selectedLB.length>0">{{ selectedLB }}</span>
-                                        <div class="mobile-seat-fare" *ngIf="PriceArray.odbus_charges_ownerFare">
-                                            <label>₹<span>{{ PriceArray.odbus_charges_ownerFare }}</span></label>
+                                <div class="mob-layout-bottom mob-layout-bottom-fixed"
+                                    *ngIf="selectedUB.length>0 || selectedLB.length>0">
+                                    <div class="row m-0">
+                                        <div class="col-6 pl-3 pr-1 mob-seat-no">
+                                            <b>Seats: </b><span *ngIf="selectedUB.length>0">{{ selectedUB }}</span>
+                                            <span *ngIf="selectedUB.length>0 && selectedLB.length>0">,</span>
+                                            <span *ngIf="selectedLB.length>0">{{ selectedLB }}</span>
+                                            <div class="mobile-seat-fare" *ngIf="PriceArray.odbus_charges_ownerFare">
+                                                <label>₹<span>{{ PriceArray.odbus_charges_ownerFare }}</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 pl-0 pr-0 mob-seat-con"
+                                            (click)="continueMobileBooking('boarding')">
+                                            Continue
                                         </div>
                                     </div>
-                                    <div class="col-6 pl-0 pr-0 mob-seat-con"
-                                        (click)="continueMobileBooking('boarding')">
-                                        Continue
-                                    </div>
                                 </div>
-                            </div>
                             </div>
 
                             <div *ngIf="mobileBookingStep === 'boarding'" class="mobile-booking-stage">
@@ -1560,17 +1605,18 @@
                                     </div>
                                 </div>
                                 <div class="mob-board-middle shadow">
-                                    <ul class="mobile-menu">
+                                    <ul class="mobile-menu-select">
                                         <li *ngFor="let bp of boardingPointArr; let bpIndex=index;">
-                                            <input type="radio" id="boardingPoint{{bpIndex}}" formControlName="boardingPoint"
-                                                [value]="bp">
+                                            <input type="radio" id="boardingPoint{{bpIndex}}"
+                                                formControlName="boardingPoint" [value]="bp">
                                             <label for="boardingPoint{{bpIndex}}">{{ bp.boardTime }}</label>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="mob-layout-bottom">
                                     <div class="row m-0">
-                                        <div class="col-6 pl-3 pr-1 brlb15 mob-seat-no" (click)="backMobileBooking('seat')">
+                                        <div class="col-6 pl-3 pr-1 brlb15 mob-seat-no"
+                                            (click)="backMobileBooking('seat')">
                                             Back
                                         </div>
                                         <div class="col-6 pl-0 pr-0 brrb15 mob-seat-con"
@@ -1590,10 +1636,10 @@
                                     </div>
                                 </div>
                                 <div class="mob-board-middle shadow">
-                                    <ul class="mobile-menu">
+                                    <ul class="mobile-menu-select">
                                         <li *ngFor="let dp of droppingPointArr; let dpIndex=index;">
-                                            <input type="radio" id="droppingPoint{{dpIndex}}" formControlName="droppingPoint"
-                                                [value]="dp">
+                                            <input type="radio" id="droppingPoint{{dpIndex}}"
+                                                formControlName="droppingPoint" [value]="dp">
                                             <label for="droppingPoint{{dpIndex}}">{{ dp.dropTime }}</label>
                                         </li>
                                     </ul>
@@ -1608,6 +1654,59 @@
                                             <button class="mob-seat-con2 brrb15" type="submit">Continue</button>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <div class="mobile-only-form">
+                                <div *ngIf="mobileBookingStep === 'passenger'" class="mobile-booking-stage">
+
+                                    <!-- CONTACT INFO -->
+                                    <div class="mob-form-card">
+                                        <h5 class="mob-title">Contact Information</h5>
+
+                                        <input type="text" formControlName="name" placeholder="Full Name"
+                                            class="mob-input">
+                                        <input type="email" formControlName="email" placeholder="Email"
+                                            class="mob-input">
+                                        <input type="tel" formControlName="mobile" placeholder="Mobile Number"
+                                            class="mob-input">
+                                    </div>
+
+                                    <!-- PASSENGER INFO -->
+                                    <div class="mob-form-card">
+                                        <div class="mob-passenger-head">
+                                            <span>Passenger-1</span>
+                                            <span>Seat No - {{selectedLB || selectedUB}}</span>
+                                        </div>
+
+                                        <input type="text" formControlName="passengerName" placeholder="Passenger Name"
+                                            class="mob-input">
+
+                                        <div class="mob-gender">
+                                            <label>
+                                                <input type="radio" value="M" formControlName="gender"> Male
+                                            </label>
+                                            <label>
+                                                <input type="radio" value="F" formControlName="gender"> Female
+                                            </label>
+                                        </div>
+
+                                        <input type="number" formControlName="age" placeholder="Passenger Age"
+                                            class="mob-input">
+                                    </div>
+
+                                    <!-- BUTTON -->
+                                    <div class="mob-layout-bottom">
+                                        <div class="row m-0">
+                                            <div class="col-6 mob-seat-no" (click)="backMobileBooking('dropping')">
+                                                Back
+                                            </div>
+                                            <div class="col-6">
+                                                <button class="mob-seat-con2" type="submit">Continue</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
