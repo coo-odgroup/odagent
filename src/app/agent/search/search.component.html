@@ -333,12 +333,10 @@
                                                         <ul class="bs-srch-dt-dtl">
                                                             <li class="p-2 flex-fill tx-left">
                                                                 <h4>{{ bus.busName }} <br>
-                                                                    <span *ngIf="bus.busNumber!=''">({{ bus.busNumber
-                                                                        }})</span>
+                                                                    <span *ngIf="bus.busNumber!=''">({{ bus.busNumber }})</span>
                                                                 </h4>
-                                                                <p class="bus-type"><span>{{ bus.bus_description
-                                                                        }}</span>&nbsp; <span>{{ bus.sittingType
-                                                                        }}</span></p>
+                                                                <p class="bus-type"><span>{{ bus.bus_description }}</span>&nbsp; <span>{{ bus.sittingType }}</span></p>
+                                                                <p class="bus-via" *ngIf="bus.via">Via: {{ bus.via }}</p>
                                                             </li>
                                                             <li class="p-2 flex-fill">
                                                                 <div class="search-result-bus-box-inner-box">
@@ -385,14 +383,14 @@
                                                             <li class="p-2 flex-fill">
 
                                                                 <a class="vw-sit sold_out" disabled
-                                                                    *ngIf="bus.display == 'hide'"
+                                                                    *ngIf="isTimeExceeded(bus)"
                                                                     style="font-size: 10px;">TIME EXCEEDED</a>
                                                                 <a class="vw-sit cursor showbtn" id="showbtn{{i}}"
                                                                     (click)="ShowLayout(i)"
-                                                                    *ngIf="bus.totalSeats > 0 && bus.display  == 'show'">View
+                                                                    *ngIf="bus.totalSeats > 0 && !isTimeExceeded(bus)">View
                                                                     Seat</a>
                                                                 <a class="vw-sit sold_out" disabled
-                                                                    *ngIf="bus.totalSeats == 0 && bus.display  == 'show'">SOLD
+                                                                    *ngIf="bus.totalSeats == 0 && !isTimeExceeded(bus)">SOLD
                                                                     OUT</a>
 
 
@@ -1257,9 +1255,16 @@
                     <div class="bus-name">
                         {{ bus.busName }}
                     </div>
+                    <div class="bus-number" *ngIf="bus.busNumber">
+                        {{ bus.busNumber }}
+                    </div>
 
                     <div class="bus-type">
                         {{ bus.bus_description }}
+                    </div>
+
+                    <div class="bus-via" *ngIf="bus.via">
+                        Via: {{ bus.via }}
                     </div>
 
                     <!-- TIME -->
@@ -1654,59 +1659,6 @@
                                             <button class="mob-seat-con2 brrb15" type="submit">Continue</button>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <div class="mobile-only-form">
-                                <div *ngIf="mobileBookingStep === 'passenger'" class="mobile-booking-stage">
-
-                                    <!-- CONTACT INFO -->
-                                    <div class="mob-form-card">
-                                        <h5 class="mob-title">Contact Information</h5>
-
-                                        <input type="text" formControlName="name" placeholder="Full Name"
-                                            class="mob-input">
-                                        <input type="email" formControlName="email" placeholder="Email"
-                                            class="mob-input">
-                                        <input type="tel" formControlName="mobile" placeholder="Mobile Number"
-                                            class="mob-input">
-                                    </div>
-
-                                    <!-- PASSENGER INFO -->
-                                    <div class="mob-form-card">
-                                        <div class="mob-passenger-head">
-                                            <span>Passenger-1</span>
-                                            <span>Seat No - {{selectedLB || selectedUB}}</span>
-                                        </div>
-
-                                        <input type="text" formControlName="passengerName" placeholder="Passenger Name"
-                                            class="mob-input">
-
-                                        <div class="mob-gender">
-                                            <label>
-                                                <input type="radio" value="M" formControlName="gender"> Male
-                                            </label>
-                                            <label>
-                                                <input type="radio" value="F" formControlName="gender"> Female
-                                            </label>
-                                        </div>
-
-                                        <input type="number" formControlName="age" placeholder="Passenger Age"
-                                            class="mob-input">
-                                    </div>
-
-                                    <!-- BUTTON -->
-                                    <div class="mob-layout-bottom">
-                                        <div class="row m-0">
-                                            <div class="col-6 mob-seat-no" (click)="backMobileBooking('dropping')">
-                                                Back
-                                            </div>
-                                            <div class="col-6">
-                                                <button class="mob-seat-con2" type="submit">Continue</button>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 </div>
                             </div>
                         </div>

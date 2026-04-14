@@ -156,7 +156,7 @@ export class SearchComponent implements ControlValueAccessor {
 
   seatlayoutShow: any = '';
   mobileBerthTab: 'lower' | 'upper' = 'lower';
-  mobileBookingStep: 'seat' | 'boarding' | 'dropping' | 'passenger' = 'seat';
+  mobileBookingStep: 'seat' | 'boarding' | 'dropping' = 'seat';
   safetyshow: any = '';
   busPhotoshow: any = '';
   reviewShow: any = '';
@@ -1749,18 +1749,38 @@ export class SearchComponent implements ControlValueAccessor {
 
     if (!this.entdate || !bus.departureTime) return false;
 
-    const now = new Date();
-
-    let dt = this.entdate.split("-");
-    let journeyDate = new Date(dt[2], dt[1] - 1, dt[0]);
-
-    const [hour, minute] = bus.departureTime.split(':');
-
-    journeyDate.setHours(+hour);
-    journeyDate.setMinutes(+minute);
-    journeyDate.setSeconds(0);
-
-    return journeyDate < now;
+    try {
+      const now = new Date();
+      
+      // Parse date in DD-MM-YYYY format
+      let dt = this.entdate.split("-");
+      if (dt.length !== 3) return false;
+      
+      const day = parseInt(dt[0], 10);
+      const month = parseInt(dt[1], 10);
+      const year = parseInt(dt[2], 10);
+      
+      // Create journey date (month is 0-indexed in JavaScript)
+      let journeyDate = new Date(year, month - 1, day);
+      
+      // Parse departure time in HH:MM format
+      const timeparts = bus.departureTime.split(':');
+      if (timeparts.length < 2) return false;
+      
+      const hour = parseInt(timeparts[0], 10);
+      const minute = parseInt(timeparts[1], 10);
+      
+      journeyDate.setHours(hour);
+      journeyDate.setMinutes(minute);
+      journeyDate.setSeconds(0);
+      journeyDate.setMilliseconds(0);
+      
+      // Compare current time with journey time
+      return journeyDate < now;
+    } catch (error) {
+      console.error('Error in isTimeExceeded:', error);
+      return false;
+    }
   }
   myDate: any = new Date();
   sourceData: any;

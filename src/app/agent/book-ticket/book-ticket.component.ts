@@ -667,4 +667,12 @@ get_seatno(seat_id:any){
     return this.tabclick;
   }
 
+  goBack() {
+    this.router.navigate(['agent/booking']);
+  }
+
+  goBackStep() {
+    this.ngWizardService.previous();
+  }
+
 }
