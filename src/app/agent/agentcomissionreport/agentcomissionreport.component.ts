@@ -247,6 +247,53 @@ isInside(date: NgbDate) {
 
 isRange(date: NgbDate) {
   return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
-} 
+}
 
+// Pagination helper methods for commission
+isPageVisibleCommission(label: any): boolean {
+  if (label === '&laquo;' || label === '&raquo;') {
+    return false;
+  }
+  
+  if (label === '1' || label === '2' || label === '3') {
+    return true;
+  }
+  
+  if (this.completedata?.data && parseInt(label) === this.completedata.data.current_page && parseInt(label) > 3) {
+    return true;
+  }
+  
+  return false;
+}
+
+getPageLabelCommission(label: any): string {
+  if (label === '&laquo;' || label === '&raquo;') {
+    return '';
+  }
+  return label;
+}
+
+onFirstPageCommission() {
+  if (this.completedata?.data && this.completedata.data.current_page !== 1 && this.completedata.data.links.first_page_url) {
+    this.search(this.completedata.data.links.first_page_url);
+  }
+}
+
+onPreviousPageCommission() {
+  if (this.completedata?.data && this.completedata.data.prev_page_url) {
+    this.search(this.completedata.data.prev_page_url);
+  }
+}
+
+onNextPageCommission() {
+  if (this.completedata?.data && this.completedata.data.next_page_url) {
+    this.search(this.completedata.data.next_page_url);
+  }
+}
+
+onLastPageCommission() {
+  if (this.completedata?.data && this.completedata.data.current_page !== this.completedata.data.last_page && this.completedata.data.links.last_page_url) {
+    this.search(this.completedata.data.links.last_page_url);
+  }
+}
 }

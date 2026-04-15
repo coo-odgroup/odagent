@@ -163,5 +163,59 @@ export class NotificationComponent implements OnInit {
     return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
   }
 
+  // Pagination helper methods
+  isPageVisible(label: any): boolean {
+    // Show First, Previous, Next, Last indicators (these are not numeric)
+    if (label === '&laquo;' || label === '&raquo;') {
+      return false; // Hide arrow indicators
+    }
+    
+    // Show pages 1, 2, 3
+    if (label === '1' || label === '2' || label === '3') {
+      return true;
+    }
+    
+    // Show current page if it's higher than 3
+    if (parseInt(label) === this.pagination.current_page && parseInt(label) > 3) {
+      return true;
+    }
+    
+    return false;
+  }
+
+  getPageLabel(label: any): string {
+    // Return clean page numbers without arrow HTML entities
+    if (label === '&laquo;' || label === '&raquo;') {
+      return '';
+    }
+    return label;
+  }
+
+  // Pagination button click handlers
+  onFirstPage() {
+    if (this.pagination.current_page !== 1 && this.pagination.links.first_page_url) {
+      this.search(this.pagination.links.first_page_url);
+    }
+  }
+
+  onPreviousPage() {
+    if (this.pagination.links.prev_page_url) {
+      this.search(this.pagination.links.prev_page_url);
+    }
+  }
+
+  onNextPage() {
+    if (this.pagination.links.next_page_url) {
+      this.search(this.pagination.links.next_page_url);
+    }
+  }
+
+  onLastPage() {
+    if (this.pagination.current_page !== this.pagination.links.last_page && this.pagination.links.last_page_url) {
+      this.search(this.pagination.links.last_page_url);
+    }
+  }
 
 }
+
+

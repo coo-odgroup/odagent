@@ -291,42 +291,40 @@
                     <tbody>
                 </table>
                 <div *ngIf="completedata?.data.data?.length != 0">
-                    <div class="d-flex flex-row-reverse mb-4 text-center" *ngIf="completedata?.data.links">
-                        <nav class="my-1 pt-4">
-                            <ul class="pagination pagination-circle pg-blue mb-0 hide_print">
+                    <div class="pagination-wrapper" *ngIf="completedata?.data.links">
+                        <nav class="pagination-nav">
+                            <ul class="pagination pagination-sm mb-0 hide_print">
 
-                                <!-- First -->
-                                <li class="page-item" [class.disabled]="completedata.data.current_page == 1"
-                                    (click)="search(completedata.data.links.first_page_url,statusLabel)">
-                                    <a class="page-link">First</a>
+                                <!-- First Button -->
+                                <li class="page-item" [class.disabled]="completedata.data.current_page == 1">
+                                    <a class="page-link" (click)="onFirstPageCommission()">First</a>
                                 </li>
 
-                                <!-- Prev -->
-                                <li class="page-item" [class.disabled]="completedata.data.current_page == 1"
-                                    (click)="search(completedata.data.prev_page_url,statusLabel)">
-                                    <a class="page-link">Prev</a>
+                                <!-- Previous Button -->
+                                <li class="page-item" [class.disabled]="!completedata.data.prev_page_url">
+                                    <a class="page-link" (click)="onPreviousPageCommission()">Prev</a>
                                 </li>
 
                                 <!-- Page Numbers -->
-                                <li class="page-item" *ngFor="let b of completedata.data.links | slice:1:4">
+                                <li class="page-item" *ngFor="let b of completedata.data.links; let i = index"
+                                    [class.d-none]="!isPageVisibleCommission(b.label)">
 
                                     <a class="page-link" [class.active]="completedata.data.current_page == b.label"
-                                        (click)="b.url ? search(b.url) : ''" [innerHTML]="page(b.label)">
+                                        (click)="b.url ? search(b.url) : ''">
+                                        {{ getPageLabelCommission(b.label) }}
                                     </a>
 
                                 </li>
 
-                                <!-- Next -->
-                                <li class="page-item" [class.disabled]="!completedata.data.next_page_url"
-                                    (click)="search(completedata.data.next_page_url,statusLabel)">
-                                    <a class="page-link">Next</a>
+                                <!-- Next Button -->
+                                <li class="page-item" [class.disabled]="!completedata.data.next_page_url">
+                                    <a class="page-link" (click)="onNextPageCommission()">Next</a>
                                 </li>
 
-                                <!-- Last -->
+                                <!-- Last Button -->
                                 <li class="page-item"
-                                    [class.disabled]="completedata.data.current_page == completedata.data.last_page"
-                                    (click)="search(completedata.data.links.last_page_url,statusLabel)">
-                                    <a class="page-link">Last</a>
+                                    [class.disabled]="completedata.data.current_page == completedata.data.last_page">
+                                    <a class="page-link" (click)="onLastPageCommission()">Last</a>
                                 </li>
 
                             </ul>

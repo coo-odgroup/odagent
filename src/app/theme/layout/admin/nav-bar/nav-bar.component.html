@@ -17,7 +17,7 @@
     <app-nav-right class="ml-auto"></app-nav-right>
   </div>
 
-  <!-- Bottom Nav Bar) -->
+  <!-- Bottom Nav Bar -->
   <div class="mobile-bottom-nav d-md-none">
 
     <div class="nav-item" (click)="goTo('/book-ticket')">
@@ -35,10 +35,51 @@
       <span>Complete Report</span>
     </div>
 
-    <div class="nav-item" (click)="logout()">
-      <i class="fa fa-sign-out"></i>
-      <span>Logout</span>
+    <!-- ✅ MENU BUTTON -->
+    <div class="nav-item" (click)="toggleStaticMenu()">
+      <i class="fa fa-bars"></i>
+      <span>Menu</span>
     </div>
 
+  </div>
+
+  <!-- ✅ FULL SCREEN MENU -->
+  <div class="static-menu" [class.show]="isStaticMenuOpen">
+
+    <div class="static-overlay" (click)="toggleStaticMenu()"></div>
+
+    <div class="static-menu-box">
+
+      <!-- HEADER -->
+      <div class="menu-header">
+        <h3>Menu</h3>
+        <span (click)="toggleStaticMenu()">✕</span>
+      </div>
+
+      <!-- MENU LIST -->
+      <ul>
+
+        <li><i class="fa fa-home mr-2"></i> Dashboard</li>
+        <li><i class="fa fa-ticket mr-2"></i> Book Ticket</li>
+        <li><i class="fa fa-user mr-2"></i> Agent Profile</li>
+        <li><i class="fa fa-bell mr-2"></i> Notification</li>
+        <li><i class="fa fa-wallet mr-2"></i> Wallet Request</li>
+        <li><i class="fa fa-percent mr-2"></i> Commission Slab</li>
+
+        <li class="dropdown" (click)="toggleReport()">
+          <span><i class="fa fa-file mr-2"></i> Reports</span>
+          <i class="fa" [ngClass]="isReportOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+        </li>
+
+        <ul class="sub-menu" [class.open]="isReportOpen">
+          <li>All Transaction Report</li>
+          <li>Cancellation Report</li>
+          <li>Complete Report</li>
+          <li class="active">Commission Report</li>
+        </ul>
+
+      </ul>
+
+    </div>
   </div>
 </ng-template>

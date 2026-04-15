@@ -190,8 +190,52 @@ export class AgentticketcancellationreportComponent implements OnInit {
     }
   }
 
+  // Pagination helper methods for cancel tickets
+  isPageVisibleCancel(label: any): boolean {
+    if (label === '&laquo;' || label === '&raquo;') {
+      return false;
+    }
+    
+    if (label === '1' || label === '2' || label === '3') {
+      return true;
+    }
+    
+    if (this.cancelticketdata?.data && parseInt(label) === this.cancelticketdata.data.current_page && parseInt(label) > 3) {
+      return true;
+    }
+    
+    return false;
+  }
 
-  
+  getPageLabelCancel(label: any): string {
+    if (label === '&laquo;' || label === '&raquo;') {
+      return '';
+    }
+    return label;
+  }
 
+  onFirstPageCancel() {
+    if (this.cancelticketdata?.data && this.cancelticketdata.data.current_page !== 1 && this.cancelticketdata.data.links.first_page_url) {
+      this.search(this.cancelticketdata.data.links.first_page_url);
+    }
+  }
+
+  onPreviousPageCancel() {
+    if (this.cancelticketdata?.data && this.cancelticketdata.data.prev_page_url) {
+      this.search(this.cancelticketdata.data.prev_page_url);
+    }
+  }
+
+  onNextPageCancel() {
+    if (this.cancelticketdata?.data && this.cancelticketdata.data.next_page_url) {
+      this.search(this.cancelticketdata.data.next_page_url);
+    }
+  }
+
+  onLastPageCancel() {
+    if (this.cancelticketdata?.data && this.cancelticketdata.data.current_page !== this.cancelticketdata.data.last_page && this.cancelticketdata.data.links.last_page_url) {
+      this.search(this.cancelticketdata.data.links.last_page_url);
+    }
+  }
 
 }

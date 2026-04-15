@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {NextConfig} from '../../../../app-config';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { NextConfig } from '../../../../app-config';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,10 +7,14 @@ import {NextConfig} from '../../../../app-config';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent implements OnInit {
+
   public flatConfig: any;
   public menuClass: boolean;
   public collapseStyle: string;
   public windowWidth: number;
+
+  public isStaticMenuOpen: boolean = false;
+  public isReportOpen: boolean = false;
 
   @Output() onNavCollapse = new EventEmitter();
   @Output() onNavHeaderMobCollapse = new EventEmitter();
@@ -26,7 +30,7 @@ export class NavBarComponent implements OnInit {
 
   toggleMobOption() {
     this.menuClass = !this.menuClass;
-    this.collapseStyle = (this.menuClass) ? 'block' : 'none';
+    this.collapseStyle = this.menuClass ? 'block' : 'none';
   }
 
   navCollapse() {
@@ -37,4 +41,11 @@ export class NavBarComponent implements OnInit {
     }
   }
 
+  toggleStaticMenu() {
+    this.isStaticMenuOpen = !this.isStaticMenuOpen;
+  }
+
+  toggleReport() {
+    this.isReportOpen = !this.isReportOpen;
+  }
 }

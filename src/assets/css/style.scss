@@ -375,6 +375,10 @@ a.active.page-link {
 
 // added by Siraz
 
+mob-toggler, .mobile-menu {
+    display: none;
+}
+
 @media (max-width: 768px) {
 
   .mobile-bottom-nav {
@@ -412,6 +416,11 @@ a.active.page-link {
 
   .collapse.navbar-collapse.ng-star-inserted{
     display: block !important;
+  }
+
+
+  .pcoded-header .m-header{
+    justify-content: normal !important;
   }
 
 }

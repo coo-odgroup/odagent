@@ -464,4 +464,53 @@ export class AgentcompletereportComponent implements OnInit {
   //   this.singleRecord=this.completedata.data.data[i];
   //   console.log(this.singleRecord);
   // }
+
+  // Pagination helper methods for complete report
+  isPageVisibleComplete(label: any): boolean {
+    if (label === '&laquo;' || label === '&raquo;') {
+      return false;
+    }
+    
+    if (label === '1' || label === '2' || label === '3') {
+      return true;
+    }
+    
+    if (this.completedata?.data && parseInt(label) === this.completedata.data.current_page && parseInt(label) > 3) {
+      return true;
+    }
+    
+    return false;
+  }
+
+  getPageLabelComplete(label: any): string {
+    if (label === '&laquo;' || label === '&raquo;') {
+      return '';
+    }
+    return label;
+  }
+
+  onFirstPageComplete() {
+    if (this.completedata?.data && this.completedata.data.current_page !== 1 && this.completedata.data.links.first_page_url) {
+      this.search(this.completedata.data.links.first_page_url);
+    }
+  }
+
+  onPreviousPageComplete() {
+    if (this.completedata?.data && this.completedata.data.prev_page_url) {
+      this.search(this.completedata.data.prev_page_url);
+    }
+  }
+
+  onNextPageComplete() {
+    if (this.completedata?.data && this.completedata.data.next_page_url) {
+      this.search(this.completedata.data.next_page_url);
+    }
+  }
+
+  onLastPageComplete() {
+    if (this.completedata?.data && this.completedata.data.current_page !== this.completedata.data.last_page && this.completedata.data.links.last_page_url) {
+      this.search(this.completedata.data.links.last_page_url);
+    }
+  }
+
 }

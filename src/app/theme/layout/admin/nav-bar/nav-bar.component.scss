@@ -3,3 +3,145 @@
     transition: all 0.3s ease;
   }
 }
+
+
+/* WRAPPER */
+.static-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 99999;
+}
+
+.static-menu.show {
+  display: block;
+}
+
+/* OVERLAY */
+.static-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* ✅ RIGHT SIDE PANEL */
+.static-menu-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  /* 🔥 moved to RIGHT */
+  width: 85%;
+  max-width: 350px;
+  height: 100%;
+  background: #0a1f44;
+  color: #fff;
+  padding: 20px;
+  overflow-y: auto;
+  animation: slideRight 0.3s ease;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+
+/* HEADER */
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.menu-header h3 {
+  margin: 0;
+  font-size: 20px;
+  color: #fff;
+}
+
+.menu-header span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #f0c92f;
+  color: #1b2155;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* LIST */
+.static-menu-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* ✅ BOX STYLE ITEMS */
+.static-menu-box ul li {
+  padding: 14px 15px;
+  font-size: 15px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.05);
+  transition: 0.3s;
+}
+
+.static-menu-box ul li:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateX(-3px);
+}
+
+/* DROPDOWN */
+.dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+/* SUB MENU */
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.3s ease;
+  padding-left: 5px;
+}
+
+.sub-menu.open {
+  max-height: 300px;
+}
+
+.sub-menu li {
+  font-size: 14px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* ACTIVE */
+.active {
+  color: #1b2155;
+  border: 1px solid #f8ff34;
+  background: white !important;
+}
+
+/* ANIMATION RIGHT */
+@keyframes slideRight {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* MOBILE ONLY */
+@media (min-width: 768px) {
+  .static-menu {
+    display: none !important;
+  }
+}
