@@ -1,0 +1,196 @@
+/* =========================
+   MOBILE FIX ONLY
+========================= */
+
+@media only screen and (max-width: 768px) {
+
+    /* Modal */
+    .modal-dialog {
+        margin: 10px !important;
+        max-width: calc(100% - 20px);
+    }
+
+    .modal-body {
+        padding: 10px !important;
+    }
+
+    /* Card */
+    app-card .card {
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    .card .card-header h5 {
+        font-size: 18px !important;
+        line-height: 24px !important;
+    }
+
+    /* Tabs */
+    .nav-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        white-space: nowrap;
+        scrollbar-width: none;
+    }
+
+    .nav-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-tabs .nav-item {
+        flex: 0 0 auto;
+    }
+
+    .nav-tabs .nav-link {
+        font-size: 13px !important;
+        padding: 10px 14px !important;
+    }
+
+    /* Form Rows */
+    .form-group.row {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 14px;
+    }
+
+    /* All Columns Full Width */
+    .col-md-3,
+    .col-md-4,
+    .col-md-5,
+    .col-md-6,
+    .col-md-12,
+    .col-sm-4,
+    .col-sm-8,
+    .col-sm-12 {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 0 0 100% !important;
+    }
+
+    /* Labels */
+    .col-form-label {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        padding-bottom: 2px;
+        display: flex;
+    }
+
+    .chng_password {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        // display: flex;
+        // padding: 0 10px;
+        width: 100%;
+        padding: 0 6px;
+        margin: 8px 0 18px;
+    }
+
+    /* Inputs */
+    .form-control {
+        height: 44px !important;
+        font-size: 14px !important;
+        border-radius: 10px !important;
+        padding: 10px 14px !important;
+    }
+
+    /* Checkbox section */
+    #pwd {
+        width: 16px;
+        height: 16px;
+        min-width: 18px;
+        margin-right: 5px !important;
+        transform: none !important;
+        position: relative;
+        top: 3.1px;
+    }
+
+    /* Password section */
+    // .col-md-5[*ngIf],
+    // .col-md-5 {
+    //     margin-top: 10px;
+    // }
+
+    /* Heading */
+    .heading_label h5 {
+        font-size: 17px;
+        font-weight: 700;
+        margin: 18px 0 10px;
+        color: #072c6b;
+    }
+
+    /* Buttons */
+    .btn-lg,
+    .btn-primary,
+    .btn-default {
+        width: 100%;
+        margin-bottom: 10px;
+        height: 46px;
+        border-radius: 10px !important;
+        font-size: 14px !important;
+    }
+
+    /* Personal details view */
+    ngb-tabset p {
+        font-size: 14px;
+        line-height: 24px;
+        margin-bottom: 10px;
+        word-break: break-word;
+    }
+
+    ngb-tabset p strong {
+        display: block;
+        margin-bottom: 2px;
+        color: #072c6b;
+    }
+
+    /* Spacing Fix */
+    .row {
+        margin-left: -6px !important;
+        margin-right: -6px !important;
+    }
+
+    .row>div {
+        padding-left: 6px !important;
+        padding-right: 6px !important;
+    }
+
+    /* Modal Header */
+    .modal-header {
+        padding: 14px 16px !important;
+    }
+
+    .modal-header h5 {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    /* Close button */
+    .modal-header .close {
+        font-size: 26px;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Error text */
+    .text-danger {
+        font-size: 12px;
+        line-height: 18px;
+        display: block;
+        margin-left: 3px;
+    }
+
+    /* Edit button top */
+    .text-right {
+        text-align: center !important;
+        margin-bottom: 12px;
+    }
+
+    .text-right .btn {
+        width: 100%;
+    }
+
+}
