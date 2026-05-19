@@ -1,6 +1,6 @@
 <ngx-spinner bdColor = "rgba(60,55,55,0.8)" size = "large" color = "#fff" type = "ball-clip-rotate-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
 
-<div class="row">
+<div class="row desktop-commission-wrapper d-none d-md-block">
     <div class="col-sm-12">
  
             <app-card [hidHeader]="false" cardTitle="Customer Commission Fee Slab" cardClass="card-datatable" [options]="false"
@@ -37,4 +37,102 @@
             </div>
         </app-card>
     </div>
+</div>
+
+<!-- mobile view -->
+
+<!-- MOBILE ONLY CUSTOMER COMMISSION DESIGN -->
+<div class="mobile-customer-commission-wrapper d-block d-md-none">
+
+    <!-- HEADER -->
+    <div class="customer-top-card">
+
+        <div>
+            <h2>Customer Commission Fee Slab</h2>
+            <p>Agent can put commission value that received from customer according to following fare while booking</p>
+        </div>
+
+        <!-- <div class="top-icon">
+            <i class="fas fa-coins"></i>
+        </div> -->
+
+    </div>
+
+    <!-- DATA -->
+    <div *ngIf="completedata?.length != 0">
+
+        <div class="customer-commission-card"
+             *ngFor="let complete of completedata; let i = index">
+
+            <!-- TOP -->
+            <div class="card-header-row">
+
+                <div class="slab-id">
+                    #{{ i + 1 }}
+                </div>
+
+                <div class="commission-amount">
+                    <h3>₹{{ complete.max_comission }}</h3>
+                    <span>Max Commission</span>
+                </div>
+
+            </div>
+
+            <!-- FARE RANGE -->
+            <div class="fare-range-section">
+
+                <div class="fare-icon">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+
+                <div class="fare-details">
+
+                    <label>Fare Range</label>
+
+                    <div class="fare-range-boxes">
+
+                        <div class="fare-box">
+                            <span>FROM</span>
+                            <h4>₹{{ complete.price_from }}</h4>
+                        </div>
+
+                        <div class="range-divider">
+                            TO
+                        </div>
+
+                        <div class="fare-box">
+                            <span>UPTO</span>
+                            <h4>₹{{ complete.price_to }}</h4>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- FOOTER -->
+            <div class="commission-note">
+
+                You can charge customer commission up to
+                <strong>₹{{ complete.max_comission }}</strong>
+                for this fare range
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- NO DATA -->
+    <div class="no-data-card" *ngIf="completedata?.length == 0">
+
+        <i class="fas fa-database"></i>
+
+        <h4>No Commission Data</h4>
+
+        <p>No customer commission slab available.</p>
+
+    </div>
+
 </div>

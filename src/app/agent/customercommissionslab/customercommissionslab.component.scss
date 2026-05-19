@@ -1,0 +1,284 @@
+/* =========================================
+   MOBILE CUSTOMER COMMISSION DESIGN
+========================================= */
+
+@media only screen and (max-width: 767px) {
+
+    .desktop-view {
+        display: none !important;
+    }
+
+    // .mobile-customer-commission-wrapper {
+    //     padding: 14px;
+    //     background: #f5f7ff;
+    // }
+
+    /* HEADER */
+
+    .customer-top-card {
+        background: linear-gradient(135deg, #083b8a, #0e63df);
+        border-radius: 28px;
+        padding: 22px 0;
+        display: flex;
+        align-items: center;
+        margin-bottom: 22px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        justify-content: center;
+    }
+
+    .customer-top-card h2 {
+        color: #fff;
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+
+    .customer-top-card p {
+        color: rgba(255, 255, 255, 0.88);
+        font-size: 14px;
+        line-height: 22px;
+        margin: 0;
+    }
+
+    .top-icon {
+        width: 58px;
+        height: 58px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.14);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .top-icon i {
+        color: #fff;
+        font-size: 24px;
+    }
+
+    /* CARD */
+
+    .customer-commission-card {
+        background: #fff;
+        border-radius: 30px;
+        padding: 20px;
+        margin-bottom: 22px;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid #edf0ff;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .customer-commission-card::before {
+        content: "";
+        position: absolute;
+        right: -50px;
+        top: -50px;
+        width: 140px;
+        height: 140px;
+        background: rgba(13, 86, 197, 0.05);
+        border-radius: 50%;
+    }
+
+    /* TOP */
+
+    .card-header-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 22px;
+    }
+
+    .slab-id {
+        background: #083b8a;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 50px;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .commission-amount {
+        text-align: right;
+    }
+
+    .commission-amount h3 {
+        margin: 0;
+        color: #083b8a;
+        font-size: 38px;
+        font-weight: 900;
+        line-height: 1;
+    }
+
+    .commission-amount span {
+        font-size: 13px;
+        color: #666;
+        font-weight: 600;
+    }
+
+    /* RANGE SECTION */
+
+    .fare-range-section {
+        // background: #f7f8fd;
+        // border-radius: 24px;
+        // padding: 18px;
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        margin-bottom: 18px;
+        justify-content: center;
+    }
+
+    .fare-icon {
+        width: 62px;
+        height: 62px;
+        min-width: 62px;
+        border-radius: 20px;
+        background: #083b8a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fare-icon i {
+        color: #fff;
+        font-size: 24px;
+    }
+
+    .fare-details {
+        width: 100%;
+    }
+
+    .fare-details label {
+        display: block;
+        margin-bottom: 8px;
+        color: #777;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .fare-range-boxes {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .fare-box {
+        background: #fff;
+        border-radius: 14px;
+        padding: 10px 14px;
+        min-width: 88px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .fare-box span {
+        display: block;
+        font-size: 11px;
+        color: #888;
+        margin-bottom: 3px;
+    }
+
+    .fare-box h4 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 800;
+        color: #111;
+    }
+
+    .range-divider {
+        font-size: 14px;
+        font-weight: 700;
+        color: #777;
+    }
+
+    /* FOOTER */
+
+    .commission-note {
+        background: #fff4d7;
+        color: #cc8b00;
+        border-radius: 16px;
+        padding: 14px;
+        text-align: center;
+        font-size: 13px;
+        line-height: 21px;
+        font-weight: 600;
+    }
+
+    .commission-note strong {
+        font-weight: 800;
+    }
+
+    /* NO DATA */
+
+    .no-data-card {
+        background: #fff;
+        border-radius: 26px;
+        padding: 40px 20px;
+        text-align: center;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .no-data-card i {
+        font-size: 42px;
+        color: #083b8a;
+        margin-bottom: 14px;
+    }
+
+    .no-data-card h4 {
+        font-size: 22px;
+        font-weight: 800;
+        margin-bottom: 6px;
+    }
+
+    .no-data-card p {
+        margin: 0;
+        color: #777;
+        font-size: 14px;
+    }
+
+}
+
+
+@media only screen and (max-width: 365px) {
+
+     .fare-details label {
+        font-size: 11px;
+    }
+
+     .fare-range-boxes {
+        gap: 6px;
+    }
+
+     .fare-box {
+        padding: 8px 10px;
+        min-width: 72px;
+    }
+
+     .fare-box span {
+        font-size: 8px;
+    }
+
+    .fare-box h4 {
+        font-size: 14px;
+    }
+
+    .fare-icon{
+        width: 40px;
+        height: 42px;
+        min-width: 55px;
+        border-radius: 15px;
+        background: #083b8a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .customer-top-card p{
+        font-size: 10px;
+    }
+
+    .customer-top-card h2{
+        font-size: 18px;
+    }
+}
