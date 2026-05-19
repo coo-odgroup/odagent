@@ -1,0 +1,202 @@
+/* =========================================
+   MOBILE ONLY COMMISSION DESIGN
+========================================= */
+
+@media only screen and (max-width: 767px) {
+
+    .desktop-view {
+        display: none !important;
+    }
+
+    // .mobile-commission-wrapper {
+    //     padding: 14px;
+    //     background: #f5f7ff;
+    // }
+
+    /* TOP HEADER */
+
+    .commission-top-card {
+        background: linear-gradient(135deg, #0b46a3, #135ed1);
+        border-radius: 15px;
+        padding: 22px 20px;
+        align-items: center;
+        margin-bottom: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        text-align: center;
+    }
+
+    .commission-top-card h2 {
+        color: #fff;
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 6px;
+    }
+
+    .commission-top-card p {
+        color: rgba(255, 255, 255, 0.88);
+        margin: 0;
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .info-badge {
+        width: 58px;
+        height: 58px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.15);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .info-badge i {
+        color: #fff;
+        font-size: 24px;
+    }
+
+    /* CARD */
+
+    .commission-card {
+        background: #fff;
+        border-radius: 30px;
+        padding: 20px;
+        margin-bottom: 22px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+        border: 1px solid #ebebff;
+    }
+
+    .commission-card::before {
+        content: "";
+        position: absolute;
+        right: -45px;
+        top: -45px;
+        width: 140px;
+        height: 140px;
+        background: rgba(13, 86, 197, 0.05);
+        border-radius: 50%;
+    }
+
+    /* TOP SECTION */
+
+    .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 22px;
+    }
+
+    .slab-number {
+        background: #083b8a;
+        color: #fff;
+        padding: 10px 18px;
+        border-radius: 50px;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .commission-price {
+        text-align: right;
+    }
+
+    .commission-price h3 {
+        margin: 0;
+        color: #083b8a;
+        font-size: 42px;
+        font-weight: 900;
+        line-height: 1;
+    }
+
+    .commission-price span {
+        font-size: 14px;
+        color: #666;
+        font-weight: 600;
+    }
+
+    /* INFO BOX */
+
+    .seat-range-box {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 18px;
+        justify-content: center;
+    }
+
+    .range-icon {
+        width: 62px;
+        height: 62px;
+        min-width: 62px;
+        border-radius: 20px;
+        background: #083b8a;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .range-icon i {
+        color: #fff;
+        font-size: 24px;
+    }
+
+    .range-details {
+        width: 100%;
+    }
+
+    .range-details label {
+        display: block;
+        margin-bottom: 6px;
+        color: #777;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .range-values {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .range-box {
+        background: #fff;
+        border-radius: 14px;
+        padding: 10px 16px;
+        min-width: 70px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .range-box span {
+        display: block;
+        font-size: 11px;
+        color: #777;
+        margin-bottom: 2px;
+    }
+
+    .range-box h4 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 800;
+        color: #111;
+    }
+
+    .to-text {
+        font-size: 14px;
+        font-weight: 700;
+        color: #777;
+    }
+
+    /* BOTTOM */
+
+    .bottom-tag {
+        background: #fff4d7;
+        color: #cc8b00;
+        border-radius: 16px;
+        padding: 14px;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+}

@@ -1,8 +1,11 @@
-<ngx-spinner bdColor = "rgba(60,55,55,0.8)" size = "large" color = "#fff" type = "ball-clip-rotate-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<ngx-spinner bdColor="rgba(60,55,55,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+    [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
 
-<div class="row">
+<div class="row desktop-commission-wrapper d-none d-md-flex">
     <div class="col-sm-12">
-            <app-card [hidHeader]="false" cardTitle="Agent Commission Slab" cardClass="card-datatable" [options]="false"
+        <app-card [hidHeader]="false" cardTitle="Agent Commission Slab" cardClass="card-datatable" [options]="false"
             cardClass=" table-border-style user-profile-list " [isCardFooter]="false">
             <h6>(Commission on basis of no of seats booked in a month booking datewise)</h6>
             <div class="notifi">
@@ -12,28 +15,113 @@
                             <th scope="col" width="80px" style="text-align: center;">#</th>
                             <th scope="col">No Of Seats Range From - To</th>
                             <th scope="col">Commission (Rs.)</th>
-                          
+
                         </tr>
                     </thead>
                     <tbody *ngIf="completedata?.length != 0">
                         <tr *ngFor="let complete of completedata; let i = index">
                             <td style="text-align: center;">{{ i+1 }}</td>
                             <td>
-                                From <strong>{{complete.range_from}}</strong>to <strong>{{complete.range_to}}</strong>  Seats                               
+                                From <strong>{{complete.range_from}}</strong>to <strong>{{complete.range_to}}</strong>
+                                Seats
                             </td>
                             <td>
-                                <i class="fas fa-rupee-sign"></i> .<strong>{{ complete.comission_per_seat }}</strong><br>
-                            </td>                            
+                                <i class="fas fa-rupee-sign"></i> .<strong>{{ complete.comission_per_seat
+                                    }}</strong><br>
+                            </td>
                         </tr>
-                    </tbody> 
+                    </tbody>
                     <tbody *ngIf="completedata?.length == 0">
                         <tr>
-                          <td colspan="10" class="no-data-available">No data!</td>
+                            <td colspan="10" class="no-data-available">No data!</td>
                         </tr>
-                    <tbody>                   
+                    <tbody>
                 </table>
-               
+
             </div>
         </app-card>
     </div>
+</div>
+
+
+<!-- mobile version -->
+<!-- MOBILE ONLY -->
+<div class="mobile-commission-wrapper d-block d-md-none">
+
+    <!-- HEADER -->
+    <div class="commission-top-card">
+        <!-- <div class="info-badge">
+            <i class="fas fa-wallet"></i>
+        </div> -->
+
+        <div>
+            <h2>Agent Commission Slab</h2>
+            <p>(Commission on basis of no of seats booked in a month booking datewise)</p>
+        </div>
+
+
+    </div>
+
+    <!-- DATA -->
+    <div *ngIf="completedata?.length != 0">
+
+        <div class="commission-card" *ngFor="let complete of completedata; let i = index">
+
+            <!-- TOP -->
+            <div class="card-top">
+
+                <div class="slab-number">
+                    #{{ i + 1 }}
+                </div>
+
+                <div class="commission-price">
+                    <h3>₹{{ complete.comission_per_seat }}</h3>
+                    <span>Commission Per Seat</span>
+                </div>
+
+            </div>
+
+            <!-- RANGE -->
+            <div class="seat-range-box">
+
+                <div class="range-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+
+                <div class="range-details">
+
+                    <label>Seat Booking Target</label>
+
+                    <div class="range-values">
+
+                        <div class="range-box">
+                            <span>FROM</span>
+                            <h4>{{ complete.range_from }}</h4>
+                        </div>
+
+                        <div class="to-text">
+                            TO
+                        </div>
+
+                        <div class="range-box">
+                            <span>UPTO</span>
+                            <h4>{{ complete.range_to }}</h4>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- BOTTOM -->
+            <div class="bottom-tag">
+                You will earn ₹{{ complete.comission_per_seat }}
+                commission on every seat booking in this range
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
