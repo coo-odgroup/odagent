@@ -2,21 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { NotificationService } from '../../services/notification.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { AgentreportService } from '../../services/agentreport.service'
+import {
+  NgbModalConfig,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { AgentreportService } from '../../services/agentreport.service';
 import { AgentWallet } from '../../model/agentwallet';
 import { Constants } from '../../constant/constant';
 import * as XLSX from 'xlsx';
-import { NgxSpinnerService } from "ngx-spinner";
-
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-agentwalletreport',
   templateUrl: './agentwalletreport.component.html',
-  styleUrls: ['./agentwalletreport.component.scss']
+  styleUrls: ['./agentwalletreport.component.scss'],
 })
 export class AgentwalletreportComponent implements OnInit {
-
   public form: FormGroup;
 
   public formConfirm: FormGroup;
@@ -35,98 +37,94 @@ export class AgentwalletreportComponent implements OnInit {
   busoperators: any;
 
   constructor(
-    private spinner: NgxSpinnerService ,
+    private spinner: NgxSpinnerService,
     private http: HttpClient,
     private notificationService: NotificationService,
-    private fb: FormBuilder, 
+    private fb: FormBuilder,
 
     private ws: AgentreportService,
     private modalService: NgbModal,
-    config: NgbModalConfig
-  ) {  }
-
-
-
-
+    config: NgbModalConfig,
+  ) {}
 
   ngOnInit(): void {
     this.spinner.show();
     this.searchForm = this.fb.group({
       name: [null],
       rows_number: Constants.RecordLimit,
-      user_id : localStorage.getItem('USERID'),
-      tran_type:[null]
+      user_id: localStorage.getItem('USERID'),
+      tran_type: [null],
+      from_date: [null],
+      to_date: [null],
     });
     this.search();
   }
 
-
   OpenModal(content) {
-    this.modalReference = this.modalService.open(content, { scrollable: true, size: 'xl' });
+    this.modalReference = this.modalService.open(content, {
+      scrollable: true,
+      size: 'xl',
+    });
   }
   ResetAttributes() {
     this.walletRecord = {} as AgentWallet;
     this.form.reset();
-    this.ModalHeading = "Enter Payment Details";
-    this.ModalBtn = "Request";
+    this.ModalHeading = 'Enter Payment Details';
+    this.ModalBtn = 'Request';
   }
-
-
 
   page(label: any) {
     return label;
   }
 
-
-  search(pageurl = "") {
+  search(pageurl = '') {
     this.spinner.show();
+
     const data = {
       name: this.searchForm.value.name,
       bus_operator_id: this.searchForm.value.bus_operator_id,
       rows_number: this.searchForm.value.rows_number,
-      user_id : localStorage.getItem('USERID'),
-      tran_type:this.searchForm.value.tran_type,
+      user_id: localStorage.getItem('USERID'),
+      tran_type: this.searchForm.value.tran_type,
+
+      from_date: this.searchForm.value.from_date,
+      to_date: this.searchForm.value.to_date,
     };
 
-    // console.log(data);
-    if (pageurl != "") {
-      this.ws.agentwalletpaginationReport(pageurl, data).subscribe(
-        res => {
-          this.wallet = res.data.data.data;
-          this.pagination = res.data.data;
-          this.spinner.hide();
-        }
-      );
-    }
-    else {
-      this.ws.agentwalletReport(data).subscribe(
-        res => {
-          this.wallet = res.data.data.data;
-          this.pagination = res.data.data;
-          // console.log(this.wallet);
-          this.spinner.hide();
-        }
-      );
+    if (pageurl != '') {
+      this.ws.agentwalletpaginationReport(pageurl, data).subscribe((res) => {
+        this.wallet = res.data.data.data;
+        this.pagination = res.data.data;
+        this.spinner.hide();
+      });
+    } else {
+      this.ws.agentwalletReport(data).subscribe((res) => {
+        this.wallet = res.data.data.data;
+        this.pagination = res.data.data;
+        this.spinner.hide();
+      });
     }
   }
-
 
   refresh() {
     this.spinner.show();
+
     this.searchForm = this.fb.group({
       name: [null],
       rows_number: Constants.RecordLimit,
-      user_id : localStorage.getItem('USERID'),
-      tran_type:[null]
+      user_id: localStorage.getItem('USERID'),
+      tran_type: [null],
+
+      from_date: [null],
+      to_date: [null],
     });
+
     this.search();
   }
-
   title = 'angular-app';
   fileName = 'All-Transaction-Report.xlsx';
 
   exportexcel(): void {
-
     /* pass here the table id */
     let element = document.getElementById('print-section');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
@@ -137,7 +135,6 @@ export class AgentwalletreportComponent implements OnInit {
 
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
-
   }
 
   // Pagination helper methods
@@ -145,15 +142,18 @@ export class AgentwalletreportComponent implements OnInit {
     if (label === '&laquo;' || label === '&raquo;') {
       return false;
     }
-    
+
     if (label === '1' || label === '2' || label === '3') {
       return true;
     }
-    
-    if (parseInt(label) === this.pagination.current_page && parseInt(label) > 3) {
+
+    if (
+      parseInt(label) === this.pagination.current_page &&
+      parseInt(label) > 3
+    ) {
       return true;
     }
-    
+
     return false;
   }
 
@@ -165,7 +165,10 @@ export class AgentwalletreportComponent implements OnInit {
   }
 
   onFirstPage() {
-    if (this.pagination.current_page !== 1 && this.pagination.links.first_page_url) {
+    if (
+      this.pagination.current_page !== 1 &&
+      this.pagination.links.first_page_url
+    ) {
       this.search(this.pagination.links.first_page_url);
     }
   }
@@ -183,9 +186,11 @@ export class AgentwalletreportComponent implements OnInit {
   }
 
   onLastPage() {
-    if (this.pagination.current_page !== this.pagination.links.last_page && this.pagination.links.last_page_url) {
+    if (
+      this.pagination.current_page !== this.pagination.links.last_page &&
+      this.pagination.links.last_page_url
+    ) {
       this.search(this.pagination.links.last_page_url);
     }
   }
-
 }
