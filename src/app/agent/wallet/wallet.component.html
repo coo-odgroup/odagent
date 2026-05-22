@@ -29,7 +29,7 @@
             </button>
           </div>
         </div>
-        
+
         <div class="col-10">
           <form [formGroup]="searchForm">
             <div class="row">
@@ -41,7 +41,6 @@
                       class="form-control sml_input"
                       formControlName="from_date"
                       placeholder="From Date"
-                      (change)="search()"
                     />
                   </div>
                 </div>
@@ -56,7 +55,6 @@
                       formControlName="to_date"
                       placeholder="To Date"
                       [min]="searchForm.get('from_date')?.value"
-                      (change)="search()"
                     />
                   </div>
                 </div>
@@ -316,52 +314,37 @@
                       <div class="row">
                         <div class="col-md-8">
                           <div class="row">
+                            <!-- EMAIL -->
                             <div class="col-6">
                               <div class="from-group">
-                                <label
-                                  for="name"
-                                  class="col-sm-4 col-form-label"
-                                  >Transaction Id:<span class="text-danger"
-                                    >*</span
-                                  ></label
-                                >
+                                <label class="col-sm-4 col-form-label">
+                                  Email Id
+                                </label>
+
                                 <div class="col-sm-12">
                                   <input
                                     type="text"
                                     class="form-control sml_input"
-                                    ngbAutofocus
-                                    placeholder="Enter Transaction Id"
-                                    required
-                                    formControlName="transaction_id"
+                                    [value]="userEmail"
+                                    readonly
                                   />
-                                  <span
-                                    class="text-danger"
-                                    *ngIf="
-                                      form.controls['transaction_id'].touched &&
-                                      form.controls['transaction_id'].hasError(
-                                        'required'
-                                      )
-                                    "
-                                  >
-                                    Transaction Id is Required
-                                  </span>
                                 </div>
                               </div>
                             </div>
+
+                            <!-- MOBILE -->
                             <div class="col-6">
                               <div class="from-group">
-                                <label
-                                  for="name"
-                                  class="col-sm-4 col-form-label"
-                                  >Reference No:</label
-                                >
+                                <label class="col-sm-4 col-form-label">
+                                  Mobile No
+                                </label>
+
                                 <div class="col-sm-12">
                                   <input
                                     type="text"
                                     class="form-control sml_input"
-                                    ngbAutofocus
-                                    placeholder="Enter Reference No here"
-                                    formControlName="reference_id"
+                                    [value]="userMobile"
+                                    readonly
                                   />
                                 </div>
                               </div>
@@ -383,21 +366,11 @@
                                     type="text"
                                     class="form-control sml_input"
                                     ngbAutofocus
-                                    placeholder="Amount Minimum 50 & Maximum 49999"
+                                    placeholder=" Min - 100  &  Max - 49999"
                                     required
                                     formControlName="amount"
                                   />
-                                  <span
-                                    class="text-danger"
-                                    *ngIf="
-                                      form.controls['amount'].touched &&
-                                      form.controls['amount'].hasError(
-                                        'required'
-                                      )
-                                    "
-                                  >
-                                    Amount is Required
-                                  </span>
+                                  
                                   <span
                                     class="text-danger"
                                     *ngIf="
@@ -405,7 +378,7 @@
                                       form.controls['amount'].hasError('min')
                                     "
                                   >
-                                    Amount Minimum 50
+                                    Amount Minimum 100
                                   </span>
                                   <span
                                     class="text-danger"
@@ -415,67 +388,6 @@
                                     "
                                   >
                                     Amount Maximum 49999
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-
-                            <div class="col-6">
-                              <div class="from-group">
-                                <label
-                                  for="name"
-                                  class="col-sm-6 col-form-label"
-                                >
-                                  Payment Via:<span class="text-danger"
-                                    >*</span
-                                  ></label
-                                >
-                                <div class="col-sm-12">
-                                  <!-- <input type="text" class="form-control" ngbAutofocus placeholder="Enter URL here" required
-                                    formControlName="payment_via" /> -->
-
-                                  <select
-                                    class="form-control input-sm"
-                                    required="required"
-                                    formControlName="payment_via"
-                                  >
-                                    <!-- <option value=""> Select Transaction Via</option> -->
-                                    <option value="PhonePe">PhonePe</option>
-                                    <option value="Google Pay">
-                                      Google Pay
-                                    </option>
-                                    <option value="PayTM">PayTM</option>
-                                    <option value="Amazon Pay">
-                                      Amazon Pay
-                                    </option>
-                                    <option value="Mobikwik">Mobikwik</option>
-                                    <option value="BHIM Axis Pay">
-                                      BHIM Axis Pay
-                                    </option>
-                                    <option value="SBI Yono">SBI Yono</option>
-                                    <option value="Citi Master Pass">
-                                      Citi Master Pass
-                                    </option>
-                                    <option value="HDFC PayZapp">
-                                      HDFC PayZapp
-                                    </option>
-                                    <option value="ICICI Pockets">
-                                      ICICI Pockets
-                                    </option>
-                                    <option value="Bank Transfer">
-                                      Bank Transfer
-                                    </option>
-                                  </select>
-                                  <span
-                                    class="text-danger"
-                                    *ngIf="
-                                      form.controls['payment_via'].touched &&
-                                      form.controls['payment_via'].hasError(
-                                        'required'
-                                      )
-                                    "
-                                  >
-                                    Payment Via is Required
                                   </span>
                                 </div>
                               </div>
@@ -494,47 +406,6 @@
                                 placeholder="Enter Remark here"
                                 formControlName="remarks"
                               />
-                            </div>
-                          </div>
-
-                          <div class="col-md-12 mt-4">
-                            <h6><strong>ODBUS Bank Account Details</strong></h6>
-                            <table class="ml-2">
-                              <tr>
-                                <th>Pay Name:</th>
-                                <td>OD TOURS AND TRAVELS</td>
-                              </tr>
-                              <tr>
-                                <th>Account No:</th>
-                                <td>12320200027272</td>
-                              </tr>
-                              <tr>
-                                <th>IFSC Code:</th>
-                                <td>FDRL0001232</td>
-                              </tr>
-                              <tr>
-                                <th>Bank Name:</th>
-                                <td>Federal Bank, Bhubaneswar</td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="widget">
-                            <div
-                              class="widget-header bordered-bottom bordered-blue"
-                            >
-                              <span class="widget-caption"
-                                >To Pay Scan Here</span
-                              >
-                            </div>
-                            <div class="widget-body">
-                              <div>
-                                <img
-                                  src="../../../assets/images/odqr.png"
-                                  style="width: 80%"
-                                />
-                              </div>
                             </div>
                           </div>
                         </div>

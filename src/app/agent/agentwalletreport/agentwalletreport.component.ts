@@ -53,7 +53,8 @@ export class AgentwalletreportComponent implements OnInit {
       name: [null],
       rows_number: Constants.RecordLimit,
       user_id: localStorage.getItem('USERID'),
-      tran_type: [null],
+      tran_type: [''],
+      SelectType: [''],
       from_date: [null],
       to_date: [null],
     });
@@ -86,7 +87,7 @@ export class AgentwalletreportComponent implements OnInit {
       rows_number: this.searchForm.value.rows_number,
       user_id: localStorage.getItem('USERID'),
       tran_type: this.searchForm.value.tran_type,
-
+      SelectType: this.searchForm.value.SelectType,
       from_date: this.searchForm.value.from_date,
       to_date: this.searchForm.value.to_date,
     };
@@ -114,7 +115,7 @@ export class AgentwalletreportComponent implements OnInit {
       rows_number: Constants.RecordLimit,
       user_id: localStorage.getItem('USERID'),
       tran_type: [null],
-
+      SelectType: [null],
       from_date: [null],
       to_date: [null],
     });

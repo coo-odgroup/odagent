@@ -1,32 +1,111 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { NextConfig } from '../../../../app-config';
 
 @Component({
   selector: 'app-nav-bar',
   templateUrl: './nav-bar.component.html',
-  styleUrls: ['./nav-bar.component.scss']
+  styleUrls: ['./nav-bar.component.scss'],
 })
 export class NavBarComponent implements OnInit {
-
   public flatConfig: any;
   public menuClass: boolean;
   public collapseStyle: string;
   public windowWidth: number;
 
-  public isStaticMenuOpen: boolean = false;
-  public isReportOpen: boolean = false;
+  public isStaticMenuOpen = false;
+  public isReportOpen = false;
+
+  public mobileMenus = [
+    {
+      icon: 'fa-ticket',
+      label: 'Book Ticket',
+      route: '/agent/booking',
+    },
+    {
+      icon: 'fa-list',
+      label: 'All Transactions',
+      route: '/agent/alltransactionreport',
+    },
+    {
+      icon: 'fa-file',
+      label: 'Complete Report',
+      route: '/agent/completereport',
+    },
+  ];
+
+  public menuItems   = [
+    {
+      icon: 'fa-home',
+      label: 'Dashboard',
+      route: '/dashboard/landing',
+    },
+    {
+      icon: 'fa-ticket',
+      label: 'Book Ticket',
+      route: '/agent/booking',
+    },
+    {
+      icon: 'fa-user',
+      label: 'Agent Profile',
+      route: '/agent/agentprofile',
+    },
+    {
+      icon: 'fa-bell',
+      label: 'Notification',
+      route: '/agent/notification',
+    },
+    {
+      icon: 'fa-wallet',
+      label: 'Wallet Request',
+      route: '/agent/wallet',
+    },
+    {
+      icon: 'fa-percent',
+      label: 'Commission Slab',
+      route: '/agent/commissionslab',
+    },
+    {
+      icon: 'fa-users',
+      label: 'Customer Commission Slab',
+      route: '/agent/customercommissionslab',
+    },
+  ];
+
+  public reportItems = [
+    {
+      icon: 'fa-percent',
+      label: 'All Transaction Report',
+      route: '/agent/alltransactionreport',
+    },
+    {
+      icon: 'fa-percent',
+      label: 'Cancellation Report',
+      route: '/agent/cancellationreport',
+    },
+    {
+      icon: 'fa-percent',
+      label: 'Complete Report',
+      route: '/agent/completereport',
+    },
+    {
+      icon: 'fa-percent',
+      label: 'Commission Report',
+      route: '/agent/commissionreport',
+    },
+  ];
 
   @Output() onNavCollapse = new EventEmitter();
   @Output() onNavHeaderMobCollapse = new EventEmitter();
 
-  constructor() {
+  constructor(private router: Router) {
     this.flatConfig = NextConfig.config;
     this.menuClass = false;
     this.collapseStyle = 'none';
     this.windowWidth = window.innerWidth;
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   toggleMobOption() {
     this.menuClass = !this.menuClass;
@@ -39,6 +118,11 @@ export class NavBarComponent implements OnInit {
     } else {
       this.onNavHeaderMobCollapse.emit();
     }
+  }
+
+  goTo(route: string) {
+    this.router.navigate([route]);
+    this.isStaticMenuOpen = false;
   }
 
   toggleStaticMenu() {

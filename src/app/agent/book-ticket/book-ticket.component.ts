@@ -380,7 +380,6 @@ get_seatno(seat_id:any){
    setCommission(event:any){
 
     this.commissionError=false;
-
     this.payableAmount =this.bookingdata.PriceArray.totalFare;
 
     if(event.target.value!='' &&  event.target.value!=null){

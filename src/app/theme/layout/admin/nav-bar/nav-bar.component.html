@@ -1,16 +1,37 @@
-<div class="container"
-  *ngIf="this.flatConfig.layout === 'horizontal' && this.flatConfig.subLayout === 'horizontal-2'; else mainHeader">
+<div
+  class="container"
+  *ngIf="
+    this.flatConfig.layout === 'horizontal' &&
+      this.flatConfig.subLayout === 'horizontal-2';
+    else mainHeader
+  "
+>
   <ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 </div>
 <ng-template #mainHeader>
   <div class="m-header">
-    <a href="javascript:" class="mobile-menu" id="mobile-collapse" (click)="navCollapse()"><span></span></a>
-    <a [routerLink]="['/dashboard/analytics']" class="b-brand">
-      <img id="main-logo" src="assets/images/odbus_logo.png" alt="" class="logo">
-
+    <a
+      href="javascript:"
+      class="mobile-menu"
+      id="mobile-collapse"
+      (click)="navCollapse()"
+      ><span></span
+    ></a>
+    <a [routerLink]="['/dashboard/landing']" class="b-brand">
+      <img
+        id="main-logo"
+        src="assets/images/odbus_logo.png"
+        alt=""
+        class="logo"
+      />
     </a>
-    <a class="mob-toggler" [ngClass]="{'on' : this.menuClass}" href="javascript:" (click)="toggleMobOption()"><i
-        class="feather icon-more-vertical"></i></a>
+    <a
+      class="mob-toggler"
+      [ngClass]="{ on: this.menuClass }"
+      href="javascript:"
+      (click)="toggleMobOption()"
+      ><i class="feather icon-more-vertical"></i
+    ></a>
   </div>
   <div class="collapse navbar-collapse" [style.display]="this.collapseStyle">
     <app-nav-left class="mr-auto"></app-nav-left>
@@ -19,37 +40,26 @@
 
   <!-- Bottom Nav Bar -->
   <div class="mobile-bottom-nav d-md-none">
-
-    <div class="nav-item" (click)="goTo('/book-ticket')">
-      <i class="fa fa-ticket"></i>
-      <span>Book Ticket</span>
+    <div
+      class="nav-item"
+      *ngFor="let item of mobileMenus"
+      (click)="goTo(item.route)">
+      <i class="fa" [ngClass]="item.icon"></i>
+      <span>{{ item.label }}</span>
     </div>
 
-    <div class="nav-item" (click)="goTo('/all-transaction-report')">
-      <i class="fa fa-list"></i>
-      <span>All Transactions</span>
-    </div>
-
-    <div class="nav-item" (click)="goTo('/complete-report')">
-      <i class="fa fa-file"></i>
-      <span>Complete Report</span>
-    </div>
-
-    <!-- ✅ MENU BUTTON -->
+    <!-- Menu button stays separate -->
     <div class="nav-item" (click)="toggleStaticMenu()">
       <i class="fa fa-bars"></i>
       <span>Menu</span>
     </div>
-
   </div>
 
   <!-- ✅ FULL SCREEN MENU -->
   <div class="static-menu" [class.show]="isStaticMenuOpen">
-
     <div class="static-overlay" (click)="toggleStaticMenu()"></div>
 
     <div class="static-menu-box">
-
       <!-- HEADER -->
       <div class="menu-header">
         <h3>Menu</h3>
@@ -58,28 +68,30 @@
 
       <!-- MENU LIST -->
       <ul>
-
-        <li><i class="fa fa-home mr-2"></i> Dashboard</li>
-        <li><i class="fa fa-ticket mr-2"></i> Book Ticket</li>
-        <li><i class="fa fa-user mr-2"></i> Agent Profile</li>
-        <li><i class="fa fa-bell mr-2"></i> Notification</li>
-        <li><i class="fa fa-wallet mr-2"></i> Wallet Request</li>
-        <li><i class="fa fa-percent mr-2"></i> Commission Slab</li>
+        <li *ngFor="let item of menuItems" (click)="goTo(item.route)">
+          <i class="fa mr-2" [ngClass]="item.icon"></i>
+          {{ item.label }}
+        </li>
 
         <li class="dropdown" (click)="toggleReport()">
-          <span><i class="fa fa-file mr-2"></i> Reports</span>
-          <i class="fa" [ngClass]="isReportOpen ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+          <span>
+            <i class="fa fa-file mr-2"></i>
+            Reports
+          </span>
+
+          <i
+            class="fa"
+            [ngClass]="isReportOpen ? 'fa-chevron-up' : 'fa-chevron-down'"
+          >
+          </i>
         </li>
 
         <ul class="sub-menu" [class.open]="isReportOpen">
-          <li>All Transaction Report</li>
-          <li>Cancellation Report</li>
-          <li>Complete Report</li>
-          <li class="active">Commission Report</li>
+          <li *ngFor="let report of reportItems" (click)="goTo(report.route)">
+            {{ report.label }}
+          </li>
         </ul>
-
       </ul>
-
     </div>
   </div>
 </ng-template>

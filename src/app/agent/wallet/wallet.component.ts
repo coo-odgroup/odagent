@@ -52,7 +52,14 @@ export class WalletComponent implements OnInit {
     this.ModalBtn = 'Save';
   }
 
+  public userEmail: any = '';
+  public userMobile: any = '';
+
   ngOnInit(): void {
+
+     const user = JSON.parse(localStorage.getItem('USERRECORDS'));
+    this.userEmail = user.email;
+    this.userMobile = user.mobile;
     this.spinner.show();
     this.form = this.fb.group({
       id: [null],
@@ -76,6 +83,7 @@ export class WalletComponent implements OnInit {
     });
 
     this.search();
+
   }
 
   OpenModal(content) {
@@ -84,6 +92,7 @@ export class WalletComponent implements OnInit {
       size: 'xl',
     });
   }
+
   ResetAttributes() {
     this.walletRecord = {} as AgentWallet;
     this.form = this.fb.group({
@@ -106,7 +115,7 @@ export class WalletComponent implements OnInit {
     });
     this.form.reset();
     this.ModalHeading = 'Enter Payment Details';
-    this.ModalBtn = 'Request';
+    this.ModalBtn = 'Make Payment';
   }
 
   page(label: any) {
@@ -126,18 +135,26 @@ export class WalletComponent implements OnInit {
 
     // console.log(data);
     if (pageurl != '') {
-      this.ws.getAllaginationData(pageurl, data).subscribe((res) => {
-        this.wallet = res.data.data.data;
-        this.pagination = res.data.data;
-        // console.log( this.BusOperators);
-        this.spinner.hide();
+      this.ws.getAllaginationData(pageurl, data).subscribe({
+        next: (res) => {
+          this.wallet = res.data.data.data;
+          this.pagination = res.data.data;
+          this.spinner.hide();
+        },
+        error: () => {
+          this.spinner.hide();
+        },
       });
     } else {
-      this.ws.getAllData(data).subscribe((res) => {
-        this.wallet = res.data.data.data;
-        this.pagination = res.data.data;
-        // console.log( res.data);
-        this.spinner.hide();
+      this.ws.getAllData(data).subscribe({
+        next: (res) => {
+          this.wallet = res.data.data.data;
+          this.pagination = res.data.data;
+          this.spinner.hide();
+        },
+        error: () => {
+          this.spinner.hide();
+        },
       });
     }
   }
@@ -147,8 +164,8 @@ export class WalletComponent implements OnInit {
     this.searchForm = this.fb.group({
       name: [null],
       payment_via: [null],
-       from_date: [null],
-  to_date: [null],
+      from_date: [null],
+      to_date: [null],
       rows_number: Constants.RecordLimit,
       user_id: localStorage.getItem('USERID'),
     });
@@ -187,6 +204,7 @@ export class WalletComponent implements OnInit {
 
     this.ws.create(data).subscribe((resp) => {
       if (resp.status == 1) {
+        this.spinner.hide();
         this.notificationService.addToast({
           title: 'Success',
           msg: resp.message,

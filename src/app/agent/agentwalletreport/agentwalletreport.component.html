@@ -65,8 +65,22 @@
                   class="form-control sml_input"
                   formControlName="tran_type"
                 >
+                  <option value="" hidden>Select Transaction Type</option>
                   <option value="c">Credit</option>
                   <option value="d">Debit</option>
+                </select>
+              </div>
+
+              <div class="col-md-2 col-sm-12 tran-type">
+                <select
+                  class="form-control sml_input"
+                  formControlName="SelectType"
+                >
+                  <option value="" hidden>Select Type</option>
+                  <option value="wallet_recharge">Wallet Recharge</option>
+                  <option value="pnr_booking">PNR Booking</option>
+                  <option value="cancelled_pnr">Cancelled PNR</option>
+                  <option value="commission">Commission</option>
                 </select>
               </div>
 
