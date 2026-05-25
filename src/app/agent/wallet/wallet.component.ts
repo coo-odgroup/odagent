@@ -12,6 +12,9 @@ import { AgentWallet } from '../../model/agentwallet';
 import { Constants } from '../../constant/constant';
 import * as XLSX from 'xlsx';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+declare var Cashfree: any;
 
 @Component({
   selector: 'app-wallet',
@@ -32,6 +35,12 @@ export class WalletComponent implements OnInit {
   public ModalHeading: any;
   public ModalBtn: any;
 
+  public paymentPopup = false;
+  public paymentStatus = '';
+  public paymentMessage = '';
+  public paymentAmount: any = 0;
+  public availableBalance: any = 0;
+
   wallet: AgentWallet[];
   walletRecord: AgentWallet;
   busoperators: any;
@@ -44,7 +53,11 @@ export class WalletComponent implements OnInit {
 
     private ws: WalletService,
     private modalService: NgbModal,
+    private route: ActivatedRoute,
+    private router: Router,
     config: NgbModalConfig,
+
+    
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -56,18 +69,26 @@ export class WalletComponent implements OnInit {
   public userMobile: any = '';
 
   ngOnInit(): void {
-
-     const user = JSON.parse(localStorage.getItem('USERRECORDS'));
+    const user = JSON.parse(localStorage.getItem('USERRECORDS'));
     this.userEmail = user.email;
     this.userMobile = user.mobile;
     this.spinner.show();
     this.form = this.fb.group({
       id: [null],
-      transaction_id: [null, Validators.compose([Validators.required])],
-      payment_via: [null, Validators.compose([Validators.required])],
-      amount: [null],
+
+      amount: [
+        null,
+        Validators.compose([
+          Validators.required,
+          Validators.min(50),
+          Validators.max(49999),
+        ]),
+      ],
+
       remarks: [null],
+
       user_id: localStorage.getItem('USERID'),
+
       user_name: localStorage.getItem('USERNAME'),
     });
     this.formConfirm = this.fb.group({
@@ -82,8 +103,50 @@ export class WalletComponent implements OnInit {
       rows_number: Constants.RecordLimit,
     });
 
-    this.search();
+    this.route.queryParams.subscribe((params) => {
+      if (params['order_id']) {
+        this.verifyWalletPayment(params['order_id']);
+      }
+    });
 
+    this.search();
+  }
+
+  verifyWalletPayment(orderId: any) {
+    this.spinner.show();
+
+    this.ws.verifyWalletPayment(orderId).subscribe(
+      (resp: any) => {
+        this.spinner.hide();
+
+        this.paymentPopup = true;
+
+        if (resp.status) {
+          this.paymentStatus = 'success';
+
+          this.paymentAmount = resp.amount;
+
+          this.availableBalance = resp.balance;
+
+          this.paymentMessage = 'Wallet recharge successful';
+
+          this.search();
+        } else {
+          this.paymentStatus = 'failed';
+
+          this.paymentMessage = 'Wallet recharge failed';
+        }
+      },
+      () => {
+        this.spinner.hide();
+
+        this.paymentPopup = true;
+
+        this.paymentStatus = 'failed';
+
+        this.paymentMessage = 'Something went wrong';
+      },
+    );
   }
 
   OpenModal(content) {
@@ -95,29 +158,30 @@ export class WalletComponent implements OnInit {
 
   ResetAttributes() {
     this.walletRecord = {} as AgentWallet;
+
     this.form = this.fb.group({
       id: [null],
-      transaction_id: [null, Validators.compose([Validators.required])],
-      reference_id: [null],
-      payment_via: [null, Validators.compose([Validators.required])],
+
       amount: [
         null,
         Validators.compose([
           Validators.required,
           Validators.min(50),
-          Validators.required,
           Validators.max(49999),
         ]),
       ],
+
       remarks: [null],
+
       user_id: localStorage.getItem('USERID'),
+
       user_name: localStorage.getItem('USERNAME'),
     });
-    this.form.reset();
+
     this.ModalHeading = 'Enter Payment Details';
+
     this.ModalBtn = 'Make Payment';
   }
-
   page(label: any) {
     return label;
   }
@@ -190,36 +254,33 @@ export class WalletComponent implements OnInit {
 
   addData() {
     this.spinner.show();
+
     const data = {
-      transaction_id: this.form.value.transaction_id,
-      reference_id: this.form.value.reference_id,
-      payment_via: this.form.value.payment_via,
       amount: this.form.value.amount,
       remarks: this.form.value.remarks,
       user_id: localStorage.getItem('USERID'),
       user_name: localStorage.getItem('USERNAME'),
       transaction_type: 'c',
     };
-    // console.log(data);
 
-    this.ws.create(data).subscribe((resp) => {
+    this.ws.makeWalletPayment(data).subscribe((resp: any) => {
+      this.spinner.hide();
+
       if (resp.status == 1) {
-        this.spinner.hide();
-        this.notificationService.addToast({
-          title: 'Success',
-          msg: resp.message,
-          type: 'success',
+        const cashfree = Cashfree({
+          mode: 'sandbox',
         });
-        this.modalReference.close();
-        this.ResetAttributes();
-        this.refresh();
+
+        cashfree.checkout({
+          paymentSessionId: resp.data.payment_session_id,
+          redirectTarget: '_self',
+        });
       } else {
         this.notificationService.addToast({
           title: 'Error',
           msg: resp.message,
           type: 'error',
         });
-        this.spinner.hide();
       }
     });
   }
@@ -280,4 +341,11 @@ export class WalletComponent implements OnInit {
       this.search(this.pagination.links.last_page_url);
     }
   }
+
+  closePaymentPopup() {
+
+  this.paymentPopup = false;
+
+  this.router.navigate(['/agent/wallet']);
+}
 }

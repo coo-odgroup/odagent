@@ -8,6 +8,47 @@
   <p style="color: white">Loading...</p>
 </ngx-spinner>
 
+<div class="payment-popup-overlay" *ngIf="paymentPopup">
+  <div
+    class="payment-popup-card"
+    [ngClass]="{
+      'success-popup': paymentStatus == 'success',
+      'failed-popup': paymentStatus == 'failed'
+    }"
+  >
+    <div class="success-animation" *ngIf="paymentStatus == 'success'">
+      <div class="checkmark-circle">
+        <div class="background"></div>
+        <div class="checkmark">
+          <i class="fa fa-check"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="failed-animation" *ngIf="paymentStatus == 'failed'">✖</div>
+
+    <h2>
+      {{
+        paymentStatus == "success" ? "Recharge Successful" : "Recharge Failed"
+      }}
+    </h2>
+
+    <p class="payment-message">
+      {{ paymentMessage }}
+    </p>
+
+    <div *ngIf="paymentStatus == 'success'" class="payment-details">
+      <h3>₹ {{ paymentAmount }}</h3>
+
+      <p>Available Balance: ₹ {{ availableBalance }}</p>
+    </div>
+
+    <button class="close-popup-btn"  (click)="closePaymentPopup()">
+      Close
+    </button>
+  </div>
+</div>
+
 <div class="row desktop-view">
   <div class="col-sm-12">
     <app-card
@@ -19,21 +60,21 @@
       [isCardFooter]="true"
     >
       <div class="row">
-        <div class="col-2">
-          <div class="from-group">
-            <button
-              class="btn sml_input btn-success mb-2"
-              (click)="ResetAttributes(); OpenModal(content)"
-            >
-              Add Balance
-            </button>
-          </div>
-        </div>
-
-        <div class="col-10">
+        <div class="col-12">
           <form [formGroup]="searchForm">
             <div class="row">
-              <div class="col-3">
+              <div class="col">
+                <div class="from-group">
+                  <button
+                    class="btn sml_input btn-success mb-2"
+                    (click)="ResetAttributes(); OpenModal(content)"
+                  >
+                    Add Balance
+                  </button>
+                </div>
+              </div>
+
+              <div class="col">
                 <div class="form-group row">
                   <div class="col-sm-12">
                     <input
@@ -46,7 +87,7 @@
                 </div>
               </div>
 
-              <div class="col-3">
+              <div class="col">
                 <div class="form-group row">
                   <div class="col-sm-12">
                     <input
@@ -59,7 +100,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col">
                 <div class="form-group row">
                   <div class="col-sm-12">
                     <input
@@ -73,9 +114,9 @@
                 </div>
               </div>
 
-              <div class="col-3">
+              <div class="col">
                 <!-- <small>Trans.type</small> -->
-                <div class="form-group row">
+                <div class="form-group">
                   <div class="dropdown payment_sec">
                     <!-- <select class="form-control sml_input" formControlName="tran_type" >
                      
@@ -104,7 +145,7 @@
                 </div>
               </div>
 
-              <div class="col-4">
+              <div class="col">
                 <button
                   type="button"
                   class="btn btn-success sml_input mr-10"
@@ -130,8 +171,8 @@
                 </button> -->
               </div>
 
-              <div class="col-2">
-                <div class="dropdown float-right">
+              <div class="col">
+                <div class="dropdown">
                   <select
                     class="form-control sml_input"
                     formControlName="rows_number"
@@ -370,7 +411,7 @@
                                     required
                                     formControlName="amount"
                                   />
-                                  
+
                                   <span
                                     class="text-danger"
                                     *ngIf="
