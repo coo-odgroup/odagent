@@ -496,7 +496,7 @@
 
 @media only screen and (max-width:768px) {
 
-  .desktop-view{
+  .desktop-view {
     display: none;
   }
 
@@ -718,20 +718,101 @@
     word-break: break-word;
   }
 
+  /* =====================================
+   PASSENGER SECTION
+===================================== */
+
   .ticket-passenger {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
-    font-size: 14px;
-    font-weight: 700;
-    color: #111827;
     margin-bottom: 14px;
-    line-height: 1.5;
   }
 
   .ticket-passenger i {
     color: #2563eb;
-    margin-top: 3px;
+    font-size: 14px;
+  }
+
+  /* WRAPPER */
+
+  .passenger-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  /* FIRST NAME */
+
+  .first-passenger {
+    font-size: 14px;
+    font-weight: 700;
+    color: #111827;
+    line-height: 1.4;
+  }
+
+  /* +MORE */
+
+  .more-passenger {
+    position: relative;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 8px;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* TOOLTIP */
+
+  .passenger-tooltip {
+    position: absolute;
+    left: 0;
+    bottom: 130%;
+    min-width: 180px;
+
+    background: #111827;
+    color: #fff;
+
+    padding: 10px 12px;
+    border-radius: 12px;
+
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.6;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(5px);
+
+    transition: 0.2s ease;
+
+    z-index: 99;
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  }
+
+  /* SHOW TOOLTIP */
+
+  .more-passenger:hover .passenger-tooltip,
+  .more-passenger:active .passenger-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* TOOLTIP ITEM */
+
+  .passenger-tooltip div {
+    padding: 2px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .passenger-tooltip div:last-child {
+    border-bottom: none;
   }
 
   .ticket-user {

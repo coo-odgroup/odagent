@@ -1058,10 +1058,30 @@
 
       <i class="fa-solid fa-user"></i>
 
-      <span *ngFor="let passanger of complete.booking_detail; let last = last">
-        {{passanger.passenger_name}}
-        <span *ngIf="!last">, </span>
-      </span>
+      <div class="passenger-wrapper">
+
+        <!-- FIRST NAME -->
+        <span class="first-passenger">
+          {{ complete.booking_detail[0]?.passenger_name }}
+        </span>
+
+        <!-- MORE COUNT -->
+        <span class="more-passenger" *ngIf="complete.booking_detail.length > 1">
+
+          +{{ complete.booking_detail.length - 1 }}
+
+          <!-- TOOLTIP -->
+          <div class="passenger-tooltip">
+
+            <div *ngFor="let passanger of complete.booking_detail">
+              {{ passanger.passenger_name }}
+            </div>
+
+          </div>
+
+        </span>
+
+      </div>
 
     </div>
 
