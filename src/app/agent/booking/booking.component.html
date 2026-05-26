@@ -1,6 +1,9 @@
-<ngx-spinner bdColor = "rgba(60,55,55,0.8)" size = "large" color = "#fff" type = "ball-clip-rotate-multiple" [fullScreen] = "true"><p style="color: white" > Loading... </p></ngx-spinner>
+<ngx-spinner bdColor="rgba(60,55,55,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+    [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-sm-12">
         <div class="search-box">
         <div class=" mb-3">
@@ -81,69 +84,120 @@
                         </div>
                     </form>
 
-                    <!-- <form [formGroup]="searchFrom">
-                       
-                        <div class="row ">
-                            <div class="col-10 p-0">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <div class="form-group sml_input ">
-                                            <div class="col-sm-12"> 
-                                              <ng-select 
-                                              [items]="locations"
-                                              bindLabel="name"
-                                              bindValue="id"
-                                              placeholder="Select Source"                                       
-                                              formControlName="source_id"
-                                              [clearable]="false"
-                                              (change)="findSource($event)"
-                                              >
-                                              </ng-select>                                                
-                                            </div>                      
-                                          </div> 
-                                    </div>                                       
-                                    
-                                    
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <div class="col-sm-12 sml_input"> 
-                                              <ng-select 
-                                              [items]="locations"
-                                              bindLabel="name"
-                                              bindValue="id"
-                                              placeholder="Select Destination"                                       
-                                              formControlName="destination_id"
-                                              [clearable]="false"
-                                              (change)="findSource($event)"
-                                              >
-                                              </ng-select> 
-                                           
-                                            </div>                      
-                                          </div> 
-                                    </div>
-
-                                    <div class="col-4">
-                                        <div class="form-group">
-                                            <div class="col-sm-12"> 
-                                              <input type="date" class="form-control sml_input"  formControlName="date" >
-                                            </div>                      
-                                          </div> 
-                                    </div>
-                                </div>                                                                      
-                            </div>
-                            <div class="col-2">
-                                <button type="button" class="btn btn-success  sml_input" (click)="search()" title="search">
-                                  <i class="fas fa-search"> </i> Search
-                                </button>
-                               
-                              </div>
-                
-                        </div>
-                    </form> -->
+                   
                 </div>                   
             </div>
         </div>
     </div>
-        <!-- <app-card cardTitle="Book Ticket" cardClass="card-datatable" [options]="true" [isCardFooter]="true"></app-card> -->
     </div>
+</div> -->
+
+
+<div class="clean-booking-wrapper">
+
+    <div class="clean-booking-card-wrapper">
+
+        <!-- TOP CONTENT -->
+        <div class="booking-top-content">
+
+            <h2>
+                Online Bus Ticket Booking
+            </h2>
+
+            <p>
+                Search buses, compare routes and book your seats instantly
+            </p>
+
+        </div>
+
+        <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
+
+            <div class="clean-booking-card">
+
+                <!-- FROM -->
+                <div class="clean-field from-field">
+
+                    <label>From</label>
+
+                    <div class="clean-input">
+
+                        <div class="clean-icon">
+                            <img src="../../../assets/img/Icon-metro-location.svg">
+                        </div>
+
+                        <input autocomplete="off" type="text" class="form-control" [ngbTypeahead]="search"
+                            [resultTemplate]="rt" [inputFormatter]="formatter" [ngModel]="swapsource"
+                            placeholder="Enter Source" formControlName="source" (selectItem)="tabChange('to')">
+
+                        <ng-template #rt let-r="result" let-t="term">
+                            <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+                        </ng-template>
+
+                    </div>
+
+                </div>
+
+                <!-- TO -->
+                <div class="clean-field to-field">
+
+                    <!-- SWAP BUTTON -->
+                    <button type="button" class="floating-swap-btn" (click)="swap()">
+                        ⇄
+                    </button>
+
+                    <label>To</label>
+
+                    <div class="clean-input">
+
+                        <div class="clean-icon">
+                            <img src="../../../assets/img/Icon-metro-location.svg">
+                        </div>
+
+                        <input autocomplete="off" id="to" type="text" class="form-control" [ngbTypeahead]="search"
+                            [resultTemplate]="rt2" [inputFormatter]="formatter" [ngModel]="swapdestination"
+                            formControlName="destination" placeholder="Enter Destination"
+                            (selectItem)="tabChange('entryDate')">
+
+                        <ng-template #rt2 let-r="result" let-t="term">
+                            <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+                        </ng-template>
+
+                    </div>
+
+                </div>
+
+                <!-- DATE -->
+                <div class="clean-field date-field">
+
+                    <label>Date of Journey</label>
+
+                    <div class="clean-input">
+
+                        <div class="clean-icon" (click)="d.toggle()">
+                            <img src="assets/img/Icon-metro-calendar.svg">
+                        </div>
+
+                        <input type="text" autocomplete="off" readonly id="entryDate" class="form-control"
+                            formControlName="entry_date" placeholder="Journey Date" ngbDatepicker (click)="d.toggle()"
+                            #d="ngbDatepicker" [min]="dtconfig.minDate" [max]="dtconfig.maxDate">
+
+                    </div>
+
+                </div>
+
+                <!-- BUTTON -->
+                <div class="search-btn-wrap">
+
+                    <button type="submit" class="clean-search-btn">
+                        Search
+                    </button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
 </div>

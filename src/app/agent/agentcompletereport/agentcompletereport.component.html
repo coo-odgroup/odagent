@@ -1664,17 +1664,24 @@
   <form [formGroup]="searchFrom">
     <!-- DATE -->
 
-    <div class="mobile-date-grid row d-flex">
-      <div class="mobile-field col-md-6">
-        <input
-          type="date"
-          class="form-control"
-          formControlName="rangeFromDate"
-        />
+    <div class="row mobile-date-grid">
+
+      <!-- FROM DATE -->
+      <div class="col-6">
+        <div class="mobile-field">
+
+          <input type="date" class="form-control" formControlName="rangeFromDate">
+
+        </div>
       </div>
 
-      <div class="mobile-field col-md-6">
-        <input type="date" class="form-control" formControlName="rangeToDate" />
+      <!-- TO DATE -->
+      <div class="col-6">
+        <div class="mobile-field">
+
+          <input type="date" class="form-control" formControlName="rangeToDate">
+
+        </div>
       </div>
     </div>
 
@@ -1716,23 +1723,36 @@
       </ng-select>
     </div>
 
-    <!-- ACTIONS -->
+    <!-- Buttons -->
 
     <div class="mobile-top-actions">
-      <button type="button" class="top-btn search-btn" (click)="search()">
+
+      <!-- TOP ROW -->
+      <div class="top-two-btn">
+
+        <button type="button" class="top-btn refresh-btn" (click)="refresh()">
+
+          <i class="fas fa-sync-alt"></i>
+          Refresh
+
+        </button>
+
+        <button type="button" class="top-btn export-btn" (click)="exportexcel()">
+
+          <i class="fas fa-file-export"></i>
+          Export
+
+        </button>
+
+      </div>
+
+      <!-- FULL SEARCH -->
+      <button type="button" class="top-btn search-btn full-search-btn" (click)="search()">
+
         <i class="fas fa-search"></i>
         Search
       </button>
 
-      <button type="button" class="top-btn refresh-btn" (click)="refresh()">
-        <i class="fas fa-sync-alt"></i>
-        Refresh
-      </button>
-
-      <button type="button" class="top-btn export-btn" (click)="exportexcel()">
-        <i class="fas fa-file-export"></i>
-        Export
-      </button>
     </div>
 
     <!-- ROW SELECT -->
@@ -1758,10 +1778,12 @@
      ===================================== -->
 
 <div class="mobile-ticket-wrapper d-block d-md-none">
-  <div
-    class="simple-ticket-card"
-    *ngFor="let complete of completedata?.data.data; let i = index"
-  >
+
+  <div class="simple-ticket-card" *ngFor="let complete of completedata?.data.data; let i=index">
+    <div class="ticket-count">
+      #{{ i + 1 }}
+    </div>
+
     <!-- TOP -->
 
     <div class="ticket-top">
