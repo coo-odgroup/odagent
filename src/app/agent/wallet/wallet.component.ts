@@ -97,7 +97,6 @@ export class WalletComponent implements OnInit {
     this.searchForm = this.fb.group({
       bus_operator_id: [null],
       name: [null],
-      payment_via: [null],
       from_date: [null],
       to_date: [null],
       rows_number: Constants.RecordLimit,
@@ -190,7 +189,6 @@ export class WalletComponent implements OnInit {
     this.spinner.show();
     const data = {
       name: this.searchForm.value.name,
-      payment_via: this.searchForm.value.payment_via,
       from_date: this.searchForm.value.from_date,
       to_date: this.searchForm.value.to_date,
       rows_number: this.searchForm.value.rows_number,
@@ -227,7 +225,6 @@ export class WalletComponent implements OnInit {
     this.spinner.show();
     this.searchForm = this.fb.group({
       name: [null],
-      payment_via: [null],
       from_date: [null],
       to_date: [null],
       rows_number: Constants.RecordLimit,

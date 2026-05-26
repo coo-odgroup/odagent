@@ -987,3 +987,624 @@
   }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================
+   DESKTOP / MOBILE SWITCH
+========================================= */
+
+.desktop-ticket-page{
+    display:block !important;
+}
+
+.mobile-ticket-page{
+    display:none !important;
+}
+
+@media only screen and (max-width:767px){
+
+    .desktop-ticket-page{
+        display:none !important;
+    }
+
+    .mobile-ticket-page{
+        display:block !important;
+        background:#f3f5f9;
+        padding:16px;
+        min-height:100vh;
+    }
+
+    .modal-dialog{
+        margin:0 !important;
+        width:100% !important;
+        max-width:100% !important;
+        height:100% !important;
+    }
+
+    .modal-content{
+        border-radius:0 !important;
+        min-height:100vh;
+        background:#f3f5f9;
+    }
+
+    .modal-body{
+        padding:0 !important;
+        background:#f3f5f9 !important;
+    }
+
+}
+
+
+/* =========================================
+   MOBILE TICKET CARD
+========================================= */
+
+.mobile-ticket-card{
+
+    background:#f3f5f9;
+    padding-bottom:30px;
+
+}
+
+
+/* =========================================
+   TOP HEADER
+========================================= */
+
+.ticket-top{
+
+    background:#ffffff;
+    border-radius:22px;
+    padding:14px 16px;
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    margin-bottom:14px;
+
+    box-shadow:0 4px 18px rgba(0,0,0,0.05);
+
+}
+
+.ticket-logo{
+
+    width:64px;
+    height:auto;
+
+}
+
+.ticket-head-text h3{
+
+    margin:0;
+    font-size:22px;
+    font-weight:800;
+    color:#0f172a;
+
+}
+
+.ticket-head-text p{
+
+    margin:2px 0 0;
+    font-size:13px;
+    color:#64748b;
+    font-weight:600;
+
+}
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+.ticket-status{
+
+    height:48px;
+
+    border-radius:14px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:15px;
+    font-weight:800;
+
+    margin-bottom:14px;
+
+}
+
+.ticket-status.confirmed{
+
+    background:#dcfce7;
+    color:#15803d;
+
+}
+
+.ticket-status.cancelled{
+
+    background:#fee2e2;
+    color:#dc2626;
+
+}
+
+
+/* =========================================
+   BOX
+========================================= */
+
+.ticket-box{
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    padding:15px 16px;
+
+    margin-bottom:12px;
+
+    box-shadow:0 4px 18px rgba(0,0,0,0.05);
+
+}
+
+
+/* =========================================
+   SECTION TITLE
+========================================= */
+
+.section-title{
+
+    display:flex;
+    align-items:center;
+
+    margin-bottom:16px;
+
+}
+
+.section-title span{
+
+    width:4px;
+    height:22px;
+
+    border-radius:10px;
+
+    background:#efc003;
+
+    margin-right:10px;
+
+}
+
+.section-title h4{
+
+    margin:0;
+
+    font-size:18px;
+    font-weight:800;
+
+    color:#0f172a;
+
+}
+
+
+/* =========================================
+   ROUTE
+========================================= */
+
+.route-main{
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    gap:10px;
+
+    margin-bottom:14px;
+
+}
+
+.route-city{
+
+    flex:1;
+
+}
+
+.route-city small{
+
+    display:block;
+
+    font-size:12px;
+    color:#64748b;
+
+    margin-bottom:5px;
+
+    font-weight:700;
+
+}
+
+.route-city h2{
+
+    margin:0;
+
+    font-size:22px;
+    font-weight:800;
+
+    color:#0f172a;
+
+    line-height:1.2;
+
+}
+
+.route-arrow{
+
+    width:48px;
+    height:48px;
+
+    min-width:48px;
+
+    border-radius:50%;
+
+    background:#f6e8b7;
+    color:#0f172a;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:16px;
+
+}
+
+
+/* =========================================
+   GRID
+========================================= */
+
+.ticket-grid{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:16px;
+
+    padding:14px 0;
+
+    border-top:1px dashed #dbe2ea;
+
+}
+
+.ticket-info small{
+
+    display:block;
+
+    font-size:11px;
+    color:#64748b;
+
+    margin-bottom:5px;
+
+    font-weight:700;
+
+}
+
+.ticket-info h5{
+
+    margin:0;
+
+    font-size:15px;
+    line-height:1.5;
+
+    color:#0f172a;
+
+    font-weight:800;
+
+}
+
+.ticket-info p{
+
+    margin:4px 0 0;
+
+    font-size:12px;
+
+    color:#64748b;
+
+    font-weight:600;
+
+}
+
+
+/* =========================================
+   PASSENGER
+========================================= */
+
+.passenger-head{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr 1fr;
+
+    gap:10px;
+
+    font-size:12px;
+    font-weight:800;
+
+    color:#64748b;
+
+    margin-bottom:10px;
+
+}
+
+.passenger-row{
+
+    display:grid;
+
+    grid-template-columns:2fr 1fr 1fr;
+
+    gap:10px;
+
+    align-items:center;
+
+    padding:14px 0;
+
+    border-top:1px dashed #dbe2ea;
+
+}
+
+.passenger-name{
+
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+
+    font-size:14px;
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.passenger-name i{
+
+    color:#2563eb;
+    font-size:15px;
+
+}
+
+
+/* =========================================
+   QR
+========================================= */
+
+.qr-box{
+
+    text-align:center;
+
+}
+
+.qr-wrapper{
+
+    display:flex;
+    justify-content:center;
+
+    margin-top:10px;
+
+}
+
+
+/* =========================================
+   FARE
+========================================= */
+
+.fare-card{
+
+    background:#f8fafc;
+
+    border-radius:18px;
+
+    padding:16px;
+
+}
+
+.fare-top{
+
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+
+    margin-bottom:16px;
+
+}
+
+.fare-top h3{
+
+    margin:0;
+
+    font-size:16px;
+    font-weight:800;
+
+    color:#0f172a;
+
+}
+
+.fare-top p{
+
+    margin:3px 0 0;
+
+    font-size:12px;
+    color:#64748b;
+
+}
+
+.fare-top h2{
+
+    margin:0;
+
+    font-size:26px;
+    font-weight:800;
+
+    color:#15803d;
+
+}
+
+.fare-line{
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:12px 0;
+
+    border-top:1px dashed #dbe2ea;
+
+    font-size:14px;
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.fare-total{
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-top:14px;
+
+    padding-top:14px;
+
+    border-top:2px solid #dbe2ea;
+
+    font-size:16px;
+    font-weight:800;
+
+    color:#0f172a;
+
+}
+
+
+/* =========================================
+   MOBILE FIXES
+========================================= */
+
+@media only screen and (max-width:480px){
+
+    .ticket-grid{
+
+        gap:12px;
+
+    }
+
+    .route-city h2{
+
+        font-size:18px;
+
+    }
+
+    .ticket-info h5{
+
+        font-size:13px;
+
+    }
+
+    .fare-top h2{
+
+        font-size:22px;
+
+    }
+
+}
+
+/* =========================================
+   DESKTOP / MOBILE FOOTER
+========================================= */
+
+.desktop-modal-footer{
+    display:flex;
+}
+
+.mobile-ticket-footer{
+    display:none;
+}
+
+@media only screen and (max-width:767px){
+
+    .desktop-modal-footer{
+        display:none !important;
+    }
+
+    .mobile-ticket-footer{
+
+        position:fixed;
+
+        bottom:0;
+        left:0;
+        right:0;
+
+        z-index:9999;
+
+        background:#ffffff;
+
+        padding:14px 16px calc(14px + env(safe-area-inset-bottom));
+
+        display:flex;
+        gap:12px;
+
+        box-shadow:0 -4px 20px rgba(0,0,0,0.08);
+
+    }
+
+    .mobile-footer-btn{
+
+        flex:1;
+
+        height:52px;
+
+        border:none;
+
+        border-radius:16px;
+
+        font-size:15px;
+        font-weight:800;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        gap:8px;
+
+    }
+
+    .close-mobile-btn{
+
+        background:#eef2f7;
+        color:#0f172a;
+
+    }
+
+    .print-mobile-btn{
+
+        background:#efc003;
+        color:#0f172a;
+
+    }
+
+    /* EXTRA SPACE SO FOOTER DOESN'T COVER CONTENT */
+
+    .mobile-ticket-page{
+        padding-bottom:100px !important;
+    }
+
+}
