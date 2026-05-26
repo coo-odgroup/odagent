@@ -114,20 +114,12 @@
                 </div>
               </div>
 
-              <div class="col">
-                <!-- <small>Trans.type</small> -->
+              <!-- <div class="col">
                 <div class="form-group">
                   <div class="dropdown payment_sec">
-                    <!-- <select class="form-control sml_input" formControlName="tran_type" >
-                     
-                        <option value='c'>Credit</option>
-                        <option value='d'>Debit</option>
-                    </select> -->
                     <select
                       class="form-control input-sm"
-                      formControlName="payment_via"
-                    >
-                      <!-- <option value=""> Select Transaction Via</option> -->
+                      formControlName="payment_via">
                       <option value="PhonePe">PhonePe</option>
                       <option value="Google Pay">Google Pay</option>
                       <option value="PayTM">PayTM</option>
@@ -143,7 +135,7 @@
                   </div>
                   <br />
                 </div>
-              </div>
+              </div> -->
 
               <div class="col">
                 <button
@@ -210,7 +202,9 @@
           <tbody *ngIf="wallet?.length != 0">
             <tr *ngFor="let page of wallet; let i = index">
               <td style="text-align: center">{{ i + 1 }}</td>
-              <td>{{ page.created_at | date: "dd/MM/yyyy" }}</td>
+              <td>{{ page.created_at | date: "dd/MM/yyyy" }} -
+                {{ page.created_at | date:'hh:mm a' }}
+              </td>
               <td>
                 <span *ngIf="page.transaction_id != null">
                   {{ page.transaction_id }}

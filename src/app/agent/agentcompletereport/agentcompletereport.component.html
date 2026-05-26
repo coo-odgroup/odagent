@@ -1,141 +1,157 @@
-<ngx-spinner bdColor="rgba(60,55,55,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
-  [fullScreen]="true">
-  <p style="color: white"> Loading... </p>
+<ngx-spinner
+  bdColor="rgba(60,55,55,0.8)"
+  size="large"
+  color="#fff"
+  type="ball-clip-rotate-multiple"
+  [fullScreen]="true"
+>
+  <p style="color: white">Loading...</p>
 </ngx-spinner>
-
 
 <div class="row desktop-view">
   <div class="col-sm-12">
-    <app-card cardTitle="Agent Complete Report" cardClass="card-datatable" [options]="false" [isCardFooter]="false">
-
-
-      <div class=" mb-3">
+    <app-card
+      cardTitle="Agent Complete Report"
+      cardClass="card-datatable"
+      [options]="false"
+      [isCardFooter]="false"
+    >
+      <div class="mb-3">
         <div class="row p-0">
           <div class="col-12">
             <form [formGroup]="searchFrom">
-
               <div class="row align-items-end">
-
                 <!-- DATE RANGE -->
                 <div class="col-md-4 col-sm-12">
-
                   <div class="row">
-
                     <div class="col-6">
                       <div class="form-group">
-                        <input type="date" class="form-control sml_input" placeholder="Enter pnr" required
-                          formControlName="rangeFromDate" />
+                        <input
+                          type="date"
+                          class="form-control sml_input"
+                          placeholder="Enter pnr"
+                          required
+                          formControlName="rangeFromDate"
+                        />
                       </div>
                     </div>
 
                     <div class="col-6">
                       <div class="form-group">
-                        <input type="date" class="form-control sml_input" placeholder="Enter pnr" required
-                          formControlName="rangeToDate" />
+                        <input
+                          type="date"
+                          class="form-control sml_input"
+                          placeholder="Enter pnr"
+                          required
+                          formControlName="rangeToDate"
+                        />
                       </div>
                     </div>
-
                   </div>
-
                 </div>
-
 
                 <!-- BOOKING TYPE -->
                 <div class="col-md-2 col-sm-12">
                   <div class="form-group">
-                    <select class="form-control sml_input" formControlName="date_type">
-                      <option value='booking'>Booking Date</option>
-                      <option value='journey'>Journey Date</option>
+                    <select
+                      class="form-control sml_input"
+                      formControlName="date_type"
+                    >
+                      <option value="booking">Booking Date</option>
+                      <option value="journey">Journey Date</option>
                     </select>
                   </div>
                 </div>
 
-
                 <!-- SOURCE -->
                 <div class="col-md-3 col-sm-12">
                   <div class="form-group">
-
-                    <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Source"
-                      formControlName="source_id" [clearable]="false" (change)="findSource($event)">
-
+                    <ng-select
+                      [items]="locations"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="Select Source"
+                      formControlName="source_id"
+                      [clearable]="false"
+                      (change)="findSource($event)"
+                    >
                     </ng-select>
-
                   </div>
                 </div>
-
 
                 <!-- DESTINATION -->
                 <div class="col-md-3 col-sm-12">
                   <div class="form-group">
-
-                    <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Destination"
-                      formControlName="destination_id" [clearable]="false" (change)="findSource($event)">
-
+                    <ng-select
+                      [items]="locations"
+                      bindLabel="name"
+                      bindValue="id"
+                      placeholder="Select Destination"
+                      formControlName="destination_id"
+                      [clearable]="false"
+                      (change)="findSource($event)"
+                    >
                     </ng-select>
-
                   </div>
                 </div>
-
               </div>
-
-
 
               <div class="row mt-2 align-items-center">
-
                 <div class="col-md-7 col-sm-12">
-
-                  <button type="button" class="btn btn-success sml_input mr-2" (click)="search()" title="search">
-
+                  <button
+                    type="button"
+                    class="btn btn-success sml_input mr-2"
+                    (click)="search()"
+                    title="search"
+                  >
                     <i class="fas fa-search"></i> Search
-
                   </button>
 
-
-                  <button type="button" class="btn btn-danger sml_input mr-2" (click)="refresh()" title="refresh">
-
+                  <button
+                    type="button"
+                    class="btn btn-danger sml_input mr-2"
+                    (click)="refresh()"
+                    title="refresh"
+                  >
                     <i class="fas fa-sync-alt"></i> Refresh
-
                   </button>
 
-
-                  <button type="button" (click)="exportexcel()" class="btn btn-warning sml_input mr-2" title="Export">
-
+                  <button
+                    type="button"
+                    (click)="exportexcel()"
+                    class="btn btn-warning sml_input mr-2"
+                    title="Export"
+                  >
                     <i class="fas fa-file-export"></i> Export
-
                   </button>
-
                 </div>
-
-
 
                 <div class="col-md-5 col-sm-12 text-md-right">
-
-                  <select class="form-control sml_input d-inline-block" formControlName="rows_number" (change)=search()>
-
-                    <option value=10>10</option>
-                    <option value=25>25</option>
-                    <option value=50>50</option>
-                    <option value=100>100</option>
-                    <option value='all'>All</option>
-
+                  <select
+                    class="form-control sml_input d-inline-block"
+                    formControlName="rows_number"
+                    (change)="search()"
+                  >
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                    <option value="all">All</option>
                   </select>
-
                 </div>
-
               </div>
-
             </form>
           </div>
         </div>
       </div>
       <!-- class="table-responsive"   -->
       <div id="export-section">
-        <table class="table table-striped ">
+        <table class="table table-striped">
           <thead *ngIf="completedata?.data?.data?.length > 0">
             <tr>
-              <th scope="col" width="80px" style="text-align: center;">#</th>
+              <th scope="col" width="80px" style="text-align: center">#</th>
               <th scope="col">Ticket Details</th>
-              <th scope="col">Bus Details </th>
+              <th scope="col">Bus Details</th>
               <th scope="col">Boarding Point/Time</th>
               <th scope="col">Source >> Destination</th>
               <th scope="col">Seat No</th>
@@ -148,51 +164,62 @@
           </thead>
           <tbody *ngIf="completedata?.data?.data?.length > 0">
             <tr *ngFor="let complete of completedata?.data.data; let i = index">
-              <td style="text-align: center;">{{ i+1 }}</td>
+              <td style="text-align: center">{{ i + 1 }}</td>
               <td>
-                <strong>{{complete.pnr}}</strong> (<strong style="color: darkgoldenrod;">DOj- {{complete.journey_dt}} )
+                <strong>{{ complete.pnr }}</strong> (<strong
+                  style="color: darkgoldenrod"
+                  >DOj- {{ complete.journey_dt }} )
                 </strong>
-                <br>
-                <strong style="color: brown;">DOB-{{complete.created_at | date: 'dd/MM/yyyy HH:mm:ss'}}</strong>
+                <br />
+                <strong style="color: brown"
+                  >DOB-{{
+                    complete.created_at | date: "dd/MM/yyyy HH:mm:ss"
+                  }}</strong
+                >
                 <!--<br>
                                 <strong style="color: darkgoldenrod;">{{complete.customer_payment.razorpay_id}}</strong> -->
               </td>
               <td>
-                <strong *ngIf="complete.origin != 'DOLPHIN'  && complete.origin != 'MANTIS'">{{ complete.bus.name }}<br>
-                  {{ complete.bus.bus_number }}</strong>
+                <strong
+                  *ngIf="
+                    complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'
+                  "
+                  >{{ complete.bus.name }}<br />
+                  {{ complete.bus.bus_number }}</strong
+                >
 
-                <strong *ngIf="complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'">{{ complete.bus_name }}<br>
-                  {{ complete.bus_number}}</strong>
-
+                <strong
+                  *ngIf="
+                    complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'
+                  "
+                  >{{ complete.bus_name }}<br />
+                  {{ complete.bus_number }}</strong
+                >
               </td>
               <td>
                 <span *ngFor="let frlocation of complete.from_location">
-                  {{frlocation.name}}
-                </span> -
-                ( <b>{{complete.boarding_point}} </b> )<br>
-                Time : <b>{{complete.boarding_time }}</b>
+                  {{ frlocation.name }}
+                </span>
+                - ( <b>{{ complete.boarding_point }} </b> )<br />
+                Time : <b>{{ complete.boarding_time }}</b>
               </td>
 
               <td>
                 <ng-template #tipContent1>
-                  <table style="width: 350px;">
+                  <table style="width: 350px">
                     <tr>
-                      <th style="text-align: left;">
-                        Start
-                      </th>
-                      <th style="text-align: left;">
-                        End
-                      </th>
+                      <th style="text-align: left">Start</th>
+                      <th style="text-align: left">End</th>
                     </tr>
                     <tr>
-                      <td style="text-align: left;">
+                      <td style="text-align: left">
                         <span *ngFor="let frlocation of complete.source">
-                          {{frlocation[0].name}}<br />
+                          {{ frlocation[0].name }}<br />
                         </span>
                       </td>
-                      <td style="text-align: left;">
+                      <td style="text-align: left">
                         <span *ngFor="let tolocation of complete.destination">
-                          {{tolocation[0].name}} <br />
+                          {{ tolocation[0].name }} <br />
                         </span>
                       </td>
                     </tr>
@@ -201,28 +228,34 @@
 
                 <span [ngbTooltip]="tipContent1">
                   <!-- {{ complete.source_id }} - {{ complete.destination_id }} -->
-                  <span *ngFor="let boarding of complete.from_location;">
-                    <strong> {{boarding.name}}</strong>
-                  </span> >>
-                  <span *ngFor="let dropping of complete.to_location;">
-                    <strong> {{dropping.name}}</strong>
+                  <span *ngFor="let boarding of complete.from_location">
+                    <strong> {{ boarding.name }}</strong>
+                  </span>
+                  >>
+                  <span *ngFor="let dropping of complete.to_location">
+                    <strong> {{ dropping.name }}</strong>
                   </span>
                 </span>
               </td>
               <td>
-
-                <p *ngFor="let seat of complete.booking_detail;">
-                  <span *ngIf="complete.origin != 'DOLPHIN'  && complete.origin != 'MANTIS'">
-                    {{seat.bus_seats.seats.seatText}}
+                <p *ngFor="let seat of complete.booking_detail">
+                  <span
+                    *ngIf="
+                      complete.origin != 'DOLPHIN' &&
+                      complete.origin != 'MANTIS'
+                    "
+                  >
+                    {{ seat.bus_seats.seats.seatText }}
                   </span>
-                  <span *ngIf="complete.origin == 'DOLPHIN'  || complete.origin == 'MANTIS'">
-                    {{seat.seat_name}}
+                  <span
+                    *ngIf="
+                      complete.origin == 'DOLPHIN' ||
+                      complete.origin == 'MANTIS'
+                    "
+                  >
+                    {{ seat.seat_name }}
                   </span>
-
                 </p>
-
-
-
               </td>
               <td class="text-capitalize">
                 <ng-template #tipContent>
@@ -231,74 +264,102 @@
                   <table>
                     <tr>
                       <td>Phone-</td>
-                      <td><b>{{complete.users.phone}}</b></td>
+                      <td>
+                        <b>{{ complete.users.phone }}</b>
+                      </td>
                     </tr>
                     <tr>
                       <td>Email-</td>
-                      <td>{{complete.users.email}}</td>
+                      <td>{{ complete.users.email }}</td>
                     </tr>
                   </table>
                 </ng-template>
 
                 <strong [ngbTooltip]="tipContent">
-                  {{complete.users?.name}}
-                </strong> <br>
+                  {{ complete.users?.name }}
+                </strong>
+                <br />
                 <div class="text-center">
-                  <button class="btn btn-sm btn-info text-light  mr-3 ml-2 mt-2 hide_print" placement="bottom"
-                    ngbTooltip="Click to Copy Phone Number" (click)="copyMessage(complete.users.phone)">
+                  <button
+                    class="btn btn-sm btn-info text-light mr-3 ml-2 mt-2 hide_print"
+                    placement="bottom"
+                    ngbTooltip="Click to Copy Phone Number"
+                    (click)="copyMessage(complete.users.phone)"
+                  >
                     <i class="fas fa-mobile-alt"></i>
                   </button>
 
-                  <button class="btn btn-sm btn-danger text-light mt-2 hide_print" placement="bottom"
-                    ngbTooltip=" Click to Copy Email" (click)="copyMessage(complete.users.email)">
+                  <button
+                    class="btn btn-sm btn-danger text-light mt-2 hide_print"
+                    placement="bottom"
+                    ngbTooltip=" Click to Copy Email"
+                    (click)="copyMessage(complete.users.email)"
+                  >
                     <i class="far fa-envelope"></i>
                   </button>
-
                 </div>
-
-
               </td>
               <td>
-                <p *ngFor="let passanger of complete.booking_detail;">
+                <p *ngFor="let passanger of complete.booking_detail">
                   <ng-template #tipContent1>
                     <table>
                       <tr>
                         <td>Gender-</td>
-                        <td><b>{{passanger.passenger_gender}}</b></td>
+                        <td>
+                          <b>{{ passanger.passenger_gender }}</b>
+                        </td>
                       </tr>
                       <tr>
                         <td>Age-</td>
-                        <td><b>{{passanger.passenger_age}}</b></td>
+                        <td>
+                          <b>{{ passanger.passenger_age }}</b>
+                        </td>
                       </tr>
                       <tr>
                         <td>Seat No-</td>
-                        <td><b>{{passanger.bus_seats.seats.seatText}}</b></td>
+                        <td>
+                          <b>{{ passanger.bus_seats.seats.seatText }}</b>
+                        </td>
                       </tr>
                     </table>
                   </ng-template>
-                  <strong [ngbTooltip]="tipContent1">{{passanger.passenger_name}}</strong>
+                  <strong [ngbTooltip]="tipContent1">{{
+                    passanger.passenger_name
+                  }}</strong>
                 </p>
               </td>
 
               <td>
-                <i class="fas fa-rupee-sign"></i> <b>{{complete.total_fare + complete.agent_commission}}</b>
+                <i class="fas fa-rupee-sign"></i>
+                <b>{{ complete.total_fare + complete.agent_commission }}</b>
               </td>
               <td>
                 <div class="text-center">
-                  <button class="btn btn-sm btn-primary text-light  mr-1 ml-1 mt-1 hide_print" placement="bottom"
-                    ngbTooltip="Click to Print the pnr" (click)="OpenModal(content);print_tkt(i)">
+                  <button
+                    class="btn btn-sm btn-primary text-light mr-1 ml-1 mt-1 hide_print"
+                    placement="bottom"
+                    ngbTooltip="Click to Print the pnr"
+                    (click)="OpenModal(content); print_tkt(i)"
+                  >
                     <i class="fa-solid fa-print"></i>
                   </button>
 
-
-                  <button class="btn btn-sm btn-success text-light mr-1 ml-1 mt-1 hide_print" placement="left"
-                    ngbTooltip=" Click to Send Message and Email" (click)="emailSms(i)">
+                  <button
+                    class="btn btn-sm btn-success text-light mr-1 ml-1 mt-1 hide_print"
+                    placement="left"
+                    ngbTooltip=" Click to Send Message and Email"
+                    (click)="emailSms(i)"
+                  >
                     <i class="fa-solid fa-message"></i>
                   </button>
 
-                  <button *ngIf="complete.journey_dt > todayDate"
-                    class="btn btn-sm btn-danger text-light mr-1 ml-1 mt-1" placement="left"
-                    ngbTooltip="  Click to Cancel the PNR" (click)="OpenCancelModal(cancelTicketTab,i)">
+                  <button
+                    *ngIf="complete.journey_dt > todayDate"
+                    class="btn btn-sm btn-danger text-light mr-1 ml-1 mt-1"
+                    placement="left"
+                    ngbTooltip="  Click to Cancel the PNR"
+                    (click)="OpenCancelModal(cancelTicketTab, i)"
+                  >
                     <i class="fa-solid fa-cancel"></i>
                   </button>
 
@@ -313,46 +374,69 @@
           </tbody>
           <tbody *ngIf="completedata?.data?.data?.length == 0">
             <tr>
-              <td colspan="10" class="no-data-available text-center">No Record Found!</td>
+              <td colspan="10" class="no-data-available text-center">
+                No Record Found!
+              </td>
             </tr>
-          <tbody>
+          </tbody>
+
+          <tbody></tbody>
         </table>
         <div *ngIf="completedata?.data?.data?.length > 0">
           <div class="pagination-wrapper" *ngIf="completedata?.data.links">
             <nav class="pagination-nav">
               <ul class="pagination pagination-sm mb-0 hide_print">
-
                 <!-- First Button -->
-                <li class="page-item" [class.disabled]="completedata.data.current_page == 1">
+                <li
+                  class="page-item"
+                  [class.disabled]="completedata.data.current_page == 1"
+                >
                   <a class="page-link" (click)="onFirstPageComplete()">First</a>
                 </li>
 
                 <!-- Previous Button -->
-                <li class="page-item" [class.disabled]="!completedata.data.prev_page_url">
-                  <a class="page-link" (click)="onPreviousPageComplete()">Prev</a>
+                <li
+                  class="page-item"
+                  [class.disabled]="!completedata.data.prev_page_url"
+                >
+                  <a class="page-link" (click)="onPreviousPageComplete()"
+                    >Prev</a
+                  >
                 </li>
 
                 <!-- Page Numbers -->
-                <li class="page-item" *ngFor="let b of completedata.data.links; let i = index"
-                  [class.d-none]="!isPageVisibleComplete(b.label)">
-
-                  <a class="page-link" [class.active]="completedata.data.current_page == b.label"
-                    (click)="b.url ? search(b.url) : ''">
+                <li
+                  class="page-item"
+                  *ngFor="let b of completedata.data.links; let i = index"
+                  [class.d-none]="!isPageVisibleComplete(b.label)"
+                >
+                  <a
+                    class="page-link"
+                    [class.active]="completedata.data.current_page == b.label"
+                    (click)="b.url ? search(b.url) : ''"
+                  >
                     {{ getPageLabelComplete(b.label) }}
                   </a>
-
                 </li>
 
                 <!-- Next Button -->
-                <li class="page-item" [class.disabled]="!completedata.data.next_page_url">
+                <li
+                  class="page-item"
+                  [class.disabled]="!completedata.data.next_page_url"
+                >
                   <a class="page-link" (click)="onNextPageComplete()">Next</a>
                 </li>
 
                 <!-- Last Button -->
-                <li class="page-item" [class.disabled]="completedata.data.current_page == completedata.data.last_page">
+                <li
+                  class="page-item"
+                  [class.disabled]="
+                    completedata.data.current_page ==
+                    completedata.data.last_page
+                  "
+                >
                   <a class="page-link" (click)="onLastPageComplete()">Last</a>
                 </li>
-
               </ul>
             </nav>
           </div>
@@ -360,12 +444,17 @@
       </div>
 
       <div class="app-card-footer">
-
         <ng-template #confirmDialog let-modal>
           <div class="modal-header">
-            <h5 class="ng-tns-c116-5"> Please Confirm</h5>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
-                aria-hidden="true">&times;</span></button>
+            <h5 class="ng-tns-c116-5">Please Confirm</h5>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">
             <div class="row">
@@ -379,12 +468,25 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" (click)="emailSms()" class="btn btn-primary" ngbAutofocus>Confirm Delete</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal" #defaultClick
-              (click)="modal.dismiss('Cross click')">Cancel</button>
+            <button
+              type="button"
+              (click)="emailSms()"
+              class="btn btn-primary"
+              ngbAutofocus
+            >
+              Confirm Delete
+            </button>
+            <button
+              type="button"
+              class="btn btn-default"
+              data-dismiss="modal"
+              #defaultClick
+              (click)="modal.dismiss('Cross click')"
+            >
+              Cancel
+            </button>
           </div>
         </ng-template>
-
 
         <!-- <ng-template #confirmDialogofCancel let-modal>
                     <div class="modal-header">
@@ -412,334 +514,1037 @@
 
         <ng-template #content let-modal>
           <div class="modal-header">
-            <h5 class="ng-tns-c116-5">{{ModalHeading}}</h5>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
-                aria-hidden="true">&times;</span></button>
+            <h5 class="ng-tns-c116-5">{{ ModalHeading }}</h5>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">
             <div class="row">
               <div class="col-sm-12">
                 <div class="form-material">
                   <div class="right-icon-control">
-                    <!-- <div id="print-section">
-                                HI
-                            </div> -->
-                    <div class="container" id="print-section">
-                      <div class="od-body mb25">
-                        <div class="row mb40">
-                          <div class="col-md-3"><img src="../../../assets/img/email-logo.png" class="od-logo" /></div>
-                          <div class="col-md-6 odtext32"><span>ODBUS</span> e-Ticketing Service<br /> Electronic
-                            Reservation Slip</div>
-                          <div class="col-md-3">
-                            <div class="od-bktext">Booking Date</div>
-                            <div class="od-bktext">{{singleRecord.created_at | date:'EEEE, d MMMM , y' }}</div>
-                          </div>
-                        </div>
-                        <div class="row  mt30 mb25">
-                          <div class="col-md-9 odtext24">
-                            <h3>JOURNEY DETAILS:</h3>
-                            <table class="table table-bordered">
-                              <thead>
-                                <tr>
-                                  <th scope="col" style="color: #000;">PNR No: {{ singleRecord.pnr }}</th>
-                                  <th *ngIf="singleRecord.origin!='DOLPHIN'" scope="col" style="color: #000;">Bus
-                                    Name/Number: {{ singleRecord.bus.name }}-{{ singleRecord.bus.bus_number }}</th>
-                                  <th *ngIf="singleRecord.origin=='DOLPHIN'" scope="col" style="color: #000;">Bus
-                                    Name/Number: {{ singleRecord.bus_name }}-{{ singleRecord.bus_number }}</th>
+                    <div id="print-section">
+                      <div class="desktop-ticket-page">
+                        <div class="container">
+                          <div class="od-body mb25">
+                            <div class="row mb40">
+                              <div class="col-md-3">
+                                <img
+                                  src="../../../assets/img/email-logo.png"
+                                  class="od-logo"
+                                />
+                              </div>
+                              <div class="col-md-6 odtext32">
+                                <span>ODBUS</span> e-Ticketing Service<br />
+                                Electronic Reservation Slip
+                              </div>
+                              <div class="col-md-3">
+                                <div class="od-bktext">Booking Date</div>
+                                <div class="od-bktext">
+                                  {{
+                                    singleRecord.created_at
+                                      | date: "EEEE, d MMMM , y"
+                                  }}
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row mt30 mb25">
+                              <div class="col-md-9 odtext24">
+                                <h3>JOURNEY DETAILS:</h3>
+                                <table class="table table-bordered">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col" style="color: #000">
+                                        PNR No: {{ singleRecord.pnr }}
+                                      </th>
+                                      <th
+                                        *ngIf="singleRecord.origin != 'DOLPHIN'"
+                                        scope="col"
+                                        style="color: #000"
+                                      >
+                                        Bus Name/Number:
+                                        {{ singleRecord.bus.name }}-{{
+                                          singleRecord.bus.bus_number
+                                        }}
+                                      </th>
+                                      <th
+                                        *ngIf="singleRecord.origin == 'DOLPHIN'"
+                                        scope="col"
+                                        style="color: #000"
+                                      >
+                                        Bus Name/Number:
+                                        {{ singleRecord.bus_name }}-{{
+                                          singleRecord.bus_number
+                                        }}
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>
+                                        Journey Date:
+                                        {{
+                                          singleRecord.journey_dt
+                                            | date: "EEEE, d MMMM , y"
+                                        }}
+                                      </td>
+                                      <td
+                                        *ngIf="singleRecord.origin != 'DOLPHIN'"
+                                      >
+                                        Bus Route:
+                                        {{ singleRecord.source[0][0].name }}-{{
+                                          singleRecord.destination[0][0].name
+                                        }}
+                                      </td>
+                                      <td
+                                        *ngIf="singleRecord.origin == 'DOLPHIN'"
+                                      >
+                                        Bus Route:
+                                        {{
+                                          singleRecord.from_location[0].name
+                                        }}-{{
+                                          singleRecord.to_location[0].name
+                                        }}
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        Deparature Timing:
+                                        {{ singleRecord.boarding_time }}
+                                      </td>
+                                      <td>
+                                        Arrival Timing:
+                                        {{ singleRecord.dropping_time }}
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        From:
+                                        {{ singleRecord.from_location[0].name }}
+                                        ({{ singleRecord.boarding_point }})
+                                      </td>
+                                      <td>
+                                        To:
+                                        {{ singleRecord.to_location[0].name }}
+                                        ({{ singleRecord.dropping_point }})
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        Boarding At : ({{
+                                          singleRecord.boarding_point
+                                        }})
+                                      </td>
+                                      <td>
+                                        Droping At: ({{
+                                          singleRecord.dropping_point
+                                        }})
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        Passenger Mobile No: +91
+                                        {{ singleRecord.users.phone }}
+                                      </td>
+                                      <td
+                                        *ngIf="singleRecord.origin != 'DOLPHIN'"
+                                      >
+                                        Conductor Mobile No:
+                                        <span
+                                          *ngFor="
+                                            let contacts of singleRecord.bus
+                                              .bus_contacts
+                                          "
+                                        >
+                                          <span *ngIf="contacts.type == 2">
+                                            {{ contacts.phone }}
+                                          </span>
+                                        </span>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        Agent Mobile No: +91
+                                        {{ singleRecord.user.phone }}
+                                      </td>
+                                      <td>
+                                        Seat({{
+                                          singleRecord.booking_detail.length
+                                        }})-
+                                        <span
+                                          *ngFor="
+                                            let seats of singleRecord.booking_detail
+                                          "
+                                        >
+                                          <span
+                                            *ngIf="
+                                              singleRecord.origin != 'DOLPHIN'
+                                            "
+                                            >{{
+                                              seats.bus_seats.seats.seatText
+                                            }}.</span
+                                          >
+                                          <span
+                                            *ngIf="
+                                              singleRecord.origin == 'DOLPHIN'
+                                            "
+                                            >{{ seats.seat_name }}.</span
+                                          >
+                                        </span>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <div class="col-md-3">
+                                <ngx-qrcode
+                                  [elementType]="elementType"
+                                  [errorCorrectionLevel]="correctionLevel"
+                                  [value]="qrcode"
+                                  cssClass="bshadow"
+                                  [width]="200"
+                                ></ngx-qrcode>
+                              </div>
+                            </div>
 
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>Journey Date: {{ singleRecord.journey_dt | date:'EEEE, d MMMM , y' }}</td>
-                                  <td *ngIf="singleRecord.origin!='DOLPHIN'">Bus Route: {{
-                                    singleRecord.source[0][0].name }}-{{ singleRecord.destination[0][0].name }}</td>
-                                  <td *ngIf="singleRecord.origin=='DOLPHIN'">Bus Route: {{
-                                    singleRecord.from_location[0].name }}-{{ singleRecord.to_location[0].name }}</td>
-                                </tr>
-                                <tr>
-                                  <td>Deparature Timing: {{ singleRecord.boarding_time}}</td>
-                                  <td>Arrival Timing: {{ singleRecord.dropping_time }}</td>
-                                </tr>
-                                <tr>
-                                  <td>From: {{ singleRecord.from_location[0].name }} ({{ singleRecord.boarding_point }})
-                                  </td>
-                                  <td>To: {{ singleRecord.to_location[0].name }} ({{ singleRecord.dropping_point }})
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Boarding At : ({{ singleRecord.boarding_point }})</td>
-                                  <td>Droping At: ({{ singleRecord.dropping_point }})</td>
-                                </tr>
-                                <tr>
-                                  <td>Passenger Mobile No: +91 {{ singleRecord.users.phone}}</td>
-                                  <td *ngIf="singleRecord.origin!='DOLPHIN'">Conductor Mobile No:
-                                    <span *ngFor="let contacts of singleRecord.bus.bus_contacts;">
-                                      <span *ngIf="contacts.type == 2">
-                                        {{contacts.phone}}
-                                      </span>
-                                    </span>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>Agent Mobile No: +91 {{ singleRecord.user.phone}}</td>
-                                  <td>Seat({{singleRecord.booking_detail.length}})-
-                                    <span *ngFor="let seats of singleRecord.booking_detail">
-                                      <span
-                                        *ngIf="singleRecord.origin!='DOLPHIN'">{{seats.bus_seats.seats.seatText}}.</span>
-                                      <span *ngIf="singleRecord.origin=='DOLPHIN'">{{seats.seat_name}}.</span>
-                                    </span>
+                            <div class="row mt30 mb25">
+                              <div class="col-md-12 odtext24">
+                                <h3>PASSENGER DETAILS:</h3>
+                                <table class="table table-bordered">
+                                  <thead>
+                                    <tr
+                                      style="
+                                        background-color: #fff;
+                                        color: #000;
+                                      "
+                                    >
+                                      <th scope="col">Sl No.</th>
+                                      <th scope="col">Name</th>
+                                      <th scope="col">Age</th>
+                                      <th scope="col">Sex</th>
+                                      <th scope="col">Seat No</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr
+                                      *ngFor="
+                                        let dt of singleRecord.booking_detail;
+                                        let i = index
+                                      "
+                                    >
+                                      <th scope="row">{{ i + 1 }}</th>
+                                      <td>{{ dt.passenger_name }}</td>
+                                      <td>{{ dt.passenger_age }}</td>
+                                      <td>{{ dt.passenger_gender }}</td>
+                                      <td
+                                        *ngIf="singleRecord.origin != 'DOLPHIN'"
+                                      >
+                                        {{ dt.bus_seats.seats.seatText }}
+                                      </td>
+                                      <td
+                                        *ngIf="singleRecord.origin == 'DOLPHIN'"
+                                      >
+                                        {{ dt.seat_name }}
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
 
-                                  </td>
-                                </tr>
-
-                              </tbody>
-                            </table>
-
-                          </div>
-                          <div class="col-md-3">
-
-                            <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel"
-                              [value]="qrcode" cssClass="bshadow" [width]=200></ngx-qrcode>
-                          </div>
-                        </div>
-
-                        <div class="row mt30 mb25">
-                          <div class="col-md-12 odtext24">
-                            <h3>PASSENGER DETAILS:</h3>
-                            <table class="table table-bordered">
-                              <thead>
-                                <tr style="background-color: #fff;color: #000;">
-                                  <th scope="col">Sl No.</th>
-                                  <th scope="col">Name</th>
-                                  <th scope="col">Age</th>
-                                  <th scope="col">Sex</th>
-                                  <th scope="col">Seat No</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-
-                                <tr *ngFor="let dt of singleRecord.booking_detail; let i = index;">
-                                  <th scope="row">{{i+1}}</th>
-                                  <td>{{ dt.passenger_name }}</td>
-                                  <td>{{ dt.passenger_age }}</td>
-                                  <td>{{ dt.passenger_gender }}</td>
-                                  <td *ngIf="singleRecord.origin!='DOLPHIN'">{{ dt.bus_seats.seats.seatText }}</td>
-                                  <td *ngIf="singleRecord.origin=='DOLPHIN'">{{ dt.seat_name }}</td>
-                                </tr>
-
-                              </tbody>
-                            </table>
-                          </div>
-
-                        </div>
-
-                        <!-- <div class="row mt30 mb25">
+                            <!-- <div class="row mt30 mb25">
                                     <div class="col-md-12"><img src="../../../assets/img/banner-01.png" class="od-banner"/></div>
                                 </div>
                              -->
 
-                        <table style="width: 100%; margin-top: 20px;">
-                          <tr>
-                            <td style="width: 50%;">
-                              <div class="col-md-12 pl-0 odtext24 fare-backup">
-                                <h3>FARE BREAKUP</h3>
-                                <table class="table table-bordered" cellpadding="0" cellspacing="0" border="1"
-                                  style="width: 100%;">
-
-                                  <tbody>
-                                    <tr>
-                                      <td class="text-left">Base Fare</td>
-                                      <td class="text-right"><b>₹{{singleRecord.owner_fare +
-                                          singleRecord.odbus_charges}}</b></td>
-                                    </tr>
-                                    <tr *ngIf="singleRecord.coupon_discount > 0">
-                                      <td class="text-left">Coupon Discount</td>
-                                      <td class="text-right"><b>- ₹{{singleRecord.coupon_discount}}</b></td>
-                                    </tr>
-                                    <tr *ngIf="singleRecord.customer_gst_status == 1">
-                                      <td class="text-left">GST ({{singleRecord.customer_gst_percent}}%)</td>
-                                      <td class="text-right"><b>+ ₹{{singleRecord.customer_gst_amount}}</b></td>
-                                    </tr>
-                                    <!-- <tr>
+                            <table style="width: 100%; margin-top: 20px">
+                              <tr>
+                                <td style="width: 50%">
+                                  <div
+                                    class="col-md-12 pl-0 odtext24 fare-backup"
+                                  >
+                                    <h3>FARE BREAKUP</h3>
+                                    <table
+                                      class="table table-bordered"
+                                      cellpadding="0"
+                                      cellspacing="0"
+                                      border="1"
+                                      style="width: 100%"
+                                    >
+                                      <tbody>
+                                        <tr>
+                                          <td class="text-left">Base Fare</td>
+                                          <td class="text-right">
+                                            <b
+                                              >₹{{
+                                                singleRecord.owner_fare +
+                                                  singleRecord.odbus_charges
+                                              }}</b
+                                            >
+                                          </td>
+                                        </tr>
+                                        <tr
+                                          *ngIf="
+                                            singleRecord.coupon_discount > 0
+                                          "
+                                        >
+                                          <td class="text-left">
+                                            Coupon Discount
+                                          </td>
+                                          <td class="text-right">
+                                            <b
+                                              >- ₹{{
+                                                singleRecord.coupon_discount
+                                              }}</b
+                                            >
+                                          </td>
+                                        </tr>
+                                        <tr
+                                          *ngIf="
+                                            singleRecord.customer_gst_status ==
+                                            1
+                                          "
+                                        >
+                                          <td class="text-left">
+                                            GST ({{
+                                              singleRecord.customer_gst_percent
+                                            }}%)
+                                          </td>
+                                          <td class="text-right">
+                                            <b
+                                              >+ ₹{{
+                                                singleRecord.customer_gst_amount
+                                              }}</b
+                                            >
+                                          </td>
+                                        </tr>
+                                        <!-- <tr>
                                         <td class="text-left">Transaction Fee</td>
                                         <td class="text-right"><b>+₹{{singleRecord.transactionFee}}</b></td>
                                       </tr> -->
 
-                                    <tr *ngIf="singleRecord.customer_comission > 0">
-                                      <td class="text-left">Agent Commission</td>
-                                      <td class="text-right"><b>+₹{{singleRecord.customer_comission}}</b></td>
-                                    </tr>
+                                        <tr
+                                          *ngIf="
+                                            singleRecord.customer_comission > 0
+                                          "
+                                        >
+                                          <td class="text-left">
+                                            Agent Commission
+                                          </td>
+                                          <td class="text-right">
+                                            <b
+                                              >+₹{{
+                                                singleRecord.customer_comission
+                                              }}</b
+                                            >
+                                          </td>
+                                        </tr>
 
-                                    <tr>
-                                      <td class="text-left"><strong>Total Fare</strong></td>
-                                      <td class="text-right"><strong>₹{{singleRecord.payable_amount +
-                                          singleRecord.customer_comission}}</strong></td>
-                                    </tr>
-                                  </tbody>
-
-                                </table>
+                                        <tr>
+                                          <td class="text-left">
+                                            <strong>Total Fare</strong>
+                                          </td>
+                                          <td class="text-right">
+                                            <strong
+                                              >₹{{
+                                                singleRecord.payable_amount +
+                                                  singleRecord.customer_comission
+                                              }}</strong
+                                            >
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </td>
+                                <td style="width: 50%">
+                                  <div
+                                    class="col-md-12 odtext24 pr-0"
+                                    *ngIf="singleRecord.origin != 'DOLPHIN'"
+                                  >
+                                    <h3>CANCELLATION POLICY</h3>
+                                    <table
+                                      class="table table-bordered odbus-journey"
+                                      cellpadding="0"
+                                      cellspacing="0"
+                                      border="1"
+                                    >
+                                      <thead>
+                                        <tr
+                                          style="
+                                            background-color: #fff;
+                                            color: #000;
+                                          "
+                                        >
+                                          <th scope="col">Cancellation Time</th>
+                                          <th scope="col">
+                                            Cancellation Charges
+                                          </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody
+                                        *ngIf="
+                                          singleRecord.bus.cancellationslabs
+                                            .cancellation_slab_info.length > 0
+                                        "
+                                      >
+                                        <tr
+                                          *ngFor="
+                                            let can of singleRecord.bus
+                                              .cancellationslabs
+                                              .cancellation_slab_info;
+                                            let i = index
+                                          "
+                                        >
+                                          <td>{{ can.duration }} hr</td>
+                                          <td>{{ can.deduction }}%</td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                            <div class="row mt30">
+                              <div class="col-md-12 odtext24">
+                                <h3>TERMS & CONDITIONS</h3>
                               </div>
-                            </td>
-                            <td style="width: 50%;">
 
-                              <div class="col-md-12 odtext24 pr-0" *ngIf="singleRecord.origin!='DOLPHIN'">
-                                <h3>CANCELLATION POLICY</h3>
-                                <table class="table table-bordered odbus-journey" cellpadding="0" cellspacing="0"
-                                  border="1">
-                                  <thead>
-                                    <tr style="background-color: #fff;color: #000;">
-                                      <th scope="col">Cancellation Time</th>
-                                      <th scope="col">Cancellation Charges</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody *ngIf="singleRecord.bus.cancellationslabs.cancellation_slab_info.length > 0 ">
-                                    <tr
-                                      *ngFor="let can of singleRecord.bus.cancellationslabs.cancellation_slab_info; let i=index">
-                                      <td>{{ can.duration }} hr</td>
-                                      <td>{{ can.deduction }}%</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
+                              <div class="col-md-12">
+                                <div class="odbox1">
+                                  <div class="row" style="font-size: 12px">
+                                    <div class="col-md-12">
+                                      <table width="100%">
+                                        <tr>
+                                          <td style="width: 50%">
+                                            <h6>
+                                              ARE NOT ODBUS RESPONSIBILITIES
+                                            </h6>
+                                            <ol>
+                                              <li>
+                                                Any incorrect data provided by
+                                                customer while booking the
+                                                ticket.
+                                              </li>
+                                              <li>
+                                                Any Bus delays, breakdowns,
+                                                service cancellations and
+                                                accidents.
+                                              </li>
+                                              <li>
+                                                Any misbehavior by the bus
+                                                partner staff or co-passenger.
+                                              </li>
+                                              <li>Loss/damage of baggage.</li>
+                                              <li>
+                                                Late arrival by customer at the
+                                                boarding point.
+                                              </li>
+                                              <li>
+                                                Customer phone not reachable,
+                                                bus Conductor did not call at
+                                                the boarding point and left
+                                                without picking the customer.
+                                              </li>
+                                              <li>
+                                                Customer waiting at wrong
+                                                boarding point.
+                                              </li>
+                                              <li>
+                                                Any change of seat numbers done
+                                                by the bus Conductor manually.
+                                              </li>
+                                              <li>
+                                                Bus Partner changing the
+                                                boarding point for any reason.
+                                              </li>
+                                              <li>
+                                                Bus Conductor arranging a
+                                                different vehicle for pickup at
+                                                boarding point and boarding the
+                                                actual vehicle at a different
+                                                place.
+                                              </li>
+                                              <li>
+                                                Bus Conductor objecting on
+                                                carrying pets.
+                                              </li>
+                                              <li>
+                                                Improper booking done by agent,
+                                                please contact the agent
+                                                directly.
+                                              </li>
+                                              <li>
+                                                Bus owners not providing In-bus
+                                                amenities/facilities mentioned
+                                                while booking.
+                                              </li>
+                                              <li>
+                                                Change of bus type by Bus owner
+                                                for any reason.
+                                              </li>
+                                              <li>
+                                                Bus fares are not controlled by
+                                                ODBUS, so any change in fares is
+                                                not the responsibility of ODBUS.
+                                              </li>
+                                              <li>
+                                                The fare might vary based on the
+                                                seat selected. So the fare shown
+                                                in the “Search Page” and “Seat
+                                                Selection Page” might vary
+                                              </li>
+                                            </ol>
+                                          </td>
 
+                                          <td style="width: 50%">
+                                            <h6>CANCELLATION POLICY</h6>
+                                            <ol>
+                                              <p>
+                                                The tickets booked through ODBUS
+                                                Can be cancelled and note that
+                                                Cancel Can be possible before 12
+                                                hours of the departure of the
+                                                said bus.
+                                              </p>
+                                              <li>
+                                                Partial cancellation not allowed
+                                                in ODBUS.
+                                              </li>
+                                              <li>
+                                                In respect of refunds due to
+                                                cancellation of service by
+                                                Operator , passenger is required
+                                                to send an e-mail to
+                                                support@odbus.in mentioning PNR
+                                                of the ticket. We will verify
+                                                and refund the amount to the
+                                                concerned Credit card / Internet
+                                                banking / UPI.
+                                              </li>
+                                              <li>
+                                                Refunds for Ticket cancellations
+                                                / Failed Transactions to
+                                                passengers will be given
+                                                normally in 10 - 12 Bank working
+                                                days by ODBUS, after the
+                                                cancellation of ticket or
+                                                receipt of e-mail. If refunds
+                                                are delayed, passengers may
+                                                contact ODBUS Executive at
+                                                9583918888 ( 09:00 AM to 07:00
+                                                PM )
+                                              </li>
+                                              <li>
+                                                Customer can't claim any
+                                                cancellation refund on
+                                                rescheduled tickets.
+                                              </li>
+                                              <li>
+                                                The cancellation terms are
+                                                different for each Operator
+                                                which is set by Bus Owners
+                                                itself. These terms are shown
+                                                while booking as well as on the
+                                                ticket printout/Email
+                                                confirmation.
+                                              </li>
+                                              <li>
+                                                Tickets booked through online
+                                                should be cancelled only through
+                                                online.
+                                              </li>
+                                              <li>
+                                                Transaction Fee / GST are
+                                                non-refundable for Ticket
+                                                Cancellation / Service
+                                                Cancellation.
+                                              </li>
+                                              <li>
+                                                Cancellation charges are
+                                                applicable on Base fare not on
+                                                the discounted .
+                                              </li>
+                                            </ol>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
-                            </td>
-                          </tr>
-                        </table>
-                        <div class="row mt30">
-                          <div class="col-md-12 odtext24">
-                            <h3>TERMS & CONDITIONS</h3>
+
+                              <div class="col-md-12 mt30">
+                                <div class="odbox2">
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <p>Contact Information</p>
+                                      <p>
+                                        ODBUS Helpline (07:00 AM To 11:00
+                                        PM):9583-918-888 (For Online Booking
+                                        issue or Online Cancellation issue.)
+                                      </p>
+                                      <p>
+                                        ODBUS Customer Support Email (Response
+                                        time 3 working days): support@odbus.in
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div class="col-md-12 mt30">
+                                <div class="odbox3">
+                                  <div class="row">
+                                    <div class="col-md-12">
+                                      <p>Thankyou</p>
+                                      <p>Team ODBUS</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mobile-ticket-page">
+                        <div class="mobile-ticket-card">
+                          <!-- TOP HEADER -->
+
+                          <div class="ticket-top">
+                            <img
+                              src="../../../assets/img/email-logo.png"
+                              class="ticket-logo"
+                              alt="logo"
+                            />
+
+                            <div class="ticket-head-text">
+                              <h3>ODBUS E-Ticket</h3>
+
+                              <p>Electronic Reservation Slip</p>
+                            </div>
                           </div>
 
-                          <div class="col-md-12">
-                            <div class="odbox1">
-                              <div class="row" style="font-size: 12px;">
-                                <div class="col-md-12">
+                          <!-- STATUS -->
 
-                                  <table width="100%">
-                                    <tr>
-                                      <td style="width: 50%;">
-                                        <h6> ARE NOT ODBUS RESPONSIBILITIES</h6>
-                                        <ol>
+                          <div class="ticket-status confirmed">
+                            BOOKING CONFIRMED
+                          </div>
 
-                                          <li> Any incorrect data provided by customer while booking the ticket.</li>
-                                          <li> Any Bus delays, breakdowns, service cancellations and accidents.</li>
-                                          <li> Any misbehavior by the bus partner staff or co-passenger.</li>
-                                          <li> Loss/damage of baggage.</li>
-                                          <li> Late arrival by customer at the boarding point.</li>
-                                          <li> Customer phone not reachable, bus Conductor did not call at the boarding
-                                            point and left without picking the customer.</li>
-                                          <li> Customer waiting at wrong boarding point.</li>
-                                          <li> Any change of seat numbers done by the bus Conductor manually.</li>
-                                          <li> Bus Partner changing the boarding point for any reason.</li>
-                                          <li> Bus Conductor arranging a different vehicle for pickup at boarding point
-                                            and boarding the actual vehicle at a different place.</li>
-                                          <li> Bus Conductor objecting on carrying pets.</li>
-                                          <li> Improper booking done by agent, please contact the agent directly.</li>
-                                          <li> Bus owners not providing In-bus amenities/facilities mentioned while
-                                            booking.</li>
-                                          <li> Change of bus type by Bus owner for any reason.</li>
-                                          <li> Bus fares are not controlled by ODBUS, so any change in fares is not the
-                                            responsibility of ODBUS.</li>
-                                          <li> The fare might vary based on the seat selected. So the fare shown in the
-                                            “Search Page” and “Seat Selection Page” might vary</li>
+                          <!-- JOURNEY DETAILS -->
 
-                                        </ol>
-                                      </td>
+                          <div class="ticket-box">
+                            <div class="section-title">
+                              <span></span>
 
-                                      <td style="width: 50%;">
-                                        <h6> CANCELLATION POLICY</h6>
-                                        <ol>
+                              <h4>Journey Details</h4>
+                            </div>
 
-                                          <p>The tickets booked through ODBUS Can be cancelled and note that Cancel Can
-                                            be possible before 12 hours of the departure of the said bus. </p>
-                                          <li>Partial cancellation not allowed in ODBUS.</li>
-                                          <li> In respect of refunds due to cancellation of service by Operator ,
-                                            passenger is required to send an e-mail to support@odbus.in mentioning PNR
-                                            of the ticket. We will verify and refund the amount to the concerned Credit
-                                            card / Internet banking / UPI.</li>
-                                          <li> Refunds for Ticket cancellations / Failed Transactions to passengers will
-                                            be given normally in 10 - 12 Bank working days by ODBUS, after the
-                                            cancellation of ticket or receipt of e-mail. If refunds are delayed,
-                                            passengers may contact ODBUS Executive at 9583918888 ( 09:00 AM to 07:00 PM
-                                            )</li>
-                                          <li> Customer can't claim any cancellation refund on rescheduled tickets.</li>
-                                          <li> The cancellation terms are different for each Operator which is set by
-                                            Bus Owners itself. These terms are shown while booking as well as on the
-                                            ticket printout/Email confirmation.</li>
-                                          <li> Tickets booked through online should be cancelled only through online.
-                                          </li>
-                                          <li> Transaction Fee / GST are non-refundable for Ticket Cancellation /
-                                            Service Cancellation.</li>
-                                          <li> Cancellation charges are applicable on Base fare not on the discounted .
-                                          </li>
+                            <div class="route-main">
+                              <div class="route-city">
+                                <small>From</small>
 
-                                        </ol>
-                                      </td>
-                                    </tr>
-                                  </table>
-                                </div>
+                                <h2>
+                                  {{ singleRecord.from_location[0].name }}
+                                </h2>
+                              </div>
 
+                              <div class="route-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                              </div>
+
+                              <div class="route-city text-right">
+                                <small>To</small>
+
+                                <h2>
+                                  {{ singleRecord.to_location[0].name }}
+                                </h2>
+                              </div>
+                            </div>
+
+                            <div class="ticket-grid">
+                              <div class="ticket-info">
+                                <small>PNR Number</small>
+
+                                <h5>
+                                  {{ singleRecord.pnr }}
+                                </h5>
+                              </div>
+
+                              <div class="ticket-info text-right">
+                                <small>Booking Date</small>
+
+                                <h5>
+                                  {{
+                                    singleRecord.created_at | date: "dd MMM y"
+                                  }}
+                                </h5>
+                              </div>
+                            </div>
+
+                            <div class="ticket-grid">
+                              <div class="ticket-info">
+                                <small>Boarding Point</small>
+
+                                <h5>
+                                  {{ singleRecord.boarding_point }}
+                                </h5>
+
+                                <p>
+                                  {{
+                                    singleRecord.journey_dt | date: "dd MMM y"
+                                  }}
+                                  |
+                                  {{ singleRecord.boarding_time }}
+                                </p>
+                              </div>
+
+                              <div class="ticket-info text-right">
+                                <small>Dropping Point</small>
+
+                                <h5>
+                                  {{ singleRecord.dropping_point }}
+                                </h5>
+
+                                <p>
+                                  {{
+                                    singleRecord.journey_dt | date: "dd MMM y"
+                                  }}
+                                  |
+                                  {{ singleRecord.dropping_time }}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="ticket-grid">
+                              <div class="ticket-info">
+                                <small>Journey Date</small>
+
+                                <h5>
+                                  {{
+                                    singleRecord.journey_dt
+                                      | date: "EEEE, d MMM y"
+                                  }}
+                                </h5>
+                              </div>
+
+                              <div class="ticket-info text-right">
+                                <small>GST Invoice</small>
+
+                                <h5>
+                                  {{
+                                    singleRecord.customer_gst_status == 1
+                                      ? "YES"
+                                      : "NO"
+                                  }}
+                                </h5>
                               </div>
                             </div>
                           </div>
 
-                          <div class="col-md-12 mt30">
-                            <div class="odbox2">
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <p>Contact Information</p>
-                                  <p>
-                                    ODBUS Helpline (07:00 AM To 11:00
-                                    PM):9583-918-888 (For Online Booking issue or
-                                    Online Cancellation issue.)
-                                  </p>
-                                  <p>
-                                    ODBUS Customer Support Email (Response time 3
-                                    working days): support@odbus.in
-                                  </p>
-                                </div>
+                          <!-- BUS DETAILS -->
+
+                          <div class="ticket-box">
+                            <div class="section-title">
+                              <span></span>
+
+                              <h4>Bus Details</h4>
+                            </div>
+
+                            <div class="ticket-grid">
+                              <div class="ticket-info">
+                                <small>Bus Name</small>
+
+                                <h5>
+                                  <span
+                                    *ngIf="singleRecord.origin != 'DOLPHIN'"
+                                  >
+                                    {{ singleRecord.bus.name }}
+                                  </span>
+
+                                  <span
+                                    *ngIf="singleRecord.origin == 'DOLPHIN'"
+                                  >
+                                    {{ singleRecord.bus_name }}
+                                  </span>
+                                </h5>
+                              </div>
+
+                              <div class="ticket-info text-right">
+                                <small>Bus Number</small>
+
+                                <h5>
+                                  <span
+                                    *ngIf="singleRecord.origin != 'DOLPHIN'"
+                                  >
+                                    {{ singleRecord.bus.bus_number }}
+                                  </span>
+
+                                  <span
+                                    *ngIf="singleRecord.origin == 'DOLPHIN'"
+                                  >
+                                    {{ singleRecord.bus_number }}
+                                  </span>
+                                </h5>
+                              </div>
+                            </div>
+
+                            <div class="ticket-grid">
+                              <div class="ticket-info">
+                                <small>Seat(s)</small>
+
+                                <h5>
+                                  <span
+                                    *ngFor="
+                                      let seats of singleRecord.booking_detail
+                                    "
+                                  >
+                                    <span
+                                      *ngIf="singleRecord.origin != 'DOLPHIN'"
+                                    >
+                                      {{ seats.bus_seats.seats.seatText }}
+                                    </span>
+
+                                    <span
+                                      *ngIf="singleRecord.origin == 'DOLPHIN'"
+                                    >
+                                      {{ seats.seat_name }}
+                                    </span>
+                                  </span>
+                                </h5>
+                              </div>
+
+                              <div class="ticket-info text-right">
+                                <small>Conductor</small>
+
+                                <h5>
+                                  <span
+                                    *ngFor="
+                                      let contacts of singleRecord.bus
+                                        .bus_contacts
+                                    "
+                                  >
+                                    <span *ngIf="contacts.type == 2">
+                                      {{ contacts.phone }}
+                                    </span>
+                                  </span>
+                                </h5>
                               </div>
                             </div>
                           </div>
 
-                          <div class="col-md-12 mt30">
-                            <div class="odbox3">
-                              <div class="row ">
-                                <div class="col-md-12">
-                                  <p>Thankyou</p>
-                                  <p>Team ODBUS</p>
-                                </div>
+                          <!-- PASSENGER -->
+
+                          <div class="ticket-box">
+                            <div class="section-title">
+                              <span></span>
+
+                              <h4>Passenger Details</h4>
+                            </div>
+
+                            <div class="passenger-head">
+                              <div>Name</div>
+
+                              <div class="text-center">Age</div>
+
+                              <div class="text-right">Seat</div>
+                            </div>
+
+                            <div
+                              class="passenger-row"
+                              *ngFor="
+                                let dt of singleRecord.booking_detail;
+                                let i = index
+                              "
+                            >
+                              <div class="passenger-name">
+                                <i class="fas fa-user-circle"></i>
+
+                                <span>
+                                  {{ dt.passenger_name }}
+                                  ({{ dt.passenger_gender }})
+                                </span>
+                              </div>
+
+                              <div class="text-center">
+                                {{ dt.passenger_age }}
+                              </div>
+
+                              <div class="text-right">
+                                <span *ngIf="singleRecord.origin != 'DOLPHIN'">
+                                  {{ dt.bus_seats.seats.seatText }}
+                                </span>
+
+                                <span *ngIf="singleRecord.origin == 'DOLPHIN'">
+                                  {{ dt.seat_name }}
+                                </span>
                               </div>
                             </div>
                           </div>
 
+                          <!-- QR -->
+
+                          <div class="ticket-box qr-box">
+                            <div class="section-title">
+                              <span></span>
+
+                              <h4>Scan Ticket</h4>
+                            </div>
+
+                            <div class="qr-wrapper">
+                              <ngx-qrcode
+                                [elementType]="elementType"
+                                [errorCorrectionLevel]="correctionLevel"
+                                [value]="qrcode"
+                                cssClass="bshadow"
+                                [width]="210"
+                              >
+                              </ngx-qrcode>
+                            </div>
+                          </div>
+
+                          <!-- FARE -->
+
+                          <div class="ticket-box">
+                            <div class="section-title">
+                              <span></span>
+
+                              <h4>Total Fare</h4>
+                            </div>
+
+                            <div class="fare-card">
+                              <div class="fare-top">
+                                <div>
+                                  <h3>Fare Details</h3>
+
+                                  <p>Total Fare (Inclusive)</p>
+                                </div>
+
+                                <h2>
+                                  ₹{{
+                                    singleRecord.payable_amount +
+                                      singleRecord.customer_comission
+                                  }}
+                                </h2>
+                              </div>
+
+                              <div class="fare-line">
+                                <span>Base Fare</span>
+
+                                <strong>
+                                  ₹{{
+                                    singleRecord.owner_fare +
+                                      singleRecord.odbus_charges +
+                                      singleRecord.customer_comission
+                                  }}
+                                </strong>
+                              </div>
+
+                              <div
+                                class="fare-line"
+                                *ngIf="singleRecord.customer_gst_status == 1"
+                              >
+                                <span>
+                                  GST ({{ singleRecord.customer_gst_percent }}%)
+                                </span>
+
+                                <strong>
+                                  + ₹{{ singleRecord.customer_gst_amount }}
+                                </strong>
+                              </div>
+
+                              <div class="fare-total">
+                                <span>Total Fare</span>
+
+                                <strong>
+                                  ₹{{
+                                    singleRecord.payable_amount +
+                                      singleRecord.customer_comission
+                                  }}
+                                </strong>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <button type="button" printSectionId="print-section" ngxPrint class="btn btn-info sml_input"
-              [useExistingCss]="true" title="Print">
-              <i class="fas fa-print"> </i> Print
+          <!-- DESKTOP FOOTER -->
+
+          <div class="modal-footer desktop-modal-footer">
+            <button
+              type="button"
+              printSectionId="print-section"
+              ngxPrint
+              class="btn btn-info sml_input"
+              [useExistingCss]="true"
+              title="Print"
+            >
+              <i class="fas fa-print"></i>
+              Print
             </button>
-            <button type="button" class="btn btn-default" data-dismiss="modal" #defaultClick
-              (click)="modal.dismiss('Cross click')">Close</button>
+
+            <button
+              type="button"
+              class="btn btn-default"
+              data-dismiss="modal"
+              #defaultClick
+              (click)="modal.dismiss('Cross click')"
+            >
+              Close
+            </button>
+          </div>
+
+          <!-- MOBILE FOOTER -->
+
+          <div class="mobile-ticket-footer">
+            <button
+              type="button"
+              class="mobile-footer-btn close-mobile-btn"
+              data-dismiss="modal"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <i class="fas fa-times"></i>
+
+              Close
+            </button>
+
+            <button
+              type="button"
+              printSectionId="print-section"
+              ngxPrint
+              [useExistingCss]="true"
+              title="Print"
+              class="mobile-footer-btn print-mobile-btn"
+            >
+              <i class="fas fa-print"></i>
+
+              Print Ticket
+            </button>
           </div>
         </ng-template>
-
-
 
         <ng-template #cancelTicketTab let-modal>
           <div class="modal-header">
             <h5 class="ng-tns-c116-5">CANCEL TICKET</h5>
-            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')"><span
-                aria-hidden="true">&times;</span></button>
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">
             <table width="100%" cellpadding="10">
@@ -751,12 +1556,15 @@
 
                 <tr>
                   <td class="st-ri">Cancellation Fees:</td>
-                  <td class="st-le">₹{{ cancelInfo.deductAmount }} ( {{ cancelInfo.deductionPercentage }})</td>
+                  <td class="st-le">
+                    ₹{{ cancelInfo.deductAmount }} (
+                    {{ cancelInfo.deductionPercentage }})
+                  </td>
                 </tr>
 
                 <tr>
                   <td class="st-ri">Refund Amount:</td>
-                  <td class="st-le">₹{{ cancelInfo.refundAmount}}</td>
+                  <td class="st-le">₹{{ cancelInfo.refundAmount }}</td>
                 </tr>
               </tbody>
             </table>
@@ -769,48 +1577,76 @@
                     </div> -->
 
             <div class="text-center" align="center">
-              <form class="form-horizontal" [formGroup]="FinalcancelForm" (ngSubmit)="onSubmitOtp()">
-
+              <form
+                class="form-horizontal"
+                [formGroup]="FinalcancelForm"
+                (ngSubmit)="onSubmitOtp()"
+              >
                 <div class="row g-0 mb-3">
                   <div class="col-md-8 g-0">
-                    <input type="text" class="form-control" placeholder="Enter OTP" formControlName="otp"
-                      aria-label="Recipient's username" aria-describedby="button-addon2">
-                    <div *ngIf="Otpsubmitted && fo.otp.errors" class="invalid-feedback">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter OTP"
+                      formControlName="otp"
+                      aria-label="Recipient's username"
+                      aria-describedby="button-addon2"
+                    />
+                    <div
+                      *ngIf="Otpsubmitted && fo.otp.errors"
+                      class="invalid-feedback"
+                    >
                       <div *ngIf="fo.otp.errors.required">OTP is required</div>
                     </div>
                   </div>
                   <div class="col-md-4 g-0">
-                    <button class="btn btn-secondary" type="submit" id="button-addon2">Cancel Ticket</button>
+                    <button
+                      class="btn btn-secondary"
+                      type="submit"
+                      id="button-addon2"
+                    >
+                      Cancel Ticket
+                    </button>
                   </div>
-
-
-
                 </div>
-
-
               </form>
-
             </div>
 
             <p class="text-center" *ngIf="ResendTimer">
-              Resend OTP after <countdown #countdown [config]="{leftTime: Timer, format: 'ss' }"
-                (event)="OtpHandleEvent($event)"></countdown> Seconds..
+              Resend OTP after
+              <countdown
+                #countdown
+                [config]="{ leftTime: Timer, format: 'ss' }"
+                (event)="OtpHandleEvent($event)"
+              ></countdown>
+              Seconds..
             </p>
-            <p class="text-center" *ngIf="ResendOtp">Did not receive the Code? <a class="formlink cursor"
-                (click)="OpenCancelModal(cancelTicketTab,index)"> Resend OTP </a> </p>
-
-
+            <p class="text-center" *ngIf="ResendOtp">
+              Did not receive the Code?
+              <a
+                class="formlink cursor"
+                (click)="OpenCancelModal(cancelTicketTab, index)"
+              >
+                Resend OTP
+              </a>
+            </p>
           </div>
           <div class="modal-footer">
             <!-- <button type="button" printSectionId="print-section" ngxPrint class="btn btn-info sml_input"
                                       [useExistingCss]="true" title="Print">
                                       <i class="fas fa-print"> </i> Print
                     </button> -->
-            <button type="button" class="btn btn-default" data-dismiss="modal" #defaultClick
-              (click)="modal.dismiss('Cross click')">Close</button>
+            <button
+              type="button"
+              class="btn btn-default"
+              data-dismiss="modal"
+              #defaultClick
+              (click)="modal.dismiss('Cross click')"
+            >
+              Close
+            </button>
           </div>
         </ng-template>
-
       </div>
     </app-card>
   </div>
@@ -823,112 +1659,98 @@
      ===================================== -->
 
 <div class="mobile-top-filter d-block d-md-none">
-
-  <h2 class="mobile-page-heading">
-    Agent Complete Report
-  </h2>
+  <h2 class="mobile-page-heading">Agent Complete Report</h2>
 
   <form [formGroup]="searchFrom">
-
     <!-- DATE -->
 
     <div class="mobile-date-grid row d-flex">
-
       <div class="mobile-field col-md-6">
-        <input type="date" class="form-control" formControlName="rangeFromDate">
+        <input
+          type="date"
+          class="form-control"
+          formControlName="rangeFromDate"
+        />
       </div>
 
       <div class="mobile-field col-md-6">
-        <input type="date" class="form-control" formControlName="rangeToDate">
+        <input type="date" class="form-control" formControlName="rangeToDate" />
       </div>
-
     </div>
 
     <!-- DATE TYPE -->
 
     <div class="mobile-field">
-
       <select class="form-control" formControlName="date_type">
+        <option value="booking">Booking Date</option>
 
-        <option value="booking">
-          Booking Date
-        </option>
-
-        <option value="journey">
-          Journey Date
-        </option>
-
+        <option value="journey">Journey Date</option>
       </select>
-
     </div>
 
     <!-- SOURCE -->
 
     <div class="mobile-field">
-
-      <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Source"
-        formControlName="source_id" [clearable]="false">
-
+      <ng-select
+        [items]="locations"
+        bindLabel="name"
+        bindValue="id"
+        placeholder="Select Source"
+        formControlName="source_id"
+        [clearable]="false"
+      >
       </ng-select>
-
     </div>
 
     <!-- DESTINATION -->
 
     <div class="mobile-field">
-
-      <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Destination"
-        formControlName="destination_id" [clearable]="false">
-
+      <ng-select
+        [items]="locations"
+        bindLabel="name"
+        bindValue="id"
+        placeholder="Select Destination"
+        formControlName="destination_id"
+        [clearable]="false"
+      >
       </ng-select>
-
     </div>
 
     <!-- ACTIONS -->
 
     <div class="mobile-top-actions">
-
       <button type="button" class="top-btn search-btn" (click)="search()">
-
         <i class="fas fa-search"></i>
         Search
-
       </button>
 
       <button type="button" class="top-btn refresh-btn" (click)="refresh()">
-
         <i class="fas fa-sync-alt"></i>
         Refresh
-
       </button>
 
       <button type="button" class="top-btn export-btn" (click)="exportexcel()">
-
         <i class="fas fa-file-export"></i>
         Export
-
       </button>
-
     </div>
 
     <!-- ROW SELECT -->
 
     <div class="mobile-row-select">
-
-      <select class="form-control" formControlName="rows_number" (change)="search()">
-
-        <option value=10>10</option>
-        <option value=25>25</option>
-        <option value=50>50</option>
-        <option value=100>100</option>
-        <option value='all'>All</option>
-
+      <select
+        class="form-control"
+        formControlName="rows_number"
+        (change)="search()"
+      >
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="all">All</option>
       </select>
-
     </div>
-
   </form>
-
 </div>
 
 <!-- =====================================
@@ -936,35 +1758,31 @@
      ===================================== -->
 
 <div class="mobile-ticket-wrapper d-block d-md-none">
-
-  <div class="simple-ticket-card" *ngFor="let complete of completedata?.data.data; let i=index">
-
+  <div
+    class="simple-ticket-card"
+    *ngFor="let complete of completedata?.data.data; let i = index"
+  >
     <!-- TOP -->
 
     <div class="ticket-top">
-
       <div>
-
         <h3 class="ticket-pnr">
-          {{complete.pnr}}
+          {{ complete.pnr }}
         </h3>
 
         <p class="ticket-date">
-          {{complete.created_at | date:'dd MMM yyyy'}}
+          {{ complete.created_at | date: "dd MMM yyyy" }}
         </p>
-
       </div>
 
       <div class="ticket-fare">
-        ₹{{complete.total_fare + complete.agent_commission}}
+        ₹{{ complete.total_fare + complete.agent_commission }}
       </div>
-
     </div>
 
     <!-- BUS -->
 
     <div class="ticket-bus-name">
-
       <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
         {{ complete.bus.name }}
       </span>
@@ -972,11 +1790,9 @@
       <span *ngIf="complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'">
         {{ complete.bus_name }}
       </span>
-
     </div>
 
     <div class="ticket-bus-number">
-
       <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
         {{ complete.bus.bus_number }}
       </span>
@@ -984,19 +1800,15 @@
       <span *ngIf="complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'">
         {{ complete.bus_number }}
       </span>
-
     </div>
 
     <!-- ROUTE -->
 
     <div class="ticket-route">
-
       <div class="route-city">
-
-        <span *ngFor="let boarding of complete.from_location;">
-          {{boarding.name}}
+        <span *ngFor="let boarding of complete.from_location">
+          {{ boarding.name }}
         </span>
-
       </div>
 
       <div class="route-arrow">
@@ -1004,62 +1816,58 @@
       </div>
 
       <div class="route-city text-right">
-
-        <span *ngFor="let dropping of complete.to_location;">
-          {{dropping.name}}
+        <span *ngFor="let dropping of complete.to_location">
+          {{ dropping.name }}
         </span>
-
       </div>
-
     </div>
 
     <!-- INFO -->
 
     <div class="ticket-info-row">
-
       <div>
         <span class="info-label">Journey</span>
-        <p class="info-value">{{complete.journey_dt}}</p>
+        <p class="info-value">{{ complete.journey_dt }}</p>
       </div>
 
       <div>
         <span class="info-label">Time</span>
-        <p class="info-value">{{complete.boarding_time}}</p>
+        <p class="info-value">{{ complete.boarding_time }}</p>
       </div>
 
       <div>
         <span class="info-label">Seat</span>
 
         <p class="info-value">
-
           <span *ngFor="let seat of complete.booking_detail; let last = last">
-
-            <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
-              {{seat.bus_seats.seats.seatText}}
+            <span
+              *ngIf="
+                complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'
+              "
+            >
+              {{ seat.bus_seats.seats.seatText }}
             </span>
 
-            <span *ngIf="complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'">
-              {{seat.seat_name}}
+            <span
+              *ngIf="
+                complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'
+              "
+            >
+              {{ seat.seat_name }}
             </span>
 
             <span *ngIf="!last">, </span>
-
           </span>
-
         </p>
-
       </div>
-
     </div>
 
     <!-- PASSENGER -->
 
     <div class="ticket-passenger">
-
       <i class="fa-solid fa-user"></i>
 
       <div class="passenger-wrapper">
-
         <!-- FIRST NAME -->
         <span class="first-passenger">
           {{ complete.booking_detail[0]?.passenger_name }}
@@ -1067,87 +1875,84 @@
 
         <!-- MORE COUNT -->
         <span class="more-passenger" *ngIf="complete.booking_detail.length > 1">
-
           +{{ complete.booking_detail.length - 1 }}
 
           <!-- TOOLTIP -->
           <div class="passenger-tooltip">
-
             <div *ngFor="let passanger of complete.booking_detail">
               {{ passanger.passenger_name }}
             </div>
-
           </div>
-
         </span>
-
       </div>
-
     </div>
 
     <!-- USER -->
 
     <div class="ticket-user">
-
       <div class="user-name">
-        {{complete.users?.name}}
+        {{ complete.users?.name }}
       </div>
 
       <div class="user-phone">
-        {{complete.users?.phone}}
+        {{ complete.users?.phone }}
       </div>
-
     </div>
 
     <!-- ACTIONS -->
 
     <div class="ticket-actions">
-
-      <button class="action-btn blue-btn" (click)="OpenModal(content);print_tkt(i)">
-
+      <button
+        class="action-btn blue-btn"
+        (click)="OpenModal(content); print_tkt(i)"
+      >
         <i class="fa-solid fa-print"></i>
       </button>
 
       <button class="action-btn green-btn" (click)="emailSms(i)">
-
         <i class="fa-solid fa-message"></i>
       </button>
 
-      <button class="action-btn yellow-btn" (click)="copyMessage(complete.users.phone)">
-
+      <button
+        class="action-btn yellow-btn"
+        (click)="copyMessage(complete.users.phone)"
+      >
         <i class="fa-solid fa-phone"></i>
       </button>
 
-      <button *ngIf="complete.journey_dt > todayDate" class="action-btn red-btn"
-        (click)="OpenCancelModal(cancelTicketTab,i)">
-
+      <button
+        *ngIf="complete.journey_dt > todayDate"
+        class="action-btn red-btn"
+        (click)="OpenCancelModal(cancelTicketTab, i)"
+      >
         <i class="fa-solid fa-xmark"></i>
       </button>
-
     </div>
-
   </div>
 
   <!-- PAGINATION -->
 
   <div class="mobile-pagination" *ngIf="completedata?.data?.links">
-
-    <button class="page-btn" [disabled]="completedata.data.current_page == 1" (click)="onPreviousPageComplete()">
-
+    <button
+      class="page-btn"
+      [disabled]="completedata.data.current_page == 1"
+      (click)="onPreviousPageComplete()"
+    >
       <i class="fa-solid fa-chevron-left"></i>
     </button>
 
     <div class="page-number">
-      {{completedata.data.current_page}}
+      {{ completedata.data.current_page }}
       /
-      {{completedata.data.last_page}}
+      {{ completedata.data.last_page }}
     </div>
 
-    <button class="page-btn" [disabled]="!completedata.data.next_page_url" (click)="onNextPageComplete()">
-
+    <button
+      class="page-btn"
+      [disabled]="!completedata.data.next_page_url"
+      (click)="onNextPageComplete()"
+    >
       <i class="fa-solid fa-chevron-right"></i>
     </button>
-
   </div>
-
 </div>
