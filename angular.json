@@ -46,11 +46,12 @@
               "src/assets/css/style.scss",
               "src/assets/css/customwizard.scss",
               "src/assets/css/bootstarp.min.scss",
+              "src/assets/css/all.min.css",
               "node_modules/ngx-lightbox/lightbox.css"
-
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js"                           
+              "node_modules/jquery/dist/jquery.min.js",       
+              "src/assets/js/cashfree.js"
             ]
           },
           "configurations": {
