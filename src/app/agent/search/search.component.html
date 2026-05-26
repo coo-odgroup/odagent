@@ -333,10 +333,14 @@
                                                         <ul class="bs-srch-dt-dtl">
                                                             <li class="p-2 flex-fill tx-left">
                                                                 <h4>{{ bus.busName }} <br>
-                                                                    <span *ngIf="bus.busNumber!=''">({{ bus.busNumber }})</span>
+                                                                    <span *ngIf="bus.busNumber!=''">({{ bus.busNumber
+                                                                        }})</span>
                                                                 </h4>
-                                                                <p class="bus-type"><span>{{ bus.bus_description }}</span>&nbsp; <span>{{ bus.sittingType }}</span></p>
-                                                                <p class="bus-via" *ngIf="bus.via">Via: {{ bus.via }}</p>
+                                                                <p class="bus-type"><span>{{ bus.bus_description
+                                                                        }}</span>&nbsp; <span>{{ bus.sittingType
+                                                                        }}</span></p>
+                                                                <p class="bus-via" *ngIf="bus.via">Via: {{ bus.via }}
+                                                                </p>
                                                             </li>
                                                             <li class="p-2 flex-fill">
                                                                 <div class="search-result-bus-box-inner-box">
@@ -1241,7 +1245,33 @@
             </div>
 
 
+            <!-- DATE SCROLL -->
+
+            <div class="date-scroll-wrapper">
+
+                <div class="date-scroll-card active" *ngFor="let item of nextDates; let i = index"
+                    [class.active]="i == 0" (click)="changeDate(item.fullDate)">
+
+                    <div class="date-day">
+                        {{ item.day }}
+                    </div>
+
+                    <div class="date-month">
+                        {{ item.month }}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Bus Count -->
+
+            <div class="bus-found-count">
+                {{ buslist?.length || 0 }} Buses Found
+            </div>
+
             <!-- BUS LIST -->
+
             <div *ngFor="let bus of buslist; let i=index">
 
                 <div class="de-angu1">

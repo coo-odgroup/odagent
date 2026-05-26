@@ -1559,6 +1559,67 @@ ngb-rating.d-inline-flex {
   margin-bottom: 0px !important;
 }
 
+.bus-found-count {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #072c6b;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* DATE SCROLL */
+
+.date-scroll-wrapper {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+  scrollbar-width: none;
+}
+
+.date-scroll-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.date-scroll-card {
+  min-width: 62px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 10px 8px;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.3s;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.date-scroll-card.active {
+  background: #072c6b;
+  border-color: #072c6b;
+}
+
+.date-scroll-card.active .date-day,
+.date-scroll-card.active .date-month {
+  color: #ffffff;
+}
+
+.date-day {
+  font-size: 18px;
+  font-weight: 700;
+  color: #072c6b;
+  line-height: 1;
+}
+
+.date-month {
+  font-size: 11px;
+  margin-top: 5px;
+  color: #666;
+  text-transform: uppercase;
+}
 
 /* ASSURED BADGE */
 .assured-badge {
@@ -1878,7 +1939,7 @@ ngb-rating.d-inline-flex {
   text-indent: -30%;
 }
 
-li.mobile-seat.ng-star-inserted{
+li.mobile-seat.ng-star-inserted {
   margin-right: 0 !important;
 }
 
@@ -1902,7 +1963,7 @@ li.mobile-seat.ng-star-inserted{
 }
 
 label.mobile-seat-blue.mobile-fixsize.ng-star-inserted {
-    text-indent: 0 !important;
+  text-indent: 0 !important;
 }
 
 .mobile-sleeper label .mobile-sleeper-text,
@@ -2371,4 +2432,3 @@ label.mobile-sleeper-gray.mobile-fixsize,
   }
 
 }
-
