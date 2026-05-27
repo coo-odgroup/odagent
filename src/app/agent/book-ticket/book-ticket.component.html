@@ -423,8 +423,12 @@
 										<h5>Agent Commission (Amount upto ₹ {{bookTicketResponse.customer_comission}})
 										</h5>
 										<input type="text" (keydown)="onlyNumbers($event);"
-											(input)="setCommission($event)" [value]="applied_comission" class="input"
-											placeholder="Enter Commission">
+											   (keydown)="onlyNumbers($event)"
+											   (input)="setCommission($event)" [value]="applied_comission"
+											   [max]="bookTicketResponse.customer_comission"
+											   maxlength="2"
+											   class="input"
+											   placeholder="Enter Commission">
 										<div *ngIf="commissionError" class="invalid-feedback">Amount shouldn't be
 											greater than max Commission Limit</div>
 									</div>

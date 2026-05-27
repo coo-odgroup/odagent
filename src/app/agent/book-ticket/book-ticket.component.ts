@@ -381,29 +381,30 @@ setCommission(event: any) {
 
   this.commissionError = false;
 
-  const value = event.target.value;
+  let value = event.target.value;
 
+  // EMPTY CASE
   if (value === '' || value == null) {
     this.applied_comission = 0;
     this.payableAmount = this.bookingdata.PriceArray.totalFare;
     return;
   }
 
-  this.payableAmount = this.bookingdata.PriceArray.totalFare;
+  value = parseFloat(value);
 
-  if (parseFloat(value) <= this.bookTicketResponse.customer_comission) {
+  // PREVENT GREATER VALUE
+  if (value > this.bookTicketResponse.customer_comission) {
 
-    this.applied_comission = parseFloat(value);
-    this.payableAmount =
-      parseFloat(this.payableAmount) +
-      parseFloat(value);
-
-    this.commissionError = false;
-
-  } else {
-
+    value = this.bookTicketResponse.customer_comission;
+    event.target.value = value;
     this.commissionError = true;
   }
+
+  this.applied_comission = value;
+  this.payableAmount =
+    parseFloat(this.bookingdata.PriceArray.totalFare) +
+    parseFloat(value);
+
 }
   
   submitForm1(){

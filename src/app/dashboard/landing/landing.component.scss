@@ -4,4 +4,84 @@ input[type="radio"]:checked
     background-color: #007f8e !important;
     border-color: #007381 !important;   
 }
+.dashboard-card {
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  min-height: 135px;
+}
 
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-card-blue {
+  background: #0B2E6F !important;
+}
+
+.dashboard-card-green {
+  background: #00B894 !important;
+}
+
+.dashboard-card-sky {
+  background: #0984E3 !important;
+}
+
+.dashboard-card-coral {
+  background: #FF7675 !important;
+}
+
+.dashboard-card-purple {
+  background: #6C5CE7 !important;
+}
+
+.dashboard-card h2 {
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.dashboard-card h6 {
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+
+.dashboard-card i {
+  position: absolute;
+  left: 15px;
+  bottom: 10px;
+  font-size: 55px;
+  opacity: 0.18;
+}
+
+@media (max-width: 767px) {
+
+  .dashboard-card {
+    min-height: 115px;
+    border-radius: 10px;
+  }
+
+  .dashboard-card h2 {
+    font-size: 24px;
+  }
+
+  .dashboard-card h6 {
+    font-size: 12px;
+  }
+
+  .dashboard-card i {
+    font-size: 42px;
+  }
+}
+
+.widget-visitor-card i {
+  position: absolute;
+  left: 15px;
+  bottom: 10px;
+  font-size: 50px;
+  opacity: 0.18;
+}
