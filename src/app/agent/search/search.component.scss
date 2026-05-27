@@ -2311,6 +2311,56 @@ label.mobile-sleeper-gray.mobile-fixsize,
   z-index: 5;
 }
 
+/* =========================
+   MOBILE SEAT LEGEND
+========================= */
+
+.mobile-seat-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px 18px;
+  padding: 18px 10px 60px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #072c6b;
+}
+
+.legend-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+/* COLORS */
+
+.legend-box.available {
+  background: #072c6b;
+}
+
+.legend-box.reserved {
+  background: #cfcfcf;
+}
+
+.legend-box.selected {
+  background: #efc003;
+}
+
+.legend-box.ladies {
+  background: #a119a1;
+}
+
+.legend-box.gents {
+  background: #10a38d;
+}
+
 .mob-seat-no {
   background-color: #002f80;
   font-size: 11.5px;

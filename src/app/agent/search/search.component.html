@@ -1580,6 +1580,7 @@
                             <div *ngIf="seatLoader" class="mobile-seat-loader">
                                 Loading seats...
                             </div>
+
                             <div *ngIf="mobileBookingStep === 'seat'">
                                 <p class="mobile-seat-warning" *ngIf="dualsleeper_warning">
                                     {{ dualsleeper_warning }}
@@ -1949,6 +1950,37 @@
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+
+                                <!-- SEAT LEGEND -->
+
+                                <div class="mobile-seat-legend">
+
+                                    <div class="legend-item">
+                                        <span class="legend-box available"></span>
+                                        <span>Available</span>
+                                    </div>
+
+                                    <div class="legend-item">
+                                        <span class="legend-box reserved"></span>
+                                        <span>Reserved</span>
+                                    </div>
+
+                                    <div class="legend-item">
+                                        <span class="legend-box selected"></span>
+                                        <span>Selected</span>
+                                    </div>
+
+                                    <div class="legend-item">
+                                        <span class="legend-box ladies"></span>
+                                        <span>Ladies Booked</span>
+                                    </div>
+
+                                    <div class="legend-item">
+                                        <span class="legend-box gents"></span>
+                                        <span>Gents Booked</span>
+                                    </div>
+
                                 </div>
 
                                 <div class="mob-layout-bottom mob-layout-bottom-fixed"
