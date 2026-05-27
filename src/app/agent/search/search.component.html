@@ -147,18 +147,31 @@
             <!-- BOARDING -->
             <div class="mobile-filter-section" *ngIf="boardingPoints.length != 0">
 
-                <h4>Boarding Point</h4>
+                <div class="mobile-filter-title" (click)="boardingExpand = !boardingExpand">
 
-                <div *ngFor="let boardingPointId of boardingPoints">
+                    <h4><i class="fas fa-map-marker-alt"></i>
+                        Boarding Point</h4>
 
-                    <label class="container-chkbox">
-                        {{ boardingPointId.boarding_point }}
+                    <i class="fas" [ngClass]="boardingExpand ? 'fa-chevron-up' : 'fa-chevron-down'">
+                    </i>
 
-                        <input type="checkbox" [value]="boardingPointId.id" (change)="updateBoarding($event)" />
+                </div>
 
-                        <span class="checkmark"></span>
+                <div class="mobile-filter-options" *ngIf="boardingExpand">
 
-                    </label>
+                    <div *ngFor="let boardingPointId of boardingPoints">
+
+                        <label class="container-chkbox">
+
+                            {{ boardingPointId.boarding_point }}
+
+                            <input type="checkbox" [value]="boardingPointId.id" (change)="updateBoarding($event)" />
+
+                            <span class="checkmark"></span>
+
+                        </label>
+
+                    </div>
 
                 </div>
 
@@ -167,18 +180,31 @@
             <!-- DROPPING -->
             <div class="mobile-filter-section" *ngIf="droppingPoints.length != 0">
 
-                <h4>Dropping Point</h4>
+                <div class="mobile-filter-title" (click)="droppingExpand = !droppingExpand">
 
-                <div *ngFor="let dropingingPointId of droppingPoints">
+                    <h4><i class="fas fa-location-arrow"></i>
+                        Dropping Point</h4>
 
-                    <label class="container-chkbox">
-                        {{ dropingingPointId.boarding_point }}
+                    <i class="fas" [ngClass]="droppingExpand ? 'fa-chevron-up' : 'fa-chevron-down'">
+                    </i>
 
-                        <input type="checkbox" [value]="dropingingPointId.id" (change)="updateDropping($event)" />
+                </div>
 
-                        <span class="checkmark"></span>
+                <div class="mobile-filter-options" *ngIf="droppingExpand">
 
-                    </label>
+                    <div *ngFor="let dropingingPointId of droppingPoints">
+
+                        <label class="container-chkbox">
+
+                            {{ dropingingPointId.boarding_point }}
+
+                            <input type="checkbox" [value]="dropingingPointId.id" (change)="updateDropping($event)" />
+
+                            <span class="checkmark"></span>
+
+                        </label>
+
+                    </div>
 
                 </div>
 
@@ -187,18 +213,32 @@
             <!-- BUS TYPE -->
             <div class="mobile-filter-section" *ngIf="busTypes.length != 0">
 
-                <h4>Bus Type</h4>
+                <div class="mobile-filter-title" (click)="busTypeExpand = !busTypeExpand">
 
-                <div *ngFor="let busType of busTypes">
+                    <h4><i class="fas fa-bus"></i>
+                        Bus Type
+                    </h4>
 
-                    <label class="container-chkbox">
-                        {{ busType.class_name }}
+                    <i class="fas" [ngClass]="busTypeExpand ? 'fa-chevron-up' : 'fa-chevron-down'">
+                    </i>
 
-                        <input type="checkbox" [value]="busType.id" (change)="updateBusType($event)" />
+                </div>
 
-                        <span class="checkmark"></span>
+                <div class="mobile-filter-options" *ngIf="busTypeExpand">
 
-                    </label>
+                    <div *ngFor="let busType of busTypes">
+
+                        <label class="container-chkbox">
+
+                            {{ busType.class_name }}
+
+                            <input type="checkbox" [value]="busType.id" (change)="updateBusType($event)" />
+
+                            <span class="checkmark"></span>
+
+                        </label>
+
+                    </div>
 
                 </div>
 

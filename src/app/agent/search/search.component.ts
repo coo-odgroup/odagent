@@ -50,10 +50,10 @@ export class SearchComponent implements ControlValueAccessor {
   _albums = [];
 
   // Function to call when the date changes.
-  onChange = (date?: Date) => {};
+  onChange = (date?: Date) => { };
 
   // Function to call when the date picker is touched
-  onTouched = () => {};
+  onTouched = () => { };
 
   writeValue(value: Date) {
     if (!value) return;
@@ -166,7 +166,10 @@ export class SearchComponent implements ControlValueAccessor {
   btnstatus: any = 'hide';
 
   isShown: boolean = false; // hidden by default
-  mobileFilterOpen:boolean = false;
+  mobileFilterOpen: boolean = false;
+  boardingExpand: boolean = true;
+  droppingExpand: boolean = false;
+  busTypeExpand: boolean = false;
 
   seatLoader: boolean = false;
 
@@ -250,14 +253,14 @@ export class SearchComponent implements ControlValueAccessor {
           term === ''
             ? []
             : this.location_list
-                .filter(
-                  (v) =>
-                    v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
-                    (v.synonym != '' &&
-                      v.synonym != null &&
-                      v.synonym.toLowerCase().indexOf(term.toLowerCase()) > -1),
-                )
-                .slice(0, 10),
+              .filter(
+                (v) =>
+                  v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
+                  (v.synonym != '' &&
+                    v.synonym != null &&
+                    v.synonym.toLowerCase().indexOf(term.toLowerCase()) > -1),
+              )
+              .slice(0, 10),
         ),
       );
 
@@ -285,12 +288,12 @@ export class SearchComponent implements ControlValueAccessor {
   }
 
   openFilter() {
-  this.mobileFilterOpen = true;
-}
+    this.mobileFilterOpen = true;
+  }
 
-closeMobileFilter() {
-  this.mobileFilterOpen = false;
-}
+  closeMobileFilter() {
+    this.mobileFilterOpen = false;
+  }
 
   submitSeat() {
     if (this.seatForm.valid) {
@@ -1788,116 +1791,116 @@ closeMobileFilter() {
 
   changeDate(date: any) {
 
-  // FORMAT DATE PROPERLY
-  this.entdate = this.datePipe.transform(date, 'dd-MM-yyyy');
+    // FORMAT DATE PROPERLY
+    this.entdate = this.datePipe.transform(date, 'dd-MM-yyyy');
 
-  this.seatsLayoutRecord.visibility = false;
-  this.seatlayoutShow = '';
-  this.safetyshow = '';
-  this.busPhotoshow = '';
-  this.reviewShow = '';
-  this.policyShow = '';
-  this.amenityShow = '';
+    this.seatsLayoutRecord.visibility = false;
+    this.seatlayoutShow = '';
+    this.safetyshow = '';
+    this.busPhotoshow = '';
+    this.reviewShow = '';
+    this.policyShow = '';
+    this.amenityShow = '';
 
-  this.checkedIndex = 0;
+    this.checkedIndex = 0;
 
-  this.totalfound = 0;
-  this.buslist = [];
+    this.totalfound = 0;
+    this.buslist = [];
 
-  this.getbuslist();
+    this.getbuslist();
 
-  this.setPrevNextDate(this.entdate);
+    this.setPrevNextDate(this.entdate);
 
-}
-
-sortDirection: any = {
-  operator: true,
-  departure: true,
-  duration: true,
-  arrival: true,
-  seats: true,
-  price: true
-};
-
-sortBuses(type: string) {
-
-  this.sortDirection[type] = !this.sortDirection[type];
-
-  const isAsc = this.sortDirection[type];
-  switch (type) {
-    case 'operator':
-      this.buslist.sort((a: any, b: any) => {
-        return isAsc
-          ? a.busName.localeCompare(b.busName)
-          : b.busName.localeCompare(a.busName);
-
-      });
-      break;
-    case 'departure':
-      this.buslist.sort((a: any, b: any) => {
-        return isAsc
-          ? this.convertTime(a.departureTime) - this.convertTime(b.departureTime)
-          : this.convertTime(b.departureTime) - this.convertTime(a.departureTime);
-      });
-      break;
-    case 'arrival':
-
-      this.buslist.sort((a: any, b: any) => {
-
-        return isAsc
-          ? this.convertTime(a.arrivalTime) - this.convertTime(b.arrivalTime)
-          : this.convertTime(b.arrivalTime) - this.convertTime(a.arrivalTime);
-
-      });
-
-      break;
-
-    case 'duration':
-      this.buslist.sort((a: any, b: any) => {
-
-        return isAsc
-          ? this.convertDuration(a.totalJourneyTime) - this.convertDuration(b.totalJourneyTime)
-          : this.convertDuration(b.totalJourneyTime) - this.convertDuration(a.totalJourneyTime  );
-      });
-      break;
-
-    case 'seats':
-      this.buslist.sort((a: any, b: any) => {
-
-        return isAsc
-          ? a.totalSeats - b.totalSeats
-          : b.totalSeats - a.totalSeats;
-
-      });
-
-      break;
-    case 'price':
-      this.buslist.sort((a: any, b: any) => {
-
-        return isAsc
-          ? a.startingFromPrice - b.startingFromPrice
-          : b.startingFromPrice - a.startingFromPrice
-      });
-      break;
   }
 
-}
+  sortDirection: any = {
+    operator: true,
+    departure: true,
+    duration: true,
+    arrival: true,
+    seats: true,
+    price: true
+  };
 
-convertTime(time: string): number {
+  sortBuses(type: string) {
 
-  const parts = time.split(':');
-  return (+parts[0] * 60) + (+parts[1]);
+    this.sortDirection[type] = !this.sortDirection[type];
 
-}
+    const isAsc = this.sortDirection[type];
+    switch (type) {
+      case 'operator':
+        this.buslist.sort((a: any, b: any) => {
+          return isAsc
+            ? a.busName.localeCompare(b.busName)
+            : b.busName.localeCompare(a.busName);
 
-convertDuration(duration: string): number {
+        });
+        break;
+      case 'departure':
+        this.buslist.sort((a: any, b: any) => {
+          return isAsc
+            ? this.convertTime(a.departureTime) - this.convertTime(b.departureTime)
+            : this.convertTime(b.departureTime) - this.convertTime(a.departureTime);
+        });
+        break;
+      case 'arrival':
 
-  const match = duration.match(/(\d+)h\s*(\d+)m/);
-  if (!match) {
-    return 0;
+        this.buslist.sort((a: any, b: any) => {
+
+          return isAsc
+            ? this.convertTime(a.arrivalTime) - this.convertTime(b.arrivalTime)
+            : this.convertTime(b.arrivalTime) - this.convertTime(a.arrivalTime);
+
+        });
+
+        break;
+
+      case 'duration':
+        this.buslist.sort((a: any, b: any) => {
+
+          return isAsc
+            ? this.convertDuration(a.totalJourneyTime) - this.convertDuration(b.totalJourneyTime)
+            : this.convertDuration(b.totalJourneyTime) - this.convertDuration(a.totalJourneyTime);
+        });
+        break;
+
+      case 'seats':
+        this.buslist.sort((a: any, b: any) => {
+
+          return isAsc
+            ? a.totalSeats - b.totalSeats
+            : b.totalSeats - a.totalSeats;
+
+        });
+
+        break;
+      case 'price':
+        this.buslist.sort((a: any, b: any) => {
+
+          return isAsc
+            ? a.startingFromPrice - b.startingFromPrice
+            : b.startingFromPrice - a.startingFromPrice
+        });
+        break;
+    }
+
   }
 
-  return (+match[1] * 60) + (+match[2]);
+  convertTime(time: string): number {
 
-}
+    const parts = time.split(':');
+    return (+parts[0] * 60) + (+parts[1]);
+
+  }
+
+  convertDuration(duration: string): number {
+
+    const match = duration.match(/(\d+)h\s*(\d+)m/);
+    if (!match) {
+      return 0;
+    }
+
+    return (+match[1] * 60) + (+match[2]);
+
+  }
 }
