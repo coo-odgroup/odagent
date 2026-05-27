@@ -157,6 +157,7 @@ export class SearchComponent implements ControlValueAccessor {
   seatlayoutShow: any = '';
   mobileBerthTab: 'lower' | 'upper' = 'lower';
   mobileBookingStep: 'seat' | 'boarding' | 'dropping' = 'seat';
+  filterType: any = '';
   safetyshow: any = '';
   busPhotoshow: any = '';
   reviewShow: any = '';
@@ -165,6 +166,7 @@ export class SearchComponent implements ControlValueAccessor {
   btnstatus: any = 'hide';
 
   isShown: boolean = false; // hidden by default
+  mobileFilterOpen:boolean = false;
 
   seatLoader: boolean = false;
 
@@ -290,6 +292,14 @@ export class SearchComponent implements ControlValueAccessor {
     }
 
   }
+
+  openFilter() {
+  this.mobileFilterOpen = true;
+}
+
+closeMobileFilter() {
+  this.mobileFilterOpen = false;
+}
 
   submitSeat() {
     if (this.seatForm.valid) {

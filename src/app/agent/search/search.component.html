@@ -128,6 +128,99 @@
         </div>
     </section>
 
+    <!-- MOBILE FULL FILTER -->
+
+    <div class="mobile-filter-overlay d-block d-md-none" *ngIf="mobileFilterOpen">
+
+        <!-- HEADER -->
+        <div class="mobile-filter-header">
+
+            <h3>Sort and Filter By</h3>
+
+            <i class="fas fa-times" (click)="closeMobileFilter()"></i>
+
+        </div>
+
+        <!-- BODY -->
+        <div class="mobile-filter-body">
+
+            <!-- BOARDING -->
+            <div class="mobile-filter-section" *ngIf="boardingPoints.length != 0">
+
+                <h4>Boarding Point</h4>
+
+                <div *ngFor="let boardingPointId of boardingPoints">
+
+                    <label class="container-chkbox">
+                        {{ boardingPointId.boarding_point }}
+
+                        <input type="checkbox" [value]="boardingPointId.id" (change)="updateBoarding($event)" />
+
+                        <span class="checkmark"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+            <!-- DROPPING -->
+            <div class="mobile-filter-section" *ngIf="droppingPoints.length != 0">
+
+                <h4>Dropping Point</h4>
+
+                <div *ngFor="let dropingingPointId of droppingPoints">
+
+                    <label class="container-chkbox">
+                        {{ dropingingPointId.boarding_point }}
+
+                        <input type="checkbox" [value]="dropingingPointId.id" (change)="updateDropping($event)" />
+
+                        <span class="checkmark"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+            <!-- BUS TYPE -->
+            <div class="mobile-filter-section" *ngIf="busTypes.length != 0">
+
+                <h4>Bus Type</h4>
+
+                <div *ngFor="let busType of busTypes">
+
+                    <label class="container-chkbox">
+                        {{ busType.class_name }}
+
+                        <input type="checkbox" [value]="busType.id" (change)="updateBusType($event)" />
+
+                        <span class="checkmark"></span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="mobile-filter-footer">
+
+            <button class="reset-btn" (click)="resetFilterForm()">
+                RESET
+            </button>
+
+            <button class="apply-btn" (click)="closeMobileFilter()">
+                APPLY
+            </button>
+
+        </div>
+
+    </div>
+
     <!-- Search results -->
     <section class="search-result">
         <div class="desktop-view hidden-xs">
@@ -1405,7 +1498,7 @@
                     <!-- PRICE -->
                     <div class="bus-footer-row">
                         <div>
-                            <div class="bus-price">₹ {{ bus.startingFromPrice }}</div>
+                            <div class="bus-price">From ₹ {{ bus.startingFromPrice }}</div>
 
                             <div class="bus-seats">{{ bus.totalSeats }} Seats</div>
                         </div>
@@ -1913,5 +2006,34 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- MOBILE FILTER BOTTOM BAR -->
+    <div class="mobile-filter-bar d-md-none">
+
+        <div class="filter-item" (click)="filterType='ac'">
+            <i class="fas fa-snowflake"></i>
+            <span>AC</span>
+        </div>
+
+        <div class="filter-item" (click)="filterType='nonac'">
+            <i class="fas fa-ban"></i>
+            <span>NON AC</span>
+        </div>
+
+        <div class="filter-item" (click)="filterType='seater'">
+            <i class="fas fa-chair"></i>
+            <span>SEATER</span>
+        </div>
+
+        <div class="filter-item" (click)="filterType='sleeper'">
+            <i class="fas fa-bed"></i>
+            <span>SLEEPER</span>
+        </div>
+
+        <div class="filter-item more-filter" (click)="openFilter()">
+            <i class="fas fa-sliders-h"></i>
+            <span>More Filters</span>
+        </div>
+
     </div>
 </div>
