@@ -595,3 +595,148 @@ button.calendar:active {
   }
 
 }
+
+.notification-message-text {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 28px;
+  color: #444;
+  font-family: 'Poppins', sans-serif;
+  letter-spacing: 0.3px;
+  text-transform: none;
+}
+
+/* HEADER */
+
+.custom-modal-header {
+  background: linear-gradient(135deg, #0b2e6f, #17479e);
+  padding: 18px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.modal-title-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-title-section i {
+  color: #fff;
+  font-size: 20px;
+}
+
+.modal-title-section h5 {
+  color: #fff;
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.custom-close-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.custom-close-btn:hover {
+  transform: rotate(90deg);
+  opacity: 0.8;
+}
+
+
+/* BODY */
+
+.custom-modal-body {
+  padding: 28px;
+  background: #f4f7fc;
+}
+
+.notification-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+.notification-icon {
+  width: 60px;
+  height: 60px;
+  min-width: 60px;
+  background: #e8f0ff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-icon i {
+  color: #0b2e6f;
+  font-size: 26px;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #888;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.notification-message-text {
+  font-size: 17px;
+  line-height: 30px;
+  color: #2d3436;
+  font-weight: 500;
+}
+
+
+/* FOOTER */
+
+.custom-modal-footer {
+  padding: 16px 24px;
+  border-top: 1px solid #eee;
+  text-align: right;
+  background: #fff;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+
+  .custom-modal-body {
+    padding: 18px;
+  }
+
+  .notification-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .notification-message-text {
+    font-size: 15px;
+    line-height: 26px;
+  }
+
+  .modal-title-section h5 {
+    font-size: 17px;
+  }
+
+}

@@ -180,13 +180,9 @@
                                 <strong style="color: darkgoldenrod;">{{complete.customer_payment.razorpay_id}}</strong> -->
               </td>
               <td>
-                <strong
-                  *ngIf="
-                    complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'
-                  "
-                  >{{ complete.bus.name }}<br />
-                  {{ complete.bus.bus_number }}</strong
-                >
+                <strong *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'"
+                  >{{ complete.bus.name }}</strong><br />
+                  <strong style="color: brown">( {{ complete.bus.bus_number }} )</strong>
 
                 <strong
                   *ngIf="
@@ -198,10 +194,10 @@
               </td>
               <td>
                 <span *ngFor="let frlocation of complete.from_location">
-                  {{ frlocation.name }}
+                  <b>{{ frlocation.name }}</b>
                 </span>
-                - ( <b>{{ complete.boarding_point }} </b> )<br />
-                Time : <b>{{ complete.boarding_time }}</b>
+                - <b style="color: brown"> ( {{ complete.boarding_point }} </b> )<br />
+                <b  style="color: darkgoldenrod">Time : {{ complete.boarding_time }}</b>
               </td>
 
               <td>
@@ -214,12 +210,12 @@
                     <tr>
                       <td style="text-align: left">
                         <span *ngFor="let frlocation of complete.source">
-                          {{ frlocation[0].name }}<br />
+                          <b>{{ frlocation[0].name }}</b><br />
                         </span>
                       </td>
                       <td style="text-align: left">
                         <span *ngFor="let tolocation of complete.destination">
-                          {{ tolocation[0].name }} <br />
+                          <b>{{ tolocation[0].name }} </b><br />
                         </span>
                       </td>
                     </tr>
@@ -229,11 +225,11 @@
                 <span [ngbTooltip]="tipContent1">
                   <!-- {{ complete.source_id }} - {{ complete.destination_id }} -->
                   <span *ngFor="let boarding of complete.from_location">
-                    <strong> {{ boarding.name }}</strong>
+                    <strong style="color: brown"> {{ boarding.name }}</strong>
                   </span>
-                  >>
+                  <b style="color: darkgoldenrod"> >> </b>
                   <span *ngFor="let dropping of complete.to_location">
-                    <strong> {{ dropping.name }}</strong>
+                    <strong style="color: brown"> {{ dropping.name }}</strong>
                   </span>
                 </span>
               </td>
@@ -245,7 +241,7 @@
                       complete.origin != 'MANTIS'
                     "
                   >
-                    {{ seat.bus_seats.seats.seatText }}
+                    <b>{{ seat.bus_seats.seats.seatText }}</b>
                   </span>
                   <span
                     *ngIf="
@@ -330,7 +326,7 @@
               </td>
 
               <td>
-                <i class="fas fa-rupee-sign"></i>
+               
                 <b>{{ complete.total_fare + complete.agent_commission }}</b>
               </td>
               <td>

@@ -205,70 +205,74 @@
         </div>
       </div>
 
-      <div class="app-card-footer">
-        <ng-template #content let-modal>
-          <div class="modal-header">
-            <h5 class="ng-tns-c116-5">{{ ModalHeading }}</h5>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              (click)="modal.dismiss('Cross click')"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-material">
-                  <div class="right-icon-control">
-                    <div class="table-responsive">
-                      <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th scope="col">Subject</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>
-                              {{
-                                notificationcontentRecord.notification_heading
-                              }}
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="col" colspan="4">
-                              <h3>MESSAGE</h3>
-                            </th>
-                          </tr>
-                          <tr>
-                            <td colspan="4">
-                              <div class="from-group">
-                                <div class="col-sm-12">
-                                  <h5 class="text-capitalize" rows="5">
-                                    {{
-                                      notificationcontentRecord.notification_details
-                                    }}
-                                  </h5>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <hr />
-          </div>
-        </ng-template>
+     <div class="app-card-footer">
+
+  <ng-template #content let-modal>
+
+    <!-- HEADER -->
+    <div class="custom-modal-header">
+
+      <div class="modal-title-section">
+        <i class="fas fa-bell"></i>
+        <h5>{{ ModalHeading }}</h5>
       </div>
+
+      <button
+        type="button"
+        class="custom-close-btn"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+
+    </div>
+
+
+    <!-- BODY -->
+    <div class="custom-modal-body">
+
+      <div class="notification-card">
+
+        <div class="notification-icon">
+          <i class="fas fa-wallet"></i>
+        </div>
+
+        <div class="notification-content">
+
+          <div class="notification-label">
+            Notification Message
+          </div>
+
+          <div class="notification-message-text">
+            {{
+              notificationcontentRecord.notification_details
+            }}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- FOOTER -->
+    <div class="custom-modal-footer">
+
+      <button
+        type="button"
+        class="btn btn-primary px-4"
+        (click)="modal.dismiss('Cross click')"
+      >
+        Close
+      </button>
+
+    </div>
+
+  </ng-template>
+
+</div>
     </app-card>
   </div>
 </div>

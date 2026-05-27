@@ -124,7 +124,7 @@
                         <tr *ngFor="let complete of completedata?.data.data; let i = index">
                             <td style="text-align: center;">{{ i+1 }}</td>
                             <td>
-                                <strong>{{complete.pnr}}</strong> (<strong style="color: darkgoldenrod;">DOj-
+                                <strong>{{complete.pnr}}</strong> <strong style="color: darkgoldenrod;"> (DOj-
                                     {{complete.journey_dt}} ) </strong>
                                 <br>
                                 <strong style="color: brown;">DOB-{{complete.created_at | date: 'dd/MM/yyyy
@@ -136,12 +136,12 @@
                             </td>
                             <td>
                                 <span *ngIf="complete.origin == 'DOLPHIN'  || complete.origin == 'MANTIS'">
-                                    <strong>{{ complete.bus_name }}<br>
-                                        {{ complete.bus_number }}</strong>
+                                    <strong>{{ complete.bus_name }}</strong><br>
+                                         <strong style="color: brown;">{{ complete.bus_number }}</strong>
                                 </span>
                                 <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
-                                    <strong>{{ complete.bus.name }}<br>
-                                        {{ complete.bus.bus_number }}</strong>
+                                    <strong>{{ complete.bus.name }}</strong><br>
+                                        <strong style="color: brown;">{{ complete.bus.bus_number }}</strong>
                                 </span>
 
 
@@ -175,19 +175,19 @@
                                 <span [ngbTooltip]="tipContent1">
                                     <!-- {{ complete.source_id }} - {{ complete.destination_id }} -->
                                     <span *ngFor="let boarding of complete.from_location;">
-                                        <strong> {{boarding.name}}</strong>
-                                    </span> >>
+                                        <strong style="color: brown;"> {{boarding.name}}  </strong>
+                                    </span> <b style="color: darkgoldenrod;"> >> </b>
                                     <span *ngFor="let dropping of complete.to_location;">
-                                        <strong> {{dropping.name}}</strong>
+                                        <strong style="color: brown;">   {{dropping.name}}</strong>
                                     </span>
                                 </span>
                             </td>
                             <td>
                                 <span *ngFor="let frlocation of complete.from_location">
-                                    {{frlocation.name}}
+                                    <strong>{{frlocation.name}}</strong>
                                 </span> -
-                                ( <b>{{complete.boarding_point}} </b> )<br>
-                                Time : <b>{{complete.boarding_time }}</b>
+                                <strong style="color: brown;">( {{complete.boarding_point}}  )</strong><br>
+                                <b style="color: darkgoldenrod;">Time : {{complete.boarding_time }}</b>
                             </td>
 
                             <td>
@@ -198,7 +198,7 @@
                                 </span>
                                 <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
                                     <p *ngFor="let seat of complete.booking_detail;">
-                                        {{seat.bus_seats.seats.seatText}}
+                                       <b> {{seat.bus_seats.seats.seatText}}</b>
                                     </p>
                                 </span>
                             </td>
@@ -265,22 +265,22 @@
                                 </p>
                             </td>
                             <td>
-                                <i class="fas fa-rupee-sign"></i> <b>{{complete.agent_commission}}</b>
+                                 <b>{{complete.agent_commission}}</b>
                             </td>
                             <td>
-                                <i class="fas fa-rupee-sign"></i> <b>{{complete.tds}}</b>
+                                 <b>{{complete.tds}}</b>
                             </td>
                             <td>
-                                <i class="fas fa-rupee-sign"></i> <b>{{complete.with_tds_commission}}</b>
+                                 <b>{{complete.with_tds_commission}}</b>
                             </td>
                             <td>
-                                <i class="fas fa-rupee-sign"></i> <b>{{complete.customer_comission}}</b>
+                                 <b>{{complete.customer_comission}}</b>
                             </td>
 
 
 
                             <td>
-                                <i class="fas fa-rupee-sign"></i> <b>{{complete.total_fare}}</b>
+                                 <b>{{complete.total_fare}}</b>
                             </td>
                         </tr>
                     </tbody>
