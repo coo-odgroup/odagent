@@ -377,24 +377,34 @@ get_seatno(seat_id:any){
    }
 
 
-   setCommission(event:any){
+setCommission(event: any) {
 
-    this.commissionError=false;
-    this.payableAmount =this.bookingdata.PriceArray.totalFare;
+  this.commissionError = false;
 
-    if(event.target.value!='' &&  event.target.value!=null){
+  const value = event.target.value;
 
-    if(event.target.value <= this.bookTicketResponse.customer_comission){
-      this.applied_comission=event.target.value;
+  if (value === '' || value == null) {
+    this.applied_comission = 0;
+    this.payableAmount = this.bookingdata.PriceArray.totalFare;
+    return;
+  }
 
-      this.payableAmount = parseFloat(this.payableAmount) +  parseFloat(event.target.value);
-      this.commissionError=false;
-    }else{
-      this.commissionError=true;
-      return false;
-    }
-   } 
-   }
+  this.payableAmount = this.bookingdata.PriceArray.totalFare;
+
+  if (parseFloat(value) <= this.bookTicketResponse.customer_comission) {
+
+    this.applied_comission = parseFloat(value);
+    this.payableAmount =
+      parseFloat(this.payableAmount) +
+      parseFloat(value);
+
+    this.commissionError = false;
+
+  } else {
+
+    this.commissionError = true;
+  }
+}
   
   submitForm1(){
     this.submitted1=true;
