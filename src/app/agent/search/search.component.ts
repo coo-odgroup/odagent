@@ -175,6 +175,7 @@ export class SearchComponent implements ControlValueAccessor {
 
   prevDate: any;
   nextDate: any;
+  nextDates: any[] = [];
   maxAllowedDate: any = new Date();
   referenceNumber: any = '';
   origin: any = '';
@@ -760,6 +761,7 @@ export class SearchComponent implements ControlValueAccessor {
     this.getbuslist();
     this.isShown = false;
     this.setPrevNextDate(this.entdate);
+    this.generateNextDates();
     this.showformattedDate(this.entdate);
 
   }
@@ -1751,30 +1753,30 @@ export class SearchComponent implements ControlValueAccessor {
 
     try {
       const now = new Date();
-      
+
       // Parse date in DD-MM-YYYY format
       let dt = this.entdate.split("-");
       if (dt.length !== 3) return false;
-      
+
       const day = parseInt(dt[0], 10);
       const month = parseInt(dt[1], 10);
       const year = parseInt(dt[2], 10);
-      
+
       // Create journey date (month is 0-indexed in JavaScript)
       let journeyDate = new Date(year, month - 1, day);
-      
+
       // Parse departure time in HH:MM format
       const timeparts = bus.departureTime.split(':');
       if (timeparts.length < 2) return false;
-      
+
       const hour = parseInt(timeparts[0], 10);
       const minute = parseInt(timeparts[1], 10);
-      
+
       journeyDate.setHours(hour);
       journeyDate.setMinutes(minute);
       journeyDate.setSeconds(0);
       journeyDate.setMilliseconds(0);
-      
+
       // Compare current time with journey time
       return journeyDate < now;
     } catch (error) {
@@ -1792,12 +1794,12 @@ export class SearchComponent implements ControlValueAccessor {
   // }
 
   tabChange(val: string) {
-  const el = document.getElementById(val) as HTMLElement | null;
-  if (el) {
-    el.focus();
-    el.click();
+    const el = document.getElementById(val) as HTMLElement | null;
+    if (el) {
+      el.focus();
+      el.click();
+    }
   }
-}
 
 
   ngOnInit(): void {
@@ -1828,6 +1830,7 @@ export class SearchComponent implements ControlValueAccessor {
 
       this.showformattedDate(this.entdate);
       this.getbuslist();
+      this.generateNextDates();
 
 
       const data = {
@@ -1899,6 +1902,40 @@ export class SearchComponent implements ControlValueAccessor {
       this.prevDate = formatDate(this.prevDate, 'dd-MM-yyyy', 'en_US');
 
     }
+
+  }
+
+  generateNextDates() {
+
+    const today = new Date();
+
+    this.nextDates = [];
+
+    for (let i = 0; i < 7; i++) {
+
+      const d = new Date();
+
+      d.setDate(today.getDate() + i);
+
+      this.nextDates.push({
+        day: d.getDate(),
+        month: d.toLocaleString('default', { month: 'short' }),
+        fullDate: d
+      });
+
+    }
+
+  }
+
+  changeDate(date: any) {
+
+    const formatted = formatDate(date, 'dd-MM-yyyy', 'en_US');
+
+    this.entdate = formatted;
+
+    this.showformattedDate(formatted);
+
+    this.getbuslist();
 
   }
 
