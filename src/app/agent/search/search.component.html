@@ -347,39 +347,45 @@
                                     <div class="col-md-12">
                                         <ul class="bs-srch-dt-dtl sort-bus-top">
                                             <li class="bs-dtl-one tx-left">
-                                                <a class="srt-by-opert">Operator<img class="pllygn-up"
-                                                        src="assets/img/Polygon-icon.png" /><img class="pllygn-dn"
-                                                        src="assets/img/Polygon-icon-2.png" /></a>
+                                                <a class="srt-by-opert" (click)="sortBuses('operator')">
+                                                    Operator
+                                                    <i class="fa fa-caret-down ml-1"></i>
+                                                </a>
                                             </li>
+
                                             <li class="bs-dtl-one">
-                                                <!-- bs-dtl-from -->
-                                                <a class="srt-by-dept">Departure<img class="pllygn-up"
-                                                        src="assets/img/Polygon-icon.png" /><img class="pllygn-dn"
-                                                        src="assets/img/Polygon-icon-2.png" /></a>
+                                                <a class="srt-by-dept" (click)="sortBuses('departure')">
+                                                    Departure
+                                                    <i class="fa fa-caret-down ml-1"></i>
+                                                </a>
                                             </li>
+
                                             <li class="bs-dtl-one">
-                                                <!-- bs-dtl-bs-tm-take -->
-                                                <a class="srt-by-duraton">Duration<img class="pllygn-up"
-                                                        src="assets/img/Polygon-icon.png" /><img class="pllygn-dn"
-                                                        src="assets/img/Polygon-icon-2.png" /></a>
+                                                <a class="srt-by-duraton" (click)="sortBuses('duration')">
+                                                    Duration
+                                                    <i class="fa fa-caret-down ml-1"></i>
+                                                </a>
                                             </li>
+
                                             <li class="bs-dtl-one">
-                                                <!-- bs-dtl-bs-reach -->
-                                                <a class="srt-by-arival">Arrival<img class="pllygn-up"
-                                                        src="assets/img/Polygon-icon.png" /><img class="pllygn-dn"
-                                                        src="assets/img/Polygon-icon-2.png" /></a>
+                                                <a class="srt-by-arival" (click)="sortBuses('arrival')">
+                                                    Arrival
+                                                    <i class="fa fa-caret-down ml-1"></i>
+                                                </a>
                                             </li>
+
                                             <li class="bs-dtl-one">
-                                                <!-- bs-dtl-seat-dtl -->
-                                                <a class="srt-by-seats">Seats<img class="pllygn-up"
-                                                        src="assets/img/Polygon-icon.png" /><img class="pllygn-dn"
-                                                        src="assets/img/Polygon-icon-2.png" /></a>
+                                                <a class="srt-by-seats" (click)="sortBuses('seats')">
+                                                    Seats
+                                                    <i class="fa fa-caret-down ml-1"></i>
+                                                </a>
                                             </li>
+
                                             <li class="bs-dtl-one">
-                                                <!-- bs-dtl-start-pont -->
-                                                <a class="srt-by-prc">Price<img class="pllygn-up"
-                                                        src="assets/img/Polygon-icon.png" /><img class="pllygn-dn"
-                                                        src="assets/img/Polygon-icon-2.png" /></a>
+                                                <a class="srt-by-prc" (click)="sortBuses('price')">
+                                                    Price
+                                                    <i class="fa fa-caret-down ml-1"></i>
+                                                </a>
                                             </li>
 
                                             <li class="bs-dtl-one"></li>
@@ -1435,10 +1441,9 @@
             <!-- DATE SCROLL -->
 
             <div class="date-scroll-wrapper">
-
-                <div class="date-scroll-card active" *ngFor="let item of nextDates; let i = index"
-                    [class.active]="i == 0" (click)="changeDate(item.fullDate)">
-
+                <div class="date-scroll-card" *ngFor="let item of nextDates; let i = index"
+                    [class.active]="(item.fullDate | date: 'dd-MM-yyyy') === entdate"
+                    (click)="changeDate(item.fullDate)">
                     <div class="date-day">
                         {{ item.day }}
                     </div>
@@ -1446,15 +1451,11 @@
                     <div class="date-month">
                         {{ item.month }}
                     </div>
-
                 </div>
-
             </div>
 
             <!-- Count Section -->
-            <div class="bus-found-count">
-                {{ buslist?.length || 0 }} Buses Found
-            </div>
+            <div class="bus-found-count">{{ buslist?.length || 0 }} Buses Found</div>
 
             <!-- BUS LIST -->
             <div *ngFor="let bus of buslist; let i = index">
@@ -1934,7 +1935,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div *ngIf="mobileBookingStep === 'boarding'" class="mobile-booking-stage">
                                 <div class="mob-board-top">
                                     <div class="row m-0">
@@ -2034,6 +2034,4 @@
             <i class="fas fa-sliders-h"></i>
             <span>More Filters</span>
         </div>
-
     </div>
-</div>
