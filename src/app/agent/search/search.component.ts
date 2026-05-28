@@ -31,6 +31,7 @@ import { CommonService } from '../../services/common.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Lightbox } from 'ngx-lightbox';
 
+
 export const DATEPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SearchComponent),
@@ -363,6 +364,88 @@ export class SearchComponent implements ControlValueAccessor {
       }
     }
   }
+
+
+  mobileQuickFilter(type: any) {
+
+  this.filterType = type;
+
+  // RESET FIRST
+  this.resetFilterForm();
+
+  // AC
+  if (type == 'ac') {
+
+    const acBus = this.busTypes.filter(
+      (x: any) =>
+        x.class_name.toLowerCase().includes('ac')
+    );
+
+    acBus.forEach((item: any) => {
+      const busType = this.filterForm.get('busType') as FormArray;
+      busType.push(new FormControl(item.id));
+    });
+
+  }
+
+  // NON AC
+  else if (type == 'nonac') {
+
+    const nonAcBus = this.busTypes.filter(
+      (x: any) =>
+        x.class_name.toLowerCase().includes('non')
+    );
+
+    nonAcBus.forEach((item: any) => {
+      const busType = this.filterForm.get('busType') as FormArray;
+      busType.push(new FormControl(item.id));
+    });
+
+  }
+
+  // SEATER
+  else if (type == 'seater') {
+
+    const seater = this.seatTypes.filter(
+      (x: any) =>
+        x.name.toLowerCase().includes('seater')
+    );
+
+    seater.forEach((item: any) => {
+      const seatType = this.filterForm.get('seatType') as FormArray;
+      seatType.push(new FormControl(item.id));
+    });
+
+  }
+
+  // SLEEPER
+  else if (type == 'sleeper') {
+
+    const sleeper = this.seatTypes.filter(
+      (x: any) =>
+        x.name.toLowerCase().includes('sleeper')
+    );
+
+    sleeper.forEach((item: any) => {
+      const seatType = this.filterForm.get('seatType') as FormArray;
+      seatType.push(new FormControl(item.id));
+    });
+
+  }
+
+  // BOARDING
+  else if (type == 'boarding') {
+
+    this.openFilter();
+    this.boardingExpand = true;
+
+    return;
+  }
+
+  // APPLY FILTER
+  this.submitFilterForm();
+
+}
 
   updateUpperberth(e: any) {
     const Upperberth: FormArray = this.seatForm.get('Upperberth') as FormArray;
