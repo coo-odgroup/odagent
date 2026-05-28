@@ -36,6 +36,8 @@
                   class="form-control sml_input"
                   formControlName="from_date"
                   placeholder="From Date"
+                  [min]="minDate"
+                  [max]="maxDate"
                 />
               </div>
 
@@ -46,6 +48,8 @@
                   class="form-control sml_input"
                   formControlName="to_date"
                   placeholder="To Date"
+                  [min]="minDate"
+                  [max]="maxDate"
                 />
               </div>
               <!-- Search -->
@@ -53,7 +57,7 @@
                 <input
                   type="text"
                   class="form-control sml_input"
-                  placeholder="Search Here"
+                  placeholder="Search By PNR"
                   required
                   formControlName="name"
                 />

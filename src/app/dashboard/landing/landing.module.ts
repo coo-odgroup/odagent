@@ -8,6 +8,7 @@ import {SharedModule} from '../../theme/shared/shared.module';
 import {AngularHighchartsChartModule} from 'angular-highcharts-chart';
 import {NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import {NgbCollapseModule, NgbDropdownModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {ChartModule} from 'angular2-chartjs';
 
@@ -22,7 +23,8 @@ import {ChartModule} from 'angular2-chartjs';
     NgbCollapseModule,
     NgbDropdownModule,
     ChartModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    NgbDatepickerModule
   ],schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class LandingModule { }

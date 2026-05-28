@@ -25,6 +25,9 @@ export class AgentwalletreportComponent implements OnInit {
   public searchForm: FormGroup;
   pagination: any;
 
+  minDate: string;
+  maxDate: string;
+
   modalReference: NgbModalRef;
   confirmDialogReference: NgbModalRef;
 
@@ -47,19 +50,31 @@ export class AgentwalletreportComponent implements OnInit {
     config: NgbModalConfig,
   ) {}
 
-  ngOnInit(): void {
-    this.spinner.show();
-    this.searchForm = this.fb.group({
-      name: [null],
-      rows_number: Constants.RecordLimit,
-      user_id: localStorage.getItem('USERID'),
-      tran_type: [''],
-      SelectType: [''],
-      from_date: [null],
-      to_date: [null],
-    });
-    this.search();
-  }
+ ngOnInit(): void {
+
+  const today = new Date();
+
+  this.maxDate = today.toISOString().split('T')[0];
+
+  const oldDate = new Date();
+  oldDate.setDate(today.getDate() - 180);
+
+  this.minDate = oldDate.toISOString().split('T')[0];
+
+  this.spinner.show();
+
+  this.searchForm = this.fb.group({
+    name: [null],
+    rows_number: Constants.RecordLimit,
+    user_id: localStorage.getItem('USERID'),
+    tran_type: [''],
+    SelectType: [''],
+    from_date: [null],
+    to_date: [null],
+  });
+
+  this.search();
+}
 
   OpenModal(content) {
     this.modalReference = this.modalService.open(content, {

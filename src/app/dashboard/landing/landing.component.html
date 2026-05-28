@@ -17,61 +17,142 @@
         name="ticketSize"
         data-toggle="buttons"
       >
-        <label ngbButtonLabel class="btn btn-info"
-          >All
+        <!-- ALL -->
+        <!-- <label ngbButtonLabel class="btn btn-info">
+          All
           <input
             ngbButton
             type="radio"
             class="dateRange"
             name="dateRange"
-            value="large-view"
-            id="option5"
             (click)="getall('All')"
           />
           <i class="feather icon-award m-0"></i>
-        </label>
-        <label ngbButtonLabel class="btn btn-info"
-          >Today
+        </label> -->
+
+        <!-- TODAY -->
+        <label ngbButtonLabel class="btn btn-info">
+          Today
           <input
             ngbButton
             type="radio"
             class="dateRange"
             name="dateRange"
-            value="sm-view"
-            id="option1"
             (click)="getall('Today')"
-          /><i class="feather icon-align-justify m-0"></i>
+          />
+          <i class="feather icon-align-justify m-0"></i>
         </label>
-        <label ngbButtonLabel class="btn btn-info"
-          >This Week
+
+        <!-- WEEK -->
+        <label ngbButtonLabel class="btn btn-info">
+          This Week
           <input
             ngbButton
             type="radio"
             class="dateRange"
             name="dateRange"
-            value="md-view"
-            id="option2"
             (click)="getall('This Week')"
           />
           <i class="feather icon-menu m-0"></i>
         </label>
-        <label ngbButtonLabel class="btn btn-info"
-          >This Month
+
+        <!-- MONTH -->
+        <label ngbButtonLabel class="btn btn-info">
+          This Month
           <input
             ngbButton
             type="radio"
             class="dateRange"
             name="dateRange"
-            value="large-view"
-            id="option3"
             (click)="getall('This Month')"
           />
           <i class="feather icon-grid m-0"></i>
         </label>
 
-        <!-- <label ngbButtonLabel class="btn btn-info">Custom Range
-                    <input ngbButton type="radio" name="dateRange" value="large-view" id="option4"> <i class="feather icon-plus m-0"></i>
-                </label> -->
+        <!-- CUSTOM -->
+        <label ngbButtonLabel class="btn btn-info">
+          Custom
+
+          <input
+            ngbButton
+            type="radio"
+            class="dateRange"
+            name="dateRange"
+            (click)="toggleCustomDate()"
+          />
+
+          <i class="feather icon-calendar m-0"></i>
+        </label>
+      </div>
+
+      <!-- KEEP THIS OUTSIDE BUTTON GROUP -->
+      <div class="custom-date-wrapper mt-3" *ngIf="showCustomDate">
+        <!-- FROM -->
+        <div class="custom-date-box">
+          <label>From Date</label>
+
+          <div class="custom-date-input">
+            <input
+              class="form-control"
+              placeholder="Select From Date"
+              name="fromDate"
+              [(ngModel)]="customFromDate"
+              [ngModelOptions]="{ standalone: true }"
+              ngbDatepicker
+              #fromDp="ngbDatepicker"
+              [minDate]="minDate"
+              [maxDate]="maxDate"
+              container="body"
+              readonly
+              (click)="fromDp.toggle()"
+            />
+
+            <button
+              type="button"
+              class="custom-calendar-btn"
+              (click)="fromDp.toggle()"
+            >
+              <i class="feather icon-calendar"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- TO -->
+        <div class="custom-date-box">
+          <label>To Date</label>
+
+          <div class="custom-date-input">
+            <input
+              class="form-control"
+              placeholder="Select To Date"
+              name="toDate"
+              [(ngModel)]="customToDate"
+              [ngModelOptions]="{ standalone: true }"
+              ngbDatepicker
+              #toDp="ngbDatepicker"
+              [minDate]="minDate"
+              [maxDate]="maxDate"
+              container="body"
+              readonly
+              (click)="toDp.toggle()"
+            />
+
+            <button
+              type="button" 
+              class="custom-calendar-btn"
+              (click)="toDp.toggle()"
+            >
+              <i class="feather icon-calendar"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- APPLY -->
+        <div class="custom-date-btn">
+          <button class="btn btn-primary" (click)="applyCustomDate()">
+            Apply
+          </button>
+        </div>
       </div>
     </app-card>
   </div>
@@ -136,7 +217,7 @@
       blockClass="text-center"
     >
       <h2 class="text-white">
-        {{ dashboarddata.customer_profit[0].customer_amount  || "0" }}
+        {{ dashboarddata.customer_profit[0].customer_amount || "0" }}
       </h2>
       <h6 class="text-white">Commission from Customer</h6>
       <i class="fas fa-rupee-sign"></i>
@@ -242,7 +323,7 @@
                 {{ route.to_location[0].name }}
               </td>
               <td>{{ route.pnr_count }} PNR</td>
-              <td><i class="fas fa-rupee-sign"></i> {{ route.amount }}</td>
+              <td> {{ route.amount }}</td>
             </tr>
           </tbody>
         </table>

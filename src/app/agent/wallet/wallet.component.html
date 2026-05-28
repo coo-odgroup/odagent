@@ -43,9 +43,7 @@
       <p>Available Balance: ₹ {{ availableBalance }}</p>
     </div>
 
-    <button class="close-popup-btn"  (click)="closePaymentPopup()">
-      Close
-    </button>
+    <button class="close-popup-btn" (click)="closePaymentPopup()">Close</button>
   </div>
 </div>
 
@@ -82,6 +80,8 @@
                       class="form-control sml_input"
                       formControlName="from_date"
                       placeholder="From Date"
+                      [min]="minDate"
+                      [max]="maxDate"
                     />
                   </div>
                 </div>
@@ -95,7 +95,8 @@
                       class="form-control sml_input"
                       formControlName="to_date"
                       placeholder="To Date"
-                      [min]="searchForm.get('from_date')?.value"
+                      [min]="searchForm.get('from_date')?.value || minDate"
+                      [max]="maxDate"
                     />
                   </div>
                 </div>
@@ -191,7 +192,7 @@
               <th scope="col">Request Date</th>
               <th scope="col">Tran ID</th>
               <th scope="col">Ref No</th>
-              <th scope="col">Tran Via</th>
+              <!-- <th scope="col">Tran Via</th> -->
               <th scope="col">Amount</th>
               <!-- <th scope="col">Balance</th> -->
               <!-- <th scope="col">Activated On</th> -->
@@ -202,8 +203,9 @@
           <tbody *ngIf="wallet?.length != 0">
             <tr *ngFor="let page of wallet; let i = index">
               <td style="text-align: center">{{ i + 1 }}</td>
-              <td>{{ page.created_at | date: "dd/MM/yyyy" }} -
-                {{ page.created_at | date:'hh:mm a' }}
+              <td>
+                {{ page.created_at | date: "dd/MM/yyyy" }} -
+                {{ page.created_at | date: "hh:mm a" }}
               </td>
               <td>
                 <span *ngIf="page.transaction_id != null">
@@ -217,14 +219,14 @@
                 </span>
                 <span *ngIf="page.reference_id == null"> ----- </span>
               </td>
-              <td>
+              <!-- <td>
                 <span *ngIf="page.payment_via != ''">
                   {{ page.payment_via }}
                 </span>
                 <span *ngIf="page.payment_via == ''"> ----- </span>
-              </td>
+              </td> -->
               <td class="text-primary">
-                <b><i class="fas fa-rupee-sign"></i>{{ page.amount }} /-</b>
+                <b>{{ page.amount }}.00 </b>
               </td>
               <!-- <td class="text-success"><strong>{{page.balance}}</strong></td> -->
               <!-- <td>{{page.updated_at | date: 'dd/MM/yyyy hh:mm:ss'}}</td> -->
@@ -233,7 +235,7 @@
                 <label
                   *ngIf="page.status == 1"
                   class="btn btn-sm bg-info text-light"
-                  ><strong>Active</strong></label
+                  ><strong>Success</strong></label
                 >
                 <label
                   *ngIf="page.status == 0"

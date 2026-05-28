@@ -1503,31 +1503,20 @@
 
           <!-- MOBILE FOOTER -->
 
-          <div class="mobile-ticket-footer">
-            <button
+          <!-- <div class="mobile-ticket-footer">
+           <button
               type="button"
-              class="mobile-footer-btn close-mobile-btn"
-              data-dismiss="modal"
-              (click)="modal.dismiss('Cross click')"
-            >
-              <i class="fas fa-times"></i>
-
-              Close
-            </button>
-
-            <button
-              type="button"
-              printSectionId="print-section"
-              ngxPrint
+           
               [useExistingCss]="true"
               title="Print"
               class="mobile-footer-btn print-mobile-btn"
+              (click)="modal.dismiss('Cross click')"
             >
-              <i class="fas fa-print"></i>
+                <i class="fas fa-times"></i>
 
-              Print Ticket
+              Close
             </button>
-          </div>
+          </div> -->
         </ng-template>
 
         <ng-template #cancelTicketTab let-modal>

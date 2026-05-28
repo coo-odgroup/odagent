@@ -28,6 +28,9 @@ export class WalletComponent implements OnInit {
   public searchForm: FormGroup;
   pagination: any;
 
+  minDate: string;
+  maxDate: string;
+
   modalReference: NgbModalRef;
   confirmDialogReference: NgbModalRef;
 
@@ -56,8 +59,6 @@ export class WalletComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     config: NgbModalConfig,
-
-    
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
@@ -69,6 +70,14 @@ export class WalletComponent implements OnInit {
   public userMobile: any = '';
 
   ngOnInit(): void {
+
+    const today = new Date();
+    this.maxDate = today.toISOString().split('T')[0];
+
+    const oldDate = new Date();
+    oldDate.setDate(today.getDate() - 180);
+    this.minDate = oldDate.toISOString().split('T')[0];
+
     const user = JSON.parse(localStorage.getItem('USERRECORDS'));
     this.userEmail = user.email;
     this.userMobile = user.mobile;
@@ -88,12 +97,13 @@ export class WalletComponent implements OnInit {
       remarks: [null],
 
       user_id: localStorage.getItem('USERID'),
-
       user_name: localStorage.getItem('USERNAME'),
     });
+
     this.formConfirm = this.fb.group({
       id: [null],
     });
+
     this.searchForm = this.fb.group({
       bus_operator_id: [null],
       name: [null],
@@ -122,27 +132,20 @@ export class WalletComponent implements OnInit {
 
         if (resp.status) {
           this.paymentStatus = 'success';
-
           this.paymentAmount = resp.amount;
-
           this.availableBalance = resp.balance;
-
           this.paymentMessage = 'Wallet recharge successful';
 
           this.search();
         } else {
           this.paymentStatus = 'failed';
-
           this.paymentMessage = 'Wallet recharge failed';
         }
       },
       () => {
         this.spinner.hide();
-
         this.paymentPopup = true;
-
         this.paymentStatus = 'failed';
-
         this.paymentMessage = 'Something went wrong';
       },
     );
@@ -340,9 +343,8 @@ export class WalletComponent implements OnInit {
   }
 
   closePaymentPopup() {
+    this.paymentPopup = false;
 
-  this.paymentPopup = false;
-
-  this.router.navigate(['/agent/wallet']);
-}
+    this.router.navigate(['/agent/wallet']);
+  }
 }

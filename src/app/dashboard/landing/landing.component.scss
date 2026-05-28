@@ -85,3 +85,58 @@ input[type="radio"]:checked
   font-size: 50px;
   opacity: 0.18;
 }
+
+
+.custom-date-wrapper {
+    display: flex;
+    gap: 15px;
+    align-items: end;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 15px;
+    position: relative;
+    z-index: 9999;
+}
+
+.custom-date-box {
+    min-width: 220px;
+    position: relative;
+}
+
+.custom-date-input {
+    position: relative;
+}
+
+.custom-date-input input {
+    height: 42px;
+    padding-right: 42px;
+    border-radius: 8px;
+    background: #fff;
+    cursor: pointer;
+}
+
+.custom-calendar-btn {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #0d6efd;
+    z-index: 10;
+}
+
+/* IMPORTANT */
+.ngb-dp-popup {
+    z-index: 99999 !important;
+}
+
+.btn-group-toggle {
+    overflow: visible !important;
+}
+
+app-card {
+    overflow: visible !important;
+}
