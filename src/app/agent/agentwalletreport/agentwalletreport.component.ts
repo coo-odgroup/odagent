@@ -39,6 +39,8 @@ export class AgentwalletreportComponent implements OnInit {
   walletRecord: AgentWallet;
   busoperators: any;
 
+  mobileFilterOpen=false;
+
   constructor(
     private spinner: NgxSpinnerService,
     private http: HttpClient,

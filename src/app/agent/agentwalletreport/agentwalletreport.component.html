@@ -1,283 +1,886 @@
-<ngx-spinner
-  bdColor="rgba(60,55,55,0.8)"
-  size="large"
-  color="#fff"
-  type="ball-clip-rotate-multiple"
-  [fullScreen]="true"
->
-  <p style="color: white">Loading...</p>
+<ngx-spinner bdColor="rgba(60,55,55,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
+  [fullScreen]="true">
+
+  <p style="color:white">Loading...</p>
+
 </ngx-spinner>
 
-<div class="row">
-  <div class="col-sm-12">
-    <app-card
-      [hidHeader]="false"
-      cardTitle="All Transaction Report"
-      cardClass="card-datatable"
-      [options]="false"
-      cardClass=" table-border-style user-profile-list "
-      [isCardFooter]="false"
-    >
-      <div class="row">
-        <!-- <div class="col-2">
-            <div class="from-group ">
-              <button class="btn sml_input btn-success mb-2 " (click)="ResetAttributes();OpenModal(content)">
-                Add Balance
-              </button>
-            </div>
-          </div> -->
-        <div class="col-12">
-          <form [formGroup]="searchForm">
-            <div class="row responsive-filter">
-              <!-- From Date -->
-              <div class="col-md-2 col-sm-12 search-box">
-                <input
-                  type="date"
-                  class="form-control sml_input"
-                  formControlName="from_date"
-                  placeholder="From Date"
-                  [min]="minDate"
-                  [max]="maxDate"
-                />
-              </div>
+<div class="desktop-wallet-view d-none d-md-block">
 
-              <!-- To Date -->
-              <div class="col-md-2 col-sm-12 search-box">
-                <input
-                  type="date"
-                  class="form-control sml_input"
-                  formControlName="to_date"
-                  placeholder="To Date"
-                  [min]="minDate"
-                  [max]="maxDate"
-                />
-              </div>
-              <!-- Search -->
-              <div class="col-md-3 col-sm-12 search-box">
-                <input
-                  type="text"
-                  class="form-control sml_input"
-                  placeholder="Search By PNR"
-                  required
-                  formControlName="name"
-                />
-              </div>
+  <div class="row">
 
-              <!-- Transaction Type -->
-              <div class="col-md-2 col-sm-12 tran-type">
-                <select
-                  class="form-control sml_input"
-                  formControlName="tran_type"
-                >
-                  <option value="" hidden>Select Transaction Type</option>
-                  <option value="c">Credit</option>
-                  <option value="d">Debit</option>
-                </select>
-              </div>
+    <div class="col-sm-12">
 
-              <div class="col-md-2 col-sm-12 tran-type">
-                <select
-                  class="form-control sml_input"
-                  formControlName="SelectType"
-                >
-                  <option value="" hidden>Select Type</option>
-                  <option value="wallet_recharge">Wallet Recharge</option>
-                  <option value="pnr_booking">PNR Booking</option>
-                  <option value="cancelled_pnr">Cancelled PNR</option>
-                  <option value="commission">Commission</option>
-                </select>
-              </div>
+      <app-card [hidHeader]="true" cardClass="transaction-wrapper" [options]="false" [isCardFooter]="false">
 
-              <!-- Buttons -->
-              <div class="col-md-5 col-sm-12 action-buttons">
-                <button
-                  type="button"
-                  class="btn btn-success sml_input"
-                  (click)="search()"
-                  title="search"
-                >
-                  <i class="fas fa-search"></i> Search
-                </button>
+        <!-- HEADER -->
 
-                <button
-                  type="button"
-                  class="btn btn-danger sml_input"
-                  (click)="refresh()"
-                  title="refresh"
-                >
-                  <i class="fas fa-sync-alt"></i> Refresh
-                </button>
+        <div class="transaction-header">
 
-                <button
-                  type="button"
-                  (click)="exportexcel()"
-                  class="btn btn-warning sml_input"
-                  title="Export"
-                >
-                  <i class="fas fa-file-export"></i> Export
-                </button>
+          <div>
 
-                <button
-                  type="button"
-                  printSectionId="print-section"
-                  ngxPrint
-                  class="btn btn-info sml_input"
-                  [useExistingCss]="true"
-                  title="Print"
-                >
-                  <i class="fas fa-print"></i> Print
-                </button>
-              </div>
+            <h2 class="trans-title">
 
-              <!-- Row Selector -->
-              <div class="col-md-2 col-sm-12 page-size">
-                <select
-                  class="form-control sml_input"
-                  formControlName="rows_number"
-                  (change)="search()"
-                >
-                  <option value="10">10</option>
-                  <option value="25">25</option>
-                  <option value="50">50</option>
-                  <option value="100">100</option>
-                  <option value="all">All</option>
-                </select>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-      <!-- class="table-responsive"  -->
-      <div id="print-section" class="table-responsive-mobile">
-        <table class="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <th scope="col" width="80px" style="text-align: center">#</th>
-              <th scope="col">Request Date</th>
-              <th scope="col">Tran ID</th>
-              <th scope="col">Tran Via</th>
-              <th scope="col">PNR No</th>
-              <th scope="col">Amount</th>
-              <th scope="col">Tran. Type</th>
-              <th scope="col">Balance</th>
-              <th scope="col">Note</th>
-            </tr>
-          </thead>
-          <tbody *ngIf="wallet?.length != 0">
-            <tr *ngFor="let page of wallet; let i = index">
-              <td style="text-align: center">{{ i + 1 }}</td>
-              <td>{{ page.created_at | date: "dd/MM/yyyy" }}</td>
-              <td>{{ page.transaction_id }}</td>
-              <td>{{ page.payment_via }}</td>
-              <td>
-                <span *ngIf="page.pnrDetails && page.pnrDetails.length > 0">
-                  {{ page.pnrDetails[0].pnr }}
-                </span>
+              All Transaction Report
 
-                <span *ngIf="!page.pnrDetails"> ---- </span>
-              </td>
-              <td>{{ page.amount }}</td>
-              <td>
-                <label
-                  *ngIf="page.transaction_type == 'c'"
-                  class="btn btn-sm bg-success text-light"
-                  ><strong>Credit</strong></label
-                >
-                <label
-                  *ngIf="page.transaction_type == 'd'"
-                  class="btn btn-sm bg-danger text-light"
-                  ><strong>Debit</strong></label
-                >
-              </td>
-              <td>{{ page.balance }}</td>
-              <td>
-                <span *ngIf="page.type == 'Commission'">
-                  Commission Received
-                </span>
-                <span *ngIf="page.type == 'Refund'">
-                  Ticket Cancel Refund
-                </span>
-                <span
-                  *ngIf="page.payment_via == '' && page.transaction_type == 'd'"
-                >
-                  Ticket Book
-                </span>
-                <span
-                  *ngIf="page.payment_via != '' && page.transaction_type == 'c'"
-                >
-                  Wallet Recharge
-                </span>
-                <!-- {{page.remarks}} -->
-              </td>
-              <!-- <td>
-                  <label *ngIf="page.status==1" class="btn btn-sm  bg-info  text-light"
-                   ><strong>Active</strong></label>
-                  <label *ngIf="page.status==0" class="btn btn-sm bg-danger  text-light"
-                    ><strong>Pending</strong></label>
-                </td> -->
-            </tr>
-          </tbody>
-        </table>
+            </h2>
 
-        <div *ngIf="pagination?.length != 0" class="hide_print">
-          <div class="pagination-wrapper" *ngIf="pagination?.links">
-            <nav class="pagination-nav">
-              <ul class="pagination pagination-sm mb-0">
-                <!-- First Button -->
-                <li
-                  class="page-item"
-                  [class.disabled]="pagination.current_page == 1"
-                >
-                  <a class="page-link" (click)="onFirstPage()"> First </a>
-                </li>
-
-                <!-- Previous Button -->
-                <li
-                  class="page-item"
-                  [class.disabled]="!pagination.links.prev_page_url"
-                >
-                  <a class="page-link" (click)="onPreviousPage()"> Prev </a>
-                </li>
-
-                <!-- Page Numbers: Show 1, 2, 3 + active page if higher -->
-                <li
-                  class="page-item"
-                  *ngFor="let b of pagination.links; let i = index"
-                  [class.d-none]="!isPageVisible(b.label)"
-                >
-                  <a
-                    class="page-link"
-                    [class.active]="pagination.current_page == b.label"
-                    (click)="b.url && search(b.url)"
-                  >
-                    {{ getPageLabel(b.label) }}
-                  </a>
-                </li>
-
-                <!-- Next Button -->
-                <li
-                  class="page-item"
-                  [class.disabled]="!pagination.links.next_page_url"
-                >
-                  <a class="page-link" (click)="onNextPage()"> Next </a>
-                </li>
-
-                <!-- Last Button -->
-                <li
-                  class="page-item"
-                  [class.disabled]="
-                    pagination.current_page == pagination.links.last_page
-                  "
-                >
-                  <a class="page-link" (click)="onLastPage()"> Last </a>
-                </li>
-              </ul>
-            </nav>
           </div>
+
+          <div class="top-buttons">
+
+            <button class="btn top-btn white-btn" (click)="exportexcel()">
+
+              Export
+
+            </button>
+
+            <button ngxPrint printSectionId="print-section" class="btn top-btn white-btn" [useExistingCss]="true">
+
+              Print
+
+            </button>
+
+          </div>
+
         </div>
+
+
+        <!-- SUMMARY -->
+
+        <div class="summary-cards">
+
+          <div class="summary-box">
+
+            <span>Total Transactions</span>
+
+            <h3>
+
+              {{wallet?.length || 0}}
+
+            </h3>
+
+          </div>
+
+          <div class="summary-box">
+
+            <span>Total Credits</span>
+
+            <h3 class="credit">
+
+              + ₹11,561
+
+            </h3>
+
+          </div>
+
+          <div class="summary-box">
+
+            <span>Total Debits</span>
+
+            <h3 class="debit">
+
+              - ₹3,062
+
+            </h3>
+
+          </div>
+
+          <div class="summary-box">
+
+            <span>Wallet Balance</span>
+
+            <h3 class="balance">
+
+              ₹{{wallet && wallet.length ? wallet[0]['balance'] : 0}}
+
+            </h3>
+
+          </div>
+
+        </div>
+
+
+        <!-- FILTER -->
+
+        <div class="filter-card">
+
+          <form [formGroup]="searchForm">
+
+            <div class="row responsive-filter align-items-end">
+
+              <!-- FROM DATE -->
+
+              <div class="col-md-2 col-sm-12">
+
+                <input type="date" class="form-control" formControlName="from_date" [min]="minDate" [max]="maxDate">
+
+              </div>
+
+
+              <!-- TO DATE -->
+
+              <div class="col-md-2 col-sm-12">
+
+                <input type="date" class="form-control" formControlName="to_date" [min]="minDate" [max]="maxDate">
+
+              </div>
+
+
+              <!-- SEARCH -->
+
+              <div class="col-md-3 col-sm-12">
+
+                <input type="text" class="form-control" placeholder="Search By PNR" formControlName="name">
+
+              </div>
+
+
+              <!-- TRAN TYPE -->
+
+              <div class="col-md-2 col-sm-12">
+
+                <select class="form-control" formControlName="tran_type">
+
+                  <option value="">
+
+                    Transaction Type
+
+                  </option>
+
+                  <option value="c">
+
+                    Credit
+
+                  </option>
+
+                  <option value="d">
+
+                    Debit
+
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <!-- TYPE -->
+
+              <div class="col-md-2 col-sm-12">
+
+                <select class="form-control" formControlName="SelectType">
+
+                  <option value="">
+
+                    Select Type
+
+                  </option>
+
+                  <option value="wallet_recharge">
+
+                    Wallet Recharge
+
+                  </option>
+
+                  <option value="pnr_booking">
+
+                    PNR Booking
+
+                  </option>
+
+                  <option value="cancelled_pnr">
+
+                    Cancelled PNR
+
+                  </option>
+
+                  <option value="commission">
+
+                    Commission
+
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <!-- ROW SELECT -->
+
+              <div class="col-md-1 col-sm-12">
+
+                <select class="form-control" formControlName="rows_number" (change)="search()">
+
+                  <option value="10">
+
+                    10
+
+                  </option>
+
+                  <option value="25">
+
+                    25
+
+                  </option>
+
+                  <option value="50">
+
+                    50
+
+                  </option>
+
+                  <option value="100">
+
+                    100
+
+                  </option>
+
+                  <option value="all">
+
+                    All
+
+                  </option>
+
+                </select>
+
+              </div>
+
+
+              <!-- BUTTONS -->
+
+              <div class="col-12">
+
+                <div class="action-buttons">
+
+                  <button type="button" class="btn btn-success" (click)="search()">
+
+                    <i class="fas fa-search"></i>
+
+                    Search
+
+                  </button>
+
+
+                  <button type="button" class="btn btn-danger" (click)="refresh()">
+
+                    <i class="fas fa-sync-alt"></i>
+
+                    Refresh
+
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </form>
+
+        </div>
+
+
+        <!-- REPORT TABLE -->
+
+        <div class="report-card">
+
+          <div class="report-head">
+
+            <h4>
+
+              Transactions
+
+            </h4>
+
+            <span>
+
+              {{wallet?.length || 0}}
+
+              Results
+
+            </span>
+
+          </div>
+
+
+          <div id="print-section" class="table-responsive-mobile">
+
+            <table class="table">
+
+              <thead>
+
+                <tr>
+
+                  <th>#</th>
+
+                  <th>Request Date</th>
+
+                  <th>Tran ID</th>
+
+                  <th>Tran Via</th>
+
+                  <th>PNR No</th>
+
+                  <th>Amount</th>
+
+                  <th>Tran Type</th>
+
+                  <th>Balance</th>
+
+                  <th>Note</th>
+
+                </tr>
+
+              </thead>
+
+
+              <tbody *ngIf="wallet?.length != 0">
+
+                <tr *ngFor="let page of wallet; let i=index">
+
+                  <td>
+
+                    {{i+1}}
+
+                  </td>
+
+                  <td>
+
+                    {{page.created_at | date:'dd/MM/yyyy'}}
+
+                  </td>
+
+                  <td>
+
+                    {{page.transaction_id}}
+
+                  </td>
+
+                  <td>
+
+                    {{page.payment_via}}
+
+                  </td>
+
+                  <td>
+
+                    <span *ngIf="page.pnrDetails && page.pnrDetails.length>0">
+
+                      {{page.pnrDetails[0].pnr}}
+
+                    </span>
+
+                    <span *ngIf="!page.pnrDetails">
+
+                      ----
+
+                    </span>
+
+                  </td>
+
+                  <td class="amount-col">
+
+                    <span *ngIf="page.transaction_type=='c'" class="amount-credit">
+
+                      +₹{{page.amount}}
+
+                    </span>
+
+                    <span *ngIf="page.transaction_type=='d'" class="amount-debit">
+
+                      -₹{{page.amount}}
+
+                    </span>
+
+                  </td>
+
+                  <td>
+
+                    <label *ngIf="page.transaction_type=='c'" class="credit-badge">
+
+                      <i class="fas fa-arrow-down"></i>
+
+                      Credit
+
+                    </label>
+
+                    <label *ngIf="page.transaction_type=='d'" class="debit-badge">
+
+                      <i class="fas fa-arrow-up"></i>
+
+                      Debit
+
+                    </label>
+
+                  </td>
+
+                  <td>
+
+                    {{page.balance}}
+
+                  </td>
+
+                  <td>
+
+                    <span *ngIf="page.type=='Commission'">
+
+                      Commission Received
+
+                    </span>
+
+                    <span *ngIf="page.type=='Refund'">
+
+                      Ticket Cancel Refund
+
+                    </span>
+
+                    <span *ngIf="page.payment_via=='' && page.transaction_type=='d'">
+
+                      Ticket Book
+
+                    </span>
+
+                    <span *ngIf="page.payment_via!='' && page.transaction_type=='c'">
+
+                      Wallet Recharge
+
+                    </span>
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+
+            <!-- PAGINATION -->
+
+            <div *ngIf="pagination?.length != 0">
+
+              <div class="pagination-wrapper" *ngIf="pagination?.links">
+                <div class="pagination-left">
+
+                  Showing
+
+                  1-{{wallet?.length}}
+
+                  of
+
+                  {{pagination?.total || wallet?.length}}
+
+                  entries
+
+                </div>
+                <div class="pagination-right">
+                  <nav class="pagination-nav">
+
+                    <ul class="pagination pagination-sm mb-0">
+
+                      <!-- FIRST -->
+
+                      <li class="page-item" [class.disabled]="pagination.current_page==1">
+
+                        <a class="page-link" (click)="onFirstPage()">
+
+                          First
+
+                        </a>
+
+                      </li>
+
+
+                      <!-- PREV -->
+
+                      <li class="page-item" [class.disabled]="!pagination.links.prev_page_url">
+
+                        <a class="page-link" (click)="onPreviousPage()">
+
+                          Prev
+
+                        </a>
+
+                      </li>
+
+
+                      <!-- NUMBERS -->
+
+                      <li class="page-item" *ngFor="let b of pagination.links" [class.d-none]="!isPageVisible(b.label)">
+
+                        <a class="page-link" [class.active]="pagination.current_page==b.label"
+                          (click)="b.url && search(b.url)">
+
+                          {{getPageLabel(b.label)}}
+
+                        </a>
+
+                      </li>
+
+
+                      <!-- NEXT -->
+
+                      <li class="page-item" [class.disabled]="!pagination.links.next_page_url">
+
+                        <a class="page-link" (click)="onNextPage()">
+
+                          Next
+
+                        </a>
+
+                      </li>
+
+
+                      <!-- LAST -->
+
+                      <li class="page-item" [class.disabled]="pagination.current_page==pagination.links.last_page">
+
+                        <a class="page-link" (click)="onLastPage()">
+
+                          Last
+
+                        </a>
+
+                      </li>
+
+                    </ul>
+
+                  </nav>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </app-card>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- MOBILE VERSION -->
+
+<div class="mobile-wallet-page d-md-none">
+
+  <!-- HEADER -->
+
+  <div class="mobile-header">
+
+    <div>
+
+      <h2>
+
+        Transaction Report
+
+      </h2>
+
+      <p>
+
+        All transactions · {{wallet?.length}} shown
+
+      </p>
+
+    </div>
+
+
+    <button class="mobile-filter-toggle" (click)="mobileFilterOpen=!mobileFilterOpen">
+
+      <i class="fas fa-sliders-h"></i>
+
+    </button>
+
+  </div>
+
+
+  <!-- FILTERS -->
+
+  <div class="mobile-filters" *ngIf="mobileFilterOpen">
+
+    <input type="date" class="mobile-input" formControlName="from_date">
+
+    <input type="date" class="mobile-input" formControlName="to_date">
+
+    <input class="mobile-input" placeholder="Search PNR / Tran ID" formControlName="name">
+
+    <div class="mobile-selects">
+
+      <select class="mobile-input" formControlName="tran_type">
+
+        <option value="">
+
+          Transaction type
+
+        </option>
+
+        <option value="c">
+
+          Credit
+
+        </option>
+
+        <option value="d">
+
+          Debit
+
+        </option>
+
+      </select>
+
+
+      <select class="mobile-input" formControlName="SelectType">
+
+        <option value="">
+
+          Select type
+
+        </option>
+
+        <option value="wallet_recharge">
+
+          Wallet Recharge
+
+        </option>
+
+        <option value="pnr_booking">
+
+          PNR Booking
+
+        </option>
+
+      </select>
+
+    </div>
+
+    <div class="mobile-btns">
+
+      <button class="mobile-search-btn" (click)="search()">
+
+        Search
+
+      </button>
+
+      <button class="mobile-refresh-btn" (click)="refresh()">
+
+        Refresh
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- SUMMARY -->
+
+  <div class="mobile-summary">
+
+    <div class="sum-item">
+
+      <span>TOTAL</span>
+
+      <b>
+
+        {{wallet?.length}}
+
+      </b>
+
+    </div>
+
+
+    <div class="sum-item">
+
+      <span>CREDITS</span>
+
+      <b class="green">
+
+        +₹11,561
+
+      </b>
+
+    </div>
+
+
+    <div class="sum-item">
+
+      <span>DEBITS</span>
+
+      <b class="red">
+
+        -₹3,062
+
+      </b>
+
+    </div>
+
+
+    <div class="sum-item">
+
+      <span>BALANCE</span>
+
+      <b>
+
+        ₹{{wallet && wallet.length ? wallet[0]['balance'] : 0}}
+
+      </b>
+
+    </div>
+
+  </div>
+
+
+  <!-- CARDS -->
+
+  <div class="mobile-card" *ngFor="let page of wallet">
+
+    <div class="mobile-card-top">
+
+      <div class="mobile-info">
+
+        <h4>
+
+          {{page.payment_via=='' ? 'Ticket Book' : 'Wallet Recharge'}}
+
+        </h4>
+
+        <p>
+
+          {{page.created_at | date:'dd MMM yyyy'}}
+
+        </p>
+
       </div>
 
-      <div class="app-card-footer"></div>
-    </app-card>
+      <div class="mobile-right">
+
+        <div class="plus-amount" *ngIf="page.transaction_type=='c'">
+
+          +₹{{page.amount}}
+
+        </div>
+
+        <div class="minus-amount" *ngIf="page.transaction_type=='d'">
+
+          -₹{{page.amount}}
+
+        </div>
+
+
+        <label class="mobile-credit-badge" *ngIf="page.transaction_type=='c'">
+
+          <i class="fas fa-arrow-down"></i>
+
+          Credit
+
+        </label>
+
+
+        <label class="mobile-debit-badge" *ngIf="page.transaction_type=='d'">
+
+          <i class="fas fa-arrow-up"></i>
+
+          Debit
+
+        </label>
+
+      </div>
+
+    </div>
+
+
+    <div class="mobile-pnr">
+
+      <span *ngIf="page.payment_via">
+
+        {{page.payment_via}}
+
+      </span>
+
+      <span *ngIf="!page.payment_via && page.pnrDetails && page.pnrDetails.length">
+
+        PNR: {{page.pnrDetails[0].pnr}}
+
+      </span>
+
+      <span *ngIf="!page.payment_via && (!page.pnrDetails || page.pnrDetails.length==0)">
+
+        --
+
+      </span>
+
+    </div>
+
+
+    <div class="mobile-bottom">
+
+      <div>
+
+        {{page.transaction_id}}
+
+      </div>
+
+      <div>
+
+        Bal ₹{{page.balance}}
+
+      </div>
+
+    </div>
+
   </div>
+
+
+  <!-- PAGINATION -->
+
+  <div class="mobile-pagination" *ngIf="pagination?.links">
+
+    <div class="mobile-pagination-top">
+
+      Showing
+
+      1-{{wallet?.length}}
+
+      of
+
+      {{pagination?.total}}
+
+    </div>
+
+
+    <div class="mobile-pagination-bottom">
+
+      <button (click)="onPreviousPage()">
+
+        Prev
+
+      </button>
+
+
+      <ng-container *ngFor="let b of pagination.links">
+
+        <button *ngIf="isPageVisible(b.label)" (click)="b.url && search(b.url)"
+          [class.active]="pagination.current_page==b.label">
+
+          {{getPageLabel(b.label)}}
+
+        </button>
+
+      </ng-container>
+
+
+      <button (click)="onNextPage()">
+
+        Next
+
+      </button>
+
+    </div>
+
+  </div>
+
 </div>
