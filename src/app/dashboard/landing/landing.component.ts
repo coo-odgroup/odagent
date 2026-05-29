@@ -50,6 +50,11 @@ export class LandingComponent implements OnInit {
   bookingdata: any;
   prndata: any;
 
+  bookingDetails: any[] = [];
+  walletTransactions: any[] = [];
+  showBookingTable = false;
+  showWalletTable = true;
+
   pnr_date: any;
   pnr_label: any;
 
@@ -207,22 +212,40 @@ export class LandingComponent implements OnInit {
   ngAfterViewInit() {}
 
   ngOnInit() {
-    // this.spinner.show();
     const data = {
       rangeFor: '',
       rangeFrom: '',
       rangeTo: '',
     };
-    this.getall('All');
-    this.toproute();
+
+    this.getall('Today');
+    this.showWalletTable = true;
+    this.showBookingTable = false;
+    this.loadWalletTransactions();
     this.operatordata();
-    this.pnrstaticsdata('All');
+    this.pnrstaticsdata('Today');
   }
 
   getall(range: any) {
+    this.showBookingTable = true;
+     this.showWalletTable = false;
     this.showCustomDate = false;
 
-    this.RangeText = range;
+    const today = new Date();
+
+    if (range === 'Today') {
+      this.RangeText = `Today (${this.formatDate(today)})`;
+    } else if (range === 'This Week') {
+      const week = this.getWeekRange();
+
+      this.RangeText = `This Week (${week.from} - ${week.to})`;
+    } else if (range === 'This Month') {
+      const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+
+      this.RangeText = `This Month (${this.formatDate(firstDay)} - ${this.formatDate(today)})`;
+    } else {
+      this.RangeText = range;
+    }
 
     const data = {
       rangeFor: range,
@@ -237,15 +260,56 @@ export class LandingComponent implements OnInit {
       this.pieChart();
       this.spinner.hide();
     });
+
+    this.loadBookingDetails(range);
   }
 
-  toproute() {
+  loadWalletTransactions() {
     const data = {
+      user_id: localStorage.getItem('USERID'),
+    };
+
+    this.ds.lastWalletTransactions(data).subscribe((res) => {
+      this.walletTransactions = res.data;
+    });
+  }
+  formatDate(date: Date): string {
+    return date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    });
+  }
+
+  getWeekRange() {
+    const today = new Date();
+
+    const from = new Date(today);
+    from.setDate(today.getDate() - 6);
+
+    return {
+      from: this.formatDate(from),
+      to: this.formatDate(today),
+    };
+  }
+
+  formatCustomDate(dateObj: any): string {
+    const date = new Date(dateObj.year, dateObj.month - 1, dateObj.day);
+
+    return this.formatDate(date);
+  }
+
+  loadBookingDetails(range = 'Today', from = '', to = '') {
+    const data = {
+      rangeFor: range,
+      rangeFrom: from,
+      rangeTo: to,
       USERID: localStorage.getItem('USERID'),
       ROLE_ID: localStorage.getItem('ROLE_ID'),
     };
-    this.ds.toproute(data).subscribe((res) => {
-      this.routedata = res.data;
+
+    this.ds.bookingDetails(data).subscribe((res) => {
+      this.bookingDetails = res.data;
     });
   }
 
@@ -323,7 +387,10 @@ export class LandingComponent implements OnInit {
       USERID: localStorage.getItem('USERID'),
     };
 
-    this.RangeText = from + ' to ' + to;
+    this.RangeText =
+      this.formatCustomDate(this.customFromDate) +
+      ' - ' +
+      this.formatCustomDate(this.customToDate);
 
     this.ds.dashboard(data).subscribe((res) => {
       this.dashboarddata = res.data;
@@ -334,7 +401,11 @@ export class LandingComponent implements OnInit {
       this.prndata = res.data;
     });
 
+    this.showBookingTable = true;
+    this.showWalletTable = false;
+    
     this.showCustomDate = false;
+    this.loadBookingDetails('Custom', from, to);
   }
 
   pnrstaticsdata(range: any) {

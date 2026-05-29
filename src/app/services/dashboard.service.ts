@@ -31,8 +31,16 @@ export class DashboardService {
   //   )
   // }
 
-  toproute(data:any): Observable<any> {
-    return this.httpClient.post<any>(this.apiURL+ '/toproutedata', JSON.stringify(data), this.httpOptions)
+  bookingDetails(data:any): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL+ '/bookingDetails', JSON.stringify(data), this.httpOptions)
+    .pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  
+  lastWalletTransactions(data:any): Observable<any> {
+    return this.httpClient.post<any>(this.apiURL+ '/lastWalletTransactions', JSON.stringify(data), this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
