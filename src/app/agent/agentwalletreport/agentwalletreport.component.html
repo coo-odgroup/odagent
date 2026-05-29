@@ -4,101 +4,50 @@
   <p style="color:white">Loading...</p>
 
 </ngx-spinner>
-
 <div class="desktop-wallet-view d-none d-md-block">
-
   <div class="row">
-
     <div class="col-sm-12">
-
       <app-card [hidHeader]="true" cardClass="transaction-wrapper" [options]="false" [isCardFooter]="false">
 
         <!-- HEADER -->
-
         <div class="transaction-header">
-
           <div>
-
             <h2 class="trans-title">
-
               All Transaction Report
-
             </h2>
-
           </div>
-
           <div class="top-buttons">
-
-            <button class="btn top-btn white-btn" (click)="exportexcel()">
-
+            <button class="btn top-btn white-btn" (click)="exportexcel()" style="background:#198754;color:#fff;border-color:#198754;">
               Export
-
             </button>
-
-            <button ngxPrint printSectionId="print-section" class="btn top-btn white-btn" [useExistingCss]="true">
-
+            <button ngxPrint printSectionId="print-section" class="btn top-btn white-btn" [useExistingCss]="true" style="background:#203058;color:#fff;border-color:#203058;">
               Print
-
             </button>
-
           </div>
-
         </div>
 
 
-        <!-- SUMMARY -->
-
-        <div class="summary-cards">
-
-          <div class="summary-box">
-
-            <span>Total Transactions</span>
-
-            <h3>
-
-              {{wallet?.length || 0}}
-
-            </h3>
-
+          <!-- SUMMARY -->
+          <div class="summary-cards">
+            <div class="summary-box">
+              <span>Total Transactions</span>
+              <h3>{{wallet?.length || 0}}</h3>
+            </div>
+            <div class="summary-box">
+              <span>Total Credits</span>
+              <h3 class="credit"> + {{ animatedCredits | number:'1.2-2' }}</h3>
+            </div>
+            <div class="summary-box">
+              <span>Total Debits</span>
+              <h3 class="debit"> - {{ animatedDebits | number:'1.2-2' }}</h3>
+            </div>
+            <div class="summary-box">
+              <span>Wallet Balance</span>
+              <h3 class="balance">
+                ₹{{ animatedBalance | number:'1.2-2' }}
+              </h3>
+            </div>
           </div>
-
-          <div class="summary-box">
-
-            <span>Total Credits</span>
-
-            <h3 class="credit">
-
-              + ₹11,561
-
-            </h3>
-
-          </div>
-
-          <div class="summary-box">
-
-            <span>Total Debits</span>
-
-            <h3 class="debit">
-
-              - ₹3,062
-
-            </h3>
-
-          </div>
-
-          <div class="summary-box">
-
-            <span>Wallet Balance</span>
-
-            <h3 class="balance">
-
-              ₹{{wallet && wallet.length ? wallet[0]['balance'] : 0}}
-
-            </h3>
-
-          </div>
-
-        </div>
 
 
         <!-- FILTER -->
@@ -111,7 +60,7 @@
 
               <!-- FROM DATE -->
 
-              <div class="col-md-2 col-sm-12">
+              <div class="col-md col-sm-12">
 
                 <input type="date" class="form-control" formControlName="from_date" [min]="minDate" [max]="maxDate">
 
@@ -120,7 +69,7 @@
 
               <!-- TO DATE -->
 
-              <div class="col-md-2 col-sm-12">
+              <div class="col-md col-sm-12">
 
                 <input type="date" class="form-control" formControlName="to_date" [min]="minDate" [max]="maxDate">
 
@@ -129,7 +78,7 @@
 
               <!-- SEARCH -->
 
-              <div class="col-md-3 col-sm-12">
+              <div class="col-md col-sm-12">
 
                 <input type="text" class="form-control" placeholder="Search By PNR" formControlName="name">
 
@@ -138,317 +87,136 @@
 
               <!-- TRAN TYPE -->
 
-              <div class="col-md-2 col-sm-12">
-
+              <div class="col-md col-sm-12">
                 <select class="form-control" formControlName="tran_type">
-
                   <option value="">
-
-                    Transaction Type
-
+                  Transaction Type
                   </option>
-
                   <option value="c">
 
                     Credit
-
                   </option>
-
                   <option value="d">
-
                     Debit
-
                   </option>
-
                 </select>
-
               </div>
 
 
               <!-- TYPE -->
 
-              <div class="col-md-2 col-sm-12">
-
+              <div class="col-md col-sm-12">
                 <select class="form-control" formControlName="SelectType">
-
                   <option value="">
-
                     Select Type
-
                   </option>
-
                   <option value="wallet_recharge">
-
                     Wallet Recharge
-
                   </option>
-
                   <option value="pnr_booking">
-
                     PNR Booking
-
                   </option>
-
                   <option value="cancelled_pnr">
-
                     Cancelled PNR
-
                   </option>
-
                   <option value="commission">
-
                     Commission
-
                   </option>
-
                 </select>
-
               </div>
 
 
               <!-- ROW SELECT -->
 
-              <div class="col-md-1 col-sm-12">
-
+              <div class="col-md col-sm-12">
                 <select class="form-control" formControlName="rows_number" (change)="search()">
-
-                  <option value="10">
-
-                    10
-
-                  </option>
-
-                  <option value="25">
-
-                    25
-
-                  </option>
-
-                  <option value="50">
-
-                    50
-
-                  </option>
-
-                  <option value="100">
-
-                    100
-
-                  </option>
-
-                  <option value="all">
-
-                    All
-
-                  </option>
-
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                  <option value="all">All</option>
                 </select>
-
               </div>
-
 
               <!-- BUTTONS -->
-
-              <div class="col-12">
-
+               <div class="col-md col-sm-12"></div>
                 <div class="action-buttons">
-
                   <button type="button" class="btn btn-success" (click)="search()">
-
                     <i class="fas fa-search"></i>
-
                     Search
-
                   </button>
-
-
                   <button type="button" class="btn btn-danger" (click)="refresh()">
-
                     <i class="fas fa-sync-alt"></i>
-
                     Refresh
-
                   </button>
-
                 </div>
-
-              </div>
-
             </div>
-
           </form>
-
         </div>
 
 
         <!-- REPORT TABLE -->
 
         <div class="report-card">
-
-          <div class="report-head">
-
-            <h4>
-
-              Transactions
-
-            </h4>
-
-            <span>
-
-              {{wallet?.length || 0}}
-
-              Results
-
-            </span>
-
-          </div>
-
-
           <div id="print-section" class="table-responsive-mobile">
-
             <table class="table">
-
               <thead>
-
                 <tr>
-
                   <th>#</th>
-
-                  <th>Request Date</th>
-
+                  <th> Date Time</th>
                   <th>Tran ID</th>
-
                   <th>Tran Via</th>
-
                   <th>PNR No</th>
-
                   <th>Amount</th>
-
                   <th>Tran Type</th>
-
                   <th>Balance</th>
-
                   <th>Note</th>
-
                 </tr>
-
               </thead>
 
-
               <tbody *ngIf="wallet?.length != 0">
-
                 <tr *ngFor="let page of wallet; let i=index">
-
+                  <td>{{i+1}}</td>
+                  <td>{{page.created_at | date:'dd/MM/yyyy'}}</td>
+                  <td>{{page.transaction_id}}</td>
+                  <td>{{page.payment_via}}</td>
                   <td>
-
-                    {{i+1}}
-
+                    <span *ngIf="page.pnrDetails && page.pnrDetails.length>0">{{page.pnrDetails[0].pnr}}</span>
+                    <span *ngIf="!page.pnrDetails"> ----</span>
                   </td>
-
-                  <td>
-
-                    {{page.created_at | date:'dd/MM/yyyy'}}
-
-                  </td>
-
-                  <td>
-
-                    {{page.transaction_id}}
-
-                  </td>
-
-                  <td>
-
-                    {{page.payment_via}}
-
-                  </td>
-
-                  <td>
-
-                    <span *ngIf="page.pnrDetails && page.pnrDetails.length>0">
-
-                      {{page.pnrDetails[0].pnr}}
-
-                    </span>
-
-                    <span *ngIf="!page.pnrDetails">
-
-                      ----
-
-                    </span>
-
-                  </td>
-
                   <td class="amount-col">
-
                     <span *ngIf="page.transaction_type=='c'" class="amount-credit">
-
-                      +₹{{page.amount}}
-
+                      +{{page.amount}}
                     </span>
-
                     <span *ngIf="page.transaction_type=='d'" class="amount-debit">
-
-                      -₹{{page.amount}}
-
+                      -{{page.amount}}
                     </span>
-
                   </td>
-
                   <td>
-
                     <label *ngIf="page.transaction_type=='c'" class="credit-badge">
-
                       <i class="fas fa-arrow-down"></i>
-
                       Credit
-
                     </label>
-
                     <label *ngIf="page.transaction_type=='d'" class="debit-badge">
-
                       <i class="fas fa-arrow-up"></i>
-
                       Debit
-
                     </label>
-
                   </td>
-
+                  <td>{{page.balance}}</td>
                   <td>
-
-                    {{page.balance}}
-
-                  </td>
-
-                  <td>
-
                     <span *ngIf="page.type=='Commission'">
-
                       Commission Received
-
                     </span>
-
                     <span *ngIf="page.type=='Refund'">
-
                       Ticket Cancel Refund
-
                     </span>
-
                     <span *ngIf="page.payment_via=='' && page.transaction_type=='d'">
-
                       Ticket Book
-
                     </span>
-
                     <span *ngIf="page.payment_via!='' && page.transaction_type=='c'">
-
                       Wallet Recharge
-
                     </span>
-
                   </td>
-
                 </tr>
 
               </tbody>
@@ -462,104 +230,51 @@
 
               <div class="pagination-wrapper" *ngIf="pagination?.links">
                 <div class="pagination-left">
-
-                  Showing
-
-                  1-{{wallet?.length}}
-
-                  of
-
-                  {{pagination?.total || wallet?.length}}
-
-                  entries
-
+                  Showing 1-{{wallet?.length}} of {{pagination?.total || wallet?.length}} entries
                 </div>
                 <div class="pagination-right">
                   <nav class="pagination-nav">
-
                     <ul class="pagination pagination-sm mb-0">
-
                       <!-- FIRST -->
-
                       <li class="page-item" [class.disabled]="pagination.current_page==1">
-
                         <a class="page-link" (click)="onFirstPage()">
-
                           First
-
                         </a>
-
                       </li>
-
-
                       <!-- PREV -->
-
                       <li class="page-item" [class.disabled]="!pagination.links.prev_page_url">
-
                         <a class="page-link" (click)="onPreviousPage()">
-
                           Prev
-
                         </a>
-
                       </li>
-
-
                       <!-- NUMBERS -->
-
                       <li class="page-item" *ngFor="let b of pagination.links" [class.d-none]="!isPageVisible(b.label)">
-
                         <a class="page-link" [class.active]="pagination.current_page==b.label"
                           (click)="b.url && search(b.url)">
-
                           {{getPageLabel(b.label)}}
-
                         </a>
-
                       </li>
-
-
                       <!-- NEXT -->
-
                       <li class="page-item" [class.disabled]="!pagination.links.next_page_url">
-
                         <a class="page-link" (click)="onNextPage()">
-
                           Next
-
                         </a>
-
                       </li>
-
-
                       <!-- LAST -->
-
                       <li class="page-item" [class.disabled]="pagination.current_page==pagination.links.last_page">
-
                         <a class="page-link" (click)="onLastPage()">
-
                           Last
-
                         </a>
-
                       </li>
-
                     </ul>
-
                   </nav>
                 </div>
               </div>
-
             </div>
-
           </div>
-
         </div>
-
       </app-card>
-
     </div>
-
   </div>
 </div>
 
@@ -567,320 +282,151 @@
 <!-- MOBILE VERSION -->
 
 <div class="mobile-wallet-page d-md-none">
-
   <!-- HEADER -->
-
   <div class="mobile-header">
-
     <div>
-
-      <h2>
-
-        Transaction Report
-
-      </h2>
-
-      <p>
-
-        All transactions · {{wallet?.length}} shown
-
-      </p>
-
+      <h2>Transaction Report</h2>
+      <p>All transactions · {{wallet?.length}} show</p>
     </div>
-
-
     <button class="mobile-filter-toggle" (click)="mobileFilterOpen=!mobileFilterOpen">
-
       <i class="fas fa-sliders-h"></i>
-
     </button>
-
   </div>
-
 
   <!-- FILTERS -->
 
   <div class="mobile-filters" *ngIf="mobileFilterOpen">
-
     <input type="date" class="mobile-input" formControlName="from_date">
-
     <input type="date" class="mobile-input" formControlName="to_date">
-
     <input class="mobile-input" placeholder="Search PNR / Tran ID" formControlName="name">
-
     <div class="mobile-selects">
-
       <select class="mobile-input" formControlName="tran_type">
-
         <option value="">
-
           Transaction type
-
         </option>
-
         <option value="c">
-
           Credit
-
         </option>
-
         <option value="d">
-
           Debit
-
         </option>
-
       </select>
-
-
       <select class="mobile-input" formControlName="SelectType">
-
         <option value="">
-
           Select type
-
         </option>
-
         <option value="wallet_recharge">
-
           Wallet Recharge
-
         </option>
-
         <option value="pnr_booking">
-
           PNR Booking
-
         </option>
-
       </select>
-
     </div>
-
     <div class="mobile-btns">
-
       <button class="mobile-search-btn" (click)="search()">
-
         Search
-
       </button>
-
       <button class="mobile-refresh-btn" (click)="refresh()">
-
         Refresh
-
       </button>
-
     </div>
-
   </div>
 
 
   <!-- SUMMARY -->
 
   <div class="mobile-summary">
-
     <div class="sum-item">
-
       <span>TOTAL</span>
-
-      <b>
-
-        {{wallet?.length}}
-
-      </b>
-
+      <b>{{wallet?.length}}</b>
     </div>
-
-
     <div class="sum-item">
-
       <span>CREDITS</span>
-
       <b class="green">
-
-        +₹11,561
-
+        + {{ animatedCredits | number:'1.2-2' }}
       </b>
-
     </div>
-
-
     <div class="sum-item">
-
       <span>DEBITS</span>
-
       <b class="red">
-
-        -₹3,062
-
+        - {{ animatedDebits | number:'1.2-2' }}
       </b>
-
     </div>
-
-
     <div class="sum-item">
-
       <span>BALANCE</span>
-
-      <b>
-
-        ₹{{wallet && wallet.length ? wallet[0]['balance'] : 0}}
-
-      </b>
-
+      <b>{{ animatedBalance | number:'1.2-2' }}</b>
     </div>
-
   </div>
 
 
   <!-- CARDS -->
 
   <div class="mobile-card" *ngFor="let page of wallet">
-
     <div class="mobile-card-top">
-
       <div class="mobile-info">
-
-        <h4>
-
-          {{page.payment_via=='' ? 'Ticket Book' : 'Wallet Recharge'}}
-
-        </h4>
-
-        <p>
-
-          {{page.created_at | date:'dd MMM yyyy'}}
-
-        </p>
-
+        <h4>{{page.payment_via=='' ? 'Ticket Book' : 'Wallet Recharge'}}</h4>
+        <p>{{page.created_at | date:'dd MMM yyyy'}}</p>
       </div>
-
       <div class="mobile-right">
-
-        <div class="plus-amount" *ngIf="page.transaction_type=='c'">
-
-          +₹{{page.amount}}
-
-        </div>
-
-        <div class="minus-amount" *ngIf="page.transaction_type=='d'">
-
-          -₹{{page.amount}}
-
-        </div>
-
-
+        <div class="plus-amount" *ngIf="page.transaction_type=='c'">+{{page.amount}}</div>
+        <div class="minus-amount" *ngIf="page.transaction_type=='d'">-{{page.amount}}</div>
         <label class="mobile-credit-badge" *ngIf="page.transaction_type=='c'">
-
           <i class="fas fa-arrow-down"></i>
-
           Credit
-
         </label>
-
-
         <label class="mobile-debit-badge" *ngIf="page.transaction_type=='d'">
-
           <i class="fas fa-arrow-up"></i>
-
           Debit
-
         </label>
-
       </div>
-
     </div>
 
 
     <div class="mobile-pnr">
-
       <span *ngIf="page.payment_via">
-
         {{page.payment_via}}
-
       </span>
-
       <span *ngIf="!page.payment_via && page.pnrDetails && page.pnrDetails.length">
-
         PNR: {{page.pnrDetails[0].pnr}}
-
       </span>
-
       <span *ngIf="!page.payment_via && (!page.pnrDetails || page.pnrDetails.length==0)">
-
         --
-
       </span>
-
     </div>
 
 
     <div class="mobile-bottom">
-
       <div>
-
         {{page.transaction_id}}
-
       </div>
-
       <div>
-
         Bal ₹{{page.balance}}
-
       </div>
-
     </div>
-
   </div>
 
 
   <!-- PAGINATION -->
 
   <div class="mobile-pagination" *ngIf="pagination?.links">
-
     <div class="mobile-pagination-top">
-
       Showing
-
       1-{{wallet?.length}}
-
       of
-
       {{pagination?.total}}
-
     </div>
-
 
     <div class="mobile-pagination-bottom">
-
-      <button (click)="onPreviousPage()">
-
-        Prev
-
-      </button>
-
-
+      <button (click)="onPreviousPage()">Prev</button>
       <ng-container *ngFor="let b of pagination.links">
-
         <button *ngIf="isPageVisible(b.label)" (click)="b.url && search(b.url)"
           [class.active]="pagination.current_page==b.label">
-
           {{getPageLabel(b.label)}}
-
         </button>
-
       </ng-container>
 
-
-      <button (click)="onNextPage()">
-
-        Next
-
-      </button>
-
+      <button (click)="onNextPage()"> Next</button>
     </div>
-
   </div>
-
 </div>

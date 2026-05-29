@@ -843,3 +843,11 @@ MOBILE
     }
 
 }
+
+.summary-box h3 {
+    transition: transform .25s ease;
+}
+
+.summary-box:hover h3 {
+    transform: scale(1.05);
+}
