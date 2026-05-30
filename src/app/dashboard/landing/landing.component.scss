@@ -13,6 +13,10 @@ input[type="radio"]:checked
   min-height: 135px;
 }
 
+.pcoded-content {
+  padding: 25px;
+}
+
 .dashboard-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
