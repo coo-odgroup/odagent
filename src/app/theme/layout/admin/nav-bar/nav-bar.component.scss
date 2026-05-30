@@ -2,7 +2,68 @@
   .pcoded-navbar {
     transition: all 0.3s ease;
   }
+  .m-header{
+    display: none !important;
+  }
+  .mob-header {
+    background: white !important;
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .b-brand {
+
+    margin-left: 10px;
+
+    flex: 1;
+
+    display: flex;
+
+    justify-content: flex-start;
+
+  }
+
+  .logo {
+
+    width: 100% !important;
+
+    max-width: 140px;
+
+    height: auto;
+
+  }
+
+  .wallet-mobile {
+
+    background: #2f2f2f;
+
+    color: #fff;
+
+    padding: 10px 12px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    margin-left: auto;
+
+  }
+
+  .mob-toggler {
+
+    display: none !important;
+
+  }
 }
+
+
 
 
 /* WRAPPER */

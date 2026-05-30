@@ -54,38 +54,17 @@
 
 .clean-booking-wrapper {
     width: 100%;
-    padding: 10px 0 20px;
+    // padding: 10px 0 20px;
 }
 
 /* CARD WRAPPER */
 
 .clean-booking-card-wrapper {
     background: #343a65;
-    border-radius: 22px;
-    padding: 22px;
+    // border-radius: 22px;
+    padding: 110px 22px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-}
-
-/* TOP CONTENT */
-
-.booking-top-content {
-    text-align: center;
-    margin-bottom: 22px;
-    padding-top: 5px;
-}
-
-.booking-top-content h2 {
-    font-size: 42px;
-    font-weight: 800;
-    color: #ffffff;
-    margin-bottom: 8px;
-    line-height: 1.1;
-}
-
-.booking-top-content p {
-    font-size: 16px;
-    color: rgba(255, 255, 255, 0.82);
-    margin: 0;
+    // height: 320px;
 }
 
 /* CARD */
@@ -266,5 +245,177 @@ ngb-datepicker.dropdown-menu.show {
 
     .clean-booking-card-wrapper {
         padding: 18px;
+        height: auto;
     }
+}
+
+
+/* RECENT SEARCH */
+
+.recent-search-wrapper {
+
+    padding: 20px;
+
+    margin-top: 10px;
+
+}
+
+.recent-title {
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #082c74;
+
+    margin-bottom: 18px;
+
+    padding-left: 14px;
+
+    border-left: 4px solid #f2c300;
+
+}
+
+.recent-search-container {
+
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 18px;
+
+}
+
+.recent-card {
+
+    background: #fff;
+
+    border: 1px solid #ececec;
+
+    border-radius: 18px;
+
+    padding: 16px 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+}
+
+.recent-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+
+}
+
+.recent-icon {
+
+    width: 46px;
+
+    height: 46px;
+
+    border-radius: 14px;
+
+    background: #fff2cc;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 22px;
+
+    color: #f2c300;
+
+    flex-shrink: 0;
+
+}
+
+.recent-content {
+
+    overflow: hidden;
+
+}
+
+.recent-route {
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    color: #0c1f5a;
+
+    white-space: nowrap;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+.recent-date {
+
+    font-size: 13px;
+
+    margin-top: 4px;
+
+    color: #666;
+
+}
+
+/* MOBILE */
+
+@media(max-width:991px) {
+
+    .recent-date {
+        font-size: 10px;
+    }
+
+    .recent-route {
+        font-size: 12px;
+    }
+
+    .recent-search-container {
+
+        display: flex;
+
+        overflow-x: auto;
+
+        gap: 12px;
+
+        scrollbar-width: none;
+
+        padding-bottom: 8px;
+
+    }
+
+    .recent-search-container::-webkit-scrollbar {
+
+        display: none;
+
+    }
+
+    .recent-card {
+        padding: 10px 12px;
+        min-width: 200px;
+        border-radius: 12px;
+        flex-shrink: 0;
+    }
+
+    .recent-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+        font-size: 18px;
+    }
+
 }

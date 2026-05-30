@@ -1676,6 +1676,10 @@ perfect-scrollbar
 }
 
 @media only screen and (max-width: 991px) {
+
+    .pcoded-main-container{
+        min-height: auto;
+    }
     .pcoded-header {
         // background: $header-dark-background;
         // color: $header-dark-text-color;
@@ -1827,6 +1831,7 @@ perfect-scrollbar
             }
 
             > li:last-child {
+                display: none;
                 padding-right: 15px;
             }
         }
