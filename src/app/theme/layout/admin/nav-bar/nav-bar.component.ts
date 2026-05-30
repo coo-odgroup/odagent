@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NextConfig } from '../../../../app-config';
+import { WalletbalanceService } from 'src/app/services/walletbalance.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-nav-bar',
@@ -98,14 +100,42 @@ export class NavBarComponent implements OnInit {
   @Output() onNavCollapse = new EventEmitter();
   @Output() onNavHeaderMobCollapse = new EventEmitter();
 
-  constructor(private router: Router) {
+  constructor(private router: Router,public balance: WalletbalanceService) {
     this.flatConfig = NextConfig.config;
     this.menuClass = false;
     this.collapseStyle = 'none';
     this.windowWidth = window.innerWidth;
+    
   }
 
-  ngOnInit() {}
+  username:any;
+  user_id:any;
+  //wallet_balance:any=0;
+
+  public wallet_balance : Observable<number>;
+
+
+  ngOnInit() {
+    this.username=localStorage.getItem("USERNAME");
+    this.user_id=localStorage.getItem("USERID");
+    this.balance.getWalletBalance(this.user_id).subscribe(
+      res=>{      
+       if(res.status==1){
+        if(res.data.length > 0){
+          //this.wallet_balance= res.data[0].balance;   
+          this.balance.setWalletBalance(res.data[0].balance); 
+          this.wallet_balance = this.balance.WalletBalance(); 
+        }else{
+          this.balance.setWalletBalance(0); 
+          this.wallet_balance = this.balance.WalletBalance(); 
+
+        }
+       }
+       
+      });
+  }
+
+  
 
   toggleMobOption() {
     this.menuClass = !this.menuClass;

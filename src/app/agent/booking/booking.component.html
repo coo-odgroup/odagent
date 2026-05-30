@@ -97,19 +97,6 @@
 
     <div class="clean-booking-card-wrapper">
 
-        <!-- TOP CONTENT -->
-        <div class="booking-top-content">
-
-            <h2>
-                Online Bus Ticket Booking
-            </h2>
-
-            <p>
-                Search buses, compare routes and book your seats instantly
-            </p>
-
-        </div>
-
         <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
 
             <div class="clean-booking-card">
@@ -197,6 +184,48 @@
             </div>
 
         </form>
+
+    </div>
+
+</div>
+
+<div class="recent-search-wrapper">
+
+    <div class="recent-title">
+
+        Recent Searches
+
+    </div>
+
+    <div class="recent-search-container">
+
+        <div class="recent-card" *ngFor="let item of recentSearches">
+
+            <div class="recent-icon">
+
+                <i class="fa fa-history"></i>
+
+            </div>
+
+            <div class="recent-content">
+
+                <div class="recent-route">
+
+                    {{item.from}} →
+
+                    {{item.to}}
+
+                </div>
+
+                <div class="recent-date">
+
+                    {{item.date}}
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 

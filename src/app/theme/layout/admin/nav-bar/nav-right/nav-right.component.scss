@@ -15,3 +15,14 @@
     margin-right:8px;
     float: left;
 }
+
+
+@media (max-width: 768px){
+    .wallet-bg{
+        display: none !important;
+    }
+
+        .pcoded-header .navbar-nav > li:last-child{
+            display: none !important;
+        }
+}
