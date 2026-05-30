@@ -7,7 +7,6 @@
   ><p style="color: white">Loading...</p></ngx-spinner
 >
 
-<div class="main_box">
 <div class="row">
   <div class="col-xl-12">
     <app-card [hidHeader]="true" [options]="false">
@@ -364,8 +363,8 @@
               <tr>
                 <th>#</th>
                 <th>PNR</th>
+                <th>Transaction ID</th>
                 <th>Bus Name</th>
-                <th>Bus Number</th>
                 <th>Journey Date</th>
                 <th>Route</th>
                 <th>Passenger</th>
@@ -378,8 +377,8 @@
               <tr *ngFor="let booking of bookingDetails; let i = index">
                 <td class="col-sl">{{ i + 1 }}</td>
                 <td class="pnr-cell">{{ booking.pnr }}</td>
+                <td class="pnr-cell"></td>
                 <td class="bus-column">{{ booking.bus_name || "-" }}</td>
-                <td class="pnr-cell">{{ booking.pnr }}</td>
                 <td>{{ booking.journey_dt | date: "dd MMM yyyy" }}</td>
                 <td class="route-cell">{{ booking.route }}</td>
                 <td>{{ booking.passenger_name || "-" }}</td>
@@ -424,5 +423,4 @@
               </div>
             </app-card>
           </div> -->
-</div>
 </div>
