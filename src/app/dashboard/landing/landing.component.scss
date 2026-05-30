@@ -164,11 +164,8 @@ app-card {
     background: #f8fafc;
 }
 
-/* Hover */
 .table tbody tr:hover {
-    background: #eef4ff;
-    transform: translateY(-1px);
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.06);
+    background: #f5f9ff;
 }
 
 /* Table cells */
@@ -187,29 +184,6 @@ app-card {
     color: #6c757d;
 }
 
-/* PNR */
-.table tbody td:nth-child(2) {
-    font-weight: 700;
-    color: #0b2e6f;
-    letter-spacing: 0.4px;
-}
-
-/* Journey Date */
-.table tbody td:nth-child(3) {
-    font-weight: 500;
-    color: #495057;
-}
-
-/* Route */
-.table tbody td:nth-child(4) {
-    font-weight: 600;
-    color: #212529;
-}
-
-/* Passenger */
-.table tbody td:nth-child(5) {
-    font-weight: 500;
-}
 
 /* Amount */
 .table tbody td:last-child {
@@ -229,14 +203,14 @@ app-card {
 }
 
 .table thead th {
-    background: #f5c400;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .7px;
-    padding: 15px 18px;
+    background: #E9F1FF;
+    color: #2f3542;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: none;
     border: none;
+    white-space: nowrap;
+    text-align: left;
 }
 
 .table-responsive {
@@ -264,11 +238,7 @@ app-card {
     font-weight: 700;
 }
 
-.table thead th:nth-last-child(2),
-.table thead th:last-child {
-    text-align: right;
-    padding-right: 20px;
-}
+
 
 .pnr-column {
     font-weight: 600;
@@ -292,17 +262,13 @@ app-card {
     color: #198754;
 }
 
-.table thead th:nth-last-child(2),
-.table thead th:last-child {
-    text-align: right;
-}
 
 .table thead th {
     vertical-align: middle;
     padding: 14px 12px;
     font-size: 12px;
     font-weight: 700;
-    text-transform: uppercase;
+    text-transform: none;
     white-space: nowrap;
 }
 
@@ -312,48 +278,107 @@ app-card {
     font-size: 13px;
 }
 
-/* Transaction ID */
-.table th:nth-child(2),
-.table td:nth-child(2) {
+.table th,
+.table td {
+    vertical-align: middle;
+    padding: 12px 14px;
     text-align: left;
-    min-width: 250px;
 }
 
-/* Date */
-.table th:nth-child(3),
-.table td:nth-child(3) {
-    text-align: center;
-    min-width: 180px;
-}
-
-/* Type */
-.table th:nth-child(4),
-.table td:nth-child(4) {
-    text-align: center;
-    min-width: 100px;
-}
-
-/* Amount */
-.table th:nth-child(5),
-.table td:nth-child(5) {
+.table td:nth-child(8),
+.table td:nth-child(9),
+.table td:nth-child(10),
+.table th:nth-child(8),
+.table th:nth-child(9),
+.table th:nth-child(10) {
     text-align: right;
-    min-width: 140px;
-}
-
-/* Balance */
-.table th:nth-child(6),
-.table td:nth-child(6) {
-    text-align: right;
-    min-width: 160px;
-}
-
-/* Remarks */
-.table th:nth-child(7),
-.table td:nth-child(7) {
-    text-align: left;
-    min-width: 180px;
 }
 
 .main_box{
     padding: 20px;
+}
+
+.table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table th,
+.table td {
+    padding: 12px 10px;
+    vertical-align: middle;
+}
+
+/* Fixed column widths */
+.table th:nth-child(1),
+.table td:nth-child(1) {
+    width: 40px;
+}
+
+.table th:nth-child(2),
+.table td:nth-child(2) {
+    width: 120px;
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3) {
+    width: 120px;
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4) {
+    width: 180px;
+}
+
+.table th:nth-child(5),
+.table td:nth-child(5) {
+    width: 160px;
+}
+
+.table th:nth-child(6),
+.table td:nth-child(6) {
+    width: 170px;
+}
+
+.table th:nth-child(7),
+.table td:nth-child(7) {
+    width: 120px;
+}
+
+.table th:nth-child(8),
+.table td:nth-child(8),
+.table th:nth-child(9),
+.table td:nth-child(9),
+.table th:nth-child(10),
+.table td:nth-child(10) {
+    width: 100px;
+    text-align: right;
+}           
+
+/* Wallet table only */
+.wallet-table {
+    width: 100%;
+    table-layout: auto !important;
+}
+
+.wallet-table th:nth-child(5),
+.wallet-table td:nth-child(5) {
+    width: 140px !important;
+    text-align: right !important;
+}
+
+.wallet-table th:nth-child(6),
+.wallet-table td:nth-child(6) {
+    width: 180px !important;
+    text-align: right !important;
+}
+
+.wallet-table th:nth-child(7),
+.wallet-table td:nth-child(7) {
+    width: 220px !important;
+    text-align: left !important;
+}
+
+.wallet-table .amount-cell {
+    text-align: right !important;
 }

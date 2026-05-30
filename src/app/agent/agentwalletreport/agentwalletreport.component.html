@@ -53,35 +53,24 @@
         <!-- FILTER -->
 
         <div class="filter-card">
-
           <form [formGroup]="searchForm">
-
             <div class="row responsive-filter align-items-end">
 
               <!-- FROM DATE -->
-
               <div class="col-md col-sm-12">
-
                 <input type="date" class="form-control" formControlName="from_date" [min]="minDate" [max]="maxDate">
-
               </div>
 
 
               <!-- TO DATE -->
-
               <div class="col-md col-sm-12">
-
                 <input type="date" class="form-control" formControlName="to_date" [min]="minDate" [max]="maxDate">
-
               </div>
 
 
               <!-- SEARCH -->
-
               <div class="col-md col-sm-12">
-
                 <input type="text" class="form-control" placeholder="Search By PNR" formControlName="name">
-
               </div>
 
 
@@ -177,7 +166,7 @@
               <tbody *ngIf="wallet?.length != 0">
                 <tr *ngFor="let page of wallet; let i=index">
                   <td>{{i+1}}</td>
-                  <td>{{page.created_at | date:'dd/MM/yyyy'}}</td>
+             <td>{{ page.created_at | date:'dd/MM/yyyy - hh:mm:ss a' }}</td>
                   <td>{{page.transaction_id}}</td>
                   <td>{{page.payment_via}}</td>
                   <td>
