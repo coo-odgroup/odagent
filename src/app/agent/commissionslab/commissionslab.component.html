@@ -59,69 +59,50 @@
             <p>(Commission on basis of no of seats booked in a month booking datewise)</p>
         </div>
 
-
     </div>
 
     <!-- DATA -->
     <div *ngIf="completedata?.length != 0">
-
         <div class="commission-card" *ngFor="let complete of completedata; let i = index">
-
             <!-- TOP -->
             <div class="card-top">
-
                 <div class="slab-number">
                     #{{ i + 1 }}
                 </div>
-
                 <div class="commission-price">
-                    <h3>₹{{ complete.comission_per_seat }}</h3>
+                    <h3>{{ complete.comission_per_seat }}</h3>
                     <span>Commission Per Seat</span>
                 </div>
-
             </div>
 
             <!-- RANGE -->
             <div class="seat-range-box">
-
                 <div class="range-icon">
                     <i class="fas fa-users"></i>
                 </div>
-
                 <div class="range-details">
-
                     <label>Seat Booking Target</label>
-
                     <div class="range-values">
-
                         <div class="range-box">
                             <span>FROM</span>
                             <h4>{{ complete.range_from }}</h4>
                         </div>
-
                         <div class="to-text">
                             TO
                         </div>
-
                         <div class="range-box">
                             <span>UPTO</span>
                             <h4>{{ complete.range_to }}</h4>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
 
             <!-- BOTTOM -->
             <div class="bottom-tag">
-                You will earn ₹{{ complete.comission_per_seat }}
+                You will earn {{ complete.comission_per_seat }}
                 commission on every seat booking in this range
             </div>
-
         </div>
-
     </div>
-
 </div>
