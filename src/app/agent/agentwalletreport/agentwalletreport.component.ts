@@ -1,284 +1,279 @@
-  import { Component, OnInit } from '@angular/core';
-  import { HttpClient, HttpResponse } from '@angular/common/http';
-  import { NotificationService } from '../../services/notification.service';
-  import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-  import {
-    NgbModalConfig,
-    NgbModal,
-    NgbModalRef,
-  } from '@ng-bootstrap/ng-bootstrap';
-  import { AgentreportService } from '../../services/agentreport.service';
-  import { AgentWallet } from '../../model/agentwallet';
-  import { Constants } from '../../constant/constant';
-  import * as XLSX from 'xlsx';
-  import { NgxSpinnerService } from 'ngx-spinner';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { NotificationService } from '../../services/notification.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  NgbModalConfig,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
+import { AgentreportService } from '../../services/agentreport.service';
+import { AgentWallet } from '../../model/agentwallet';
+import { Constants } from '../../constant/constant';
+import * as XLSX from 'xlsx';
+import { NgxSpinnerService } from 'ngx-spinner';
 
-  @Component({
-    selector: 'app-agentwalletreport',
-    templateUrl: './agentwalletreport.component.html',
-    styleUrls: ['./agentwalletreport.component.scss'],
-  })
-  export class AgentwalletreportComponent implements OnInit {
-    public form: FormGroup;
+@Component({
+  selector: 'app-agentwalletreport',
+  templateUrl: './agentwalletreport.component.html',
+  styleUrls: ['./agentwalletreport.component.scss'],
+})
+export class AgentwalletreportComponent implements OnInit {
+  public form: FormGroup;
 
-    public formConfirm: FormGroup;
-    public searchForm: FormGroup;
-    pagination: any;
+  public formConfirm: FormGroup;
+  public searchForm: FormGroup;
+  pagination: any;
 
-    minDate: string;
-    maxDate: string;
+  minDate: string;
+  maxDate: string;
 
-    modalReference: NgbModalRef;
-    confirmDialogReference: NgbModalRef;
+  modalReference: NgbModalRef;
+  confirmDialogReference: NgbModalRef;
 
-    public isSubmit: boolean;
-    public ModalHeading: any;
-    public ModalBtn: any;
+  public isSubmit: boolean;
+  public ModalHeading: any;
+  public ModalBtn: any;
 
-    wallet: AgentWallet[];
-    walletRecord: AgentWallet;
-    busoperators: any;
+  wallet: AgentWallet[];
+  walletRecord: AgentWallet;
+  busoperators: any;
 
-    totalCredits = 0;
-    totalDebits = 0;
-    animatedCredits = 0;
-    animatedDebits = 0;
-    animatedBalance = 0;
+  totalCredits = 0;
+  totalDebits = 0;
+  animatedCredits = 0;
+  animatedDebits = 0;
+  animatedBalance = 0;
 
-    mobileFilterOpen = false;
+  mobileFilterOpen = false;
 
-    constructor(
-      private spinner: NgxSpinnerService,
-      private http: HttpClient,
-      private notificationService: NotificationService,
-      private fb: FormBuilder,
+  constructor(
+    private spinner: NgxSpinnerService,
+    private http: HttpClient,
+    private notificationService: NotificationService,
+    private fb: FormBuilder,
 
-      private ws: AgentreportService,
-      private modalService: NgbModal,
-      config: NgbModalConfig,
-    ) {}
+    private ws: AgentreportService,
+    private modalService: NgbModal,
+    config: NgbModalConfig,
+  ) {}
 
-    ngOnInit(): void {
-      const today = new Date();
+  ngOnInit(): void {
+    const today = new Date();
 
-      this.maxDate = today.toISOString().split('T')[0];
+    this.maxDate = today.toISOString().split('T')[0];
 
-      const oldDate = new Date();
-      oldDate.setDate(today.getDate() - 180);
+    const oldDate = new Date();
+    oldDate.setDate(today.getDate() - 180);
 
-      this.minDate = oldDate.toISOString().split('T')[0];
+    this.minDate = oldDate.toISOString().split('T')[0];
 
-      this.spinner.show();
+    this.spinner.show();
 
-      this.searchForm = this.fb.group({
-        name: [null],
-        rows_number: Constants.RecordLimit,
-        user_id: localStorage.getItem('USERID'),
-        tran_type: [''],
-        SelectType: [''],
-        from_date: [null],
-        to_date: [null],
+    this.searchForm = this.fb.group({
+      name: [null],
+      rows_number: Constants.RecordLimit,
+      user_id: localStorage.getItem('USERID'),
+      tran_type: [''],
+      SelectType: [''],
+      from_date: [null],
+      to_date: [null],
+    });
+
+    this.search();
+  }
+
+  calculateSummary() {
+    this.totalCredits = 0;
+    this.totalDebits = 0;
+
+    if (!this.wallet || this.wallet.length === 0) {
+      return;
+    }
+
+    this.wallet.forEach((row: any) => {
+      const amount = Number(row.amount || 0);
+
+      if (row.transaction_type === 'c') {
+        this.totalCredits += amount;
+      }
+
+      if (row.transaction_type === 'd') {
+        this.totalDebits += amount;
+      }
+    });
+
+    const balance =
+      this.wallet && this.wallet.length
+        ? Number(this.wallet[0]['balance'] || 0)
+        : 0;
+
+    this.animateValue(
+      0,
+      this.totalCredits,
+      1000,
+      (val) => (this.animatedCredits = val),
+    );
+
+    this.animateValue(
+      0,
+      this.totalDebits,
+      1000,
+      (val) => (this.animatedDebits = val),
+    );
+
+    this.animateValue(0, balance, 1000, (val) => (this.animatedBalance = val));
+  }
+
+  OpenModal(content) {
+    this.modalReference = this.modalService.open(content, {
+      scrollable: true,
+      size: 'xl',
+    });
+  }
+  ResetAttributes() {
+    this.walletRecord = {} as AgentWallet;
+    this.form.reset();
+    this.ModalHeading = 'Enter Payment Details';
+    this.ModalBtn = 'Request';
+  }
+
+  page(label: any) {
+    return label;
+  }
+
+  search(pageurl = '') {
+    this.spinner.show();
+    // console.log('Rows:', this.searchForm.value.rows_number);
+
+    const data = {
+      name: this.searchForm.value.name,
+      bus_operator_id: this.searchForm.value.bus_operator_id,
+      rows_number: this.searchForm.value.rows_number,
+      user_id: localStorage.getItem('USERID'),
+      tran_type: this.searchForm.value.tran_type,
+      SelectType: this.searchForm.value.SelectType,
+      from_date: this.searchForm.value.from_date,
+      to_date: this.searchForm.value.to_date,
+    };
+
+    if (pageurl != '') {
+      this.ws.agentwalletpaginationReport(pageurl, data).subscribe((res) => {
+        this.wallet = res.data.data.data;
+        this.pagination = res.data.data;
+        this.calculateSummary();
+        this.spinner.hide();
       });
-
-      this.search();
-    }
-
-    calculateSummary() {
-      this.totalCredits = 0;
-      this.totalDebits = 0;
-
-      if (!this.wallet || this.wallet.length === 0) {
-        return;
-      }
-
-      this.wallet.forEach((row: any) => {
-        const amount = Number(row.amount || 0);
-
-        if (row.transaction_type === 'c') {
-          this.totalCredits += amount;
-        }
-
-        if (row.transaction_type === 'd') {
-          this.totalDebits += amount;
-        }
-      });
-
-      const balance =
-        this.wallet && this.wallet.length
-          ? Number(this.wallet[0]['balance'] || 0)
-          : 0;
-
-      this.animateValue(
-        0,
-        this.totalCredits,
-        1000,
-        (val) => (this.animatedCredits = val),
-      );
-
-      this.animateValue(
-        0,
-        this.totalDebits,
-        1000,
-        (val) => (this.animatedDebits = val),
-      );
-
-      this.animateValue(0, balance, 1000, (val) => (this.animatedBalance = val));
-
-    }
-
-    OpenModal(content) {
-      this.modalReference = this.modalService.open(content, {
-        scrollable: true,
-        size: 'xl',
+    } else {
+      this.ws.agentwalletReport(data).subscribe((res) => {
+        console.log('Pagination Response:', res.data.data);
+        this.wallet = res.data.data.data;
+        this.pagination = res.data.data;
+        this.calculateSummary();
+        this.spinner.hide();
       });
     }
-    ResetAttributes() {
-      this.walletRecord = {} as AgentWallet;
-      this.form.reset();
-      this.ModalHeading = 'Enter Payment Details';
-      this.ModalBtn = 'Request';
-    }
+  }
 
-    page(label: any) {
-      return label;
-    }
+  refresh() {
+    this.spinner.show();
 
-    search(pageurl = '') {
-      this.spinner.show();
+    this.searchForm = this.fb.group({
+      name: [null],
+      rows_number: Constants.RecordLimit,
+      user_id: localStorage.getItem('USERID'),
+      tran_type: [null],
+      SelectType: [null],
+      from_date: [null],
+      to_date: [null],
+    });
 
-      const data = {
-        name: this.searchForm.value.name,
-        bus_operator_id: this.searchForm.value.bus_operator_id,
-        rows_number: this.searchForm.value.rows_number,
-        user_id: localStorage.getItem('USERID'),
-        tran_type: this.searchForm.value.tran_type,
-        SelectType: this.searchForm.value.SelectType,
-        from_date: this.searchForm.value.from_date,
-        to_date: this.searchForm.value.to_date,
-      };
+    this.search();
+  }
+  title = 'angular-app';
+  fileName = 'All-Transaction-Report.xlsx';
 
-      if (pageurl != '') {
-        this.ws.agentwalletpaginationReport(pageurl, data).subscribe((res) => {
-          this.wallet = res.data.data.data;
-          this.pagination = res.data.data;
-          this.calculateSummary();
-          this.spinner.hide();
-        });
-      } else {
-        this.ws.agentwalletReport(data).subscribe((res) => {
-          this.wallet = res.data.data.data;
-          this.pagination = res.data.data;
-          this.calculateSummary();
-          this.spinner.hide();
-        });
-      }
-    }
+  exportexcel(): void {
+    /* pass here the table id */
+    let element = document.getElementById('print-section');
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
 
-    refresh() {
-      this.spinner.show();
+    /* generate workbook and add the worksheet */
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
 
-      this.searchForm = this.fb.group({
-        name: [null],
-        rows_number: Constants.RecordLimit,
-        user_id: localStorage.getItem('USERID'),
-        tran_type: [null],
-        SelectType: [null],
-        from_date: [null],
-        to_date: [null],
-      });
+    /* save to file */
+    XLSX.writeFile(wb, this.fileName);
+  }
 
-      this.search();
-    }
-    title = 'angular-app';
-    fileName = 'All-Transaction-Report.xlsx';
-
-    exportexcel(): void {
-      /* pass here the table id */
-      let element = document.getElementById('print-section');
-      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
-
-      /* generate workbook and add the worksheet */
-      const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-      /* save to file */
-      XLSX.writeFile(wb, this.fileName);
-    }
-
-    // Pagination helper methods
-    isPageVisible(label: any): boolean {
-      if (label === '&laquo;' || label === '&raquo;') {
-        return false;
-      }
-
-      if (label === '1' || label === '2' || label === '3') {
-        return true;
-      }
-
-      if (
-        parseInt(label) === this.pagination.current_page &&
-        parseInt(label) > 3
-      ) {
-        return true;
-      }
-
+  // Pagination helper methods
+  isPageVisible(label: any): boolean {
+    if (label === '&laquo;' || label === '&raquo;') {
       return false;
     }
 
-    getPageLabel(label: any): string {
-      if (label === '&laquo;' || label === '&raquo;') {
-        return '';
-      }
-      return label;
+    if (label === '1' || label === '2' || label === '3') {
+      return true;
     }
 
-    onFirstPage() {
-      if (
-        this.pagination.current_page !== 1 &&
-        this.pagination.links.first_page_url
-      ) {
-        this.search(this.pagination.links.first_page_url);
-      }
-    }
-
-    onPreviousPage() {
-      if (this.pagination.links.prev_page_url) {
-        this.search(this.pagination.links.prev_page_url);
-      }
-    }
-
-    onNextPage() {
-      if (this.pagination.links.next_page_url) {
-        this.search(this.pagination.links.next_page_url);
-      }
-    }
-
-    onLastPage() {
-      if (
-        this.pagination.current_page !== this.pagination.links.last_page &&
-        this.pagination.links.last_page_url
-      ) {
-        this.search(this.pagination.links.last_page_url);
-      }
-    }
-
-    animateValue(
-      start: number,
-      end: number,
-      duration: number,
-      callback: (value: number) => void,
+    if (
+      parseInt(label) === this.pagination.current_page &&
+      parseInt(label) > 3
     ) {
-      const startTime = performance.now();
-      const animate = (currentTime: number) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const value = start + (end - start) * progress;
-        callback(value);
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        }
-      };
+      return true;
+    }
 
-      requestAnimationFrame(animate);
+    return false;
+  }
+
+  getPageLabel(label: any): string {
+    if (label === '&laquo;' || label === '&raquo;') {
+      return '';
+    }
+    return label;
+  }
+
+  onFirstPage() {
+    if (this.pagination?.first_page_url) {
+      this.search(this.pagination.first_page_url);
     }
   }
+
+  onPreviousPage() {
+    if (this.pagination?.prev_page_url) {
+      this.search(this.pagination.prev_page_url);
+    }
+  }
+
+  onNextPage() {
+    if (this.pagination?.next_page_url) {
+      this.search(this.pagination.next_page_url);
+    }
+  }
+
+  onLastPage() {
+    if (this.pagination?.last_page_url) {
+      this.search(this.pagination.last_page_url);
+    }
+  }
+
+  animateValue(
+    start: number,
+    end: number,
+    duration: number,
+    callback: (value: number) => void,
+  ) {
+    const startTime = performance.now();
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const value = start + (end - start) * progress;
+      callback(value);
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }
+}

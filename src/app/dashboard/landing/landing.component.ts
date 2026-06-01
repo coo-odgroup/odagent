@@ -233,28 +233,28 @@ export class LandingComponent implements OnInit {
   }
 
   animateValue(
-  start: number,
-  end: number,
-  duration: number,
-  callback: (value: number) => void,
-) {
-  const startTime = performance.now();
+    start: number,
+    end: number,
+    duration: number,
+    callback: (value: number) => void,
+  ) {
+    const startTime = performance.now();
 
-  const animate = (currentTime: number) => {
-    const elapsed = currentTime - startTime;
-    const progress = Math.min(elapsed / duration, 1);
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
 
-    const value = start + (end - start) * progress;
+      const value = start + (end - start) * progress;
 
-    callback(value);
+      callback(value);
 
-    if (progress < 1) {
-      requestAnimationFrame(animate);
-    }
-  };
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
 
-  requestAnimationFrame(animate);
-}
+    requestAnimationFrame(animate);
+  }
 
   getall(range: any) {
     this.showBookingTable = true;
@@ -290,50 +290,60 @@ export class LandingComponent implements OnInit {
       this.animateDashboardCards();
       this.pieChart();
       this.spinner.hide();
-      
     });
 
     this.loadBookingDetails(range);
   }
 
+  expandedBooking: number | null = null;
+
+  toggleBooking(index: number) {
+    this.expandedBooking = this.expandedBooking === index ? null : index;
+  }
+
+  getTotalCommission(booking: any): number {
+    return (
+      Number(booking.agent_commission || 0) +
+      Number(booking.customer_comission || 0)
+    );
+  }
 
   animateDashboardCards() {
-  this.animateValue(
-    0,
-    Number(this.dashboarddata.today_pnr || 0),
-    1500,
-    (v) => (this.animatedTodayPnr = Math.floor(v))
-  );
+    this.animateValue(
+      0,
+      Number(this.dashboarddata.today_pnr || 0),
+      1500,
+      (v) => (this.animatedTodayPnr = Math.floor(v)),
+    );
 
-  this.animateValue(
-    0,
-    Number(this.dashboarddata.upcoming_pnr || 0),
-    1500,
-    (v) => (this.animatedUpcomingPnr = Math.floor(v))
-  );
+    this.animateValue(
+      0,
+      Number(this.dashboarddata.upcoming_pnr || 0),
+      1500,
+      (v) => (this.animatedUpcomingPnr = Math.floor(v)),
+    );
 
-  this.animateValue(
-    0,
-    Number(this.dashboarddata.sales_data?.[0]?.today_amount || 0),
-    1500,
-    (v) => (this.animatedSales = v)
-  );
+    this.animateValue(
+      0,
+      Number(this.dashboarddata.sales_data?.[0]?.today_amount || 0),
+      1500,
+      (v) => (this.animatedSales = v),
+    );
 
-  this.animateValue(
-    0,
-    Number(this.dashboarddata.booking_profit?.[0]?.odbus_amount || 0),
-    1500,
-    (v) => (this.animatedOdbusCommission = v)
-  );
+    this.animateValue(
+      0,
+      Number(this.dashboarddata.booking_profit?.[0]?.odbus_amount || 0),
+      1500,
+      (v) => (this.animatedOdbusCommission = v),
+    );
 
-  this.animateValue(
-    0,
-    Number(this.dashboarddata.customer_profit?.[0]?.customer_amount || 0),
-    1500,
-    (v) => (this.animatedCustomerCommission = v)
-  );
-}
-
+    this.animateValue(
+      0,
+      Number(this.dashboarddata.customer_profit?.[0]?.customer_amount || 0),
+      1500,
+      (v) => (this.animatedCustomerCommission = v),
+    );
+  }
 
   loadWalletTransactions() {
     const data = {

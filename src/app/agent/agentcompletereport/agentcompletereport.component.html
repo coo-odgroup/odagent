@@ -166,23 +166,21 @@
             <tr *ngFor="let complete of completedata?.data.data; let i = index">
               <td style="text-align: center">{{ i + 1 }}</td>
               <td>
-                <strong>{{ complete.pnr }}</strong> (<strong
-                  style="color: darkgoldenrod"
-                  >DOj- {{ complete.journey_dt }} )
-                </strong>
+                <strong>{{ complete.pnr }}</strong> (DOj- {{ complete.journey_dt }} )
+         
                 <br />
-                <strong style="color: brown"
-                  >DOB-{{
+                 
+                  DOB-{{
                     complete.created_at | date: "dd/MM/yyyy HH:mm:ss"
-                  }}</strong
-                >
+                  }}
+                
                 <!--<br>
                                 <strong style="color: darkgoldenrod;">{{complete.customer_payment.razorpay_id}}</strong> -->
               </td>
               <td>
                 <strong *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'"
                   >{{ complete.bus.name }}</strong><br />
-                  <strong style="color: brown">( {{ complete.bus.bus_number }} )</strong>
+                  <small >( {{ complete.bus.bus_number }} )</small  >
 
                 <strong
                   *ngIf="
@@ -196,40 +194,19 @@
                 <span *ngFor="let frlocation of complete.from_location">
                   <b>{{ frlocation.name }}</b>
                 </span>
-                - <b style="color: brown"> ( {{ complete.boarding_point }} </b> )<br />
-                <b  style="color: darkgoldenrod">Time : {{ complete.boarding_time }}</b>
+                - ( {{ complete.boarding_point }} )<br />
+               Time : {{ complete.boarding_time }}
               </td>
 
               <td>
-                <ng-template #tipContent1>
-                  <table style="width: 350px">
-                    <tr>
-                      <th style="text-align: left">Start</th>
-                      <th style="text-align: left">End</th>
-                    </tr>
-                    <tr>
-                      <td style="text-align: left">
-                        <span *ngFor="let frlocation of complete.source">
-                          <b>{{ frlocation[0].name }}</b><br />
-                        </span>
-                      </td>
-                      <td style="text-align: left">
-                        <span *ngFor="let tolocation of complete.destination">
-                          <b>{{ tolocation[0].name }} </b><br />
-                        </span>
-                      </td>
-                    </tr>
-                  </table>
-                </ng-template>
-
                 <span [ngbTooltip]="tipContent1">
                   <!-- {{ complete.source_id }} - {{ complete.destination_id }} -->
                   <span *ngFor="let boarding of complete.from_location">
-                    <strong style="color: brown"> {{ boarding.name }}</strong>
+                     {{ boarding.name }}
                   </span>
-                  <b style="color: darkgoldenrod"> >> </b>
+                  <b> >> </b>
                   <span *ngFor="let dropping of complete.to_location">
-                    <strong style="color: brown"> {{ dropping.name }}</strong>
+                     {{ dropping.name }}
                   </span>
                 </span>
               </td>
@@ -241,7 +218,7 @@
                       complete.origin != 'MANTIS'
                     "
                   >
-                    <b>{{ seat.bus_seats.seats.seatText }}</b>
+                    {{ seat.bus_seats.seats.seatText }}
                   </span>
                   <span
                     *ngIf="
@@ -327,7 +304,7 @@
 
               <td>
                
-                <b>{{ complete.total_fare + complete.agent_commission }}</b>
+                {{ complete.total_fare + complete.agent_commission }}
               </td>
               <td>
                 <div class="text-center">

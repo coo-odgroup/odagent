@@ -1,6 +1,11 @@
-<ngx-spinner bdColor="rgba(60,55,55,0.8)" size="large" color="#fff" type="ball-clip-rotate-multiple"
-    [fullScreen]="true">
-    <p style="color: white"> Loading... </p>
+<ngx-spinner
+  bdColor="rgba(60,55,55,0.8)"
+  size="large"
+  color="#fff"
+  type="ball-clip-rotate-multiple"
+  [fullScreen]="true"
+>
+  <p style="color: white">Loading...</p>
 </ngx-spinner>
 
 <!-- <div class="row">
@@ -92,141 +97,125 @@
     </div>
 </div> -->
 
-
 <div class="clean-booking-wrapper">
-
-    <div class="clean-booking-card-wrapper">
-
-        <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
-
-            <div class="clean-booking-card">
-
-                <!-- FROM -->
-                <div class="clean-field from-field">
-
-                    <label>From</label>
-
-                    <div class="clean-input">
-
-                        <div class="clean-icon">
-                            <img src="../../../assets/img/Icon-metro-location.svg">
-                        </div>
-
-                        <input autocomplete="off" type="text" class="form-control" [ngbTypeahead]="search"
-                            [resultTemplate]="rt" [inputFormatter]="formatter" [ngModel]="swapsource"
-                            placeholder="Enter Source" formControlName="source" (selectItem)="tabChange('to')">
-
-                        <ng-template #rt let-r="result" let-t="term">
-                            <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
-                        </ng-template>
-
-                    </div>
-
-                </div>
-
-                <!-- TO -->
-                <div class="clean-field to-field">
-
-                    <!-- SWAP BUTTON -->
-                    <button type="button" class="floating-swap-btn" (click)="swap()">
-                        ⇄
-                    </button>
-
-                    <label>To</label>
-
-                    <div class="clean-input">
-
-                        <div class="clean-icon">
-                            <img src="../../../assets/img/Icon-metro-location.svg">
-                        </div>
-
-                        <input autocomplete="off" id="to" type="text" class="form-control" [ngbTypeahead]="search"
-                            [resultTemplate]="rt2" [inputFormatter]="formatter" [ngModel]="swapdestination"
-                            formControlName="destination" placeholder="Enter Destination"
-                            (selectItem)="tabChange('entryDate')">
-
-                        <ng-template #rt2 let-r="result" let-t="term">
-                            <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
-                        </ng-template>
-
-                    </div>
-
-                </div>
-
-                <!-- DATE -->
-                <div class="clean-field date-field">
-
-                    <label>Date of Journey</label>
-
-                    <div class="clean-input">
-
-                        <div class="clean-icon" (click)="d.toggle()">
-                            <img src="assets/img/Icon-metro-calendar.svg">
-                        </div>
-
-                        <input type="text" autocomplete="off" readonly id="entryDate" class="form-control"
-                            formControlName="entry_date" placeholder="Journey Date" ngbDatepicker (click)="d.toggle()"
-                            #d="ngbDatepicker" [min]="dtconfig.minDate" [max]="dtconfig.maxDate">
-
-                    </div>
-
-                </div>
-
-                <!-- BUTTON -->
-                <div class="search-btn-wrap">
-
-                    <button type="submit" class="clean-search-btn">
-                        Search
-                    </button>
-
-                </div>
-
+  <div class="clean-booking-card-wrapper">
+    <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
+      <div class="clean-booking-card">
+        <!-- FROM -->
+        <div class="clean-field from-field">
+          <label>From</label>
+          <div class="clean-input">
+            <div class="clean-icon">
+              <img src="../../../assets/img/Icon-metro-location.svg" />
             </div>
-
-        </form>
-
-    </div>
-
-</div>
-
-<div class="recent-search-wrapper">
-
-    <div class="recent-title">
-
-        Recent Searches
-
-    </div>
-
-    <div class="recent-search-container">
-
-        <div class="recent-card" *ngFor="let item of recentSearches">
-
-            <div class="recent-icon">
-
-                <i class="fa fa-history"></i>
-
-            </div>
-
-            <div class="recent-content">
-
-                <div class="recent-route">
-
-                    {{item.from}} →
-
-                    {{item.to}}
-
-                </div>
-
-                <div class="recent-date">
-
-                    {{item.date}}
-
-                </div>
-
-            </div>
-
+            <input
+              autocomplete="off"
+              type="text"
+              class="form-control"
+              [ngbTypeahead]="search"
+              [resultTemplate]="rt"
+              [inputFormatter]="formatter"
+              [ngModel]="swapsource"
+              placeholder="Enter Source"
+              formControlName="source"
+              (selectItem)="tabChange('to')"
+            />
+            <ng-template #rt let-r="result" let-t="term">
+              <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+            </ng-template>
+          </div>
         </div>
 
-    </div>
+        <!-- TO -->
+        <div class="clean-field to-field">
+          <!-- SWAP BUTTON -->
+          <button type="button" class="floating-swap-btn" (click)="swap()">
+            ⇄
+          </button>
+          <label>To</label>
+          <div class="clean-input">
+            <div class="clean-icon">
+              <img src="../../../assets/img/Icon-metro-location.svg" />
+            </div>
 
+            <input
+              autocomplete="off"
+              id="to"
+              type="text"
+              class="form-control"
+              [ngbTypeahead]="search"
+              [resultTemplate]="rt2"
+              [inputFormatter]="formatter"
+              [ngModel]="swapdestination"
+              formControlName="destination"
+              placeholder="Enter Destination"
+              (selectItem)="tabChange('entryDate')"
+            />
+
+            <ng-template #rt2 let-r="result" let-t="term">
+              <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
+            </ng-template>
+          </div>
+        </div>
+
+        <!-- DATE -->
+        <div class="clean-field date-field">
+          <label>Date of Journey</label>
+
+          <div class="clean-input">
+            <div class="clean-icon" (click)="d.toggle()">
+              <img src="assets/img/Icon-metro-calendar.svg" />
+            </div>
+
+            <input
+              type="text"
+              autocomplete="off"
+              readonly
+              id="entryDate"
+              class="form-control"
+              formControlName="entry_date"
+              placeholder="Journey Date"
+              ngbDatepicker
+              (click)="d.toggle()"
+              #d="ngbDatepicker"
+              [min]="dtconfig.minDate"
+              [max]="dtconfig.maxDate"
+            />
+          </div>
+        </div>
+
+        <!-- BUTTON -->
+        <div class="search-btn-wrap">
+          <button type="submit" class="clean-search-btn">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div
+  class="recent-search-wrapper"
+  *ngIf="recentSearches && recentSearches.length > 0"
+>
+  <div class="recent-title">Recent Searches</div>
+
+  <div class="recent-search-container">
+    <div
+      class="recent-card"
+      *ngFor="let item of recentSearches"
+      (click)="searchRecent(item)"
+    >
+      <div class="recent-icon">
+        <i class="fa fa-history"></i>
+      </div>
+
+      <div class="recent-content">
+        <div class="recent-route">{{ item.from }} → {{ item.to }}</div>
+
+        <div class="recent-date">
+          {{ formatRecentDate(item.date) }}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

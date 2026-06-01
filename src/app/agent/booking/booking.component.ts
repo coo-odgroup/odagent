@@ -7,17 +7,16 @@ import { Observable } from 'rxjs';
 import { debounceTime, map } from 'rxjs/operators';
 import { NotificationService } from '../../services/notification.service';
 import { formatDate, Location } from '@angular/common';
-import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Constants } from '../../constant/constant';
 import { CommonService } from '../../services/common.service';
 
 @Component({
   selector: 'app-booking',
   templateUrl: './booking.component.html',
-  styleUrls: ['./booking.component.scss']
+  styleUrls: ['./booking.component.scss'],
 })
 export class BookingComponent implements OnInit {
-
   public searchForm: FormGroup;
   submitted = false;
 
@@ -38,68 +37,49 @@ export class BookingComponent implements OnInit {
   sourceData: any;
   destinationData: any;
 
-  recentSearches = [
+  recentSearches: any[] = [];
 
-    { from: 'Bhubaneswar', to: 'Rayagada', date: 'Today' },
-
-    { from: 'Cuttack', to: 'Berhampur', date: 'Tomorrow' },
-
-    { from: 'Puri', to: 'Bhubaneswar', date: '12 Jun' },
-
-    { from: 'Gunupur', to: 'Rayagada', date: '14 Jun' },
-
-    { from: 'Koraput', to: 'Jeypore', date: '16 Jun' }
-
-  ];
-
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
     private locationService: LocationdataService,
     public dtconfig: NgbDatepickerConfig,
     private location: Location,
     private notify: NotificationService,
-    private common: CommonService
+    private common: CommonService,
   ) {
-
     const data = {
-      user_id: Constants.MASTER_SETTING_USER_ID
+      user_id: Constants.MASTER_SETTING_USER_ID,
     };
 
-    this.common.getCommonData(data).subscribe(
-      resp => {
+    this.common.getCommonData(data).subscribe((resp) => {
+      const current = new Date();
+      this.dtconfig.minDate = {
+        year: current.getFullYear(),
+        month: current.getMonth() + 1,
+        day: current.getDate(),
+      };
 
-        const current = new Date();
-        this.dtconfig.minDate = {
-          year: current.getFullYear(), month:
-            current.getMonth() + 1, day: current.getDate()
-        };
+      let maxDate = current.setDate(
+        current.getDate() + resp.data.common.advance_days_show,
+      );
 
-        let maxDate = current.setDate(current.getDate() + resp.data.common.advance_days_show);
+      const max = new Date(maxDate);
+      this.dtconfig.maxDate = {
+        year: max.getFullYear(),
+        month: max.getMonth() + 1,
+        day: max.getDate(),
+      };
+    });
 
-        const max = new Date(maxDate);
-        this.dtconfig.maxDate = {
-          year: max.getFullYear(), month:
-            max.getMonth() + 1, day: max.getDate()
-        };
-
-
-      });
-
-
-    this.locationService.all().subscribe(
-      res => {
-
-        if (res.status == 1) {
-          this.location_list = res.data;
-        }
-        else {
-          this.notify.notify(res.message, "Error");
-        }
-
-      });
-
-
+    this.locationService.all().subscribe((res) => {
+      if (res.status == 1) {
+        this.location_list = res.data;
+      } else {
+        this.notify.notify(res.message, 'Error');
+      }
+    });
 
     this.search = (text$: Observable<string>) =>
       text$.pipe(
@@ -108,21 +88,24 @@ export class BookingComponent implements OnInit {
           term === ''
             ? []
             : this.location_list
-              .filter(
-                (v) =>
-                  v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
-                  (v.synonym != '' && v.synonym != null && v.synonym.toLowerCase().indexOf(term.toLowerCase()) > -1)
-              )
-              .slice(0, 10)
-        )
+                .filter(
+                  (v) =>
+                    v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
+                    (v.synonym != '' &&
+                      v.synonym != null &&
+                      v.synonym.toLowerCase().indexOf(term.toLowerCase()) > -1),
+                )
+                .slice(0, 10),
+        ),
       );
 
     this.formatter = (x: { name: string }) => x.name;
 
     const current = new Date();
     this.dtconfig.minDate = {
-      year: current.getFullYear(), month:
-        current.getMonth() + 1, day: current.getDate()
+      year: current.getFullYear(),
+      month: current.getMonth() + 1,
+      day: current.getDate(),
     };
 
     this.searchForm = fb.group({
@@ -133,56 +116,52 @@ export class BookingComponent implements OnInit {
   }
 
   submitForm() {
-
-
-    if (this.searchForm.value.source == null || this.searchForm.value.source == '') {
-
-      this.notify.notify("Enter Source !", "Error");
-
-    }
-
-    else if (this.searchForm.value.destination == null || this.searchForm.value.destination == "") {
-
-      this.notify.notify("Enter Destination !", "Error");
-    }
-
-    else if (this.searchForm.value.entry_date == null || this.searchForm.value.entry_date == "") {
-
-      this.notify.notify("Enter Journey Date !", "Error");
-
-    }
-
-    else {
-
+    if (
+      this.searchForm.value.source == null ||
+      this.searchForm.value.source == ''
+    ) {
+      this.notify.notify('Enter Source !', 'Error');
+    } else if (
+      this.searchForm.value.destination == null ||
+      this.searchForm.value.destination == ''
+    ) {
+      this.notify.notify('Enter Destination !', 'Error');
+    } else if (
+      this.searchForm.value.entry_date == null ||
+      this.searchForm.value.entry_date == ''
+    ) {
+      this.notify.notify('Enter Journey Date !', 'Error');
+    } else {
       let dt = this.searchForm.value.entry_date;
 
       if (dt.month < 10) {
-        dt.month = "0" + dt.month;
+        dt.month = '0' + dt.month;
       }
       if (dt.day < 10) {
-        dt.day = "0" + dt.day;
+        dt.day = '0' + dt.day;
       }
 
-      this.searchForm.value.entry_date = [dt.day, dt.month, dt.year].join("-");
+      this.searchForm.value.entry_date = [dt.day, dt.month, dt.year].join('-');
 
       if (!this.searchForm.value.source.name) {
-        this.notify.notify("Select Valid Source !", "Error");
+        this.notify.notify('Select Valid Source !', 'Error');
 
         return false;
       }
 
       if (!this.searchForm.value.destination.name) {
-        this.notify.notify("Select Valid Destination !", "Error");
+        this.notify.notify('Select Valid Destination !', 'Error');
 
         return false;
       }
 
       let dat = this.searchForm.value.entry_date;
 
-
-      this.listing(this.searchForm.value.source, this.searchForm.value.destination, dat);
-
-
+      this.listing(
+        this.searchForm.value.source,
+        this.searchForm.value.destination,
+        dat,
+      );
     }
   }
 
@@ -192,6 +171,7 @@ export class BookingComponent implements OnInit {
   }
 
   listing(s: any, d: any, dt: any) {
+    this.saveRecentSearch(s, d, dt);
 
     this.locationService.setSource(s);
     this.locationService.setDestination(d);
@@ -200,18 +180,89 @@ export class BookingComponent implements OnInit {
   }
 
   swap() {
-
     if (this.searchForm.value.source) {
-      this.swapdestination = this.searchForm.value.source
+      this.swapdestination = this.searchForm.value.source;
     }
 
     if (this.searchForm.value.destination) {
       this.swapsource = this.searchForm.value.destination;
     }
-
   }
 
   ngOnInit(): void {
+    const searches = localStorage.getItem('recentSearches');
+
+    if (searches) {
+      this.recentSearches = JSON.parse(searches);
+    }
+  }
+
+  saveRecentSearch(source: any, destination: any, date: string) {
+    let searches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+
+    searches.unshift({
+      from: source.name,
+      to: destination.name,
+      sourceObj: source,
+      destinationObj: destination,
+      date: date,
+    });
+
+    searches = searches.filter(
+      (item, index, self) =>
+        index ===
+        self.findIndex(
+          (x) =>
+            x.from === item.from && x.to === item.to && x.date === item.date,
+        ),
+    );
+
+    searches = searches.slice(0, 5);
+
+    localStorage.setItem('recentSearches', JSON.stringify(searches));
+
+    this.recentSearches = searches;
+  }
+
+  searchRecent(item: any) {
+    this.locationService.setSource(item.sourceObj);
+
+    this.locationService.setDestination(item.destinationObj);
+
+    this.locationService.setDate(item.date);
+
+    this.router.navigate(['agent/listing']);
+  }
+
+  formatRecentDate(dateStr: string): string {
+    const date = new Date(dateStr.split('-').reverse().join('-'));
+
+    const today = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(today.getDate() + 1);
+
+    const isToday =
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear();
+
+    const isTomorrow =
+      date.getDate() === tomorrow.getDate() &&
+      date.getMonth() === tomorrow.getMonth() &&
+      date.getFullYear() === tomorrow.getFullYear();
+
+    if (isToday) {
+      return 'Today';
+    }
+
+    if (isTomorrow) {
+      return 'Tomorrow';
+    }
+
+    return date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
   }
 }
-
