@@ -6,332 +6,511 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <app-card cardTitle="Agent Commission Report" cardClass="card-datatable" [options]="false"
-            [isCardFooter]="false">
 
 
-            <div class=" mb-3">
-                <div class="row p-0">
-                    <div class="col-12">
-                        <form [formGroup]="searchFrom" class="filter-container">
 
-                            <!-- FILTER FIELDS -->
-                            <div class="filter-grid">
+        <div class="transaction-wrapper">
 
-                                <div class="filter-field">
-                                    <input type="date" class="form-control sml_input" formControlName="rangeFromDate">
-                                </div>
+            <!-- HEADER -->
 
-                                <div class="filter-field">
-                                    <input type="date" class="form-control sml_input" formControlName="rangeToDate">
-                                </div>
+            <div class="transaction-header">
 
-                                <div class="filter-field">
-                                    <select class="form-control sml_input" formControlName="date_type">
-                                        <option value="booking">Booking Date</option>
-                                        <option value="journey">Journey Date</option>
-                                    </select>
-                                </div>
+                <h2 class="trans-title">
 
-                                <div class="filter-field">
-                                    <ng-select [items]="locations" bindLabel="name" bindValue="id"
-                                        placeholder="Select Source" formControlName="source_id" [clearable]="false"
-                                        appendTo="body" (change)="findSource($event)">
-                                    </ng-select>
-                                </div>
+                    Agent Commission Report
 
-                                <div class="filter-field">
-                                    <ng-select [items]="locations" bindLabel="name" bindValue="id"
-                                        placeholder="Select Destination" formControlName="destination_id"
-                                        [clearable]="false" appendTo="body" (change)="findSource($event)">
-                                    </ng-select>
-                                </div>
+                </h2>
 
-                            </div>
+                <div class="top-buttons">
 
+                    <button class="btn btn-success top-btn" (click)="exportexcel()">
 
-                            <!-- BUTTONS + SELECTOR -->
+                        Export
 
-                            <div class="filter-actions">
+                    </button>
 
-                                <div class="filter-buttons">
+                    <button ngxPrint printSectionId="print-section" class="btn btn-dark top-btn">
 
-                                    <button type="button" class="btn btn-success sml_input" (click)="search()">
-                                        <i class="fas fa-search"></i> Search
-                                    </button>
+                        Print
 
-                                    <button type="button" class="btn btn-danger sml_input" (click)="refresh()">
-                                        <i class="fas fa-sync-alt"></i> Refresh
-                                    </button>
-
-                                    <button type="button" class="btn btn-warning sml_input" (click)="exportexcel()">
-                                        <i class="fas fa-file-export"></i> Export
-                                    </button>
-
-                                    <button type="button" class="btn btn-info sml_input" printSectionId="print-section"
-                                        ngxPrint [useExistingCss]="true">
-                                        <i class="fas fa-print"></i> Print
-                                    </button>
-
-                                </div>
-
-                                <div class="page-selector">
-                                    <select class="form-control sml_input" formControlName="rows_number"
-                                        (change)=search()>
-
-                                        <option value=10>10</option>
-                                        <option value=25>25</option>
-                                        <option value=50>50</option>
-                                        <option value=100>100</option>
-                                        <option value='all'>All</option>
-
-                                    </select>
-                                </div>
-
-                            </div>
-
-                        </form>
-                    </div>
+                    </button>
 
                 </div>
+
             </div>
 
-            <!-- class="table-responsive" -->
-            <div id="print-section" class="table-scroll">
-                <table class="table table-striped table-bordered">
-                    <thead *ngIf="completedata?.data.data?.length != 0">
-                        <tr>
-                            <th scope="col" width="80px" style="text-align: center;">#</th>
-                            <th scope="col">Ticket Details</th>
-                            <th scope="col">Bus Details </th>
-                            <th scope="col">Source >> Destination</th>
-                            <th scope="col">Boarding Point/Time</th>
 
-                            <th scope="col">Seat No</th>
-                            <th scope="col">Passenger Details</th>
-                            <th scope="col">Total Comm</th>
-                            <th scope="col">TDS Charges(5%)</th>
-                            <th scope="col">Comm after TDS</th>
-                            <th scope="col">Comm From Customer</th>
+            <!-- SUMMARY -->
+
+            <div class="summary-cards">
+
+                <div class="summary-box">
+
+                    <span>
+
+                        Tickets
+
+                    </span>
+
+                    <h3>
+
+                        {{totalTickets}}
+
+                    </h3>
+
+                </div>
+
+                <div class="summary-box">
+
+                    <span>
+
+                        Total Fare
+
+                    </span>
+
+                    <h3 class="balance">
+
+                        ₹{{totalfare | number:'1.2-2'}}
+
+                    </h3>
+
+                </div>
+
+                <div class="summary-box">
+
+                    <span>
+
+                        Net Commission
+
+                    </span>
+
+                    <h3 class="credit">
+
+                        ₹{{totalNetComm | number:'1.2-2'}}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <!-- FILTER -->
+
+            <div class="filter-card">
+
+                <form [formGroup]="searchFrom">
+
+                    <div class="row">
+
+                        <div class="col-lg-2">
+
+                            <input type="date" class="form-control" formControlName="rangeFromDate">
+
+                        </div>
+
+                        <div class="col-lg-2">
+
+                            <input type="date" class="form-control" formControlName="rangeToDate">
+
+                        </div>
+
+                        <div class="col-lg-2">
+
+                            <select class="form-control" formControlName="date_type">
+
+                                <option value="booking">
+
+                                    Booking Date
+
+                                </option>
+
+                                <option value="journey">
+
+                                    Journey Date
+
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-lg-2">
+
+                            <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Source"
+                                formControlName="source_id">
+
+                            </ng-select>
+
+                        </div>
+
+                        <div class="col-lg-2">
+
+                            <ng-select [items]="locations" bindLabel="name" bindValue="id"
+                                placeholder="Select Destination" formControlName="destination_id">
+
+                            </ng-select>
+
+                        </div>
+
+                        <div class="col-lg-2">
+
+                            <select class="form-control" formControlName="rows_number" (change)="search()">
+
+                                <option value=10>10</option>
+                                <option value=25>25</option>
+                                <option value=50>50</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="action-buttons">
+
+                        <button class="btn btn-success" type="button" (click)="search()">
+
+                            Search
+
+                        </button>
+
+                        <button class="btn btn-danger" type="button" (click)="refresh()">
+
+                            Refresh
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- TABLE -->
+
+            <div class="report-card">
+
+                <div class="table-responsive-mobile" id="print-section">
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Ticket Details</th>
+
+                                <th>Bus Details</th>
+
+                                <th>Source → Destination</th>
+
+                                <th>Boarding Point / Time</th>
+
+                                <th>Seat No</th>
+
+                                <th>Passenger Details</th>
+
+                                <th>Total Comm</th>
+
+                                <th>TDS (5%)</th>
+
+                                <th>Comm After TDS</th>
+
+                                <th>Customer Comm</th>
+
+                                <th>Fare</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+                            <tr *ngFor="let complete of completedata?.data.data; let i=index">
+
+                                <td>
+
+                                    {{i+1}}
+
+                                </td>
+
+
+                                <!-- TICKET -->
+
+                                <td>
+
+                                    <b>
+
+                                        {{complete.pnr}}
+
+                                    </b>
+
+                                    <br>
+
+                                    <small>
+
+                                        {{complete.created_at | date:'dd MMM yyyy hh:mm a'}}
+
+                                    </small>
+
+                                </td>
+
+
+                                <!-- BUS -->
+
+                                <td>
+
+                                    <div>
+
+                                        <b>
+
+                                            <span *ngIf="complete.origin=='DOLPHIN'
+|| complete.origin=='MANTIS'">
+
+                                                {{complete.bus_name}}
+
+                                            </span>
+
+                                            <span *ngIf="complete.origin!='DOLPHIN'
+&& complete.origin!='MANTIS'">
+
+                                                {{complete.bus?.name}}
+
+                                            </span>
+
+                                        </b>
+
+                                    </div>
+
+                                    <div>
+
+                                        <small>
+
+                                            {{complete.bus_type}}
+
+                                        </small>
+
+                                    </div>
+
+                                </td>
 
 
 
-                            <!-- <th scope="col">Seater / Sleeper </th> -->
-                            <th scope="col">Fare</th>
-                        </tr>
-                    </thead>
-                    <tbody *ngIf="completedata?.data.data?.length != 0">
-                        <tr *ngFor="let complete of completedata?.data.data; let i = index">
-                            <td style="text-align: center;">{{ i+1 }}</td>
-                            <td>
-                                <strong>{{complete.pnr}}</strong> <strong style="color: darkgoldenrod;"> (DOj-
-                                    {{complete.journey_dt}} ) </strong>
-                                <br>
-                                <strong style="color: brown;">DOB-{{complete.created_at | date: 'dd/MM/yyyy
-                                    HH:mm:ss'}}</strong>
-                                <!-- <br>
-                                <strong style="color: brown;">{{complete.customer_payment.order_id}}</strong>
-                                <br>
-                                <strong style="color: darkgoldenrod;">{{complete.customer_payment.razorpay_id}}</strong> -->
-                            </td>
-                            <td>
-                                <span *ngIf="complete.origin == 'DOLPHIN'  || complete.origin == 'MANTIS'">
-                                    <strong>{{ complete.bus_name }}</strong><br>
-                                         <strong style="color: brown;">{{ complete.bus_number }}</strong>
-                                </span>
-                                <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
-                                    <strong>{{ complete.bus.name }}</strong><br>
-                                        <strong style="color: brown;">{{ complete.bus.bus_number }}</strong>
-                                </span>
+                                <!-- ROUTE -->
 
+                                <td>
 
-                            </td>
-                            <td>
-                                <ng-template #tipContent1>
-                                    <table style="width: 350px;">
-                                        <tr>
-                                            <th style="text-align: left;">
-                                                Start
-                                            </th>
-                                            <th style="text-align: left;">
-                                                End
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <td style="text-align: left;">
-                                                <span *ngFor="let frlocation of complete.source">
-                                                    {{frlocation[0].name}}<br />
-                                                </span>
-                                            </td>
-                                            <td style="text-align: left;">
-                                                <span *ngFor="let tolocation of complete.destination">
-                                                    {{tolocation[0].name}} <br />
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </ng-template>
+                                    <span *ngFor="let s of complete.from_location">
 
-                                <span [ngbTooltip]="tipContent1">
-                                    <!-- {{ complete.source_id }} - {{ complete.destination_id }} -->
-                                    <span *ngFor="let boarding of complete.from_location;">
-                                        <strong style="color: brown;"> {{boarding.name}}  </strong>
-                                    </span> <b style="color: darkgoldenrod;"> >> </b>
-                                    <span *ngFor="let dropping of complete.to_location;">
-                                        <strong style="color: brown;">   {{dropping.name}}</strong>
+                                        {{s.name}}
+
                                     </span>
-                                </span>
-                            </td>
-                            <td>
-                                <span *ngFor="let frlocation of complete.from_location">
-                                    <strong>{{frlocation.name}}</strong>
-                                </span> -
-                                <strong style="color: brown;">( {{complete.boarding_point}}  )</strong><br>
-                                <b style="color: darkgoldenrod;">Time : {{complete.boarding_time }}</b>
-                            </td>
 
-                            <td>
-                                <span *ngIf="complete.origin == 'DOLPHIN'  || complete.origin == 'MANTIS'">
-                                    <p *ngFor="let seat of complete.booking_detail;">
-                                        {{seat.seat_name}}
-                                    </p>
-                                </span>
-                                <span *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
-                                    <p *ngFor="let seat of complete.booking_detail;">
-                                       <b> {{seat.bus_seats.seats.seatText}}</b>
-                                    </p>
-                                </span>
-                            </td>
-                            <!-- <td class="text-capitalize">
-                                <ng-template #tipContent>
-                                    Phone- <b>{{complete.users.phone}}</b>
-                                    <br>Email-{{complete.users.email}}
-                                    <table>
-                                        <tr>
-                                            <td>Phone-</td>
-                                            <td><b>{{complete.users.phone}}</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Email-</td>
-                                            <td>{{complete.users.email}}</td>
-                                        </tr>
-                                    </table>
-                                </ng-template>
+                                    >>
 
-                                <strong [ngbTooltip]="tipContent">
-                                    {{complete.users?.name}}
-                                </strong> <br>
+                                    <span *ngFor="let s of complete.to_location">
 
-                                <button class="btn btn-sm btn-info text-light  mr-3 ml-2 mt-2 hide_print" placement="bottom"
-                                    ngbTooltip="Click to Copy Phone Number" (click)="copyMessage(complete.users.phone)">
-                                    <i class="fas fa-mobile-alt"></i>
-                                </button>
+                                        {{s.name}}
 
-                                <button class="btn btn-sm btn-danger text-light mt-2 hide_print" placement="bottom"
-                                    ngbTooltip=" Click to Copy Email" (click)="copyMessage(complete.users.email)">
-                                    <i class="far fa-envelope"></i>
-                                </button>
+                                    </span>
 
-                            </td> -->
-                            <td>
-                                <p *ngFor="let passanger of complete.booking_detail;">
-                                    <ng-template #tipContent1>
-                                        <table>
-                                            <tr>
-                                                <td>Gender-</td>
-                                                <td><b>{{passanger.passenger_gender}}</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Age-</td>
-                                                <td><b>{{passanger.passenger_age}}</b></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Seat No-</td>
-                                                <td>
-                                                    <span
-                                                        *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'">
-                                                        <b>{{passanger.bus_seats.seats.seatText}}</b>
-                                                    </span>
-                                                    <span
-                                                        *ngIf="complete.origin == 'DOLPHIN'  || complete.origin == 'MANTIS'">
-                                                        <b>{{passanger.seat_name}}</b>
-                                                    </span>
-
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </ng-template>
-                                    <strong [ngbTooltip]="tipContent1">{{passanger.passenger_name}}</strong>
-                                </p>
-                            </td>
-                            <td>
-                                 <b>{{complete.agent_commission}}</b>
-                            </td>
-                            <td>
-                                 <b>{{complete.tds}}</b>
-                            </td>
-                            <td>
-                                 <b>{{complete.with_tds_commission}}</b>
-                            </td>
-                            <td>
-                                 <b>{{complete.customer_comission}}</b>
-                            </td>
+                                </td>
 
 
 
-                            <td>
-                                 <b>{{complete.total_fare}}</b>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tbody *ngIf="completedata?.data.data?.length == 0">
-                        <tr>
-                            <td colspan="10" class="no-data-available text-center">No Record Found!</td>
-                        </tr>
-                    <tbody>
-                </table>
-                <div *ngIf="completedata?.data.data?.length != 0">
-                    <div class="pagination-wrapper" *ngIf="completedata?.data.links">
-                        <nav class="pagination-nav">
-                            <ul class="pagination pagination-sm mb-0 hide_print">
+                                <!-- BOARDING -->
 
-                                <!-- First Button -->
-                                <li class="page-item" [class.disabled]="completedata.data.current_page == 1">
-                                    <a class="page-link" (click)="onFirstPageCommission()">First</a>
-                                </li>
+                                <td>
 
-                                <!-- Previous Button -->
-                                <li class="page-item" [class.disabled]="!completedata.data.prev_page_url">
-                                    <a class="page-link" (click)="onPreviousPageCommission()">Prev</a>
-                                </li>
+                                    <div>
 
-                                <!-- Page Numbers -->
-                                <li class="page-item" *ngFor="let b of completedata.data.links; let i = index"
-                                    [class.d-none]="!isPageVisibleCommission(b.label)">
+                                        {{complete.boarding_point}}
 
-                                    <a class="page-link" [class.active]="completedata.data.current_page == b.label"
-                                        (click)="b.url ? search(b.url) : ''">
-                                        {{ getPageLabelCommission(b.label) }}
-                                    </a>
+                                    </div>
 
-                                </li>
+                                    <small>
 
-                                <!-- Next Button -->
-                                <li class="page-item" [class.disabled]="!completedata.data.next_page_url">
-                                    <a class="page-link" (click)="onNextPageCommission()">Next</a>
-                                </li>
+                                        {{complete.boarding_time}}
 
-                                <!-- Last Button -->
-                                <li class="page-item"
-                                    [class.disabled]="completedata.data.current_page == completedata.data.last_page">
-                                    <a class="page-link" (click)="onLastPageCommission()">Last</a>
-                                </li>
+                                    </small>
 
-                            </ul>
-                        </nav>
-                    </div>
+                                </td>
+
+
+
+                                <!-- SEATS -->
+
+                                <td>
+
+                                    <span *ngFor="let seat of complete.booking_detail; let last=last">
+
+                                        {{seat.seat_name ? seat.seat_name : seat.bus_seats?.seats?.seatText}}
+
+                                        <span *ngIf="!last">
+
+                                            ,
+
+                                        </span>
+
+                                    </span>
+
+                                </td>
+
+
+
+                                <!-- PASSENGER -->
+
+                                <td>
+
+                                    <div>
+
+                                        <span *ngIf="complete.booking_detail
+                                            && complete.booking_detail.length>0">
+
+                                            {{complete.booking_detail[0].passenger_name}}
+
+                                        </span>
+
+
+                                        <span *ngIf="complete.booking_detail
+                                            && complete.booking_detail.length>1" class="passenger-more" [attr.title]="getPassengerNames(complete.booking_detail)">
+
+                                            +{{complete.booking_detail.length-1}}
+
+                                        </span>
+
+                                    </div>
+
+                                </td>
+
+
+
+                                <!-- TOTAL COMM -->
+
+                                <td class="green">
+
+                                    ₹{{complete.commission}}
+
+                                </td>
+
+
+
+                                <!-- TDS -->
+
+                                <td class="red">
+
+                                    ₹{{complete.tds}}
+
+                                </td>
+
+
+
+                                <!-- AFTER TDS -->
+
+                                <td class="green">
+
+                                    ₹{{complete.with_tds_commission}}
+
+                                </td>
+
+
+
+                                <!-- CUSTOMER COMM -->
+
+                                <td>
+
+                                    ₹{{complete.customer_commission}}
+
+                                </td>
+
+
+
+                                <!-- FARE -->
+
+                                <td class="blue">
+
+                                    ₹{{complete.total_fare}}
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
                 </div>
+
+
+                <!-- PAGINATION -->
+
+                <div class="pagination-wrapper">
+
+                    <div class="pagination-left">
+
+                        Showing
+
+                        1-{{completedata?.data.data?.length}}
+
+                        of
+
+                        {{completedata?.data.total}}
+
+                        entries
+
+                    </div>
+
+
+                    <div class="pagination-right">
+
+                        <ul class="pagination">
+
+                            <li>
+
+                                <a class="page-link" (click)="onPreviousPageCommission()">
+
+                                    Prev
+
+                                </a>
+
+                            </li>
+
+                            <li *ngFor="let b of completedata?.data.links">
+
+                                <a *ngIf="isPageVisibleCommission(b.label)" class="page-link"
+                                    [class.active]="completedata.data.current_page==b.label"
+                                    (click)="b.url && search(b.url)">
+
+                                    {{getPageLabelCommission(b.label)}}
+
+                                </a>
+
+                            </li>
+
+                            <li>
+
+                                <a class="page-link" (click)="onNextPageCommission()">
+
+                                    Next
+
+                                </a>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
             </div>
-        </app-card>
+
+        </div>
     </div>
 </div>

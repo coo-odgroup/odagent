@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AgentreportService } from '../../services/agentreport.service' ;
+import { AgentreportService } from '../../services/agentreport.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { BusOperatorService } from './../../services/bus-operator.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {CompleteReport} from '../../model/completereport';
+import { CompleteReport } from '../../model/completereport';
 import { LocationService } from '../../services/location.service';
-import { BusService} from '../../services/bus.service';
-import {NgbDate, NgbCalendar, NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
-import {Constants} from '../../constant/constant' ;
+import { BusService } from '../../services/bus.service';
+import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import { Constants } from '../../constant/constant';
 import * as XLSX from 'xlsx';
 import { NgxSpinnerService } from "ngx-spinner";
 
@@ -25,7 +25,9 @@ export class AgentcomissionreportComponent implements OnInit {
   completeReportRecord: CompleteReport;
 
   completedata: any;
-  totalfare = 0  ;
+  totalfare = 0;
+  totalNetComm = 0;
+  totalTickets = 0;
   busoperators: any;
   url: any;
   locations: any;
@@ -35,105 +37,141 @@ export class AgentcomissionreportComponent implements OnInit {
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
 
-  constructor(    
-    private spinner: NgxSpinnerService ,
-    private http: HttpClient , 
-    private rs:AgentreportService, 
-    private busOperatorService: BusOperatorService, 
+  constructor(
+    private spinner: NgxSpinnerService,
+    private http: HttpClient,
+    private rs: AgentreportService,
+    private busOperatorService: BusOperatorService,
     private fb: FormBuilder,
-    private locationService:LocationService,
-    private busService:BusService,
-    private calendar: NgbCalendar, 
+    private locationService: LocationService,
+    private busService: BusService,
+    private calendar: NgbCalendar,
     public formatter: NgbDateParserFormatter
-    ) { 
-      this.fromDate = calendar.getToday();
-      this.toDate = calendar.getToday();
-    }
-    title = 'angular-app';
-    fileName= 'Agent-Comission-Report.xlsx';
+  ) {
+    this.fromDate = calendar.getToday();
+    this.toDate = calendar.getToday();
+  }
+  title = 'angular-app';
+  fileName = 'Agent-Comission-Report.xlsx';
   ngOnInit(): void {
     this.spinner.show();
     this.searchFrom = this.fb.group({
       bus_operator_id: [null],
-      rangeFromDate:[null],
-      rangeToDate:[null],
-      payment_id : [null],
-      date_type:['booking'],
+      rangeFromDate: [null],
+      rangeToDate: [null],
+      payment_id: [null],
+      date_type: ['booking'],
       rows_number: Constants.RecordLimit,
-      source_id:[null],
-      destination_id:[null]
-    })  
-   
+      source_id: [null],
+      destination_id: [null]
+    })
+
 
     this.search();
     this.loadServices();
 
   }
 
-  exportexcel(): void
-  {
-    
+  exportexcel(): void {
+
     /* pass here the table id */
     let element = document.getElementById('print-section');
-    const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
- 
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
+
     /* generate workbook and add the worksheet */
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
- 
-    /* save to file */  
+
+    /* save to file */
     XLSX.writeFile(wb, this.fileName);
- 
+
   }
 
-  page(label:any){
+  page(label: any) {
     return label;
-   }
-  search(pageurl="")
-  {this.spinner.show();
-     this.completeReportRecord = this.searchFrom.value ; 
-     
+  }
+  search(pageurl = "") {
+    this.spinner.show();
+    this.completeReportRecord = this.searchFrom.value;
+
     const data = {
       bus_operator_id: this.completeReportRecord.bus_operator_id,
-      payment_id:this.completeReportRecord.payment_id,
-      date_type :this.completeReportRecord.date_type,
-      rows_number:this.completeReportRecord.rows_number,
-      source_id:this.completeReportRecord.source_id,
-      destination_id:this.completeReportRecord.destination_id,
-      rangeFromDate:this.completeReportRecord.rangeFromDate,
-      rangeToDate :this.completeReportRecord.rangeToDate,
-      user_id : localStorage.getItem('USERID'),       
+      payment_id: this.completeReportRecord.payment_id,
+      date_type: this.completeReportRecord.date_type,
+      rows_number: this.completeReportRecord.rows_number,
+      source_id: this.completeReportRecord.source_id,
+      destination_id: this.completeReportRecord.destination_id,
+      rangeFromDate: this.completeReportRecord.rangeFromDate,
+      rangeToDate: this.completeReportRecord.rangeToDate,
+      user_id: localStorage.getItem('USERID'),
     };
-   
-    if(pageurl!="")
-    {
-      this.rs.commissionpaginationReport(pageurl,data).subscribe(
+
+    if (pageurl != "") {
+      this.rs.commissionpaginationReport(pageurl, data).subscribe(
         res => {
-          this.completedata= res.data;
+          this.completedata = res.data;
           this.spinner.hide();
         }
       );
     }
-    else
-    {
+    else {
       this.rs.commissionReport(data).subscribe(
         res => {
-          this.completedata= res.data;
+          this.completedata = res.data;
           // console.log( this.completedata);
+          this.calculateSummary();
           this.spinner.hide();
         }
       );
     }
 
 
-    
+
   }
 
-  
+  calculateSummary() {
+
+    this.totalfare = 0;
+
+    this.totalNetComm = 0;
+
+    this.totalTickets = 0;
+
+    if (this.completedata?.data?.data) {
+
+      this.totalTickets = this.completedata.data.data.length;
+
+      this.completedata.data.data.forEach(x => {
+
+        this.totalfare += Number(x.total_fare || 0);
+
+        this.totalNetComm += Number(x.with_tds_commission || 0);
+
+      });
+
+    }
+
+  }
+
+  getPassengerNames(data: any) {
+
+    if (!data) {
+
+      return '';
+
+    }
+
+    return data
+      .map(x => x.passenger_name)
+      .join(', ');
+
+  }
 
 
-///////////////Function to Copy data to Clipboard/////////////////
-  copyMessage($event:any ){
+
+
+  ///////////////Function to Copy data to Clipboard/////////////////
+  copyMessage($event: any) {
     // console.log($event);
     const selBox = document.createElement('textarea');
     selBox.style.position = 'fixed';
@@ -148,18 +186,17 @@ export class AgentcomissionreportComponent implements OnInit {
     document.body.removeChild(selBox);
   }
 
-  refresh()
-  {
+  refresh() {
     this.spinner.show();
     this.searchFrom = this.fb.group({
       bus_operator_id: [null],
-      rangeFromDate:[null],
-      rangeToDate:[null],
-      payment_id : [null],
-      date_type:['booking'],
+      rangeFromDate: [null],
+      rangeToDate: [null],
+      payment_id: [null],
+      date_type: ['booking'],
       rows_number: Constants.RecordLimit,
-      source_id:[null],
-      destination_id:[null]
+      source_id: [null],
+      destination_id: [null]
 
     })
     this.search();
@@ -175,125 +212,122 @@ export class AgentcomissionreportComponent implements OnInit {
       }
     );
     this.locationService.readAll().subscribe(
-      records=>{
-        this.locations=records.data;
+      records => {
+        this.locations = records.data;
       }
     );
   }
 
-  findSource(event:any)
-{
-  let source_id=this.searchFrom.controls.source_id.value;
-  let destination_id=this.searchFrom.controls.destination_id.value;
+  findSource(event: any) {
+    let source_id = this.searchFrom.controls.source_id.value;
+    let destination_id = this.searchFrom.controls.destination_id.value;
 
 
-  if(source_id!="" && destination_id!="")
-  {
-    this.busService.findSource(source_id,destination_id).subscribe(
-      res=>{
-        this.buses=res.data;
-      }
-    );
+    if (source_id != "" && destination_id != "") {
+      this.busService.findSource(source_id, destination_id).subscribe(
+        res => {
+          this.buses = res.data;
+        }
+      );
+    }
+    else {
+      this.busService.all().subscribe(
+        res => {
+          this.buses = res.data;
+        }
+      );
+    }
   }
-  else
-  {
-    this.busService.all().subscribe(
-      res=>{
-        this.buses=res.data;
-      }
-    );
-  }
-}
 
 
-formatDate(date) {
-  var d = new Date(date),
+  formatDate(date) {
+    var d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
       year = d.getFullYear();
 
-  if (month.length < 2) 
+    if (month.length < 2)
       month = '0' + month;
-  if (day.length < 2) 
+    if (day.length < 2)
       day = '0' + day;
 
-  return [year, month, day].join('-');
-}
-onDateSelection(date: NgbDate) {
-  if (!this.fromDate && !this.toDate) {
-    this.searchFrom.controls.rangeFromDate.setValue(date);
-    this.fromDate = date;
-  } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
-    this.toDate = date;
-    this.searchFrom.controls.rangeToDate.setValue(date);
-  } else {
-    this.toDate = null;
-    this.fromDate = date;
-    this.searchFrom.controls.rangeFromDate.setValue(date);
+    return [year, month, day].join('-');
   }
-}
+  onDateSelection(date: NgbDate) {
+    if (!this.fromDate && !this.toDate) {
+      this.searchFrom.controls.rangeFromDate.setValue(date);
+      this.fromDate = date;
+    } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
+      this.toDate = date;
+      this.searchFrom.controls.rangeToDate.setValue(date);
+    } else {
+      this.toDate = null;
+      this.fromDate = date;
+      this.searchFrom.controls.rangeFromDate.setValue(date);
+    }
+  }
 
-validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
-  const parsed = this.formatter.parse(input);
-  return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
-}
-isHovered(date: NgbDate) {
-  return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
-}
+  validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
+    const parsed = this.formatter.parse(input);
+    return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
+  }
+  isHovered(date: NgbDate) {
+    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+  }
 
-isInside(date: NgbDate) {
-  return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
-}
+  isInside(date: NgbDate) {
+    return this.toDate && date.after(this.fromDate) && date.before(this.toDate);
+  }
 
-isRange(date: NgbDate) {
-  return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
-}
+  isRange(date: NgbDate) {
+    return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
+  }
 
-// Pagination helper methods for commission
-isPageVisibleCommission(label: any): boolean {
-  if (label === '&laquo;' || label === '&raquo;') {
+  // Pagination helper methods for commission
+  isPageVisibleCommission(label: any): boolean {
+    if (label === '&laquo;' || label === '&raquo;') {
+      return false;
+    }
+
+    if (label === '1' || label === '2' || label === '3') {
+      return true;
+    }
+
+    if (this.completedata?.data && parseInt(label) === this.completedata.data.current_page && parseInt(label) > 3) {
+      return true;
+    }
+
     return false;
   }
-  
-  if (label === '1' || label === '2' || label === '3') {
-    return true;
-  }
-  
-  if (this.completedata?.data && parseInt(label) === this.completedata.data.current_page && parseInt(label) > 3) {
-    return true;
-  }
-  
-  return false;
-}
 
-getPageLabelCommission(label: any): string {
-  if (label === '&laquo;' || label === '&raquo;') {
-    return '';
+  getPageLabelCommission(label: any): string {
+    if (label === '&laquo;' || label === '&raquo;') {
+      return '';
+    }
+    return label;
   }
-  return label;
-}
 
-onFirstPageCommission() {
-  if (this.completedata?.data && this.completedata.data.current_page !== 1 && this.completedata.data.links.first_page_url) {
-    this.search(this.completedata.data.links.first_page_url);
+  onFirstPageCommission() {
+    if (this.completedata?.data && this.completedata.data.current_page !== 1 && this.completedata.data.links.first_page_url) {
+      this.search(this.completedata.data.links.first_page_url);
+    }
   }
-}
 
-onPreviousPageCommission() {
-  if (this.completedata?.data && this.completedata.data.prev_page_url) {
-    this.search(this.completedata.data.prev_page_url);
+  onPreviousPageCommission() {
+    if (this.completedata?.data && this.completedata.data.prev_page_url) {
+      this.search(this.completedata.data.prev_page_url);
+    }
   }
-}
 
-onNextPageCommission() {
-  if (this.completedata?.data && this.completedata.data.next_page_url) {
-    this.search(this.completedata.data.next_page_url);
+  onNextPageCommission() {
+    if (this.completedata?.data && this.completedata.data.next_page_url) {
+      this.search(this.completedata.data.next_page_url);
+    }
   }
-}
 
-onLastPageCommission() {
-  if (this.completedata?.data && this.completedata.data.current_page !== this.completedata.data.last_page && this.completedata.data.links.last_page_url) {
-    this.search(this.completedata.data.links.last_page_url);
+  onLastPageCommission() {
+    if (this.completedata?.data && this.completedata.data.current_page !== this.completedata.data.last_page && this.completedata.data.links.last_page_url) {
+      this.search(this.completedata.data.links.last_page_url);
+    }
   }
-}
 }
