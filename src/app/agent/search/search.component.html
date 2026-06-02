@@ -55,6 +55,13 @@
       </div>
 
       <div class="justify-content-center" *ngIf="isShown">
+        <input type="text" autocomplete="username" style="display: none" />
+
+        <input
+          type="password"
+          autocomplete="new-password"
+          style="display: none"
+        />
         <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
           <div class="row">
             <span class="list-close" (click)="toggleShow()">Close</span>
@@ -74,7 +81,10 @@
                               ><img src="assets/img/Icon-metro-location.svg"
                             /></span>
                             <input
-                              autocomplete="off"
+                               autocomplete="new-password"
+                              autocorrect="off"
+                              autocapitalize="off"
+                              spellcheck="false"
                               id="typeahead-template"
                               type="text"
                               class="form-control"
@@ -108,7 +118,10 @@
                             /></span>
 
                             <input
-                              autocomplete="off"
+                               autocomplete="new-password"
+                              autocorrect="off"
+                              autocapitalize="off"
+                              spellcheck="false"
                               id="to"
                               type="text"
                               class="form-control"
@@ -1817,23 +1830,23 @@
 
             <div class="route-date">
               {{ entdate.split("-")[0] }}
-                  {{
-                    [
-                      "Jan",
-                      "Feb",
-                      "Mar",
-                      "Apr",
-                      "May",
-                      "Jun",
-                      "Jul",
-                      "Aug",
-                      "Sep",
-                      "Oct",
-                      "Nov",
-                      "Dec",
-                    ][+entdate.split("-")[1] - 1]
-                  }}
-                  {{ entdate.split("-")[2] }}
+              {{
+                [
+                  "Jan",
+                  "Feb",
+                  "Mar",
+                  "Apr",
+                  "May",
+                  "Jun",
+                  "Jul",
+                  "Aug",
+                  "Sep",
+                  "Oct",
+                  "Nov",
+                  "Dec",
+                ][+entdate.split("-")[1] - 1]
+              }}
+              {{ entdate.split("-")[2] }}
             </div>
           </div>
 

@@ -1,96 +1,105 @@
-<div class="container" *ngIf="
+<div
+  class="container"
+  *ngIf="
     this.flatConfig.layout === 'horizontal' &&
       this.flatConfig.subLayout === 'horizontal-2';
     else mainHeader
-  ">
+  "
+>
   <ng-container *ngTemplateOutlet="mainHeader"></ng-container>
 </div>
 <ng-template #mainHeader>
-
   <!-- mobile view -->
   <div class="mob-header d-md-none">
     <div class="b-brand">
       <a [routerLink]="['/dashboard/landing']">
-
-        <img id="main-logo" src="assets/images/odbus_pft_logo.png" class="logo" />
-
+        <img
+          id="main-logo"
+          src="assets/images/odbus_pft_logo.png"
+          class="logo"
+        />
       </a>
     </div>
     <div class="wallet-mobile">
       <i class="fas fa-wallet"></i>
       Balance: Rs {{ wallet_balance | async | number: "1.2-2" }}
-
     </div>
   </div>
 
-<!-- desktop view -->
+  <!-- desktop view -->
   <div class="m-header">
-    <a href="javascript:" class="mobile-menu" id="mobile-collapse" (click)="navCollapse()"><span></span></a>
+    <a
+      href="javascript:"
+      class="mobile-menu"
+      id="mobile-collapse"
+      (click)="navCollapse()"
+      ><span></span
+    ></a>
     <a [routerLink]="['/dashboard/landing']" class="b-brand">
-      <img id="main-logo" src="assets/images/odbus_logo.png" alt="" class="logo" />
+      <img
+        id="main-logo"
+        src="assets/images/odbus_logo.png"
+        alt=""
+        class="logo"
+      />
     </a>
-    <a class="mob-toggler" [ngClass]="{ on: this.menuClass }" href="javascript:" (click)="toggleMobOption()"><i
-        class="feather icon-more-vertical"></i></a>
+    <a
+      class="mob-toggler"
+      [ngClass]="{ on: this.menuClass }"
+      href="javascript:"
+      (click)="toggleMobOption()"
+      ><i class="feather icon-more-vertical"></i
+    ></a>
   </div>
   <div class="collapse navbar-collapse" [style.display]="this.collapseStyle">
     <app-nav-left class="mr-auto"></app-nav-left>
     <app-nav-right class="ml-auto"></app-nav-right>
   </div>
 
-
-
   <!-- Floating Support Button -->
-<div
-  class="support-float d-md-none"
-  (click)="toggleSupport()"
->
-  <i class="fas fa-headset"></i>
-</div>
-
-<div
-  class="support-overlay"
-  *ngIf="showSupport"
-  (click)="toggleSupport()"
-></div>
-
-<div
-  class="support-popup"
-  *ngIf="showSupport"
->
-
-  <div class="support-header">
-    Contact Support
-
-    <i
-      class="fas fa-times"
-      (click)="toggleSupport()"
-    ></i>
+  <div class="support-float d-md-none" (click)="toggleSupport()">
+    <i class="fas fa-headset"></i>
   </div>
 
-  <a href="tel:09583918888" class="support-item">
-    <i class="fas fa-phone"></i>
+  <div
+    class="support-overlay"
+    *ngIf="showSupport"
+    (click)="toggleSupport()"
+  ></div>
 
-    <div>
-      <div><b>09583918888</b></div>
-      <small>Tap to Call</small>
+  <div class="support-popup" *ngIf="showSupport">
+    <div class="support-header">
+      Contact Support
+
+      <i class="fas fa-times" (click)="toggleSupport()"></i>
     </div>
-  </a>
 
-  <a href="mailto:agent@odbus.in" class="support-item">
-    <i class="fas fa-envelope"></i>
+    <a href="tel:09583918888" class="support-item">
+      <i class="fas fa-phone"></i>
 
-    <div>
-      <div><b>agent@odbus.in</b></div>
-      <small>Tap to Email</small>
-    </div>
-  </a>
+      <div>
+        <div><b>09583918888</b></div>
+        <small>Tap to Call</small>
+      </div>
+    </a>
 
-</div>
+    <a href="mailto:agent@odbus.in" class="support-item">
+      <i class="fas fa-envelope"></i>
 
+      <div>
+        <div><b>agent@odbus.in</b></div>
+        <small>Tap to Email</small>
+      </div>
+    </a>
+  </div>
 
   <!-- Bottom Nav Bar -->
   <div class="mobile-bottom-nav d-md-none">
-    <div class="nav-item" *ngFor="let item of mobileMenus" (click)="goTo(item.route)">
+    <div
+      class="nav-item"
+      *ngFor="let item of mobileMenus"
+      (click)="goTo(item.route)"
+    >
       <i class="fa" [ngClass]="item.icon"></i>
       <span>{{ item.label }}</span>
     </div>
@@ -115,19 +124,26 @@
 
       <!-- MENU LIST -->
       <ul>
-        <li *ngFor="let item of menuItems" (click)="goTo(item.route)">
+        <!-- First 4 Items -->
+        <li
+          *ngFor="let item of menuItems.slice(0, 4)"
+          (click)="goTo(item.route)"
+        >
           <i class="fa mr-2" [ngClass]="item.icon"></i>
           {{ item.label }}
         </li>
 
+        <!-- Reports -->
         <li class="dropdown" (click)="toggleReport()">
           <span>
             <i class="fa fa-file mr-2"></i>
             Reports
           </span>
 
-          <i class="fa" [ngClass]="isReportOpen ? 'fa-chevron-up' : 'fa-chevron-down'">
-          </i>
+          <i
+            class="fa"
+            [ngClass]="isReportOpen ? 'fa-chevron-up' : 'fa-chevron-down'"
+          ></i>
         </li>
 
         <ul class="sub-menu" [class.open]="isReportOpen">
@@ -136,14 +152,16 @@
           </li>
         </ul>
 
-        <!-- LOGOUT -->
+        <!-- Remaining Items -->
+        <li *ngFor="let item of menuItems.slice(4)" (click)="goTo(item.route)">
+          <i class="fa mr-2" [ngClass]="item.icon"></i>
+          {{ item.label }}
+        </li>
 
+        <!-- Logout -->
         <li class="logout-item" (click)="logout()">
-
           <i class="fa fa-sign-out-alt mr-2"></i>
-
           Logout
-
         </li>
       </ul>
     </div>

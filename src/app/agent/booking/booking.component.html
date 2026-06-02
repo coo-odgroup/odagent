@@ -99,6 +99,8 @@
 
 <div class="clean-booking-wrapper">
   <div class="clean-booking-card-wrapper">
+    <input type="text" autocomplete="username" style="display: none" />
+    <input type="password" autocomplete="new-password" style="display: none" />
     <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
       <div class="clean-booking-card">
         <!-- FROM -->
@@ -110,6 +112,9 @@
             </div>
             <input
               autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
               type="text"
               class="form-control"
               [ngbTypeahead]="search"
@@ -140,6 +145,9 @@
 
             <input
               autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
               id="to"
               type="text"
               class="form-control"

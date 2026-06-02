@@ -36,21 +36,11 @@ export class NavBarComponent implements OnInit {
     },
   ];
 
-  public menuItems   = [
+  public menuItems = [
     {
       icon: 'fa-home',
       label: 'Dashboard',
       route: '/dashboard/landing',
-    },
-    {
-      icon: 'fa-user',
-      label: 'Agent Profile',
-      route: '/agent/agentprofile',
-    },
-    {
-      icon: 'fa-bell',
-      label: 'Notification',
-      route: '/agent/notification',
     },
     {
       icon: 'fa-wallet',
@@ -66,6 +56,16 @@ export class NavBarComponent implements OnInit {
       icon: 'fa-users',
       label: 'Customer Commission Slab',
       route: '/agent/customercommissionslab',
+    },
+    {
+      icon: 'fa-bell',
+      label: 'Notification',
+      route: '/agent/notification',
+    },
+    {
+      icon: 'fa-user',
+      label: 'My Profile',
+      route: '/agent/agentprofile',
     },
   ];
 
@@ -85,48 +85,44 @@ export class NavBarComponent implements OnInit {
   @Output() onNavCollapse = new EventEmitter();
   @Output() onNavHeaderMobCollapse = new EventEmitter();
 
-  constructor(private router: Router,public balance: WalletbalanceService) {
+  constructor(
+    private router: Router,
+    public balance: WalletbalanceService,
+  ) {
     this.flatConfig = NextConfig.config;
     this.menuClass = false;
     this.collapseStyle = 'none';
     this.windowWidth = window.innerWidth;
-    
   }
 
-  username:any;
-  user_id:any;
+  username: any;
+  user_id: any;
   //wallet_balance:any=0;
 
-  public wallet_balance : Observable<number>;
-
+  public wallet_balance: Observable<number>;
 
   ngOnInit() {
-    this.username=localStorage.getItem("USERNAME");
-    this.user_id=localStorage.getItem("USERID");
-    this.balance.getWalletBalance(this.user_id).subscribe(
-      res=>{      
-       if(res.status==1){
-        if(res.data.length > 0){
-          //this.wallet_balance= res.data[0].balance;   
-          this.balance.setWalletBalance(res.data[0].balance); 
-          this.wallet_balance = this.balance.WalletBalance(); 
-        }else{
-          this.balance.setWalletBalance(0); 
-          this.wallet_balance = this.balance.WalletBalance(); 
-
+    this.username = localStorage.getItem('USERNAME');
+    this.user_id = localStorage.getItem('USERID');
+    this.balance.getWalletBalance(this.user_id).subscribe((res) => {
+      if (res.status == 1) {
+        if (res.data.length > 0) {
+          //this.wallet_balance= res.data[0].balance;
+          this.balance.setWalletBalance(res.data[0].balance);
+          this.wallet_balance = this.balance.WalletBalance();
+        } else {
+          this.balance.setWalletBalance(0);
+          this.wallet_balance = this.balance.WalletBalance();
         }
-       }
-       
-      });
+      }
+    });
   }
-
-  
 
   showSupport = false;
 
-toggleSupport() {
-  this.showSupport = !this.showSupport;
-}
+  toggleSupport() {
+    this.showSupport = !this.showSupport;
+  }
 
   toggleMobOption() {
     this.menuClass = !this.menuClass;
