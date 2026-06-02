@@ -301,7 +301,7 @@
 													</div>
 
 													<div class="col-md-4">
-														<h6>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare }}</h6>
+														<h6>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare  | number:'1.2-2'}}</h6>
 													</div>
 
 
@@ -438,20 +438,20 @@
 										<h5>Fare Details</h5>
 										<div class="fare-item">
 											<span>Base Fare</span>
-											<span>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare }}</span>
+											<span>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare  | number:'1.2-2'}}</span>
 										</div>
 										<div class="fare-item">
 											<span>Customer GST</span>
 											<span style="color: green;">+ ₹
-												{{bookingdata.PriceArray.customerGst}}</span>
+												{{bookingdata.PriceArray.customerGst | number:'1.2-2'}}</span>
 										</div>
 										<div class="fare-item" *ngIf="applied_comission > 0">
 											<span>Commission</span>
-											<span>+ ₹ {{ applied_comission }}</span>
+											<span>+ ₹ {{ applied_comission | number:'1.2-2' }}</span>
 										</div>
 										<div class="fare-item total">
 											<span>Total</span>
-											<span>₹ {{ payableAmount }}</span>
+											<span>₹ {{ payableAmount | number:'1.2-2' }}</span>
 										</div>
 									</div>
 
@@ -630,7 +630,7 @@
 
 													<div class="col-md-4">
 														<h6><strong>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare
-																}}</strong></h6>
+																 | number:'1.2-2'}}</strong></h6>
 													</div>
 
 													<div class="col-md-8">
@@ -895,7 +895,7 @@
 																<tr>
 																	<td class="text-left">Base Fare</td>
 																	<td class="text-right">
-																		<b>₹{{bookingdata.PriceArray.odbus_charges_ownerFare}}</b>
+																		<b>₹{{bookingdata.PriceArray.odbus_charges_ownerFare  | number:'1.2-2'}}</b>
 																	</td>
 																</tr>
 

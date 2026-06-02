@@ -6,19 +6,21 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompleteReport } from '../../model/completereport';
 import { LocationService } from '../../services/location.service';
 import { BusService } from '../../services/bus.service';
-import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDate,
+  NgbCalendar,
+  NgbDateParserFormatter,
+} from '@ng-bootstrap/ng-bootstrap';
 import { Constants } from '../../constant/constant';
 import * as XLSX from 'xlsx';
-import { NgxSpinnerService } from "ngx-spinner";
-
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-agentcomissionreport',
   templateUrl: './agentcomissionreport.component.html',
-  styleUrls: ['./agentcomissionreport.component.scss']
+  styleUrls: ['./agentcomissionreport.component.scss'],
 })
 export class AgentcomissionreportComponent implements OnInit {
-
   public searchFrom: FormGroup;
 
   completeReport: CompleteReport[];
@@ -28,6 +30,7 @@ export class AgentcomissionreportComponent implements OnInit {
   totalfare = 0;
   totalNetComm = 0;
   totalTickets = 0;
+  expandedBooking: number | null = null;
   busoperators: any;
   url: any;
   locations: any;
@@ -46,7 +49,7 @@ export class AgentcomissionreportComponent implements OnInit {
     private locationService: LocationService,
     private busService: BusService,
     private calendar: NgbCalendar,
-    public formatter: NgbDateParserFormatter
+    public formatter: NgbDateParserFormatter,
   ) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getToday();
@@ -63,17 +66,14 @@ export class AgentcomissionreportComponent implements OnInit {
       date_type: ['booking'],
       rows_number: Constants.RecordLimit,
       source_id: [null],
-      destination_id: [null]
-    })
-
+      destination_id: [null],
+    });
 
     this.search();
     this.loadServices();
-
   }
 
   exportexcel(): void {
-
     /* pass here the table id */
     let element = document.getElementById('print-section');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
@@ -84,13 +84,12 @@ export class AgentcomissionreportComponent implements OnInit {
 
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
-
   }
 
   page(label: any) {
     return label;
   }
-  search(pageurl = "") {
+  search(pageurl = '') {
     this.spinner.show();
     this.completeReportRecord = this.searchFrom.value;
 
@@ -106,31 +105,27 @@ export class AgentcomissionreportComponent implements OnInit {
       user_id: localStorage.getItem('USERID'),
     };
 
-    if (pageurl != "") {
-      this.rs.commissionpaginationReport(pageurl, data).subscribe(
-        res => {
-          this.completedata = res.data;
-          this.spinner.hide();
-        }
-      );
+    if (pageurl != '') {
+      this.rs.commissionpaginationReport(pageurl, data).subscribe((res) => {
+        this.completedata = res.data;
+        this.spinner.hide();
+      });
+    } else {
+      this.rs.commissionReport(data).subscribe((res) => {
+        this.completedata = res.data;
+        // console.log( this.completedata);
+        this.calculateSummary();
+        this.spinner.hide();
+      });
     }
-    else {
-      this.rs.commissionReport(data).subscribe(
-        res => {
-          this.completedata = res.data;
-          // console.log( this.completedata);
-          this.calculateSummary();
-          this.spinner.hide();
-        }
-      );
-    }
+  }
 
 
-
+  toggleBooking(index: number) {
+    this.expandedBooking = this.expandedBooking === index ? null : index;
   }
 
   calculateSummary() {
-
     this.totalfare = 0;
 
     this.totalNetComm = 0;
@@ -138,37 +133,23 @@ export class AgentcomissionreportComponent implements OnInit {
     this.totalTickets = 0;
 
     if (this.completedata?.data?.data) {
-
       this.totalTickets = this.completedata.data.data.length;
 
-      this.completedata.data.data.forEach(x => {
-
+      this.completedata.data.data.forEach((x) => {
         this.totalfare += Number(x.total_fare || 0);
 
         this.totalNetComm += Number(x.with_tds_commission || 0);
-
       });
-
     }
-
   }
 
   getPassengerNames(data: any) {
-
     if (!data) {
-
       return '';
-
     }
 
-    return data
-      .map(x => x.passenger_name)
-      .join(', ');
-
+    return data.map((x) => x.passenger_name).join(', ');
   }
-
-
-
 
   ///////////////Function to Copy data to Clipboard/////////////////
   copyMessage($event: any) {
@@ -196,49 +177,34 @@ export class AgentcomissionreportComponent implements OnInit {
       date_type: ['booking'],
       rows_number: Constants.RecordLimit,
       source_id: [null],
-      destination_id: [null]
-
-    })
+      destination_id: [null],
+    });
     this.search();
   }
 
-
-
   loadServices() {
-
-    this.busOperatorService.readAll().subscribe(
-      res => {
-        this.busoperators = res.data;
-      }
-    );
-    this.locationService.readAll().subscribe(
-      records => {
-        this.locations = records.data;
-      }
-    );
+    this.busOperatorService.readAll().subscribe((res) => {
+      this.busoperators = res.data;
+    });
+    this.locationService.readAll().subscribe((records) => {
+      this.locations = records.data;
+    });
   }
 
   findSource(event: any) {
     let source_id = this.searchFrom.controls.source_id.value;
     let destination_id = this.searchFrom.controls.destination_id.value;
 
-
-    if (source_id != "" && destination_id != "") {
-      this.busService.findSource(source_id, destination_id).subscribe(
-        res => {
-          this.buses = res.data;
-        }
-      );
-    }
-    else {
-      this.busService.all().subscribe(
-        res => {
-          this.buses = res.data;
-        }
-      );
+    if (source_id != '' && destination_id != '') {
+      this.busService.findSource(source_id, destination_id).subscribe((res) => {
+        this.buses = res.data;
+      });
+    } else {
+      this.busService.all().subscribe((res) => {
+        this.buses = res.data;
+      });
     }
   }
-
 
   formatDate(date) {
     var d = new Date(date),
@@ -246,10 +212,8 @@ export class AgentcomissionreportComponent implements OnInit {
       day = '' + d.getDate(),
       year = d.getFullYear();
 
-    if (month.length < 2)
-      month = '0' + month;
-    if (day.length < 2)
-      day = '0' + day;
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
   }
@@ -257,7 +221,12 @@ export class AgentcomissionreportComponent implements OnInit {
     if (!this.fromDate && !this.toDate) {
       this.searchFrom.controls.rangeFromDate.setValue(date);
       this.fromDate = date;
-    } else if (this.fromDate && !this.toDate && date && date.after(this.fromDate)) {
+    } else if (
+      this.fromDate &&
+      !this.toDate &&
+      date &&
+      date.after(this.fromDate)
+    ) {
       this.toDate = date;
       this.searchFrom.controls.rangeToDate.setValue(date);
     } else {
@@ -269,10 +238,18 @@ export class AgentcomissionreportComponent implements OnInit {
 
   validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {
     const parsed = this.formatter.parse(input);
-    return parsed && this.calendar.isValid(NgbDate.from(parsed)) ? NgbDate.from(parsed) : currentValue;
+    return parsed && this.calendar.isValid(NgbDate.from(parsed))
+      ? NgbDate.from(parsed)
+      : currentValue;
   }
   isHovered(date: NgbDate) {
-    return this.fromDate && !this.toDate && this.hoveredDate && date.after(this.fromDate) && date.before(this.hoveredDate);
+    return (
+      this.fromDate &&
+      !this.toDate &&
+      this.hoveredDate &&
+      date.after(this.fromDate) &&
+      date.before(this.hoveredDate)
+    );
   }
 
   isInside(date: NgbDate) {
@@ -280,7 +257,12 @@ export class AgentcomissionreportComponent implements OnInit {
   }
 
   isRange(date: NgbDate) {
-    return date.equals(this.fromDate) || (this.toDate && date.equals(this.toDate)) || this.isInside(date) || this.isHovered(date);
+    return (
+      date.equals(this.fromDate) ||
+      (this.toDate && date.equals(this.toDate)) ||
+      this.isInside(date) ||
+      this.isHovered(date)
+    );
   }
 
   // Pagination helper methods for commission
@@ -293,7 +275,11 @@ export class AgentcomissionreportComponent implements OnInit {
       return true;
     }
 
-    if (this.completedata?.data && parseInt(label) === this.completedata.data.current_page && parseInt(label) > 3) {
+    if (
+      this.completedata?.data &&
+      parseInt(label) === this.completedata.data.current_page &&
+      parseInt(label) > 3
+    ) {
       return true;
     }
 
@@ -308,7 +294,11 @@ export class AgentcomissionreportComponent implements OnInit {
   }
 
   onFirstPageCommission() {
-    if (this.completedata?.data && this.completedata.data.current_page !== 1 && this.completedata.data.links.first_page_url) {
+    if (
+      this.completedata?.data &&
+      this.completedata.data.current_page !== 1 &&
+      this.completedata.data.links.first_page_url
+    ) {
       this.search(this.completedata.data.links.first_page_url);
     }
   }
@@ -326,7 +316,12 @@ export class AgentcomissionreportComponent implements OnInit {
   }
 
   onLastPageCommission() {
-    if (this.completedata?.data && this.completedata.data.current_page !== this.completedata.data.last_page && this.completedata.data.links.last_page_url) {
+    if (
+      this.completedata?.data &&
+      this.completedata.data.current_page !==
+        this.completedata.data.last_page &&
+      this.completedata.data.links.last_page_url
+    ) {
       this.search(this.completedata.data.links.last_page_url);
     }
   }

@@ -199,13 +199,13 @@
                       *ngIf="page.transaction_type == 'c'"
                       class="amount-credit"
                     >
-                      +{{ page.amount }}
+                      +{{ page.amount | number: "1.2-2" }}
                     </span>
                     <span
                       *ngIf="page.transaction_type == 'd'"
                       class="amount-debit"
                     >
-                      -{{ page.amount }}
+                      -{{ page.amount | number: "1.2-2"}}
                     </span>
                   </td>
                   <td>
@@ -224,7 +224,7 @@
                       Debit
                     </label>
                   </td>
-                  <td>{{ page.balance }}</td>
+                  <td>{{ page.balance | number: "1.2-2"}}</td>
                   <td>
                     <span *ngIf="page.type == 'Commission'">
                       Commission Received

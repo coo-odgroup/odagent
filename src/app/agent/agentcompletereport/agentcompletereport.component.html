@@ -304,7 +304,7 @@
 
               <td>
                
-                {{ complete.total_fare + complete.agent_commission }}
+                {{ complete.total_fare + complete.agent_commission | number: "1.2-2" }}
               </td>
               <td>
                 <div class="text-center">

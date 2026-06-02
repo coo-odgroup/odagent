@@ -555,3 +555,191 @@ ng-select {
     font-weight: 700;
 
 }
+
+@media (max-width: 768px) {
+
+  .mobile-report-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .agent-ticket-card {
+    background: #fff;
+    border: 1px solid #dbe5ff;
+    border-radius: 20px;
+    padding: 18px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.05);
+  }
+
+  .ticket-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 14px;
+  }
+
+  .ticket-header h4 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    color: #123d8b;
+  }
+
+  .ticket-header small {
+    display: block;
+    margin-top: 4px;
+    color: #6b7280;
+    font-size: 13px;
+  }
+
+  .ticket-fare {
+    font-size: 26px;
+    font-weight: 700;
+    color: #16a34a;
+  }
+
+  .ticket-route-pill {
+    display: inline-flex;
+    align-items: center;
+    background: #eef4ff;
+    color: #123d8b;
+    padding: 8px 14px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+  }
+
+  .detail-row:not(:last-child) {
+    border-bottom: 1px dashed #edf2f7;
+  }
+
+  .detail-row span {
+    color: #7c8db5;
+    font-size: 13px;
+  }
+
+  .detail-row strong {
+    color: #123d8b;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: right;
+    max-width: 60%;
+  }
+
+  .ticket-more {
+    margin-top: 15px;
+  }
+
+  .more-btn {
+    border: none;
+    background: #eef4ff;
+    color: #123d8b;
+    border-radius: 24px;
+    padding: 8px 16px;
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .ticket-expand {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dashed #dbe5ff;
+  }
+}
+
+.mobile-report-cards {
+  gap: 18px;
+}
+
+.agent-ticket-card {
+  background: #fff;
+  border: 1px solid #dce6ff;
+  border-radius: 22px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+
+.ticket-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+}
+
+.ticket-header h4 {
+  margin:0;
+  font-size:18px;
+  font-weight:700;
+  color:#123d8b;
+}
+
+.ticket-fare {
+  color:#12a63a;
+  font-size:18px;
+  font-weight:700;
+}
+
+.ticket-route-row {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:18px;
+}
+
+.ticket-route-pill {
+  background:#eef3ff;
+  padding:8px 14px;
+  border-radius:20px;
+  font-size:13px;
+  color:#123d8b;
+}
+
+.more-btn {
+  border:none;
+  background:#eef3ff;
+  color:#123d8b;
+  padding:8px 14px;
+  border-radius:20px;
+  font-weight:600;
+}
+
+.ticket-footer {
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid #d6d6d6;
+  display:flex;
+  justify-content:space-between;
+  font-size:14px;
+  font-weight:600;
+}
+
+.ticket-expand {
+  margin-top:14px;
+  padding-top:14px;
+  border-top:1px dashed #d6d6d6;
+}
+
+@media (max-width: 768px) {
+
+  .mobile-report-cards {
+    margin: 0;
+    padding: 0;
+  }
+
+  .report-card {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+
+}
