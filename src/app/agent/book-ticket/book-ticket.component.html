@@ -639,7 +639,7 @@
 
 													<div class="col-md-4"
 														style="color: green;font-weight: bold;font-style: italic;">
-														<h6><strong>+ ₹ {{bookingdata.PriceArray.customerGst}}</strong>
+														<h6><strong>+ ₹ {{bookingdata.PriceArray.customerGst | number:'1.2-2'}}</strong>
 														</h6>
 													</div>
 
@@ -652,7 +652,7 @@
 													</div>
 
 													<div class="col-md-4" *ngIf="applied_comission > 0">
-														<h6><strong>+ ₹ {{ applied_comission }}</strong></h6>
+														<h6><strong>+ ₹ {{ applied_comission  | number:'1.2-2' }}</strong></h6>
 													</div>
 
 
@@ -661,7 +661,7 @@
 													</div>
 
 													<div class="col-md-4">
-														<h5>₹ {{ payableAmount }}</h5>
+														<h5>₹ {{ payableAmount  | number:'1.2-2'  }}</h5>
 													</div>
 
 												</div>
