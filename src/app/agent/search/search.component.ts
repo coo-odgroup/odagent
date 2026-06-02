@@ -31,7 +31,6 @@ import { CommonService } from '../../services/common.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Lightbox } from 'ngx-lightbox';
 
-
 export const DATEPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => SearchComponent),
@@ -51,10 +50,10 @@ export class SearchComponent implements ControlValueAccessor {
   _albums = [];
 
   // Function to call when the date changes.
-  onChange = (date?: Date) => { };
+  onChange = (date?: Date) => {};
 
   // Function to call when the date picker is touched
-  onTouched = () => { };
+  onTouched = () => {};
 
   writeValue(value: Date) {
     if (!value) return;
@@ -254,14 +253,14 @@ export class SearchComponent implements ControlValueAccessor {
           term === ''
             ? []
             : this.location_list
-              .filter(
-                (v) =>
-                  v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
-                  (v.synonym != '' &&
-                    v.synonym != null &&
-                    v.synonym.toLowerCase().indexOf(term.toLowerCase()) > -1),
-              )
-              .slice(0, 10),
+                .filter(
+                  (v) =>
+                    v.name.toLowerCase().indexOf(term.toLowerCase()) > -1 ||
+                    (v.synonym != '' &&
+                      v.synonym != null &&
+                      v.synonym.toLowerCase().indexOf(term.toLowerCase()) > -1),
+                )
+                .slice(0, 10),
         ),
       );
 
@@ -365,87 +364,80 @@ export class SearchComponent implements ControlValueAccessor {
     }
   }
 
-
   mobileQuickFilter(type: any) {
 
-  this.filterType = type;
+    if (this.filterType === type) {
+      this.filterType = '';
 
-  // RESET FIRST
-  this.resetFilterForm();
+      this.resetFilterForm();
 
-  // AC
-  if (type == 'ac') {
+      return;
+    }
 
-    const acBus = this.busTypes.filter(
-      (x: any) =>
-        x.class_name.toLowerCase().includes('ac')
-    );
+    this.filterType = type;
 
-    acBus.forEach((item: any) => {
-      const busType = this.filterForm.get('busType') as FormArray;
-      busType.push(new FormControl(item.id));
-    });
 
+    this.resetFilterForm();
+
+
+    if (type == 'ac') {
+      const acBus = this.busTypes.filter((x: any) =>
+        x.class_name.toLowerCase().includes('ac'),
+      );
+
+      acBus.forEach((item: any) => {
+        const busType = this.filterForm.get('busType') as FormArray;
+        busType.push(new FormControl(item.id));
+      });
+    }
+
+
+    else if (type == 'nonac') {
+      const nonAcBus = this.busTypes.filter((x: any) =>
+        x.class_name.toLowerCase().includes('non'),
+      );
+
+      nonAcBus.forEach((item: any) => {
+        const busType = this.filterForm.get('busType') as FormArray;
+        busType.push(new FormControl(item.id));
+      });
+    }
+
+    // SEATER
+    else if (type == 'seater') {
+      const seater = this.seatTypes.filter((x: any) =>
+        x.name.toLowerCase().includes('seater'),
+      );
+
+      seater.forEach((item: any) => {
+        const seatType = this.filterForm.get('seatType') as FormArray;
+        seatType.push(new FormControl(item.id));
+      });
+    }
+
+    // SLEEPER
+    else if (type == 'sleeper') {
+      const sleeper = this.seatTypes.filter((x: any) =>
+        x.name.toLowerCase().includes('sleeper'),
+      );
+
+      sleeper.forEach((item: any) => {
+        const seatType = this.filterForm.get('seatType') as FormArray;
+        seatType.push(new FormControl(item.id));
+      });
+    }
+
+    // BOARDING
+    else if (type == 'boarding') {
+      this.openFilter();
+      this.boardingExpand = true;
+
+      return;
+    }
+
+    // APPLY FILTER
+    this.submitFilterForm();
   }
-
-  // NON AC
-  else if (type == 'nonac') {
-
-    const nonAcBus = this.busTypes.filter(
-      (x: any) =>
-        x.class_name.toLowerCase().includes('non')
-    );
-
-    nonAcBus.forEach((item: any) => {
-      const busType = this.filterForm.get('busType') as FormArray;
-      busType.push(new FormControl(item.id));
-    });
-
-  }
-
-  // SEATER
-  else if (type == 'seater') {
-
-    const seater = this.seatTypes.filter(
-      (x: any) =>
-        x.name.toLowerCase().includes('seater')
-    );
-
-    seater.forEach((item: any) => {
-      const seatType = this.filterForm.get('seatType') as FormArray;
-      seatType.push(new FormControl(item.id));
-    });
-
-  }
-
-  // SLEEPER
-  else if (type == 'sleeper') {
-
-    const sleeper = this.seatTypes.filter(
-      (x: any) =>
-        x.name.toLowerCase().includes('sleeper')
-    );
-
-    sleeper.forEach((item: any) => {
-      const seatType = this.filterForm.get('seatType') as FormArray;
-      seatType.push(new FormControl(item.id));
-    });
-
-  }
-
-  // BOARDING
-  else if (type == 'boarding') {
-
-    this.openFilter();
-    this.boardingExpand = true;
-
-    return;
-  }
-
-  // APPLY FILTER
-  this.submitFilterForm();
-
-}
 
   updateUpperberth(e: any) {
     const Upperberth: FormArray = this.seatForm.get('Upperberth') as FormArray;
@@ -1873,7 +1865,6 @@ export class SearchComponent implements ControlValueAccessor {
   }
 
   changeDate(date: any) {
-
     // FORMAT DATE PROPERLY
     this.entdate = this.datePipe.transform(date, 'dd-MM-yyyy');
 
@@ -1893,7 +1884,6 @@ export class SearchComponent implements ControlValueAccessor {
     this.getbuslist();
 
     this.setPrevNextDate(this.entdate);
-
   }
 
   sortDirection: any = {
@@ -1902,11 +1892,10 @@ export class SearchComponent implements ControlValueAccessor {
     duration: true,
     arrival: true,
     seats: true,
-    price: true
+    price: true,
   };
 
   sortBuses(type: string) {
-
     this.sortDirection[type] = !this.sortDirection[type];
 
     const isAsc = this.sortDirection[type];
@@ -1916,74 +1905,65 @@ export class SearchComponent implements ControlValueAccessor {
           return isAsc
             ? a.busName.localeCompare(b.busName)
             : b.busName.localeCompare(a.busName);
-
         });
         break;
       case 'departure':
         this.buslist.sort((a: any, b: any) => {
           return isAsc
-            ? this.convertTime(a.departureTime) - this.convertTime(b.departureTime)
-            : this.convertTime(b.departureTime) - this.convertTime(a.departureTime);
+            ? this.convertTime(a.departureTime) -
+                this.convertTime(b.departureTime)
+            : this.convertTime(b.departureTime) -
+                this.convertTime(a.departureTime);
         });
         break;
       case 'arrival':
-
         this.buslist.sort((a: any, b: any) => {
-
           return isAsc
             ? this.convertTime(a.arrivalTime) - this.convertTime(b.arrivalTime)
             : this.convertTime(b.arrivalTime) - this.convertTime(a.arrivalTime);
-
         });
 
         break;
 
       case 'duration':
         this.buslist.sort((a: any, b: any) => {
-
           return isAsc
-            ? this.convertDuration(a.totalJourneyTime) - this.convertDuration(b.totalJourneyTime)
-            : this.convertDuration(b.totalJourneyTime) - this.convertDuration(a.totalJourneyTime);
+            ? this.convertDuration(a.totalJourneyTime) -
+                this.convertDuration(b.totalJourneyTime)
+            : this.convertDuration(b.totalJourneyTime) -
+                this.convertDuration(a.totalJourneyTime);
         });
         break;
 
       case 'seats':
         this.buslist.sort((a: any, b: any) => {
-
           return isAsc
             ? a.totalSeats - b.totalSeats
             : b.totalSeats - a.totalSeats;
-
         });
 
         break;
       case 'price':
         this.buslist.sort((a: any, b: any) => {
-
           return isAsc
             ? a.startingFromPrice - b.startingFromPrice
-            : b.startingFromPrice - a.startingFromPrice
+            : b.startingFromPrice - a.startingFromPrice;
         });
         break;
     }
-
   }
 
   convertTime(time: string): number {
-
     const parts = time.split(':');
-    return (+parts[0] * 60) + (+parts[1]);
-
+    return +parts[0] * 60 + +parts[1];
   }
 
   convertDuration(duration: string): number {
-
     const match = duration.match(/(\d+)h\s*(\d+)m/);
     if (!match) {
       return 0;
     }
 
-    return (+match[1] * 60) + (+match[2]);
-
+    return +match[1] * 60 + +match[2];
   }
 }

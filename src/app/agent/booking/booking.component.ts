@@ -190,39 +190,49 @@ export class BookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const searches = localStorage.getItem('recentSearches');
+    const userId = localStorage.getItem('USERID');
+    const searches = localStorage.getItem(`recentSearches_${userId}`);
 
     if (searches) {
       this.recentSearches = JSON.parse(searches);
     }
   }
 
-  saveRecentSearch(source: any, destination: any, date: string) {
-    let searches = JSON.parse(localStorage.getItem('recentSearches') || '[]');
+ saveRecentSearch(source: any, destination: any, date: string) {
+  const userId = localStorage.getItem('USERID');
 
-    searches.unshift({
-      from: source.name,
-      to: destination.name,
-      sourceObj: source,
-      destinationObj: destination,
-      date: date,
-    });
+  let searches = JSON.parse(
+    localStorage.getItem(`recentSearches_${userId}`) || '[]',
+  );
 
-    searches = searches.filter(
-      (item, index, self) =>
-        index ===
-        self.findIndex(
-          (x) =>
-            x.from === item.from && x.to === item.to && x.date === item.date,
-        ),
-    );
+  searches.unshift({
+    from: source.name,
+    to: destination.name,
+    sourceObj: source,
+    destinationObj: destination,
+    date: date,
+  });
 
-    searches = searches.slice(0, 5);
+  searches = searches.filter(
+    (item, index, self) =>
+      index ===
+      self.findIndex(
+        (x) =>
+          x.from === item.from &&
+          x.to === item.to &&
+          x.date === item.date,
+      ),
+  );
 
-    localStorage.setItem('recentSearches', JSON.stringify(searches));
+  searches = searches.slice(0, 5);
 
-    this.recentSearches = searches;
-  }
+  localStorage.setItem(
+    `recentSearches_${userId}`,
+    JSON.stringify(searches)
+  );
+
+  this.recentSearches = searches;
+}
 
   searchRecent(item: any) {
     this.locationService.setSource(item.sourceObj);
