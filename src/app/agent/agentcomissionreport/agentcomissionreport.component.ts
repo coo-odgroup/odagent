@@ -113,14 +113,18 @@ export class AgentcomissionreportComponent implements OnInit {
     } else {
       this.rs.commissionReport(data).subscribe((res) => {
         this.completedata = res.data;
-        // console.log( this.completedata);
+        console.log(this.completedata);
         this.calculateSummary();
         this.spinner.hide();
       });
     }
   }
 
+  showFilters = false;
 
+  toggleFilters() {
+    this.showFilters = !this.showFilters;
+  }
   toggleBooking(index: number) {
     this.expandedBooking = this.expandedBooking === index ? null : index;
   }
@@ -234,6 +238,14 @@ export class AgentcomissionreportComponent implements OnInit {
       this.fromDate = date;
       this.searchFrom.controls.rangeFromDate.setValue(date);
     }
+  }
+
+  getSeatNames(seats: any[]): string {
+    return seats
+      .map((seat) =>
+        seat.seat_name ? seat.seat_name : seat.bus_seats?.seats?.seatText,
+      )
+      .join(', ');
   }
 
   validateInput(currentValue: NgbDate | null, input: string): NgbDate | null {

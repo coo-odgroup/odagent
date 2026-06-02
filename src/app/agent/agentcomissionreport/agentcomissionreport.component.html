@@ -11,23 +11,40 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="transaction-wrapper">
-      <div class="transaction-header">
-        <h2 class="trans-title">Agent Commission Report</h2>
+     <div class="transaction-header">
 
-        <div class="top-buttons">
-          <button class="btn btn-success top-btn" (click)="exportexcel()">
-            Export
-          </button>
+  <h2 class="trans-title">Agent Commission Report</h2>
 
-          <button
-            ngxPrint
-            printSectionId="print-section"
-            class="btn btn-dark top-btn"
-          >
-            Print
-          </button>
-        </div>
-      </div>
+  <div class="top-buttons">
+
+    <button
+      type="button"
+      class="filter-toggle-btn d-block d-md-none"
+      (click)="toggleFilters()"
+    >
+      <i class="fas fa-sliders-h"></i>
+    </button>
+
+    <button
+      class="btn btn-success top-btn d-none d-md-inline-block"
+      (click)="exportexcel()"
+    >
+      Export
+    </button>
+
+    <button
+      ngxPrint
+      printSectionId="print-section"
+      class="btn btn-dark top-btn d-none d-md-inline-block"
+    >
+      Print
+    </button>
+
+  </div>
+
+</div>
+
+
 
       <!-- SUMMARY -->
 
@@ -55,7 +72,8 @@
 
       <!-- FILTER -->
 
-      <div class="filter-card">
+      <div class="filter-card"
+      [class.mobile-filter-show]="showFilters">
         <form [formGroup]="searchFrom">
           <div class="row">
             <div class="col-lg-2">
@@ -234,18 +252,27 @@
 
                 <td>
                   <span
-                    *ngFor="
-                      let seat of complete.booking_detail;
-                      let last = last
+                    *ngIf="
+                      complete.booking_detail &&
+                      complete.booking_detail.length > 0
                     "
                   >
                     {{
-                      seat.seat_name
-                        ? seat.seat_name
-                        : seat.bus_seats?.seats?.seatText
+                      complete.booking_detail[0].seat_name
+                        ? complete.booking_detail[0].seat_name
+                        : complete.booking_detail[0].bus_seats?.seats?.seatText
                     }}
+                  </span>
 
-                    <span *ngIf="!last"> , </span>
+                  <span
+                    *ngIf="
+                      complete.booking_detail &&
+                      complete.booking_detail.length > 1
+                    "
+                    class="passenger-more"
+                    [attr.title]="getSeatNames(complete.booking_detail)"
+                  >
+                    +{{ complete.booking_detail.length - 1 }}
                   </span>
                 </td>
 
@@ -274,11 +301,25 @@
                     </span>
                   </div>
                 </td>
-                <td class="green">₹{{ complete.commission | number:'1.2-2'}}</td>
-                <td class="red">₹{{ complete.tds | number:'1.2-2'}}</td>
-                <td class="green">₹{{ complete.with_tds_commission| number:'1.2-2' }}</td>
-                <td>₹{{ complete.customer_commission| number:'1.2-2' }}</td>
-                <td class="blue">₹{{ complete.total_fare | number:'1.2-2' }}</td>
+               <td class="green">
+                  ₹{{
+                      (
+                        (complete.customer_comission || 0) +
+                        (complete.agent_commission || 0) +
+                        (complete.tds || 0)
+                      ) | number:'1.2-2'
+                    }}
+                </td>
+                <td class="red">₹{{ complete.tds | number: "1.2-2" }}</td>
+                <td class="green">  ₹{{
+                      (
+                        (complete.customer_comission || 0) +
+                        (complete.agent_commission || 0) -
+                        (complete.tds || 0)
+                      ) | number:'1.2-2'
+                    }}</td>
+                <td>₹{{ complete.customer_comission | number: "1.2-2" }}</td>
+                <td class="blue">₹{{ complete.total_fare | number: "1.2-2" }}</td>
               </tr>
             </tbody>
           </table>
@@ -300,11 +341,12 @@
                 </small>
               </div>
 
-              <div class="ticket-fare">₹{{ complete.total_fare | number:'1.2-2' }}</div>
+              <div class="ticket-fare">
+                ₹{{ complete.total_fare | number: "1.2-2" }}
+              </div>
             </div>
 
             <!-- Route -->
-
 
             <div class="ticket-route-row">
               <div class="ticket-route-pill">
@@ -412,7 +454,13 @@
 
               <div class="detail-row">
                 <span>Commission</span>
-                <strong class="green"> ₹{{ complete.commission }} </strong>
+                <strong class="green">  ₹{{
+                      (
+                        (complete.customer_comission || 0) +
+                        (complete.agent_commission || 0) +
+                        (complete.tds || 0)
+                      ) | number:'1.2-2'
+                    }} </strong>
               </div>
 
               <div class="detail-row">
@@ -423,44 +471,54 @@
               <div class="detail-row">
                 <span>After TDS</span>
                 <strong class="green">
-                  ₹{{ complete.with_tds_commission }}
+                  ₹{{
+                      (
+                        (complete.customer_comission || 0) +
+                        (complete.agent_commission || 0) -
+                        (complete.tds || 0)
+                      ) | number:'1.2-2'
+                    }}
                 </strong>
               </div>
 
               <div class="detail-row">
                 <span>Customer Comm.</span>
-                <strong> ₹{{ complete.customer_commission | number:'1.2-2' }} </strong>
+                <strong>
+                 ₹{{ complete.customer_comission | number: "1.2-2" }}
+                </strong>
               </div>
 
               <div class="detail-row">
                 <span>Total Fare</span>
-                <strong class="blue"> ₹{{ complete.total_fare | number:'1.2-2' }} </strong>
+                <strong class="blue">
+                  ₹{{ complete.total_fare | number: "1.2-2" }}
+                </strong>
               </div>
             </div>
             <div class="ticket-footer">
+              <div>
+                {{ complete.booking_detail[0].passenger_name }}
 
-  <div>
+                <span
+                  *ngIf="
+                    complete.booking_detail &&
+                    complete.booking_detail.length > 1
+                  "
+                >
+                  +{{ complete.booking_detail.length - 1 }}
+                </span>
+              </div>
 
-    {{ complete.booking_detail[0].passenger_name }}
-
-    <span
-      *ngIf="
-        complete.booking_detail &&
-        complete.booking_detail.length > 1
-      "
-    >
-      +{{ complete.booking_detail.length - 1 }}
-    </span>
-
-  </div>
-
-  <div>
-
-    Total Comm ₹{{ complete.with_tds_commission | number:'1.2-2' }}
-
-  </div>
-
-</div>
+              <div>
+                Total Comm ₹{{
+                      (
+                        (complete.customer_comission || 0) +
+                        (complete.agent_commission || 0) -
+                        (complete.tds || 0)
+                      ) | number:'1.2-2'
+                    }}
+              </div>
+            </div>
           </div>
         </div>
 

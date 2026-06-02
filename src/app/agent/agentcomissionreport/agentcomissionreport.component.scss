@@ -456,16 +456,13 @@ ng-select {
 
     }
 
-    .top-buttons {
-
-        width: 100%;
-
+     .top-buttons {
+        width: auto;
+        margin-left: auto;
     }
 
-    .top-btn {
-
-        flex: 1;
-
+      .top-btn {
+        flex: unset;
     }
 
     .action-buttons {
@@ -742,4 +739,104 @@ ng-select {
     padding: 0 !important;
   }
 
+}
+
+/* Mobile Filter Button */
+
+.mobile-filter-toggle {
+  text-align: right;
+  margin-bottom: 15px;
+}
+
+.filter-toggle-btn {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 14px;
+  background: #173e77;
+  color: #fff;
+  font-size: 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+/* Mobile */
+
+@media (max-width: 768px) {
+
+  .filter-card {
+    display: none;
+  }
+
+  .filter-card.mobile-filter-show {
+    display: block;
+    margin-bottom: 15px;
+  }
+
+  .filter-card .row > div {
+    margin-bottom: 12px;
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 10px;
+  }
+
+  .action-buttons .btn {
+    flex: 1;
+  }
+}
+@media (max-width: 768px) {
+
+  .summary-cards {
+    display: flex;
+    background: #173f7a;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    gap: 0;
+  }
+
+  .summary-box {
+    flex: 1;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 14px 8px;
+    text-align: center;
+    position: relative;
+  }
+
+  .summary-box:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 15%;
+    height: 70%;
+    width: 1px;
+    background: rgba(255,255,255,.15);
+  }
+
+  .summary-box span {
+    color: #b9d1ff;
+    font-size: 10px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .summary-box h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .summary-box .balance {
+    color: #ffffff;
+  }
+
+  .summary-box .credit {
+    color: #54ff95;
+  }
 }
