@@ -11,40 +11,34 @@
 <div class="row">
   <div class="col-sm-12">
     <div class="transaction-wrapper">
-     <div class="transaction-header">
+      <div class="transaction-header">
+        <h2 class="trans-title">Agent Commission Report</h2>
 
-  <h2 class="trans-title">Agent Commission Report</h2>
+        <div class="top-buttons">
+          <button
+            type="button"
+            class="filter-toggle-btn d-block d-md-none"
+            (click)="toggleFilters()"
+          >
+            <i class="fas fa-sliders-h"></i>
+          </button>
 
-  <div class="top-buttons">
+          <button
+            class="btn btn-success top-btn d-none d-md-inline-block"
+            (click)="exportexcel()"
+          >
+            Export
+          </button>
 
-    <button
-      type="button"
-      class="filter-toggle-btn d-block d-md-none"
-      (click)="toggleFilters()"
-    >
-      <i class="fas fa-sliders-h"></i>
-    </button>
-
-    <button
-      class="btn btn-success top-btn d-none d-md-inline-block"
-      (click)="exportexcel()"
-    >
-      Export
-    </button>
-
-    <button
-      ngxPrint
-      printSectionId="print-section"
-      class="btn btn-dark top-btn d-none d-md-inline-block"
-    >
-      Print
-    </button>
-
-  </div>
-
-</div>
-
-
+          <button
+            ngxPrint
+            printSectionId="print-section"
+            class="btn btn-dark top-btn d-none d-md-inline-block"
+          >
+            Print
+          </button>
+        </div>
+      </div>
 
       <!-- SUMMARY -->
 
@@ -72,8 +66,7 @@
 
       <!-- FILTER -->
 
-      <div class="filter-card"
-      [class.mobile-filter-show]="showFilters">
+      <div class="filter-card" [class.mobile-filter-show]="showFilters">
         <form [formGroup]="searchFrom">
           <div class="row">
             <div class="col-lg-2">
@@ -301,25 +294,25 @@
                     </span>
                   </div>
                 </td>
-               <td class="green">
+                <td class="green">
                   ₹{{
-                      (
-                        (complete.customer_comission || 0) +
-                        (complete.agent_commission || 0) +
-                        (complete.tds || 0)
-                      ) | number:'1.2-2'
-                    }}
+                    (complete.customer_comission || 0) +
+                      (complete.agent_commission || 0) +
+                      (complete.tds || 0) | number: "1.2-2"
+                  }}
                 </td>
                 <td class="red">₹{{ complete.tds | number: "1.2-2" }}</td>
-                <td class="green">  ₹{{
-                      (
-                        (complete.customer_comission || 0) +
-                        (complete.agent_commission || 0) -
-                        (complete.tds || 0)
-                      ) | number:'1.2-2'
-                    }}</td>
+                <td class="green">
+                  ₹{{
+                    (complete.customer_comission || 0) +
+                      (complete.agent_commission || 0) -
+                      (complete.tds || 0) | number: "1.2-2"
+                  }}
+                </td>
                 <td>₹{{ complete.customer_comission | number: "1.2-2" }}</td>
-                <td class="blue">₹{{ complete.total_fare | number: "1.2-2" }}</td>
+                <td class="blue">
+                  ₹{{ complete.total_fare | number: "1.2-2" }}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -454,13 +447,13 @@
 
               <div class="detail-row">
                 <span>Commission</span>
-                <strong class="green">  ₹{{
-                      (
-                        (complete.customer_comission || 0) +
-                        (complete.agent_commission || 0) +
-                        (complete.tds || 0)
-                      ) | number:'1.2-2'
-                    }} </strong>
+                <strong class="green">
+                  ₹{{
+                    (complete.customer_comission || 0) +
+                      (complete.agent_commission || 0) +
+                      (complete.tds || 0) | number: "1.2-2"
+                  }}
+                </strong>
               </div>
 
               <div class="detail-row">
@@ -472,19 +465,17 @@
                 <span>After TDS</span>
                 <strong class="green">
                   ₹{{
-                      (
-                        (complete.customer_comission || 0) +
-                        (complete.agent_commission || 0) -
-                        (complete.tds || 0)
-                      ) | number:'1.2-2'
-                    }}
+                    (complete.customer_comission || 0) +
+                      (complete.agent_commission || 0) -
+                      (complete.tds || 0) | number: "1.2-2"
+                  }}
                 </strong>
               </div>
 
               <div class="detail-row">
                 <span>Customer Comm.</span>
                 <strong>
-                 ₹{{ complete.customer_comission | number: "1.2-2" }}
+                  ₹{{ complete.customer_comission | number: "1.2-2" }}
                 </strong>
               </div>
 
@@ -511,12 +502,10 @@
 
               <div>
                 Total Comm ₹{{
-                      (
-                        (complete.customer_comission || 0) +
-                        (complete.agent_commission || 0) -
-                        (complete.tds || 0)
-                      ) | number:'1.2-2'
-                    }}
+                  (complete.customer_comission || 0) +
+                    (complete.agent_commission || 0) -
+                    (complete.tds || 0) | number: "1.2-2"
+                }}
               </div>
             </div>
           </div>

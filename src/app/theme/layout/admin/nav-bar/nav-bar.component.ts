@@ -43,11 +43,6 @@ export class NavBarComponent implements OnInit {
       route: '/dashboard/landing',
     },
     {
-      icon: 'fa-ticket',
-      label: 'Book Ticket',
-      route: '/agent/booking',
-    },
-    {
       icon: 'fa-user',
       label: 'Agent Profile',
       route: '/agent/agentprofile',
@@ -77,18 +72,8 @@ export class NavBarComponent implements OnInit {
   public reportItems = [
     {
       icon: 'fa-percent',
-      label: 'All Transaction Report',
-      route: '/agent/alltransactionreport',
-    },
-    {
-      icon: 'fa-percent',
       label: 'Cancellation Report',
       route: '/agent/cancellationreport',
-    },
-    {
-      icon: 'fa-percent',
-      label: 'Complete Report',
-      route: '/agent/completereport',
     },
     {
       icon: 'fa-percent',
