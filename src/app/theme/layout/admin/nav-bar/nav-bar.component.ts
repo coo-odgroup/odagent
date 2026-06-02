@@ -122,6 +122,12 @@ export class NavBarComponent implements OnInit {
 
   
 
+  showSupport = false;
+
+toggleSupport() {
+  this.showSupport = !this.showSupport;
+}
+
   toggleMobOption() {
     this.menuClass = !this.menuClass;
     this.collapseStyle = this.menuClass ? 'block' : 'none';
