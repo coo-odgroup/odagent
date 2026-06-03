@@ -26,7 +26,7 @@
     <ngb-tab title="Address Details">
       <ng-template ngbTabContent>
         <br />
-        <p><strong>tab-content, HouseNo, Building, Apartment, Company :</strong> {{profileDetails.address}} </p>
+        <p><strong>HouseNo, Building, Apartment, Company :</strong> {{profileDetails.address}} </p>
         <p><strong>Area, Colony, Street, Sector, Village :</strong> {{profileDetails.street}} </p>
         <p><strong>Land Mark :</strong> {{profileDetails.landmark}} </p>
         <p><strong>Town/City :</strong> {{profileDetails.city}} </p>
@@ -80,9 +80,9 @@
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label for="name" class="col-sm-4 col-form-label">Name<span
+                          <label for="name" class="col-form-label">Name<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Enter Your Name"
                               formControlName="name">
                             <span class="text-danger"
@@ -93,9 +93,9 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label for="email" class="col-sm-4 col-form-label">Email<span
+                          <label for="email" class="col-form-label">Email<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Login Email id" formControlName="email"
                               pattern="[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9-]+(\.[a-z0-9-]+)*">
 
@@ -110,9 +110,9 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label for="phone" class="col-sm-4 col-form-label">Phone<span
+                          <label for="phone" class="col-form-label">Phone<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="w-100">
                             <input type="text" class="form-control" oninput="this.value=this.value.replace(/[^\d]/,'')"
                               placeholder="Contact Phone Number" formControlName="phone" minlength="10" maxlength="10">
                             <span class="text-danger"
@@ -136,9 +136,9 @@
 
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label for="location" class="col-sm-4 col-form-label">Location<span
+                          <label for="location" class="col-form-label">Location<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Business Location"
                               formControlName="location">
                             <span class="text-danger"
@@ -149,9 +149,9 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label for="organization_name" class="col-sm-4 col-form-label">Organization<span
+                          <label for="organization_name" class="col-form-label">Organization<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Orgaization/Shop Name"
                               formControlName="organization_name">
                             <span class="text-danger"
@@ -162,9 +162,9 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label for="adhar_no" class="col-sm-4 col-form-label">Aadhaar<span
+                          <label for="adhar_no" class="col-form-label">Aadhaar<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Aadhaar Number"
                               formControlName="adhar_no" minlength="12" maxlength="12"
                               oninput="this.value=this.value.replace(/[^\d]/,'')">
@@ -192,9 +192,9 @@
                     <div class="row">
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label for="pancard_no" class="col-sm-4 col-form-label">Pan Card<span
+                          <label for="pancard_no" class="col-form-label">Pan Card<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Valid Pan Number"
                               formControlName="pancard_no" pattern="^[A-Za-z]{5}[0-9]{4}[A-Za-z]$">
 
@@ -255,9 +255,9 @@
                       <div class="col-md-6">
                         <div class="form-group row">
                           <label for="address"
-                            class="col-sm-4 col-form-label">Flat, HouseNo, Building, Apartment, Company<span
+                            class="col-form-label">Flat, HouseNo, Building, Apartment, Company<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8 m-0 p-0">
+                          <div class="w-100 m-0 p-0">
                             <input type="text" class="form-control" formControlName="address"
                               placeholder="Flat,HouseNo,Building,Apartment,Company">
                             <span class="text-danger"
@@ -268,9 +268,9 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="landmark" class="col-sm-4 col-form-label">Area, Colony, Street, Sector, Village<span
+                          <label for="landmark" class="col-form-label">Area, Colony, Street, Sector, Village<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Area,Colony,Street,Sector,Village"
                               formControlName="area">
                             <span class="text-danger"
@@ -281,9 +281,9 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label for="landmark" class="col-sm-4 col-form-label">Land Mark<span
+                          <label for="landmark" class="col-form-label">Land Mark<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Landmark" formControlName="landmark">
                             <span class="text-danger"
                               *ngIf="form.controls['landmark'].touched && form.controls['landmark'].hasError('required')">
@@ -293,9 +293,9 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label for="landmark" class="col-sm-4 col-form-label">Town/City<span
+                          <label for="landmark" class="col-form-label">Town/City<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Town/City" formControlName="town">
                             <span class="text-danger"
                               *ngIf="form.controls['town'].touched && form.controls['town'].hasError('required')">
@@ -305,9 +305,9 @@
                       </div>
                       <div class="col-md-4">
                         <div class="form-group row">
-                          <label for="pincode" class="col-sm-4 col-form-label">Pincode<span
+                          <label for="pincode" class="col-form-label">Pincode<span
                               class="text-danger">*</span></label>
-                          <div class="col-sm-8">
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Zip Code / Pin Code"
                               formControlName="pincode" minlength="6" maxlength="6"
                               oninput="this.value=this.value.replace(/[^\d]/,'')">
@@ -331,8 +331,8 @@
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="bank_name" class="col-sm-4 col-form-label">Name On Bank Account</label>
-                          <div class="col-sm-8">
+                          <label for="bank_name" class="col-form-label">Name On Bank Account</label>
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Name On Bank Account"
                               formControlName="bank_acc_name">
 
@@ -341,8 +341,8 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="bank_name" class="col-sm-4 col-form-label">Bank Name</label>
-                          <div class="col-sm-8">
+                          <label for="bank_name" class="col-form-label">Bank Name</label>
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Bank Name" formControlName="bank_name">
 
                           </div>
@@ -350,8 +350,8 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="name_on_bank_account" class="col-sm-4 col-form-label pr-0">Branch Name</label>
-                          <div class="col-sm-8">
+                          <label for="name_on_bank_account" class="col-form-label pr-0">Branch Name</label>
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Name On Branch Name"
                               formControlName="branch_name">
 
@@ -360,8 +360,8 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="bank_account_no" class="col-sm-4 col-form-label">Bank Account Number</label>
-                          <div class="col-sm-8">
+                          <label for="bank_account_no" class="col-form-label">Bank Account Number</label>
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="Bank Account Number"
                               formControlName="bank_account_no">
                           </div>
@@ -370,8 +370,8 @@
 
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="ifsc_code" class="col-sm-4 col-form-label">IFSC code</label>
-                          <div class="col-sm-8">
+                          <label for="ifsc_code" class="col-form-label">IFSC code</label>
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="BANK IFSC Code"
                               formControlName="ifsc_code" (change)="checkIfsc()">
                             <label for="ifsc_code" class="col-sm-12 col-form-label">{{validIFSC}}</label>
@@ -380,8 +380,8 @@
                       </div>
                       <div class="col-md-6">
                         <div class="form-group row">
-                          <label for="bank_account_no" class="col-sm-4 col-form-label">UPI Id</label>
-                          <div class="col-sm-8">
+                          <label for="bank_account_no" class="col-form-label">UPI Id</label>
+                          <div class="w-100">
                             <input type="text" class="form-control" placeholder="UPI Id" formControlName="upi_id">
                           </div>
                         </div>

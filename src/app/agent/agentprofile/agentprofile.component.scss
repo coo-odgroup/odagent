@@ -193,4 +193,153 @@
         width: 100%;
     }
 
+}/* ==================================
+   GLOBAL FORM REDESIGN
+================================== */
+
+.modal-content {
+    border: 0;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid #edf2f7;
+}
+
+.modal-header h5 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+}
+
+.modal-body {
+    padding: 24px;
+    background: #fafcff;
+}
+
+app-card .card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* Section Heading */
+
+.heading_label h5 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #184a9c;
+    margin: 10px 0 20px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #e9f1ff;
+}
+
+/* Label Top Layout */
+
+.form-group.row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.col-form-label {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #344054;
+}
+
+.form-group .col-sm-8,
+.form-group .col-sm-12 {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+}
+
+/* Inputs */
+
+.form-control {
+    height: 48px;
+    border-radius: 12px;
+    border: 1px solid #d9e2f0;
+    background: #fff;
+    padding: 0 14px;
+    font-size: 14px;
+    transition: .25s ease;
+}
+
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13,110,253,.15);
+}
+
+/* Buttons */
+
+.btn-lg,
+.btn-primary,
+.btn-default {
+    min-height: 48px;
+    border-radius: 12px;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.btn-default {
+    background: #eef2f7;
+    border: none;
+}
+
+/* Checkbox */
+
+.password-check-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#pwd {
+    width: 18px;
+    height: 18px;
+    margin: 0;
+}
+
+/* Tabs */
+
+.nav-tabs {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.nav-tabs .nav-link {
+    border: 0;
+    color: #667085;
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link.active {
+    color: #0d6efd;
+    border-bottom: 3px solid #0d6efd;
+}
+
+/* Profile View */
+
+ngb-tabset p {
+    padding: 14px;
+    border-radius: 12px;
+    background: #f8fbff;
+    margin-bottom: 12px;
+}
+
+ngb-tabset p strong {
+    display: block;
+    margin-bottom: 4px;
+    color: #184a9c;
 }

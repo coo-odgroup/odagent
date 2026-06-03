@@ -199,8 +199,10 @@ app-card {
 }
 
 .table-responsive {
+ overflow-x: auto !important;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   border-radius: 10px;
-  overflow: hidden;
   background: #fff;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
@@ -235,8 +237,9 @@ app-card {
 }
 
 .table {
-  width: 100%;
-  table-layout: fixed;
+  width: max-content;
+  min-width: 100%;
+  table-layout: auto;
 }
 
 .table th,
