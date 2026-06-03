@@ -70,7 +70,6 @@ export class WalletComponent implements OnInit {
   public userMobile: any = '';
 
   ngOnInit(): void {
-
     const today = new Date();
     this.maxDate = today.toISOString().split('T')[0];
 
@@ -261,6 +260,7 @@ export class WalletComponent implements OnInit {
       user_id: localStorage.getItem('USERID'),
       user_name: localStorage.getItem('USERNAME'),
       transaction_type: 'c',
+      return_url: window.location.origin + '/#/agent/wallet', 
     };
 
     this.ws.makeWalletPayment(data).subscribe((resp: any) => {

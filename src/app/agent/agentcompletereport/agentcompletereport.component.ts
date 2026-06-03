@@ -52,7 +52,7 @@ export class AgentcompletereportComponent implements OnInit {
 
   cancelInfo:any=[];
 
-
+showFilter = false;
   submitted = false;
   Otpsubmitted = false;
   ResendOtp :boolean=false;

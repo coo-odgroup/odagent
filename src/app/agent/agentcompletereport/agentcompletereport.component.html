@@ -24,7 +24,7 @@
                 <!-- DATE RANGE -->
                 <div class="col-md-4 col-sm-12">
                   <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                       <div class="form-group">
                         <input
                           type="date"
@@ -36,7 +36,7 @@
                       </div>
                     </div>
 
-                    <div class="col-6">
+                    <div class="col-12">
                       <div class="form-group">
                         <input
                           type="date"
@@ -166,21 +166,24 @@
             <tr *ngFor="let complete of completedata?.data.data; let i = index">
               <td style="text-align: center">{{ i + 1 }}</td>
               <td>
-                <strong>{{ complete.pnr }}</strong> (DOj- {{ complete.journey_dt }} )
-         
+                <strong>{{ complete.pnr }}</strong> (DOj-
+                {{ complete.journey_dt }} )
+
                 <br />
-                 
-                  DOB-{{
-                    complete.created_at | date: "dd/MM/yyyy HH:mm:ss"
-                  }}
-                
+
+                DOB-{{ complete.created_at | date: "dd/MM/yyyy HH:mm:ss" }}
+
                 <!--<br>
                                 <strong style="color: darkgoldenrod;">{{complete.customer_payment.razorpay_id}}</strong> -->
               </td>
               <td>
-                <strong *ngIf="complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'"
-                  >{{ complete.bus.name }}</strong><br />
-                  <small >( {{ complete.bus.bus_number }} )</small  >
+                <strong
+                  *ngIf="
+                    complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'
+                  "
+                  >{{ complete.bus.name }}</strong
+                ><br />
+                <small>( {{ complete.bus.bus_number }} )</small>
 
                 <strong
                   *ngIf="
@@ -195,18 +198,18 @@
                   <b>{{ frlocation.name }}</b>
                 </span>
                 - ( {{ complete.boarding_point }} )<br />
-               Time : {{ complete.boarding_time }}
+                Time : {{ complete.boarding_time }}
               </td>
 
               <td>
                 <span [ngbTooltip]="tipContent1">
                   <!-- {{ complete.source_id }} - {{ complete.destination_id }} -->
                   <span *ngFor="let boarding of complete.from_location">
-                     {{ boarding.name }}
+                    {{ boarding.name }}
                   </span>
                   <b> >> </b>
                   <span *ngFor="let dropping of complete.to_location">
-                     {{ dropping.name }}
+                    {{ dropping.name }}
                   </span>
                 </span>
               </td>
@@ -303,8 +306,10 @@
               </td>
 
               <td>
-               
-                {{ complete.total_fare + complete.agent_commission | number: "1.2-2" }}
+                {{
+                  complete.total_fare + complete.agent_commission
+                    | number: "1.2-2"
+                }}
               </td>
               <td>
                 <div class="text-center">
@@ -1622,116 +1627,114 @@
 
 <div class="mobile-top-filter d-block d-md-none">
   <h2 class="mobile-page-heading">Agent Complete Report</h2>
+  <button
+    type="button"
+    class="mobile-filter-btn"
+    (click)="showFilter = !showFilter"
+  >
+    <i class="fas fa-sliders-h"></i>
+  </button>
+  
 
   <form [formGroup]="searchFrom">
-    <!-- DATE -->
+   <div class="mobile-filter-card" *ngIf="showFilter">
+      <!-- DATE -->
 
-    <div class="row mobile-date-grid">
+      <div class="row mobile-date-grid">
+        <!-- FROM DATE -->
+        <div class="col-12">
+          <div class="mobile-field">
+            <input
+              type="date"
+              class="form-control"
+              formControlName="rangeFromDate"
+            />
+          </div>
+        </div>
 
-      <!-- FROM DATE -->
-      <div class="col-6">
-        <div class="mobile-field">
-
-          <input type="date" class="form-control" formControlName="rangeFromDate">
-
+        <!-- TO DATE -->
+        <div class="col-12">
+          <div class="mobile-field">
+            <input
+              type="date"
+              class="form-control"
+              formControlName="rangeToDate"
+            />
+          </div>
         </div>
       </div>
 
-      <!-- TO DATE -->
-      <div class="col-6">
-        <div class="mobile-field">
+      <!-- DATE TYPE -->
 
-          <input type="date" class="form-control" formControlName="rangeToDate">
+      <div class="mobile-field">
+        <select class="form-control" formControlName="date_type">
+          <option value="booking">Booking Date</option>
 
+          <option value="journey">Journey Date</option>
+        </select>
+      </div>
+
+      <!-- SOURCE -->
+
+      <div class="mobile-field">
+        <ng-select
+          [items]="locations"
+          bindLabel="name"
+          bindValue="id"
+          placeholder="Select Source"
+          formControlName="source_id"
+          [clearable]="false"
+        >
+        </ng-select>
+      </div>
+
+      <!-- DESTINATION -->
+
+      <div class="mobile-field">
+        <ng-select
+          [items]="locations"
+          bindLabel="name"
+          bindValue="id"
+          placeholder="Select Destination"
+          formControlName="destination_id"
+          [clearable]="false"
+        >
+        </ng-select>
+      </div>
+
+      <!-- Buttons -->
+
+      <div class="mobile-top-actions">
+        <!-- TOP ROW -->
+        <div class="top-two-btn">
+          <button type="button" class="top-btn refresh-btn" (click)="refresh()">
+            <i class="fas fa-sync-alt"></i>
+            Refresh
+          </button>
+
+          <button
+            type="button"
+            class="top-btn export-btn"
+            (click)="exportexcel()"
+          >
+            <i class="fas fa-file-export"></i>
+            Export
+          </button>
         </div>
+
+        <!-- FULL SEARCH -->
+        <button
+          type="button"
+          class="top-btn search-btn full-search-btn"
+          (click)="search()"
+        >
+          <i class="fas fa-search"></i>
+          Search
+        </button>
       </div>
     </div>
 
-    <!-- DATE TYPE -->
 
-    <div class="mobile-field">
-      <select class="form-control" formControlName="date_type">
-        <option value="booking">Booking Date</option>
-
-        <option value="journey">Journey Date</option>
-      </select>
-    </div>
-
-    <!-- SOURCE -->
-
-    <div class="mobile-field">
-      <ng-select
-        [items]="locations"
-        bindLabel="name"
-        bindValue="id"
-        placeholder="Select Source"
-        formControlName="source_id"
-        [clearable]="false"
-      >
-      </ng-select>
-    </div>
-
-    <!-- DESTINATION -->
-
-    <div class="mobile-field">
-      <ng-select
-        [items]="locations"
-        bindLabel="name"
-        bindValue="id"
-        placeholder="Select Destination"
-        formControlName="destination_id"
-        [clearable]="false"
-      >
-      </ng-select>
-    </div>
-
-    <!-- Buttons -->
-
-    <div class="mobile-top-actions">
-
-      <!-- TOP ROW -->
-      <div class="top-two-btn">
-
-        <button type="button" class="top-btn refresh-btn" (click)="refresh()">
-
-          <i class="fas fa-sync-alt"></i>
-          Refresh
-
-        </button>
-
-        <button type="button" class="top-btn export-btn" (click)="exportexcel()">
-
-          <i class="fas fa-file-export"></i>
-          Export
-
-        </button>
-
-      </div>
-
-      <!-- FULL SEARCH -->
-      <button type="button" class="top-btn search-btn full-search-btn" (click)="search()">
-
-        <i class="fas fa-search"></i>
-        Search
-      </button>
-
-    </div>
-
-    <!-- ROW SELECT -->
-
-    <div class="mobile-row-select">
-      <select
-        class="form-control"
-        formControlName="rows_number"
-        (change)="search()"
-      >
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-        <option value="all">All</option>
-      </select>
-    </div>
   </form>
 </div>
 
@@ -1740,11 +1743,11 @@
      ===================================== -->
 
 <div class="mobile-ticket-wrapper d-block d-md-none">
-
-  <div class="simple-ticket-card" *ngFor="let complete of completedata?.data.data; let i=index">
-    <div class="ticket-count">
-      #{{ i + 1 }}
-    </div>
+  <div
+    class="simple-ticket-card"
+    *ngFor="let complete of completedata?.data.data; let i = index"
+  >
+    <div class="ticket-count">#{{ i + 1 }}</div>
 
     <!-- TOP -->
 
