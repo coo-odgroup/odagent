@@ -488,6 +488,8 @@ setCommission(event: any) {
       this.agentPaymentService.paymentRequest(paymentParam).subscribe(
         res=>{
         
+
+
           if(res.status==1){
 
             if(res.data=='SEAT UN-AVAIL'){

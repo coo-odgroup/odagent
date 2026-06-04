@@ -376,8 +376,15 @@
                   <td>{{ tx.balance | number: "1.2-2" }}</td>
                   <td>
                     {{
-                      tx.remarks ||
-                        (tx.transaction_type == "d" ? "PNR Booked" : "-")
+                      tx.remarks
+                        ? tx.remarks
+                        : tx.type == "Commission"
+                          ? "Ticket Commission"
+                          : tx.transaction_type == "d"
+                            ? "PNR Booked"
+                            : tx.payment_via == "Cashfree"
+                              ? "Wallet Recharge"
+                              : "-"
                     }}
                   </td>
                 </tr>
@@ -455,7 +462,15 @@
       <div class="mobile-card-top">
         <div class="mobile-info">
           <h4>
-            {{ tx.transaction_type == "c" ? "Wallet Recharge" : "Ticket Book" }}
+            <h4>
+              {{
+                tx.type == "Commission"
+                  ? "Ticket Commission"
+                  : tx.transaction_type == "c"
+                    ? "Wallet Recharge"
+                    : "Ticket Book"
+              }}
+            </h4>
           </h4>
 
           <p>
@@ -474,7 +489,7 @@
 
           <label class="mobile-credit-badge" *ngIf="tx.transaction_type == 'c'">
             <i class="fa fa-arrow-down"></i>
-            Credit
+            {{ tx.type == "Commission" ? "Commission" : "Credit" }}
           </label>
 
           <label class="mobile-debit-badge" *ngIf="tx.transaction_type == 'd'">
@@ -486,8 +501,10 @@
 
       <div class="mobile-pnr">
         {{
-          tx.remarks ||
-            (tx.transaction_type == "d" ? "PNR Booked" : "Wallet Recharge")
+          tx.type == "Commission"
+            ? "Commission earned from ticket booking"
+            : tx.remarks ||
+              (tx.transaction_type == "d" ? "PNR Booked" : "Wallet Recharge")
         }}
       </div>
 
