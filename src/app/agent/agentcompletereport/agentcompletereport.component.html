@@ -1767,13 +1767,17 @@
       </thead>
 
 
-      <tbody>
+      <tbody *ngIf="completedata?.data?.data?.length>0">
 
-        <tr *ngFor="let complete of completedata?.data.data; let i=index">
+        <tr *ngFor="
+let complete of completedata?.data.data;
+let i=index">
 
           <td>
 
-            {{i+1}}
+            {{((completedata?.data?.current_page-1)
+            *
+            completedata?.data?.per_page)+i+1}}
 
           </td>
 
@@ -1800,6 +1804,8 @@
 
             <small>
 
+              DOB-
+
               {{complete.created_at |
 
               date:'dd MMM y HH:mm'}}
@@ -1811,9 +1817,24 @@
 
           <td>
 
-            <strong>
+            <strong *ngIf="
+complete.origin!='DOLPHIN'
+&&
+complete.origin!='MANTIS'
+">
 
               {{complete.bus.name}}
+
+            </strong>
+
+
+            <strong *ngIf="
+complete.origin=='DOLPHIN'
+||
+complete.origin=='MANTIS'
+">
+
+              {{complete.bus_name}}
 
             </strong>
 
@@ -1821,7 +1842,15 @@
 
             <small>
 
-              {{complete.bus.bus_number}}
+              (
+
+              {{complete.origin!='DOLPHIN'
+              ?
+              complete.bus.bus_number
+              :
+              complete.bus_number}}
+
+              )
 
             </small>
 
@@ -1830,9 +1859,15 @@
 
           <td>
 
-            <span *ngFor="let fr of complete.from_location">
+            <span *ngFor="
+let fr of complete.from_location
+">
 
-              {{fr.name}}
+              <b>
+
+                {{fr.name}}
+
+              </b>
 
             </span>
 
@@ -1853,7 +1888,9 @@
 
           <td>
 
-            <span *ngFor="let fr of complete.from_location">
+            <span *ngFor="
+let fr of complete.from_location
+">
 
               {{fr.name}}
 
@@ -1861,7 +1898,9 @@
 
             >>
 
-            <span *ngFor="let to of complete.to_location">
+            <span *ngFor="
+let to of complete.to_location
+">
 
               {{to.name}}
 
@@ -1872,9 +1911,30 @@
 
           <td>
 
-            <div *ngFor="let seat of complete.booking_detail">
+            <div *ngFor="
+let seat of complete.booking_detail
+">
 
-              {{seat.bus_seats.seats.seatText}}
+              <span *ngIf="
+complete.origin!='DOLPHIN'
+&&
+complete.origin!='MANTIS'
+">
+
+                {{seat.bus_seats.seats.seatText}}
+
+              </span>
+
+
+              <span *ngIf="
+complete.origin=='DOLPHIN'
+||
+complete.origin=='MANTIS'
+">
+
+                {{seat.seat_name}}
+
+              </span>
 
             </div>
 
@@ -1912,7 +1972,9 @@
 
           <td>
 
-            <div *ngFor="let p of complete.booking_detail">
+            <div *ngFor="
+let p of complete.booking_detail
+">
 
               {{p.passenger_name}}
 
@@ -1923,7 +1985,13 @@
 
           <td>
 
-            ₹{{complete.total_fare}}
+            ₹{{
+            complete.total_fare
+            +
+            complete.agent_commission
+
+            | number:'1.2-2'
+            }}
 
           </td>
 
@@ -1932,15 +2000,27 @@
 
             <div class="action-group">
 
-              <button class="action blue">
+              <button class="action blue" (click)="OpenModal(content);print_tkt(i)" ngbTooltip="Print Ticket">
 
                 <i class="fa fa-print"></i>
 
               </button>
 
-              <button class="action green">
+
+              <button class="action green" (click)="emailSms(i)" ngbTooltip="Send">
 
                 <i class="fa fa-message"></i>
+
+              </button>
+
+
+              <button *ngIf="
+complete.journey_dt
+>
+todayDate
+" class="action red" (click)="OpenCancelModal(cancelTicketTab,i)" ngbTooltip="Cancel">
+
+                <i class="fa fa-ban"></i>
 
               </button>
 
@@ -1952,22 +2032,41 @@
 
       </tbody>
 
+
+      <tbody *ngIf="
+completedata?.data?.data?.length==0
+">
+
+        <tr>
+
+          <td colspan="10" class="text-center p-5">
+
+            No Record Found
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
     </table>
-    <div class="table-footer" *ngIf="completedata?.data?.data?.length > 0">
+    <div class="table-footer" *ngIf="
+completedata?.data?.data?.length>0
+">
 
       <div class="entry-count">
 
         Showing
 
-        {{completedata?.data?.from}}
+        {{completedata.data.from}}
 
         -
 
-        {{completedata?.data?.to}}
+        {{completedata.data.to}}
 
         of
 
-        {{completedata?.data?.total}}
+        {{completedata.data.total}}
 
         entries
 
@@ -1978,9 +2077,9 @@
 
         <ul class="modern-pagination">
 
-          <!-- FIRST -->
-
-          <li [class.disabled]="completedata.data.current_page==1">
+          <li [class.disabled]="
+completedata.data.current_page==1
+">
 
             <button (click)="onFirstPageComplete()">
 
@@ -1991,9 +2090,9 @@
           </li>
 
 
-          <!-- PREV -->
-
-          <li [class.disabled]="!completedata.data.prev_page_url">
+          <li [class.disabled]="
+!completedata.data.prev_page_url
+">
 
             <button (click)="onPreviousPageComplete()">
 
@@ -2004,23 +2103,38 @@
           </li>
 
 
-          <!-- PAGE NUMBERS -->
+          <li *ngFor="
+let b of completedata.data.links
+" [class.hidden]="
+!isPageVisibleComplete(
+b.label
+)
+" [class.active]="
+completedata.data.current_page
+==
+b.label
+">
 
-          <li *ngFor="let b of completedata.data.links" [class.active]="completedata.data.current_page==b.label"
-            [class.hidden]="!isPageVisibleComplete(b.label)">
+            <button (click)="
+b.url
+?
+search(b.url)
+:
+''
+">
 
-            <button (click)="b.url ? search(b.url):''">
-
-              {{getPageLabelComplete(b.label)}}
+              {{getPageLabelComplete(
+              b.label
+              )}}
 
             </button>
 
           </li>
 
 
-          <!-- NEXT -->
-
-          <li [class.disabled]="!completedata.data.next_page_url">
+          <li [class.disabled]="
+!completedata.data.next_page_url
+">
 
             <button (click)="onNextPageComplete()">
 
@@ -2031,9 +2145,11 @@
           </li>
 
 
-          <!-- LAST -->
-
-          <li [class.disabled]="completedata.data.current_page==completedata.data.last_page">
+          <li [class.disabled]="
+completedata.data.current_page
+==
+completedata.data.last_page
+">
 
             <button (click)="onLastPageComplete()">
 
