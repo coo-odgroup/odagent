@@ -849,3 +849,12 @@ MOBILE
 .summary-box:hover h3 {
     transform: scale(1.05);
 }
+
+app-agentwalletreport .table thead th {
+    background: #e9f1ff !important;
+    color: #252525 !important;
+}
+
+app-agentwalletreport .table thead {
+    background: #e9f1ff !important;
+}
