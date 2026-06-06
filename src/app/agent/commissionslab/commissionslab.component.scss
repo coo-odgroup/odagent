@@ -1,3 +1,8 @@
+.desktop-commission-wrapper{
+    padding: 20px;
+}
+
+
 /* =========================================
    MOBILE ONLY COMMISSION DESIGN
 ========================================= */
@@ -8,10 +13,9 @@
         display: none !important;
     }
 
-    // .mobile-commission-wrapper {
-    //     padding: 14px;
-    //     background: #f5f7ff;
-    // }
+    .mobile-commission-wrapper {
+        padding: 20px;
+    }
 
     /* TOP HEADER */
 
@@ -28,7 +32,7 @@
 
     .commission-top-card h2 {
         color: #fff;
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 800;
         margin-bottom: 6px;
     }
@@ -36,7 +40,7 @@
     .commission-top-card p {
         color: rgba(255, 255, 255, 0.88);
         margin: 0;
-        font-size: 14px;
+        font-size: 12px;
         line-height: 22px;
     }
 
@@ -104,13 +108,13 @@
     .commission-price h3 {
         margin: 0;
         color: #083b8a;
-        font-size: 42px;
+        font-size: 30px;
         font-weight: 900;
         line-height: 1;
     }
 
     .commission-price span {
-        font-size: 14px;
+        font-size: 12px;
         color: #666;
         font-weight: 600;
     }
@@ -149,7 +153,7 @@
         display: block;
         margin-bottom: 6px;
         color: #777;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
     }
 
@@ -177,13 +181,13 @@
 
     .range-box h4 {
         margin: 0;
-        font-size: 24px;
+        font-size: 18px;
         font-weight: 800;
         color: #111;
     }
 
     .to-text {
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 700;
         color: #777;
     }

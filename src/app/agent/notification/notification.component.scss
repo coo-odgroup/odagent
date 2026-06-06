@@ -54,7 +54,7 @@ button.calendar:active {
     max-width: 100%;
 
     .table {
-      min-width: 600px; // Ensures table has minimum width for scrolling
+      min-width: 600px; 
     }
   }
 
@@ -169,9 +169,9 @@ button.calendar:active {
 
 // Custom styles for the notification component for mobile responsiveness
 
-/* =========================================
-   HIDE MOBILE SECTION ON DESKTOP
-========================================= */
+.desktop-notification{
+  padding: 20px;
+}
 
 .premium-mobile-notification {
   display: none;
@@ -196,6 +196,7 @@ button.calendar:active {
   /* Main wrapper */
   .premium-mobile-notification {
     display: block;
+    padding: 20px;
   }
 
   /* =========================================
