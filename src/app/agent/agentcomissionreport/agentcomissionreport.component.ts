@@ -138,7 +138,6 @@ export class AgentcomissionreportComponent implements OnInit {
 
     if (this.completedata?.data?.data) {
       this.totalTickets = this.completedata.data.data.length;
-
       this.completedata.data.data.forEach((x) => {
         this.totalfare += Number(x.total_fare || 0);
 

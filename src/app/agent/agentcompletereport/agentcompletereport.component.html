@@ -16,134 +16,117 @@
       [options]="false"
       [isCardFooter]="false"
     >
-      <div class="mb-3">
-        <div class="row p-0">
-          <div class="col-12">
-            <form [formGroup]="searchFrom">
-              <div class="row align-items-end">
-                <!-- DATE RANGE -->
-                <div class="col-md-4 col-sm-12">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="form-group">
-                        <input
-                          type="date"
-                          class="form-control sml_input"
-                          placeholder="Enter pnr"
-                          required
-                          formControlName="rangeFromDate"
-                        />
-                      </div>
-                    </div>
+      <form [formGroup]="searchFrom">
+  <div class="row align-items-end">
 
-                    <div class="col-12">
-                      <div class="form-group">
-                        <input
-                          type="date"
-                          class="form-control sml_input"
-                          placeholder="Enter pnr"
-                          required
-                          formControlName="rangeToDate"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
+    <!-- FROM DATE -->
+    <div class="col-md">
+      <input
+        type="date"
+        class="form-control sml_input"
+        formControlName="rangeFromDate"
+      />
+    </div>
 
-                <!-- BOOKING TYPE -->
-                <div class="col-md-2 col-sm-12">
-                  <div class="form-group">
-                    <select
-                      class="form-control sml_input"
-                      formControlName="date_type"
-                    >
-                      <option value="booking">Booking Date</option>
-                      <option value="journey">Journey Date</option>
-                    </select>
-                  </div>
-                </div>
+    <!-- TO DATE -->
+    <div class="col-md">
+      <input
+        type="date"
+        class="form-control sml_input"
+        formControlName="rangeToDate"
+      />
+    </div>
 
-                <!-- SOURCE -->
-                <div class="col-md-3 col-sm-12">
-                  <div class="form-group">
-                    <ng-select
-                      [items]="locations"
-                      bindLabel="name"
-                      bindValue="id"
-                      placeholder="Select Source"
-                      formControlName="source_id"
-                      [clearable]="false"
-                      (change)="findSource($event)"
-                    >
-                    </ng-select>
-                  </div>
-                </div>
+    <!-- BOOKING TYPE -->
+    <div class="col-md">
+      <select
+        class="form-control sml_input"
+        formControlName="date_type"
+      >
+        <option value="booking">Booking Date</option>
+        <option value="journey">Journey Date</option>
+      </select>
+    </div>
 
-                <!-- DESTINATION -->
-                <div class="col-md-3 col-sm-12">
-                  <div class="form-group">
-                    <ng-select
-                      [items]="locations"
-                      bindLabel="name"
-                      bindValue="id"
-                      placeholder="Select Destination"
-                      formControlName="destination_id"
-                      [clearable]="false"
-                      (change)="findSource($event)"
-                    >
-                    </ng-select>
-                  </div>
-                </div>
-              </div>
+    <!-- SOURCE -->
+    <div class="col-md">
+      <ng-select
+        [items]="locations"
+        bindLabel="name"
+        bindValue="id"
+        placeholder="Select Source"
+        formControlName="source_id"
+        [clearable]="false"
+        (change)="findSource($event)"
+      >
+      </ng-select>
+    </div>
 
-              <div class="row mt-2 align-items-center">
-                <div class="col-md-7 col-sm-12">
-                  <button
-                    type="button"
-                    class="btn btn-success sml_input mr-2"
-                    (click)="search()"
-                    title="search"
-                  >
-                    <i class="fas fa-search"></i> Search
-                  </button>
+    <!-- DESTINATION -->
+    <div class="col-md">
+      <ng-select
+        [items]="locations"
+        bindLabel="name"
+        bindValue="id"
+        placeholder="Select Destination"
+        formControlName="destination_id"
+        [clearable]="false"
+        (change)="findSource($event)"
+      >
+      </ng-select>
+    </div>
 
-                  <button
-                    type="button"
-                    class="btn btn-danger sml_input mr-2"
-                    (click)="refresh()"
-                    title="refresh"
-                  >
-                    <i class="fas fa-sync-alt"></i> Refresh
-                  </button>
+    <!-- SEARCH -->
+    <div class="col-auto">
+      <button
+        type="button"
+        class="btn btn-success"
+        (click)="search()"
+      >
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
 
-                  <button
-                    type="button"
-                    (click)="exportexcel()"
-                    class="btn btn-warning sml_input mr-2"
-                    title="Export"
-                  >
-                    <i class="fas fa-file-export"></i> Export
-                  </button>
-                </div>
+    <!-- REFRESH -->
+    <div class="col-auto">
+      <button
+        type="button"
+        class="btn btn-danger"
+        (click)="refresh()"
+      >
+        <i class="fas fa-sync-alt"></i>
+      </button>
+    </div>
 
-                <div class="col-md-5 col-sm-12 text-md-right">
-                  <select
-                    class="form-control sml_input d-inline-block"
-                    formControlName="rows_number"
-                    (change)="search()"
-                  >
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="all">All</option>
-                  </select>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+    <!-- EXPORT -->
+    <div class="col-auto">
+      <button
+        type="button"
+        class="btn btn-warning"
+        (click)="exportexcel()"
+      >
+        <i class="fas fa-file-export"></i>
+      </button>
+    </div>
+
+    <!-- ROW COUNT -->
+    <div class="col-auto">
+      <select
+        class="form-control sml_input"
+        formControlName="rows_number"
+        (change)="search()"
+        style="width:90px"
+      >
+        <option value="10">10</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="all">All</option>
+      </select>
+    </div>
+
+  </div>
+</form>
       <!-- class="table-responsive"   -->
       <div id="export-section">
         <table class="table table-striped">
@@ -1634,10 +1617,9 @@
   >
     <i class="fas fa-sliders-h"></i>
   </button>
-  
 
   <form [formGroup]="searchFrom">
-   <div class="mobile-filter-card" *ngIf="showFilter">
+    <div class="mobile-filter-card" *ngIf="showFilter">
       <!-- DATE -->
 
       <div class="row mobile-date-grid">
@@ -1733,8 +1715,6 @@
         </button>
       </div>
     </div>
-
-
   </form>
 </div>
 

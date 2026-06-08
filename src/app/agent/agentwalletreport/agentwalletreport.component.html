@@ -205,7 +205,7 @@
                       *ngIf="page.transaction_type == 'd'"
                       class="amount-debit"
                     >
-                      -{{ page.amount | number: "1.2-2"}}
+                      -{{ page.amount | number: "1.2-2" }}
                     </span>
                   </td>
                   <td>
@@ -224,7 +224,7 @@
                       Debit
                     </label>
                   </td>
-                  <td>{{ page.balance | number: "1.2-2"}}</td>
+                  <td>{{ page.balance | number: "1.2-2" }}</td>
                   <td>
                     <span *ngIf="page.type == 'Commission'">
                       Commission Received
@@ -351,22 +351,36 @@
       placeholder="Search PNR / Tran ID"
       formControlName="name"
     />
+  <form [formGroup]="searchForm">
+  <div class="mobile-filters" *ngIf="mobileFilterOpen">
     <div class="mobile-selects">
-      <select class="mobile-input" formControlName="tran_type">
-        <option value="">Transaction type</option>
-        <option value="c">Credit</option>
-        <option value="d">Debit</option>
-      </select>
-      <select class="mobile-input" formControlName="SelectType">
-        <option value="">Select type</option>
-        <option value="wallet_recharge">Wallet Recharge</option>
-        <option value="pnr_booking">PNR Booking</option>
-      </select>
+      <div>
+        <select class="mobile-input" formControlName="tran_type">
+          <option value="">Transaction Type</option>
+          <option value="c">Credit</option>
+          <option value="d">Debit</option>
+        </select>
+      </div>
+
+      <div>
+        <select class="mobile-input" formControlName="SelectType">
+          <option value="">Select Type</option>
+          <option value="wallet_recharge">Wallet Recharge</option>
+          <option value="pnr_booking">PNR Booking</option>
+        </select>
+      </div>
     </div>
+
     <div class="mobile-btns">
-      <button class="mobile-search-btn" (click)="search()">Search</button>
-      <button class="mobile-refresh-btn" (click)="refresh()">Refresh</button>
+      <button type="button" class="mobile-search-btn" (click)="search()">
+        Search
+      </button>
+      <button type="button" class="mobile-refresh-btn" (click)="refresh()">
+        Refresh
+      </button>
     </div>
+  </div>
+</form>
   </div>
 
   <!-- SUMMARY -->
