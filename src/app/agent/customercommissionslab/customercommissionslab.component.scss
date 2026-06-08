@@ -1,3 +1,8 @@
+.desktop-commission-wrapper{
+    padding: 20px;
+}
+
+
 /* =========================================
    MOBILE CUSTOMER COMMISSION DESIGN
 ========================================= */
@@ -8,10 +13,9 @@
         display: none !important;
     }
 
-    // .mobile-customer-commission-wrapper {
-    //     padding: 14px;
-    //     background: #f5f7ff;
-    // }
+    .mobile-customer-commission-wrapper {
+        padding: 20px;
+    }
 
     /* HEADER */
 
@@ -29,14 +33,14 @@
 
     .customer-top-card h2 {
         color: #fff;
-        font-size: 24px;
+        font-size: 18px;
         font-weight: 800;
         margin-bottom: 5px;
     }
 
     .customer-top-card p {
         color: rgba(255, 255, 255, 0.88);
-        font-size: 14px;
+        font-size: 12px;
         line-height: 22px;
         margin: 0;
     }
@@ -105,13 +109,13 @@
     .commission-amount h3 {
         margin: 0;
         color: #083b8a;
-        font-size: 38px;
+        font-size: 30px;
         font-weight: 900;
         line-height: 1;
     }
 
     .commission-amount span {
-        font-size: 13px;
+        font-size: 12px;
         color: #666;
         font-weight: 600;
     }
@@ -153,7 +157,7 @@
         display: block;
         margin-bottom: 8px;
         color: #777;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 600;
     }
 
@@ -181,7 +185,7 @@
 
     .fare-box h4 {
         margin: 0;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 800;
         color: #111;
     }

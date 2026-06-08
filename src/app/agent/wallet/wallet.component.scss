@@ -1,3 +1,7 @@
+.desktop-view{
+  padding: 20px;
+}
+
 ::ng-deep .sml_input {
   height: calc(1.5em + 1rem);
   padding: 0px 10px;
@@ -102,6 +106,7 @@
   /* Main */
   .wallet-mobile-view {
     display: block;
+    padding: 20px;
   }
 
   /* HEADER */
@@ -278,14 +283,14 @@
 
   /* PAGINATION */
   .wallet-mobile-pagination {
-    padding: 18px 0;
+    padding: 18px;
   }
 
-  .pagination {
-    justify-content: center !important;
-    flex-wrap: nowrap;
-    gap: 8px;
-  }
+  // .pagination {
+  //   justify-content: center !important;
+  //   flex-wrap: nowrap;
+  //   gap: 8px;
+  // }
 
   .pagination .page-link {
     min-width: 35px;

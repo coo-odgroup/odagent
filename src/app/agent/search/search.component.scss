@@ -945,7 +945,7 @@ label.sleeper-gray.fixsize {
 
 ol {
   list-style: none;
-  padding-left: 12px;
+  // padding-left: 12px;
   margin: 0;
 }
 
@@ -2325,7 +2325,7 @@ label.mobile-sleeper-gray.mobile-fixsize,
   flex-wrap: wrap;
   justify-content: center;
   gap: 14px 18px;
-  padding: 18px 10px 60px;
+  padding: 18px 10px;
 }
 
 .legend-item {
@@ -2880,4 +2880,3 @@ label.mobile-sleeper-gray.mobile-fixsize,
 .more-filter span {
     color: #fff;
 }
-
