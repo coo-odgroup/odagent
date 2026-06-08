@@ -31,14 +31,19 @@
                       </div>
                     </div>
 
-    <!-- FROM DATE -->
-    <div class="col-md">
-      <input
-        type="date"
-        class="form-control sml_input"
-        formControlName="rangeFromDate"
-      />
-    </div>
+                    <div class="col-12">
+                      <div class="form-group">
+                        <input
+                          type="date"
+                          class="form-control sml_input"
+                          placeholder="Enter pnr"
+                          required
+                          formControlName="rangeToDate"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
                
                 <div class="col-md-2 col-sm-12">
@@ -86,41 +91,35 @@
                 </div>
               </div>
 
-    <!-- DESTINATION -->
-    <div class="col-md">
-      <ng-select
-        [items]="locations"
-        bindLabel="name"
-        bindValue="id"
-        placeholder="Select Destination"
-        formControlName="destination_id"
-        [clearable]="false"
-        (change)="findSource($event)"
-      >
-      </ng-select>
-    </div>
+              <div class="row mt-2 align-items-center">
+                <div class="col-md-7 col-sm-12">
+                  <button
+                    type="button"
+                    class="btn btn-success sml_input mr-2"
+                    (click)="search()"
+                    title="search"
+                  >
+                    <i class="fas fa-search"></i> Search
+                  </button>
 
-    <!-- SEARCH -->
-    <div class="col-auto">
-      <button
-        type="button"
-        class="btn btn-success"
-        (click)="search()"
-      >
-        <i class="fas fa-search"></i>
-      </button>
-    </div>
+                  <button
+                    type="button"
+                    class="btn btn-danger sml_input mr-2"
+                    (click)="refresh()"
+                    title="refresh"
+                  >
+                    <i class="fas fa-sync-alt"></i> Refresh
+                  </button>
 
-    <!-- REFRESH -->
-    <div class="col-auto">
-      <button
-        type="button"
-        class="btn btn-danger"
-        (click)="refresh()"
-      >
-        <i class="fas fa-sync-alt"></i>
-      </button>
-    </div>
+                  <button
+                    type="button"
+                    (click)="exportexcel()"
+                    class="btn btn-warning sml_input mr-2"
+                    title="Export"
+                  >
+                    <i class="fas fa-file-export"></i> Export
+                  </button>
+                </div>
 
                 <div class="col-md-5 col-sm-12 text-md-right">
                   <select
@@ -2184,10 +2183,7 @@ completedata.data.last_page
   <button type="button" class="mobile-filter-btn" (click)="showFilter = !showFilter">
     <i class="fas fa-sliders-h"></i>
   </button>
-<<<<<<< HEAD
-=======
 
->>>>>>> 6d03a5d8a41ce9cf648b3eb50d3afcdd445e8f27
 
   <form [formGroup]="searchFrom">
     <div class="mobile-filter-card" *ngIf="showFilter">
@@ -2258,6 +2254,8 @@ completedata.data.last_page
         </button>
       </div>
     </div>
+
+
   </form>
 </div>
 
