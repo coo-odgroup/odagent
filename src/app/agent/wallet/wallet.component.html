@@ -352,7 +352,7 @@
                                   <input
                                     type="text"
                                     class="form-control sml_input"
-                                    [value]="userEmail"
+                                    [value]="userEmail  || ''"
                                     readonly
                                   />
                                 </div>
@@ -360,22 +360,22 @@
                             </div>
 
                             <!-- MOBILE -->
-                            <div class="col-6">
-                              <div class="from-group">
-                                <label class="col-sm-4 col-form-label">
-                                  Mobile No
-                                </label>
+                              <div class="col-6">
+                                <div class="from-group">
+                                  <label class="col-sm-4 col-form-label">
+                                    Mobile No
+                                  </label>
 
-                                <div class="col-sm-12">
-                                  <input
-                                    type="text"
-                                    class="form-control sml_input"
-                                    [value]="userMobile"
-                                    readonly
-                                  />
+                                  <div class="col-sm-12">
+                                    <input
+                                      type="text"
+                                      class="form-control sml_input"
+                                      [value]="userMobile  || ''"
+                                      readonly
+                                    />
+                                  </div>
                                 </div>
                               </div>
-                            </div>
                           </div>
                           <div class="row">
                             <div class="col-6">
