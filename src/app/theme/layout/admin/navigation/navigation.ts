@@ -34,59 +34,110 @@ const AgentItems = [
     children: [
       {
         id: 'dashboards',
-        title: 'Dashboards',
+        title: 'Dashboard',
         type: 'item',
         icon: 'feather icon-home',
-        url: 'dashboard/landing'
+        url: 'dashboard/landing',
       },
       {
         id: 'booking',
         title: 'Book Ticket',
-        type: 'item',       
+        type: 'item',
         icon: 'feather icon-gitlab',
-        url: 'agent/booking'
-      },
-      {
-        id: 'agentprofile',
-        title: 'Agent Profile',
-        type: 'item',       
-        icon: 'feather icon-gitlab',
-        url: 'agent/agentprofile'
-      },
-      // {
-      //   id: 'cancelticket',
-      //   title: 'Cancel Ticket',
-      //   type: 'item',       
-      //   icon: 'feather icon-gitlab',
-      //   url: 'agent/cancelTicket'
-      // },
-      {
-        id: 'notification',
-        title: 'Notification',
-        type: 'item',       
-        icon: 'feather icon-message-circle',
-        url: 'agent/notification'
+        url: 'agent/booking',
       },
       {
         id: 'wallet',
         title: 'Wallet Request',
         type: 'item',
         icon: 'feather icon-shield',
-        url: 'agent/wallet'
-      },     
+        url: 'agent/wallet',
+      },
       {
         id: 'commissionslab',
         title: 'Commission Slab',
         type: 'item',
         icon: 'feather icon-upload-cloud',
-        url: 'agent/commissionslab'
+        url: 'agent/commissionslab',
       },
       {
         id: 'customercommissionslab',
         title: 'Customer Commission Slab',
         type: 'item',
         icon: 'feather icon-wind',
-        url: 'agent/customercommissionslab'
+        url: 'agent/customercommissionslab',
+      },
+      {
+        id: 'report',
+        title: 'Reports',
+        type: 'collapse',
+        icon: 'feather icon-thermometer',
+        children: [
+          {
+            id: 'walletreport',
+            title: 'All Transaction Report',
+            type: 'item',
+            icon: 'ng-tns-c12-3 feather icon-file-text',
+            url: 'agent/alltransactionreport',
+          },
+          {
+            id: 'cancellationreport',
+            title: 'Cancellation Report',
+            type: 'item',
+            icon: 'feather icon-pie-chart',
+            url: 'agent/cancellationreport',
+          },
+          {
+            id: 'completereport',
+            title: 'Complete Report',
+            type: 'item',
+            icon: 'feather icon-pie-chart',
+            url: 'agent/completereport',
+          },
+          {
+            id: 'commissionreport',
+            title: 'Commission Report',
+            type: 'item',
+            icon: 'feather icon-pie-chart',
+            url: 'agent/commissionreport',
+          },
+
+          // {
+          //   id: 'user',
+          //   title: 'Operators',
+          //   type: 'item',
+          //   icon:'feather icon-users',
+          //   url: 'setting/user'
+          // },
+          // {
+          //   id: 'association',
+          //   title: 'Association',
+          //   type: 'item',
+          //   icon:'feather icon-user-plus',
+          //   url: 'setting/association'
+          // },
+        ],
+      },
+      // {
+      //   id: 'cancelticket',
+      //   title: 'Cancel Ticket',
+      //   type: 'item',
+      //   icon: 'feather icon-gitlab',
+      //   url: 'agent/cancelTicket'
+      // },
+      {
+        id: 'agentprofile',
+        title: 'Agent Profile',
+        type: 'item',
+        icon: 'feather icon-gitlab',
+        url: 'agent/agentprofile',
+      },
+      {
+        id: 'notification',
+        title: 'Notification',
+        type: 'item',
+        icon: 'feather icon-message-circle',
+        url: 'agent/notification',
       },
       // {
       //   id: 'forget-password',
@@ -95,61 +146,7 @@ const AgentItems = [
       //   icon: 'feather icon-wind',
       //   url: 'agent/forget-password'
       // }
-
-    ]
-  },
-  {
-    id: 'report',
-    title: 'Reports',
-    type: 'collapse',
-    icon: 'feather icon-thermometer',
-    children: [
-      {
-        id: 'walletreport',
-        title: 'All Transaction Report',
-        type: 'item',
-        icon: 'ng-tns-c12-3 feather icon-file-text',
-        url: 'agent/alltransactionreport'
-      },
-      {
-        id: 'cancellationreport',
-        title: 'Cancellation Report',
-        type: 'item',
-        icon: 'feather icon-pie-chart',
-        url: 'agent/cancellationreport'
-      },
-      {
-        id: 'completereport',
-        title: 'Complete Report',
-        type: 'item',
-        icon: 'feather icon-pie-chart',
-        url: 'agent/completereport'
-      },
-      {
-        id: 'commissionreport',
-        title: 'Commission Report',
-        type: 'item',
-        icon: 'feather icon-pie-chart',
-        url: 'agent/commissionreport'
-      },
-     
-     
-      // {
-      //   id: 'user',
-      //   title: 'Operators',
-      //   type: 'item',
-      //   icon:'feather icon-users',
-      //   url: 'setting/user'
-      // },          
-      // {
-      //   id: 'association',
-      //   title: 'Association',
-      //   type: 'item',
-      //   icon:'feather icon-user-plus',
-      //   url: 'setting/association'
-      // },
-      
-    ]
+    ],
   },
 ];
 
@@ -218,7 +215,6 @@ const AgentItems = [
 //             icon:'feather icon-hash',
 //             url: 'busmanagement/seatfare'
 //           },
-
 
 //           {
 //             id: 'bustype',
@@ -521,7 +517,7 @@ const AgentItems = [
 //             type: 'item',
 //             icon:'feather icon-github',
 //             url: 'setting/pagecontent'
-//           }, 
+//           },
 //           {
 //             id: 'socialmedia',
 //             title: 'Social Media',
@@ -586,7 +582,7 @@ const AgentItems = [
 //             type: 'item',
 //             icon:'feather icon-users',
 //             url: 'setting/user'
-//           }, 
+//           },
 //           {
 //             id: 'agent',
 //             title: 'Agent',
@@ -618,8 +614,8 @@ const AgentItems = [
 @Injectable()
 export class NavigationItem {
   public get() {
-    var ROLE_ID = localStorage.getItem("ROLE_ID");
-    if (ROLE_ID == "3") {
+    var ROLE_ID = localStorage.getItem('ROLE_ID');
+    if (ROLE_ID == '3') {
       return AgentItems;
     }
   }
