@@ -530,7 +530,6 @@
     padding: 18px;
     margin-bottom: 12px;
     border-radius: 20px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
   }
 
   .mobile-page-heading {
@@ -544,10 +543,10 @@
    MOBILE DATE GRID
 ===================================== */
 
-  .mobile-date-grid {
-    margin-left: -5px;
-    margin-right: -5px;
-  }
+  // .mobile-date-grid {
+  //   margin-left: -5px;
+  //   margin-right: -5px;
+  // }
 
   .mobile-date-grid .col-6 {
     padding-left: 5px;
@@ -1450,7 +1449,7 @@
   }
 
   .mobile-date-grid {
-    display: flex;
+    display: grid;
     flex-direction: column;
     gap: 14px;
   }
