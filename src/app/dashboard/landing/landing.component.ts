@@ -257,6 +257,8 @@ export class LandingComponent implements OnInit {
   }
 
   getall(range: any) {
+    this.spinner.show();
+
     this.showBookingTable = true;
     this.showWalletTable = false;
     this.showCustomDate = false;
@@ -285,14 +287,18 @@ export class LandingComponent implements OnInit {
       USERID: localStorage.getItem('USERID'),
     };
 
-    this.ds.dashboard(data).subscribe((res) => {
-      this.dashboarddata = res.data;
-      this.animateDashboardCards();
-      this.pieChart();
-      this.spinner.hide();
-    });
+    this.ds.dashboard(data).subscribe({
+      next: (res) => {
+        this.dashboarddata = res.data;
+        this.animateDashboardCards();
+        this.pieChart();
 
-    this.loadBookingDetails(range);
+        this.loadBookingDetails(range);
+      },
+      error: () => {
+        this.spinner.hide();
+      },
+    });
   }
 
   expandedBooking: number | null = null;
@@ -309,6 +315,12 @@ export class LandingComponent implements OnInit {
   }
 
   animateDashboardCards() {
+    this.animatedTodayPnr = 0;
+    this.animatedUpcomingPnr = 0;
+    this.animatedSales = 0;
+    this.animatedOdbusCommission = 0;
+    this.animatedCustomerCommission = 0;
+
     this.animateValue(
       0,
       Number(this.dashboarddata.today_pnr || 0),
@@ -353,7 +365,7 @@ export class LandingComponent implements OnInit {
     this.ds.lastWalletTransactions(data).subscribe((res) => {
       this.walletTransactions = res.data;
 
-       console.log(this.walletTransactions);
+      console.log(this.walletTransactions);
     });
   }
   formatDate(date: Date): string {
@@ -391,8 +403,14 @@ export class LandingComponent implements OnInit {
       ROLE_ID: localStorage.getItem('ROLE_ID'),
     };
 
-    this.ds.bookingDetails(data).subscribe((res) => {
-      this.bookingDetails = res.data;
+    this.ds.bookingDetails(data).subscribe({
+      next: (res) => {
+        this.bookingDetails = res.data;
+        this.spinner.hide(); // Hide after all data loads
+      },
+      error: () => {
+        this.spinner.hide();
+      },
     });
   }
 
@@ -443,7 +461,10 @@ export class LandingComponent implements OnInit {
   }
 
   applyCustomDate() {
+    this.spinner.show();
+
     if (!this.customFromDate || !this.customToDate) {
+      this.spinner.hide();
       alert('Please select both dates');
       return;
     }
@@ -477,6 +498,7 @@ export class LandingComponent implements OnInit {
 
     this.ds.dashboard(data).subscribe((res) => {
       this.dashboarddata = res.data;
+      this.animateDashboardCards();
       this.pieChart();
     });
 
@@ -488,6 +510,7 @@ export class LandingComponent implements OnInit {
     this.showWalletTable = false;
 
     this.showCustomDate = false;
+
     this.loadBookingDetails('Custom', from, to);
   }
 
