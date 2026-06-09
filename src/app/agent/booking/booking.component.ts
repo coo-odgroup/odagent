@@ -198,48 +198,57 @@ export class BookingComponent implements OnInit {
     }
   }
 
- saveRecentSearch(source: any, destination: any, date: string) {
-  const userId = localStorage.getItem('USERID');
+  saveRecentSearch(source: any, destination: any, date: string) {
+    const userId = localStorage.getItem('USERID');
 
-  let searches = JSON.parse(
-    localStorage.getItem(`recentSearches_${userId}`) || '[]',
-  );
+    let searches = JSON.parse(
+      localStorage.getItem(`recentSearches_${userId}`) || '[]',
+    );
 
-  searches.unshift({
-    from: source.name,
-    to: destination.name,
-    sourceObj: source,
-    destinationObj: destination,
-    date: date,
-  });
+    searches.unshift({
+      from: source.name,
+      to: destination.name,
+      sourceObj: source,
+      destinationObj: destination,
+      date: date,
+    });
 
-  searches = searches.filter(
-    (item, index, self) =>
-      index ===
-      self.findIndex(
-        (x) =>
-          x.from === item.from &&
-          x.to === item.to &&
-          x.date === item.date,
-      ),
-  );
+    searches = searches.filter(
+      (item, index, self) =>
+        index ===
+        self.findIndex(
+          (x) =>
+            x.from === item.from && x.to === item.to && x.date === item.date,
+        ),
+    );
 
-  searches = searches.slice(0, 5);
+    searches = searches.slice(0, 5);
 
-  localStorage.setItem(
-    `recentSearches_${userId}`,
-    JSON.stringify(searches)
-  );
+    localStorage.setItem(`recentSearches_${userId}`, JSON.stringify(searches));
 
-  this.recentSearches = searches;
-}
+    this.recentSearches = searches;
+  }
 
   searchRecent(item: any) {
     this.locationService.setSource(item.sourceObj);
-
     this.locationService.setDestination(item.destinationObj);
 
-    this.locationService.setDate(item.date);
+    const today = new Date();
+
+    const searchDate = new Date(item.date.split('-').reverse().join('-'));
+
+    let finalDate = item.date;
+
+    // If saved date is in the past, use today's date
+    if (searchDate < new Date(today.setHours(0, 0, 0, 0))) {
+      const dd = ('0' + today.getDate()).slice(-2);
+      const mm = ('0' + (today.getMonth() + 1)).slice(-2);
+      const yyyy = today.getFullYear();
+
+      finalDate = `${dd}-${mm}-${yyyy}`;
+    }
+
+    this.locationService.setDate(finalDate);
 
     this.router.navigate(['agent/listing']);
   }
