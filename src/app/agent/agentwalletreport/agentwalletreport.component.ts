@@ -226,6 +226,18 @@ export class AgentwalletreportComponent implements OnInit {
     return false;
   }
 
+
+  searchPage(page: number) {
+  const pageLink = this.pagination.links.find(
+    (x: any) => Number(x.label) === page
+  );
+
+  if (pageLink?.url) {
+    this.search(pageLink.url);
+  }
+}
+
+
   getPageLabel(label: any): string {
     if (label === '&laquo;' || label === '&raquo;') {
       return '';
