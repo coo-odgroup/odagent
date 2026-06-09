@@ -23,12 +23,21 @@ export class Constants {
 
    public static BASE_URL:any ='https://provider.odbus.co.in/api';
    public static CONSUMER_API_URL:any ='https://consumer.odbus.co.in/api';
+<<<<<<< HEAD
    // public static CONSUMER_BASE_URL:any ='https://www.odbus.in/';
 
 
 //    public static BASE_URL:any ='https://testingadminapi.odbus.co.in/api';
 //    public static CONSUMER_API_URL:any ='https://testing.odbus.co.in/api';
 //    public static CONSUMER_BASE_URL:any ='https://odtesting.odbus.co.in/';
+=======
+   public static CONSUMER_BASE_URL:any ='https://www.odbus.in/';
+
+
+   //public static BASE_URL:any ='https://testingadminapi.odbus.co.in/api';
+   //public static CONSUMER_API_URL:any ='https://testing.odbus.co.in/api';
+   //public static CONSUMER_BASE_URL:any ='https://odtesting.odbus.co.in/';
+>>>>>>> 03abffb041694681d0e532677af8020ed3153e83
 
 
    //public static BASE_URL:any ='http://localhost:7001/ODBUS/odbusproviderbe/api';
