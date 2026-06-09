@@ -553,6 +553,13 @@ ng-select {
 
 }
 
+::ng-deep .ng-select .ng-select-container
+ {
+  
+    border-radius: 12px !important;
+    border: 1px solid #dde5ef !important;
+}
+
 @media (max-width: 768px) {
 
   .mobile-report-cards {
