@@ -79,11 +79,11 @@
 
 .filter-card {
   background: #fff;
-  padding: 20px;
-  border-radius: 24px;
-  margin-bottom: 30px;
-  box-shadow: 0 2px 18px rgba(0, 0, 0, .05);
-  border: 1px solid #e3ecff;
+  padding: 24px;
+  border-radius: 18px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #dbe8ff;
 
 }
 
@@ -96,22 +96,19 @@
 
     1fr 1fr 1fr 1fr 1fr 150px;
 
-  gap: 20px;
+  gap: 14px;
 
 }
 
 
 .modern-input {
-
-  height: 54px;
-
+  height: 48px;
   border: 1px solid #dde5ef;
-
   border-radius: 12px;
-
   padding: 0 15px;
-
   width: 100%;
+  color: #495057;
+  font-size: 14px;
 
 }
 
@@ -130,13 +127,11 @@
 .search-btn {
 
   background: #17a34a;
-
   border: none;
-
-  padding: 13px 30px;
-
+  height: 44px;
+  padding: 0 22px;
+  font-weight: 600;
   border-radius: 10px;
-
   color: #fff;
 
 }
@@ -145,13 +140,11 @@
 .refresh-btn {
 
   background: #ef4444;
-
   border: none;
-
-  padding: 13px 30px;
-
+  height: 44px;
+  padding: 0 22px;
+  font-weight: 600;
   border-radius: 10px;
-
   color: #fff;
 
 }
@@ -247,14 +240,14 @@
 
 .export-btn {
 
-  background: #16a34a;
-
+  background: #198754;
   border: none;
-
-  padding: 13px 28px;
-
+  height: 44px;
+  padding: 0 24px;
   border-radius: 12px;
-
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   color: white;
 
 }
@@ -271,16 +264,14 @@
 .print-btn {
 
   background: #2f3640;
-
   border: none;
-
-  padding: 13px 28px;
-
+  height: 44px;
+  padding: 0 24px;
   border-radius: 12px;
-
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   color: white;
-
-  font-weight: 600;
 
 }
 
@@ -390,6 +381,19 @@
 .modern-table tbody tr:hover {
 
   background: #f8fbff;
+
+}
+
+::ng-deep .ng-select.ng-select-single .ng-select-container {
+  border: 1px solid #dde5ef !important;
+  border-radius: 12px !important;
+  height: 48px !important;
+}
+
+::ng-deep .ng-placeholder {
+
+  color: #495057 !important;
+  font-size: 14px !important;
 
 }
 
@@ -633,7 +637,7 @@
   }
 
   .search-btn {
-    background: #28a745;
+    background: #16a34a;
   }
 
   /* ICON */

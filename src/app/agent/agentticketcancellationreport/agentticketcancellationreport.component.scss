@@ -242,21 +242,16 @@ HEADER
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .page-title {
-  font-size: 48px;
+  font-size: 36px;
   font-weight: 700;
   color: #13294b;
   margin-bottom: 5px;
 }
 
-.page-subtitle {
-  color: #7a8797;
-  margin: 0;
-  font-size: 14px;
-}
 
 .header-actions {
   display: flex;
@@ -264,21 +259,27 @@ HEADER
 }
 
 .btn-export {
-  background: #16a34a;
+  background: #198754;
   color: #fff;
   border: none;
-  padding: 14px 28px;
-  border-radius: 14px;
-  font-weight: 600;
+  height: 44px;
+  padding: 0 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .btn-print {
   background: #2f3640;
   color: #fff;
   border: none;
-  padding: 14px 28px;
-  border-radius: 14px;
-  font-weight: 600;
+  height: 44px;
+  padding: 0 24px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 .btn-export:hover,
@@ -331,11 +332,11 @@ FILTER CARD
 
 .filter-card {
   background: #fff;
-  border-radius: 24px;
-  padding: 28px;
-  margin-bottom: 30px;
-  border: 1px solid #d9e6fb;
-  box-shadow: 0 2px 18px rgba(0, 0, 0, .05);
+  padding: 24px;
+  border-radius: 18px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #dbe8ff;
 }
 
 .filter-grid {
@@ -347,7 +348,7 @@ FILTER CARD
 
 .modern-input {
   width: 100%;
-  height: 54px;
+  height: 48px;
   border: 1px solid #dde5ef;
   border-radius: 12px;
   padding: 0 15px;
@@ -368,20 +369,22 @@ FILTER CARD
 
 .btn-search {
   background: #16a34a;
-  color: #fff;
   border: none;
-  padding: 13px 30px;
-  border-radius: 12px;
+  height: 44px;
+  padding: 0 22px;
   font-weight: 600;
+  border-radius: 10px;
+  color: #fff;
 }
 
 .btn-refresh {
   background: #ef4444;
-  color: #fff;
   border: none;
-  padding: 13px 30px;
-  border-radius: 12px;
+  height: 44px;
+  padding: 0 22px;
   font-weight: 600;
+  border-radius: 10px;
+  color: #fff;
 }
 
 .rows-dropdown {
@@ -420,7 +423,7 @@ TABLE CARD
 }
 
 .modern-table th {
-  padding: 20px;
+  padding: 14px;
   text-align: left;
   font-weight: 700;
   color: #13294b;
@@ -511,13 +514,13 @@ NG SELECT
 ========================== */
 
 ::ng-deep .ng-select .ng-select-container {
-  height: 54px !important;
+  height: 48px !important;
   border-radius: 12px !important;
   border: 1px solid #dde5ef !important;
 }
 
 ::ng-deep .ng-select.ng-select-single .ng-select-container {
-  height: 54px !important;
+  height: 48px !important;
 }
 
 /* ==========================

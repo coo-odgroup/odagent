@@ -1,13 +1,13 @@
 .pcoded-content {
-    padding: 0 !important;
-    border: none !important;
+  padding: 0 !important;
+  border: none !important;
 }
 
 .transaction-wrapper {
 
-    padding: 25px;
+  padding: 25px;
 
-    // background: #f7f9fc;
+  // background: #f7f9fc;
 
 }
 
@@ -15,53 +15,53 @@
 
 .transaction-header {
 
-    display: flex;
+  display: flex;
 
-    justify-content: space-between;
+  justify-content: space-between;
 
-    align-items: center;
+  align-items: center;
 
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 
-    gap: 15px;
+  gap: 15px;
 
 }
 
 .trans-title {
 
-    font-size: 36px;
+  font-size: 36px;
 
-    font-weight: 700;
+  font-weight: 700;
 
-    margin: 0;
+  margin: 0;
 
-    color: #24314f;
+  color: #24314f;
 
 }
 
 .top-buttons {
 
-    display: flex;
+  display: flex;
 
-    gap: 12px;
+  gap: 12px;
 
 }
 
 .top-btn {
 
-    height: 44px;
+  height: 44px;
 
-    padding: 0 24px;
+  padding: 0 24px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    font-weight: 700;
+  font-weight: 700;
 
-    font-size: 15px;
+  font-size: 15px;
 
-    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
 
 }
 
@@ -70,137 +70,137 @@
 
 .summary-cards {
 
-    display: grid;
+  display: grid;
 
-    grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 
-    gap: 18px;
+  gap: 18px;
 
-    margin-bottom: 25px;
+  margin-bottom: 25px;
 
 }
 
 .summary-box {
 
-    background: #fff;
+  background: #fff;
 
-    padding: 26px;
+  padding: 26px;
 
-    border-radius: 16px;
+  border-radius: 16px;
 
-    box-shadow: 0 2px 12px rgba(0, 0, 0, .05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .05);
 
-    border: 1px solid #dbe8ff;
+  border: 1px solid #dbe8ff;
 
-    transition: .25s;
+  transition: .25s;
 
 }
 
 .summary-box:hover {
 
-    transform: translateY(-2px);
+  transform: translateY(-2px);
 
 }
 
 .summary-box span {
 
-    font-size: 14px;
+  font-size: 14px;
 
-    color: #737373;
+  color: #737373;
 
-    display: block;
+  display: block;
 
 }
 
 .summary-box h3 {
 
-    margin-top: 12px;
+  margin-top: 12px;
 
-    font-size: 30px;
+  font-size: 30px;
 
-    font-weight: 700;
+  font-weight: 700;
 
-    margin-bottom: 0;
+  margin-bottom: 0;
 
 }
 
 .credit {
 
-    color: #16a34a;
+  color: #16a34a;
 
 }
 
 .balance {
 
-    color: #2563eb;
+  color: #2563eb;
 
 }
 
 /* FILTER */
 
 .filter-card {
-
-    background: #fff;
-
-    padding: 24px;
-
-    border-radius: 18px;
-
-    margin-bottom: 28px;
-
-    box-shadow: 0 2px 10px rgba(0, 0, 0, .05);
-
-    border: 1px solid #dbe8ff;
+  background: #fff;
+  padding: 24px;
+  border-radius: 18px;
+  margin-bottom: 28px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #dbe8ff;
 
 }
 
 .filter-card .row {
 
-    row-gap: 14px;
+  row-gap: 14px;
 
 }
 
 .form-control {
 
-    height: 48px;
+  height: 48px;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
 }
 
 ng-select {
 
-    display: block;
+  display: block;
 
 }
 
 ::ng-deep .ng-select .ng-select-container {
 
-    height: 48px !important;
+  height: 48px !important;
 
-    border-radius: 12px !important;
+  border-radius: 12px !important;
+
+}
+
+::ng-deep .ng-placeholder {
+
+  color: #495057 !important;
 
 }
 
 .action-buttons {
 
-    display: flex;
+  display: flex;
 
-    gap: 10px;
+  gap: 10px;
 
-    margin-top: 18px;
+  margin-top: 18px;
 
 }
 
 .action-buttons .btn {
 
-    height: 44px;
+  height: 44px;
 
-    padding: 0 22px;
+  padding: 0 22px;
 
-    font-weight: 600;
+  font-weight: 600;
 
-    border-radius: 10px;
+  border-radius: 10px;
 
 }
 
@@ -209,43 +209,43 @@ ng-select {
 
 .report-card {
 
-    background: #fff;
+  background: #fff;
 
-    padding: 24px;
+  padding: 24px;
 
-    border-radius: 18px;
+  border-radius: 18px;
 
-    box-shadow: 0 2px 12px rgba(0, 0, 0, .05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .05);
 
-    border: 1px solid #dbe8ff;
+  border: 1px solid #dbe8ff;
 
 }
 
 .report-head {
 
-    display: flex;
+  display: flex;
 
-    justify-content: space-between;
+  justify-content: space-between;
 
-    align-items: center;
+  align-items: center;
 
-    margin-bottom: 22px;
+  margin-bottom: 22px;
 
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 
-    gap: 10px;
+  gap: 10px;
 
 }
 
 .report-head h4 {
 
-    margin: 0;
+  margin: 0;
 
-    font-size: 40px;
+  font-size: 40px;
 
-    font-weight: 600;
+  font-weight: 600;
 
-    color: #24314f;
+  color: #24314f;
 
 }
 
@@ -253,58 +253,58 @@ ng-select {
 
 .table-responsive-mobile {
 
-    overflow: auto;
+  overflow: auto;
 
 }
 
 .table {
 
-    min-width: 1400px;
+  min-width: 1400px;
 
-    margin-bottom: 0;
+  margin-bottom: 0;
 
-    border-collapse: collapse;
+  border-collapse: collapse;
 
 }
 
 .table thead {
 
-    background: #eef4ff;
+  background: #eef4ff;
 
 }
 
 .table th {
 
-    padding: 18px 16px;
+  padding: 18px 16px;
 
-    font-size: 14px;
+  font-size: 14px;
 
-    font-weight: 700;
+  font-weight: 700;
 
-    border: none;
+  border: none;
 
-    white-space: nowrap;
+  white-space: nowrap;
 
-    color: #252525;
+  color: #252525;
 }
 
 .table td {
 
-    padding: 18px 16px;
+  padding: 18px 16px;
 
-    border-top: 1px solid #efefef;
+  border-top: 1px solid #efefef;
 
-    vertical-align: middle;
+  vertical-align: middle;
 
-    font-size: 14px;
+  font-size: 14px;
 
-    white-space: nowrap;
+  white-space: nowrap;
 
 }
 
 .table tbody tr:hover {
 
-    background: #fafcff;
+  background: #fafcff;
 
 }
 
@@ -312,21 +312,21 @@ ng-select {
 
 .amount-credit {
 
-    color: #16a34a;
+  color: #16a34a;
 
-    font-weight: 700;
+  font-weight: 700;
 
-    font-size: 16px;
+  font-size: 16px;
 
 }
 
 .amount-debit {
 
-    color: #ef4444;
+  color: #ef4444;
 
-    font-weight: 700;
+  font-weight: 700;
 
-    font-size: 16px;
+  font-size: 16px;
 
 }
 
@@ -334,77 +334,77 @@ ng-select {
 
 .pagination-wrapper {
 
-    display: flex;
+  display: flex;
 
-    justify-content: space-between;
+  justify-content: space-between;
 
-    align-items: center;
+  align-items: center;
 
-    margin-top: 28px;
+  margin-top: 28px;
 
-    gap: 20px;
+  gap: 20px;
 
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 
 }
 
 .pagination-left {
 
-    font-size: 14px;
+  font-size: 14px;
 
-    color: #666;
+  color: #666;
 
 }
 
 .pagination {
 
-    display: flex;
+  display: flex;
 
-    gap: 8px;
+  gap: 8px;
 
-    margin: 0;
+  margin: 0;
 
-    flex-wrap: wrap;
+  flex-wrap: wrap;
 
 }
 
 .pagination .page-link {
 
-    min-width: 42px;
+  min-width: 42px;
 
-    height: 42px;
+  height: 42px;
 
-    display: flex;
+  display: flex;
 
-    align-items: center;
+  align-items: center;
 
-    justify-content: center;
+  justify-content: center;
 
-    border-radius: 12px;
+  border-radius: 12px;
 
-    border: 1px solid #e4e4e4;
+  border: 1px solid #e4e4e4;
 
-    background: #fff;
+  background: #fff;
 
-    font-weight: 600;
+  font-weight: 600;
 
-    cursor: pointer;
+  cursor: pointer;
 
 }
 
 .pagination .page-link:hover {
 
-    background: #f5f5f5;
+  background: #f5f5f5;
 
 }
 
 .pagination .active {
 
-    background: #071b48 !important;
+  background: #071b48 !important;
 
-    color: #fff !important;
+  color: #fff !important;
 
-    border-color: #071b48;
+  border-color: #071b48;
 
 }
 
@@ -412,13 +412,13 @@ ng-select {
 
 .green {
 
-    color: #16a34a !important;
+  color: #16a34a !important;
 
 }
 
 .blue {
 
-    color: #2563eb !important;
+  color: #2563eb !important;
 
 }
 
@@ -426,138 +426,138 @@ ng-select {
 
 @media(max-width:991px) {
 
-    .transaction-wrapper {
+  .transaction-wrapper {
 
-        padding: 12px;
+    padding: 12px;
 
-    }
-.trans-title{
-        font-size: 18px !important;
-        font-weight: 700;
-        line-height: 1.3;
-        margin-bottom: 0;
-    }
+  }
 
-    .summary-cards {
+  .trans-title {
+    font-size: 18px !important;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0;
+  }
 
-        grid-template-columns: 1fr;
+  .summary-cards {
 
-    }
+    grid-template-columns: 1fr;
 
-    .summary-box h3 {
+  }
 
-        font-size: 34px;
+  .summary-box h3 {
 
-    }
+    font-size: 34px;
 
-    .report-head h4 {
+  }
 
-        font-size: 28px;
+  .report-head h4 {
 
-    }
+    font-size: 28px;
 
-     .top-buttons {
-        width: auto;
-        margin-left: auto;
-    }
+  }
 
-      .top-btn {
-        flex: unset;
-    }
+  .top-buttons {
+    width: auto;
+    margin-left: auto;
+  }
 
-    .action-buttons {
+  .top-btn {
+    flex: unset;
+  }
 
-        display: grid;
+  .action-buttons {
 
-        grid-template-columns: 1fr 1fr;
+    display: grid;
 
-    }
+    grid-template-columns: 1fr 1fr;
 
-    .pagination-wrapper {
+  }
 
-        justify-content: center;
+  .pagination-wrapper {
 
-        text-align: center;
+    justify-content: center;
 
-    }
+    text-align: center;
 
-    .pagination {
+  }
 
-        justify-content: center;
+  .pagination {
 
-    }
+    justify-content: center;
+
+  }
 
 }
 
 @media(max-width:768px) {
 
-    .filter-card .row>div {
+  .filter-card .row>div {
 
-        margin-bottom: 12px;
+    margin-bottom: 12px;
 
-    }
+  }
 
-    .table {
+  .table {
 
-        min-width: 1200px;
+    min-width: 1200px;
 
-    }
+  }
 
 }
 
 .passenger-more {
 
-    display: inline-flex;
+  display: inline-flex;
 
-    align-items: center;
+  align-items: center;
 
-    justify-content: center;
+  justify-content: center;
 
-    margin-left: 6px;
+  margin-left: 6px;
 
-    width: 22px;
+  width: 22px;
 
-    height: 22px;
+  height: 22px;
 
-    border-radius: 50%;
+  border-radius: 50%;
 
-    background: #eef4ff;
+  background: #eef4ff;
 
-    font-size: 11px;
+  font-size: 11px;
 
-    font-weight: 700;
+  font-weight: 700;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    color: #173e77;
+  color: #173e77;
 
 }
 
 .table small {
 
-    color: #777;
+  color: #777;
 
-    font-size: 12px;
+  font-size: 12px;
 
-    display: block;
+  display: block;
 
-    margin-top: 3px;
+  margin-top: 3px;
 
 }
 
 .red {
 
-    color: #ef4444;
+  color: #ef4444;
 
-    font-weight: 700;
+  font-weight: 700;
 
 }
 
-::ng-deep .ng-select .ng-select-container
- {
-  
-    border-radius: 12px !important;
-    border: 1px solid #dde5ef !important;
+::ng-deep .ng-select .ng-select-container {
+
+  border-radius: 12px !important;
+  border: 1px solid #ced4da !important;
 }
 
 @media (max-width: 768px) {
@@ -573,7 +573,7 @@ ng-select {
     border: 1px solid #dbe5ff;
     border-radius: 20px;
     padding: 18px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .05);
   }
 
   .ticket-header {
@@ -670,66 +670,66 @@ ng-select {
   border-radius: 22px;
   padding: 18px;
   margin-bottom: 16px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
 }
 
 .ticket-header {
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .ticket-header h4 {
-  margin:0;
-  font-size:18px;
-  font-weight:700;
-  color:#123d8b;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #123d8b;
 }
 
 .ticket-fare {
-  color:#12a63a;
-  font-size:18px;
-  font-weight:700;
+  color: #12a63a;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .ticket-route-row {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-top:18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 18px;
 }
 
 .ticket-route-pill {
-  background:#eef3ff;
-  padding:8px 14px;
-  border-radius:20px;
-  font-size:13px;
-  color:#123d8b;
+  background: #eef3ff;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  color: #123d8b;
 }
 
 .more-btn {
-  border:none;
-  background:#eef3ff;
-  color:#123d8b;
-  padding:8px 14px;
-  border-radius:20px;
-  font-weight:600;
+  border: none;
+  background: #eef3ff;
+  color: #123d8b;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-weight: 600;
 }
 
 .ticket-footer {
-  margin-top:16px;
-  padding-top:14px;
-  border-top:1px solid #d6d6d6;
-  display:flex;
-  justify-content:space-between;
-  font-size:14px;
-  font-weight:600;
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #d6d6d6;
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .ticket-expand {
-  margin-top:14px;
-  padding-top:14px;
-  border-top:1px dashed #d6d6d6;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed #d6d6d6;
 }
 
 @media (max-width: 768px) {
@@ -763,7 +763,7 @@ ng-select {
   background: #173e77;
   color: #fff;
   font-size: 18px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
 }
 
 /* Mobile */
@@ -779,7 +779,7 @@ ng-select {
     margin-bottom: 15px;
   }
 
-  .filter-card .row > div {
+  .filter-card .row>div {
     margin-bottom: 12px;
   }
 
@@ -792,6 +792,7 @@ ng-select {
     flex: 1;
   }
 }
+
 @media (max-width: 768px) {
 
   .summary-cards {
@@ -821,7 +822,7 @@ ng-select {
     top: 15%;
     height: 70%;
     width: 1px;
-    background: rgba(255,255,255,.15);
+    background: rgba(255, 255, 255, .15);
   }
 
   .summary-box span {
