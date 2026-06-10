@@ -21,17 +21,17 @@
 
   align-items: center;
 
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 
   flex-wrap: wrap;
 
-  gap: 15px;
+  // gap: 10px;
 
 }
 
 .trans-title {
 
-  font-size: 36px;
+  font-size: 26px;
 
   font-weight: 700;
 
@@ -76,7 +76,7 @@
 
   gap: 18px;
 
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 
 }
 
@@ -140,9 +140,9 @@
 
 .filter-card {
   background: #fff;
-  padding: 24px;
+  padding: 10px 24px;
   border-radius: 18px;
-  margin-bottom: 28px;
+  margin-bottom: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   border: 1px solid #dbe8ff;
 
@@ -169,11 +169,9 @@ ng-select {
 }
 
 ::ng-deep .ng-select .ng-select-container {
-
   height: 48px !important;
-
   border-radius: 12px !important;
-
+  border: 1px solid #ced4da !important;
 }
 
 ::ng-deep .ng-placeholder {
@@ -186,9 +184,9 @@ ng-select {
 
   display: flex;
 
-  gap: 10px;
+  gap: 15px;
 
-  margin-top: 18px;
+  margin-top: 14px;
 
 }
 
@@ -275,7 +273,7 @@ ng-select {
 
 .table th {
 
-  padding: 18px 16px;
+  padding: 10px;
 
   font-size: 14px;
 
@@ -290,7 +288,7 @@ ng-select {
 
 .table td {
 
-  padding: 18px 16px;
+  padding: 10px;
 
   border-top: 1px solid #efefef;
 
@@ -554,11 +552,6 @@ ng-select {
 
 }
 
-::ng-deep .ng-select .ng-select-container {
-
-  border-radius: 12px !important;
-  border: 1px solid #ced4da !important;
-}
 
 @media (max-width: 768px) {
 

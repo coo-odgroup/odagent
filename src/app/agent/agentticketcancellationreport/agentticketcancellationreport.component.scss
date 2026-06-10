@@ -242,11 +242,11 @@ HEADER
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 .page-title {
-  font-size: 36px;
+  font-size: 26px;
   font-weight: 700;
   color: #13294b;
   margin-bottom: 5px;
@@ -296,7 +296,7 @@ SUMMARY CARDS
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
-  margin-bottom: 25px;
+  margin-bottom: 10px;
 }
 
 .summary-card {
@@ -332,9 +332,9 @@ FILTER CARD
 
 .filter-card {
   background: #fff;
-  padding: 24px;
+  padding: 10px 24px;
   border-radius: 18px;
-  margin-bottom: 28px;
+  margin-bottom: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   border: 1px solid #dbe8ff;
 }
@@ -343,7 +343,7 @@ FILTER CARD
   display: grid;
   grid-template-columns:
     1fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 20px;
+  gap: 10px;
 }
 
 .modern-input {
@@ -353,14 +353,14 @@ FILTER CARD
   border-radius: 12px;
   padding: 0 15px;
   background: #fff;
-  margin-bottom: 18px;
+  // margin-bottom: 18px;
 }
 
 .filter-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 25px;
+  margin-top: 14px;
 }
 
 .filter-buttons {
@@ -424,7 +424,7 @@ TABLE CARD
 }
 
 .modern-table th {
-  padding: 14px;
+  padding: 10px;
   text-align: left;
   font-weight: 700;
   color: #13294b;
@@ -432,7 +432,7 @@ TABLE CARD
 }
 
 .modern-table td {
-  padding: 18px;
+  padding: 10px;
   border-bottom: 1px solid #edf1f7;
   vertical-align: middle;
 }

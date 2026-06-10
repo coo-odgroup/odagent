@@ -24,17 +24,17 @@ HEADER
 
     align-items: center;
 
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 
     flex-wrap: wrap;
 
-    gap: 15px;
+    // gap: 15px;
 
 }
 
 .trans-title {
     color: #13294b;
-    font-size: 36px;
+    font-size: 26px;
     font-weight: 700;
     margin: 0;
 
@@ -76,7 +76,7 @@ SUMMARY
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 18px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 }
 
 .summary-box {
@@ -123,9 +123,9 @@ FILTER
 
 .filter-card {
     background: #fff;
-    padding: 24px;
+    padding: 10px 24px;
     border-radius: 18px;
-    margin-bottom: 28px;
+    margin-bottom: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     border: 1px solid #dbe8ff;
 }
@@ -138,7 +138,7 @@ FILTER
 .action-buttons {
     display: flex;
     gap: 10px;
-    margin-top: 15px;
+    margin-top: 10px;
 }
 
 button.btn.btn-success {
@@ -165,7 +165,7 @@ REPORT CARD
 
     background: #fff;
 
-    padding: 22px;
+    padding: 24px;
 
     border-radius: 16px;
 
@@ -224,7 +224,7 @@ TABLE
 
 .table th {
 
-    padding: 18px 16px;
+    padding: 10px;
 
     font-weight: 700;
 
@@ -240,7 +240,7 @@ TABLE
 
 .table td {
 
-    padding: 18px 16px;
+    padding: 10px;
 
     vertical-align: middle;
 
