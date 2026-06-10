@@ -18,7 +18,7 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class AgentticketcancellationreportComponent implements OnInit {
 
- 
+ showFilter = false;
   public searchFrom: FormGroup;
 
   cancelTicketsReport: CancelTicketsReport[];

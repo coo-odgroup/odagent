@@ -1,4 +1,4 @@
-<div class="auth-wrapper">
+<!-- <div class="auth-wrapper">
   <div class="auth-content text-center">
     <img src="assets/images/odbus-logo.svg" alt="" class="img-fluid mb-4">
     <div class="card borderless">
@@ -20,11 +20,66 @@
               <button class="btn btn-block btn-primary mb-4" type="button" (click)="check_credentials()">Get
                 OTP</button>
               <p class="text-center"> <a class="formlink" routerLink="/dashboard/landing">Back to home</a> </p>
-              <!-- <p class="text-center">Already Registered? <a class="formlink" routerLink="/login">Login</a> </p>   -->
             </form>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div> -->
+
+
+<div class="auth-wrapper" style="background-image:url('assets/images/agent_bg.png')">
+
+  <div class="auth-content text-center">
+
+    <img src="assets/images/odbus-logo.svg" alt="ODBUS" class="logo">
+
+    <div class="glass-card">
+
+      <h3 class="title">Agent Signup</h3>
+
+      <p class="subtitle">
+        Create your agent account
+      </p>
+
+      <form [formGroup]="form" novalidate>
+
+        <div class="form-group">
+
+          <input type="tel" class="form-control custom-input" formControlName="phone" placeholder="Enter Mobile Number">
+
+          <span class="text-danger" *ngIf="form.controls['phone'].touched &&
+                               form.controls['phone'].hasError('required')">
+
+            Mobile Number is required
+
+          </span>
+
+          <span class="text-danger" *ngIf="form.controls['phone'].errors?.pattern">
+
+            Enter valid 10 digit mobile number
+
+          </span>
+
+        </div>
+
+        <button class="btn action-btn" type="button" (click)="check_credentials()">
+
+          Get OTP
+
+        </button>
+
+      </form>
+
+    </div>
+
+    <div class="back-home">
+      <a routerLink="/dashboard/landing">
+        ← Back to Home
+      </a>
+    </div>
+
+  </div>
+
 </div>

@@ -282,7 +282,7 @@
 </div> -->
 
 
-<div class="report-page">
+<div class="report-page d-none d-md-block">
 
     <!-- HEADER -->
 
@@ -661,6 +661,249 @@
             </ul>
 
         </div>
+
+    </div>
+
+</div>
+
+
+<!-- Mobile view -->
+
+<div class="mobile-report-page d-block d-md-none">
+
+    <!-- Header -->
+    <div class="mobile-header">
+
+        <h2>Agent Cancel Ticket Report</h2>
+
+        <button class="filter-btn" (click)="showFilter = !showFilter">
+            <i class="fa fa-sliders"></i>
+        </button>
+
+    </div>
+
+    <!-- Filter Popup -->
+    <div class="filter-card" *ngIf="showFilter">
+
+        <!-- Date Row -->
+        <div class="date-row">
+
+            <input type="date" class="mobile-input" formControlName="rangeFromDate">
+
+            <input type="date" class="mobile-input" formControlName="rangeToDate">
+
+        </div>
+
+        <!-- Range Type -->
+        <select class="mobile-input" formControlName="date_type">
+
+            <option value="booking">
+                Booking Date
+            </option>
+
+            <option value="journey">
+                Journey Date
+            </option>
+
+        </select>
+
+        <!-- Rows Number -->
+
+        <input type="text" class="modern-input" placeholder="Payment Id" formControlName="payment_id">
+        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Source"
+            formControlName="source_id">
+        </ng-select>
+
+        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Destination"
+            formControlName="destination_id">
+        </ng-select>
+        
+        <select class="mobile-input" formControlName="rows_number">
+            <option value="10">10 Records</option>
+            <option value="25">25 Records</option>
+            <option value="50">50 Records</option>
+            <option value="100">100 Records</option>
+            <option value="all">All Records</option>
+        </select>
+        <!-- Buttons -->
+        <div class="filter-actions">
+
+            <button type="button" class="btn-refresh" (click)="refresh()">
+
+                Refresh
+
+            </button>
+
+            <button type="button" class="btn-search" (click)="search()">
+
+                Search
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Summary -->
+    <div class="summary-strip">
+
+        <div>
+            <span>TOTAL</span>
+            <strong>{{cancelticketdata?.data?.total}}</strong>
+        </div>
+
+        <div>
+            <span>CREDITS</span>
+            <strong>₹20,230</strong>
+        </div>
+
+        <div>
+            <span>DEBITS</span>
+            <strong>₹10,750</strong>
+        </div>
+
+        <div>
+            <span>BALANCE</span>
+            <strong>₹18,569</strong>
+        </div>
+
+    </div>
+
+    <!-- Ticket Cards -->
+
+    <div class="ticket-card" *ngFor="let complete of cancelticketdata?.data?.data; let i=index">
+
+        <!-- Header -->
+        <div class="card-header-row">
+
+            <span class="ticket-id">
+                #{{i+1}}
+            </span>
+
+            <h3 class="pnr-number">
+                {{complete.pnr}}
+            </h3>
+
+        </div>
+
+        <!-- Route -->
+
+        <div class="route">
+
+            <span class="route-city">
+                {{complete.from_location[0]?.name}}
+            </span>
+
+            <div class="arrow">
+                To
+            </div>
+
+            <span class="route-city">
+                {{complete.to_location[0]?.name}}
+            </span>
+
+        </div>
+
+        <!-- Details -->
+
+        <div class="details-grid">
+
+            <!-- Bus -->
+
+            <div>
+                <label>Bus</label>
+
+                <strong>
+                    {{complete.bus?.name || '--'}}
+                </strong>
+            </div>
+
+            <div class="text-right">
+                <label>Bus Number</label>
+
+                <strong>
+                    {{complete.bus?.bus_number || '--'}}
+                </strong>
+            </div>
+
+            <!-- Seat -->
+
+            <div>
+                <label>Seat</label>
+
+                <strong>
+                    --
+                </strong>
+            </div>
+
+            <div class="text-right">
+                <label>Passenger</label>
+
+                <strong>
+                    --
+                </strong>
+            </div>
+
+            <!-- Dates -->
+
+            <div>
+                <label>Journey Date</label>
+
+                <strong>
+                    {{complete.journey_dt}}
+                </strong>
+            </div>
+
+            <div class="text-right">
+                <label>Cancel Date</label>
+
+                <strong>
+                    {{complete.updated_at | date:'yyyy-MM-dd'}}
+                </strong>
+            </div>
+
+            <!-- Amount -->
+
+            <div>
+                <label>Total Amount</label>
+
+                <strong class="fare-amount">
+                    ₹{{complete.total_fare}}
+                </strong>
+            </div>
+
+            <div class="text-right">
+                <label>Refund Amount</label>
+
+                <strong class="refund-amount">
+                    ₹{{complete.refund_amount}}
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+
+    <div class="showing">
+        Showing
+        {{cancelticketdata?.data?.from}}
+        -
+        {{cancelticketdata?.data?.to}}
+        of
+        {{cancelticketdata?.data?.total}}
+    </div>
+
+    <div class="mobile-pagination">
+
+        <button>Prev</button>
+
+        <button class="active">1</button>
+
+        <button>2</button>
+
+        <button>Next</button>
 
     </div>
 

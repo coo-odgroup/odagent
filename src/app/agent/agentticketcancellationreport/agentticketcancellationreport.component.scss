@@ -353,6 +353,7 @@ FILTER CARD
   border-radius: 12px;
   padding: 0 15px;
   background: #fff;
+  margin-bottom: 18px;
 }
 
 .filter-footer {
@@ -519,9 +520,7 @@ NG SELECT
   border: 1px solid #dde5ef !important;
 }
 
-::ng-deep .ng-select.ng-select-single .ng-select-container {
-  height: 48px !important;
-}
+
 
 /* ==========================
 DESKTOP ONLY
@@ -551,29 +550,343 @@ MOBILE
 
 }
 
+
+
 @media(max-width:768px) {
 
-  .summary-grid {
-    grid-template-columns: 1fr;
+  ::ng-deep .ng-select .ng-select-container {
+    height: 48px !important;
+    border-radius: 12px !important;
+    border: 1px solid #dde5ef !important;
+    margin-bottom: 18px;
   }
 
-  .filter-grid {
-    grid-template-columns: 1fr;
+  .mobile-report-page {
+    padding: 15px;
+    background: #f5f7fb;
+    min-height: 100vh;
   }
 
-  .filter-footer {
-    flex-direction: column;
-    gap: 15px;
-    align-items: flex-start;
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
   }
 
-  .table-footer {
-    flex-direction: column;
-    gap: 15px;
+  .mobile-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #13326b;
+    margin: 0;
   }
 
-  .page-title {
-    font-size: 32px;
+  .filter-btn {
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 16px;
+    background: #123d82;
+    color: #fff;
+    font-size: 18px;
+    box-shadow: 0 5px 15px rgba(18, 61, 130, .25);
+  }
+
+  .filter-card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #dfe7f3;
+  }
+
+  .mobile-input {
+    width: 100%;
+    height: 50px;
+    border: 1px solid #dbe3ef;
+    border-radius: 14px;
+    margin-bottom: 14px;
+    padding: 0 15px;
+  }
+
+  // .filter-actions {
+  //   display: flex;
+  //   gap: 10px;
+  //   margin: 14px 0;
+  // }
+
+  // .btn-refresh {
+  //   flex: 1;
+  //   height: 48px;
+  //   border: none;
+  //   border-radius: 14px;
+  //   background: #ff3b4d;
+  //   color: #fff;
+  //   font-weight: 600;
+  // }
+
+  .btn-export {
+    flex: 1;
+    height: 48px;
+    border: none;
+    border-radius: 14px;
+    background: #ffc107;
+    color: #000;
+    font-weight: 600;
+  }
+
+  // .btn-search {
+  //   width: 100%;
+  //   height: 50px;
+  //   border: none;
+  //   border-radius: 14px;
+  //   background: #16a34a;
+  //   color: #fff;
+  //   font-weight: 700;
+  // }
+
+  .summary-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: #143d82;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .summary-strip div {
+    text-align: center;
+    padding: 14px 8px;
+  }
+
+  .summary-strip span {
+    display: block;
+    color: #a9c4ff;
+    font-size: 10px;
+  }
+
+  .summary-strip strong {
+    color: #fff;
+    font-size: 13px;
+  }
+
+  .ticket-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #dfe7f3;
+  }
+
+  // .ticket-top {
+  //   display: flex;
+  //   justify-content: space-between;
+  //   margin-bottom: 14px;
+  // }
+
+  // .ticket-id {
+  //   background: #eef3ff;
+  //   color: #2563eb;
+  //   padding: 5px 10px;
+  //   border-radius: 50px;
+  //   font-size: 12px;
+  // }
+
+  span.ticket-id {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    border: 1px solid #bfdbfe;
+  }
+
+  .card-header-row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .pnr-number {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f2d5c;
+    line-height: 1;
+  }
+
+  .ticket-id {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #bfdbfe;
+    flex-shrink: 0;
+  }
+
+  // .amount {
+  //   background: #d9f6df;
+  //   color: #15803d;
+  //   padding: 8px 15px;
+  //   border-radius: 50px;
+  //   font-weight: 700;
+  // }
+
+  // .ticket-card h3 {
+  //   margin: 0;
+  //   font-size: 30px;
+  //   font-weight: 700;
+  //   color: #10284f;
+  // }
+
+  .agent-name {
+    margin-top: 10px;
+    font-weight: 700;
+    color: #10284f;
+  }
+
+  .route {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+  }
+
+  .arrow {
+    width: 30px;
+    height: 30px;
+    background: #f4e2a3;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 15px;
+
+    border-top: 1px dashed #d6dce7;
+    padding-top: 15px;
+  }
+
+  .details-grid label {
+    display: block;
+    color: #94a3b8;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .details-grid strong {
+    display: block;
+    color: #10284f;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .text-right {
+    text-align: right;
+  }
+
+  .fare-amount {
+    color: #8b0b0b !important;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .refund-amount {
+    color: #16a34a !important;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .showing {
+    text-align: center;
+    margin: 20px 0 12px;
+    color: #64748b;
+  }
+
+  .mobile-pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .mobile-pagination button {
+    min-width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 12px;
+    background: #fff;
+    color: #2563eb;
+    font-weight: 600;
+  }
+
+  .mobile-pagination button.active {
+    background: #123d82;
+    color: #fff;
+  }
+
+  .date-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 14px;
+  }
+
+  .date-row .mobile-input {
+    flex: 1;
+    min-width: 0;
+    margin-bottom: 0;
+  }
+
+  .mobile-input {
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    border: 1px solid #dbe3ef;
+    border-radius: 14px;
+    padding: 0 12px;
+    background: #fff;
+  }
+
+  .filter-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 18px;
+  }
+
+  .btn-refresh {
+    height: 50px;
+    border: none;
+    border-radius: 14px;
+    background: #ff3b4d;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .btn-search {
+    height: 50px;
+    border: none;
+    border-radius: 14px;
+    background: #16a34a;
+    color: #fff;
+    font-weight: 700;
   }
 
 }
