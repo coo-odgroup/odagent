@@ -951,38 +951,7 @@
     background: #ef4444;
   }
 
-  /* PAGINATION */
 
-  .mobile-pagination {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    padding: 10px 0 20px;
-  }
-
-  .page-btn {
-    width: 42px;
-    height: 42px;
-    border: none;
-    border-radius: 12px;
-    background: #2563eb;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-  }
-
-  .page-btn:disabled {
-    opacity: 0.5;
-  }
-
-  .page-number {
-    font-size: 15px;
-    font-weight: 700;
-    color: #111827;
-  }
 }
 
 /* =========================================
@@ -1537,4 +1506,41 @@
   .simple-ticket-card {
     margin-bottom: 16px;
   }
+}
+
+.mobile-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+  margin-top: 15px;
+}
+
+.mobile-pagination button {
+  min-width: 42px;
+  height: 42px;
+  border: 1px solid #dbe4f0;
+  background: #fff;
+  border-radius: 12px;
+  color: #2563eb;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 0 12px;
+  transition: all .2s ease;
+}
+
+.mobile-pagination button.active {
+  background: #072a6c;
+  color: #fff;
+  border-color: #072a6c;
+}
+
+.mobile-pagination button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+.mobile-pagination button:not(:disabled):hover {
+  background: #f3f7ff;
 }

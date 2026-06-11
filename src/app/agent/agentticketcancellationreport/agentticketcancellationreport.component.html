@@ -281,630 +281,464 @@
     </div>
 </div> -->
 
-
 <div class="report-page d-none d-md-block">
+  <!-- HEADER -->
 
-    <!-- HEADER -->
-
-    <div class="report-header">
-
-        <div>
-
-            <h1 class="page-title">
-                Agent Cancel Ticket Report
-            </h1>
-
-        </div>
-
-        <div class="header-actions">
-
-            <button class="btn-export" (click)="exportexcel()">
-
-                Export
-
-            </button>
-
-            <button class="btn-print" printSectionId="print-section" ngxPrint [useExistingCss]="true">
-
-                Print
-
-            </button>
-
-        </div>
-
+  <div class="report-header">
+    <div>
+      <h1 class="page-title">Agent Cancel Ticket Report</h1>
     </div>
 
+    <div class="header-actions">
+      <button class="btn-export" (click)="exportexcel()">Export</button>
 
-    <!-- SUMMARY CARDS -->
+      <button
+        class="btn-print"
+        printSectionId="print-section"
+        ngxPrint
+        [useExistingCss]="true"
+      >
+        Print
+      </button>
+    </div>
+  </div>
 
-    <div class="summary-grid">
+  <!-- SUMMARY CARDS -->
 
-        <div class="summary-card">
+  <div class="summary-grid">
+    <div class="summary-card">
+      <p>Total Records</p>
 
-            <p>Total Records</p>
-
-            <h2>
-                {{cancelticketdata?.data?.total || 0}}
-            </h2>
-
-        </div>
-
-        <div class="summary-card">
-
-            <p>Current Page</p>
-
-            <h2>
-                {{cancelticketdata?.data?.current_page || 0}}
-            </h2>
-
-        </div>
-
-        <div class="summary-card">
-
-            <p>Per Page</p>
-
-            <h2>
-                {{cancelticketdata?.data?.per_page || 0}}
-            </h2>
-
-        </div>
-
+      <h2>
+        {{ cancelticketdata?.data?.total || 0 }}
+      </h2>
     </div>
 
+    <div class="summary-card">
+      <p>Current Page</p>
 
-    <!-- FILTER CARD -->
-
-    <div class="filter-card">
-
-        <form [formGroup]="searchFrom">
-
-            <div class="filter-grid">
-
-                <input type="date" class="modern-input" formControlName="rangeFromDate">
-
-                <input type="date" class="modern-input" formControlName="rangeToDate">
-
-                <select class="modern-input" formControlName="date_type">
-
-                    <option value="booking">
-                        Booking Date
-                    </option>
-
-                    <option value="journey">
-                        Journey Date
-                    </option>
-
-                </select>
-
-                <input type="text" class="modern-input" placeholder="Payment Id" formControlName="payment_id">
-
-                <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Source"
-                    formControlName="source_id">
-                </ng-select>
-
-                <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Destination"
-                    formControlName="destination_id">
-                </ng-select>
-
-            </div>
-
-
-            <div class="filter-footer">
-
-                <div class="filter-buttons">
-
-                    <button type="button" class="btn-search" (click)="search()">
-
-                        Search
-
-                    </button>
-
-                    <button type="button" class="btn-refresh" (click)="refresh()">
-
-                        Refresh
-
-                    </button>
-
-                </div>
-
-
-                <select class="modern-input rows-dropdown" formControlName="rows_number" (change)="search()">
-
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="all">All</option>
-
-                </select>
-
-            </div>
-
-        </form>
-
+      <h2>
+        {{ cancelticketdata?.data?.current_page || 0 }}
+      </h2>
     </div>
 
-
-    <!-- TABLE CARD -->
-
-    <div class="table-card">
-
-        <div class="table-responsive-modern">
-
-            <table class="modern-table" id="print-section">
-
-                <thead>
-
-                    <tr>
-
-                        <th>#</th>
-
-                        <th>Ticket Details</th>
-
-                        <th>Boarding</th>
-
-                        <th>Cancel Date</th>
-
-                        <th>Bus Details</th>
-
-                        <th>Route</th>
-
-                        <th>Seat No</th>
-
-                        <th>Passenger</th>
-
-                        <th>Fare</th>
-
-                        <th>Refund</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    <tr *ngFor="
-            let complete of cancelticketdata?.data?.data;
-            let i=index
-            ">
-
-                        <td>
-
-                            {{i+1}}
-
-                        </td>
-
-                        <td>
-
-                            <strong>
-
-                                {{complete.pnr}}
-
-                            </strong>
-
-                            <br>
-
-                            <small>
-
-                                DOJ :
-
-                                {{complete.journey_dt}}
-
-                            </small>
-
-                        </td>
-
-                        <td>
-
-                            <span *ngFor="let fr of complete.from_location">
-
-                                {{fr.name}}
-
-                            </span>
-
-                            <br>
-
-                            <small>
-
-                                {{complete.boarding_point}}
-
-                            </small>
-
-                        </td>
-
-                        <td>
-
-                            {{complete.updated_at | date}}
-
-                        </td>
-
-                        <td>
-
-                            {{complete.bus?.name}}
-
-                            <br>
-
-                            <small>
-
-                                {{complete.bus?.bus_number}}
-
-                            </small>
-
-                        </td>
-
-                        <td>
-
-                            <span *ngFor="let fr of complete.from_location">
-
-                                {{fr.name}}
-
-                            </span>
-
-                            >>
-
-                            <span *ngFor="let to of complete.to_location">
-
-                                {{to.name}}
-
-                            </span>
-
-                        </td>
-
-                        <td>
-
-                            Seat
-
-                        </td>
-
-                        <td>
-
-                            Passenger
-
-                        </td>
-
-                        <td>
-
-                            ₹{{complete.total_fare}}
-
-                        </td>
-
-                        <td class="refund-text">
-
-                            ₹{{complete.refund_amount}}
-
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
+    <div class="summary-card">
+      <p>Per Page</p>
+
+      <h2>
+        {{ cancelticketdata?.data?.per_page || 0 }}
+      </h2>
+    </div>
+  </div>
+
+  <!-- FILTER CARD -->
+
+  <div class="filter-card">
+    <form [formGroup]="searchFrom">
+      <div class="filter-grid">
+        <input
+          type="date"
+          class="modern-input"
+          formControlName="rangeFromDate"
+        />
+
+        <input type="date" class="modern-input" formControlName="rangeToDate" />
+
+        <select class="modern-input" formControlName="date_type">
+          <option value="booking">Booking Date</option>
+
+          <option value="journey">Journey Date</option>
+        </select>
+
+        <input
+          type="text"
+          class="modern-input"
+          placeholder="Payment Id"
+          formControlName="payment_id"
+        />
+
+        <ng-select
+          [items]="locations"
+          bindLabel="name"
+          bindValue="id"
+          placeholder="Source"
+          formControlName="source_id"
+        >
+        </ng-select>
+
+        <ng-select
+          [items]="locations"
+          bindLabel="name"
+          bindValue="id"
+          placeholder="Destination"
+          formControlName="destination_id"
+        >
+        </ng-select>
+      </div>
+
+      <div class="filter-footer">
+        <div class="filter-buttons">
+          <button type="button" class="btn-search" (click)="search()">
+            Search
+          </button>
+
+          <button type="button" class="btn-refresh" (click)="refresh()">
+            Refresh
+          </button>
         </div>
 
+        <select
+          class="modern-input rows-dropdown"
+          formControlName="rows_number"
+          (change)="search()"
+        >
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+          <option value="all">All</option>
+        </select>
+      </div>
+    </form>
+  </div>
 
-        <!-- FOOTER -->
+  <!-- TABLE CARD -->
 
-        <div class="table-footer">
+  <div class="table-card">
+    <div class="table-responsive-modern">
+      <table class="modern-table" id="print-section">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Ticket Details</th>
+            <th>Boarding</th>
+            <th>Cancel Date</th>
+            <th>Bus Details</th>
+            <th>Route</th>
+            <th>Seat No</th>
+            <th>Passenger</th>
+            <th>Fare</th>
+            <th>Refund</th>
+          </tr>
+        </thead>
 
-            <div class="entry-count">
+        <tbody>
+          <tr
+            *ngFor="let complete of cancelticketdata?.data?.data; let i = index"
+          >
+            <td>{{ i + 1 }}</td>
+            <td><strong>{{ complete.pnr }}</strong>
+                <br/>
+              <small>DOJ :{{ complete.journey_dt }}</small>
+            </td>
+            <td><span *ngFor="let fr of complete.from_location">{{ fr.name }}</span>
+                <br />
+            <small>{{ complete.boarding_point }}</small>
+            </td>
 
-                Showing
-
-                {{cancelticketdata?.data?.from}}
-
-                -
-
-                {{cancelticketdata?.data?.to}}
-
-                of
-
-                {{cancelticketdata?.data?.total}}
-
-                entries
-
-            </div>
-
-
-            <ul class="modern-pagination">
-
-                <li>
-
-                    <button>
-
-                        First
-
-                    </button>
-
-                </li>
-
-                <li>
-
-                    <button>
-
-                        Prev
-
-                    </button>
-
-                </li>
-
-                <li class="active">
-
-                    <button>
-
-                        1
-
-                    </button>
-
-                </li>
-
-                <li>
-
-                    <button>
-
-                        2
-
-                    </button>
-
-                </li>
-
-                <li>
-
-                    <button>
-
-                        Next
-
-                    </button>
-
-                </li>
-
-            </ul>
-
-        </div>
-
+            <td>{{ complete.updated_at | date }}</td>
+            <td>{{ complete.bus?.name }}
+              <br />
+              <small>{{ complete.bus?.bus_number }}</small>
+            </td>
+            <td>
+              <span *ngFor="let fr of complete.from_location">
+                {{ fr.name }}
+              </span>
+              >>
+              <span *ngFor="let to of complete.to_location">
+                {{ to.name }}
+              </span>
+            </td>
+            <td>Seat</td>
+            <td>Passenger</td>
+            <td>₹{{ complete.total_fare }}</td>
+            <td class="refund-text">₹{{ complete.refund_amount }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
+    <!-- FOOTER -->
+
+    <div class="table-footer">
+      <div class="entry-count">
+        Showing
+        {{ cancelticketdata?.data?.from }}
+        -
+        {{ cancelticketdata?.data?.to }}
+        of
+        {{ cancelticketdata?.data?.total }}
+        entries
+      </div>
+
+      <ul class="modern-pagination">
+        <!-- PREV -->
+        <li>
+          <button
+            [disabled]="!cancelticketdata?.data?.prev_page_url"
+            (click)="onPreviousPageCancel()"
+          >
+            Prev
+          </button>
+        </li>
+
+        <!-- PAGES -->
+        <li
+          *ngFor="let p of getVisiblePagesCancel()"
+          [class.active]="cancelticketdata?.data?.current_page === p"
+        >
+          <button *ngIf="p !== '...'" (click)="searchPageCancel(+p)">
+            {{ p }}
+          </button>
+
+          <button *ngIf="p === '...'" disabled>...</button>
+        </li>
+
+        <!-- NEXT -->
+        <li>
+          <button
+            [disabled]="!cancelticketdata?.data?.next_page_url"
+            (click)="onNextPageCancel()"
+          >
+            Next
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
-
 
 <!-- Mobile view -->
 
 <div class="mobile-report-page d-block d-md-none">
+  <!-- Header -->
+  <div class="mobile-header">
+    <h2>Agent Cancel Ticket Report</h2>
 
+    <button class="filter-btn" (click)="showFilter = !showFilter">
+      <i class="fa fa-sliders"></i>
+    </button>
+  </div>
+
+  <!-- Filter Popup -->
+  <div class="filter-card" *ngIf="showFilter">
+    <!-- Date Row -->
+    <div class="date-row">
+      <input type="date" class="mobile-input" formControlName="rangeFromDate" />
+
+      <input type="date" class="mobile-input" formControlName="rangeToDate" />
+    </div>
+
+    <!-- Range Type -->
+    <select class="mobile-input" formControlName="date_type">
+      <option value="booking">Booking Date</option>
+
+      <option value="journey">Journey Date</option>
+    </select>
+
+    <!-- Rows Number -->
+
+    <input
+      type="text"
+      class="modern-input"
+      placeholder="Payment Id"
+      formControlName="payment_id"
+    />
+    <ng-select
+      [items]="locations"
+      bindLabel="name"
+      bindValue="id"
+      placeholder="Select Source"
+      formControlName="source_id"
+    >
+    </ng-select>
+
+    <ng-select
+      [items]="locations"
+      bindLabel="name"
+      bindValue="id"
+      placeholder="Select Destination"
+      formControlName="destination_id"
+    >
+    </ng-select>
+
+    <select class="mobile-input" formControlName="rows_number">
+      <option value="10">10 Records</option>
+      <option value="25">25 Records</option>
+      <option value="50">50 Records</option>
+      <option value="100">100 Records</option>
+      <option value="all">All Records</option>
+    </select>
+    <!-- Buttons -->
+    <div class="filter-actions">
+      <button type="button" class="btn-refresh" (click)="refresh()">
+        Refresh
+      </button>
+
+      <button type="button" class="btn-search" (click)="search()">
+        Search
+      </button>
+    </div>
+  </div>
+
+  <!-- Summary -->
+  <div class="summary-strip">
+    <div>
+      <span>TOTAL</span>
+      <strong>{{ cancelticketdata?.data?.total }}</strong>
+    </div>
+
+    <div>
+      <span>CREDITS</span>
+      <strong>₹20,230</strong>
+    </div>
+
+    <div>
+      <span>DEBITS</span>
+      <strong>₹10,750</strong>
+    </div>
+
+    <div>
+      <span>BALANCE</span>
+      <strong>₹18,569</strong>
+    </div>
+  </div>
+
+  <!-- Ticket Cards -->
+
+  <div
+    class="ticket-card"
+    *ngFor="let complete of cancelticketdata?.data?.data; let i = index"
+  >
     <!-- Header -->
-    <div class="mobile-header">
+    <div class="card-header-row">
+      <span class="ticket-id"> #{{ i + 1 }} </span>
 
-        <h2>Agent Cancel Ticket Report</h2>
-
-        <button class="filter-btn" (click)="showFilter = !showFilter">
-            <i class="fa fa-sliders"></i>
-        </button>
-
+      <h3 class="pnr-number">
+        {{ complete.pnr }}
+      </h3>
     </div>
 
-    <!-- Filter Popup -->
-    <div class="filter-card" *ngIf="showFilter">
+    <!-- Route -->
 
-        <!-- Date Row -->
-        <div class="date-row">
+    <div class="route">
+      <span class="route-city">
+        {{ complete.from_location[0]?.name }}
+      </span>
 
-            <input type="date" class="mobile-input" formControlName="rangeFromDate">
+      <div class="arrow">To</div>
 
-            <input type="date" class="mobile-input" formControlName="rangeToDate">
-
-        </div>
-
-        <!-- Range Type -->
-        <select class="mobile-input" formControlName="date_type">
-
-            <option value="booking">
-                Booking Date
-            </option>
-
-            <option value="journey">
-                Journey Date
-            </option>
-
-        </select>
-
-        <!-- Rows Number -->
-
-        <input type="text" class="modern-input" placeholder="Payment Id" formControlName="payment_id">
-        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Source"
-            formControlName="source_id">
-        </ng-select>
-
-        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Destination"
-            formControlName="destination_id">
-        </ng-select>
-        
-        <select class="mobile-input" formControlName="rows_number">
-            <option value="10">10 Records</option>
-            <option value="25">25 Records</option>
-            <option value="50">50 Records</option>
-            <option value="100">100 Records</option>
-            <option value="all">All Records</option>
-        </select>
-        <!-- Buttons -->
-        <div class="filter-actions">
-
-            <button type="button" class="btn-refresh" (click)="refresh()">
-
-                Refresh
-
-            </button>
-
-            <button type="button" class="btn-search" (click)="search()">
-
-                Search
-
-            </button>
-
-        </div>
-
+      <span class="route-city">
+        {{ complete.to_location[0]?.name }}
+      </span>
     </div>
 
-    <!-- Summary -->
-    <div class="summary-strip">
+    <!-- Details -->
 
-        <div>
-            <span>TOTAL</span>
-            <strong>{{cancelticketdata?.data?.total}}</strong>
-        </div>
+    <div class="details-grid">
+      <!-- Bus -->
 
-        <div>
-            <span>CREDITS</span>
-            <strong>₹20,230</strong>
-        </div>
+      <div>
+        <label>Bus</label>
 
-        <div>
-            <span>DEBITS</span>
-            <strong>₹10,750</strong>
-        </div>
+        <strong>
+          {{ complete.bus?.name || "--" }}
+        </strong>
+      </div>
 
-        <div>
-            <span>BALANCE</span>
-            <strong>₹18,569</strong>
-        </div>
+      <div class="text-right">
+        <label>Bus Number</label>
 
+        <strong>
+          {{ complete.bus?.bus_number || "--" }}
+        </strong>
+      </div>
+
+      <!-- Seat -->
+
+      <div>
+        <label>Seat</label>
+
+        <strong> -- </strong>
+      </div>
+
+      <div class="text-right">
+        <label>Passenger</label>
+
+        <strong> -- </strong>
+      </div>
+
+      <!-- Dates -->
+
+      <div>
+        <label>Journey Date</label>
+
+        <strong>
+          {{ complete.journey_dt }}
+        </strong>
+      </div>
+
+      <div class="text-right">
+        <label>Cancel Date</label>
+
+        <strong>
+          {{ complete.updated_at | date: "yyyy-MM-dd" }}
+        </strong>
+      </div>
+
+      <!-- Amount -->
+
+      <div>
+        <label>Total Amount</label>
+
+        <strong class="fare-amount"> ₹{{ complete.total_fare }} </strong>
+      </div>
+
+      <div class="text-right">
+        <label>Refund Amount</label>
+
+        <strong class="refund-amount"> ₹{{ complete.refund_amount }} </strong>
+      </div>
     </div>
+  </div>
 
-    <!-- Ticket Cards -->
+  <!-- Footer -->
 
-    <div class="ticket-card" *ngFor="let complete of cancelticketdata?.data?.data; let i=index">
+  <div class="showing">
+    Showing
+    {{ cancelticketdata?.data?.from }}
+    -
+    {{ cancelticketdata?.data?.to }}
+    of
+    {{ cancelticketdata?.data?.total }}
+  </div>
 
-        <!-- Header -->
-        <div class="card-header-row">
+  <div class="mobile-pagination">
+    <button
+      [disabled]="!cancelticketdata?.data?.prev_page_url"
+      (click)="onPreviousPageCancel()"
+    >
+      Prev
+    </button>
 
-            <span class="ticket-id">
-                #{{i+1}}
-            </span>
+    <ng-container *ngFor="let p of getVisiblePagesCancel()">
+      <button
+        *ngIf="p !== '...'"
+        [class.active]="cancelticketdata?.data?.current_page === p"
+        (click)="searchPageCancel(+p)"
+      >
+        {{ p }}
+      </button>
 
-            <h3 class="pnr-number">
-                {{complete.pnr}}
-            </h3>
+      <button *ngIf="p === '...'" disabled>...</button>
+    </ng-container>
 
-        </div>
-
-        <!-- Route -->
-
-        <div class="route">
-
-            <span class="route-city">
-                {{complete.from_location[0]?.name}}
-            </span>
-
-            <div class="arrow">
-                To
-            </div>
-
-            <span class="route-city">
-                {{complete.to_location[0]?.name}}
-            </span>
-
-        </div>
-
-        <!-- Details -->
-
-        <div class="details-grid">
-
-            <!-- Bus -->
-
-            <div>
-                <label>Bus</label>
-
-                <strong>
-                    {{complete.bus?.name || '--'}}
-                </strong>
-            </div>
-
-            <div class="text-right">
-                <label>Bus Number</label>
-
-                <strong>
-                    {{complete.bus?.bus_number || '--'}}
-                </strong>
-            </div>
-
-            <!-- Seat -->
-
-            <div>
-                <label>Seat</label>
-
-                <strong>
-                    --
-                </strong>
-            </div>
-
-            <div class="text-right">
-                <label>Passenger</label>
-
-                <strong>
-                    --
-                </strong>
-            </div>
-
-            <!-- Dates -->
-
-            <div>
-                <label>Journey Date</label>
-
-                <strong>
-                    {{complete.journey_dt}}
-                </strong>
-            </div>
-
-            <div class="text-right">
-                <label>Cancel Date</label>
-
-                <strong>
-                    {{complete.updated_at | date:'yyyy-MM-dd'}}
-                </strong>
-            </div>
-
-            <!-- Amount -->
-
-            <div>
-                <label>Total Amount</label>
-
-                <strong class="fare-amount">
-                    ₹{{complete.total_fare}}
-                </strong>
-            </div>
-
-            <div class="text-right">
-                <label>Refund Amount</label>
-
-                <strong class="refund-amount">
-                    ₹{{complete.refund_amount}}
-                </strong>
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Footer -->
-
-    <div class="showing">
-        Showing
-        {{cancelticketdata?.data?.from}}
-        -
-        {{cancelticketdata?.data?.to}}
-        of
-        {{cancelticketdata?.data?.total}}
-    </div>
-
-    <div class="mobile-pagination">
-
-        <button>Prev</button>
-
-        <button class="active">1</button>
-
-        <button>2</button>
-
-        <button>Next</button>
-
-    </div>
-
+    <button
+      [disabled]="!cancelticketdata?.data?.next_page_url"
+      (click)="onNextPageCancel()"
+    >
+      Next
+    </button>
+  </div>
 </div>

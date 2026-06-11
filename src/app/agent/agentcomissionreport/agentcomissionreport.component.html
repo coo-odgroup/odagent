@@ -441,7 +441,7 @@
                 <strong class="green">
                   ₹{{
                   
-                      (complete.agent_commission || 0)
+                      (complete.agent_commission || 0) | number: "1.2-2" 
                   }}
                 </strong>
               </div>
@@ -454,7 +454,7 @@
 
               <div class="detail-row">
                 <span>TDS</span>
-                <strong class="red"> ₹{{ complete.tds }} </strong>
+                <strong class="red"> ₹{{ complete.tds | number: "1.2-2"}} </strong>
               </div>
 
               <div class="detail-row">
@@ -504,42 +504,71 @@
 
         <!-- PAGINATION -->
 
-        <div class="pagination-wrapper">
-          <div class="pagination-left">
-            Showing 1-{{ completedata?.data.data?.length }}
+       <div class="pagination-wrapper">
 
-            of
+  <div class="pagination-left">
+    Showing {{ completedata?.data?.from }}-{{ completedata?.data?.to }}
+    of {{ completedata?.data?.total }} entries
+  </div>
 
-            {{ completedata?.data.total }}
+  <div class="pagination-right">
 
-            entries
-          </div>
+    <ul class="pagination">
 
-          <div class="pagination-right">
-            <ul class="pagination">
-              <li>
-                <a class="page-link" (click)="onPreviousPageCommission()">
-                  Prev
-                </a>
-              </li>
+      <!-- PREV -->
+      <li
+        class="page-item"
+        [class.disabled]="!completedata?.data?.prev_page_url"
+      >
+        <a
+          class="page-link"
+          (click)="onPreviousPageCommission()"
+        >
+          Prev
+        </a>
+      </li>
 
-              <li *ngFor="let b of completedata?.data.links">
-                <a
-                  *ngIf="isPageVisibleCommission(b.label)"
-                  class="page-link"
-                  [class.active]="completedata.data.current_page == b.label"
-                  (click)="b.url && search(b.url)"
-                >
-                  {{ getPageLabelCommission(b.label) }}
-                </a>
-              </li>
+      <!-- PAGES -->
+      <li
+        class="page-item"
+        *ngFor="let p of getVisiblePagesCommission()"
+        [class.disabled]="p === '...'"
+      >
+        <a
+          *ngIf="p !== '...'"
+          class="page-link"
+          [class.active]="completedata?.data?.current_page === p"
+          (click)="searchPageCommission(+p)"
+        >
+          {{ p }}
+        </a>
 
-              <li>
-                <a class="page-link" (click)="onNextPageCommission()"> Next </a>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <span
+          *ngIf="p === '...'"
+          class="page-link"
+        >
+          ...
+        </span>
+      </li>
+
+      <!-- NEXT -->
+      <li
+        class="page-item"
+        [class.disabled]="!completedata?.data?.next_page_url"
+      >
+        <a
+          class="page-link"
+          (click)="onNextPageCommission()"
+        >
+          Next
+        </a>
+      </li>
+
+    </ul>
+
+  </div>
+
+</div>
       </div>
     </div>
   </div>

@@ -841,3 +841,35 @@ ng-select {
     color: #54ff95;
   }
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.page-link {
+  min-width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  border: 1px solid #dbe4f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2563eb;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.page-link.active {
+  background: #072a6c;
+  color: #fff;
+  border-color: #072a6c;
+}
+
+.page-item.disabled .page-link {
+  opacity: .6;
+  pointer-events: none;
+}

@@ -1,36 +1,46 @@
 import { Component, OnInit, VERSION } from '@angular/core';
 import { AgentreportService } from '../../services/agentreport.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { DatePipe} from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { ManagebookingService } from '../../services/managebooking.service';
 import { BusOperatorService } from './../../services/bus-operator.service';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompleteReport } from '../../model/completereport';
 import { LocationService } from '../../services/location.service';
 import { BusService } from '../../services/bus.service';
-import { NgbDate, NgbCalendar, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbDate,
+  NgbCalendar,
+  NgbDateParserFormatter,
+} from '@ng-bootstrap/ng-bootstrap';
 import { Constants } from '../../constant/constant';
 import * as XLSX from 'xlsx';
-import { NgbModalConfig, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbModalConfig,
+  NgbModal,
+  NgbModalRef,
+} from '@ng-bootstrap/ng-bootstrap';
 import { NotificationService } from '../../services/notification.service';
-import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
+import {
+  NgxQrcodeElementTypes,
+  NgxQrcodeErrorCorrectionLevels,
+} from '@techiediaries/ngx-qrcode';
 import { WalletbalanceService } from '../../services/walletbalance.service';
 import { Router } from '@angular/router';
-import { NgxSpinnerService } from "ngx-spinner";
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-agentcompletereport',
   templateUrl: './agentcompletereport.component.html',
   styleUrls: ['./agentcompletereport.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe],
 })
 export class AgentcompletereportComponent implements OnInit {
-
   public searchFrom: FormGroup;
 
   completeReport: CompleteReport[];
   completeReportRecord: CompleteReport;
-  todayDate:any;
+  todayDate: any;
   completedata: any;
   totalfare = 0;
   busoperators: any;
@@ -38,7 +48,7 @@ export class AgentcompletereportComponent implements OnInit {
   locations: any;
   buses: any;
   currentDate = new Date();
-  qrCode:any='';
+  qrCode: any = '';
   hoveredDate: NgbDate | null = null;
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
@@ -48,29 +58,26 @@ export class AgentcompletereportComponent implements OnInit {
 
   elementType = NgxQrcodeElementTypes.URL;
   correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
-  qrcode:any = '';
+  qrcode: any = '';
 
-  cancelInfo:any=[];
+  cancelInfo: any = [];
 
-showFilter = false;
+  showFilter = false;
   submitted = false;
   Otpsubmitted = false;
-  ResendOtp :boolean=false;
-  ResendTimer :boolean=true;
-  Timer= 20;  
-  alert:any='';
+  ResendOtp: boolean = false;
+  ResendTimer: boolean = true;
+  Timer = 20;
+  alert: any = '';
 
   public cancelForm: FormGroup;
   public FinalcancelForm: FormGroup;
   index: any;
-  
-
 
   constructor(
-    
     private spinner: NgxSpinnerService,
     private http: HttpClient,
-    private rs: AgentreportService,   
+    private rs: AgentreportService,
     private notificationService: NotificationService,
     private busOperatorService: BusOperatorService,
     private fb: FormBuilder,
@@ -80,15 +87,12 @@ showFilter = false;
     private managebookingService: ManagebookingService,
     public balance: WalletbalanceService,
     public router: Router,
-    public formatter: NgbDateParserFormatter,    
+    public formatter: NgbDateParserFormatter,
     private modalService: NgbModal,
     config: NgbModalConfig,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
   ) {
-    
-    this.todayDate =this.datePipe.transform((new Date), 'yyyy-MM-dd'); 
-   
-
+    this.todayDate = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
 
     config.backdrop = 'static';
     config.keyboard = false;
@@ -97,7 +101,10 @@ showFilter = false;
 
     this.cancelForm = this.fb.group({
       pnr: ['', Validators.required],
-      mobile: ['', [Validators.required,Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]]
+      mobile: [
+        '',
+        [Validators.required, Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$')],
+      ],
     });
 
     this.FinalcancelForm = this.fb.group({
@@ -116,17 +123,14 @@ showFilter = false;
       date_type: ['booking'],
       rows_number: Constants.RecordLimit,
       source_id: [null],
-      destination_id: [null]
-    })
-
+      destination_id: [null],
+    });
 
     this.search();
     this.loadServices();
-
   }
 
   exportexcel(): void {
-
     /* pass here the table id */
     let element = document.getElementById('export-section');
     const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(element);
@@ -137,13 +141,12 @@ showFilter = false;
 
     /* save to file */
     XLSX.writeFile(wb, this.fileName);
-
   }
 
   page(label: any) {
     return label;
   }
-  search(pageurl = "") {
+  search(pageurl = '') {
     this.spinner.show();
     this.completeReportRecord = this.searchFrom.value;
 
@@ -159,31 +162,20 @@ showFilter = false;
       user_id: localStorage.getItem('USERID'),
     };
     // console.log(data);
-    if (pageurl != "") {
-      this.rs.completepaginationReport(pageurl, data).subscribe(
-        res => {
-          this.completedata = res.data;
-          // console.log( this.completedata);
-          this.spinner.hide();
-        }
-      );
+    if (pageurl != '') {
+      this.rs.completepaginationReport(pageurl, data).subscribe((res) => {
+        this.completedata = res.data;
+        // console.log( this.completedata);
+        this.spinner.hide();
+      });
+    } else {
+      this.rs.completeReport(data).subscribe((res) => {
+        this.completedata = res.data;
+        // console.log( this.completedata);
+        this.spinner.hide();
+      });
     }
-    else {
-      this.rs.completeReport(data).subscribe(
-        res => {
-          this.completedata = res.data;
-          // console.log( this.completedata);
-          this.spinner.hide();
-        }
-      );
-    }
-
-
-
   }
-
-
-
 
   ///////////////Function to Copy data to Clipboard/////////////////
   copyMessage($event: any) {
@@ -211,145 +203,134 @@ showFilter = false;
       date_type: ['booking'],
       rows_number: Constants.RecordLimit,
       source_id: [null],
-      destination_id: [null]
-
-    })
+      destination_id: [null],
+    });
     this.search();
   }
 
   OpenModal(content) {
-    this.modalReference = this.modalService.open(content, { scrollable: true, size: 'xl' });
+    this.modalReference = this.modalService.open(content, {
+      scrollable: true,
+      size: 'xl',
+    });
   }
 
-  OpenCancelModal(content,i){
+  OpenCancelModal(content, i) {
+    if (confirm('Are you sure want to cancel ? ')) {
+      //console.log(i);
 
+      this.singleRecord = [];
+      this.singleRecord = this.completedata.data.data[i];
+      this.index = i;
+      //return;
+      this.spinner.show();
 
-    if(confirm("Are you sure want to cancel ? ")) {
-    //console.log(i); 
-    
+      const data = {
+        pnr: this.singleRecord.pnr,
+        mobile: this.singleRecord.users.phone,
+      };
+      //  console.log(data);
 
-    this.singleRecord=[];
-    this.singleRecord=this.completedata.data.data[i];    
-    this.index = i;
-    //return;
-    this.spinner.show();
+      this.managebookingService.AgentcancelTicketOTP(data).subscribe(
+        (res) => {
+          if (res.status == 1) {
+            if (typeof res.data === 'string') {
+              this.notificationService.notify(res.data, 'Error');
+            }
+            if (typeof res.data === 'object') {
+              if (this.ResendOtp == false) {
+                //this.open(content);
+                this.confirmDialogReference = this.modalService.open(content, {
+                  scrollable: true,
+                  size: 'md',
+                });
+              }
 
-
-  const data= {
-    "pnr":this.singleRecord.pnr,
-    "mobile":this.singleRecord.users.phone
-   };
-  //  console.log(data);
-
-  this.managebookingService.AgentcancelTicketOTP(data).subscribe(
-    res=>{
-      if(res.status==1){
-        if(typeof res.data ==='string'){
-
-          this.notificationService.notify(res.data,"Error");
-
-        }
-        if(typeof res.data ==='object'){
-          
-          if(this.ResendOtp == false){
-            //this.open(content);
-            this.confirmDialogReference=this.modalService.open(content,{ scrollable: true, size: 'md' });
+              this.cancelInfo = res.data;
+              this.notificationService.notify('OTP has been sent', 'Success');
+            }
           }
-          
 
-          this.cancelInfo=res.data; 
-          this.notificationService.notify('OTP has been sent',"Success");
+          if (res.status == 0) {
+            this.notificationService.notify(res.message, 'Error');
+          }
 
-        }              
-      }
-
-      if(res.status==0){
-        this.notificationService.notify(res.message,"Error");
-      }
-
-      this.spinner.hide();
-       
-
-    },
-  error => {
-    this.spinner.hide();
-    this.notificationService.notify(error.error.message,"Error");
-  }
-  );
-}
-    
-  }
-
-  OtpHandleEvent(event:any){    
-    if(event.action === 'done'){
-      this.ResendOtp=true;
-      this.ResendTimer=false;
+          this.spinner.hide();
+        },
+        (error) => {
+          this.spinner.hide();
+          this.notificationService.notify(error.error.message, 'Error');
+        },
+      );
     }
   }
 
-  get f() { return this.cancelForm.controls; }
+  OtpHandleEvent(event: any) {
+    if (event.action === 'done') {
+      this.ResendOtp = true;
+      this.ResendTimer = false;
+    }
+  }
 
-  get fo() { return this.FinalcancelForm.controls; }
+  get f() {
+    return this.cancelForm.controls;
+  }
 
+  get fo() {
+    return this.FinalcancelForm.controls;
+  }
 
-  onSubmitOtp(){
-  //  console.log(this.FinalcancelForm.value);
+  onSubmitOtp() {
+    //  console.log(this.FinalcancelForm.value);
 
     this.Otpsubmitted = true;
     // stop here if form is invalid
-    if (this.FinalcancelForm.invalid) {      
-     return;
-    }else{  
-      
-     this.spinner.show();
+    if (this.FinalcancelForm.invalid) {
+      return;
+    } else {
+      this.spinner.show();
 
-      const request= {
-        "pnr":this.singleRecord.pnr,
-        "mobile":this.singleRecord.users.phone,
-        "otp":this.FinalcancelForm.value.otp,
-      };   
-     // console.log(request);  
+      const request = {
+        pnr: this.singleRecord.pnr,
+        mobile: this.singleRecord.users.phone,
+        otp: this.FinalcancelForm.value.otp,
+      };
+      // console.log(request);
       this.managebookingService.AgentCancelTicket(request).subscribe(
-       res=>{ 
-         if(res.status==1){          
-          this.notificationService.notify("Ticket is cancelled succesfully","Success");
-          this.modalService.dismissAll();
-          this.refresh();
+        (res) => {
+          if (res.status == 1) {
+            this.notificationService.notify(
+              'Ticket is cancelled succesfully',
+              'Success',
+            );
+            this.modalService.dismissAll();
+            this.refresh();
 
-
-
-          let user_id=localStorage.getItem("USERID");
-          this.balance.getWalletBalance(user_id).subscribe(
-            res=>{      
-             if(res.status==1){
-              if(res.data.length > 0){
-                this.balance.setWalletBalance(res.data[0].balance); 
-              }else{
-                this.balance.setWalletBalance(0); 
+            let user_id = localStorage.getItem('USERID');
+            this.balance.getWalletBalance(user_id).subscribe((res) => {
+              if (res.status == 1) {
+                if (res.data.length > 0) {
+                  this.balance.setWalletBalance(res.data[0].balance);
+                } else {
+                  this.balance.setWalletBalance(0);
+                }
               }
-             }
-             
             });
 
+            this.router.navigate(['agent/completereport']);
+          }
+          if (res.status == 0) {
+            this.notificationService.notify(res.message, 'Error');
+          }
 
-          this.router.navigate(['agent/completereport']);
-
-
-
-         } 
-         if(res.status==0){
-           this.notificationService.notify(res.message,"Error");
-         } 
-
-         this.spinner.hide();
-       },
-     error => {
-       this.spinner.hide();
-       this.notificationService.notify(error.error.message,"Error");
-     });
-
+          this.spinner.hide();
+        },
+        (error) => {
+          this.spinner.hide();
+          this.notificationService.notify(error.error.message, 'Error');
+        },
+      );
     }
-
   }
   // openConfirmDialog(content,i){
   //   this.singleRecord=[];
@@ -359,103 +340,76 @@ showFilter = false;
 
   // }
 
-
-  
-
   loadServices() {
-
-    this.busOperatorService.readAll().subscribe(
-      res => {
-        this.busoperators = res.data;
-      }
-    );
-    this.locationService.readAll().subscribe(
-      records => {
-        this.locations = records.data;
-      }
-    );
+    this.busOperatorService.readAll().subscribe((res) => {
+      this.busoperators = res.data;
+    });
+    this.locationService.readAll().subscribe((records) => {
+      this.locations = records.data;
+    });
   }
 
   findSource(event: any) {
     let source_id = this.searchFrom.controls.source_id.value;
     let destination_id = this.searchFrom.controls.destination_id.value;
 
-
-    if (source_id != "" && destination_id != "") {
-      this.busService.findSource(source_id, destination_id).subscribe(
-        res => {
-          this.buses = res.data;
-        }
-      );
-    }
-    else {
-      this.busService.all().subscribe(
-        res => {
-          this.buses = res.data;
-        }
-      );
+    if (source_id != '' && destination_id != '') {
+      this.busService.findSource(source_id, destination_id).subscribe((res) => {
+        this.buses = res.data;
+      });
+    } else {
+      this.busService.all().subscribe((res) => {
+        this.buses = res.data;
+      });
     }
   }
 
-  print_tkt(i)
-  {
+  print_tkt(i) {
     // this.singleRecord=[];
     // console.log(this.singleRecord);
-    this.singleRecord=this.completedata.data.data[i];
+    this.singleRecord = this.completedata.data.data[i];
 
     // console.log(this.singleRecord);
 
-    let conductor_no='';
-    if(this.singleRecord.origin!='DOLPHIN'){
-    this.singleRecord.bus.bus_contacts.forEach(e => {
+    let conductor_no = '';
+    if (this.singleRecord.origin != 'DOLPHIN') {
+      this.singleRecord.bus.bus_contacts.forEach((e) => {
+        if (e.type == 2) {
+          conductor_no = e.phone;
+        }
+      });
 
-      if(e.type==2){
-        conductor_no=e.phone;
-      }
-      
-    });
+      let seat = [];
 
-    let seat=[];
-
-
-    this.singleRecord.booking_detail.forEach(e => {
-
-      seat.push(e.bus_seats.seats.seatText);
-      
-    });
-    let seat_name= seat.join(',');
-    
+      this.singleRecord.booking_detail.forEach((e) => {
+        seat.push(e.bus_seats.seats.seatText);
+      });
+      let seat_name = seat.join(',');
     }
 
-    
+    // this.qrcode = "PNR - "+this.singleRecord.pnr+" , Customer Phone No- "+this.singleRecord.users.phone+", Conductor No- "+conductor_no+" , Bus Name- "+this.singleRecord.bus.name+", Bus No- "+this.singleRecord.bus.bus_number+" , Journey Date- "+this.singleRecord.journey_dt+", Bus Route- "+this.singleRecord.source[0][0].name+' -> '+this.singleRecord.destination[0][0].name+", Seat- "+seat_name;
 
-    
-
-   // this.qrcode = "PNR - "+this.singleRecord.pnr+" , Customer Phone No- "+this.singleRecord.users.phone+", Conductor No- "+conductor_no+" , Bus Name- "+this.singleRecord.bus.name+", Bus No- "+this.singleRecord.bus.bus_number+" , Journey Date- "+this.singleRecord.journey_dt+", Bus Route- "+this.singleRecord.source[0][0].name+' -> '+this.singleRecord.destination[0][0].name+", Seat- "+seat_name;
-
-   this.qrcode = Constants.CONSUMER_BASE_URL+"pnr/"+this.singleRecord.pnr;
-   
-
+    this.qrcode = Constants.CONSUMER_BASE_URL + 'pnr/' + this.singleRecord.pnr;
   }
 
-  emailSms(i)
-  {    
-    this.singleRecord=this.completedata.data.data[i];
+  emailSms(i) {
+    this.singleRecord = this.completedata.data.data[i];
 
-    const data=
-    {
-        pnr:this.singleRecord.pnr,
-        mobile:this.singleRecord.users.phone
-    }
+    const data = {
+      pnr: this.singleRecord.pnr,
+      mobile: this.singleRecord.users.phone,
+    };
 
-    if(confirm("Are you sure want to resend Email and Message ? ")) {
+    if (confirm('Are you sure want to resend Email and Message ? ')) {
       this.spinner.show();
-      this.rs.emailSms(data).subscribe(
-        res => {
-          this.notificationService.addToast({ title: 'Success', msg: res.data, type: 'success' });
-          this.spinner.hide();
-        }
-      );
+      this.rs.emailSms(data).subscribe((res) => {
+        this.notificationService.addToast({
+          title: 'Success',
+          msg: res.data,
+          type: 'success',
+        });
+        this.spinner.hide();
+      });
     }
   }
 
@@ -464,36 +418,6 @@ showFilter = false;
   //   this.singleRecord=this.completedata.data.data[i];
   //   console.log(this.singleRecord);
   // }
-
-  // Pagination helper methods for complete report
-  isPageVisibleComplete(label: any): boolean {
-    if (label === '&laquo;' || label === '&raquo;') {
-      return false;
-    }
-    
-    if (label === '1' || label === '2' || label === '3') {
-      return true;
-    }
-    
-    if (this.completedata?.data && parseInt(label) === this.completedata.data.current_page && parseInt(label) > 3) {
-      return true;
-    }
-    
-    return false;
-  }
-
-  getPageLabelComplete(label: any): string {
-    if (label === '&laquo;' || label === '&raquo;') {
-      return '';
-    }
-    return label;
-  }
-
-  onFirstPageComplete() {
-    if (this.completedata?.data && this.completedata.data.current_page !== 1 && this.completedata.data.links.first_page_url) {
-      this.search(this.completedata.data.links.first_page_url);
-    }
-  }
 
   onPreviousPageComplete() {
     if (this.completedata?.data && this.completedata.data.prev_page_url) {
@@ -506,11 +430,44 @@ showFilter = false;
       this.search(this.completedata.data.next_page_url);
     }
   }
+  getVisiblePagesComplete(): (number | string)[] {
+    const current = this.completedata?.data?.current_page;
+    const last = this.completedata?.data?.last_page;
 
-  onLastPageComplete() {
-    if (this.completedata?.data && this.completedata.data.current_page !== this.completedata.data.last_page && this.completedata.data.links.last_page_url) {
-      this.search(this.completedata.data.links.last_page_url);
+    if (!current || !last) {
+      return [];
     }
+
+    if (last <= 4) {
+      return Array.from({ length: last }, (_, i) => i + 1);
+    }
+
+    if (current === 1) {
+      return [1, 2, '...', last];
+    }
+
+    if (current === 2) {
+      return [1, 2, 3, '...', last];
+    }
+
+    if (current === last) {
+      return [1, '...', last - 1, last];
+    }
+
+    if (current === last - 1) {
+      return [1, '...', last - 2, last - 1, last];
+    }
+
+    return [1, '...', current - 1, current, current + 1, '...', last];
   }
 
+  searchPageComplete(page: number) {
+    const pageLink = this.completedata?.data?.links?.find(
+      (x: any) => Number(x.label) === page,
+    );
+
+    if (pageLink?.url) {
+      this.search(pageLink.url);
+    }
+  }
 }

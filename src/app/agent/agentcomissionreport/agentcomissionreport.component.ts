@@ -276,43 +276,9 @@ export class AgentcomissionreportComponent implements OnInit {
     );
   }
 
-  // Pagination helper methods for commission
-  isPageVisibleCommission(label: any): boolean {
-    if (label === '&laquo;' || label === '&raquo;') {
-      return false;
-    }
 
-    if (label === '1' || label === '2' || label === '3') {
-      return true;
-    }
 
-    if (
-      this.completedata?.data &&
-      parseInt(label) === this.completedata.data.current_page &&
-      parseInt(label) > 3
-    ) {
-      return true;
-    }
-
-    return false;
-  }
-
-  getPageLabelCommission(label: any): string {
-    if (label === '&laquo;' || label === '&raquo;') {
-      return '';
-    }
-    return label;
-  }
-
-  onFirstPageCommission() {
-    if (
-      this.completedata?.data &&
-      this.completedata.data.current_page !== 1 &&
-      this.completedata.data.links.first_page_url
-    ) {
-      this.search(this.completedata.data.links.first_page_url);
-    }
-  }
+ 
 
   onPreviousPageCommission() {
     if (this.completedata?.data && this.completedata.data.prev_page_url) {
@@ -326,14 +292,53 @@ export class AgentcomissionreportComponent implements OnInit {
     }
   }
 
-  onLastPageCommission() {
-    if (
-      this.completedata?.data &&
-      this.completedata.data.current_page !==
-        this.completedata.data.last_page &&
-      this.completedata.data.links.last_page_url
-    ) {
-      this.search(this.completedata.data.links.last_page_url);
-    }
+
+  getVisiblePagesCommission(): (number | string)[] {
+  const current = this.completedata?.data?.current_page;
+  const last = this.completedata?.data?.last_page;
+
+  if (!current || !last) {
+    return [];
   }
+
+  if (last <= 4) {
+    return Array.from({ length: last }, (_, i) => i + 1);
+  }
+
+  if (current === 1) {
+    return [1, 2, '...', last];
+  }
+
+  if (current === 2) {
+    return [1, 2, 3, '...', last];
+  }
+
+  if (current === last) {
+    return [1, '...', last - 1, last];
+  }
+
+  if (current === last - 1) {
+    return [1, '...', last - 2, last - 1, last];
+  }
+
+  return [
+    1,
+    '...',
+    current - 1,
+    current,
+    current + 1,
+    '...',
+    last,
+  ];
+}
+
+searchPageCommission(page: number) {
+  const pageLink = this.completedata?.data?.links?.find(
+    (x: any) => Number(x.label) === page
+  );
+
+  if (pageLink?.url) {
+    this.search(pageLink.url);
+  }
+}
 }

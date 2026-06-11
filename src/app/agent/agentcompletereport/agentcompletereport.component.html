@@ -6,7 +6,7 @@
       [options]="false"
       [isCardFooter]="false"
     > -->
-      <!-- <div class="mb-3">
+    <!-- <div class="mb-3">
         <div class="row p-0">
           <div class="col-12">
             <form [formGroup]="searchFrom">
@@ -135,7 +135,7 @@
         </div>
       </div>
        -->
-      <!-- <div id="export-section">
+    <!-- <div id="export-section">
         <table class="table table-striped">
           <thead *ngIf="completedata?.data?.data?.length > 0">
             <tr>
@@ -400,8 +400,8 @@
         </div>
       </div> -->
 
-      <div class="app-card-footer">
-        <!-- <ng-template #confirmDialog let-modal>
+    <div class="app-card-footer">
+      <!-- <ng-template #confirmDialog let-modal>
           <div class="modal-header">
             <h5 class="ng-tns-c116-5">Please Confirm</h5>
             <button
@@ -445,9 +445,7 @@
           </div>
         </ng-template> -->
 
-        
-
-        <!-- <ng-template #content let-modal>
+      <!-- <ng-template #content let-modal>
           <div class="modal-header">
             <h5 class="ng-tns-c116-5">{{ ModalHeading }}</h5>
             <button
@@ -1437,306 +1435,232 @@
          
         </ng-template>  -->
 
-        <ng-template #cancelTicketTab let-modal>
-          <div class="modal-header">
-            <h5 class="ng-tns-c116-5">CANCEL TICKET</h5>
-            <button
-              type="button"
-              class="close"
-              aria-label="Close"
-              (click)="modal.dismiss('Cross click')"
+      <ng-template #cancelTicketTab let-modal>
+        <div class="modal-header">
+          <h5 class="ng-tns-c116-5">CANCEL TICKET</h5>
+          <button
+            type="button"
+            class="close"
+            aria-label="Close"
+            (click)="modal.dismiss('Cross click')"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table width="100%" cellpadding="10">
+            <tbody>
+              <tr>
+                <td class="st-ri">Amount Paid:</td>
+                <td class="st-le">₹{{ cancelInfo.totalfare }}</td>
+              </tr>
+
+              <tr>
+                <td class="st-ri">Cancellation Fees:</td>
+                <td class="st-le">
+                  ₹{{ cancelInfo.deductAmount }} (
+                  {{ cancelInfo.deductionPercentage }})
+                </td>
+              </tr>
+
+              <tr>
+                <td class="st-ri">Refund Amount:</td>
+                <td class="st-le">₹{{ cancelInfo.refundAmount }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="text-center" align="center">
+            <form
+              class="form-horizontal"
+              [formGroup]="FinalcancelForm"
+              (ngSubmit)="onSubmitOtp()"
             >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <table width="100%" cellpadding="10">
-              <tbody>
-                <tr>
-                  <td class="st-ri">Amount Paid:</td>
-                  <td class="st-le">₹{{ cancelInfo.totalfare }}</td>
-                </tr>
-
-                <tr>
-                  <td class="st-ri">Cancellation Fees:</td>
-                  <td class="st-le">
-                    ₹{{ cancelInfo.deductAmount }} (
-                    {{ cancelInfo.deductionPercentage }})
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="st-ri">Refund Amount:</td>
-                  <td class="st-le">₹{{ cancelInfo.refundAmount }}</td>
-                </tr>
-              </tbody>
-            </table>
-
-            
-
-            <div class="text-center" align="center">
-              <form
-                class="form-horizontal"
-                [formGroup]="FinalcancelForm"
-                (ngSubmit)="onSubmitOtp()"
-              >
-                <div class="row g-0 mb-3">
-                  <div class="col-md-8 g-0">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Enter OTP"
-                      formControlName="otp"
-                      aria-label="Recipient's username"
-                      aria-describedby="button-addon2"
-                    />
-                    <div
-                      *ngIf="Otpsubmitted && fo.otp.errors"
-                      class="invalid-feedback"
-                    >
-                      <div *ngIf="fo.otp.errors.required">OTP is required</div>
-                    </div>
-                  </div>
-                  <div class="col-md-4 g-0">
-                    <button
-                      class="btn btn-secondary"
-                      type="submit"
-                      id="button-addon2"
-                    >
-                      Cancel Ticket
-                    </button>
+              <div class="row g-0 mb-3">
+                <div class="col-md-8 g-0">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter OTP"
+                    formControlName="otp"
+                    aria-label="Recipient's username"
+                    aria-describedby="button-addon2"
+                  />
+                  <div
+                    *ngIf="Otpsubmitted && fo.otp.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="fo.otp.errors.required">OTP is required</div>
                   </div>
                 </div>
-              </form>
-            </div>
+                <div class="col-md-4 g-0">
+                  <button
+                    class="btn btn-secondary"
+                    type="submit"
+                    id="button-addon2"
+                  >
+                    Cancel Ticket
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
 
-            <p class="text-center" *ngIf="ResendTimer">
-              Resend OTP after
-              <countdown
-                #countdown
-                [config]="{ leftTime: Timer, format: 'ss' }"
-                (event)="OtpHandleEvent($event)"
-              ></countdown>
-              Seconds..
-            </p>
-            <p class="text-center" *ngIf="ResendOtp">
-              Did not receive the Code?
-              <a
-                class="formlink cursor"
-                (click)="OpenCancelModal(cancelTicketTab, index)"
-              >
-                Resend OTP
-              </a>
-            </p>
-          </div>
-          <div class="modal-footer">
-           
-            <button
-              type="button"
-              class="btn btn-default"
-              data-dismiss="modal"
-              #defaultClick
-              (click)="modal.dismiss('Cross click')"
+          <p class="text-center" *ngIf="ResendTimer">
+            Resend OTP after
+            <countdown
+              #countdown
+              [config]="{ leftTime: Timer, format: 'ss' }"
+              (event)="OtpHandleEvent($event)"
+            ></countdown>
+            Seconds..
+          </p>
+          <p class="text-center" *ngIf="ResendOtp">
+            Did not receive the Code?
+            <a
+              class="formlink cursor"
+              (click)="OpenCancelModal(cancelTicketTab, index)"
             >
-              Close
-            </button>
-          </div>
-        </ng-template>
-      </div>
+              Resend OTP
+            </a>
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-default"
+            data-dismiss="modal"
+            #defaultClick
+            (click)="modal.dismiss('Cross click')"
+          >
+            Close
+          </button>
+        </div>
+      </ng-template>
+    </div>
     <!-- </app-card> -->
   </div>
 </div>
 
-
 <!-- New Desktop Version -->
 <div class="agent-report-wrapper desktop-view">
-
   <!-- HEADER -->
 
   <div class="report-header">
-
-    <h1 class="report-title">
-
-      Agent Complete Report
-
-    </h1>
+    <h1 class="report-title">Agent Complete Report</h1>
 
     <div class="header-btns">
+      <button class="export-btn" (click)="exportexcel()">Export</button>
 
-      <button class="export-btn" (click)="exportexcel()">
-
-        Export
-
-      </button>
-
-
-      <button class="print-btn" printSectionId="export-section" ngxPrint [useExistingCss]="true">
-
+      <button
+        class="print-btn"
+        printSectionId="export-section"
+        ngxPrint
+        [useExistingCss]="true"
+      >
         Print
-
       </button>
-
     </div>
-
   </div>
-
 
   <!-- SUMMARY SECTION -->
 
   <div class="summary-grid">
-
     <div class="summary-card">
-
       <p>Total Tickets</p>
 
-      <h2>{{completedata?.data?.total || 0}}</h2>
-
+      <h2>{{ completedata?.data?.total || 0 }}</h2>
     </div>
 
     <div class="summary-card">
-
       <p>Total Fare</p>
 
-      <h2>
-
-        ₹{{completedata?.data?.total_fare || 0}}
-
-      </h2>
-
+      <h2>₹{{ completedata?.data?.total_fare || 0 }}</h2>
     </div>
 
     <div class="summary-card">
-
       <p>Total Passenger</p>
 
       <h2>
-
-        {{completedata?.data?.passenger || 0}}
-
+        {{ completedata?.data?.passenger || 0 }}
       </h2>
-
     </div>
 
     <div class="summary-card">
-
       <p>Bookings</p>
 
       <h2>
-
-        {{completedata?.data?.data?.length || 0}}
-
+        {{ completedata?.data?.data?.length || 0 }}
       </h2>
-
     </div>
-
   </div>
-
 
   <!-- FILTER CARD -->
 
   <div class="filter-card">
-
     <form [formGroup]="searchFrom">
-
       <div class="filter-grid">
+        <input
+          type="date"
+          class="modern-input"
+          formControlName="rangeFromDate"
+        />
 
-        <input type="date" class="modern-input" formControlName="rangeFromDate">
-
-
-        <input type="date" class="modern-input" formControlName="rangeToDate">
-
+        <input type="date" class="modern-input" formControlName="rangeToDate" />
 
         <select class="modern-input" formControlName="date_type">
+          <option value="booking">Booking Date</option>
 
-          <option value="booking">
-
-            Booking Date
-
-          </option>
-
-          <option value="journey">
-
-            Journey Date
-
-          </option>
-
+          <option value="journey">Journey Date</option>
         </select>
 
-
-        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Source" formControlName="source_id">
-
+        <ng-select
+          [items]="locations"
+          bindLabel="name"
+          bindValue="id"
+          placeholder="Source"
+          formControlName="source_id"
+        >
         </ng-select>
 
-
-        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Destination"
-          formControlName="destination_id">
-
+        <ng-select
+          [items]="locations"
+          bindLabel="name"
+          bindValue="id"
+          placeholder="Destination"
+          formControlName="destination_id"
+        >
         </ng-select>
-
 
         <select class="modern-input" formControlName="rows_number">
+          <option value="10">10</option>
 
-          <option value="10">
+          <option value="25">25</option>
 
-            10
+          <option value="50">50</option>
 
-          </option>
-
-          <option value="25">
-
-            25
-
-          </option>
-
-          <option value="50">
-
-            50
-
-          </option>
-
-          <option value="100">
-
-            100
-
-          </option>
-
+          <option value="100">100</option>
         </select>
-
       </div>
-
 
       <div class="filter-buttons">
-
         <button type="button" class="search-btn" (click)="search()">
-
           Search
-
         </button>
-
 
         <button type="button" class="refresh-btn" (click)="refresh()">
-
           Refresh
-
         </button>
-
       </div>
-
     </form>
-
   </div>
-
 
   <!-- TABLE -->
 
   <div class="table-card">
-
     <table class="table modern-table table-hover">
-
       <thead>
-
         <tr>
-
           <th>#</th>
 
           <th>Ticket Details</th>
@@ -1756,414 +1680,239 @@
           <th>Fare</th>
 
           <th>Action</th>
-
         </tr>
-
       </thead>
 
-
-      <tbody *ngIf="completedata?.data?.data?.length>0">
-
-        <tr *ngFor="
-let complete of completedata?.data.data;
-let i=index">
-
+      <tbody *ngIf="completedata?.data?.data?.length > 0">
+        <tr *ngFor="let complete of completedata?.data.data; let i = index">
           <td>
-
-            {{((completedata?.data?.current_page-1)
-            *
-            completedata?.data?.per_page)+i+1}}
-
+            {{
+              (completedata?.data?.current_page - 1) *
+                completedata?.data?.per_page +
+                i +
+                1
+            }}
           </td>
 
-
           <td>
-
             <strong>
-
-              {{complete.pnr}}
-
+              {{ complete.pnr }}
             </strong>
 
-            <br>
+            <br />
 
             <small>
-
               DOJ-
 
-              {{complete.journey_dt}}
-
+              {{ complete.journey_dt }}
             </small>
 
-            <br>
+            <br />
 
             <small>
-
               DOB-
 
-              {{complete.created_at |
-
-              date:'dd MMM y HH:mm'}}
-
+              {{ complete.created_at | date: "dd MMM y HH:mm" }}
             </small>
-
           </td>
 
-
           <td>
-
-            <strong *ngIf="
-complete.origin!='DOLPHIN'
-&&
-complete.origin!='MANTIS'
-">
-
-              {{complete.bus.name}}
-
+            <strong
+              *ngIf="
+                complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'
+              "
+            >
+              {{ complete.bus.name }}
             </strong>
 
-
-            <strong *ngIf="
-complete.origin=='DOLPHIN'
-||
-complete.origin=='MANTIS'
-">
-
-              {{complete.bus_name}}
-
+            <strong
+              *ngIf="
+                complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'
+              "
+            >
+              {{ complete.bus_name }}
             </strong>
 
-            <br>
+            <br />
 
             <small>
-
               (
 
-              {{complete.origin!='DOLPHIN'
-              ?
-              complete.bus.bus_number
-              :
-              complete.bus_number}}
+              {{
+                complete.origin != "DOLPHIN"
+                  ? complete.bus.bus_number
+                  : complete.bus_number
+              }}
 
               )
-
             </small>
-
           </td>
 
-
           <td>
-
-            <span *ngFor="
-let fr of complete.from_location
-">
-
+            <span *ngFor="let fr of complete.from_location">
               <b>
-
-                {{fr.name}}
-
+                {{ fr.name }}
               </b>
-
             </span>
 
-            <br>
+            <br />
 
             <small>
-
-              {{complete.boarding_point}}
+              {{ complete.boarding_point }}
 
               |
 
-              {{complete.boarding_time}}
-
+              {{ complete.boarding_time }}
             </small>
-
           </td>
 
-
           <td>
-
-            <span *ngFor="
-let fr of complete.from_location
-">
-
-              {{fr.name}}
-
+            <span *ngFor="let fr of complete.from_location">
+              {{ fr.name }}
             </span>
 
             >>
 
-            <span *ngFor="
-let to of complete.to_location
-">
-
-              {{to.name}}
-
+            <span *ngFor="let to of complete.to_location">
+              {{ to.name }}
             </span>
-
           </td>
-
 
           <td>
-
-            <div *ngFor="
-let seat of complete.booking_detail
-">
-
-              <span *ngIf="
-complete.origin!='DOLPHIN'
-&&
-complete.origin!='MANTIS'
-">
-
-                {{seat.bus_seats.seats.seatText}}
-
+            <div *ngFor="let seat of complete.booking_detail">
+              <span
+                *ngIf="
+                  complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'
+                "
+              >
+                {{ seat.bus_seats.seats.seatText }}
               </span>
 
-
-              <span *ngIf="
-complete.origin=='DOLPHIN'
-||
-complete.origin=='MANTIS'
-">
-
-                {{seat.seat_name}}
-
+              <span
+                *ngIf="
+                  complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'
+                "
+              >
+                {{ seat.seat_name }}
               </span>
-
             </div>
-
           </td>
-
 
           <td class="user-column">
-
             <strong class="user-name">
-
-              {{complete.users?.name}}
-
+              {{ complete.users?.name }}
             </strong>
 
-
             <div class="user-actions">
-
-              <button class="mini-action phone" (click)="copyMessage(complete.users.phone)" ngbTooltip="Copy Phone">
-
+              <button
+                class="mini-action phone"
+                (click)="copyMessage(complete.users.phone)"
+                ngbTooltip="Copy Phone"
+              >
                 <i class="fas fa-mobile-alt"></i>
-
               </button>
 
-
-              <button class="mini-action mail" (click)="copyMessage(complete.users.email)" ngbTooltip="Copy Email">
-
+              <button
+                class="mini-action mail"
+                (click)="copyMessage(complete.users.email)"
+                ngbTooltip="Copy Email"
+              >
                 <i class="far fa-envelope"></i>
-
               </button>
-
             </div>
-
           </td>
 
-
           <td>
-
-            <div *ngFor="
-let p of complete.booking_detail
-">
-
-              {{p.passenger_name}}
-
+            <div *ngFor="let p of complete.booking_detail">
+              {{ p.passenger_name }}
             </div>
-
           </td>
 
-
           <td>
-
             ₹{{
-            complete.total_fare
-            +
-            complete.agent_commission
-
-            | number:'1.2-2'
+              complete.total_fare + complete.agent_commission | number: "1.2-2"
             }}
-
           </td>
-
 
           <td>
-
             <div class="action-group">
-
-              <button class="action blue" (click)="OpenModal(content);print_tkt(i)" ngbTooltip="Print Ticket">
-
+              <button
+                class="action blue"
+                (click)="OpenModal(content); print_tkt(i)"
+                ngbTooltip="Print Ticket"
+              >
                 <i class="fa fa-print"></i>
-
               </button>
 
-
-              <button class="action green" (click)="emailSms(i)" ngbTooltip="Send">
-
+              <button
+                class="action green"
+                (click)="emailSms(i)"
+                ngbTooltip="Send"
+              >
                 <i class="fa fa-message"></i>
-
               </button>
 
-
-              <button *ngIf="
-complete.journey_dt
->
-todayDate
-" class="action red" (click)="OpenCancelModal(cancelTicketTab,i)" ngbTooltip="Cancel">
-
+              <button
+                *ngIf="complete.journey_dt > todayDate"
+                class="action red"
+                (click)="OpenCancelModal(cancelTicketTab, i)"
+                ngbTooltip="Cancel"
+              >
                 <i class="fa fa-ban"></i>
-
               </button>
-
             </div>
-
           </td>
-
         </tr>
-
       </tbody>
 
-
-      <tbody *ngIf="
-completedata?.data?.data?.length==0
-">
-
+      <tbody *ngIf="completedata?.data?.data?.length == 0">
         <tr>
-
-          <td colspan="10" class="text-center p-5">
-
-            No Record Found
-
-          </td>
-
+          <td colspan="10" class="text-center p-5">No Record Found</td>
         </tr>
-
       </tbody>
-
     </table>
-    <div class="table-footer" *ngIf="
-completedata?.data?.data?.length>0
-">
-
+    <div class="table-footer" *ngIf="completedata?.data?.data?.length > 0">
       <div class="entry-count">
-
         Showing
 
-        {{completedata.data.from}}
+        {{ completedata.data.from }}
 
         -
 
-        {{completedata.data.to}}
+        {{ completedata.data.to }}
 
         of
 
-        {{completedata.data.total}}
+        {{ completedata.data.total }}
 
         entries
-
       </div>
-
 
       <div class="pagination-wrapper">
-
         <ul class="modern-pagination">
-
-          <li [class.disabled]="
-completedata.data.current_page==1
-">
-
-            <button (click)="onFirstPageComplete()">
-
-              First
-
-            </button>
-
+          <li [class.disabled]="!completedata.data.prev_page_url">
+            <button (click)="onPreviousPageComplete()">Prev</button>
           </li>
 
-
-          <li [class.disabled]="
-!completedata.data.prev_page_url
-">
-
-            <button (click)="onPreviousPageComplete()">
-
-              Prev
-
+          <li
+            *ngFor="let p of getVisiblePagesComplete()"
+            [class.active]="completedata.data.current_page === p"
+          >
+            <button *ngIf="p !== '...'" (click)="searchPageComplete(+p)">
+              {{ p }}
             </button>
 
+            <button *ngIf="p === '...'" disabled>...</button>
           </li>
 
-
-          <li *ngFor="
-let b of completedata.data.links
-" [class.hidden]="
-!isPageVisibleComplete(
-b.label
-)
-" [class.active]="
-completedata.data.current_page
-==
-b.label
-">
-
-            <button (click)="
-b.url
-?
-search(b.url)
-:
-''
-">
-
-              {{getPageLabelComplete(
-              b.label
-              )}}
-
-            </button>
-
+          <li [class.disabled]="!completedata.data.next_page_url">
+            <button (click)="onNextPageComplete()">Next</button>
           </li>
-
-
-          <li [class.disabled]="
-!completedata.data.next_page_url
-">
-
-            <button (click)="onNextPageComplete()">
-
-              Next
-
-            </button>
-
-          </li>
-
-
-          <li [class.disabled]="
-completedata.data.current_page
-==
-completedata.data.last_page
-">
-
-            <button (click)="onLastPageComplete()">
-
-              Last
-
-            </button>
-
-          </li>
-
         </ul>
-
       </div>
-
     </div>
-
   </div>
-
 </div>
-
 
 <!-- New Desktop Version End-->
 
@@ -2175,10 +1924,13 @@ completedata.data.last_page
 
 <div class="mobile-top-filter d-block d-md-none">
   <h2 class="mobile-page-heading">Agent Complete Report</h2>
-  <button type="button" class="mobile-filter-btn" (click)="showFilter = !showFilter">
+  <button
+    type="button"
+    class="mobile-filter-btn"
+    (click)="showFilter = !showFilter"
+  >
     <i class="fas fa-sliders-h"></i>
   </button>
-
 
   <form [formGroup]="searchFrom">
     <div class="mobile-filter-card" *ngIf="showFilter">
@@ -2188,14 +1940,22 @@ completedata.data.last_page
         <!-- FROM DATE -->
         <div class="col-12">
           <div class="mobile-field">
-            <input type="date" class="form-control" formControlName="rangeFromDate" />
+            <input
+              type="date"
+              class="form-control"
+              formControlName="rangeFromDate"
+            />
           </div>
         </div>
 
         <!-- TO DATE -->
         <div class="col-12">
           <div class="mobile-field">
-            <input type="date" class="form-control" formControlName="rangeToDate" />
+            <input
+              type="date"
+              class="form-control"
+              formControlName="rangeToDate"
+            />
           </div>
         </div>
       </div>
@@ -2213,16 +1973,28 @@ completedata.data.last_page
       <!-- SOURCE -->
 
       <div class="mobile-field">
-        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Source"
-          formControlName="source_id" [clearable]="false">
+        <ng-select
+          [items]="locations"
+          bindLabel="name"
+          bindValue="id"
+          placeholder="Select Source"
+          formControlName="source_id"
+          [clearable]="false"
+        >
         </ng-select>
       </div>
 
       <!-- DESTINATION -->
 
       <div class="mobile-field">
-        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Destination"
-          formControlName="destination_id" [clearable]="false">
+        <ng-select
+          [items]="locations"
+          bindLabel="name"
+          bindValue="id"
+          placeholder="Select Destination"
+          formControlName="destination_id"
+          [clearable]="false"
+        >
         </ng-select>
       </div>
 
@@ -2236,32 +2008,39 @@ completedata.data.last_page
             Refresh
           </button>
 
-          <button type="button" class="top-btn export-btn" (click)="exportexcel()">
+          <button
+            type="button"
+            class="top-btn export-btn"
+            (click)="exportexcel()"
+          >
             <i class="fas fa-file-export"></i>
             Export
           </button>
         </div>
 
         <!-- FULL SEARCH -->
-        <button type="button" class="top-btn search-btn full-search-btn" (click)="search()">
+        <button
+          type="button"
+          class="top-btn search-btn full-search-btn"
+          (click)="search()"
+        >
           <i class="fas fa-search"></i>
           Search
         </button>
       </div>
     </div>
-
-
   </form>
 </div>
-
-
 
 <!-- =====================================
      SIMPLE CLEAN MOBILE TICKET DESIGN
      ===================================== -->
 
 <div class="mobile-ticket-wrapper d-block d-md-none">
-  <div class="simple-ticket-card" *ngFor="let complete of completedata?.data.data; let i = index">
+  <div
+    class="simple-ticket-card"
+    *ngFor="let complete of completedata?.data.data; let i = index"
+  >
     <div class="ticket-count">#{{ i + 1 }}</div>
 
     <!-- TOP -->
@@ -2342,15 +2121,19 @@ completedata.data.last_page
 
         <p class="info-value">
           <span *ngFor="let seat of complete.booking_detail; let last = last">
-            <span *ngIf="
+            <span
+              *ngIf="
                 complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'
-              ">
+              "
+            >
               {{ seat.bus_seats.seats.seatText }}
             </span>
 
-            <span *ngIf="
+            <span
+              *ngIf="
                 complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'
-              ">
+              "
+            >
               {{ seat.seat_name }}
             </span>
 
@@ -2400,20 +2183,22 @@ completedata.data.last_page
     <!-- ACTIONS -->
 
     <div class="ticket-actions">
-      <button class="action-btn blue-btn" (click)="OpenModal(content); print_tkt(i)">
-        <i class="fa-solid fa-print"></i>
-      </button>
-
       <button class="action-btn green-btn" (click)="emailSms(i)">
         <i class="fa-solid fa-message"></i>
       </button>
 
-      <button class="action-btn yellow-btn" (click)="copyMessage(complete.users.phone)">
+      <button
+        class="action-btn yellow-btn"
+        (click)="copyMessage(complete.users.phone)"
+      >
         <i class="fa-solid fa-phone"></i>
       </button>
 
-      <button *ngIf="complete.journey_dt > todayDate" class="action-btn red-btn"
-        (click)="OpenCancelModal(cancelTicketTab, i)">
+      <button
+        *ngIf="complete.journey_dt > todayDate"
+        class="action-btn red-btn"
+        (click)="OpenCancelModal(cancelTicketTab, i)"
+      >
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
@@ -2422,18 +2207,33 @@ completedata.data.last_page
   <!-- PAGINATION -->
 
   <div class="mobile-pagination" *ngIf="completedata?.data?.links">
-    <button class="page-btn" [disabled]="completedata.data.current_page == 1" (click)="onPreviousPageComplete()">
-      <i class="fa-solid fa-chevron-left"></i>
-    </button>
 
-    <div class="page-number">
-      {{ completedata.data.current_page }}
-      /
-      {{ completedata.data.last_page }}
+    <div class="mobile-pagination" *ngIf="completedata?.data?.links">
+      <button
+        [disabled]="!completedata.data.prev_page_url"
+        (click)="onPreviousPageComplete()"
+      >
+        Prev
+      </button>
+
+      <ng-container *ngFor="let p of getVisiblePagesComplete()">
+        <button
+          *ngIf="p !== '...'"
+          [class.active]="completedata.data.current_page === p"
+          (click)="searchPageComplete(+p)"
+        >
+          {{ p }}
+        </button>
+
+        <button *ngIf="p === '...'" disabled>...</button>
+      </ng-container>
+
+      <button
+        [disabled]="!completedata.data.next_page_url"
+        (click)="onNextPageComplete()"
+      >
+        Next
+      </button>
     </div>
-
-    <button class="page-btn" [disabled]="!completedata.data.next_page_url" (click)="onNextPageComplete()">
-      <i class="fa-solid fa-chevron-right"></i>
-    </button>
   </div>
 </div>

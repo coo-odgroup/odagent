@@ -226,17 +226,15 @@ export class AgentwalletreportComponent implements OnInit {
     return false;
   }
 
-
   searchPage(page: number) {
-  const pageLink = this.pagination.links.find(
-    (x: any) => Number(x.label) === page
-  );
+    const pageLink = this.pagination.links.find(
+      (x: any) => Number(x.label) === page,
+    );
 
-  if (pageLink?.url) {
-    this.search(pageLink.url);
+    if (pageLink?.url) {
+      this.search(pageLink.url);
+    }
   }
-}
-
 
   getPageLabel(label: any): string {
     if (label === '&laquo;' || label === '&raquo;') {
@@ -269,6 +267,43 @@ export class AgentwalletreportComponent implements OnInit {
     }
   }
 
+getVisiblePages(): (number | string)[] {
+  const current = this.pagination?.current_page;
+  const last = this.pagination?.last_page;
+
+  if (!current || !last) {
+    return [];
+  }
+
+  // small page count
+  if (last <= 4) {
+    return Array.from({ length: last }, (_, i) => i + 1);
+  }
+
+  // page 1
+  if (current === 1) {
+    return [1, 2, '...', last];
+  }
+
+  // page 2
+  if (current === 2) {
+    return [1, 2, 3, '...', last];
+  }
+
+  // last page
+  if (current === last) {
+    return [1, '...', last - 1, last];
+  }
+
+  // second last page
+  if (current === last - 1) {
+    return [1, '...', last - 2, last - 1, last];
+  }
+
+  // middle pages
+  return [1, '...', current - 1, current, current + 1, '...', last];
+}
+
   animateValue(
     start: number,
     end: number,
@@ -288,6 +323,4 @@ export class AgentwalletreportComponent implements OnInit {
 
     requestAnimationFrame(animate);
   }
-
-  
 }
