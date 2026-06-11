@@ -142,28 +142,28 @@
 
 /* FLOATING SWAP BUTTON */
 
-.floating-swap-btn {
-    position: absolute;
-    left: -30px;
-    top: 32px;
-    padding: 5px;
-    width: 43px;
-    height: auto;
-    border-radius: 50%;
-    border: 4px solid #fff;
-    background: #f2c300;
-    color: #082c74;
-    font-size: 18px;
-    font-weight: 700;
-    cursor: pointer;
-    z-index: 10;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-    transition: 0.3s;
-}
+// .floating-swap-btn {
+//     position: absolute;
+//     left: -30px;
+//     top: 32px;
+//     padding: 5px;
+//     width: 43px;
+//     height: auto;
+//     border-radius: 50%;
+//     border: 4px solid #fff;
+//     background: #f2c300;
+//     color: #082c74;
+//     font-size: 18px;
+//     font-weight: 700;
+//     cursor: pointer;
+//     z-index: 10;
+//     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+//     transition: 0.3s;
+// }
 
-.floating-swap-btn:hover {
-    transform: rotate(180deg);
-}
+// .floating-swap-btn:hover {
+//     transform: rotate(180deg);
+// }
 
 /* DATE */
 
@@ -230,18 +230,18 @@ ngb-datepicker.dropdown-menu.show {
         max-width: 100%;
     }
 
-    .floating-swap-btn {
-        left: 80%;
-        top: -15px;
-        transform: rotate(90deg);
-        width: 43px;
-        height: 43px;
-        padding: 0;
-    }
+    // .floating-swap-btn {
+    //     left: 80%;
+    //     top: -15px;
+    //     transform: rotate(90deg);
+    //     width: 43px;
+    //     height: 43px;
+    //     padding: 0;
+    // }
 
-    .floating-swap-btn:hover {
-        transform: rotate(270deg);
-    }
+    // .floating-swap-btn:hover {
+    //     transform: rotate(270deg);
+    // }
 
     .clean-booking-card-wrapper {
         padding: 18px;
@@ -418,4 +418,59 @@ ngb-datepicker.dropdown-menu.show {
         font-size: 18px;
     }
 
+}
+
+/* ===================================
+   MOBILE SWAP BUTTON
+=================================== */
+
+
+.mobile-swap-circle {
+    position: absolute;
+    left: -30px;
+    top: 32px;
+    padding: 0;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    background: #f2c300;
+    // color: #082c74;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    z-index: 99;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-swap-circle:focus,
+.mobile-swap-circle:hover {
+    outline: none;
+    background: #efc003;
+}
+
+.mobile-modify-actions {
+    display: block;
+}
+
+.mobile-update-btn {
+    width: 100%;
+    height: 52px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+
+
+@media(max-width:768px) {
+    .mobile-swap-circle {
+        left: 270px;
+        top: -14px;
+        transform: rotate(90deg);
+    }
 }

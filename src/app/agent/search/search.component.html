@@ -1327,6 +1327,23 @@
               </div>
             </div>
 
+            <!-- Swap Button -->
+            <button type="button" class="mobile-swap-circle" (click)="swap()">
+
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M16 3L21 8L16 13" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+
+                <path d="M21 8H7" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round" />
+
+                <path d="M8 21L3 16L8 11" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round"
+                  stroke-linejoin="round" />
+
+                <path d="M3 16H17" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round" />
+              </svg>
+
+            </button>
+
             <div class="form-group mb-3">
               <label>Date of Journey</label>
               <div class="input-group">
@@ -1341,9 +1358,9 @@
             </div>
 
             <div class="mobile-modify-actions">
-              <button type="button" class="btn btn-light mobile-swap-btn" (click)="swap()">
+              <!-- <button type="button" class="btn btn-light mobile-swap-btn" (click)="swap()">
                 Swap
-              </button>
+              </button> -->
               <button type="submit" class="btn btn-warning mobile-update-btn">
                 Update Search
               </button>
