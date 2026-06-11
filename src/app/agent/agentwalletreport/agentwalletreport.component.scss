@@ -907,3 +907,97 @@ app-agentwalletreport .table thead {
   margin: 0 auto !important;
   justify-content: center;
 }
+
+.mobile-card-list,
+.mobile-pagination-wrapper {
+  width: 100%;
+}
+
+.pagination-right {
+  width: 100%;
+  overflow-x: auto;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-nav {
+  width: fit-content;
+}
+
+.pagination {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}@media (max-width: 768px) {
+
+  .pagination {
+    gap: 4px !important;
+  }
+
+  .pagination .page-link {
+    min-width: 34px !important;
+    height: 34px !important;
+    padding: 0 8px !important;
+    font-size: 12px !important;
+  }
+}.pagination-right {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.pagination-nav {
+  width: max-content;
+}
+
+.pagination {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}@media (max-width: 768px) {
+
+  .mobile-pagination-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 10px;
+  }
+
+  .pagination-right {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pagination-nav {
+    min-width: max-content;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pagination {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    white-space: nowrap;
+    gap: 4px;
+    margin: 0;
+  }
+
+  .pagination .page-link {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 8px;
+    font-size: 12px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pagination-left {
+    text-align: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+}

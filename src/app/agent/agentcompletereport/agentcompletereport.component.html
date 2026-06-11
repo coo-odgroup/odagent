@@ -1940,6 +1940,7 @@
         <!-- FROM DATE -->
         <div class="col-12">
           <div class="mobile-field">
+            <label class="mobile-date-label">From Date:</label>
             <input
               type="date"
               class="form-control"
@@ -1951,6 +1952,7 @@
         <!-- TO DATE -->
         <div class="col-12">
           <div class="mobile-field">
+            <label class="mobile-date-label">To Date:</label>
             <input
               type="date"
               class="form-control"
@@ -2207,7 +2209,6 @@
   <!-- PAGINATION -->
 
   <div class="mobile-pagination" *ngIf="completedata?.data?.links">
-
     <div class="mobile-pagination" *ngIf="completedata?.data?.links">
       <button
         [disabled]="!completedata.data.prev_page_url"

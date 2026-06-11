@@ -148,10 +148,10 @@
                 <th>Boarding Point / Time</th>
                 <th>Seat No</th>
                 <th>Passenger Details</th>
-                <th>Total Comm</th>
+                <th>Commision</th>
+                <th>Customer Comm</th>
                 <th>TDS (5%)</th>
                 <th>Comm After TDS</th>
-                <th>Customer Comm</th>
                 <th>Fare</th>
               </tr>
             </thead>
@@ -287,11 +287,11 @@
                 </td>
                 <td class="green">
                   ₹{{
-                    (complete.customer_comission || 0) +
-                      (complete.agent_commission || 0) +
-                      (complete.tds || 0) | number: "1.2-2"
+                    
+                      (complete.agent_commission || 0) | number: "1.2-2"
                   }}
                 </td>
+                                <td>₹{{ complete.customer_comission | number: "1.2-2" }}</td>
                 <td class="red">₹{{ complete.tds | number: "1.2-2" }}</td>
                 <td class="green">
                   ₹{{
@@ -300,7 +300,6 @@
                       (complete.tds || 0) | number: "1.2-2"
                   }}
                 </td>
-                <td>₹{{ complete.customer_comission | number: "1.2-2" }}</td>
                 <td class="blue">
                   ₹{{ complete.total_fare | number: "1.2-2" }}
                 </td>

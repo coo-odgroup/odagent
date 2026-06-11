@@ -106,6 +106,7 @@ export class WalletComponent implements OnInit {
     this.searchForm = this.fb.group({
       bus_operator_id: [null],
       name: [null],
+      payment_via: [''], 
       from_date: [null],
       to_date: [null],
       rows_number: Constants.RecordLimit,
@@ -228,6 +229,7 @@ export class WalletComponent implements OnInit {
     this.searchForm = this.fb.group({
       name: [null],
       from_date: [null],
+      payment_via: [''], 
       to_date: [null],
       rows_number: Constants.RecordLimit,
       user_id: localStorage.getItem('USERID'),

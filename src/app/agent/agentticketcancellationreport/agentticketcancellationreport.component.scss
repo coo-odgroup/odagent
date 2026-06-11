@@ -890,3 +890,37 @@ MOBILE
   }
 
 }
+
+.mobile-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c757d;
+}
+
+.date-field {
+  flex: 1;
+}
+
+.date-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.date-type-field {
+  margin-bottom: 12px;
+}
+
+.mobile-field {
+  margin-bottom: 12px;
+}
+
+.mobile-label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #6c757d;
+}

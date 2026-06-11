@@ -149,4 +149,10 @@ export class NavBarComponent implements OnInit {
   toggleReport() {
     this.isReportOpen = !this.isReportOpen;
   }
+
+    logout()
+  {
+    localStorage.clear();
+    this.router.navigate(['login']);
+  }
 }

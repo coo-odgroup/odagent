@@ -70,6 +70,10 @@ export class AgentwalletreportComponent implements OnInit {
 
     this.spinner.show();
 
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+
+    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
     this.searchForm = this.fb.group({
       name: [null],
       rows_number: Constants.RecordLimit,
@@ -178,14 +182,18 @@ export class AgentwalletreportComponent implements OnInit {
   refresh() {
     this.spinner.show();
 
+    const today = new Date();
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
     this.searchForm = this.fb.group({
       name: [null],
       rows_number: Constants.RecordLimit,
       user_id: localStorage.getItem('USERID'),
       tran_type: [''],
       SelectType: [''],
-      from_date: [null],
-      to_date: [null],
+      from_date: [firstDay.toISOString().split('T')[0]],
+      to_date: [lastDay.toISOString().split('T')[0]],
     });
 
     this.search();
@@ -267,42 +275,42 @@ export class AgentwalletreportComponent implements OnInit {
     }
   }
 
-getVisiblePages(): (number | string)[] {
-  const current = this.pagination?.current_page;
-  const last = this.pagination?.last_page;
+  getVisiblePages(): (number | string)[] {
+    const current = this.pagination?.current_page;
+    const last = this.pagination?.last_page;
 
-  if (!current || !last) {
-    return [];
+    if (!current || !last) {
+      return [];
+    }
+
+    // small page count
+    if (last <= 4) {
+      return Array.from({ length: last }, (_, i) => i + 1);
+    }
+
+    // page 1
+    if (current === 1) {
+      return [1, 2, '...', last];
+    }
+
+    // page 2
+    if (current === 2) {
+      return [1, 2, 3, '...', last];
+    }
+
+    // last page
+    if (current === last) {
+      return [1, '...', last - 1, last];
+    }
+
+    // second last page
+    if (current === last - 1) {
+      return [1, '...', last - 2, last - 1, last];
+    }
+
+    // middle pages
+    return [1, '...', current - 1, current, current + 1, '...', last];
   }
-
-  // small page count
-  if (last <= 4) {
-    return Array.from({ length: last }, (_, i) => i + 1);
-  }
-
-  // page 1
-  if (current === 1) {
-    return [1, 2, '...', last];
-  }
-
-  // page 2
-  if (current === 2) {
-    return [1, 2, 3, '...', last];
-  }
-
-  // last page
-  if (current === last) {
-    return [1, '...', last - 1, last];
-  }
-
-  // second last page
-  if (current === last - 1) {
-    return [1, '...', last - 2, last - 1, last];
-  }
-
-  // middle pages
-  return [1, '...', current - 1, current, current + 1, '...', last];
-}
 
   animateValue(
     start: number,

@@ -33,7 +33,7 @@ export class Constants {
 
    //public static BASE_URL:any ='http://localhost:7001/ODBUS/odbusproviderbe/api';
    //public static CONSUMER_API_URL:any ='http://localhost:7001/ODBUS/odbusconsumerbe/api';
-   public static CONSUMER_BASE_URL:any ='http://localhost:4200/';
+   public static CONSUMER_BASE_URL:any ='http://192.168.29.17:4200/';
 
     
 }

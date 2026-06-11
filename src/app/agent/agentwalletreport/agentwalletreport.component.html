@@ -372,8 +372,11 @@
     </div>
   </div>
 
-  <!-- CARDS -->
 
+  <div class="row">
+  <div class="col-12">
+  <!-- CARDS -->
+<div class="mobile-card-list"></div>
   <div class="mobile-card" *ngFor="let page of wallet">
     <div class="mobile-card-top">
       <div class="mobile-info">
@@ -425,6 +428,7 @@
       <div>Bal ₹{{ page.balance }}</div>
     </div>
   </div>
+  </div>
 
   <!-- PAGINATION -->
 
@@ -468,4 +472,5 @@
       </nav>
     </div>
   </div>
+</div>
 </div>

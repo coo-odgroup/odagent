@@ -122,7 +122,7 @@ export class AgentticketcancellationreportComponent implements OnInit {
     this.searchFrom = this.fb.group({
       bus_operator_id: [null],
       payment_id: [null],
-      date_type: ['booking'],
+      date_type: [''],
       rows_number: Constants.RecordLimit,
       source_id: [null],
       destination_id: [null],
@@ -214,4 +214,28 @@ export class AgentticketcancellationreportComponent implements OnInit {
       this.search(pageLink.url);
     }
   }
+
+  getSeatNames(complete: any): string {
+  if (!complete?.booking_detail?.length) {
+    return '--';
+  }
+
+  return complete.booking_detail
+    .map((seat: any) =>
+      complete.origin === 'DOLPHIN' || complete.origin === 'MANTIS'
+        ? seat.seat_name
+        : seat.bus_seats?.seats?.seatText
+    )
+    .join(', ');
+}
+
+getPassengerNames(complete: any): string {
+  if (!complete?.booking_detail?.length) {
+    return '--';
+  }
+
+  return complete.booking_detail
+    .map((p: any) => p.passenger_name)
+    .join(', ');
+}
 }
