@@ -84,7 +84,7 @@ export class WalletComponent implements OnInit {
     this.form = this.fb.group({
       id: [null],
 
-      amount: [
+      amount: [ 
         null,
         Validators.compose([
           Validators.required,
@@ -284,41 +284,8 @@ export class WalletComponent implements OnInit {
     });
   }
 
-  // Pagination helper methods
-  isPageVisible(label: any): boolean {
-    if (label === '&laquo;' || label === '&raquo;') {
-      return false;
-    }
 
-    if (label === '1' || label === '2' || label === '3') {
-      return true;
-    }
 
-    if (
-      parseInt(label) === this.pagination.current_page &&
-      parseInt(label) > 3
-    ) {
-      return true;
-    }
-
-    return false;
-  }
-
-  getPageLabel(label: any): string {
-    if (label === '&laquo;' || label === '&raquo;') {
-      return '';
-    }
-    return label;
-  }
-
-  onFirstPage() {
-    if (
-      this.pagination.current_page !== 1 &&
-      this.pagination.links.first_page_url
-    ) {
-      this.search(this.pagination.links.first_page_url);
-    }
-  }
 
   onPreviousPage() {
     if (this.pagination.links.prev_page_url) {
@@ -332,18 +299,59 @@ export class WalletComponent implements OnInit {
     }
   }
 
-  onLastPage() {
-    if (
-      this.pagination.current_page !== this.pagination.links.last_page &&
-      this.pagination.links.last_page_url
-    ) {
-      this.search(this.pagination.links.last_page_url);
-    }
-  }
 
   closePaymentPopup() {
     this.paymentPopup = false;
 
     this.router.navigate(['/agent/wallet']);
   }
+
+  getVisiblePages(): (number | string)[] {
+  const current = this.pagination?.current_page;
+  const last = this.pagination?.last_page;
+
+  if (!current || !last) {
+    return [];
+  }
+
+  if (last <= 4) {
+    return Array.from({ length: last }, (_, i) => i + 1);
+  }
+
+  if (current === 1) {
+    return [1, 2, '...', last];
+  }
+
+  if (current === 2) {
+    return [1, 2, 3, '...', last];
+  }
+
+  if (current === last) {
+    return [1, '...', last - 1, last];
+  }
+
+  if (current === last - 1) {
+    return [1, '...', last - 2, last - 1, last];
+  }
+
+  return [
+    1,
+    '...',
+    current - 1,
+    current,
+    current + 1,
+    '...',
+    last,
+  ];
+}
+
+searchPage(page: number) {
+  const pageLink = this.pagination?.links?.find(
+    (x: any) => Number(x.label) === page
+  );
+
+  if (pageLink?.url) {
+    this.search(pageLink.url);
+  }
+}
 }
