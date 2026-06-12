@@ -60,23 +60,26 @@
       <div class="filter-card" [class.mobile-filter-show]="showFilters">
         <form [formGroup]="searchFrom">
           <div class="row">
-            <div class="col-lg-2">
-              <input
-                type="date"
-                class="form-control"
-                formControlName="rangeFromDate"
-              />
-            </div>
+           <div class="col-lg-2">
+  <label class="small text-muted mb-1 d-block">From Date:</label>
+  <input
+    type="date"
+    class="form-control"
+    formControlName="rangeFromDate"
+  />
+</div>
+
+<div class="col-lg-2">
+  <label class="small text-muted mb-1 d-block">To Date:</label>
+  <input
+    type="date"
+    class="form-control"
+    formControlName="rangeToDate"
+  />
+</div>
 
             <div class="col-lg-2">
-              <input
-                type="date"
-                class="form-control"
-                formControlName="rangeToDate"
-              />
-            </div>
-
-            <div class="col-lg-2">
+               <label class="small text-muted mb-1 d-block">Select Date Type</label>
               <select class="form-control" formControlName="date_type">
                 <option value="booking">Booking Date</option>
 
@@ -85,6 +88,7 @@
             </div>
 
             <div class="col-lg-2">
+               <label class="small text-muted mb-1 d-block">Source:</label>
               <ng-select
                 [items]="locations"
                 bindLabel="name"
@@ -96,6 +100,7 @@
             </div>
 
             <div class="col-lg-2">
+               <label class="small text-muted mb-1 d-block">Destination:</label>
               <ng-select
                 [items]="locations"
                 bindLabel="name"
@@ -107,6 +112,7 @@
             </div>
 
             <div class="col-lg-2">
+               <label class="small text-muted mb-1 d-block">Rows:</label>
               <select
                 class="form-control"
                 formControlName="rows_number"

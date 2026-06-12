@@ -6,6 +6,10 @@ const routes: Routes = [
   {
     path: '',
     component: BookTicketComponent
+  },
+  {
+    path: ':trans_id',
+    component: BookTicketComponent
   }
 ];
 
