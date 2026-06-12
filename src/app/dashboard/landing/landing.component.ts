@@ -257,6 +257,7 @@ export class LandingComponent implements OnInit {
   }
 
   getall(range: any) {
+    this.selectedRange = range;
     this.spinner.show();
 
     this.showBookingTable = true;
@@ -439,7 +440,7 @@ export class LandingComponent implements OnInit {
 
   customFromDate: any = '';
   customToDate: any = '';
-
+  selectedRange = 'Today';
   today = new Date();
 
   maxDate = {
@@ -457,6 +458,7 @@ export class LandingComponent implements OnInit {
   };
 
   toggleCustomDate() {
+    this.selectedRange = 'Custom';
     this.showCustomDate = true;
   }
 
@@ -501,7 +503,7 @@ export class LandingComponent implements OnInit {
       this.formatDate(new Date(this.customFromDate)) +
       ' - ' +
       this.formatDate(new Date(this.customToDate));
-      
+
     this.ds.dashboard(data).subscribe((res) => {
       this.dashboarddata = res.data;
       this.animateDashboardCards();

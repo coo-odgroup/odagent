@@ -1,44 +1,31 @@
 <div class="main_box">
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-xl-12">
       <app-card [hidHeader]="true" [options]="false">
-        <b>{{ RangeText }}</b>
+       
         <div class="btn-group btn-group-toggle float-right" ngbRadioGroup name="ticketSize" data-toggle="buttons">
-          <!-- ALL -->
-          <!-- <label ngbButtonLabel class="btn btn-info">
-            All
-            <input
-              ngbButton
-              type="radio"
-              class="dateRange"
-              name="dateRange"
-              (click)="getall('All')"
-            />
-            <i class="feather icon-award m-0"></i>
-          </label> -->
-
-          <!-- TODAY -->
+          
           <label ngbButtonLabel class="btn btn-info">
             Today
             <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('Today')" />
             <i class="feather icon-align-justify m-0"></i>
           </label>
 
-          <!-- WEEK -->
+          
           <label ngbButtonLabel class="btn btn-info">
             This Week
             <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('This Week')" />
             <i class="feather icon-menu m-0"></i>
           </label>
 
-          <!-- MONTH -->
+         
           <label ngbButtonLabel class="btn btn-info">
             This Month
             <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('This Month')" />
             <i class="feather icon-grid m-0"></i>
           </label>
 
-          <!-- CUSTOM -->
+          
           <label ngbButtonLabel class="btn btn-info">
             Custom
 
@@ -48,7 +35,7 @@
           </label>
         </div>
 
-        <!-- KEEP THIS OUTSIDE BUTTON GROUP -->
+       
         <div class="custom-date-wrapper mt-3" *ngIf="showCustomDate">
           <div class="custom-date-box">
             <label>From Date</label>
@@ -68,7 +55,7 @@
             </div>
           </div>
 
-          <!-- APPLY -->
+          
           <div class="custom-date-btn">
             <button class="btn btn-primary" (click)="applyCustomDate()">
               Apply
@@ -77,7 +64,87 @@
         </div>
       </app-card>
     </div>
+  </div> -->
+
+  <div class="row">
+    <div class="col-xl-12">
+
+      <div class="dashboard-filter-card">
+
+        <div class="filter-header">
+
+          <div class="filter-title">
+            <h4>
+              <i class="feather icon-bar-chart-2"></i>
+              {{ RangeText }}</h4>
+            <span>Filter bookings and transactions</span>
+          </div>
+
+          <div class="filter-tabs btn-group btn-group-toggle" ngbRadioGroup name="ticketSize">
+
+            <label ngbButtonLabel class="btn filter-btn" [class.active]="selectedRange === 'Today'">
+
+              <i class="feather icon-sun"></i>
+              <span>Today</span>
+
+              <input ngbButton type="radio" (click)="getall('Today')">
+
+            </label>
+
+            <label ngbButtonLabel class="btn filter-btn" [class.active]="selectedRange === 'This Week'">
+              <i class="feather icon-calendar"></i>
+              <span>This Week</span>
+              <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('This Week')">
+            </label>
+
+            <label ngbButtonLabel class="btn filter-btn" [class.active]="selectedRange === 'This Month'">
+              <i class="feather icon-grid"></i>
+              <span>This Month</span>
+              <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('This Month')">
+            </label>
+
+            <label ngbButtonLabel class="btn filter-btn" [class.active]="selectedRange === 'Custom'">
+              <i class="feather icon-sliders"></i>
+              <span>Custom</span>
+              <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="toggleCustomDate()">
+            </label>
+
+          </div>
+
+        </div>
+
+        <div class="custom-filter-box" *ngIf="showCustomDate">
+
+          <div class="custom-date-box">
+            <label>From Date</label>
+
+            <input type="date" class="form-control custom-native-date" [(ngModel)]="customFromDate"
+              onclick="this.showPicker()" />
+          </div>
+
+          <div class="custom-date-box">
+            <label>To Date</label>
+
+            <input type="date" class="form-control custom-native-date" [(ngModel)]="customToDate"
+              onclick="this.showPicker()" />
+          </div>
+
+          <div class="custom-date-btn">
+            <button class="btn apply-filter-btn" (click)="applyCustomDate()">
+
+              Apply Filter
+
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
   </div>
+
+
   <div class="row" *ngIf="dashboarddata">
     <div class="col-lg col-md-4 col-sm-6 col-6">
       <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-blue"

@@ -438,7 +438,7 @@ app-card {
 
   .btn-group.btn-group-toggle .btn.active,
   .btn-group.btn-group-toggle .btn:active {
-    background: #0d6efd !important;
+    background: linear-gradient(135deg, #173e77, #0d6efd) !important;
     color: #fff !important;
   }
 
@@ -500,7 +500,7 @@ app-card {
 .modern-table-card {
   border-radius: 18px;
   overflow: hidden;
-  border: 1px solid #e8edf5;
+  border: 1px solid #d7e7ff;
   box-shadow: 0 4px 18px rgba(0, 0, 0, .05);
   background: #fff;
 }
@@ -642,4 +642,155 @@ app-card {
   font-size: 22px;
   font-weight: 700;
   margin: 0;
+}
+
+
+
+.dashboard-filter-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 20px 24px;
+  border: 1px solid #d7e7ff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
+  margin-bottom: 20px;
+}
+
+.filter-title h4 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-title h4 i {
+  color: #173e77;
+  font-size: 24px;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.filter-title h4 {
+  margin: 0;
+  color: #173e77;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.filter-title span {
+  color: #7b89a8;
+  font-size: 13px;
+}
+
+.filter-tabs {
+  background: #f4f7fc;
+  padding: 5px;
+  border-radius: 14px;
+  gap: 10px;
+  border: 1px solid #dfdfff;
+}
+
+.filter-btn {
+  border: none !important;
+  background: transparent !important;
+  color: #173e77 !important;
+  font-weight: 600;
+  border-radius: 10px !important;
+  padding: 10px 18px;
+  transform: 10s ease;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background: #243b5e !important;
+  color: #fff !important;
+
+}
+
+.filter-btn.active {
+  background: linear-gradient(135deg, #173e77, #0d6efd) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, .25);
+}
+
+.filter-btn {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-btn i {
+  font-size: 15px;
+}
+
+.filter-btn.active i {
+  color: #fff;
+}
+
+.custom-filter-box {
+  margin-top: 20px;
+  display: flex;
+  gap: 15px;
+  align-items: end;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  border-top: 1px solid #edf2f7;
+}
+
+.custom-date-box {
+  min-width: 220px;
+}
+
+.custom-date-box label {
+  display: block;
+  margin-bottom: 6px;
+  color: #173e77;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.custom-native-date {
+  height: 48px;
+  border-radius: 12px;
+  border: 1px solid #dce4ef;
+}
+
+.apply-filter-btn {
+  height: 48px;
+  padding: 0 24px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #173e77, #0d6efd);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+}
+
+@media(max-width:768px) {
+
+  .filter-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-tabs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .custom-date-box {
+    width: 100%;
+  }
+
+  .custom-date-btn {
+    width: 100%;
+  }
+
+  .apply-filter-btn {
+    width: 100%;
+  }
 }
