@@ -617,14 +617,6 @@ export class BookTicketComponent implements OnInit {
   myDate: any = new Date();
 
   ngOnInit() {
-    console.log(
-      'URL TRANS ID =>',
-      this.route.snapshot.paramMap.get('trans_id'),
-    );
-
-    console.log('BOOKINGDATA =>', localStorage.getItem('bookingdata'));
-
-    console.log('BUSRECORD =>', localStorage.getItem('busRecord'));
 
     this.passengerData = this.bookForm1.value;
 
