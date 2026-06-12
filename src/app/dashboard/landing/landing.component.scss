@@ -3,6 +3,7 @@ input[type="radio"]:checked {
   background-color: #007f8e !important;
   border-color: #007381 !important;
 }
+
 .dashboard-card {
   border-radius: 14px;
   overflow: hidden;
@@ -76,6 +77,15 @@ input[type="radio"]:checked {
   .dashboard-card i {
     font-size: 42px;
   }
+
+  .custom-date-wrapper{
+    display: grid !important;
+  }
+
+  .csm_apply{
+    width: 100% !important;
+  }
+
 }
 
 .widget-visitor-card i {
@@ -94,7 +104,6 @@ input[type="radio"]:checked {
   width: 100%;
   margin-top: 15px;
   position: relative;
-  z-index: 9999;
 }
 
 .custom-date-box {
@@ -106,13 +115,13 @@ input[type="radio"]:checked {
   position: relative;
 }
 
-.custom-date-input input {
-  height: 42px;
-  padding-right: 42px;
-  border-radius: 8px;
-  background: #fff;
-  cursor: pointer;
-}
+// .custom-date-input input {
+//   height: 42px;
+//   padding-right: 42px;
+//   border-radius: 8px;
+//   background: #fff;
+//   cursor: pointer;
+// }
 
 .custom-calendar-btn {
   position: absolute;
@@ -199,7 +208,7 @@ app-card {
 }
 
 .table-responsive {
- overflow-x: auto !important;
+  overflow-x: auto !important;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   border-radius: 10px;
@@ -484,43 +493,43 @@ app-card {
 }
 
 .booking-extra {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition:
-      max-height 0.35s ease,
-      opacity 0.25s ease,
-      margin 0.35s ease,
-      padding 0.35s ease;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    max-height 0.35s ease,
+    opacity 0.25s ease,
+    margin 0.35s ease,
+    padding 0.35s ease;
 
-    margin-top: 0;
-    padding-top: 0;
+  margin-top: 0;
+  padding-top: 0;
 }
 
 .booking-extra.expanded {
-    max-height: 350px;
-    opacity: 1;
-    margin-top: 10px;
-    padding-top: 12px;
-    border-top: 1px dashed #d8dff0;
+  max-height: 350px;
+  opacity: 1;
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px dashed #d8dff0;
 }
 
 .booking-extra-content {
-    transform: translateY(-10px);
-    transition: transform .35s ease;
+  transform: translateY(-10px);
+  transition: transform .35s ease;
 }
 
 .booking-extra.expanded .booking-extra-content {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 
 .more-btn i {
-    transition: transform 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .more-btn i.fa-chevron-up {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .detail-row {
@@ -604,7 +613,9 @@ app-card {
   .btn-group.btn-group-toggle input[type="radio"] {
     display: none;
   }
-}@media (max-width: 767px) {
+}
+
+@media (max-width: 767px) {
 
   .dashboard-card-parent .col-6 {
     flex: 0 0 50%;
@@ -634,4 +645,16 @@ app-card {
     font-size: 32px;
     margin-bottom: 12px;
   }
+}
+
+.custom-native-date {
+  height: 42px;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.custom-native-date::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 1;
 }

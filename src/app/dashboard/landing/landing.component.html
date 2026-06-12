@@ -3,12 +3,7 @@
     <div class="col-xl-12">
       <app-card [hidHeader]="true" [options]="false">
         <b>{{ RangeText }}</b>
-        <div
-          class="btn-group btn-group-toggle float-right"
-          ngbRadioGroup
-          name="ticketSize"
-          data-toggle="buttons"
-        >
+        <div class="btn-group btn-group-toggle float-right" ngbRadioGroup name="ticketSize" data-toggle="buttons">
           <!-- ALL -->
           <!-- <label ngbButtonLabel class="btn btn-info">
             All
@@ -25,39 +20,21 @@
           <!-- TODAY -->
           <label ngbButtonLabel class="btn btn-info">
             Today
-            <input
-              ngbButton
-              type="radio"
-              class="dateRange"
-              name="dateRange"
-              (click)="getall('Today')"
-            />
+            <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('Today')" />
             <i class="feather icon-align-justify m-0"></i>
           </label>
 
           <!-- WEEK -->
           <label ngbButtonLabel class="btn btn-info">
             This Week
-            <input
-              ngbButton
-              type="radio"
-              class="dateRange"
-              name="dateRange"
-              (click)="getall('This Week')"
-            />
+            <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('This Week')" />
             <i class="feather icon-menu m-0"></i>
           </label>
 
           <!-- MONTH -->
           <label ngbButtonLabel class="btn btn-info">
             This Month
-            <input
-              ngbButton
-              type="radio"
-              class="dateRange"
-              name="dateRange"
-              (click)="getall('This Month')"
-            />
+            <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('This Month')" />
             <i class="feather icon-grid m-0"></i>
           </label>
 
@@ -65,13 +42,7 @@
           <label ngbButtonLabel class="btn btn-info">
             Custom
 
-            <input
-              ngbButton
-              type="radio"
-              class="dateRange"
-              name="dateRange"
-              (click)="toggleCustomDate()"
-            />
+            <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="toggleCustomDate()" />
 
             <i class="feather icon-calendar m-0"></i>
           </label>
@@ -79,69 +50,27 @@
 
         <!-- KEEP THIS OUTSIDE BUTTON GROUP -->
         <div class="custom-date-wrapper mt-3" *ngIf="showCustomDate">
-          <!-- FROM -->
           <div class="custom-date-box">
             <label>From Date</label>
 
             <div class="custom-date-input">
-              <input
-                class="form-control"
-                placeholder="Select From Date"
-                name="fromDate"
-                [(ngModel)]="customFromDate"
-                [ngModelOptions]="{ standalone: true }"
-                ngbDatepicker
-                #fromDp="ngbDatepicker"
-                [minDate]="minDate"
-                [maxDate]="maxDate"
-                container="body"
-                readonly
-                (click)="fromDp.toggle()"
-              />
-
-              <button
-                type="button"
-                class="custom-calendar-btn"
-                (click)="fromDp.toggle()"
-              >
-                <i class="feather icon-calendar"></i>
-              </button>
+              <input type="date" class="form-control custom-native-date" [(ngModel)]="customFromDate"
+                onclick="this.showPicker()" />
             </div>
           </div>
 
-          <!-- TO -->
           <div class="custom-date-box">
             <label>To Date</label>
 
             <div class="custom-date-input">
-              <input
-                class="form-control"
-                placeholder="Select To Date"
-                name="toDate"
-                [(ngModel)]="customToDate"
-                [ngModelOptions]="{ standalone: true }"
-                ngbDatepicker
-                #toDp="ngbDatepicker"
-                [minDate]="minDate"
-                [maxDate]="maxDate"
-                container="body"
-                readonly
-                (click)="toDp.toggle()"
-              />
-
-              <button
-                type="button"
-                class="custom-calendar-btn"
-                (click)="toDp.toggle()"
-              >
-                <i class="feather icon-calendar"></i>
-              </button>
+              <input type="date" class="form-control custom-native-date" [(ngModel)]="customToDate"
+                onclick="this.showPicker()" />
             </div>
           </div>
 
           <!-- APPLY -->
           <div class="custom-date-btn">
-            <button class="btn btn-primary" (click)="applyCustomDate()">
+            <button class="btn btn-primary csm_apply" (click)="applyCustomDate()">
               Apply
             </button>
           </div>
@@ -151,11 +80,8 @@
   </div>
   <div class="row" *ngIf="dashboarddata">
     <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card
-        [hidHeader]="true"
-        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-blue"
-        blockClass="text-center"
-      >
+      <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-blue"
+        blockClass="text-center">
         <h2 class="text-white">{{ animatedTodayPnr }}</h2>
         <h6 class="text-white">Total PNR</h6>
         <i class="feather icon-file-text"></i>
@@ -163,11 +89,8 @@
     </div>
 
     <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card
-        [hidHeader]="true"
-        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-green"
-        blockClass="text-center"
-      >
+      <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-green"
+        blockClass="text-center">
         <h2 class="text-white">{{ animatedUpcomingPnr }}</h2>
         <h6 class="text-white">Upcoming PNR</h6>
         <i class="feather icon-calendar"></i>
@@ -175,11 +98,8 @@
     </div>
 
     <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card
-        [hidHeader]="true"
-        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-sky"
-        blockClass="text-center"
-      >
+      <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-sky"
+        blockClass="text-center">
         <h2 class="text-white">{{ animatedSales | number: "1.2-2" }}</h2>
         <h6 class="text-white">Sales</h6>
         <i class="feather icon-bar-chart-2"></i>
@@ -187,11 +107,8 @@
     </div>
 
     <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card
-        [hidHeader]="true"
-        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-coral"
-        blockClass="text-center"
-      >
+      <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-coral"
+        blockClass="text-center">
         <h2 class="text-white">
           {{ animatedOdbusCommission | number: "1.2-2" }}
         </h2>
@@ -201,11 +118,8 @@
     </div>
 
     <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card
-        [hidHeader]="true"
-        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-purple"
-        blockClass="text-center"
-      >
+      <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-purple"
+        blockClass="text-center">
         <h2 class="text-white">
           {{ animatedCustomerCommission | number: "1.2-2" }}
         </h2>
@@ -245,10 +159,7 @@
     <div class="container" *ngIf="RoleType == 1">
       <div class="row">
         <div class="col-md-12 col-xl-4">
-          <app-card
-            [hidHeader]="true"
-            cardClass="bg-c-blue order-card borderless"
-          >
+          <app-card [hidHeader]="true" cardClass="bg-c-blue order-card borderless">
             <h6 class="text-white">Sales {{ RangeText }}</h6>
             <h2 class="text-white">
               <span *ngFor="let book_pft of dashboarddata.booking_profit">
@@ -261,10 +172,7 @@
         </div>
 
         <div class="col-md-6 col-xl-4">
-          <app-card
-            [hidHeader]="true"
-            cardClass="bg-c-blue order-card borderless"
-          >
+          <app-card [hidHeader]="true" cardClass="bg-c-blue order-card borderless">
             <h6 class="text-white">Booking Profit {{ RangeText }}</h6>
             <h2 class="text-white">
               <span *ngFor="let book_pft of dashboarddata.booking_profit">
@@ -276,10 +184,7 @@
           </app-card>
         </div>
         <div class="col-md-6 col-xl-4">
-          <app-card
-            [hidHeader]="true"
-            cardClass="bg-c-green order-card borderless"
-          >
+          <app-card [hidHeader]="true" cardClass="bg-c-green order-card borderless">
             <h6 class="text-white">Cancellation Profit {{ RangeText }}</h6>
             <h2 class="text-white">
               {{ dashboarddata.cancellation_profit || "0" }}
@@ -331,11 +236,7 @@
   <div class="row">
     <div class="col-xl-12 col-md-12">
       <div *ngIf="showWalletTable">
-        <app-card
-          cardTitle="Last 10 Wallet Transactions"
-          cardClass="table-card"
-          blockClass="p-0"
-        >
+        <app-card cardTitle="Last 10 Wallet Transactions" cardClass="table-card" blockClass="p-0">
           <div class="table-responsive d-none d-md-block">
             <table class="table table-hover mb-0 wallet-table">
               <thead>
@@ -356,11 +257,8 @@
                   <td class="pnr-cell">{{ tx.transaction_id }}</td>
                   <td>{{ tx.created_at | date: "dd MMM yyyy HH:mm" }}</td>
                   <td>
-                    <span
-                      [class.badge-success]="tx.transaction_type == 'c'"
-                      [class.badge-danger]="tx.transaction_type == 'd'"
-                      class="badge"
-                    >
+                    <span [class.badge-success]="tx.transaction_type == 'c'"
+                      [class.badge-danger]="tx.transaction_type == 'd'" class="badge">
                       {{ tx.transaction_type == "c" ? "Credit" : "Debit" }}
                     </span>
                   </td>
@@ -368,15 +266,15 @@
                   <td>{{ tx.balance | number: "1.2-2" }}</td>
                   <td>
                     {{
-                      tx.remarks
-                        ? tx.remarks
-                        : tx.type == "Commission"
-                          ? "Ticket Commission"
-                          : tx.transaction_type == "d"
-                            ? "PNR Booked"
-                            : tx.payment_via == "Cashfree"
-                              ? "Wallet Recharge"
-                              : "-"
+                    tx.remarks
+                    ? tx.remarks
+                    : tx.type == "Commission"
+                    ? "Ticket Commission"
+                    : tx.transaction_type == "d"
+                    ? "PNR Booked"
+                    : tx.payment_via == "Cashfree"
+                    ? "Wallet Recharge"
+                    : "-"
                     }}
                   </td>
                 </tr>
@@ -392,11 +290,7 @@
         </app-card>
       </div>
       <div *ngIf="showBookingTable">
-        <app-card
-          cardTitle="Booking Details"
-          cardClass="table-card"
-          blockClass="p-0"
-        >
+        <app-card cardTitle="Booking Details" cardClass="table-card" blockClass="p-0">
           <div class="table-responsive d-none d-md-block">
             <table class="table table-hover mb-0">
               <thead>
@@ -421,7 +315,7 @@
                   <td>
                     {{ booking.pnr }} <br /><small class="text-muted">{{
                       booking.journey_dt | date: "dd MMM yyyy"
-                    }}</small>
+                      }}</small>
                   </td>
                   <td>{{ booking.transaction_id || "--" }}</td>
                   <td>
@@ -456,16 +350,16 @@
           <h4>
             <h4>
               {{
-                tx.type == "Commission"
-                  ? "Ticket Commission"
-                  : tx.transaction_type == "c"
-                    ? "Wallet Recharge"
-                    : "Ticket Book"
+              tx.type == "Commission"
+              ? "Ticket Commission"
+              : tx.transaction_type == "c"
+              ? "Wallet Recharge"
+              : "Ticket Book"
               }}
             </h4>
           </h4>
 
-            
+
           <p>
             {{ tx.created_at | date: "dd MMM yyyy" }}
           </p>
@@ -494,10 +388,10 @@
 
       <div class="mobile-pnr">
         {{
-          tx.type == "Commission"
-            ? "Commission earned from ticket booking"
-            : tx.remarks ||
-              (tx.transaction_type == "d" ? "PNR Booked" : "Wallet Recharge")
+        tx.type == "Commission"
+        ? "Commission earned from ticket booking"
+        : tx.remarks ||
+        (tx.transaction_type == "d" ? "PNR Booked" : "Wallet Recharge")
         }}
       </div>
 
@@ -513,10 +407,7 @@
 
   <!-- MOBILE BOOKING DETAILS -->
   <div class="mobile-dashboard-cards d-md-none" *ngIf="showBookingTable">
-    <div
-      class="mobile-card"
-      *ngFor="let booking of bookingDetails; let i = index"
-    >
+    <div class="mobile-card" *ngFor="let booking of bookingDetails; let i = index">
       <!-- TOP SECTION -->
       <div class="mobile-card-top">
         <div class="mobile-info">
@@ -538,13 +429,10 @@
         <button class="more-btn" (click)="toggleBooking(i)">
           {{ expandedBooking === i ? "Less" : "More" }}
 
-          <i
-            class="fa"
-            [ngClass]="{
+          <i class="fa" [ngClass]="{
               'fa-chevron-down': expandedBooking !== i,
               'fa-chevron-up': expandedBooking === i
-            }"
-          >
+            }">
           </i>
         </button>
       </div>
