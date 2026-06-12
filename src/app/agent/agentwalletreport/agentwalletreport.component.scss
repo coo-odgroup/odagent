@@ -917,7 +917,7 @@ app-agentwalletreport .table thead {
   width: 100%;
   overflow-x: auto;
   display: flex;
-  justify-content: center;
+  justify-content: end !important;
 }
 
 .pagination-nav {

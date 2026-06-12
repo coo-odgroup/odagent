@@ -78,11 +78,11 @@ input[type="radio"]:checked {
     font-size: 42px;
   }
 
-  .custom-date-wrapper{
+  .custom-date-wrapper {
     display: grid !important;
   }
 
-  .csm_apply{
+  .csm_apply {
     width: 100% !important;
   }
 
@@ -149,43 +149,6 @@ app-card {
   overflow: visible !important;
 }
 
-.table {
-  margin-bottom: 0;
-}
-
-.table tbody tr {
-  transition: all 0.25s ease;
-  border-bottom: 1px solid #eceff5;
-}
-
-/* Alternate row shading */
-.table tbody tr:nth-child(odd) {
-  background: #ffffff;
-}
-
-.table tbody tr:nth-child(even) {
-  background: #f8fafc;
-}
-
-.table tbody tr:hover {
-  background: #f5f9ff;
-}
-
-
-/* Serial */
-.table tbody td:first-child {
-  width: 60px;
-  font-weight: 600;
-  color: #6c757d;
-}
-
-/* Amount */
-.table tbody td:last-child {
-  font-weight: 700;
-  color: #198754;
-  text-align: right;
-  white-space: nowrap;
-}
 
 /* Empty row */
 .empty-row {
@@ -196,139 +159,8 @@ app-card {
   color: #6c757d;
 }
 
-.table thead th {
-  background: #e9f1ff;
-  color: #2f3542;
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: none;
-  border: none;
-  white-space: nowrap;
-  text-align: left;
-}
-
-.table-responsive {
-  overflow-x: auto !important;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-}
-
-
-
-
-.table tbody td {
-  vertical-align: middle;
-  padding: 10px 12px;
-  font-size: 13px;
-}
-
-.table th,
-.table td {
-  vertical-align: middle;
-  padding: 12px 14px;
-  text-align: left;
-}
-
-.table td:nth-child(8),
-.table td:nth-child(9),
-.table td:nth-child(10),
-.table th:nth-child(8),
-.table th:nth-child(9),
-.table th:nth-child(10) {
-  text-align: right;
-}
-
 .main_box {
   padding: 20px;
-}
-
-.table {
-  width: max-content;
-  min-width: 100%;
-  table-layout: auto;
-}
-
-.table th,
-.table td {
-  padding: 12px 10px;
-  vertical-align: middle;
-}
-
-/* Fixed column widths */
-.table th:nth-child(1),
-.table td:nth-child(1) {
-  width: 40px;
-}
-
-.table th:nth-child(2),
-.table td:nth-child(2) {
-  width: 120px;
-}
-
-.table th:nth-child(3),
-.table td:nth-child(3) {
-  width: 120px;
-}
-
-.table th:nth-child(4),
-.table td:nth-child(4) {
-  width: 180px;
-}
-
-.table th:nth-child(5),
-.table td:nth-child(5) {
-  width: 160px;
-}
-
-.table th:nth-child(6),
-.table td:nth-child(6) {
-  width: 170px;
-}
-
-.table th:nth-child(7),
-.table td:nth-child(7) {
-  width: 120px;
-}
-
-.table th:nth-child(8),
-.table td:nth-child(8),
-.table th:nth-child(9),
-.table td:nth-child(9),
-.table th:nth-child(10),
-.table td:nth-child(10) {
-  width: 100px;
-  text-align: right;
-}
-
-/* Wallet table only */
-.wallet-table {
-  width: 100%;
-  table-layout: auto !important;
-}
-
-.wallet-table th:nth-child(5),
-.wallet-table td:nth-child(5) {
-  width: 140px !important;
-  text-align: right !important;
-}
-
-.wallet-table th:nth-child(6),
-.wallet-table td:nth-child(6) {
-  width: 180px !important;
-  text-align: right !important;
-}
-
-.wallet-table th:nth-child(7),
-.wallet-table td:nth-child(7) {
-  width: 220px !important;
-  text-align: left !important;
-}
-
-.wallet-table .amount-cell {
-  text-align: right !important;
 }
 
 
@@ -657,4 +489,157 @@ app-card {
 .custom-native-date::-webkit-calendar-picker-indicator {
   cursor: pointer;
   opacity: 1;
+}
+
+
+
+/* =====================================
+   MODERN AGENT TABLE
+===================================== */
+
+.modern-table-card {
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid #e8edf5;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, .05);
+  background: #fff;
+}
+
+.modern-agent-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+}
+
+/* HEADER */
+
+.modern-agent-table thead th {
+  background: #f5f8fc;
+  color: #173e77;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 16px 14px;
+  border: none;
+  border-bottom: 1px solid #e6edf7;
+  white-space: nowrap;
+}
+
+.modern-agent-table thead th:first-child {
+  border-top-left-radius: 12px;
+}
+
+.modern-agent-table thead th:last-child {
+  border-top-right-radius: 12px;
+}
+
+/* BODY */
+
+.modern-agent-table tbody td {
+  padding: 16px 14px;
+  border-bottom: 1px solid #edf2f7;
+  font-size: 13px;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.modern-agent-table tbody tr {
+  transition: all .25s ease;
+}
+
+.modern-agent-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+/* REMOVE OLD STRIPES */
+
+.modern-agent-table tbody tr:nth-child(odd),
+.modern-agent-table tbody tr:nth-child(even) {
+  background: transparent !important;
+}
+
+/* TRANSACTION ID */
+
+.modern-agent-table tbody td:nth-child(2) {
+  color: #173e77;
+  font-weight: 600;
+}
+
+/* PNR */
+
+.modern-agent-table tbody td:nth-child(3) {
+  color: #173e77;
+  font-weight: 600;
+}
+
+/* AMOUNTS */
+
+.modern-agent-table tbody td:nth-child(5),
+.modern-agent-table tbody td:nth-child(6),
+.modern-agent-table tbody td:nth-child(8),
+.modern-agent-table tbody td:nth-child(9),
+.modern-agent-table tbody td:nth-child(10) {
+  font-weight: 700;
+}
+
+/* CREDIT */
+
+.modern-agent-table .badge-success {
+  background: #e9fff1 !important;
+  color: #16a34a !important;
+  border: 1px solid #c8f1d7;
+  border-radius: 30px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* DEBIT */
+
+.modern-agent-table .badge-danger {
+  background: #fff1f1 !important;
+  color: #ef4444 !important;
+  border: 1px solid #ffd2d2;
+  border-radius: 30px;
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* REMARKS */
+
+.modern-agent-table tbody td:last-child {
+  color: #0f766e;
+  font-weight: 600;
+}
+
+/* EMPTY ROW */
+
+.modern-agent-table .empty-row {
+  padding: 45px !important;
+  text-align: center;
+  font-size: 14px;
+  color: #64748b;
+  background: #fff;
+}
+
+/* SCROLL */
+
+.table-responsive {
+  border-radius: 16px;
+  overflow: auto;
+}
+
+/* CARD TITLE */
+
+.modern-table-card .card-header {
+  background: #fff;
+  border-bottom: 1px solid #edf2f7;
+}
+
+.modern-table-card .card-header h5 {
+  color: #173e77;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
 }

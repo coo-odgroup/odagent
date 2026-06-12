@@ -70,7 +70,7 @@
 
           <!-- APPLY -->
           <div class="custom-date-btn">
-            <button class="btn btn-primary csm_apply" (click)="applyCustomDate()">
+            <button class="btn btn-primary" (click)="applyCustomDate()">
               Apply
             </button>
           </div>
@@ -233,7 +233,7 @@
       </app-card>
     </div>
   </div> -->
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-xl-12 col-md-12">
       <div *ngIf="showWalletTable">
         <app-card cardTitle="Last 10 Wallet Transactions" cardClass="table-card" blockClass="p-0">
@@ -341,7 +341,181 @@
         </app-card>
       </div>
     </div>
+  </div> -->
+
+  <div class="row d-none d-md-flex">
+    <div class="col-xl-12 col-md-12">
+      <div *ngIf="showWalletTable">
+        <app-card cardTitle="Last 10 Wallet Transactions" cardClass="modern-table-card" blockClass="p-3">
+
+          <div class="table-responsive">
+
+            <table class="modern-agent-table wallet-table">
+
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Transaction ID</th>
+                  <th>Date</th>
+                  <th>Type</th>
+                  <th>Amount</th>
+                  <th>Balance</th>
+                  <th>Remarks</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr *ngFor="let tx of walletTransactions; let i = index">
+                  <td>{{ i + 1 }}</td>
+
+                  <td>{{ tx.transaction_id }}</td>
+
+                  <td>
+                    {{ tx.created_at | date: "dd MMM yyyy HH:mm" }}
+                  </td>
+
+                  <td>
+                    <span [class.badge-success]="tx.transaction_type == 'c'"
+                      [class.badge-danger]="tx.transaction_type == 'd'" class="badge">
+
+                      {{ tx.transaction_type == "c" ? "Credit" : "Debit" }}
+
+                    </span>
+                  </td>
+
+                  <td>
+                    {{ tx.amount | number:'1.2-2' }}
+                  </td>
+
+                  <td>
+                    {{ tx.balance | number:'1.2-2' }}
+                  </td>
+
+                  <td>
+                    {{
+                    tx.remarks
+                    ? tx.remarks
+                    : tx.type == "Commission"
+                    ? "Ticket Commission"
+                    : tx.transaction_type == "d"
+                    ? "PNR Booked"
+                    : tx.payment_via == "Cashfree"
+                    ? "Wallet Recharge"
+                    : "-"
+                    }}
+                  </td>
+                </tr>
+
+                <tr *ngIf="walletTransactions?.length == 0">
+                  <td colspan="7" class="empty-row">
+                    No wallet transactions found
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </app-card>
+      </div>
+      <div *ngIf="showBookingTable">
+        <app-card cardTitle="Booking Details" cardClass="modern-table-card" blockClass="p-3">
+
+          <div class="table-responsive">
+
+            <table class="modern-agent-table">
+
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Booking Date</th>
+                  <th>PNR</th>
+                  <th>Transaction ID</th>
+                  <th>Bus Name Number</th>
+                  <th>Route</th>
+                  <th>Passenger</th>
+                  <th>Customer Comm.</th>
+                  <th>ODBUS Comm.</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+
+              <tbody>
+
+                <tr *ngFor="let booking of bookingDetails; let i = index">
+
+                  <td>{{ i + 1 }}</td>
+
+                  <td>
+                    {{ booking.booking_date | date:'dd MMM yyyy' }}
+                  </td>
+
+                  <td>
+                    {{ booking.pnr }}
+                    <br>
+                    <small class="text-muted">
+                      {{ booking.journey_dt | date:'dd MMM yyyy' }}
+                    </small>
+                  </td>
+
+                  <td>
+                    {{ booking.transaction_id || '--' }}
+                  </td>
+
+                  <td>
+                    <strong>
+                      {{ booking.bus_name || '-' }}
+                    </strong>
+
+                    <br>
+
+                    <small class="text-muted">
+                      {{ booking.bus_number || '-' }}
+                    </small>
+                  </td>
+
+                  <td>
+                    {{ booking.route }}
+                  </td>
+
+                  <td>
+                    {{ booking.passenger_name || '-' }}
+                  </td>
+
+                  <td>
+                    {{ booking.customer_comission | number:'1.2-2' }}
+                  </td>
+
+                  <td>
+                    {{ booking.agent_commission | number:'1.2-2' }}
+                  </td>
+
+                  <td>
+                    {{ booking.amount | number:'1.2-2' }}
+                  </td>
+
+                </tr>
+
+                <tr *ngIf="bookingDetails?.length == 0">
+                  <td colspan="10" class="empty-row">
+                    No bookings found
+                  </td>
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </app-card>
+      </div>
+    </div>
   </div>
+
   <!-- MOBILE WALLET TRANSACTIONS -->
   <div class="mobile-dashboard-cards d-md-none" *ngIf="showWalletTable">
     <div class="mobile-card" *ngFor="let tx of walletTransactions">
