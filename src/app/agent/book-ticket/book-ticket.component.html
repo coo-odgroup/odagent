@@ -1,310 +1,555 @@
 <section class="search-result pt-40 pb-60">
-	<div class="container-fluid">
-		<div class="row">
-
-			<div class="col-md-12">
-
-				<ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
-
-
-
-
-					<ng-wizard-step [title]="'Passenger Details'"
-						[canEnter]="isValidFunctionReturnsObservable.bind(this)"
-						[canExit]="isValidFunctionReturnsBoolean.bind(this)">
-						<form [formGroup]="bookForm1" (ngSubmit)="submitForm1()">
-
-							<!-- Mobile version for passenger details step - added overlay sheet for mobile devices -->
-							<div class="mobile-sheet">
-
-								<!-- HEADER - Dynamic bus details with back button to navigate to booking page -->
-								<div class="sheet-header">
-									<span class="back-btn" (click)="goBack()"><i class="fas fa-arrow-left"></i></span>
-									<div class="header-center">
-										<div class="bus-name">{{ busRecord.busName }}</div>
-										<div class="route">{{ source }} → {{ destination }}</div>
-										<div class="date">{{ entdate | date:'EEEE, d MMMM , y' }}</div>
-									</div>
-								</div>
-
-								<!-- BODY - Scrollable content with cards for different sections -->
-								<div class="sheet-body">
-
-									<!-- RED NOTE - Cancellation policy warning -->
-									<div class="note">
-										Cancellation/Refund is not allowed on this Ticket
-									</div>
-									<h5 class="mb-3">Contact Information</h5>
-									<!-- CONTACT INFO - Added validation error messages for mobile -->
-									<div class="card" formGroupName="customerInfo">
-										<p class="sub">Your Booking will be sent to your Email Id & Mob No</p>
-
-										<input class="input filled" formControlName="name">
-										<div *ngIf="submitted1 && GetcustomerInfo.controls.name.errors"
-											class="invalid-feedback">
-											<div *ngIf="GetcustomerInfo.controls.name.errors.required">Name required
-											</div>
-											<div *ngIf="GetcustomerInfo.controls.name.errors.pattern">Alphabets only
-											</div>
-										</div>
-
-										<input class="input filled" formControlName="email">
-										<div *ngIf="submitted1 && GetcustomerInfo.controls.email.errors"
-											class="invalid-feedback">
-											<div *ngIf="GetcustomerInfo.controls.email.errors.required">Email ID is
-												required</div>
-											<div *ngIf="GetcustomerInfo.controls.email.errors.email">Email must be a
-												valid email address</div>
-										</div>
-
-										<input class="input filled" formControlName="phone">
-										<div *ngIf="submitted1 && GetcustomerInfo.controls.phone.errors"
-											class="invalid-feedback">
-											<div *ngIf="GetcustomerInfo.controls.phone.errors.required">Mobile no. is
-												required</div>
-											<div *ngIf="GetcustomerInfo.controls.phone.errors.pattern">Please, Enter 10
-												digit Mobile Number</div>
-										</div>
-									</div>
-
-									<!-- PASSENGER INFO - Moved heading inside card, added validation messages -->
-									<div class="section">
-
-										<div formGroupName="bookingInfo">
-											<div formArrayName="bookingDetail"
-												*ngFor="let item of passengerFormGroup.controls; let i = index;">
-
-												<h5 class="mb-3">Passenger Information</h5>
-												<div class="card" [formGroupName]="i">
-													<div class="card-head">
-														<span>Passenger-{{i+1}}</span>
-														<span>Seat No - {{ get_seatno(item.value.bus_seats_id) }}</span>
-													</div>
-
-													<input class="input" formControlName="passenger_name"
-														placeholder="Passenger Name">
-													<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_name'].hasError('required')"
-														class="invalid-feedback">Name is required</div>
-													<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_name'].hasError('pattern')"
-														class="invalid-feedback">Alphabets only</div>
-
-													<div class="gender">
-														<label>
-															<input type="radio" value="M"
-																formControlName="passenger_gender"> Male
-														</label>
-														<label>
-															<input type="radio" value="F"
-																formControlName="passenger_gender"> Female
-														</label>
-													</div>
-													<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_gender'].hasError('required')"
-														class="invalid-feedback">Gender is required</div>
-
-													<input class="input" type="number" (keydown)="onlyNumbers($event)"
-														formControlName="passenger_age" placeholder="Passenger Age">
-													<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_age'].errors?.required"
-														class="invalid-feedback">Age is required</div>
-													<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_age'].errors?.min"
-														class="invalid-feedback">Age must be from 1 to 100</div>
-													<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_age'].errors?.max"
-														class="invalid-feedback">Age must be from 1 to 100</div>
-
-												</div>
-
-											</div>
-										</div>
-									</div>
-									<!-- FARE DISPLAY - Added separate card for base fare -->
-									<div class="card p-3 d-flex flex-row justify-content-between align-items-center">
-										<span>Base Fare</span>
-										<div class="price">₹ {{ bookingdata.PriceArray.totalFare }}</div>
-									</div>
-								</div>
-
-								<!-- FOOTER - Proceed button -->
-								<div class="sheet-footer">
-
-									<button class="proceed-btn" type="submit">PROCEED</button>
-								</div>
-
-							</div>
-
-							<div class="row passenger pt-25 desktop-form">
-								<div class="col-md-8 ">
-									<div class="passenger-detail">
-										<h5>Passenger Details</h5>
-										<hr>
-
-										<div formGroupName="bookingInfo">
-
-											<div formArrayName="bookingDetail"
-												*ngFor="let item of passengerFormGroup.controls; let i = index;">
-
-												<div class="row" [formGroupName]="i">
-													<div class="col-md-3">
-														<label>PASSENGER {{i+1}}</label><br>
-														<ng-select [items]="genderArr" bindLabel="name"
-															bindValue="value" placeholder="Select Gender"
-															formControlName="passenger_gender" [clearable]="false">
-														</ng-select>
-														<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_gender'].hasError('required')"
-															class="invalid-feedback">Gender is required</div>
-														<div *ngIf="getPassengerFormGroup(i).controls['passenger_gender'].hasError('GenderError')"
-															class="invalid-feedback">{{
-															getPassengerFormGroup(i).controls['passenger_gender'].errors.message
-															}}</div>
-
-													</div>
-													<div class="col-md-6">
-														<label><span class="grey">Seat No:</span> {{
-															get_seatno(item.value.bus_seats_id) }}</label><br>
-														<input type="text" formControlName="passenger_name"
-															class="form-control" placeholder="Full Name">
-
-														<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_name'].hasError('required')"
-															class="invalid-feedback">Name is required</div>
-
-														<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_name'].hasError('pattern')"
-															class="invalid-feedback">Alphabets only</div>
-
-													</div>
-
-													<div class="col-md-3">
-														<label>&nbsp;</label><br>
-														<input type="number" class="form-control"
-															formControlName="passenger_age"
-															placeholder="Passenger Age" />
-
-														<div *ngIf="submitted1 && getPassengerFormGroup(i).controls['passenger_age'].errors?.required"
-															class="invalid-feedback">Age is required</div>
-														<div *ngIf="submitted1 &&  getPassengerFormGroup(i).controls['passenger_age'].errors?.min"
-															class="invalid-feedback">Age must be from 1 to 100</div>
-
-														<div *ngIf="submitted1 &&  getPassengerFormGroup(i).controls['passenger_age'].errors?.max"
-															class="invalid-feedback">Age must be from 1 to 100</div>
-													</div>
-
-												</div>
-											</div>
-										</div>
-
-										<div class="padding">
-
-											<h5>Contact Details</h5>
-											<hr>
-
-											<div class="row padding" formGroupName="customerInfo">
-												<div class="col-md-4">
-													<label>Name</label><br>
-													<input type="text" class="form-control" [readonly]="isnameReadOnly"
-														formControlName="name" placeholder="Enter Your Name">
-
-													<div *ngIf="submitted1 && GetcustomerInfo.controls.name.errors"
-														class="invalid-feedback">
-														<div *ngIf="GetcustomerInfo.controls.name.errors.required">Name
-															required</div>
-														<div *ngIf="GetcustomerInfo.controls.name.errors.pattern">
-															Alphabets only</div>
-													</div>
-												</div>
-
-
-
-												<div class="col-md-4">
-													<label>Mobile No.</label><br>
-													<input type="text" (keydown)="onlyNumbers($event);" maxlength="10"
-														class="form-control" autocomplete="off"
-														[readonly]="isphoneReadOnly" formControlName="phone"
-														placeholder="Mobile Number">
-
-													<div *ngIf="submitted1 && GetcustomerInfo.controls.phone.errors"
-														class="invalid-feedback">
-														<div *ngIf="GetcustomerInfo.controls.phone.errors.required">
-															Mobile no. is required</div>
-														<div *ngIf="GetcustomerInfo.controls.phone.errors.pattern">
-															Please, Enter 10 digit Mobile Number</div>
-
-													</div>
-												</div>
-
-												<div class="col-md-4">
-													<label>Email</label><br>
-													<input type="text" class="form-control" [readonly]="ismailReadOnly"
-														formControlName="email" placeholder="Email">
-													<div *ngIf="submitted1 && GetcustomerInfo.controls.email.errors"
-														class="invalid-feedback">
-														<div *ngIf="GetcustomerInfo.controls.email.errors.required">
-															Email ID is required</div>
-														<div *ngIf="GetcustomerInfo.controls.email.errors.email">Email
-															must be a valid email address</div>
-
-													</div>
-												</div>
-											</div>
-
-											<div class="row padding">
-												<div class="col-md-12">
-													<p class="paragraph"><span># </span> You will receive booking
-														details in this mobile number and email address</p>
-												</div>
-											</div>
-
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-4">
-									<div class="passenger-detail">
-
-
-										<div class="row">
-
-											<div class="col-md-12">
-
-												<h5>Bus Details:</h5>
-												<hr>
-												<span class="font">Bus Name</span>
-												<h5>{{ busRecord.busName }} ({{ busRecord.busNumber }})</h5>
-												<h6>{{ busRecord.bus_description }} {{ busRecord.sittingType}}</h6>
-												<h6> <b *ngIf="ub_seats!=''"> Sleeper No. :- {{ ub_seats }}</b>
-													<span *ngIf="lb_seats!='' && ub_seats!='' "> <br> </span>
-													<b *ngIf="lb_seats!=''">Seat No. :- {{ lb_seats }}</b>
-
-												</h6>
-
-												<span class="font">From</span>
-												<h5> {{ source }}</h5>
-												<h6>{{ bookingdata.boardingPoint.boardingPoints }} - {{
-													bookingdata.boardingPoint.boardingTimes}}</h6>
-
-												<span class="font">To</span>
-												<h5>{{ destination }}</h5>
-												<h6>{{ bookingdata.droppingPoint.droppingPoints }} - {{
-													bookingdata.droppingPoint.droppingTimes}}</h6>
-
-												<span class="font">Journey Date</span>
-												<h5>{{ entdate | date:'EEEE, d MMMM , y' }}</h5>
-
-
-												<!-- <h5>Fare Details:</h5> -->
-												<hr>
-
-												<div class="row fare-detail">
-
-													<div class="col-md-8">
-														<h6>Base Fare</h6>
-													</div>
-
-													<div class="col-md-4">
-														<h6>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare  | number:'1.2-2'}}</h6>
-													</div>
-
-
-													<!-- <div class="col-md-8"><h6>Service Charges</h6></div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
+          <ng-wizard-step
+            [title]="'Passenger Details'"
+            [canEnter]="isValidFunctionReturnsObservable.bind(this)"
+            [canExit]="isValidFunctionReturnsBoolean.bind(this)"
+          >
+            <form [formGroup]="bookForm1" (ngSubmit)="submitForm1()">
+              <!-- Mobile version for passenger details step - added overlay sheet for mobile devices -->
+              <div class="mobile-sheet">
+                <!-- HEADER - Dynamic bus details with back button to navigate to booking page -->
+                <div class="sheet-header">
+                  <span class="back-btn" (click)="goBack()"
+                    ><i class="fas fa-arrow-left"></i
+                  ></span>
+                  <div class="header-center">
+                    <div class="bus-name">{{ busRecord.busName }}</div>
+                    <div class="route">{{ source }} → {{ destination }}</div>
+                    <div class="date">
+                      {{ entdate | date: "EEEE, d MMMM , y" }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- BODY - Scrollable content with cards for different sections -->
+                <div class="sheet-body">
+                  <!-- RED NOTE - Cancellation policy warning -->
+                  <div class="note">
+                    Cancellation/Refund is not allowed on this Ticket
+                  </div>
+                  <h5 class="mb-3">Contact Information</h5>
+                  <!-- CONTACT INFO - Added validation error messages for mobile -->
+                  <div class="card" formGroupName="customerInfo">
+                    <p class="sub">
+                      Your Booking will be sent to your Email Id & Mob No
+                    </p>
+
+                    <input class="input filled" formControlName="name" />
+                    <div
+                      *ngIf="submitted1 && GetcustomerInfo.controls.name.errors"
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="GetcustomerInfo.controls.name.errors.required"
+                      >
+                        Name required
+                      </div>
+                      <div *ngIf="GetcustomerInfo.controls.name.errors.pattern">
+                        Alphabets only
+                      </div>
+                    </div>
+
+                    <input class="input filled" formControlName="email" />
+                    <div
+                      *ngIf="
+                        submitted1 && GetcustomerInfo.controls.email.errors
+                      "
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="GetcustomerInfo.controls.email.errors.required"
+                      >
+                        Email ID is required
+                      </div>
+                      <div *ngIf="GetcustomerInfo.controls.email.errors.email">
+                        Email must be a valid email address
+                      </div>
+                    </div>
+
+                    <input class="input filled" formControlName="phone" />
+                    <div
+                      *ngIf="
+                        submitted1 && GetcustomerInfo.controls.phone.errors
+                      "
+                      class="invalid-feedback"
+                    >
+                      <div
+                        *ngIf="GetcustomerInfo.controls.phone.errors.required"
+                      >
+                        Mobile no. is required
+                      </div>
+                      <div
+                        *ngIf="GetcustomerInfo.controls.phone.errors.pattern"
+                      >
+                        Please, Enter 10 digit Mobile Number
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- PASSENGER INFO - Moved heading inside card, added validation messages -->
+                  <div class="section">
+                    <div formGroupName="bookingInfo">
+                      <div
+                        formArrayName="bookingDetail"
+                        *ngFor="
+                          let item of passengerFormGroup.controls;
+                          let i = index
+                        "
+                      >
+                        <h5 class="mb-3">Passenger Information</h5>
+                        <div class="card" [formGroupName]="i">
+                          <div class="card-head">
+                            <span>Passenger-{{ i + 1 }}</span>
+                            <span
+                              >Seat No -
+                              {{ get_seatno(item.value.bus_seats_id) }}</span
+                            >
+                          </div>
+
+                          <input
+                            class="input"
+                            formControlName="passenger_name"
+                            placeholder="Passenger Name"
+                          />
+                          <div
+                            *ngIf="
+                              submitted1 &&
+                              getPassengerFormGroup(i).controls[
+                                'passenger_name'
+                              ].hasError('required')
+                            "
+                            class="invalid-feedback"
+                          >
+                            Name is required
+                          </div>
+                          <div
+                            *ngIf="
+                              submitted1 &&
+                              getPassengerFormGroup(i).controls[
+                                'passenger_name'
+                              ].hasError('pattern')
+                            "
+                            class="invalid-feedback"
+                          >
+                            Alphabets only
+                          </div>
+
+                          <div class="gender">
+                            <label>
+                              <input
+                                type="radio"
+                                value="M"
+                                formControlName="passenger_gender"
+                              />
+                              Male
+                            </label>
+                            <label>
+                              <input
+                                type="radio"
+                                value="F"
+                                formControlName="passenger_gender"
+                              />
+                              Female
+                            </label>
+                          </div>
+                          <div
+                            *ngIf="
+                              submitted1 &&
+                              getPassengerFormGroup(i).controls[
+                                'passenger_gender'
+                              ].hasError('required')
+                            "
+                            class="invalid-feedback"
+                          >
+                            Gender is required
+                          </div>
+
+                          <input
+                            class="input"
+                            type="number"
+                            (keydown)="onlyNumbers($event)"
+                            formControlName="passenger_age"
+                            placeholder="Passenger Age"
+                          />
+                          <div
+                            *ngIf="
+                              submitted1 &&
+                              getPassengerFormGroup(i).controls['passenger_age']
+                                .errors?.required
+                            "
+                            class="invalid-feedback"
+                          >
+                            Age is required
+                          </div>
+                          <div
+                            *ngIf="
+                              submitted1 &&
+                              getPassengerFormGroup(i).controls['passenger_age']
+                                .errors?.min
+                            "
+                            class="invalid-feedback"
+                          >
+                            Age must be from 1 to 100
+                          </div>
+                          <div
+                            *ngIf="
+                              submitted1 &&
+                              getPassengerFormGroup(i).controls['passenger_age']
+                                .errors?.max
+                            "
+                            class="invalid-feedback"
+                          >
+                            Age must be from 1 to 100
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- FARE DISPLAY - Added separate card for base fare -->
+                  <div
+                    class="card p-3 d-flex flex-row justify-content-between align-items-center"
+                  >
+                    <span>Base Fare</span>
+                    <div class="price">
+                      ₹ {{ bookingdata.PriceArray.totalFare }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FOOTER - Proceed button -->
+                <div class="sheet-footer">
+                  <button class="proceed-btn" type="submit">PROCEED</button>
+                </div>
+              </div>
+
+              <div class="row passenger pt-25 desktop-form">
+                <div class="col-md-8">
+                  <div class="passenger-detail">
+                    <h5>Passenger Details</h5>
+                    <hr />
+
+                    <div formGroupName="bookingInfo">
+                      <div
+                        formArrayName="bookingDetail"
+                        *ngFor="
+                          let item of passengerFormGroup.controls;
+                          let i = index
+                        "
+                      >
+                        <div class="row" [formGroupName]="i">
+                          <div class="col-md-3">
+                            <label>PASSENGER {{ i + 1 }}</label
+                            ><br />
+                            <ng-select
+                              [items]="genderArr"
+                              bindLabel="name"
+                              bindValue="value"
+                              placeholder="Select Gender"
+                              formControlName="passenger_gender"
+                              [clearable]="false"
+                            >
+                            </ng-select>
+                            <div
+                              *ngIf="
+                                submitted1 &&
+                                getPassengerFormGroup(i).controls[
+                                  'passenger_gender'
+                                ].hasError('required')
+                              "
+                              class="invalid-feedback"
+                            >
+                              Gender is required
+                            </div>
+                            <div
+                              *ngIf="
+                                getPassengerFormGroup(i).controls[
+                                  'passenger_gender'
+                                ].hasError('GenderError')
+                              "
+                              class="invalid-feedback"
+                            >
+                              {{
+                                getPassengerFormGroup(i).controls[
+                                  "passenger_gender"
+                                ].errors.message
+                              }}
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <label
+                              ><span class="grey">Seat No:</span>
+                              {{ get_seatno(item.value.bus_seats_id) }}</label
+                            ><br />
+                            <input
+                              type="text"
+                              formControlName="passenger_name"
+                              class="form-control"
+                              placeholder="Full Name"
+                            />
+
+                            <div
+                              *ngIf="
+                                submitted1 &&
+                                getPassengerFormGroup(i).controls[
+                                  'passenger_name'
+                                ].hasError('required')
+                              "
+                              class="invalid-feedback"
+                            >
+                              Name is required
+                            </div>
+
+                            <div
+                              *ngIf="
+                                submitted1 &&
+                                getPassengerFormGroup(i).controls[
+                                  'passenger_name'
+                                ].hasError('pattern')
+                              "
+                              class="invalid-feedback"
+                            >
+                              Alphabets only
+                            </div>
+                          </div>
+
+                          <div class="col-md-3">
+                            <label>&nbsp;</label><br />
+                            <input
+                              type="number"
+                              class="form-control"
+                              formControlName="passenger_age"
+                              placeholder="Passenger Age"
+                            />
+
+                            <div
+                              *ngIf="
+                                submitted1 &&
+                                getPassengerFormGroup(i).controls[
+                                  'passenger_age'
+                                ].errors?.required
+                              "
+                              class="invalid-feedback"
+                            >
+                              Age is required
+                            </div>
+                            <div
+                              *ngIf="
+                                submitted1 &&
+                                getPassengerFormGroup(i).controls[
+                                  'passenger_age'
+                                ].errors?.min
+                              "
+                              class="invalid-feedback"
+                            >
+                              Age must be from 1 to 100
+                            </div>
+
+                            <div
+                              *ngIf="
+                                submitted1 &&
+                                getPassengerFormGroup(i).controls[
+                                  'passenger_age'
+                                ].errors?.max
+                              "
+                              class="invalid-feedback"
+                            >
+                              Age must be from 1 to 100
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="padding">
+                      <h5>Contact Details</h5>
+                      <hr />
+
+                      <div class="row padding" formGroupName="customerInfo">
+                        <div class="col-md-4">
+                          <label>Name</label><br />
+                          <input
+                            type="text"
+                            class="form-control"
+                            [readonly]="isnameReadOnly"
+                            formControlName="name"
+                            placeholder="Enter Your Name"
+                          />
+
+                          <div
+                            *ngIf="
+                              submitted1 && GetcustomerInfo.controls.name.errors
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                GetcustomerInfo.controls.name.errors.required
+                              "
+                            >
+                              Name required
+                            </div>
+                            <div
+                              *ngIf="
+                                GetcustomerInfo.controls.name.errors.pattern
+                              "
+                            >
+                              Alphabets only
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label>Mobile No.</label><br />
+                          <input
+                            type="text"
+                            (keydown)="onlyNumbers($event)"
+                            maxlength="10"
+                            class="form-control"
+                            autocomplete="off"
+                            [readonly]="isphoneReadOnly"
+                            formControlName="phone"
+                            placeholder="Mobile Number"
+                          />
+
+                          <div
+                            *ngIf="
+                              submitted1 &&
+                              GetcustomerInfo.controls.phone.errors
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                GetcustomerInfo.controls.phone.errors.required
+                              "
+                            >
+                              Mobile no. is required
+                            </div>
+                            <div
+                              *ngIf="
+                                GetcustomerInfo.controls.phone.errors.pattern
+                              "
+                            >
+                              Please, Enter 10 digit Mobile Number
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label>Email</label><br />
+                          <input
+                            type="text"
+                            class="form-control"
+                            [readonly]="ismailReadOnly"
+                            formControlName="email"
+                            placeholder="Email"
+                          />
+                          <div
+                            *ngIf="
+                              submitted1 &&
+                              GetcustomerInfo.controls.email.errors
+                            "
+                            class="invalid-feedback"
+                          >
+                            <div
+                              *ngIf="
+                                GetcustomerInfo.controls.email.errors.required
+                              "
+                            >
+                              Email ID is required
+                            </div>
+                            <div
+                              *ngIf="
+                                GetcustomerInfo.controls.email.errors.email
+                              "
+                            >
+                              Email must be a valid email address
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row padding">
+                        <div class="col-md-12">
+                          <p class="paragraph">
+                            <span># </span> You will receive booking details in
+                            this mobile number and email address
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="passenger-detail">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <h5>Bus Details:</h5>
+                        <hr />
+                        <span class="font">Bus Name</span>
+                        <h5>
+                          {{ busRecord.busName }} ({{ busRecord.busNumber }})
+                        </h5>
+                        <h6>
+                          {{ busRecord.bus_description }}
+                          {{ busRecord.sittingType }}
+                        </h6>
+                        <h6>
+                          <b *ngIf="ub_seats != ''">
+                            Sleeper No. :- {{ ub_seats }}</b
+                          >
+                          <span *ngIf="lb_seats != '' && ub_seats != ''">
+                            <br />
+                          </span>
+                          <b *ngIf="lb_seats != ''"
+                            >Seat No. :- {{ lb_seats }}</b
+                          >
+                        </h6>
+
+                        <span class="font">From</span>
+                        <h5>{{ source }}</h5>
+                        <h6>
+                          {{ bookingdata.boardingPoint.boardingPoints }} -
+                          {{ bookingdata.boardingPoint.boardingTimes }}
+                        </h6>
+
+                        <span class="font">To</span>
+                        <h5>{{ destination }}</h5>
+                        <h6>
+                          {{ bookingdata.droppingPoint.droppingPoints }} -
+                          {{ bookingdata.droppingPoint.droppingTimes }}
+                        </h6>
+
+                        <span class="font">Journey Date</span>
+                        <h5>{{ entdate | date: "EEEE, d MMMM , y" }}</h5>
+
+                        <!-- <h5>Fare Details:</h5> -->
+                        <hr />
+
+                        <div class="row fare-detail">
+                          <div class="col-md-8">
+                            <h6>Base Fare</h6>
+                          </div>
+
+                          <div class="col-md-4">
+                            <h6>
+                              ₹
+                              {{
+                                bookingdata.PriceArray.odbus_charges_ownerFare
+                                  | number: "1.2-2"
+                              }}
+                            </h6>
+                          </div>
+
+                          <!-- <div class="col-md-8"><h6>Service Charges</h6></div>
 		   
 						   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.odbusServiceCharges }} </h6></div> -->
-													<!-- 	   
+                          <!-- 	   
 					   
 						   <div class="col-md-8"><h6>Transaction Fee</h6></div>
 		   
@@ -313,790 +558,1166 @@
 						 <div class="col-md-8"><h5>Total</h5></div>
 		   
 						   <div class="col-md-4"><h5>₹ {{ bookingdata.PriceArray.totalFare }}</h5></div> -->
-
-
-												</div>
-
-												<div class="padding">
-													<div>
-														<button type="submit"
-															class="btn btn-warning proceed">PROCEED</button>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-						</form>
-
-
-					</ng-wizard-step>
-
-
-					<ng-wizard-step [title]="'Review Details'" [canEnter]="isValidFunctionReturnsObservable.bind(this)"
-						[canExit]="isValidFunctionReturnsBoolean.bind(this)">
-
-						<form [formGroup]="bookForm2" (ngSubmit)="submitForm2()">
-
-							<!-- Mobile version for review details step - added overlay sheet for mobile devices -->
-							<div class="mobile-sheet">
-
-								<!-- HEADER - Dynamic bus details with back button to previous step -->
-								<div class="sheet-header">
-									<span class="back-btn" (click)="goBackStep()"><i
-											class="fas fa-arrow-left"></i></span>
-									<div class="header-center">
-										<div class="bus-name">{{ busRecord.busName }}</div>
-										<div class="route">{{ source }} → {{ destination }}</div>
-										<div class="date">{{ entdate | date:'EEEE, d MMMM , y' }}</div>
-									</div>
-								</div>
-
-								<!-- BODY - Scrollable content with cards for review sections -->
-								<div class="sheet-body">
-
-									<!-- JOURNEY DETAILS - Card with icons and journey info -->
-									<div class="card">
-										<h5>Journey Details</h5>
-										<div class="journey-item">
-											<i class="fas fa-map-marker-alt icon-color"></i> {{ source }}
-											<div class="sub">{{ bookingdata.boardingPoint.boardingPoints }} - {{
-												busRecord.departureTime}}</div>
-										</div>
-										<div class="journey-item">
-											<i class="fas fa-map-marker-alt icon-color"></i> {{ destination }}
-											<div class="sub">{{ bookingdata.droppingPoint.droppingPoints }} - {{
-												busRecord.arrivalTime }}</div>
-										</div>
-										<div class="journey-item">
-											<i class="fas fa-bus-alt icon-color"></i> {{ busRecord.busName }}
-											<div class="sub">{{ busRecord.busNumber }}</div>
-										</div>
-										<div class="journey-item">
-											<i class="far fa-calendar-alt icon-color"></i> {{ entdate | date:'EEEE, d
-											MMMM , y' }}
-											<div class="sub">{{ passengerFormGroup.length }} Passenger(s)</div>
-										</div>
-									</div>
-
-									<!-- PASSENGER DETAILS - List of passengers with seat and info -->
-									<div class="card">
-										<h5>Passenger Details</h5>
-										<div *ngFor="let dt of passengerData.bookingInfo.bookingDetail; let i = index;"
-											class="passenger-row">
-											<div class="passenger-info">
-												<span>{{ dt.passenger_name }}</span>
-												<span>Seat: {{ get_seatno(dt.bus_seats_id) }}</span>
-											</div>
-											<div class="passenger-details">
-												<span>{{ dt.passenger_gender }}</span>
-												<span>{{ dt.passenger_age }} yrs</span>
-											</div>
-										</div>
-									</div>
-
-									<!-- CONTACT DETAILS - Customer contact information -->
-									<div class="card">
-										<h5>Contact Details</h5>
-										<div class="contact-item">
-											<span>Name:</span> {{ passengerData.customerInfo.name}}
-										</div>
-										<div class="contact-item">
-											<span>Mobile:</span> +91 {{ passengerData.customerInfo.phone}}
-										</div>
-										<div class="contact-item">
-											<span>Email:</span> {{ (passengerData.customerInfo.email) ?
-											passengerData.customerInfo.email : 'N/A'}}
-										</div>
-										<p class="sub">You will receive booking details in this mobile number & email
-											address</p>
-									</div>
-
-									<!-- AGENT COMMISSION - Input for commission with validation -->
-									<div class="card">
-										<h5>Agent Commission (Amount upto ₹ {{bookTicketResponse.customer_comission}})
-										</h5>
-										<input type="text" (keydown)="onlyNumbers($event);"
-											   (keydown)="onlyNumbers($event)"
-											   (input)="setCommission($event)" [value]="applied_comission"
-											   [max]="bookTicketResponse.customer_comission"
-											   maxlength="2"
-											   class="input"
-											   placeholder="Enter Commission">
-										<div *ngIf="commissionError" class="invalid-feedback">Amount shouldn't be
-											greater than max Commission Limit</div>
-									</div>
-
-									<!-- FARE DETAILS - Breakdown of fare components -->
-									<div class="card">
-										<h5>Fare Details</h5>
-										<div class="fare-item">
-											<span>Base Fare</span>
-											<span>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare  | number:'1.2-2'}}</span>
-										</div>
-										<div class="fare-item">
-											<span>Customer GST</span>
-											<span style="color: green;">+ ₹
-												{{bookingdata.PriceArray.customerGst | number:'1.2-2'}}</span>
-										</div>
-										<div class="fare-item" *ngIf="applied_comission > 0">
-											<span>Commission</span>
-											<span>+ ₹ {{ applied_comission | number:'1.2-2' }}</span>
-										</div>
-										<div class="fare-item total">
-											<span>Total</span>
-											<span>₹ {{ payableAmount | number:'1.2-2' }}</span>
-										</div>
-									</div>
-
-									<!-- TERMS - Terms and conditions checkbox -->
-									<div class="card">
-										<label class="terms">
-											<input formControlName="tnc" #tnc id="tnc" type="checkbox"
-												[checked]="tncStatus" (change)="tncStatusChange(tnc.checked)">
-											&nbsp; I agree that I have read and understood the T&Cs and the Privacy
-											Policy
-										</label>
-										<div *ngIf="submitted2 && bookForm2.controls.tnc.errors"
-											class="invalid-feedback">
-											<div *ngIf="bookForm2.controls.tnc.errors.required">Agree the Terms &
-												Conditions</div>
-											<div *ngIf="bookForm2.controls.tnc.errors.checked">Agree the Terms &
-												Conditions</div>
-										</div>
-									</div>
-
-									<!-- PAYMENT - Make payment button -->
-									<div class="card">
-										<div class="payment_box">
-											<input type="image" [disabled]="commissionError" name="submit" alt="Submit"
-												style="cursor: pointer;" src="../../../assets/img/makepayment.png">
-										</div>
-									</div>
-
-								</div>
-
-							</div>
-
-							<div class="row passenger desktop-form">
-								<div class="col-md-12">
-									<div class=" passenger-detail">
-										<h5>Journey Details</h5>
-										<hr>
-
-										<div class="row">
-											<div class="col-md-3">
-												<h5><i class="fas fa-map-marker-alt icon-color"></i> {{ source }}</h5>
-
-												<h6 class="padding-left">{{ bookingdata.boardingPoint.boardingPoints }}
-													- {{ busRecord.departureTime}}</h6>
-
-											</div>
-
-
-
-
-											<div class="col-md-3">
-												<h5><i class="fas fa-map-marker-alt icon-color"></i> {{ destination }}
-												</h5>
-
-												<h6 class="padding-left">{{ bookingdata.droppingPoint.droppingPoints }}
-													- {{ busRecord.arrivalTime }}</h6>
-
-											</div>
-
-											<div class="col-md-3">
-
-												<h5><i class="fas fa-bus-alt icon-color"></i> {{ busRecord.busName }}
-												</h5>
-												<h6 class="padding-left">{{ busRecord.busNumber }}</h6>
-
-
-											</div>
-
-											<div class="col-md-3">
-												<h5><i class="far fa-calendar-alt icon-color"></i> {{ entdate |
-													date:'EEEE, d MMMM , y' }}</h5>
-												<h6 class="padding-left">{{ passengerFormGroup.length }} Passenger(s)
-												</h6>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-12  box-padding">
-									<div class="passenger-detail">
-										<h5>Passenger Details</h5>
-										<hr>
-
-										<div class="row">
-
-											<div class="col-md-12">
-												<table class="tableclass" cellpadding="12">
-													<thead>
-														<th>Passenger Name</th>
-														<th>Seats</th>
-														<th>Gender</th>
-														<th>Age</th>
-													</thead>
-													<tbody>
-														<tr
-															*ngFor="let dt of passengerData.bookingInfo.bookingDetail; let i = index;">
-															<td>{{ dt.passenger_name }}</td>
-															<td>{{ get_seatno(dt.bus_seats_id) }}</td>
-															<td>{{ dt.passenger_gender }}</td>
-															<td>{{ dt.passenger_age }}</td>
-														</tr>
-
-													</tbody>
-												</table>
-
-												<h4 style="color: #bbadad;font-size: 17px;">
-													<hr>Contact Details
-												</h4>
-
-												<table class="tableclass2" cellpadding="10">
-
-													<tbody>
-														<tr>
-															<td>Name</td>
-															<td>Mobile Number</td>
-															<td>Email Address</td>
-															<td>&nbsp;</td>
-														</tr>
-
-														<tr>
-															<td>{{ passengerData.customerInfo.name}}</td>
-															<td>+91 {{ passengerData.customerInfo.phone}}</td>
-															<td>{{ (passengerData.customerInfo.email) ?
-																passengerData.customerInfo.email : 'N/A'}}</td>
-															<td>&nbsp;</td>
-														</tr>
-
-													</tbody>
-												</table>
-
-												<p class="roboto"><img
-														src="../../../assets/img/Icon awesome-hashtag.svg"> will receive
-													booking details in this mobile number & email address</p>
-
-											</div>
-
-
-
-										</div>
-
-										<div class="padding">
-
-											<h5>Agent Commission (Amount upto ₹
-												{{bookTicketResponse.customer_comission}})</h5>
-											<hr>
-											<div class="row padding">
-
-												<div class="col-md-3">
-													<input type="text" (keydown)="onlyNumbers($event);"
-														(input)="setCommission($event)" [value]="applied_comission"
-														class="form-control" autocomplete="off"
-														placeholder="Enter Commission">
-
-
-													<div *ngIf="commissionError" class="invalid-feedback">Amount
-														shouldn't be greater than max Commission Limit </div>
-
-												</div>
-
-											</div>
-										</div>
-									</div>
-
-
-								</div>
-
-								<div class="col-md-12  box-padding padding">
-									<div class="passenger-detail">
-										<div class="row">
-											<div class="col-md-8 py">
-												<div class="row fare-detail">
-
-													<div class="col-md-8">
-														<h6>Base Fare</h6>
-													</div>
-
-													<div class="col-md-4">
-														<h6><strong>₹ {{ bookingdata.PriceArray.odbus_charges_ownerFare
-																 | number:'1.2-2'}}</strong></h6>
-													</div>
-
-													<div class="col-md-8">
-														<h6>Customer GST</h6>
-													</div>
-
-													<div class="col-md-4"
-														style="color: green;font-weight: bold;font-style: italic;">
-														<h6><strong>+ ₹ {{bookingdata.PriceArray.customerGst | number:'1.2-2'}}</strong>
-														</h6>
-													</div>
-
-													<!-- <div class="col-md-8"><h6>Transaction Fee</h6></div>
+                        </div>
+
+                        <div class="padding">
+                          <div>
+                            <button
+                              type="submit"
+                              class="btn btn-warning proceed"
+                            >
+                              PROCEED
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </ng-wizard-step>
+
+          <ng-wizard-step
+            [title]="'Review Details'"
+            [canEnter]="isValidFunctionReturnsObservable.bind(this)"
+            [canExit]="isValidFunctionReturnsBoolean.bind(this)"
+          >
+            <form [formGroup]="bookForm2" (ngSubmit)="submitForm2()">
+              <!-- Mobile version for review details step - added overlay sheet for mobile devices -->
+              <div class="mobile-sheet">
+                <!-- HEADER - Dynamic bus details with back button to previous step -->
+                <div class="sheet-header">
+                  <span class="back-btn" (click)="goBackStep()"
+                    ><i class="fas fa-arrow-left"></i
+                  ></span>
+                  <div class="header-center">
+                    <div class="bus-name">{{ busRecord.busName }}</div>
+                    <div class="route">{{ source }} → {{ destination }}</div>
+                    <div class="date">
+                      {{ entdate | date: "EEEE, d MMMM , y" }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- BODY - Scrollable content with cards for review sections -->
+                <div class="sheet-body">
+                  <!-- JOURNEY DETAILS - Card with icons and journey info -->
+                  <div class="card">
+                    <h5>Journey Details</h5>
+                    <div class="journey-item">
+                      <i class="fas fa-map-marker-alt icon-color"></i>
+                      {{ source }}
+                      <div class="sub">
+                        {{ bookingdata.boardingPoint.boardingPoints }} -
+                        {{ busRecord.departureTime }}
+                      </div>
+                    </div>
+                    <div class="journey-item">
+                      <i class="fas fa-map-marker-alt icon-color"></i>
+                      {{ destination }}
+                      <div class="sub">
+                        {{ bookingdata.droppingPoint.droppingPoints }} -
+                        {{ busRecord.arrivalTime }}
+                      </div>
+                    </div>
+                    <div class="journey-item">
+                      <i class="fas fa-bus-alt icon-color"></i>
+                      {{ busRecord.busName }}
+                      <div class="sub">{{ busRecord.busNumber }}</div>
+                    </div>
+                    <div class="journey-item">
+                      <i class="far fa-calendar-alt icon-color"></i>
+                      {{
+                        entdate
+                          | date
+                            : "EEEE, d
+											MMMM , y"
+                      }}
+                      <div class="sub">
+                        {{ passengerFormGroup.length }} Passenger(s)
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- PASSENGER DETAILS - List of passengers with seat and info -->
+                  <div class="card">
+                    <h5>Passenger Details</h5>
+                    <div
+                      *ngFor="
+                        let dt of passengerData.bookingInfo.bookingDetail;
+                        let i = index
+                      "
+                      class="passenger-row"
+                    >
+                      <div class="passenger-info">
+                        <span>{{ dt.passenger_name }}</span>
+                        <span>Seat: {{ get_seatno(dt.bus_seats_id) }}</span>
+                      </div>
+                      <div class="passenger-details">
+                        <span>{{ dt.passenger_gender }}</span>
+                        <span>{{ dt.passenger_age }} yrs</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- CONTACT DETAILS - Customer contact information -->
+                  <div class="card">
+                    <h5>Contact Details</h5>
+                    <div class="contact-item">
+                      <span>Name:</span> {{ passengerData.customerInfo.name }}
+                    </div>
+                    <div class="contact-item">
+                      <span>Mobile:</span> +91
+                      {{ passengerData.customerInfo.phone }}
+                    </div>
+                    <div class="contact-item">
+                      <span>Email:</span>
+                      {{
+                        passengerData.customerInfo.email
+                          ? passengerData.customerInfo.email
+                          : "N/A"
+                      }}
+                    </div>
+                    <p class="sub">
+                      You will receive booking details in this mobile number &
+                      email address
+                    </p>
+                  </div>
+
+                  <!-- AGENT COMMISSION - Input for commission with validation -->
+                  <div class="card">
+                    <h5>
+                      Agent Commission (Amount upto ₹
+                      {{ bookTicketResponse.customer_comission }})
+                    </h5>
+                    <input
+                      type="text"
+                      (keydown)="onlyNumbers($event)"
+                      (keydown)="onlyNumbers($event)"
+                      (input)="setCommission($event)"
+                      [value]="applied_comission"
+                      [max]="bookTicketResponse.customer_comission"
+                      maxlength="2"
+                      class="input"
+                      placeholder="Enter Commission"
+                    />
+                    <div *ngIf="commissionError" class="invalid-feedback">
+                      Amount shouldn't be greater than max Commission Limit
+                    </div>
+                  </div>
+
+                  <!-- FARE DETAILS - Breakdown of fare components -->
+                  <div class="card">
+                    <h5>Fare Details</h5>
+                    <div class="fare-item">
+                      <span>Base Fare</span>
+                      <span
+                        >₹
+                        {{
+                          bookingdata.PriceArray.odbus_charges_ownerFare
+                            | number: "1.2-2"
+                        }}</span
+                      >
+                    </div>
+                    <div class="fare-item">
+                      <span>Customer GST</span>
+                      <span style="color: green"
+                        >+ ₹
+                        {{
+                          bookingdata.PriceArray.customerGst | number: "1.2-2"
+                        }}</span
+                      >
+                    </div>
+                    <div class="fare-item" *ngIf="applied_comission > 0">
+                      <span>Commission</span>
+                      <span>+ ₹ {{ applied_comission | number: "1.2-2" }}</span>
+                    </div>
+                    <div class="fare-item total">
+                      <span>Total</span>
+                      <span>₹ {{ payableAmount | number: "1.2-2" }}</span>
+                    </div>
+                  </div>
+
+                  <!-- TERMS - Terms and conditions checkbox -->
+                  <div class="card">
+                    <label class="terms">
+                      <input
+                        formControlName="tnc"
+                        #tnc
+                        id="tnc"
+                        type="checkbox"
+                        [checked]="tncStatus"
+                        (change)="tncStatusChange(tnc.checked)"
+                      />
+                      &nbsp; I agree that I have read and understood the T&Cs
+                      and the Privacy Policy
+                    </label>
+                    <div
+                      *ngIf="submitted2 && bookForm2.controls.tnc.errors"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="bookForm2.controls.tnc.errors.required">
+                        Agree the Terms & Conditions
+                      </div>
+                      <div *ngIf="bookForm2.controls.tnc.errors.checked">
+                        Agree the Terms & Conditions
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- PAYMENT - Make payment button -->
+                  <div class="card">
+                    <div class="payment_box">
+                      <input
+                        type="image"
+                        [disabled]="commissionError"
+                        name="submit"
+                        alt="Submit"
+                        style="cursor: pointer"
+                        src="../../../assets/img/makepayment.png"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row passenger desktop-form">
+                <div class="col-md-12">
+                  <div class="passenger-detail">
+                    <h5>Journey Details</h5>
+                    <hr />
+
+                    <div class="row">
+                      <div class="col-md-3">
+                        <h5>
+                          <i class="fas fa-map-marker-alt icon-color"></i>
+                          {{ source }}
+                        </h5>
+
+                        <h6 class="padding-left">
+                          {{ bookingdata.boardingPoint.boardingPoints }} -
+                          {{ busRecord.departureTime }}
+                        </h6>
+                      </div>
+
+                      <div class="col-md-3">
+                        <h5>
+                          <i class="fas fa-map-marker-alt icon-color"></i>
+                          {{ destination }}
+                        </h5>
+
+                        <h6 class="padding-left">
+                          {{ bookingdata.droppingPoint.droppingPoints }} -
+                          {{ busRecord.arrivalTime }}
+                        </h6>
+                      </div>
+
+                      <div class="col-md-3">
+                        <h5>
+                          <i class="fas fa-bus-alt icon-color"></i>
+                          {{ busRecord.busName }}
+                        </h5>
+                        <h6 class="padding-left">{{ busRecord.busNumber }}</h6>
+                      </div>
+
+                      <div class="col-md-3">
+                        <h5>
+                          <i class="far fa-calendar-alt icon-color"></i>
+                          {{ entdate | date: "EEEE, d MMMM , y" }}
+                        </h5>
+                        <h6 class="padding-left">
+                          {{ passengerFormGroup.length }} Passenger(s)
+                        </h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 box-padding">
+                  <div class="passenger-detail">
+                    <h5>Passenger Details</h5>
+                    <hr />
+
+                    <div class="row">
+                      <div class="col-md-12">
+                        <table class="tableclass" cellpadding="12">
+                          <thead>
+                            <th>Passenger Name</th>
+                            <th>Seats</th>
+                            <th>Gender</th>
+                            <th>Age</th>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="
+                                let dt of passengerData.bookingInfo
+                                  .bookingDetail;
+                                let i = index
+                              "
+                            >
+                              <td>{{ dt.passenger_name }}</td>
+                              <td>{{ get_seatno(dt.bus_seats_id) }}</td>
+                              <td>{{ dt.passenger_gender }}</td>
+                              <td>{{ dt.passenger_age }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <h4 style="color: #bbadad; font-size: 17px">
+                          <hr />
+                          Contact Details
+                        </h4>
+
+                        <table class="tableclass2" cellpadding="10">
+                          <tbody>
+                            <tr>
+                              <td>Name</td>
+                              <td>Mobile Number</td>
+                              <td>Email Address</td>
+                              <td>&nbsp;</td>
+                            </tr>
+
+                            <tr>
+                              <td>{{ passengerData.customerInfo.name }}</td>
+                              <td>
+                                +91 {{ passengerData.customerInfo.phone }}
+                              </td>
+                              <td>
+                                {{
+                                  passengerData.customerInfo.email
+                                    ? passengerData.customerInfo.email
+                                    : "N/A"
+                                }}
+                              </td>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </tbody>
+                        </table>
+
+                        <p class="roboto">
+                          <img
+                            src="../../../assets/img/Icon awesome-hashtag.svg"
+                          />
+                          will receive booking details in this mobile number &
+                          email address
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="padding">
+                      <h5>
+                        Agent Commission (Amount upto ₹
+                        {{ bookTicketResponse.customer_comission }})
+                      </h5>
+                      <hr />
+                      <div class="row padding">
+                        <div class="col-md-3">
+                          <input
+                            type="text"
+                            (keydown)="onlyNumbers($event)"
+                            (input)="setCommission($event)"
+                            [value]="applied_comission"
+                            class="form-control"
+                            autocomplete="off"
+                            placeholder="Enter Commission"
+                          />
+
+                          <div *ngIf="commissionError" class="invalid-feedback">
+                            Amount shouldn't be greater than max Commission
+                            Limit
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 box-padding padding">
+                  <div class="passenger-detail">
+                    <div class="row">
+                      <div class="col-md-8 py">
+                        <div class="row fare-detail">
+                          <div class="col-md-8">
+                            <h6>Base Fare</h6>
+                          </div>
+
+                          <div class="col-md-4">
+                            <h6>
+                              <strong
+                                >₹
+                                {{
+                                  bookingdata.PriceArray.odbus_charges_ownerFare
+                                    | number: "1.2-2"
+                                }}</strong
+                              >
+                            </h6>
+                          </div>
+
+                          <div class="col-md-8">
+                            <h6>Customer GST</h6>
+                          </div>
+
+                          <div
+                            class="col-md-4"
+                            style="
+                              color: green;
+                              font-weight: bold;
+                              font-style: italic;
+                            "
+                          >
+                            <h6>
+                              <strong
+                                >+ ₹
+                                {{
+                                  bookingdata.PriceArray.customerGst
+                                    | number: "1.2-2"
+                                }}</strong
+                              >
+                            </h6>
+                          </div>
+
+                          <!-- <div class="col-md-8"><h6>Transaction Fee</h6></div>
 			
 							<div class="col-md-4"><h6><strong>+ ₹ {{ bookingdata.PriceArray.transactionFee }}</strong></h6></div> -->
 
-													<div class="col-md-8" *ngIf="applied_comission > 0">
-														<h6>Commission</h6>
-													</div>
+                          <div class="col-md-8" *ngIf="applied_comission > 0">
+                            <h6>Commission</h6>
+                          </div>
 
-													<div class="col-md-4" *ngIf="applied_comission > 0">
-														<h6><strong>+ ₹ {{ applied_comission  | number:'1.2-2' }}</strong></h6>
-													</div>
+                          <div class="col-md-4" *ngIf="applied_comission > 0">
+                            <h6>
+                              <strong
+                                >+ ₹
+                                {{
+                                  applied_comission | number: "1.2-2"
+                                }}</strong
+                              >
+                            </h6>
+                          </div>
 
+                          <div class="col-md-8">
+                            <h5>Total</h5>
+                          </div>
 
-													<div class="col-md-8">
-														<h5>Total</h5>
-													</div>
+                          <div class="col-md-4">
+                            <h5>₹ {{ payableAmount | number: "1.2-2" }}</h5>
+                          </div>
+                        </div>
 
-													<div class="col-md-4">
-														<h5>₹ {{ payableAmount  | number:'1.2-2'  }}</h5>
-													</div>
+                        <label class="terms">
+                          <input
+                            formControlName="tnc"
+                            #tnc
+                            id="tnc"
+                            type="checkbox"
+                            [checked]="tncStatus"
+                            (change)="tncStatusChange(tnc.checked)"
+                          />
+                          &nbsp;
+                          <a
+                            style="color: #daad23"
+                            target="_blank"
+                            routerLink="/privacy-policy"
+                            >I agree that I have read and understood the T&Cs
+                            and the Privacy Policy
+                          </a></label
+                        >
 
-												</div>
+                        <div
+                          *ngIf="submitted2 && bookForm2.controls.tnc.errors"
+                          class="invalid-feedback"
+                        >
+                          <div *ngIf="bookForm2.controls.tnc.errors.required">
+                            Agree the Terms & Conditions
+                          </div>
+                          <div *ngIf="bookForm2.controls.tnc.errors.checked">
+                            Agree the Terms & Conditions
+                          </div>
+                        </div>
+                      </div>
 
-												<label class="terms">
-													<input formControlName="tnc" #tnc id="tnc" type="checkbox"
-														[checked]="tncStatus" (change)="tncStatusChange(tnc.checked)">
-													&nbsp;
-													<a style="color:#daad23" target="_blank"
-														routerLink="/privacy-policy">I agree that I have read
-														and understood the T&Cs and the Privacy Policy
-													</a></label>
+                      <div class="col-md-4">
+                        <div class="payment_box">
+                          <!-- make-payment -->
+                          <input
+                            type="image"
+                            [disabled]="commissionError"
+                            name="submit"
+                            alt="Submit"
+                            style="cursor: pointer"
+                            src="../../../assets/img/makepayment.png"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </ng-wizard-step>
 
-
-												<div *ngIf="submitted2 && bookForm2.controls.tnc.errors"
-													class="invalid-feedback">
-													<div *ngIf="bookForm2.controls.tnc.errors.required">Agree the Terms
-														& Conditions</div>
-													<div *ngIf="bookForm2.controls.tnc.errors.checked">Agree the Terms &
-														Conditions</div>
-
-												</div>
-											</div>
-
-											<div class="col-md-4">
-												<div class="payment_box">
-													<!-- make-payment -->
-													<input type="image" [disabled]="commissionError" name="submit"
-														alt="Submit" style="cursor: pointer;"
-														src="../../../assets/img/makepayment.png">
-												</div>
-
-
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</form>
-
-					</ng-wizard-step>
-
-					<ng-wizard-step [title]="'Print Ticket'" [id]="'print-section'">
-
-
-
-						<div class="col-md-12 passenger-detail box-padding">
-
-							<!-- <div class="col-md-12" style="text-align: center;">
+          <ng-wizard-step [title]="'Print Ticket'" [id]="'print-section'">
+            <div class="col-md-12 passenger-detail box-padding">
+              <!-- <div class="col-md-12" style="text-align: center;">
 				<img src="../../../assets/img/odbus-logo.svg" alt="logo-ODBUS" title="Logo" />
+
+				
 			</div> -->
 
-							<div class="print-ticket">
-								<div class="row">
-									<div class="col-md-9">
-										<h5>Hello {{ passengerData.customerInfo.name }}</h5>
-										<h6 class="print">Ticket is Confirmed. (PNR: {{ pnr }}).</h6>
-										<h6 class="print">ODBUS Wishing You A Happy Journey <img class="smile"
-												src="../../../assets/img/Icon awesome-smile-beam.svg"></h6>
-										<h6 class="print-sm">We have sent booking details to <b>{{
-												passengerData.customerInfo.phone}}</b> <b
-												*ngIf="passengerData.customerInfo.email"> & {{
-												passengerData.customerInfo.email}}</b> </h6>
-									</div>
-									<div class="col-md-3 text-center">
-										<button type="button" printSectionId="print-section" ngxPrint
-											class="btn btn-info mt-5" [useExistingCss]="true" title="Print">
-											<i class="fas fa-print"> </i> Print Ticket
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
+              <!-- MOBILE TICKET -->
+              <div class="mobile-ticket d-block d-md-none">
+                <!-- HEADER -->
+                <div class="ticket-header">
+                  <div class="logo-row">
+                    <img
+                      src="../../assets/img/email-logo.png"
+                      class="ticket-logo"
+                    />
+                    <div>
+                      <h2>ODBUS E-Ticket</h2>
+                      <p>Electronic Reservation Slip</p>
+                    </div>
+                  </div>
+                </div>
 
+                <!-- JOURNEY DETAILS -->
+                <div class="ticket-card">
+                  <div class="section-title">Journey Details</div>
 
-						<div class="container" [id]="'print-section'">
-							<div class="od-body mb25">
-								<div class="row mb40">
-									<table class="tableclass2" cellpadding="10">
-										<tbody>
-											<tr>
-												<td>
-													<img src="../../assets/img/email-logo.png" class="od-logo" />
-												</td>
-												<td>
-													<span>ODBUS</span> e-Ticketing Service<br />
-													Electronic Reservation Slip
-												</td>
-												<td>
-													<div class="od-bktext">Booking Date</div>
-													<div class="od-bktext">{{bookingDate | date:'EEEE, d MMMM , y' }}
-													</div>
+                  <div class="route-box">
+                    <div class="city-block">
+                      <label>From</label>
+                      <h4>{{ source }}</h4>
+                    </div>
 
-													<!-- <div class="od-bktext" *ngIf="bookingDetails.booking[0].status==2" style="color:red;font-size:bold">
+                    <div class="route-line">
+                      <span></span>
+                      <i class="fas fa-arrow-right"></i>
+                      <span></span>
+                    </div>
+
+                    <div class="city-block">
+                      <label>To</label>
+                      <h4>{{ destination }}</h4>
+                    </div>
+                  </div>
+
+                  <div class="ticket-grid">
+                    <div>
+                      <label>PNR Number</label>
+                      <strong>{{ pnr }}</strong>
+                    </div>
+
+                    <div>
+                      <label>Booking Date</label>
+                      <strong>{{ bookingDate | date: "dd MMM yyyy" }}</strong>
+                    </div>
+
+                    <div>
+                      <label>Boarding Point</label>
+                      <strong>
+                        {{ bookingdata.boardingPoint.boardingPoints }}
+                        | {{ busRecord.departureTime }}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <label>Dropping Point</label>
+                      <strong>
+                        {{ bookingdata.droppingPoint.droppingPoints }}
+                        | {{ busRecord.arrivalTime }}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <label>Journey Date</label>
+                      <strong>
+                        {{ entdate | date: "EEEE, dd MMM yyyy" }}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <label>GST Invoice</label>
+                      <strong>YES</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- BUS DETAILS -->
+                <div class="ticket-card">
+                  <div class="section-title">Bus Details</div>
+
+                  <div class="ticket-grid">
+                    <div>
+                      <label>Bus Name</label>
+                      <strong>{{ busRecord.busName }}</strong>
+                    </div>
+
+                    <div>
+                      <label>Bus Number</label>
+                      <strong>{{ busRecord.busNumber }}</strong>
+                    </div>
+
+                    <div>
+                      <label>Bus Type</label>
+                      <strong>{{ busRecord.sittingType }}</strong>
+                    </div>
+
+                    <div>
+                      <label>Conductor</label>
+                      <strong>{{ busRecord.conductor_number }}</strong>
+                    </div>
+
+                    <div>
+                      <label>Seat(s)</label>
+                      <strong>{{ total_seat_name }}</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- PASSENGER DETAILS -->
+                <div class="ticket-card">
+                  <div class="section-title">Passenger Details</div>
+
+                  <div
+                    class="passenger-item"
+                    *ngFor="let dt of passengerData.bookingInfo.bookingDetail"
+                  >
+                    <div class="passenger-left">
+                      <i class="fas fa-user-circle"></i>
+                      <span>{{ dt.passenger_name }}</span>
+                    </div>
+
+                    <div class="passenger-right">
+                      <span>{{ dt.passenger_age }}</span>
+                      <span>{{ get_seatno(dt.bus_seats_id) }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- QR -->
+                <div class="ticket-card">
+                  <div class="section-title">Scan Ticket</div>
+
+                  <div class="qr-wrapper">
+                    <ngx-qrcode
+                      [elementType]="elementType"
+                      [errorCorrectionLevel]="correctionLevel"
+                      [value]="qrcode"
+                      [width]="220"
+                    >
+                    </ngx-qrcode>
+                  </div>
+                </div>
+
+                <!-- FARE -->
+                <div class="ticket-card">
+                  <div class="section-title">Total Fare</div>
+
+                  <div class="fare-box">
+                    <div class="fare-head">
+                      <span>Fare Details</span>
+                      <strong> ₹{{ payableAmount | number: "1.2-2" }} </strong>
+                    </div>
+
+                    <div class="fare-row">
+                      <span>Base Fare</span>
+                      <strong>
+                        ₹{{
+                          bookingdata.PriceArray.odbus_charges_ownerFare
+                            | number: "1.2-2"
+                        }}
+                      </strong>
+                    </div>
+
+                    <div class="fare-row">
+                      <span>GST (5%)</span>
+                      <strong>
+                        + ₹{{
+                          bookingdata.PriceArray.customerGst | number: "1.2-2"
+                        }}
+                      </strong>
+                    </div>
+
+                    <div class="fare-row total">
+                      <span>Total Fare</span>
+                      <strong> ₹{{ payableAmount | number: "1.2-2" }} </strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="desktop-ticket d-none d-md-block">
+              <div class="container" [id]="'print-section'">
+                <div class="od-body mb25">
+                  <div class="row mb40">
+                    <table class="tableclass2" cellpadding="10">
+                      <tbody>
+                        <tr>
+                          <td>
+                            <img
+                              src="../../assets/img/email-logo.png"
+                              class="od-logo"
+                            />
+                          </td>
+                          <td>
+                            <span>ODBUS</span> e-Ticketing Service<br />
+                            Electronic Reservation Slip
+                          </td>
+                          <td>
+                            <div class="od-bktext">Booking Date</div>
+                            <div class="od-bktext">
+                              {{ bookingDate | date: "EEEE, d MMMM , y" }}
+                            </div>
+
+                            <!-- <div class="od-bktext" *ngIf="bookingDetails.booking[0].status==2" style="color:red;font-size:bold">
 							STATUS:- CANCELLED
 						   </div>
 
 						   <div class="od-bktext" *ngIf="bookingDetails.booking[0].status==1" style="color:green;font-size:bold">
 							 STATUS:- CONFIREMED
 							</div> -->
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div class="row  mt30 mb25">
-									<div class="col-md-12 odtext24">
-										<h3>JOURNEY DETAILS:</h3>
-										<table width="100%">
-											<tr>
-												<td>
-													<table class="table table-bordered">
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="row mt30 mb25">
+                    <div class="col-md-12 odtext24">
+                      <h3>JOURNEY DETAILS:</h3>
+                      <table width="100%">
+                        <tr>
+                          <td>
+                            <table class="table table-bordered">
+                              <thead>
+                                <tr>
+                                  <th scope="col" style="color: #000">
+                                    PNR No: {{ pnr }}
+                                  </th>
+                                  <th scope="col" style="color: #000">
+                                    Bus Name/Number: {{ busRecord.busName }}-{{
+                                      busRecord.busNumber
+                                    }}
+                                  </th>
+                                </tr>
+                              </thead>
 
-														<thead>
-															<tr>
-																<th scope="col" style="color: #000;">PNR No: {{ pnr }}
-																</th>
-																<th scope="col" style="color: #000;">Bus Name/Number: {{
-																	busRecord.busName }}-{{ busRecord.busNumber }}</th>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    Journey Date:
+                                    {{ entdate | date: "EEEE, d MMMM , y" }}
+                                  </td>
+                                  <td>
+                                    Bus Route: {{ source }}-{{ destination }}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    Deparature Timing:
+                                    {{ busRecord.departureTime }}
+                                  </td>
+                                  <td>
+                                    Arrival Timing: {{ busRecord.arrivalTime }}
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    From: {{ source }} ({{
+                                      bookingdata.boardingPoint.boardingPoints
+                                    }})
+                                  </td>
+                                  <td>
+                                    To: {{ destination }} ({{
+                                      bookingdata.droppingPoint.droppingPoints
+                                    }})
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    Boarding At :{{ source }} ({{
+                                      bookingdata.boardingPoint.boardingPoints
+                                    }})
+                                  </td>
+                                  <td>
+                                    Droping At: {{ destination }} ({{
+                                      bookingdata.droppingPoint.droppingPoints
+                                    }})
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    Passenger Mobile No: +91
+                                    {{ passengerData.customerInfo.phone }}
+                                  </td>
+                                  <td>
+                                    Conductor Mobile No:
+                                    {{ busRecord.conductor_number }}
+                                  </td>
+                                </tr>
 
-															</tr>
-														</thead>
+                                <tr>
+                                  <td>
+                                    Agent Mobile No: +91 {{ USERRECORDS.phone }}
+                                  </td>
+                                  <td>
+                                    Seat({{ total_seat_name.length }})-
+                                    {{ total_seat_name }}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                          <td>
+                            <table>
+                              <tr>
+                                <td>
+                                  <div class="col-md-3">
+                                    <ngx-qrcode
+                                      [elementType]="elementType"
+                                      [errorCorrectionLevel]="correctionLevel"
+                                      [value]="qrcode"
+                                      cssClass="bshadow"
+                                      [width]="200"
+                                    ></ngx-qrcode>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                  </div>
 
-														<tbody>
-															<tr>
-																<td>Journey Date: {{ entdate | date:'EEEE, d MMMM , y'
-																	}}</td>
-																<td>Bus Route: {{ source }}-{{ destination }}</td>
-															</tr>
-															<tr>
-																<td>Deparature Timing: {{ busRecord.departureTime}}</td>
-																<td>Arrival Timing: {{ busRecord.arrivalTime }}</td>
-															</tr>
-															<tr>
-																<td>From: {{ source }} ({{
-																	bookingdata.boardingPoint.boardingPoints }})</td>
-																<td>To: {{ destination }} ({{
-																	bookingdata.droppingPoint.droppingPoints }})</td>
-															</tr>
-															<tr>
-																<td>Boarding At :{{ source }} ({{
-																	bookingdata.boardingPoint.boardingPoints }})</td>
-																<td>Droping At: {{ destination }} ({{
-																	bookingdata.droppingPoint.droppingPoints }})</td>
-															</tr>
-															<tr>
-																<td>Passenger Mobile No: +91 {{
-																	passengerData.customerInfo.phone}}</td>
-																<td>Conductor Mobile No: {{busRecord.conductor_number}}
-																</td>
-															</tr>
+                  <div class="row mt30 mb25">
+                    <div class="col-md-12 odtext24">
+                      <h3>PASSENGER DETAILS:</h3>
+                      <table class="table table-bordered">
+                        <thead>
+                          <tr
+                            style="
+                              color: black !important;
+                              background-color: #fff !important;
+                            "
+                          >
+                            <th scope="col">Sl.</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Sex</th>
+                            <th scope="col">Seat</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            *ngFor="
+                              let dt of passengerData.bookingInfo.bookingDetail;
+                              let i = index
+                            "
+                          >
+                            <th scope="row">{{ i + 1 }}</th>
+                            <td>{{ dt.passenger_name }}</td>
+                            <td>{{ dt.passenger_age }}</td>
+                            <td>{{ dt.passenger_gender }}</td>
+                            <td>{{ get_seatno(dt.bus_seats_id) }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
 
-															<tr>
-																<td>Agent Mobile No: +91 {{ USERRECORDS.phone}}</td>
-																<td>Seat({{total_seat_name.length}})-
-																	{{total_seat_name}}</td>
-															</tr>
+                  <div class="row mt30">
+                    <div class="col-12 odtext24">
+                      <table style="width: 100%; margin-top: 20px">
+                        <tr>
+                          <td style="width: 50%" vertical-align="top">
+                            <div class="col-md-12 pl-0 odtext24 fare-backup">
+                              <h3>FARE BREAKUP</h3>
+                              <table
+                                class="table table-bordered"
+                                cellpadding="0"
+                                cellspacing="0"
+                                border="1"
+                                style="width: 100%"
+                              >
+                                <tbody>
+                                  <tr>
+                                    <td class="text-left">Base Fare</td>
+                                    <td class="text-right">
+                                      <b
+                                        >₹{{
+                                          bookingdata.PriceArray
+                                            .odbus_charges_ownerFare
+                                            | number: "1.2-2"
+                                        }}</b
+                                      >
+                                    </td>
+                                  </tr>
 
+                                  <tr>
+                                    <td class="text-left">Customet GST</td>
+                                    <td class="text-right">
+                                      <b
+                                        >+₹{{
+                                          bookingdata.PriceArray.customerGst
+                                        }}</b
+                                      >
+                                    </td>
+                                  </tr>
 
-														</tbody>
-													</table>
-												</td>
-												<td>
-													<table>
-														<tr>
-															<td>
-																<div class="col-md-3">
-																	<ngx-qrcode [elementType]="elementType"
-																		[errorCorrectionLevel]="correctionLevel"
-																		[value]="qrcode" cssClass="bshadow"
-																		[width]=200></ngx-qrcode>
-																</div>
-															</td>
-														</tr>
-													</table>
-												</td>
-											</tr>
-										</table>
-									</div>
-								</div>
-
-								<div class="row mt30 mb25">
-									<div class="col-md-12 odtext24">
-										<h3>PASSENGER DETAILS:</h3>
-										<table class="table table-bordered">
-											<thead>
-												<tr style="color: black !important;background-color: #fff !important;">
-													<th scope="col">Sl.</th>
-													<th scope="col">Name</th>
-													<th scope="col">Age</th>
-													<th scope="col">Sex</th>
-													<th scope="col">Seat</th>
-												</tr>
-											</thead>
-											<tbody>
-
-												<tr
-													*ngFor="let dt of passengerData.bookingInfo.bookingDetail; let i = index;">
-													<th scope="row">{{i+1}}</th>
-													<td>{{ dt.passenger_name }}</td>
-													<td>{{ dt.passenger_age }}</td>
-													<td>{{ dt.passenger_gender }}</td>
-													<td>{{ get_seatno(dt.bus_seats_id) }}</td>
-												</tr>
-
-											</tbody>
-										</table>
-									</div>
-
-								</div>
-
-								<!-- <div class="row mt30 mb25">
-				<div class="col-md-12"><img src="../../assets/img/banner-01.png" class="od-banner"/></div>
-			</div> -->
-
-
-
-								<div class="row mt30">
-
-									<div class="col-12 odtext24">
-
-										<table style="width: 100%; margin-top: 20px;">
-											<tr>
-												<td style="width: 50%;" vertical-align="top">
-													<div class="col-md-12 pl-0 odtext24 fare-backup">
-														<h3>FARE BREAKUP</h3>
-														<table class="table table-bordered" cellpadding="0"
-															cellspacing="0" border="1" style="width: 100%;">
-
-															<tbody>
-																<tr>
-																	<td class="text-left">Base Fare</td>
-																	<td class="text-right">
-																		<b>₹{{bookingdata.PriceArray.odbus_charges_ownerFare  | number:'1.2-2'}}</b>
-																	</td>
-																</tr>
-
-																<tr>
-																	<td class="text-left">Customet GST</td>
-																	<td class="text-right">
-																		<b>+₹{{bookingdata.PriceArray.customerGst}}</b>
-																	</td>
-																</tr>
-
-																<!-- <tr>
+                                  <!-- <tr>
 									  <td class="text-left">Transaction Fee</td>
 									  <td class="text-right"><b>+₹{{bookingdata.PriceArray.transactionFee}}</b></td>
 									</tr> -->
 
-																<tr *ngIf="applied_comission > 0">
-																	<td class="text-left">Commission</td>
-																	<td class="text-right">
-																		<b>+₹{{applied_comission}}</b>
-																	</td>
-																</tr>
+                                  <tr *ngIf="applied_comission > 0">
+                                    <td class="text-left">Commission</td>
+                                    <td class="text-right">
+                                      <b>+₹{{ applied_comission }}</b>
+                                    </td>
+                                  </tr>
 
-																<tr>
-																	<td class="text-left"><strong>Total Fare</strong>
-																	</td>
-																	<td class="text-right">
-																		<strong>₹{{payableAmount}}</strong>
-																	</td>
-																</tr>
-															</tbody>
+                                  <tr>
+                                    <td class="text-left">
+                                      <strong>Total Fare</strong>
+                                    </td>
+                                    <td class="text-right">
+                                      <strong>₹{{ payableAmount }}</strong>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </td>
+                          <td style="width: 50%" vertical-align="top">
+                            <div class="col-md-12 odtext24 pr-0">
+                              <h3>CANCELLATION POLICY</h3>
 
-														</table>
-													</div>
-												</td>
-												<td style="width: 50%;" vertical-align="top">
+                              <table
+                                class="table table-bordered odbus-journey"
+                                cellpadding="0"
+                                cellspacing="0"
+                                border="1"
+                                style="width: 100%"
+                              >
+                                <thead>
+                                  <tr
+                                    style="
+                                      color: black !important;
+                                      background-color: #fff !important;
+                                    "
+                                  >
+                                    <th scope="col">Cancellation Time</th>
+                                    <th scope="col">Cancellation Charges</th>
+                                  </tr>
+                                </thead>
+                                <tbody
+                                  *ngIf="
+                                    busRecord.cancellationDuration.length > 0
+                                  "
+                                >
+                                  <tr
+                                    *ngFor="
+                                      let can of busRecord.cancellationDuration;
+                                      let i = index
+                                    "
+                                  >
+                                    <td>{{ can }} hr</td>
+                                    <td>
+                                      {{ busRecord.cancellationDuduction[i] }}%
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
 
-													<div class="col-md-12 odtext24 pr-0">
-														<h3>CANCELLATION POLICY</h3>
+                    <div class="col-md-12 odtext24">
+                      <h3>TERMS & CONDITIONS</h3>
+                    </div>
 
+                    <div class="col-md-12">
+                      <div class="odbox1">
+                        <div class="row" style="font-size: 12px">
+                          <div class="col-md-12">
+                            <table width="100%">
+                              <tr>
+                                <td style="width: 50%">
+                                  <h6>ARE NOT ODBUS RESPONSIBILITIES</h6>
+                                  <ol>
+                                    <li>
+                                      Any incorrect data provided by customer
+                                      while booking the ticket.
+                                    </li>
+                                    <li>
+                                      Any Bus delays, breakdowns, service
+                                      cancellations and accidents.
+                                    </li>
+                                    <li>
+                                      Any misbehavior by the bus partner staff
+                                      or co-passenger.
+                                    </li>
+                                    <li>Loss/damage of baggage.</li>
+                                    <li>
+                                      Late arrival by customer at the boarding
+                                      point.
+                                    </li>
+                                    <li>
+                                      Customer phone not reachable, bus
+                                      Conductor did not call at the boarding
+                                      point and left without picking the
+                                      customer.
+                                    </li>
+                                    <li>
+                                      Customer waiting at wrong boarding point.
+                                    </li>
+                                    <li>
+                                      Any change of seat numbers done by the bus
+                                      Conductor manually.
+                                    </li>
+                                    <li>
+                                      Bus Partner changing the boarding point
+                                      for any reason.
+                                    </li>
+                                    <li>
+                                      Bus Conductor arranging a different
+                                      vehicle for pickup at boarding point and
+                                      boarding the actual vehicle at a different
+                                      place.
+                                    </li>
+                                    <li>
+                                      Bus Conductor objecting on carrying pets.
+                                    </li>
+                                    <li>
+                                      Improper booking done by agent, please
+                                      contact the agent directly.
+                                    </li>
+                                    <li>
+                                      Bus owners not providing In-bus
+                                      amenities/facilities mentioned while
+                                      booking.
+                                    </li>
+                                    <li>
+                                      Change of bus type by Bus owner for any
+                                      reason.
+                                    </li>
+                                    <li>
+                                      Bus fares are not controlled by ODBUS, so
+                                      any change in fares is not the
+                                      responsibility of ODBUS.
+                                    </li>
+                                    <li>
+                                      The fare might vary based on the seat
+                                      selected. So the fare shown in the “Search
+                                      Page” and “Seat Selection Page” might vary
+                                    </li>
+                                  </ol>
+                                </td>
 
-														<table class="table table-bordered odbus-journey"
-															cellpadding="0" cellspacing="0" border="1"
-															style="width: 100%;">
-															<thead>
-																<tr
-																	style="color: black !important;background-color: #fff !important;">
-																	<th scope="col">Cancellation Time</th>
-																	<th scope="col">Cancellation Charges</th>
-																</tr>
-															</thead>
-															<tbody *ngIf="busRecord.cancellationDuration.length > 0 ">
-																<tr
-																	*ngFor="let can of busRecord.cancellationDuration; let i=index">
-																	<td>{{ can }} hr</td>
-																	<td>{{ busRecord.cancellationDuduction[i] }}%</td>
-																</tr>
+                                <td style="width: 50%">
+                                  <h6>CANCELLATION POLICY</h6>
+                                  <ol>
+                                    <p>
+                                      The tickets booked through ODBUS Can be
+                                      cancelled and note that Cancel Can be
+                                      possible before 12 hours of the departure
+                                      of the said bus.
+                                    </p>
+                                    <li>
+                                      Partial cancellation not allowed in ODBUS.
+                                    </li>
+                                    <li>
+                                      In respect of refunds due to cancellation
+                                      of service by Operator , passenger is
+                                      required to send an e-mail to
+                                      support@odbus.in mentioning PNR of the
+                                      ticket. We will verify and refund the
+                                      amount to the concerned Credit card /
+                                      Internet banking / UPI.
+                                    </li>
+                                    <li>
+                                      Refunds for Ticket cancellations / Failed
+                                      Transactions to passengers will be given
+                                      normally in 10 - 12 Bank working days by
+                                      ODBUS, after the cancellation of ticket or
+                                      receipt of e-mail. If refunds are delayed,
+                                      passengers may contact ODBUS Executive at
+                                      9583918888 ( 09:00 AM to 07:00 PM )
+                                    </li>
+                                    <li>
+                                      Customer can't claim any cancellation
+                                      refund on rescheduled tickets.
+                                    </li>
+                                    <li>
+                                      The cancellation terms are different for
+                                      each Operator which is set by Bus Owners
+                                      itself. These terms are shown while
+                                      booking as well as on the ticket
+                                      printout/Email confirmation.
+                                    </li>
+                                    <li>
+                                      Tickets booked through online should be
+                                      cancelled only through online.
+                                    </li>
+                                    <li>
+                                      Transaction Fee / GST are non-refundable
+                                      for Ticket Cancellation / Service
+                                      Cancellation.
+                                    </li>
+                                    <li>
+                                      Cancellation charges are applicable on
+                                      Base fare not on the discounted .
+                                    </li>
+                                  </ol>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-															</tbody>
-														</table>
-
-													</div>
-												</td>
-											</tr>
-										</table>
-
-									</div>
-
-									<div class="col-md-12 odtext24">
-										<h3>TERMS & CONDITIONS</h3>
-									</div>
-
-									<div class="col-md-12">
-										<div class="odbox1">
-											<div class="row" style="font-size: 12px;">
-												<div class="col-md-12">
-
-													<table width="100%">
-														<tr>
-															<td style="width: 50%;">
-																<h6> ARE NOT ODBUS RESPONSIBILITIES</h6>
-																<ol>
-
-																	<li> Any incorrect data provided by customer while
-																		booking the ticket.</li>
-																	<li> Any Bus delays, breakdowns, service
-																		cancellations and accidents.</li>
-																	<li> Any misbehavior by the bus partner staff or
-																		co-passenger.</li>
-																	<li> Loss/damage of baggage.</li>
-																	<li> Late arrival by customer at the boarding point.
-																	</li>
-																	<li> Customer phone not reachable, bus Conductor did
-																		not call at the boarding point and left without
-																		picking the customer.</li>
-																	<li> Customer waiting at wrong boarding point.</li>
-																	<li> Any change of seat numbers done by the bus
-																		Conductor manually.</li>
-																	<li> Bus Partner changing the boarding point for any
-																		reason.</li>
-																	<li> Bus Conductor arranging a different vehicle for
-																		pickup at boarding point and boarding the actual
-																		vehicle at a different place.</li>
-																	<li> Bus Conductor objecting on carrying pets.</li>
-																	<li> Improper booking done by agent, please contact
-																		the agent directly.</li>
-																	<li> Bus owners not providing In-bus
-																		amenities/facilities mentioned while booking.
-																	</li>
-																	<li> Change of bus type by Bus owner for any reason.
-																	</li>
-																	<li> Bus fares are not controlled by ODBUS, so any
-																		change in fares is not the responsibility of
-																		ODBUS.</li>
-																	<li> The fare might vary based on the seat selected.
-																		So the fare shown in the “Search Page” and “Seat
-																		Selection Page” might vary</li>
-
-																</ol>
-															</td>
-
-															<td style="width: 50%;">
-																<h6> CANCELLATION POLICY</h6>
-																<ol>
-
-																	<p>The tickets booked through ODBUS Can be cancelled
-																		and note that Cancel Can be possible before 12
-																		hours of the departure of the said bus. </p>
-																	<li>Partial cancellation not allowed in ODBUS.</li>
-																	<li> In respect of refunds due to cancellation of
-																		service by Operator , passenger is required to
-																		send an e-mail to support@odbus.in mentioning
-																		PNR of the ticket. We will verify and refund the
-																		amount to the concerned Credit card / Internet
-																		banking / UPI.</li>
-																	<li> Refunds for Ticket cancellations / Failed
-																		Transactions to passengers will be given
-																		normally in 10 - 12 Bank working days by ODBUS,
-																		after the cancellation of ticket or receipt of
-																		e-mail. If refunds are delayed, passengers may
-																		contact ODBUS Executive at 9583918888 ( 09:00 AM
-																		to 07:00 PM )</li>
-																	<li> Customer can't claim any cancellation refund on
-																		rescheduled tickets.</li>
-																	<li> The cancellation terms are different for each
-																		Operator which is set by Bus Owners itself.
-																		These terms are shown while booking as well as
-																		on the ticket printout/Email confirmation.</li>
-																	<li> Tickets booked through online should be
-																		cancelled only through online.</li>
-																	<li> Transaction Fee / GST are non-refundable for
-																		Ticket Cancellation / Service Cancellation.</li>
-																	<li> Cancellation charges are applicable on Base
-																		fare not on the discounted .</li>
-
-																</ol>
-															</td>
-														</tr>
-													</table>
-												</div>
-
-											</div>
-										</div>
-									</div>
-
-									<div class="col-md-12 mt30">
-										<div class="odbox2">
-											<div class="row">
-												<div class="col-md-12">
-													<p>Contact Information</p>
-													<p>
-														ODBUS Helpline (07:00 AM To 11:00
-														PM):9583-918-888 (For Online Booking issue or
-														Online Cancellation issue.)
-													</p>
-													<p>
-														ODBUS Customer Support Email (Response time 3
-														working days): support@odbus.in
-													</p>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-12 mt30">
-										<div class="odbox3">
-											<div class="row">
-												<div class="col-md-12">
-													<p>Thankyou</p>
-													<p>Team ODBUS</p>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					</ng-wizard-step>
-
-
-
-				</ng-wizard>
-
-
-
-			</div>
-		</div>
-	</div>
+                    <div class="col-md-12 mt30">
+                      <div class="odbox2">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <p>Contact Information</p>
+                            <p>
+                              ODBUS Helpline (07:00 AM To 11:00 PM):9583-918-888
+                              (For Online Booking issue or Online Cancellation
+                              issue.)
+                            </p>
+                            <p>
+                              ODBUS Customer Support Email (Response time 3
+                              working days): support@odbus.in
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 mt30">
+                      <div class="odbox3">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <p>Thankyou</p>
+                            <p>Team ODBUS</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-wizard-step>
+        </ng-wizard>
+      </div>
+    </div>
+  </div>
 </section>

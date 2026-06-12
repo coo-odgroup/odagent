@@ -1000,4 +1000,17 @@ app-agentwalletreport .table thead {
     margin-bottom: 8px;
     font-size: 13px;
   }
+}.mobile-field {
+  margin-bottom: 10px;
+}
+
+.mobile-filter-label {
+  display: block;
+  margin-bottom: 3px;
+  padding-left: 2px;
+  font-size: 10px;
+  font-weight: 600;
+  color: #8b95a7;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
 }
