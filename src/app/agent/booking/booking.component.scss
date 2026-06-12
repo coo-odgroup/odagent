@@ -469,8 +469,9 @@ ngb-datepicker.dropdown-menu.show {
 
 @media(max-width:768px) {
     .mobile-swap-circle {
-        left: 270px;
         top: -14px;
+        right: 20px;
+        left: auto;
         transform: rotate(90deg);
     }
 }

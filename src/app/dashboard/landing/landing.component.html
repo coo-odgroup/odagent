@@ -76,7 +76,8 @@
           <div class="filter-title">
             <h4>
               <i class="feather icon-bar-chart-2"></i>
-              {{ RangeText }}</h4>
+              {{ RangeText }}
+            </h4>
             <span>Filter bookings and transactions</span>
           </div>
 
@@ -145,7 +146,7 @@
   </div>
 
 
-  <div class="row" *ngIf="dashboarddata">
+  <div class="row desktop_summary" *ngIf="dashboarddata">
     <div class="col-lg col-md-4 col-sm-6 col-6">
       <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-blue"
         blockClass="text-center">
@@ -195,6 +196,40 @@
       </app-card>
     </div>
   </div>
+
+
+  <!-- for mobile -->
+
+  <!-- MOBILE DASHBOARD SUMMARY -->
+  <div class="dashboard-summary-mobile d-md-none" *ngIf="dashboarddata">
+
+    <div class="summary-items">
+      <span>PNR</span>
+      <b>{{ animatedTodayPnr }}</b>
+    </div>
+
+    <div class="summary-items">
+      <span>Upcoming</span>
+      <b>{{ animatedUpcomingPnr }}</b>
+    </div>
+
+    <div class="summary-items">
+      <span>Sales</span>
+      <b>{{ animatedSales | number:'1.0-0' }}</b>
+    </div>
+
+    <div class="summary-items">
+      <span>ODBUS</span>
+      <b>{{ animatedOdbusCommission | number:'1.0-0' }}</b>
+    </div>
+
+    <div class="summary-items">
+      <span>Customer</span>
+      <b>{{ animatedCustomerCommission | number:'1.0-0' }}</b>
+    </div>
+
+  </div>
+  <!-- end -->
   <!-- <div class="col-md-3">
             <app-card [hidHeader]="true" cardClass="bg-c-yellow text-white widget-visitor-card" blockClass="text-center">
                 <h2 class="text-white">{{dashboarddata.upcoming_pnr}}</h2>

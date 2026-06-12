@@ -262,46 +262,46 @@ app-card {
   }
 }
 
-.dashboard-summary-mobile {
-  display: flex;
-  overflow-x: auto;
-  background: #173e77;
-  border-radius: 20px;
-  margin-bottom: 15px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-}
+// .dashboard-summary-mobile {
+//   display: flex;
+//   overflow-x: auto;
+//   background: #173e77;
+//   border-radius: 20px;
+//   margin-bottom: 15px;
+//   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+// }
 
-.summary-item {
-  flex: 1;
-  min-width: 90px;
-  text-align: center;
-  padding: 14px 10px;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
+// .summary-item {
+//   flex: 1;
+//   min-width: 90px;
+//   text-align: center;
+//   padding: 14px 10px;
+//   border-right: 1px solid rgba(255, 255, 255, 0.1);
+// }
 
-.summary-item:last-child {
-  border-right: none;
-}
+// .summary-item:last-child {
+//   border-right: none;
+// }
 
-.summary-item span {
-  display: block;
-  font-size: 11px;
-  color: #9ed2ff;
-  margin-bottom: 6px;
-  font-weight: 500;
-}
+// .summary-item span {
+//   display: block;
+//   font-size: 11px;
+//   color: #9ed2ff;
+//   margin-bottom: 6px;
+//   font-weight: 500;
+// }
 
-.summary-item b {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-}
+// .summary-item b {
+//   color: #fff;
+//   font-size: 14px;
+//   font-weight: 700;
+// }
 
-@media (min-width: 768px) {
-  .dashboard-summary-mobile {
-    display: none;
-  }
-}
+// @media (min-width: 768px) {
+//   .dashboard-summary-mobile {
+//     display: none;
+//   }
+// }
 
 .booking-route-row {
   display: flex;
@@ -405,6 +405,9 @@ app-card {
     gap: 10px;
     float: none !important;
     margin-top: 12px;
+    border: none;
+    background: none;
+    padding: 0 !important;
   }
 
   .btn-group.btn-group-toggle .btn {
@@ -648,7 +651,7 @@ app-card {
 
 .dashboard-filter-card {
   background: #fff;
-  border-radius: 20px;
+  border-radius: 18px;
   padding: 20px 24px;
   border: 1px solid #d7e7ff;
   box-shadow: 0 4px 20px rgba(0, 0, 0, .05);
@@ -770,6 +773,14 @@ app-card {
 
 @media(max-width:768px) {
 
+  .dashboard-filter-card{
+    background: none;
+  border-radius: 0;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  }
+
   .filter-header {
     flex-direction: column;
     align-items: stretch;
@@ -793,4 +804,60 @@ app-card {
   .apply-filter-btn {
     width: 100%;
   }
+}
+
+
+/* ===========================
+   MOBILE DASHBOARD SUMMARY
+=========================== */
+
+.dashboard-summary-mobile {
+  display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+    margin: 10px 0 12px;
+    /* background: #173e77; */
+    border-radius: 12px;
+    background: linear-gradient(135deg, #173e77, #0d6efd) !important;
+    color: #fff !important;
+}
+
+.summary-items {
+  // background: #173e77;
+  border-radius: 10px;
+  padding: 8px 4px;
+  text-align: center;
+  min-height: 58px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.summary-items span {
+  font-size: 9px;
+  color: rgba(255, 255, 255, .75);
+  margin-bottom: 2px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.summary-items b {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .dashboard-summary-mobile {
+    display: none !important;
+  }
+  
+}
+
+@media (max-width: 768px) {
+.desktop_summary {
+  display: none !important;
+}
 }
