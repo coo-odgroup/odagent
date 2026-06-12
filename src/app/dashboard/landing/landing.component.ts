@@ -215,7 +215,7 @@ export class LandingComponent implements OnInit {
       ],
     };
   }
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   ngOnInit() {
     const data = {
@@ -469,19 +469,21 @@ export class LandingComponent implements OnInit {
       return;
     }
 
-    const from =
-      this.customFromDate.year +
-      '-' +
-      ('0' + this.customFromDate.month).slice(-2) +
-      '-' +
-      ('0' + this.customFromDate.day).slice(-2);
+    // const from =
+    //   this.customFromDate.year +
+    //   '-' +
+    //   ('0' + this.customFromDate.month).slice(-2) +
+    //   '-' +
+    //   ('0' + this.customFromDate.day).slice(-2);
+    const from = this.customFromDate;
+    const to = this.customToDate;
 
-    const to =
-      this.customToDate.year +
-      '-' +
-      ('0' + this.customToDate.month).slice(-2) +
-      '-' +
-      ('0' + this.customToDate.day).slice(-2);
+    // const to =
+    //   this.customToDate.year +
+    //   '-' +
+    //   ('0' + this.customToDate.month).slice(-2) +
+    //   '-' +
+    //   ('0' + this.customToDate.day).slice(-2);
 
     const data = {
       rangeFor: 'Custom',
@@ -491,11 +493,15 @@ export class LandingComponent implements OnInit {
       USERID: localStorage.getItem('USERID'),
     };
 
+    // this.RangeText =
+    //   this.formatCustomDate(this.customFromDate) +
+    //   ' - ' +
+    //   this.formatCustomDate(this.customToDate);
     this.RangeText =
-      this.formatCustomDate(this.customFromDate) +
+      this.formatDate(new Date(this.customFromDate)) +
       ' - ' +
-      this.formatCustomDate(this.customToDate);
-
+      this.formatDate(new Date(this.customToDate));
+      
     this.ds.dashboard(data).subscribe((res) => {
       this.dashboarddata = res.data;
       this.animateDashboardCards();
