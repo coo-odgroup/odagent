@@ -919,6 +919,10 @@ label.sleeper-gray.fixsize {
   right: 100%;
 }
 
+.driver-seat-img img {
+  transform: rotate(-90deg);
+}
+
 .layout-bg {
   padding-left: 10%;
 
@@ -954,6 +958,52 @@ ol {
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: flex-start;
+}
+
+@media (max-width:768px) {
+  ol {
+    padding-left: 0px;
+  }
+}
+
+@media (max-width:768px) {
+
+  .mobile-seat-wrapper .layout1 {
+    position: relative;
+    padding-top: 55px !important;
+  }
+
+  .mobile-seat-wrapper .driver-seat-img {
+    display: block !important;
+    position: absolute !important;
+    top: 15px;
+    left: 70%;
+    right: auto;
+    transform: translateX(-50%) rotate(90deg);
+    z-index: 999;
+  }
+
+  .mobile-seat-wrapper .driver-seat-img img {
+    width: 34px;
+    height: 34px;
+    display: block;
+  }
+
+  .mobile-seat-wrapper .driver-sleeper-img {
+    display: none !important;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 374px) {
+  .mobile-seat-wrapper .driver-seat-img {
+    left: 73%;
+  }
+}
+
+@media (min-width: 376px) and (max-width: 425px) {
+  .mobile-seat-wrapper .driver-seat-img {
+    left: 67%;
+  }
 }
 
 .sleeper {

@@ -557,9 +557,9 @@
                                       let r = index
                                     ">
                                     <ol class="sleepers" type="B">
-                                      <div class="driver-sleeper-img">
+                                      <!-- <div class="driver-sleeper-img">
                                         <img src="assets/img/vehicle-steering-wheel.svg" />
-                                      </div>
+                                      </div> -->
                                       <li class="sleeper" *ngFor="
                                           let col of UberthRecords;
                                           let c = index
@@ -1527,11 +1527,14 @@
                         LowerberthMobileArr.length
                       ">
                       <h2 class="driver-seat">LOWER BERTH</h2>
+                      <div class="driver-seat-img">
+                        <img src="assets/img/vehicle-steering-wheel.svg">
+                      </div>
                       <div class="layout-bg">
                         <ol class="cabin fuselage">
-                          <div class="driver-seat-img">
+                          <!-- <div class="driver-seat-img">
                             <img src="assets/img/vehicle-steering-wheel.svg" />
-                          </div>
+                          </div> -->
                           <li class="row" *ngFor="
                               let LberthRecords of LowerberthMobileArr;
                               let r = index
@@ -1696,11 +1699,11 @@
                               let r = index
                             ">
                             <ol class="mobile-sleepers" type="B">
-                              <div class="driver-sleeper-img mobile-driver-sleeper">
+                              <!-- <div class="driver-sleeper-img mobile-driver-sleeper">
 
                                 <img src="assets/img/vehicle-steering-wheel.svg" />
 
-                              </div>
+                              </div> -->
                               <li class="mobile-sleeper" *ngFor="let col of UberthRecords; let c = index">
                                 <div *ngIf="
                                     col.seat_class_id == 4 || col.seatText == ''
