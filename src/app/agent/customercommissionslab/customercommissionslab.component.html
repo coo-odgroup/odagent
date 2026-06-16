@@ -1,4 +1,4 @@
-<div class="row desktop-commission-wrapper d-none d-md-block">
+<!-- <div class="row desktop-commission-wrapper d-none d-md-block">
     <div class="col-sm-12">
  
             <app-card [hidHeader]="false" cardTitle="Customer Commission Fee Slab" cardClass="card-datatable" [options]="false"
@@ -35,6 +35,81 @@
             </div>
         </app-card>
     </div>
+</div> -->
+
+<div class="commission-page">
+
+    <!-- Header -->
+    <div class="commission-header">
+        <h2>Customer Commission Fee Slab</h2>
+        <p>
+            Agent can put commission value that received from customer according to following fare while booking
+        </p>
+    </div>
+
+    <!-- Table -->
+    <div class="commission-table-card">
+
+        <table class="commission-table">
+
+            <thead>
+                <tr>
+                    <th width="80">#</th>
+                    <th>Fare Range From - To</th>
+                    <th width="220">Commission (Rs.)</th>
+                </tr>
+            </thead>
+
+            <tbody *ngIf="completedata && completedata.length != 0">
+
+                <tr *ngFor="let complete of completedata; let i = index">
+
+                    <td class="text-center">
+                        {{ i + 1 }}
+                    </td>
+
+                    <td>
+                        <div class="fare-range-pill">
+
+                            <span>Fare From</span>
+
+                            <span class="range-value">
+                                ₹{{ complete.price_from | number:'1.2-2' }}
+                            </span>
+
+                            <span>To</span>
+
+                            <span class="range-value">
+                                ₹{{ complete.price_to | number:'1.2-2' }}
+                            </span>
+
+                        </div>
+                    </td>
+
+                    <td>
+                        <span class="commission-badge">
+                            ₹{{ complete.max_comission | number:'1.2-2' }}
+                        </span>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+            <tbody *ngIf="!completedata || completedata.length == 0">
+
+                <tr>
+                    <td colspan="3" class="commission-empty">
+                        No Commission Slab Found
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
 </div>
 
 <!-- mobile view -->
@@ -59,8 +134,7 @@
     <!-- DATA -->
     <div *ngIf="completedata?.length != 0">
 
-        <div class="customer-commission-card"
-             *ngFor="let complete of completedata; let i = index">
+        <div class="customer-commission-card" *ngFor="let complete of completedata; let i = index">
 
             <!-- TOP -->
             <div class="card-header-row">

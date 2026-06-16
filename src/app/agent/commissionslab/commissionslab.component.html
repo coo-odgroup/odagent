@@ -1,4 +1,4 @@
-<div class="row desktop-commission-wrapper d-none d-md-flex">
+<!-- <div class="row desktop-commission-wrapper d-none d-md-flex">
     <div class="col-sm-12">
         <app-card [hidHeader]="false" cardTitle="Agent Commission Slab" cardClass="card-datatable" [options]="false"
             cardClass=" table-border-style user-profile-list " [isCardFooter]="false">
@@ -35,8 +35,82 @@
             </div>
         </app-card>
     </div>
-</div>
+</div> -->
 
+<div class="commission-page d-none d-md-block">
+
+    <div class="commission-header">
+        <h4>Agent Commission Slab</h4>
+        <p>
+            Commission on basis of no of seats booked in a month booking datewise
+        </p>
+    </div>
+
+    <div class="commission-table-card">
+
+        <table class="commission-table">
+
+            <thead>
+                <tr>
+                    <th width="80">#</th>
+                    <th>No Of Seats Range From - To</th>
+                    <th width="220">Commission (Rs.)</th>
+                </tr>
+            </thead>
+
+            <tbody *ngIf="completedata?.length">
+
+                <tr *ngFor="let complete of completedata; let i = index">
+
+                    <td class="text-center">
+                        {{ i + 1 }}
+                    </td>
+
+                    <td>
+                        <div class="range-pill">
+
+                            <span>From</span>
+
+                            <span class="range-value">
+                                {{ complete.range_from }}
+                            </span>
+
+                            <span>To</span>
+
+                            <span class="range-value">
+                                {{ complete.range_to }}
+                            </span>
+
+                            <span>Seats</span>
+
+                        </div>
+                    </td>
+
+                    <td>
+                        <span class="commission-badge">
+                            ₹{{ complete.comission_per_seat | number:'1.2-2' }}
+                        </span>
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+            <tbody *ngIf="!completedata?.length">
+
+                <tr>
+                    <td colspan="3" class="commission-empty">
+                        No Commission Slab Found
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 
 <!-- mobile version -->
 <!-- MOBILE ONLY -->

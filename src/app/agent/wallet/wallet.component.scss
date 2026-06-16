@@ -2,85 +2,302 @@
   padding: 20px;
 }
 
-::ng-deep .sml_input {
-  height: calc(1.5em + 1rem);
-  padding: 0px 10px;
+::ng-deep .card {
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
 
-@media print {
-  ::ng-deep .hide_print {
-    display: none !important;
-  }
+::ng-deep .card-body {
+  border: none !important;
 }
 
-@media only screen and (min-width: 600px) {
-  ::ng-deep .hide_screen {
-    display: none !important;
-  }
+::ng-deep .card-header {
+  background: transparent !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
 }
 
-/* fix search section on small screens */
-@media (max-width: 768px) {
-  .col-2,
-  .col-3,
-  .col-4,
-  .col-10 {
-    width: 100% !important;
-    max-width: 100% !important;
-    flex: 0 0 100% !important;
-  }
-
-  .sml_input {
-    width: 100%;
-    margin-bottom: 10px;
-  }
-
-  .btn {
-    margin-bottom: 8px;
-  }
-
-  .table td,
-  .table th {
-    font-size: 12px;
-    padding: 6px !important;
-    overflow-x: auto;
-  }
-
-  .payment_sec {
-    margin: 0 auto;
-    display: table;
-    width: 90%;
-  }
-
-  .table {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    white-space: nowrap;
-  }
-
-  .table thead,
-  .table tbody,
-  .table tr {
-    width: 100%;
-  }
-
-  .d-flex.flex-row-reverse {
-    justify-content: center !important;
-  }
-
-  .pagination {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
+::ng-deep .card-header h5,
+::ng-deep .card-header .card-title {
+  margin-bottom: 0 !important;
 }
 
-::ng-deep .sml_input {
-  height: calc(1.5em + 1rem);
-  padding: 0px 10px;
+.wallet-page-title {
+  font-size: 36px;
+  font-weight: 700;
+  color: #082567;
+  margin-bottom: 24px;
 }
+
+.wallet-filter-bar {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 14px;
+  align-items: center;
+
+  padding: 20px;
+  border: 1px solid #dbe5f3;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.wallet-control {
+  width: 100%;
+  height: 46px;
+
+  border: 1px solid #cfd8e3;
+  border-radius: 10px;
+
+  padding: 0 14px;
+
+  background: #fff;
+  outline: none;
+}
+
+.wallet-control:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, .08);
+}
+
+.wallet-add-btn {
+  height: 46px;
+  border-radius: 10px;
+  background: #28a745;
+  color: #fff;
+  border: 0;
+  font-weight: 600;
+}
+
+.wallet-search-btn {
+  height: 46px;
+  border-radius: 10px;
+  background: #28a745;
+  color: #fff;
+  border: 0;
+  font-weight: 600;
+}
+
+.wallet-refresh-btn {
+  height: 46px;
+  border-radius: 10px;
+  background: #dc3545;
+  color: #fff;
+  border: 0;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   TABLE CARD
+========================================= */
+
+.wallet-history-card {
+  background: #fff;
+  border: 1px solid #d9e4f2;
+  border-radius: 22px;
+  padding: 24px;
+  margin-top: 20px;
+}
+
+/* =========================================
+   TABLE WRAPPER
+========================================= */
+
+.wallet-table-wrapper {
+  overflow-x: hidden;
+}
+
+/* =========================================
+   TABLE
+========================================= */
+
+.wallet-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  table-layout: fixed;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.wallet-table thead th {
+  background: #edf3ff;
+
+  padding: 16px 18px;
+
+  font-size: 15px;
+  font-weight: 700;
+
+  color: #1f2937;
+  text-align: left;
+
+  border: none;
+}
+
+.wallet-table thead th:first-child {
+  width: 60px;
+}
+
+/* =========================================
+   BODY
+========================================= */
+
+.wallet-table tbody td {
+  padding: 18px;
+
+  font-size: 15px;
+  color: #1e293b;
+
+  border-bottom: 1px solid #edf0f5;
+
+  vertical-align: middle;
+}
+
+.wallet-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.wallet-table td,
+.wallet-table th {
+  word-break: break-word;
+}
+
+/* =========================================
+   DATE
+========================================= */
+
+.date-cell {
+  white-space: normal;
+}
+
+/* =========================================
+   AMOUNT
+========================================= */
+
+.amount-cell {
+  color: #2563eb;
+  font-weight: 700;
+}
+
+/* =========================================
+   STATUS BADGE
+========================================= */
+
+.wallet-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 90px;
+  height: 40px;
+
+  padding: 0 18px;
+
+  border-radius: 12px;
+
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.wallet-status.success {
+  background: #dff5e5;
+  color: #08a045;
+}
+
+.wallet-status.pending {
+  background: #ffe6e6;
+  color: #ef4444;
+}
+
+/* =========================================
+   EMPTY DATA
+========================================= */
+
+.wallet-no-data {
+  text-align: center;
+  padding: 60px !important;
+
+  color: #64748b;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.wallet-table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-top: 28px;
+}
+
+.wallet-entry-count {
+  font-size: 15px;
+  color: #475569;
+}
+
+/* =========================================
+   PAGINATION
+========================================= */
+
+.wallet-pagination {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.wallet-page-btn {
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid #d9dee8;
+  border-radius: 14px;
+
+  background: #fff;
+  color: #2563eb;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.wallet-page-btn.active-page {
+  background: #082567;
+  border-color: #082567;
+  color: #fff;
+}
+
+.wallet-page-btn.nav-btn {
+  width: auto;
+  min-width: 56px;
+  padding: 0 16px;
+}
+
+.wallet-page-btn.dots-btn {
+  color: #64748b;
+}
+
+.wallet-page-btn:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   HOVER
+========================================= */
+
+.wallet-table tbody tr:hover {
+  background: #fafcff !important;
+}
+
 
 // Mobile view adjustments
 
@@ -93,9 +310,10 @@
 }
 
 @media only screen and (max-width: 768px) {
+
   /* Hide desktop */
   #print-section,
-  .card-datatable > .row {
+  .card-datatable>.row {
     display: none !important;
   }
 
@@ -425,6 +643,7 @@
     transform: scale(1);
   }
 }
+
 .checkmark {
   position: absolute;
 
@@ -644,6 +863,7 @@
   flex-wrap: nowrap;
   margin: 0;
 }
+
 .pagination .page-item {
   margin: 0;
 }
@@ -651,6 +871,7 @@
 .pagination .page-link {
   box-shadow: none !important;
 }
+
 .wallet-date-group {
   margin-bottom: 12px;
 }

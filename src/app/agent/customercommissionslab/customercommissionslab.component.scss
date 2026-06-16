@@ -1,6 +1,151 @@
-.desktop-commission-wrapper{
+.desktop-commission-wrapper {
     padding: 20px;
 }
+
+
+/* ======================================
+   PAGE
+====================================== */
+
+.commission-page {
+    padding: 20px;
+}
+
+/* ======================================
+   HEADER
+====================================== */
+
+.commission-header {
+    margin-bottom: 20px;
+}
+
+.commission-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #082567;
+}
+
+.commission-header p {
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 15px;
+}
+
+
+
+/* ======================================
+   TABLE CARD
+====================================== */
+
+.commission-table-card {
+    background: #fff;
+    border: 1px solid #dbe5f3;
+    border-radius: 22px;
+    padding: 24px;
+}
+
+/* ======================================
+   TABLE
+====================================== */
+
+.commission-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.commission-table thead th {
+    background: #edf3ff;
+    color: #1f2937;
+
+    padding: 18px 20px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    text-align: left;
+}
+
+.commission-table thead th:first-child {
+    text-align: center;
+}
+
+.commission-table tbody td {
+    padding: 22px 20px;
+    border-bottom: 1px solid #edf0f5;
+
+    font-size: 15px;
+    color: #1e293b;
+}
+
+.commission-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.commission-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+/* ======================================
+   FARE RANGE
+====================================== */
+
+.fare-range-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 16px;
+
+    background: #f8fbff;
+    border: 1px solid #dbe5f3;
+
+    border-radius: 12px;
+}
+
+.range-value {
+    font-weight: 700;
+    color: #082567;
+}
+
+/* ======================================
+   COMMISSION
+====================================== */
+
+.commission-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 120px;
+    height: 42px;
+
+    padding: 0 18px;
+
+    background: #e8faf1;
+    border: 1px solid #c9eed8;
+
+    color: #08a045;
+
+    border-radius: 12px;
+
+    font-weight: 700;
+    font-size: 15px;
+}
+
+/* ======================================
+   EMPTY
+====================================== */
+
+.commission-empty {
+    text-align: center;
+    padding: 60px !important;
+
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 600;
+}
+
 
 
 /* =========================================
@@ -246,20 +391,20 @@
 
 @media only screen and (max-width: 365px) {
 
-     .fare-details label {
+    .fare-details label {
         font-size: 11px;
     }
 
-     .fare-range-boxes {
+    .fare-range-boxes {
         gap: 6px;
     }
 
-     .fare-box {
+    .fare-box {
         padding: 8px 10px;
         min-width: 72px;
     }
 
-     .fare-box span {
+    .fare-box span {
         font-size: 8px;
     }
 
@@ -267,7 +412,7 @@
         font-size: 14px;
     }
 
-    .fare-icon{
+    .fare-icon {
         width: 40px;
         height: 42px;
         min-width: 55px;
@@ -278,11 +423,11 @@
         justify-content: center;
     }
 
-    .customer-top-card p{
+    .customer-top-card p {
         font-size: 10px;
     }
 
-    .customer-top-card h2{
+    .customer-top-card h2 {
         font-size: 18px;
     }
 }

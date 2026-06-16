@@ -1,7 +1,189 @@
-.desktop-commission-wrapper{
+/* ======================================
+   PAGE
+====================================== */
+
+.commission-page {
     padding: 20px;
 }
 
+/* ======================================
+   HEADER
+====================================== */
+
+.commission-header {
+    margin-bottom: 20px;
+}
+
+.commission-header h4 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #082567;
+}
+
+.commission-header p {
+    margin-top: 8px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* ======================================
+   CARD
+====================================== */
+
+.commission-table-card {
+    background: #fff;
+    border: 1px solid #dbe5f3;
+    border-radius: 24px;
+    padding: 24px;
+    overflow: hidden;
+}
+
+/* ======================================
+   TABLE
+====================================== */
+
+.commission-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* ======================================
+   TABLE HEADER
+====================================== */
+
+.commission-table thead th {
+    background: #edf3ff;
+
+    padding: 20px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    color: #0f172a;
+    text-align: left;
+}
+
+.commission-table thead th:first-child {
+    text-align: center;
+}
+
+/* ======================================
+   TABLE BODY
+====================================== */
+
+.commission-table tbody td {
+    padding: 24px 20px;
+
+    border-bottom: 1px solid #edf0f5;
+
+    font-size: 15px;
+    color: #1e293b;
+
+    vertical-align: middle;
+}
+
+.commission-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.commission-table tbody tr {
+    transition: all .2s ease;
+}
+
+.commission-table tbody tr:hover {
+    background: #f8fbff;
+}
+
+/* ======================================
+   RANGE PILL
+====================================== */
+
+.range-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 12px 18px;
+
+    background: #f8fbff;
+    border: 1px solid #dbe5f3;
+
+    border-radius: 14px;
+
+    font-size: 15px;
+    color: #334155;
+}
+
+.range-value {
+    font-weight: 700;
+    color: #082567;
+}
+
+/* ======================================
+   COMMISSION BADGE
+====================================== */
+
+.commission-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 120px;
+    height: 42px;
+
+    padding: 0 20px;
+
+    background: #e8faf1;
+    border: 1px solid #c7ecd6;
+
+    color: #00a651;
+
+    border-radius: 14px;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* ======================================
+   EMPTY
+====================================== */
+
+.commission-empty {
+    text-align: center;
+    padding: 60px !important;
+
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+/* ======================================
+   MOBILE
+====================================== */
+
+@media (max-width: 768px) {
+
+    .commission-page {
+        padding: 15px;
+    }
+
+    .commission-header h4 {
+        font-size: 26px;
+    }
+
+    .commission-table-card {
+        overflow-x: auto;
+    }
+
+    .commission-table {
+        min-width: 700px;
+    }
+
+    .range-pill {
+        flex-wrap: wrap;
+    }
+}
 
 /* =========================================
    MOBILE ONLY COMMISSION DESIGN
@@ -27,7 +209,7 @@
         margin-bottom: 20px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
         text-align: center;
-        
+
     }
 
     .commission-top-card h2 {
