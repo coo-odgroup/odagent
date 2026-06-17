@@ -158,6 +158,20 @@
                           </div>
                           <div
                             *ngIf="
+                              getPassengerFormGroup(i).controls[
+                                'passenger_gender'
+                              ].hasError('GenderError')
+                            "
+                            class="invalid-feedback d-block"
+                          >
+                            {{
+                              getPassengerFormGroup(i).controls[
+                                "passenger_gender"
+                              ].errors?.message
+                            }}
+                          </div>
+                          <div
+                            *ngIf="
                               submitted1 &&
                               getPassengerFormGroup(i).controls[
                                 'passenger_gender'
