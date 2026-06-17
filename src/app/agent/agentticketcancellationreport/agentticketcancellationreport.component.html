@@ -671,73 +671,81 @@
 
     <!-- Details -->
 
-    <div class="details-grid">
-      <!-- Bus -->
+   <!-- Expandable Area -->
 
-      <div>
-        <label>Bus</label>
+<div
+  class="details-grid expandable-section"
+  *ngIf="expandedIndex === i"
+>
+  <div>
+    <label>Bus</label>
+    <strong>{{ complete.bus?.name || "--" }}</strong>
+  </div>
 
-        <strong>
-          {{ complete.bus?.name || "--" }}
-        </strong>
-      </div>
+  <div class="text-right">
+    <label>Bus Number</label>
+    <strong>{{ complete.bus?.bus_number || "--" }}</strong>
+  </div>
 
-      <div class="text-right">
-        <label>Bus Number</label>
+  <div>
+    <label>Seat</label>
+    <strong>{{ getSeatNames(complete) }}</strong>
+  </div>
 
-        <strong>
-          {{ complete.bus?.bus_number || "--" }}
-        </strong>
-      </div>
+  <div class="text-right">
+    <label>Passenger</label>
+    <strong>{{ getPassengerNames(complete) }}</strong>
+  </div>
 
-      <!-- Seat -->
+  <div>
+    <label>Journey Date</label>
+    <strong>
+      {{ complete.journey_dt | date:'dd MMM yyyy' }}
+    </strong>
+  </div>
 
-      <div>
-        <label>Seat</label>
+  <div class="text-right">
+    <label>Cancel Date</label>
+    <strong>
+      {{ complete.updated_at | date:'dd MMM yyyy' }}
+    </strong>
+  </div>
+</div>
 
-        <strong>
-          {{ getSeatNames(complete) }}
-        </strong>
-      </div>
+<!-- Show More -->
 
-      <div class="text-right">
-        <label>Passenger</label>
+<div
+  class="show-more-btn"
+  (click)="toggleCard(i)"
+>
+  {{ expandedIndex === i ? 'Show Less ▲' : 'Show More ▼' }}
+</div>
 
-        <strong> {{ getPassengerNames(complete) }} </strong>
-      </div>
+<!-- Divider -->
 
-      <!-- Dates -->
+<div class="ticket-divider"></div>
 
-      <div>
-        <label>Journey Date</label>
+<!-- Amount Section -->
 
-        <strong>
-          {{ complete.journey_dt }}
-        </strong>
-      </div>
+<div class="amount-grid">
 
-      <div class="text-right">
-        <label>Cancel Date</label>
+  <div>
+    <label>Total Amount</label>
 
-        <strong>
-          {{ complete.updated_at | date: "yyyy-MM-dd" }}
-        </strong>
-      </div>
+    <strong class="fare-amount">
+      ₹{{ complete.total_fare }}
+    </strong>
+  </div>
 
-      <!-- Amount -->
+  <div class="text-right">
+    <label>Refund Amount</label>
 
-      <div>
-        <label>Total Amount</label>
+    <strong class="refund-amount">
+      ₹{{ complete.refund_amount }}
+    </strong>
+  </div>
 
-        <strong class="fare-amount"> ₹{{ complete.total_fare }} </strong>
-      </div>
-
-      <div class="text-right">
-        <label>Refund Amount</label>
-
-        <strong class="refund-amount"> ₹{{ complete.refund_amount }} </strong>
-      </div>
-    </div>
+</div>
   </div>
 
   <!-- Footer -->

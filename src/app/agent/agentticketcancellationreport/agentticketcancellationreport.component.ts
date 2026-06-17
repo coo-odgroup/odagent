@@ -269,6 +269,12 @@ export class AgentticketcancellationreportComponent implements OnInit {
     );
   }
 
+  expandedIndex: number | null = null;
+
+  toggleCard(index: number) {
+    this.expandedIndex = this.expandedIndex === index ? null : index;
+  }
+
   searchPageCancel(page: number) {
     const pageLink = this.cancelticketdata?.data?.links?.find(
       (x: any) => Number(x.label) === page,
