@@ -364,19 +364,6 @@ export class AgentcompletereportComponent implements OnInit {
     }
   }
 
-  // print_tkt(i) {
-
-  //   this.modalService.dismissAll();
-
-  //   this.singleRecord = this.completedata.data.data[i];
-
-  //   this.router.navigate([
-  //     '/agent/bookTicket',
-  //     this.singleRecord.transaction_id
-  //   ]);
-
-  //   return;
-  // }
 
   print_tkt(i: any) {
     const pnr = this.completedata.data.data[i].pnr;
