@@ -1247,7 +1247,6 @@
                   </div>
                 </div>
               </div>
-
             </div>
 
             <div class="desktop-ticket d-none d-md-block">
@@ -1414,7 +1413,8 @@
                         <tbody>
                           <tr
                             *ngFor="
-                              let dt of passengerData.bookingInfo.bookingDetail;
+                              let dt of passengerData?.bookingInfo
+                                ?.bookingDetail;
                               let i = index
                             "
                           >
@@ -1422,7 +1422,7 @@
                             <td>{{ dt.passenger_name }}</td>
                             <td>{{ dt.passenger_age }}</td>
                             <td>{{ dt.passenger_gender }}</td>
-                            <td>{{ get_seatno(dt.bus_seats_id) }}</td>
+                            <td>{{ dt.seat_no || dt.bus_seats_id }}</td>
                           </tr>
                         </tbody>
                       </table>

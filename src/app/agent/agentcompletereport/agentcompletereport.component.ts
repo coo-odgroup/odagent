@@ -364,19 +364,25 @@ export class AgentcompletereportComponent implements OnInit {
     }
   }
 
-print_tkt(i) {
+  // print_tkt(i) {
 
-  this.modalService.dismissAll();
+  //   this.modalService.dismissAll();
 
-  this.singleRecord = this.completedata.data.data[i];
+  //   this.singleRecord = this.completedata.data.data[i];
 
-  this.router.navigate([
-    '/agent/bookTicket',
-    this.singleRecord.transaction_id
-  ]);
+  //   this.router.navigate([
+  //     '/agent/bookTicket',
+  //     this.singleRecord.transaction_id
+  //   ]);
 
-  return;
-}
+  //   return;
+  // }
+
+  print_tkt(i: any) {
+    const pnr = this.completedata.data.data[i].pnr;
+
+    window.open(`#/agent/printticket/${pnr}`, '_blank');
+  }
 
   emailSms(i) {
     this.singleRecord = this.completedata.data.data[i];
