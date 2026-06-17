@@ -162,7 +162,10 @@ export class NotificationComponent implements OnInit {
     this.search();
   }
 
-  viewDetails(index) {
+  viewDetails(index: number) {
+    console.log('Clicked Row =>', index);
+    console.log('Notification =>', this.notificationcontent[index]);
+
     this.notificationcontentRecord = this.notificationcontent[index];
   }
 
@@ -237,15 +240,42 @@ export class NotificationComponent implements OnInit {
      PAGINATION
   ========================================= */
 
+  isPageVisible(label: any): boolean {
+    if (label === '&laquo;' || label === '&raquo;') {
+      return false;
+    }
+
+    if (label === '1' || label === '2' || label === '3') {
+      return true;
+    }
+
+    if (
+      parseInt(label) === this.pagination.current_page &&
+      parseInt(label) > 3
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  getPageLabel(label: any): string {
+    if (label === '&laquo;' || label === '&raquo;') {
+      return '';
+    }
+
+    return label;
+  }
+
   onPreviousPage() {
-    if (this.pagination.links.prev_page_url) {
-      this.search(this.pagination.links.prev_page_url);
+    if (this.pagination?.prev_page_url) {
+      this.search(this.pagination.prev_page_url);
     }
   }
 
   onNextPage() {
-    if (this.pagination.links.next_page_url) {
-      this.search(this.pagination.links.next_page_url);
+    if (this.pagination?.next_page_url) {
+      this.search(this.pagination.next_page_url);
     }
   }
   getVisiblePages(): (number | string)[] {
