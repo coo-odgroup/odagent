@@ -1549,18 +1549,17 @@
   <div class="report-header">
     <h1 class="report-title">Agent Complete Report</h1>
 
-    <div class="header-btns">
-      <button class="export-btn" (click)="exportexcel()">Export</button>
-
-      <button
-        class="print-btn"
-        printSectionId="export-section"
-        ngxPrint
-        [useExistingCss]="true"
-      >
-        Print
-      </button>
-    </div>
+      <div class="header-btns">
+        <button class="export-btn" (click)="exportexcel()">Export</button>
+        <button
+          class="print-btn"
+          printSectionId="export-section"
+          ngxPrint
+          [useExistingCss]="true"
+        >
+          Print
+        </button>
+      </div>
   </div>
 
   <!-- SUMMARY SECTION -->
@@ -1656,7 +1655,7 @@
   </div>
 
   <!-- TABLE -->
-
+    <div id="export-section">
   <div class="table-card">
     <table class="table modern-table table-hover">
       <thead>
@@ -1862,6 +1861,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <div class="table-footer" *ngIf="completedata?.data?.data?.length > 0">
       <div class="entry-count">
         Showing
@@ -1878,6 +1878,7 @@
 
         entries
       </div>
+      
 
       <div class="pagination-wrapper">
         <ul class="modern-pagination">

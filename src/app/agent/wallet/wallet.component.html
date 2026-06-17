@@ -280,9 +280,9 @@
 
                 <td>
                   <div class="date-cell">
-                    {{ page.created_at | date: "dd/MM/yyyy" }}
+                    {{ page.created_at | date: "dd MMM yyyy" }}
                     <span>
-                      {{ page.created_at | date: "hh:mm a" }}
+                      {{ page.created_at | date: "HH:mm " }}
                     </span>
                   </div>
                 </td>
@@ -585,7 +585,7 @@
           <span>Date</span>
 
           <strong>
-            {{ page.created_at | date: "dd/MM/yyyy" }}
+            {{ page.created_at | date: "dd MMM yyyy" }}
           </strong>
         </div>
 

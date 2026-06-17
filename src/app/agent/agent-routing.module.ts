@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
+import { PrintticketComponent } from './printticket/printticket.component';
 
 const routes: Routes = [
   {
@@ -99,6 +99,10 @@ const routes: Routes = [
           import('./agentprofile/agentprofile.module').then(
             (module) => module.AgentprofileModule,
           ),
+      },
+      {
+        path: 'printticket/:pnr',
+        component: PrintticketComponent,
       },
     ],
   },

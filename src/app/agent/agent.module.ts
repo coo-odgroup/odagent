@@ -11,12 +11,15 @@ import { CustomercommissionslabComponent } from './customercommissionslab/custom
 import { BookingComponent } from './booking/booking.component';
 import { AgentprofileComponent } from './agentprofile/agentprofile.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { PrintticketComponent } from './printticket/printticket.component';
 
 
 
 @NgModule({
   declarations: [
     
+  
+    PrintticketComponent
   ],
   imports: [
     CommonModule,
