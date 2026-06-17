@@ -37,6 +37,16 @@ export class AgentticketcancellationreportComponent implements OnInit {
   fromDate: NgbDate | null;
   toDate: NgbDate | null;
 
+  totalRecords = 0;
+  totalFare = 0;
+  totalRefund = 0;
+  balanceAmount = 0;
+
+  animatedTotalRecords = 0;
+  animatedTotalFare = 0;
+  animatedTotalRefund = 0;
+  animatedBalanceAmount = 0;
+
   constructor(
     private spinner: NgxSpinnerService,
     private http: HttpClient,
@@ -90,11 +100,14 @@ export class AgentticketcancellationreportComponent implements OnInit {
     if (pageurl != '') {
       this.rs.cancelticketpaginationReport(pageurl, data).subscribe((res) => {
         this.cancelticketdata = res.data;
+        this.calculateSummary();
+
         this.spinner.hide();
       });
     } else {
       this.rs.cancelticketReport(data).subscribe((res) => {
         this.cancelticketdata = res.data;
+        this.calculateSummary();
         // console.log(this.cancelticketdata);
         this.spinner.hide();
       });
@@ -205,6 +218,57 @@ export class AgentticketcancellationreportComponent implements OnInit {
     return [1, '...', current - 1, current, current + 1, '...', last];
   }
 
+  calculateSummary() {
+    let totalRecords = 0;
+    let totalFare = 0;
+    let totalRefund = 0;
+    let balanceAmount = 0;
+
+    const records = this.cancelticketdata?.data?.data || [];
+
+    totalRecords = records.length;
+
+    records.forEach((item: any) => {
+      totalFare += Number(item.total_fare || 0);
+      totalRefund += Number(item.refund_amount || 0);
+    });
+
+    balanceAmount = totalFare - totalRefund;
+
+    // Store actual values
+    this.totalRecords = totalRecords;
+    this.totalFare = totalFare;
+    this.totalRefund = totalRefund;
+    this.balanceAmount = balanceAmount;
+
+    // Animate values
+    this.animateValue(
+      this.animatedTotalRecords,
+      totalRecords,
+      1000,
+      (value) => {
+        this.animatedTotalRecords = Math.round(value);
+      },
+    );
+
+    this.animateValue(this.animatedTotalFare, totalFare, 1000, (value) => {
+      this.animatedTotalFare = value;
+    });
+
+    this.animateValue(this.animatedTotalRefund, totalRefund, 1000, (value) => {
+      this.animatedTotalRefund = value;
+    });
+
+    this.animateValue(
+      this.animatedBalanceAmount,
+      balanceAmount,
+      1000,
+      (value) => {
+        this.animatedBalanceAmount = value;
+      },
+    );
+  }
+
   searchPageCancel(page: number) {
     const pageLink = this.cancelticketdata?.data?.links?.find(
       (x: any) => Number(x.label) === page,
@@ -216,26 +280,48 @@ export class AgentticketcancellationreportComponent implements OnInit {
   }
 
   getSeatNames(complete: any): string {
-  if (!complete?.booking_detail?.length) {
-    return '--';
+    if (!complete?.booking_detail?.length) {
+      return '--';
+    }
+
+    return complete.booking_detail
+      .map((seat: any) =>
+        complete.origin === 'DOLPHIN' || complete.origin === 'MANTIS'
+          ? seat.seat_name
+          : seat.bus_seats?.seats?.seatText,
+      )
+      .join(', ');
   }
 
-  return complete.booking_detail
-    .map((seat: any) =>
-      complete.origin === 'DOLPHIN' || complete.origin === 'MANTIS'
-        ? seat.seat_name
-        : seat.bus_seats?.seats?.seatText
-    )
-    .join(', ');
-}
+  getPassengerNames(complete: any): string {
+    if (!complete?.booking_detail?.length) {
+      return '--';
+    }
 
-getPassengerNames(complete: any): string {
-  if (!complete?.booking_detail?.length) {
-    return '--';
+    return complete.booking_detail.map((p: any) => p.passenger_name).join(', ');
   }
 
-  return complete.booking_detail
-    .map((p: any) => p.passenger_name)
-    .join(', ');
-}
+  animateValue(
+    start: number,
+    end: number,
+    duration: number,
+    callback: (value: number) => void,
+  ) {
+    const startTime = performance.now();
+
+    const animate = (currentTime: number) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      const value = start + (end - start) * progress;
+
+      callback(value);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }
 }

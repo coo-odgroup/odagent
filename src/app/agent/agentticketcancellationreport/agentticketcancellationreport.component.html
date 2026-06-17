@@ -404,9 +404,9 @@
 
   <!-- TABLE CARD -->
 
-  <div class="table-card">
+  <div class="table-card" id="print-section">
     <div class="table-responsive-modern">
-      <table class="modern-table" id="print-section">
+      <table class="modern-table">
         <thead>
           <tr>
             <th>#</th>
@@ -430,7 +430,9 @@
             <td>
               <strong>{{ complete.pnr }}</strong>
               <br />
-              <small>DOJ :{{ complete.journey_dt }}</small>
+              <small
+                >DOJ :{{ complete.journey_dt | date: "dd MMM yyyy" }}</small
+              >
             </td>
             <td>
               <span *ngFor="let fr of complete.from_location">{{
@@ -440,7 +442,7 @@
               <small>{{ complete.boarding_point }}</small>
             </td>
 
-            <td>{{ complete.updated_at | date }}</td>
+            <td>{{ complete.updated_at | date: "dd MMM yyyy" }}</td>
             <td>
               {{ complete.bus?.name }}
               <br />
@@ -556,7 +558,7 @@
     </div>
 
     <!-- Rows Number -->
- <label class="mobile-label">Payment Id:</label>
+    <label class="mobile-label">Payment Id:</label>
     <input
       type="text"
       class="modern-input"
@@ -610,27 +612,33 @@
   </div>
 
   <!-- Summary -->
-  <div class="summary-strip">
-    <div>
-      <span>TOTAL</span>
-      <strong>{{ cancelticketdata?.data?.total }}</strong>
-    </div>
-
-    <div>
-      <span>CREDITS</span>
-      <strong>₹20,230</strong>
-    </div>
-
-    <div>
-      <span>DEBITS</span>
-      <strong>₹10,750</strong>
-    </div>
-
-    <div>
-      <span>BALANCE</span>
-      <strong>₹18,569</strong>
-    </div>
+<div class="summary-strip">
+  <div>
+    <span>TOTAL</span>
+    <strong>{{ animatedTotalRecords }}</strong>
   </div>
+
+  <div>
+    <span>TOTAL FARE</span>
+    <strong style="color: #58E034;">
+      ₹{{ animatedTotalFare | number:'1.2-2' }}
+    </strong>
+  </div>
+
+  <div>
+    <span>TOTAL REFUND</span>
+    <strong style="color: #ff7676;">
+      ₹{{ animatedTotalRefund | number:'1.2-2' }}
+    </strong>
+  </div>
+
+  <div>
+    <span>NET AMOUNT</span>
+    <strong style="color: #C4E7F5;">
+      ₹{{ animatedBalanceAmount | number:'1.2-2' }}
+    </strong>
+  </div>
+</div>
 
   <!-- Ticket Cards -->
 

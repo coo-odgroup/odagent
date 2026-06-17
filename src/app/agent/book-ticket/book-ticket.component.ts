@@ -158,10 +158,13 @@ export class BookTicketComponent implements OnInit {
       this.router.navigate(['agent/booking']);
     } else {
       this.bookingdata = JSON.parse(this.bookingdata);
+      console.log('BOOKING DATA', this.bookingdata);
+      console.log('UPPER BERTH', this.bookingdata.Upperberth);
+      console.log('LOWER BERTH', this.bookingdata.Lowerberth);
+
+
       this.USERRECORDS = JSON.parse(this.USERRECORDS);
-
       this.busRecord = JSON.parse(this.busRecord);
-
       this.genderRestrictSeats = JSON.parse(this.genderRestrictSeats);
 
       let brdTm_arr = this.bookingdata.boardingPoint.boardTime.split(' | ');
@@ -617,7 +620,6 @@ export class BookTicketComponent implements OnInit {
   myDate: any = new Date();
 
   ngOnInit() {
-
     this.passengerData = this.bookForm1.value;
 
     const transId = this.route.snapshot.paramMap.get('trans_id');

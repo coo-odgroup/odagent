@@ -108,6 +108,7 @@ export class AgentcomissionreportComponent implements OnInit {
     if (pageurl != '') {
       this.rs.commissionpaginationReport(pageurl, data).subscribe((res) => {
         this.completedata = res.data;
+          this.calculateSummary();
         this.spinner.hide();
       });
     } else {
