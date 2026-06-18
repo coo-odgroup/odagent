@@ -345,11 +345,9 @@
                 </td>
 
                 <td>
-                  <span *ngIf="page.remarks">
-                    {{ page.remarks }}
-                  </span>
-
-                  <span *ngIf="!page.remarks"> ----- </span>
+                  <strong>
+                    {{ page.remarks ? page.remarks : "Wallet Recharge" }}
+                  </strong>
                 </td>
               </tr>
             </tbody>
@@ -391,7 +389,7 @@
                   (click)="searchPage(+p)"
                 >
                   {{ p }}
-                </button> 
+                </button>
 
                 <button
                   *ngIf="p === '...'"
@@ -726,13 +724,9 @@
           <div class="wallet-detail-row">
             <span>Transaction ID</span>
 
-            <strong>
-              <span *ngIf="page.transaction_id != null">
-                {{ page.transaction_id }}
-              </span>
-
-              <span *ngIf="page.transaction_id == null"> ----- </span>
-            </strong>
+            <span>
+              {{ page.remarks ? page.remarks : "Wallet Recharge" }}
+            </span>
           </div>
 
           <div class="wallet-detail-row">
@@ -763,11 +757,9 @@
             <span>Message</span>
 
             <strong>
-              <span *ngIf="page.remarks != null">
-                {{ page.remarks }}
-              </span>
-
-              <span *ngIf="page.remarks == null"> ----- </span>
+              <strong>
+                {{ page.remarks ? page.remarks : "Wallet Recharge" }}
+              </strong>
             </strong>
           </div>
         </div>

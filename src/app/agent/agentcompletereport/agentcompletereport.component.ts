@@ -208,13 +208,6 @@ export class AgentcompletereportComponent implements OnInit {
     this.search();
   }
 
-  OpenModal(content) {
-    this.modalReference = this.modalService.open(content, {
-      scrollable: true,
-      size: 'xl',
-    });
-  }
-
   OpenCancelModal(content, i) {
     if (confirm('Are you sure want to cancel ? ')) {
       //console.log(i);

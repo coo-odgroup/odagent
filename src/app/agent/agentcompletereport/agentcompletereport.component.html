@@ -1549,17 +1549,17 @@
   <div class="report-header">
     <h1 class="report-title">Agent Complete Report</h1>
 
-      <div class="header-btns">
-        <button class="export-btn" (click)="exportexcel()">Export</button>
-        <button
-          class="print-btn"
-          printSectionId="export-section"
-          ngxPrint
-          [useExistingCss]="true"
-        >
-          Print
-        </button>
-      </div>
+    <div class="header-btns">
+      <button class="export-btn" (click)="exportexcel()">Export</button>
+      <button
+        class="print-btn"
+        printSectionId="export-section"
+        ngxPrint
+        [useExistingCss]="true"
+      >
+        Print
+      </button>
+    </div>
   </div>
 
   <!-- SUMMARY SECTION -->
@@ -1655,208 +1655,209 @@
   </div>
 
   <!-- TABLE -->
-    <div id="export-section">
-  <div class="table-card">
-    <table class="table modern-table table-hover">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Ticket Details</th>
-          <th>Bus</th>
-          <th>Boarding</th>
-          <th>Route</th>
-          <th>Seat</th>
-          <th>User</th>
-          <th>Passenger</th>
-          <th>Fare</th>
-          <th>Action</th>
-        </tr>
-      </thead>
+  <div id="export-section">
+    <div class="table-card">
+      <table class="table modern-table table-hover">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Ticket Details</th>
+            <th>Bus</th>
+            <th>Boarding</th>
+            <th>Route</th>
+            <th>Seat</th>
+            <th>User</th>
+            <th>Passenger</th>
+            <th>Fare</th>
+            <th>Action</th>
+          </tr>
+        </thead>
 
-      <tbody *ngIf="completedata?.data?.data?.length > 0">
-        <tr *ngFor="let complete of completedata?.data.data; let i = index">
-          <td>
-            {{
-              (completedata?.data?.current_page - 1) *
-                completedata?.data?.per_page +
-                i +
-                1
-            }}
-          </td>
-
-          <td>
-            <strong>
-              {{ complete.pnr }}
-            </strong>
-
-            <br />
-
-            <small>
-              DOJ - 
-
-              {{ complete.journey_dt }}
-            </small>
-
-            <br />
-
-            <small>
-              DOB - 
-
-              {{ complete.created_at | date: "dd MMM y  " }}
-            </small>
-          </td>
-
-          <td>
-            <strong
-              *ngIf="
-                complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'
-              "
-            >
-              {{ complete.bus.name }}
-            </strong>
-
-            <strong
-              *ngIf="
-                complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'
-              "
-            >
-              {{ complete.bus_name }}
-            </strong>
-
-            <br />
-
-            <small>
-              (
-
+        <tbody *ngIf="completedata?.data?.data?.length > 0">
+          <tr *ngFor="let complete of completedata?.data.data; let i = index">
+            <td>
               {{
-                complete.origin != "DOLPHIN"
-                  ? complete.bus.bus_number
-                  : complete.bus_number
+                (completedata?.data?.current_page - 1) *
+                  completedata?.data?.per_page +
+                  i +
+                  1
               }}
+            </td>
 
-              )
-            </small>
-          </td>
+            <td>
+              <strong>
+                {{ complete.pnr }}
+              </strong>
 
-          <td>
-            <span *ngFor="let fr of complete.from_location">
-              <b>
-                {{ fr.name }}
-              </b>
-            </span>
+              <br />
 
-            <br />
+              <small>
+                DOJ -
 
-            <small>
-              {{ complete.boarding_point }}
-            </small>
-          </td>
+                {{ complete.journey_dt }}
+              </small>
 
-          <td>
-            <span *ngFor="let fr of complete.from_location">
-              {{ fr.name }}
-            </span>
+              <br />
 
-            >>
+              <small>
+                DOB -
 
-            <span *ngFor="let to of complete.to_location">
-              {{ to.name }}
-            </span>
-          </td>
+                {{ complete.created_at | date: "dd MMM y  " }}
+              </small>
+            </td>
 
-          <td>
-            <div *ngFor="let seat of complete.booking_detail">
-              <span
+            <td>
+              <strong
                 *ngIf="
                   complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'
                 "
               >
-                {{ seat.bus_seats.seats.seatText }}
-              </span>
+                {{ complete.bus.name }}
+              </strong>
 
-              <span
+              <strong
                 *ngIf="
                   complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'
                 "
               >
-                {{ seat.seat_name }}
+                {{ complete.bus_name }}
+              </strong>
+
+              <br />
+
+              <small>
+                (
+
+                {{
+                  complete.origin != "DOLPHIN"
+                    ? complete.bus.bus_number
+                    : complete.bus_number
+                }}
+
+                )
+              </small>
+            </td>
+
+            <td>
+              <span *ngFor="let fr of complete.from_location">
+                <b>
+                  {{ fr.name }}
+                </b>
               </span>
-            </div>
-          </td>
 
-          <td class="user-column">
-            <strong class="user-name">
-              {{ complete.users?.name }}
-            </strong>
+              <br />
 
-            <div class="user-actions">
-              <button
-                class="mini-action phone"
-                (click)="copyMessage(complete.users.phone)"
-                ngbTooltip="Copy Phone"
-              >
-                <i class="fas fa-mobile-alt"></i>
-              </button>
+              <small>
+                {{ complete.boarding_point }}
+              </small>
+            </td>
 
-              <button
-                class="mini-action mail"
-                (click)="copyMessage(complete.users.email)"
-                ngbTooltip="Copy Email"
-              >
-                <i class="far fa-envelope"></i>
-              </button>
-            </div>
-          </td>
+            <td>
+              <span *ngFor="let fr of complete.from_location">
+                {{ fr.name }}
+              </span>
 
-          <td>
-            <div *ngFor="let p of complete.booking_detail">
-              {{ p.passenger_name }}
-            </div>
-          </td>
+              >>
 
-          <td>
-            ₹{{
-              complete.total_fare + complete.agent_commission | number: "1.2-2"
-            }}
-          </td>
+              <span *ngFor="let to of complete.to_location">
+                {{ to.name }}
+              </span>
+            </td>
 
-          <td>
-            <div class="action-group">
-              <button
-                class="action blue"
-                (click)="OpenModal(content); print_tkt(i)"
-                ngbTooltip="Print Ticket"
-              >
-                <i class="fa fa-print"></i>
-              </button>
+            <td>
+              <div *ngFor="let seat of complete.booking_detail">
+                <span
+                  *ngIf="
+                    complete.origin != 'DOLPHIN' && complete.origin != 'MANTIS'
+                  "
+                >
+                  {{ seat.bus_seats.seats.seatText }}
+                </span>
 
-              <button
-                class="action green"
-                (click)="emailSms(i)"
-                ngbTooltip="Send"
-              >
-                <i class="fa fa-message"></i>
-              </button>
+                <span
+                  *ngIf="
+                    complete.origin == 'DOLPHIN' || complete.origin == 'MANTIS'
+                  "
+                >
+                  {{ seat.seat_name }}
+                </span>
+              </div>
+            </td>
 
-              <button
-                *ngIf="complete.journey_dt > todayDate"
-                class="action red"
-                (click)="OpenCancelModal(cancelTicketTab, i)"
-                ngbTooltip="Cancel"
-              >
-                <i class="fa fa-ban"></i>
-              </button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
+            <td class="user-column">
+              <strong class="user-name">
+                {{ complete.users?.name }}
+              </strong>
 
-      <tbody *ngIf="completedata?.data?.data?.length == 0">
-        <tr>
-          <td colspan="10" class="text-center p-5">No Record Found</td>
-        </tr>
-      </tbody>
-    </table>
+              <div class="user-actions">
+                <button
+                  class="mini-action phone"
+                  (click)="copyMessage(complete.users.phone)"
+                  ngbTooltip="Copy Phone"
+                >
+                  <i class="fas fa-mobile-alt"></i>
+                </button>
+
+                <button
+                  class="mini-action mail"
+                  (click)="copyMessage(complete.users.email)"
+                  ngbTooltip="Copy Email"
+                >
+                  <i class="far fa-envelope"></i>
+                </button>
+              </div>
+            </td>
+
+            <td>
+              <div *ngFor="let p of complete.booking_detail">
+                {{ p.passenger_name }}
+              </div>
+            </td>
+
+            <td>
+              ₹{{
+                complete.total_fare + complete.agent_commission
+                  | number: "1.2-2"
+              }}
+            </td>
+
+            <td>
+              <div class="action-group">
+                <button
+                  class="action blue"
+                  (click)="print_tkt(i)"
+                  ngbTooltip="Print Ticket"
+                >
+                  <i class="fa fa-print"></i>
+                </button>
+
+                <button
+                  class="action green"
+                  (click)="emailSms(i)"
+                  ngbTooltip="Send"
+                >
+                  <i class="fa fa-message"></i>
+                </button>
+
+                <button
+                  *ngIf="complete.journey_dt > todayDate"
+                  class="action red"
+                  (click)="OpenCancelModal(cancelTicketTab, i)"
+                  ngbTooltip="Cancel"
+                >
+                  <i class="fa fa-ban"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+
+        <tbody *ngIf="completedata?.data?.data?.length == 0">
+          <tr>
+            <td colspan="10" class="text-center p-5">No Record Found</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div class="table-footer" *ngIf="completedata?.data?.data?.length > 0">
       <div class="entry-count">
@@ -1874,7 +1875,6 @@
 
         entries
       </div>
-      
 
       <div class="pagination-wrapper">
         <ul class="modern-pagination">

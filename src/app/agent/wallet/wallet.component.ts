@@ -14,6 +14,7 @@ import * as XLSX from 'xlsx';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+
 declare var Cashfree: any;
 
 @Component({
@@ -269,6 +270,7 @@ toggleFilter() {
       user_id: localStorage.getItem('USERID'),
       user_name: localStorage.getItem('USERNAME'),
       transaction_type: 'c',
+      frontend_url: Constants.CONSUMER_BASE_URL
     };
 
     this.ws.makeWalletPayment(data).subscribe((resp: any) => {
