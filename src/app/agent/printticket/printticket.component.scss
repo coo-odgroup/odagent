@@ -19,3 +19,15 @@
     display: none !important;
   }
 }
+.floating-print-btn {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.floating-print-btn .btn {
+  border-radius: 30px;
+  padding: 10px 18px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}

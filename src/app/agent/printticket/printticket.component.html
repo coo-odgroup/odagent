@@ -1,4 +1,4 @@
-<div class="text-right mb-3 no-print">
+<div class="floating-print-btn no-print">
   <button class="btn btn-primary" (click)="printTicket()">
     <i class="fa fa-print"></i> Print Ticket
   </button>
@@ -57,14 +57,7 @@
                     </tr>
 
                     <tr>
-                      <td>
-                        Departure Timing:
-                        {{ busRecord?.departureTime }}
-                      </td>
-                      <td>
-                        Arrival Timing:
-                        {{ busRecord?.arrivalTime }}
-                      </td>
+                         
                     </tr>
 
                     <tr>
@@ -144,7 +137,7 @@
                 <td>{{ dt.passenger_name }}</td>
                 <td>{{ dt.passenger_age }}</td>
                 <td>{{ dt.passenger_gender }}</td>
-                <td>{{ get_seatno(dt.bus_seats_id) }}</td>
+                <td>{{ total_seat_name }}</td>
               </tr>
             </tbody>
           </table>
@@ -152,35 +145,7 @@
       </div>
 
       <!-- FARE BREAKUP -->
-      <div class="row mt30">
-        <div class="col-md-6">
-          <h3>FARE BREAKUP</h3>
-
-          <table class="table table-bordered">
-            <tr>
-              <td>Base Fare</td>
-              <td>₹{{ bookingdata?.PriceArray.odbus_charges_ownerFare }}</td>
-            </tr>
-
-            <tr>
-              <td>Customer GST</td>
-              <td>+₹{{ bookingdata?.PriceArray.customerGst }}</td>
-            </tr>
-
-            <tr *ngIf="applied_comission > 0">
-              <td>Commission</td>
-              <td>+₹{{ applied_comission }}</td>
-            </tr>
-
-            <tr>
-              <td><strong>Total Fare</strong></td>
-              <td>
-                <strong>₹{{ payableAmount }}</strong>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
+      
       <hr />
     </div>
     <!-- CANCELLATION POLICY + TERMS -->
