@@ -21,8 +21,7 @@
       </a>
     </div>
     <div class="wallet-mobile">
-      <i class="fas fa-wallet"></i>
-      Balance: Rs {{ wallet_balance | async | number: "1.2-2" }}
+      <i class="fas fa-wallet"></i>  {{ wallet_balance | async | number: "1.2-2" }} 
     </div>
   </div>
 

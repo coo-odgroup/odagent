@@ -958,4 +958,72 @@ MOBILE
     opacity: 1;
     transform: translateY(0);
   }
+}.pnr-number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  font-size: 18px;
+  font-weight: 700;
+  color: #072c6b;
+  margin: 0;
 }
+
+.journey-date {
+  margin-top: 1px;
+
+  font-size: 10px;
+  font-weight: 500;
+
+  color: rgba(7, 44, 107, 0.55);
+
+  letter-spacing: 0.3px;
+  line-height: 1.1;
+}
+
+.route {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.route-side {
+  display: flex;
+  flex-direction: column;
+}
+
+.route-side:first-child {
+  text-align: left;
+}
+
+.route-side:last-child {
+  text-align: right;
+}
+
+.route-city {
+  font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+
+.journey-date {
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.5);
+  margin-top: 2px;
+}
+
+.arrow {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #e7cf7a;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  font-weight: 600;
+} 

@@ -188,6 +188,13 @@ export class WalletComponent implements OnInit {
     return label;
   }
 
+  isFilterOpen = false;
+
+toggleFilter() {
+  this.isFilterOpen = !this.isFilterOpen;
+  console.log(this.isFilterOpen);
+}
+
   search(pageurl = '') {
     this.spinner.show();
     const data = {

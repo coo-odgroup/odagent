@@ -68,88 +68,121 @@
 
   <div class="row">
     <div class="col-xl-12">
-
       <div class="dashboard-filter-card">
-
         <div class="filter-header">
-
           <div class="filter-title">
             <h4>
               <i class="feather icon-bar-chart-2"></i>
               {{ RangeText }}
             </h4>
-            <span>Filter bookings and transactions</span>
           </div>
 
-          <div class="filter-tabs btn-group btn-group-toggle" ngbRadioGroup name="ticketSize">
-
-            <label ngbButtonLabel class="btn filter-btn" [class.active]="selectedRange === 'Today'">
-
+          <div
+            class="filter-tabs btn-group btn-group-toggle"
+            ngbRadioGroup
+            name="ticketSize"
+          >
+            <label
+              ngbButtonLabel
+              class="btn filter-btn"
+              [class.active]="selectedRange === 'Today'"
+            >
               <i class="feather icon-sun"></i>
               <span>Today</span>
 
-              <input ngbButton type="radio" (click)="getall('Today')">
-
+              <input ngbButton type="radio" (click)="getall('Today')" />
             </label>
 
-            <label ngbButtonLabel class="btn filter-btn" [class.active]="selectedRange === 'This Week'">
+            <label
+              ngbButtonLabel
+              class="btn filter-btn"
+              [class.active]="selectedRange === 'This Week'"
+            >
               <i class="feather icon-calendar"></i>
               <span>This Week</span>
-              <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('This Week')">
+              <input
+                ngbButton
+                type="radio"
+                class="dateRange"
+                name="dateRange"
+                (click)="getall('This Week')"
+              />
             </label>
 
-            <label ngbButtonLabel class="btn filter-btn" [class.active]="selectedRange === 'This Month'">
+            <label
+              ngbButtonLabel
+              class="btn filter-btn"
+              [class.active]="selectedRange === 'This Month'"
+            >
               <i class="feather icon-grid"></i>
               <span>This Month</span>
-              <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('This Month')">
+              <input
+                ngbButton
+                type="radio"
+                class="dateRange"
+                name="dateRange"
+                (click)="getall('This Month')"
+              />
             </label>
 
-            <label ngbButtonLabel class="btn filter-btn" [class.active]="selectedRange === 'Custom'">
+            <label
+              ngbButtonLabel
+              class="btn filter-btn"
+              [class.active]="selectedRange === 'Custom'"
+            >
               <i class="feather icon-sliders"></i>
               <span>Custom</span>
-              <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="toggleCustomDate()">
+              <input
+                ngbButton
+                type="radio"
+                class="dateRange"
+                name="dateRange"
+                (click)="toggleCustomDate()"
+              />
             </label>
-
           </div>
-
         </div>
 
         <div class="custom-filter-box" *ngIf="showCustomDate">
-
           <div class="custom-date-box">
-            <label>From Date</label>
+            <label>From Date:</label>
 
-            <input type="date" class="form-control custom-native-date" [(ngModel)]="customFromDate"
-              onclick="this.showPicker()" />
+            <input
+              type="date"
+              class="form-control custom-native-date"
+              [(ngModel)]="customFromDate"
+              onclick="this.showPicker()"
+            />
           </div>
 
           <div class="custom-date-box">
-            <label>To Date</label>
+            <label>To Date:</label>
 
-            <input type="date" class="form-control custom-native-date" [(ngModel)]="customToDate"
-              onclick="this.showPicker()" />
+            <input
+              type="date"
+              class="form-control custom-native-date"
+              [(ngModel)]="customToDate"
+              onclick="this.showPicker()"
+            />
           </div>
 
           <div class="custom-date-btn">
             <button class="btn apply-filter-btn" (click)="applyCustomDate()">
-
               Apply Filter
-
             </button>
           </div>
-
         </div>
-
       </div>
-
     </div>
   </div>
 
-
   <div class="row desktop_summary" *ngIf="dashboarddata">
     <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-blue"
-        blockClass="text-center">
+      <app-card
+        [hidHeader]="true"
+        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-blue"
+        blockClass="text-center"
+      >
         <h2 class="text-white">{{ animatedTodayPnr }}</h2>
         <h6 class="text-white">Total PNR</h6>
         <i class="feather icon-file-text"></i>
@@ -157,8 +190,11 @@
     </div>
 
     <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-green"
-        blockClass="text-center">
+      <app-card
+        [hidHeader]="true"
+        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-green"
+        blockClass="text-center"
+      >
         <h2 class="text-white">{{ animatedUpcomingPnr }}</h2>
         <h6 class="text-white">Upcoming PNR</h6>
         <i class="feather icon-calendar"></i>
@@ -166,8 +202,11 @@
     </div>
 
     <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-sky"
-        blockClass="text-center">
+      <app-card
+        [hidHeader]="true"
+        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-sky"
+        blockClass="text-center"
+      >
         <h2 class="text-white">{{ animatedSales | number: "1.2-2" }}</h2>
         <h6 class="text-white">Sales</h6>
         <i class="feather icon-bar-chart-2"></i>
@@ -175,8 +214,11 @@
     </div>
 
     <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-coral"
-        blockClass="text-center">
+      <app-card
+        [hidHeader]="true"
+        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-coral"
+        blockClass="text-center"
+      >
         <h2 class="text-white">
           {{ animatedOdbusCommission | number: "1.2-2" }}
         </h2>
@@ -186,8 +228,11 @@
     </div>
 
     <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card [hidHeader]="true" cardClass="text-white widget-visitor-card dashboard-card dashboard-card-purple"
-        blockClass="text-center">
+      <app-card
+        [hidHeader]="true"
+        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-purple"
+        blockClass="text-center"
+      >
         <h2 class="text-white">
           {{ animatedCustomerCommission | number: "1.2-2" }}
         </h2>
@@ -197,12 +242,10 @@
     </div>
   </div>
 
-
   <!-- for mobile -->
 
   <!-- MOBILE DASHBOARD SUMMARY -->
   <div class="dashboard-summary-mobile d-md-none" *ngIf="dashboarddata">
-
     <div class="summary-items">
       <span>PNR</span>
       <b>{{ animatedTodayPnr }}</b>
@@ -215,19 +258,18 @@
 
     <div class="summary-items">
       <span>Sales</span>
-      <b>{{ animatedSales | number:'1.0-0' }}</b>
+      <b>{{ animatedSales | number: "1.0-0" }}</b>
     </div>
 
     <div class="summary-items">
       <span>ODBUS</span>
-      <b>{{ animatedOdbusCommission | number:'1.0-0' }}</b>
+      <b>{{ animatedOdbusCommission | number: "1.0-0" }}</b>
     </div>
 
     <div class="summary-items">
       <span>Customer</span>
-      <b>{{ animatedCustomerCommission | number:'1.0-0' }}</b>
+      <b>{{ animatedCustomerCommission | number: "1.0-0" }}</b>
     </div>
-
   </div>
   <!-- end -->
   <!-- <div class="col-md-3">
@@ -261,7 +303,10 @@
     <div class="container" *ngIf="RoleType == 1">
       <div class="row">
         <div class="col-md-12 col-xl-4">
-          <app-card [hidHeader]="true" cardClass="bg-c-blue order-card borderless">
+          <app-card
+            [hidHeader]="true"
+            cardClass="bg-c-blue order-card borderless"
+          >
             <h6 class="text-white">Sales {{ RangeText }}</h6>
             <h2 class="text-white">
               <span *ngFor="let book_pft of dashboarddata.booking_profit">
@@ -274,7 +319,10 @@
         </div>
 
         <div class="col-md-6 col-xl-4">
-          <app-card [hidHeader]="true" cardClass="bg-c-blue order-card borderless">
+          <app-card
+            [hidHeader]="true"
+            cardClass="bg-c-blue order-card borderless"
+          >
             <h6 class="text-white">Booking Profit {{ RangeText }}</h6>
             <h2 class="text-white">
               <span *ngFor="let book_pft of dashboarddata.booking_profit">
@@ -286,7 +334,10 @@
           </app-card>
         </div>
         <div class="col-md-6 col-xl-4">
-          <app-card [hidHeader]="true" cardClass="bg-c-green order-card borderless">
+          <app-card
+            [hidHeader]="true"
+            cardClass="bg-c-green order-card borderless"
+          >
             <h6 class="text-white">Cancellation Profit {{ RangeText }}</h6>
             <h2 class="text-white">
               {{ dashboarddata.cancellation_profit || "0" }}
@@ -335,7 +386,7 @@
       </app-card>
     </div>
   </div> -->
-  <!-- <div class="row">
+  <!-- <div class="row">  
     <div class="col-xl-12 col-md-12">
       <div *ngIf="showWalletTable">
         <app-card cardTitle="Last 10 Wallet Transactions" cardClass="table-card" blockClass="p-0">
@@ -448,12 +499,13 @@
   <div class="row d-none d-md-flex">
     <div class="col-xl-12 col-md-12">
       <div *ngIf="showWalletTable">
-        <app-card cardTitle="Last 10 Wallet Transactions" cardClass="modern-table-card" blockClass="p-3">
-
+        <app-card
+          cardTitle="Last 10 Wallet Transactions"
+          cardClass="modern-table-card"
+          blockClass="p-3"
+        >
           <div class="table-responsive">
-
             <table class="modern-agent-table wallet-table">
-
               <thead>
                 <tr>
                   <th>#</th>
@@ -467,7 +519,6 @@
               </thead>
 
               <tbody>
-
                 <tr *ngFor="let tx of walletTransactions; let i = index">
                   <td>{{ i + 1 }}</td>
 
@@ -478,33 +529,36 @@
                   </td>
 
                   <td>
-                    <span [class.badge-success]="tx.transaction_type == 'c'"
-                      [class.badge-danger]="tx.transaction_type == 'd'" class="badge">
-
+                    <span
+                      [class.badge-success]="tx.transaction_type == 'c'"
+                      [class.badge-danger]="tx.transaction_type == 'd'"
+                      class="badge"
+                    >
                       {{ tx.transaction_type == "c" ? "Credit" : "Debit" }}
-
                     </span>
                   </td>
 
                   <td>
-                    {{ tx.amount | number:'1.2-2' }}
+                    {{ tx.amount | number: "1.2-2" }}
                   </td>
 
                   <td>
-                    {{ tx.balance | number:'1.2-2' }}
+                    {{ tx.balance | number: "1.2-2" }}
                   </td>
 
                   <td>
                     {{
-                    tx.remarks
-                    ? tx.remarks
-                    : tx.type == "Commission"
-                    ? "Ticket Commission"
-                    : tx.transaction_type == "d"
-                    ? "PNR Booked"
-                    : tx.payment_via == "Cashfree"
-                    ? "Wallet Recharge"
-                    : "-"
+                      tx.remarks
+                        ? tx.remarks
+                        : tx.type == "Refund"
+                          ? "Ticket Cancel Refund"
+                          : tx.type == "Commission"
+                            ? "Ticket Commission"
+                            : tx.transaction_type == "d"
+                              ? "PNR Booked"
+                              : tx.payment_via == "Cashfree"
+                                ? "Wallet Recharge"
+                                : "-"
                     }}
                   </td>
                 </tr>
@@ -514,22 +568,19 @@
                     No wallet transactions found
                   </td>
                 </tr>
-
               </tbody>
-
             </table>
-
           </div>
-
         </app-card>
       </div>
       <div *ngIf="showBookingTable">
-        <app-card cardTitle="Booking Details" cardClass="modern-table-card" blockClass="p-3">
-
+        <app-card
+          cardTitle="Booking Details"
+          cardClass="modern-table-card"
+          blockClass="p-3"
+        >
           <div class="table-responsive">
-
             <table class="modern-agent-table">
-
               <thead>
                 <tr>
                   <th>#</th>
@@ -546,36 +597,34 @@
               </thead>
 
               <tbody>
-
                 <tr *ngFor="let booking of bookingDetails; let i = index">
-
                   <td>{{ i + 1 }}</td>
 
                   <td>
-                    {{ booking.booking_date | date:'dd MMM yyyy' }}
+                    {{ booking.booking_date | date: "dd MMM yyyy" }}
                   </td>
 
                   <td>
                     {{ booking.pnr }}
-                    <br>
+                    <br />
                     <small class="text-muted">
-                      {{ booking.journey_dt | date:'dd MMM yyyy' }}
+                      {{ booking.journey_dt | date: "dd MMM yyyy" }}
                     </small>
                   </td>
 
                   <td>
-                    {{ booking.transaction_id || '--' }}
+                    {{ booking.transaction_id || "--" }}
                   </td>
 
                   <td>
                     <strong>
-                      {{ booking.bus_name || '-' }}
+                      {{ booking.bus_name || "-" }}
                     </strong>
 
-                    <br>
+                    <br />
 
                     <small class="text-muted">
-                      {{ booking.bus_number || '-' }}
+                      {{ booking.bus_number || "-" }}
                     </small>
                   </td>
 
@@ -584,35 +633,28 @@
                   </td>
 
                   <td>
-                    {{ booking.passenger_name || '-' }}
+                    {{ booking.passenger_name || "-" }}
                   </td>
 
                   <td>
-                    {{ booking.customer_comission | number:'1.2-2' }}
+                    {{ booking.customer_comission | number: "1.2-2" }}
                   </td>
 
                   <td>
-                    {{ booking.agent_commission | number:'1.2-2' }}
+                    {{ booking.agent_commission | number: "1.2-2" }}
                   </td>
 
                   <td>
-                    {{ booking.amount | number:'1.2-2' }}
+                    {{ booking.amount | number: "1.2-2" }}
                   </td>
-
                 </tr>
 
                 <tr *ngIf="bookingDetails?.length == 0">
-                  <td colspan="10" class="empty-row">
-                    No bookings found
-                  </td>
+                  <td colspan="10" class="empty-row">No bookings found</td>
                 </tr>
-
               </tbody>
-
             </table>
-
           </div>
-
         </app-card>
       </div>
     </div>
@@ -626,15 +668,16 @@
           <h4>
             <h4>
               {{
-              tx.type == "Commission"
-              ? "Ticket Commission"
-              : tx.transaction_type == "c"
-              ? "Wallet Recharge"
-              : "Ticket Book"
+                 tx.type == "Refund"
+                 ? "Ticket Cancel Refund"
+                 : tx.type == "Commission"
+                  ? "Ticket Commission"
+                  : tx.transaction_type == "c"
+                    ? "Wallet Recharge"
+                    : "Ticket Book"
               }}
             </h4>
           </h4>
-
 
           <p>
             {{ tx.created_at | date: "dd MMM yyyy" }}
@@ -664,10 +707,12 @@
 
       <div class="mobile-pnr">
         {{
-        tx.type == "Commission"
-        ? "Commission earned from ticket booking"
-        : tx.remarks ||
-        (tx.transaction_type == "d" ? "PNR Booked" : "Wallet Recharge")
+          tx.type == "Refund"
+          ? "Canceled Ticket Refund"
+          : tx.type == "Commission"
+            ? "Commission earned from ticket booking"
+            : tx.remarks ||
+              (tx.transaction_type == "d" ? "PNR Booked" : "Wallet Recharge")
         }}
       </div>
 
@@ -683,7 +728,10 @@
 
   <!-- MOBILE BOOKING DETAILS -->
   <div class="mobile-dashboard-cards d-md-none" *ngIf="showBookingTable">
-    <div class="mobile-card" *ngFor="let booking of bookingDetails; let i = index">
+    <div
+      class="mobile-card"
+      *ngFor="let booking of bookingDetails; let i = index"
+    >
       <!-- TOP SECTION -->
       <div class="mobile-card-top">
         <div class="mobile-info">
@@ -705,10 +753,13 @@
         <button class="more-btn" (click)="toggleBooking(i)">
           {{ expandedBooking === i ? "Less" : "More" }}
 
-          <i class="fa" [ngClass]="{
+          <i
+            class="fa"
+            [ngClass]="{
               'fa-chevron-down': expandedBooking !== i,
               'fa-chevron-up': expandedBooking === i
-            }">
+            }"
+          >
           </i>
         </button>
       </div>
