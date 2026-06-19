@@ -531,8 +531,8 @@
 
   .mobile-top-filter {
     background: #ffffff;
-    padding: 18px;
-    margin-bottom: 12px;
+    // padding: 18px;
+    // margin-bottom: 12px;
     border-radius: 20px;
   }
 
@@ -673,10 +673,7 @@
      SIMPLE MOBILE TICKET UI
      ===================================== */
 
-  .mobile-ticket-wrapper {
-    // padding: 0 12px 14px;
-    // background: #f3f5f9;
-  }
+ 
 
   .simple-ticket-card {
     position: relative;
@@ -1385,10 +1382,7 @@
 
 @media (max-width: 767px) {
 
-  .mobile-top-filter {
-    position: relative;
-    padding: 0 12px;
-  }
+ 
 
   .mobile-page-heading {
     font-size: 22px;
@@ -1464,7 +1458,7 @@
 @media (max-width: 767px) {
 
   .mobile-top-filter {
-    padding: 16px;
+    padding: 20px;
   }
 
   .mobile-page-heading {
@@ -1502,7 +1496,7 @@
   /* Ticket list spacing */
 
   .mobile-ticket-wrapper {
-    padding: 0 16px 20px;
+    padding: 20px;
   }
 
   .simple-ticket-card {
