@@ -4,6 +4,8 @@ import { AdminComponent } from './theme/layout/admin/admin.component';
 import { LoginComponent  } from './theme/layout/admin/login/login.component';
 import {AuthComponent} from './theme/layout/auth/auth.component';
 import { Routeguard } from './helpers/routeguard';
+import { PrintticketComponent } from './agent/printticket/printticket.component';
+
 
 const routes: Routes = [
   {
@@ -34,6 +36,10 @@ const routes: Routes = [
       {
         path: 'agentDetails',
         loadChildren: () => import('./agent-details/agent-details.module').then(module =>module.AgentDetailsModule)
+      },
+          {
+        path: 'printticket/:pnr',
+        component: PrintticketComponent,
       },
     ]
   },

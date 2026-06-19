@@ -372,14 +372,6 @@
 
           <div class="wallet-pagination-wrapper" *ngIf="pagination?.links">
             <div class="wallet-pagination">
-              <!-- Prev -->
-              <button
-                class="wallet-page-btn nav-btn"
-                [disabled]="!pagination?.prev_page_url"
-                (click)="onPreviousPage()"
-              >
-                Prev
-              </button>
 
               <!-- Pages -->
               <ng-container *ngFor="let p of getVisiblePages()">
@@ -402,15 +394,6 @@
                   ...
                 </button>
               </ng-container>
-
-              <!-- Next -->
-              <button
-                class="wallet-page-btn nav-btn"
-                [disabled]="!pagination?.next_page_url"
-                (click)="onNextPage()"
-              >
-                Next
-              </button>
             </div>
           </div>
         </div>
@@ -764,11 +747,7 @@
       <div class="pagination-wrapper" *ngIf="pagination?.links">
         <nav class="pagination-nav">
           <ul class="pagination pagination-sm mb-0">
-            <li class="page-item" [class.disabled]="!pagination?.prev_page_url">
-              <a class="page-link" (click)="onPreviousPage()"> Prev </a>
-            </li>
-
-            <li
+           <li
               class="page-item"
               *ngFor="let p of getVisiblePages()"
               [class.disabled]="p === '...'"
@@ -783,10 +762,6 @@
               </a>
 
               <span *ngIf="p === '...'" class="page-link"> ... </span>
-            </li>
-
-            <li class="page-item" [class.disabled]="!pagination?.next_page_url">
-              <a class="page-link" (click)="onNextPage()"> Next </a>
             </li>
           </ul>
         </nav>

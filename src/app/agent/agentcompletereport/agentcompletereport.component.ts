@@ -357,13 +357,11 @@ export class AgentcompletereportComponent implements OnInit {
     }
   }
 
-
   print_tkt(i: any) {
     const pnr = this.completedata.data.data[i].pnr;
 
-    window.open(`#/agent/printticket/${pnr}`, '_blank');
+    this.router.navigate(['/printticket', pnr]);
   }
-
   emailSms(i) {
     this.singleRecord = this.completedata.data.data[i];
 
@@ -384,6 +382,10 @@ export class AgentcompletereportComponent implements OnInit {
       });
     }
   }
+
+  callNumber(phone: string) {
+  window.location.href = `tel:${phone}`;
+}
 
   // cancelTkt(i)
   // {

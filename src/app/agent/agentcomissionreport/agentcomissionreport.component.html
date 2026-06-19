@@ -510,16 +510,6 @@
 
           <div class="pagination-right">
             <ul class="pagination">
-              <!-- PREV -->
-              <li
-                class="page-item"
-                [class.disabled]="!completedata?.data?.prev_page_url"
-              >
-                <a class="page-link" (click)="onPreviousPageCommission()">
-                  Prev
-                </a>
-              </li>
-
               <!-- PAGES -->
               <li
                 class="page-item"
@@ -536,14 +526,6 @@
                 </a>
 
                 <span *ngIf="p === '...'" class="page-link"> ... </span>
-              </li>
-
-              <!-- NEXT -->
-              <li
-                class="page-item"
-                [class.disabled]="!completedata?.data?.next_page_url"
-              >
-                <a class="page-link" (click)="onNextPageCommission()"> Next </a>
               </li>
             </ul>
           </div>

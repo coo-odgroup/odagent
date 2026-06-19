@@ -1878,10 +1878,6 @@
 
       <div class="pagination-wrapper">
         <ul class="modern-pagination">
-          <li [class.disabled]="!completedata.data.prev_page_url">
-            <button (click)="onPreviousPageComplete()">Prev</button>
-          </li>
-
           <li
             *ngFor="let p of getVisiblePagesComplete()"
             [class.active]="completedata.data.current_page === p"
@@ -1891,10 +1887,6 @@
             </button>
 
             <button *ngIf="p === '...'" disabled>...</button>
-          </li>
-
-          <li [class.disabled]="!completedata.data.next_page_url">
-            <button (click)="onNextPageComplete()">Next</button>
           </li>
         </ul>
       </div>
@@ -2173,7 +2165,7 @@
         {{ complete.users?.name }}
       </div>
 
-      <div class="user-phone">
+      <div class="user-phone " (click)="copyMessage(complete.users.phone)"  >
         <i class="fa fa-phone mr-1"></i>
         {{ complete.users?.phone }}
       </div>
@@ -2192,7 +2184,7 @@
 
       <button
         class="action-btn yellow-btn"
-        (click)="copyMessage(complete.users.phone)"
+        (click)="callNumber(complete.users.phone)"
       >
         <i class="fa-solid fa-phone"></i>
       </button>
@@ -2211,13 +2203,6 @@
 
   <div class="mobile-pagination" *ngIf="completedata?.data?.links">
     <div class="mobile-pagination" *ngIf="completedata?.data?.links">
-      <button
-        [disabled]="!completedata.data.prev_page_url"
-        (click)="onPreviousPageComplete()"
-      >
-        Prev
-      </button>
-
       <ng-container *ngFor="let p of getVisiblePagesComplete()">
         <button
           *ngIf="p !== '...'"
@@ -2229,13 +2214,6 @@
 
         <button *ngIf="p === '...'" disabled>...</button>
       </ng-container>
-
-      <button
-        [disabled]="!completedata.data.next_page_url"
-        (click)="onNextPageComplete()"
-      >
-        Next
-      </button>
     </div>
   </div>
 </div>

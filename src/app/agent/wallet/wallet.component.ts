@@ -277,7 +277,7 @@ export class WalletComponent implements OnInit {
       user_id: localStorage.getItem('USERID'),
       user_name: localStorage.getItem('USERNAME'),
       transaction_type: 'c',
-      frontend_url: Constants.CONSUMER_BASE_URL,
+      frontend_url: window.location.origin,
     };
 
     this.ws.makeWalletPayment(data).subscribe((resp: any) => {

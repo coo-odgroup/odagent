@@ -1,4 +1,4 @@
-<div class="floating-print-btn no-print">
+<div class="floating-print-btn no-print d-none d-md-block">
   <button class="btn btn-primary" (click)="printTicket()">
     <i class="fa fa-print"></i> Print Ticket
   </button>
@@ -47,7 +47,7 @@
 
       <div>
         <label>Booking Date</label>
-        <strong>{{ bookingDate | date: "dd MMM yyyy" }}</strong>
+        <strong>{{ bookingDate | date: "dd MMM yyyy HH:mm:ss" }}</strong>
       </div>
 
       <div>
@@ -187,7 +187,7 @@
               <td>
                 <div class="od-bktext">Booking Date</div>
                 <div class="od-bktext">
-                  {{ bookingDate | date: "EEEE, d MMMM , y" }}
+                  {{ bookingDate | date: "EEEE, d MMMM y HH:mm" }}
                 </div>
               </td>
             </tr>
@@ -218,9 +218,9 @@
                     <tr>
                       <td>
                         Journey Date:
-                        {{ entdate | date: "EEEE, d MMMM , y" }}
+                        {{ entdate | date: "EEEE, d MMMM  y" }}
                       </td>
-                      <td>Bus Route: {{ source }}-{{ destination }}</td>
+                      <td>Bus Route: {{ source }} - {{ destination }}</td>
                     </tr>
 
                     <tr>
@@ -312,7 +312,7 @@
                 <td>{{ dt.passenger_name }}</td>
                 <td>{{ dt.passenger_age }}</td>
                 <td>{{ dt.passenger_gender }}</td>
-                <td>{{ total_seat_name }}</td>
+                <td>{{ dt.seat_name }}</td>
               </tr>
             </tbody>
           </table>

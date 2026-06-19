@@ -63,7 +63,9 @@ export class PrintticketComponent implements OnInit {
 
       console.log('PRINT TICKET =>', this.ticket);
 
-      this.qrcode = this.ticket.booking.pnr;
+      const pnr = this.ticket.booking.pnr;
+
+      this.qrcode = window.location.origin + '/#/printticket/' + pnr;
 
       this.bookingDate = this.ticket.booking.created_at;
       this.pnr = this.ticket.booking.pnr;

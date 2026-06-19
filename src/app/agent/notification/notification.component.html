@@ -361,15 +361,6 @@
   <div class="pagination-wrapper">
     <nav class="pagination-nav">
       <ul class="pagination pagination-sm mb-0">
-        <!-- Previous -->
-        <li
-          class="page-item"
-          [class.disabled]="!pagination?.prev_page_url"
-        >
-          <a class="page-link" (click)="onPreviousPage()">
-            Prev
-          </a>
-        </li>
 
         <!-- Pages -->
         <li
@@ -391,16 +382,6 @@
           >
             ...
           </span>
-        </li>
-
-        <!-- Next -->
-        <li
-          class="page-item"
-          [class.disabled]="!pagination?.next_page_url"
-        >
-          <a class="page-link" (click)="onNextPage()">
-            Next
-          </a>
         </li>
       </ul>
     </nav>
@@ -563,13 +544,6 @@
     <div class="pagination-wrapper" *ngIf="pagination?.links">
       <nav class="pagination-nav">
         <ul class="pagination pagination-sm mb-0">
-          <!-- PREV -->
-          <li
-            class="page-item"
-            [class.disabled]="!pagination.links.prev_page_url"
-          >
-            <a class="page-link" (click)="onPreviousPage()"> Prev </a>
-          </li>
 
           <!-- PAGES -->
           <li
@@ -584,14 +558,6 @@
             >
               {{ getPageLabel(b.label) }}
             </a>
-          </li>
-
-          <!-- NEXT -->
-          <li
-            class="page-item"
-            [class.disabled]="!pagination.links.next_page_url"
-          >
-            <a class="page-link" (click)="onNextPage()"> Next </a>
           </li>
         </ul>
       </nav>

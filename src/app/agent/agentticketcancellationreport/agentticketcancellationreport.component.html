@@ -480,16 +480,6 @@
       </div>
 
       <ul class="modern-pagination">
-        <!-- PREV -->
-        <li>
-          <button
-            [disabled]="!cancelticketdata?.data?.prev_page_url"
-            (click)="onPreviousPageCancel()"
-          >
-            Prev
-          </button>
-        </li>
-
         <!-- PAGES -->
         <li
           *ngFor="let p of getVisiblePagesCancel()"
@@ -500,16 +490,6 @@
           </button>
 
           <button *ngIf="p === '...'" disabled>...</button>
-        </li>
-
-        <!-- NEXT -->
-        <li>
-          <button
-            [disabled]="!cancelticketdata?.data?.next_page_url"
-            (click)="onNextPageCancel()"
-          >
-            Next
-          </button>
         </li>
       </ul>
     </div>
@@ -764,13 +744,6 @@
   </div>
 
   <div class="mobile-pagination">
-    <button
-      [disabled]="!cancelticketdata?.data?.prev_page_url"
-      (click)="onPreviousPageCancel()"
-    >
-      Prev
-    </button>
-
     <ng-container *ngFor="let p of getVisiblePagesCancel()">
       <button
         *ngIf="p !== '...'"
@@ -779,15 +752,7 @@
       >
         {{ p }}
       </button>
-
       <button *ngIf="p === '...'" disabled>...</button>
     </ng-container>
-
-    <button
-      [disabled]="!cancelticketdata?.data?.next_page_url"
-      (click)="onNextPageCancel()"
-    >
-      Next
-    </button>
   </div>
 </div>
