@@ -80,12 +80,12 @@ export class WalletComponent implements OnInit {
 
     const user = JSON.parse(localStorage.getItem('USERRECORDS'));
     this.userEmail = user?.email || '';
-    this.userMobile = user?.mobile || '';
+    this.userMobile = user?.phone || '';
     this.spinner.show();
     this.form = this.fb.group({
       id: [null],
 
-      amount: [ 
+      amount: [
         null,
         Validators.compose([
           Validators.required,
@@ -107,7 +107,7 @@ export class WalletComponent implements OnInit {
     this.searchForm = this.fb.group({
       bus_operator_id: [null],
       name: [null],
-      payment_via: [''], 
+      payment_via: [''],
       from_date: [null],
       to_date: [null],
       rows_number: Constants.RecordLimit,
@@ -120,6 +120,13 @@ export class WalletComponent implements OnInit {
     });
 
     this.search();
+  }
+
+  expandedWalletIndex: number | null = null;
+
+  toggleWallet(index: number) {
+    this.expandedWalletIndex =
+      this.expandedWalletIndex === index ? null : index;
   }
 
   verifyWalletPayment(orderId: any) {
@@ -191,10 +198,10 @@ export class WalletComponent implements OnInit {
 
   isFilterOpen = false;
 
-toggleFilter() {
-  this.isFilterOpen = !this.isFilterOpen;
-  console.log(this.isFilterOpen);
-}
+  toggleFilter() {
+    this.isFilterOpen = !this.isFilterOpen;
+    console.log(this.isFilterOpen);
+  }
 
   search(pageurl = '') {
     this.spinner.show();
@@ -237,7 +244,7 @@ toggleFilter() {
     this.searchForm = this.fb.group({
       name: [null],
       from_date: [null],
-      payment_via: [''], 
+      payment_via: [''],
       to_date: [null],
       rows_number: Constants.RecordLimit,
       user_id: localStorage.getItem('USERID'),
@@ -270,7 +277,7 @@ toggleFilter() {
       user_id: localStorage.getItem('USERID'),
       user_name: localStorage.getItem('USERNAME'),
       transaction_type: 'c',
-      frontend_url: Constants.CONSUMER_BASE_URL
+      frontend_url: Constants.CONSUMER_BASE_URL,
     };
 
     this.ws.makeWalletPayment(data).subscribe((resp: any) => {
@@ -295,9 +302,6 @@ toggleFilter() {
     });
   }
 
-
-
-
   onPreviousPage() {
     if (this.pagination.links.prev_page_url) {
       this.search(this.pagination.links.prev_page_url);
@@ -310,7 +314,6 @@ toggleFilter() {
     }
   }
 
-
   closePaymentPopup() {
     this.paymentPopup = false;
 
@@ -318,51 +321,43 @@ toggleFilter() {
   }
 
   getVisiblePages(): (number | string)[] {
-  const current = this.pagination?.current_page;
-  const last = this.pagination?.last_page;
+    const current = this.pagination?.current_page;
+    const last = this.pagination?.last_page;
 
-  if (!current || !last) {
-    return [];
+    if (!current || !last) {
+      return [];
+    }
+
+    if (last <= 4) {
+      return Array.from({ length: last }, (_, i) => i + 1);
+    }
+
+    if (current === 1) {
+      return [1, 2, '...', last];
+    }
+
+    if (current === 2) {
+      return [1, 2, 3, '...', last];
+    }
+
+    if (current === last) {
+      return [1, '...', last - 1, last];
+    }
+
+    if (current === last - 1) {
+      return [1, '...', last - 2, last - 1, last];
+    }
+
+    return [1, '...', current - 1, current, current + 1, '...', last];
   }
 
-  if (last <= 4) {
-    return Array.from({ length: last }, (_, i) => i + 1);
+  searchPage(page: number) {
+    const pageLink = this.pagination?.links?.find(
+      (x: any) => Number(x.label) === page,
+    );
+
+    if (pageLink?.url) {
+      this.search(pageLink.url);
+    }
   }
-
-  if (current === 1) {
-    return [1, 2, '...', last];
-  }
-
-  if (current === 2) {
-    return [1, 2, 3, '...', last];
-  }
-
-  if (current === last) {
-    return [1, '...', last - 1, last];
-  }
-
-  if (current === last - 1) {
-    return [1, '...', last - 2, last - 1, last];
-  }
-
-  return [
-    1,
-    '...',
-    current - 1,
-    current,
-    current + 1,
-    '...',
-    last,
-  ];
-}
-
-searchPage(page: number) {
-  const pageLink = this.pagination?.links?.find(
-    (x: any) => Number(x.label) === page
-  );
-
-  if (pageLink?.url) {
-    this.search(pageLink.url);
-  }
-}
 }

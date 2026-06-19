@@ -1953,6 +1953,8 @@
       <!-- DATE TYPE -->
 
       <div class="mobile-field">
+        <label class="mobile-date-label">Date Type:</label>
+
         <select class="form-control" formControlName="date_type">
           <option value="booking">Booking Date</option>
 
@@ -1963,6 +1965,8 @@
       <!-- SOURCE -->
 
       <div class="mobile-field">
+        <label class="mobile-date-label">Source:</label>
+
         <ng-select
           [items]="locations"
           bindLabel="name"
@@ -1977,6 +1981,8 @@
       <!-- DESTINATION -->
 
       <div class="mobile-field">
+        <label class="mobile-date-label">Destination:</label>
+
         <ng-select
           [items]="locations"
           bindLabel="name"
@@ -2031,7 +2037,7 @@
     class="simple-ticket-card"
     *ngFor="let complete of completedata?.data.data; let i = index"
   >
-    <div class="ticket-count">#{{ i + 1 }}</div>
+    <div class="ticket-count">{{ i + 1 }}</div>
 
     <!-- TOP -->
 
@@ -2098,12 +2104,14 @@
     <div class="ticket-info-row">
       <div>
         <span class="info-label">Journey</span>
-        <p class="info-value">{{ complete.journey_dt }}</p>
+        <p class="info-value">
+          {{ complete.journey_dt | date: "dd MMMM yyyy" }}
+        </p>
       </div>
 
       <div>
         <span class="info-label">Time</span>
-        <p class="info-value">{{ complete.boarding_time }}</p>
+        <p class="info-value">{{ complete.boarding_time | slice: 0 : 5 }}</p>
       </div>
 
       <div>
@@ -2166,6 +2174,7 @@
       </div>
 
       <div class="user-phone">
+        <i class="fa fa-phone mr-1"></i>
         {{ complete.users?.phone }}
       </div>
     </div>
@@ -2173,6 +2182,10 @@
     <!-- ACTIONS -->
 
     <div class="ticket-actions">
+      <button class="action-btn blue-btn" (click)="print_tkt(i)">
+        <i class="fa-solid fa-ticket"></i>
+      </button>
+
       <button class="action-btn green-btn" (click)="emailSms(i)">
         <i class="fa-solid fa-message"></i>
       </button>

@@ -38,78 +38,52 @@
 </div> -->
 
 <div class="commission-page d-none d-md-block">
-
     <div class="commission-header">
         <h4>Agent Commission Slab</h4>
-        <p>
-            Commission on basis of no of seats booked in a month booking datewise
-        </p>
     </div>
-
     <div class="commission-table-card">
-
         <table class="commission-table">
-
             <thead>
                 <tr>
                     <th width="80">#</th>
                     <th>No Of Seats Range From - To</th>
-                    <th width="220">Commission (Rs.)</th>
+                    <th width="220">Commission</th>
                 </tr>
             </thead>
-
             <tbody *ngIf="completedata?.length">
-
                 <tr *ngFor="let complete of completedata; let i = index">
-
                     <td class="text-center">
                         {{ i + 1 }}
                     </td>
-
                     <td>
                         <div class="range-pill">
-
                             <span>From</span>
-
                             <span class="range-value">
                                 {{ complete.range_from }}
                             </span>
-
                             <span>To</span>
-
                             <span class="range-value">
                                 {{ complete.range_to }}
                             </span>
-
                             <span>Seats</span>
-
                         </div>
                     </td>
-
                     <td>
                         <span class="commission-badge">
                             ₹{{ complete.comission_per_seat | number:'1.2-2' }}
                         </span>
                     </td>
-
                 </tr>
-
             </tbody>
-
             <tbody *ngIf="!completedata?.length">
-
                 <tr>
                     <td colspan="3" class="commission-empty">
                         No Commission Slab Found
                     </td>
                 </tr>
-
             </tbody>
-
         </table>
-
     </div>
-
 </div>
 
 <!-- mobile version -->
@@ -121,12 +95,9 @@
         <!-- <div class="info-badge">
             <i class="fas fa-wallet"></i>
         </div> -->
-
         <div>
             <h2>Agent Commission Slab</h2>
-            <p>(Commission on basis of no of seats booked in a month booking datewise)</p>
         </div>
-
     </div>
 
     <!-- DATA -->
@@ -135,10 +106,10 @@
             <!-- TOP -->
             <div class="card-top">
                 <div class="slab-number">
-                    #{{ i + 1 }}
+                    {{ i + 1 }}
                 </div>
                 <div class="commission-price">
-                    <h3>₹{{ complete.comission_per_seat }}</h3>
+                    <h3>₹{{ complete.comission_per_seat | number:'1.2-2' }}</h3>
                     <span>Commission Per Seat</span>
                 </div>
             </div>

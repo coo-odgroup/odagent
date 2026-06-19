@@ -3,6 +3,173 @@
     <i class="fa fa-print"></i> Print Ticket
   </button>
 </div>
+
+<!-- MOBILE TICKET -->
+<div class="mobile-ticket d-block d-md-none">
+  <!-- HEADER -->
+  <div class="ticket-header">
+    <div class="logo-row">
+      <img src="../../assets/img/email-logo.png" class="ticket-logo" />
+      <div>
+        <h2>ODBUS E-Ticket</h2>
+        <p>Electronic Reservation Slip</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- JOURNEY -->
+  <div class="ticket-card">
+    <div class="section-title">Journey Details</div>
+
+    <div class="route-box">
+      <div class="city-block">
+        <label>From</label>
+        <h4>{{ source }}</h4>
+      </div>
+
+      <div class="route-line">
+        <span></span>
+        <i class="fas fa-arrow-right"></i>
+        <span></span>
+      </div>
+
+      <div class="city-block">
+        <label>To</label>
+        <h4>{{ destination }}</h4>
+      </div>
+    </div>
+
+    <div class="ticket-grid">
+      <div>
+        <label>PNR</label>
+        <strong>{{ pnr }}</strong>
+      </div>
+
+      <div>
+        <label>Booking Date</label>
+        <strong>{{ bookingDate | date: "dd MMM yyyy" }}</strong>
+      </div>
+
+      <div>
+        <label>Boarding</label>
+        <strong>
+          {{ ticket?.booking?.boarding_point }}
+        </strong>
+      </div>
+
+      <div>
+        <label>Dropping</label>
+        <strong>
+          {{ ticket?.booking?.dropping_point }}
+        </strong>
+      </div>
+
+      <div>
+        <label>Journey Date</label>
+        <strong>
+          {{ entdate | date: "dd MMM yyyy" }}
+        </strong>
+      </div>
+
+      <div>
+        <label>Seat(s)</label>
+        <strong>{{ total_seat_name }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- BUS -->
+  <div class="ticket-card">
+    <div class="section-title">Bus Details</div>
+
+    <div class="ticket-grid">
+      <div>
+        <label>Bus Name</label>
+        <strong>{{ busRecord?.name }}</strong>
+      </div>
+
+      <div>
+        <label>Bus Number</label>
+        <strong>{{ busRecord?.bus_number }}</strong>
+      </div>
+
+      <div>
+        <label>Conductor</label>
+        <strong>{{ ticket?.conductor?.phone }}</strong>
+      </div>
+
+      <div>
+        <label>Agent</label>
+        <strong>{{ USERRECORDS?.phone }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASSENGERS -->
+  <div class="ticket-card">
+    <div class="section-title">Passenger Details</div>
+
+    <div
+      class="passenger-item"
+      *ngFor="let dt of passengerData.bookingInfo.bookingDetail"
+    >
+      <div class="passenger-left">
+        <i class="fas fa-user-circle"></i>
+        <span>{{ dt.passenger_name }}</span>
+      </div>
+
+      <div class="passenger-right">
+        <span>{{ dt.passenger_age }}</span>
+        <span>{{ dt.passenger_gender }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- QR -->
+  <div class="ticket-card">
+    <div class="section-title">Scan Ticket</div>
+
+    <div class="qr-wrapper">
+      <ngx-qrcode
+        [elementType]="elementType"
+        [errorCorrectionLevel]="correctionLevel"
+        [value]="qrcode"
+        [width]="220"
+      >
+      </ngx-qrcode>
+    </div>
+  </div>
+
+  <!-- FARE -->
+  <div class="ticket-card">
+    <div class="section-title">Fare Details</div>
+
+    <div class="fare-box">
+      <div class="fare-row">
+        <span>Base Fare</span>
+        <strong>
+          ₹{{ bookingdata?.PriceArray?.odbus_charges_ownerFare }}
+        </strong>
+      </div>
+
+      <div class="fare-row">
+        <span>GST</span>
+        <strong> + ₹{{ bookingdata?.PriceArray?.customerGst }} </strong>
+      </div>
+
+      <div class="fare-row" *ngIf="applied_comission > 0">
+        <span>Commission</span>
+        <strong> + ₹{{ applied_comission }} </strong>
+      </div>
+
+      <div class="fare-row total">
+        <span>Total Fare</span>
+        <strong> ₹{{ payableAmount }} </strong>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="desktop-ticket">
   <div class="container" id="print-section">
     <div class="od-body mb25">
@@ -42,7 +209,7 @@
                       <th>PNR No: {{ pnr }}</th>
                       <th>
                         Bus Name/Number:
-                        {{ busRecord?.name  }} - {{ busRecord?.bus_number  }}
+                        {{ busRecord?.name }} - {{ busRecord?.bus_number }}
                       </th>
                     </tr>
                   </thead>
@@ -88,7 +255,7 @@
 
                       <td>
                         Conductor Mobile No:
-                         {{ ticket?.conductor?.phone }}
+                        {{ ticket?.conductor?.phone }}
                       </td>
                     </tr>
 

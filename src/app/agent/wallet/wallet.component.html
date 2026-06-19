@@ -170,7 +170,7 @@
         <input
           type="text"
           class="wallet-control"
-          placeholder="Transaction Id Search Here"
+          placeholder="Search by Transaction Id"
           formControlName="name"
         />
 
@@ -179,6 +179,9 @@
           formControlName="rows_number"
           (change)="search()"
         >
+          <option value="" disabled selected>
+             Select Records
+          </option>
           <option value="10">10</option>
           <option value="25">25</option>
           <option value="50">50</option>
@@ -435,122 +438,123 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="form-material">
-                  <div class="right-icon-control">
-                    <form [formGroup]="form" class="editForm" novalidate>
-                      <div class="row">
-                        <div class="col-md-8">
-                          <div class="row">
-                            <!-- EMAIL -->
-                            <div class="col-6">
-                              <div class="from-group">
-                                <label class="col-sm-4 col-form-label">
-                                  Email Id
-                                </label>
-
-                                <div class="col-sm-12">
-                                  <input
-                                    type="text"
-                                    class="form-control sml_input"
-                                    [value]="userEmail || ''"
-                                    readonly
-                                  />
-                                </div>
-                              </div>
-                            </div>
-
-                            <!-- MOBILE -->
-                            <div class="col-6">
-                              <div class="from-group">
-                                <label class="col-sm-4 col-form-label">
-                                  Mobile No
-                                </label>
-
-                                <div class="col-sm-12">
-                                  <input
-                                    type="text"
-                                    class="form-control sml_input"
-                                    [value]="userMobile || ''"
-                                    readonly
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="row">
-                            <div class="col-6">
-                              <div class="from-group">
-                                <label
-                                  for="name"
-                                  class="col-sm-4 col-form-label"
-                                >
-                                  Amount:<span class="text-danger"
-                                    >*</span
-                                  ></label
-                                >
-                                <div class="col-sm-12">
-                                  <input
-                                    type="text"
-                                    class="form-control sml_input"
-                                    ngbAutofocus
-                                    placeholder=" Min - 100  &  Max - 49999"
-                                    required
-                                    formControlName="amount"
-                                  />
-
-                                  <span
-                                    class="text-danger"
-                                    *ngIf="
-                                      form.controls['amount'].touched &&
-                                      form.controls['amount'].hasError('min')
-                                    "
-                                  >
-                                    Amount Minimum 100
-                                  </span>
-                                  <span
-                                    class="text-danger"
-                                    *ngIf="
-                                      form.controls['amount'].touched &&
-                                      form.controls['amount'].hasError('max')
-                                    "
-                                  >
-                                    Amount Maximum 49999
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="from-group">
-                            <label for="name" class="col-sm-4 col-form-label"
-                              >Remark:</label
-                            >
-                            <div class="col-sm-12">
-                              <input
-                                type="text"
-                                class="form-control"
-                                ngbAutofocus
-                                placeholder="Enter Remark here"
-                                formControlName="remarks"
-                              />
-                            </div>
-                          </div>
-                        </div>
+          <div class="modal-body recharge-modal-body">
+            <form [formGroup]="form" novalidate>
+              <div class="row">
+                <!-- LEFT SIDE -->
+                <div class="col-md-6">
+                  <div class="info-grid">
+                    <div class="info-card">
+                      <label>Email ID</label>
+                      <div class="info-value">
+                        <i class="fa fa-envelope"></i>
+                        {{ userEmail || "-" }}
                       </div>
-                    </form>
+                    </div>
+
+                    <div class="info-card">
+                      <label>Mobile Number</label>
+                      <div class="info-value">
+                        <i class="fa fa-phone"></i>
+                        {{ userMobile || "-" }}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-3">
+                    <label class="field-label">
+                      Recharge Amount <span class="text-danger">*</span>
+                    </label>
+
+                    <div class="input-group">
+                      <span class="input-group-text">₹</span>
+
+                      <input
+                        type="number"
+                        class="form-control recharge-input"
+                        placeholder="Min 100 & Max 49999"
+                        formControlName="amount"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="form-group mt-3">
+                    <label class="field-label">Remark</label>
+
+                    <textarea
+                      rows="4"
+                      class="form-control recharge-input"
+                      placeholder="Enter remarks here..."
+                      formControlName="remarks"
+                    ></textarea>
+                  </div>
+                </div>
+
+                <!-- RIGHT SIDE -->
+                <div class="col-md-6">
+                  <div class="terms-card">
+                    <h5>
+                      <i class="fa fa-file-text-o"></i>
+                      Terms & Conditions
+                    </h5>
+
+                    <div class="terms-content">
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Vestibulum feugiat magna sit amet orci vulputate, vitae
+                        consequat sem facilisis.
+                      </p>
+
+                      <p>
+                        Sed ut perspiciatis unde omnis iste natus error sit
+                        voluptatem accusantium doloremque laudantium.
+                      </p>
+
+                      <p>
+                        Nemo enim ipsam voluptatem quia voluptas sit aspernatur
+                        aut odit aut fugit.
+                      </p>
+
+                      <p>
+                        Ut enim ad minima veniam, quis nostrum exercitationem
+                        ullam corporis suscipit laboriosam.
+                      </p>
+
+                      <p>
+                        Duis aute irure dolor in reprehenderit in voluptate
+                        velit esse cillum dolore eu fugiat nulla pariatur.
+                      </p>
+
+                      <p>
+                        Excepteur sint occaecat cupidatat non proident, sunt in
+                        culpa qui officia deserunt mollit anim id est laborum.
+                      </p>
+                    </div>
+
+                    <div class="mt-2">
+                      <input
+                        type="checkbox"
+                        id="tnc"
+                        [(ngModel)]="termsAccepted"
+                        [ngModelOptions]="{ standalone: true }"
+                      />
+                      <label for="tnc" class="ml-2">
+                        I agree to the Terms & Conditions
+                      </label>
+                    </div>
+                    <div class="text-danger mt-2" *ngIf="!termsAccepted">
+                      Please accept Terms & Conditions to continue.
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
           <div class="modal-footer">
             <button
               type="button"
               (click)="addData()"
-              [disabled]="!form.valid"
+              [disabled]="!form.valid || !termsAccepted"
               class="btn btn-primary"
             >
               {{ ModalBtn }}
@@ -686,88 +690,72 @@
     </div>
 
     <!-- WALLET LIST -->
-    <div class="wallet-mobile-card-list">
-      <div
-        class="wallet-mobile-card"
-        *ngFor="let page of wallet; let i = index"
-      >
-        <!-- TOP -->
-        <div class="wallet-card-top">
-          <div class="wallet-card-number">#{{ i + 1 }}</div>
+    <div class="wallet-mobile-card" *ngFor="let page of wallet; let i = index">
+      <!-- HEADER -->
+      <div class="wallet-card-header">
+        <div>
+          <div class="wallet-card-title">Wallet Recharge</div>
 
-          <div class="wallet-card-status">
-            <span *ngIf="page.status == 1" class="success-status">
-              Active
-            </span>
-
-            <span *ngIf="page.status == 0" class="pending-status">
-              Pending
-            </span>
+          <div class="wallet-card-date">
+            {{ page.created_at | date: "dd MMM yyyy HH:mm:ss" }}
           </div>
         </div>
 
-        <!-- AMOUNT -->
-        <div class="wallet-card-amount">
-          Recharge Amount: ₹{{ page.amount }}
-        </div>
-
-        <!-- DETAILS -->
-        <div class="wallet-card-details">
-          <div class="wallet-detail-row">
-            <span>Date</span>
-
-            <strong>
-              {{ page.created_at | date: "dd MMM yyyy" }}
-            </strong>
-          </div>
-
-          <div class="wallet-detail-row">
-            <span>Transaction ID</span>
-
-            <span>
-              {{ page.remarks ? page.remarks : "Wallet Recharge" }}
-            </span>
-          </div>
-
-          <div class="wallet-detail-row">
-            <span>Reference No</span>
-
-            <strong>
-              <span *ngIf="page.reference_id != null">
-                {{ page.reference_id }}
-              </span>
-
-              <span *ngIf="page.reference_id == null"> ----- </span>
-            </strong>
-          </div>
-
-          <div class="wallet-detail-row">
-            <span>Payment Via</span>
-
-            <strong>
-              <span *ngIf="page.payment_via != ''">
-                {{ page.payment_via }}
-              </span>
-
-              <span *ngIf="page.payment_via == ''"> ----- </span>
-            </strong>
-          </div>
-
-          <div class="wallet-detail-row">
-            <span>Message</span>
-
-            <strong>
-              <strong>
-                {{ page.remarks ? page.remarks : "Wallet Recharge" }}
-              </strong>
-            </strong>
-          </div>
+        <div class="wallet-card-price">
+          ₹{{ page.amount | number: "1.2-2" }}
         </div>
       </div>
 
-      <!-- EMPTY -->
-      <div class="wallet-mobile-empty" *ngIf="wallet?.length == 0">
-        No Wallet Request Found
+      <!-- STATUS -->
+      <div class="wallet-status-row">
+        <span *ngIf="page.status == 1" class="wallet-status success">
+          Success
+        </span>
+
+        <span *ngIf="page.status == 0" class="wallet-status pending">
+          Pending
+        </span>
+
+        <button class="wallet-expand-btn" (click)="toggleWallet(i)">
+          {{ expandedWalletIndex === i ? "Less" : "Show More" }}
+
+          <i
+            class="fa"
+            [ngClass]="{
+              'fa-chevron-up': expandedWalletIndex === i,
+              'fa-chevron-down': expandedWalletIndex !== i
+            }"
+          ></i>
+        </button>
+      </div>
+
+      <hr />
+
+      <!-- DETAILS -->
+      <div class="wallet-card-details" *ngIf="expandedWalletIndex === i">
+        <div class="wallet-info-row">
+          <span>Transaction ID</span>
+          <strong>{{ page.transaction_id || "-----" }}</strong>
+        </div>
+
+        <div class="wallet-info-row">
+          <span>Reference No</span>
+          <strong>{{ page.reference_id || "-----" }}</strong>
+        </div>
+
+        <div class="wallet-info-row">
+          <span>Date Time</span>
+          <strong>
+            {{ page.created_at | date: "dd MMM yyyy HH:mm:ss" }}
+          </strong>
+        </div>
+
+        <div class="wallet-info-row">
+          <span>Message</span>
+          <strong>
+            {{ page.remarks || "Wallet Recharge" }}
+          </strong>
+        </div>
       </div>
     </div>
 

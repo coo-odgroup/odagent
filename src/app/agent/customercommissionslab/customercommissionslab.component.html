@@ -49,67 +49,48 @@
 
     <!-- Table -->
     <div class="commission-table-card">
-
         <table class="commission-table">
-
             <thead>
                 <tr>
                     <th width="80">#</th>
                     <th>Fare Range From - To</th>
-                    <th width="220">Commission (Rs.)</th>
+                    <th width="220">Commission</th>
                 </tr>
             </thead>
-
             <tbody *ngIf="completedata && completedata.length != 0">
-
                 <tr *ngFor="let complete of completedata; let i = index">
-
                     <td class="text-center">
                         {{ i + 1 }}
                     </td>
-
                     <td>
                         <div class="fare-range-pill">
-
                             <span>Fare From</span>
-
                             <span class="range-value">
                                 ₹{{ complete.price_from | number:'1.2-2' }}
                             </span>
-
                             <span>To</span>
-
                             <span class="range-value">
                                 ₹{{ complete.price_to | number:'1.2-2' }}
                             </span>
-
                         </div>
                     </td>
-
                     <td>
                         <span class="commission-badge">
                             ₹{{ complete.max_comission | number:'1.2-2' }}
                         </span>
                     </td>
-
                 </tr>
-
             </tbody>
 
             <tbody *ngIf="!completedata || completedata.length == 0">
-
                 <tr>
                     <td colspan="3" class="commission-empty">
                         No Commission Slab Found
                     </td>
                 </tr>
-
             </tbody>
-
         </table>
-
     </div>
-
 </div>
 
 <!-- mobile view -->
@@ -119,68 +100,50 @@
 
     <!-- HEADER -->
     <div class="customer-top-card">
-
         <div>
             <h2>Customer Commission Fee Slab</h2>
             <p>Agent can put commission value that received from customer according to following fare while booking</p>
         </div>
-
         <!-- <div class="top-icon">
             <i class="fas fa-coins"></i>
         </div> -->
-
     </div>
 
     <!-- DATA -->
     <div *ngIf="completedata?.length != 0">
-
         <div class="customer-commission-card" *ngFor="let complete of completedata; let i = index">
-
             <!-- TOP -->
             <div class="card-header-row">
-
                 <div class="slab-id">
                     #{{ i + 1 }}
                 </div>
-
                 <div class="commission-amount">
                     <h3>₹{{ complete.max_comission | number:'1.2-2' }}</h3>
                     <span>Max Commission</span>
                 </div>
-
             </div>
 
             <!-- FARE RANGE -->
             <div class="fare-range-section">
-
                 <div class="fare-icon">
                     <i class="fas fa-ticket-alt"></i>
                 </div>
-
                 <div class="fare-details">
-
                     <label>Fare Range</label>
-
                     <div class="fare-range-boxes">
-
                         <div class="fare-box">
                             <span>FROM</span>
                             <h4>{{ complete.price_from | number:'1.2-2' }}</h4>
                         </div>
-
                         <div class="range-divider">
                             TO
                         </div>
-
                         <div class="fare-box">
                             <span>UPTO</span>
                             <h4>{{ complete.price_to | number:'1.2-2' }}</h4>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
 
             <!-- FOOTER -->
@@ -189,22 +152,15 @@
                 You can charge customer commission up to
                 <strong>{{ complete.max_comission | number:'1.2-2' }}</strong>
                 for this fare range
-
             </div>
-
         </div>
-
     </div>
 
     <!-- NO DATA -->
     <div class="no-data-card" *ngIf="completedata?.length == 0">
 
         <i class="fas fa-database"></i>
-
         <h4>No Commission Data</h4>
-
         <p>No customer commission slab available.</p>
-
     </div>
-
 </div>
