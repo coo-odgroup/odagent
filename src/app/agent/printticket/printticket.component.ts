@@ -12,6 +12,7 @@ import {
   styleUrls: ['./printticket.component.scss'],
 })
 export class PrintticketComponent implements OnInit {
+  showTerms: boolean = false;
   ticket: any = {};
 
   qrcode: string = '';
