@@ -2974,3 +2974,26 @@ label.mobile-sleeper-gray.mobile-fixsize,
   font-weight: 700;
   font-size: 16px;
 }
+
+
+
+.result-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.filter-toggle-btn{
+    background:#efc003;
+    color:#072c6b;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.filter-toggle-btn i{
+    margin-right:8px;
+}

@@ -167,6 +167,7 @@ export class SearchComponent implements ControlValueAccessor {
 
   isShown: boolean = false; // hidden by default
   mobileFilterOpen: boolean = false;
+  desktopFilterOpen: boolean = true;
   boardingExpand: boolean = true;
   droppingExpand: boolean = false;
   busTypeExpand: boolean = false;
@@ -294,6 +295,10 @@ export class SearchComponent implements ControlValueAccessor {
   closeMobileFilter() {
     this.mobileFilterOpen = false;
   }
+
+  toggleDesktopFilter() {
+  this.desktopFilterOpen = !this.desktopFilterOpen;
+}
 
   submitSeat() {
     if (this.seatForm.valid) {

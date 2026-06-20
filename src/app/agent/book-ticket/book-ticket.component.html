@@ -618,7 +618,9 @@
                 <div class="sheet-body">
                   <!-- JOURNEY DETAILS - Card with icons and journey info -->
                   <div class="card">
+                    
                     <h5>Journey Details</h5>
+                    From
                     <div class="journey-item">
                       <i class="fas fa-map-marker-alt icon-color"></i>
                       {{ source }}
@@ -627,9 +629,10 @@
                         {{ busRecord.departureTime }}
                       </div>
                     </div>
+                    To
                     <div class="journey-item">
                       <i class="fas fa-map-marker-alt icon-color"></i>
-                      {{ destination }}
+                     {{ destination }}
                       <div class="sub">
                         {{ bookingdata.droppingPoint.droppingPoints }} -
                         {{ busRecord.arrivalTime }}
