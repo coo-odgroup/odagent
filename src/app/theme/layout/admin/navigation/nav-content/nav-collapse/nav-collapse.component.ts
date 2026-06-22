@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NavigationItem} from '../../navigation';
-import {animate, style, transition, trigger} from '@angular/animations';
-import {NextConfig} from '../../../../../../app-config';
+import { Component, Input, OnInit } from '@angular/core';
+import { NavigationItem } from '../../navigation';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { NextConfig } from '../../../../../../app-config';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nav-collapse',
@@ -10,13 +12,13 @@ import {NextConfig} from '../../../../../../app-config';
   animations: [
     trigger('slideInOut', [
       transition(':enter', [
-        style({transform: 'translateY(-100%)', display: 'block'}),
-        animate('250ms ease-in', style({transform: 'translateY(0%)'}))
+        style({ transform: 'translateY(-100%)', display: 'block' }),
+        animate('250ms ease-in', style({ transform: 'translateY(0%)' })),
       ]),
       transition(':leave', [
-        animate('250ms ease-in', style({transform: 'translateY(-100%)'}))
-      ])
-    ])
+        animate('250ms ease-in', style({ transform: 'translateY(-100%)' })),
+      ]),
+    ]),
   ],
 })
 export class NavCollapseComponent implements OnInit {
@@ -25,17 +27,23 @@ export class NavCollapseComponent implements OnInit {
   public flatConfig: any;
   public themeLayout: string;
 
-  constructor() {
+  constructor(private router: Router) {
     this.visible = false;
     this.flatConfig = NextConfig.config;
     this.themeLayout = this.flatConfig.layout;
   }
 
   ngOnInit() {
+    this.checkReportMenu();
+
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.checkReportMenu();
+      });
   }
 
   navCollapse(e) {
-    this.visible = !this.visible;
 
     let parent = e.target;
     if (this.themeLayout === 'vertical') {
@@ -63,7 +71,26 @@ export class NavCollapseComponent implements OnInit {
         preParent = preParent.parentElement.parentElement.parentElement;
       } while (preParent.classList.contains('pcoded-submenu'));
     }
-    parent.classList.toggle('pcoded-trigger');
+    if (this.item.id === 'report') {
+      this.visible = !this.visible;
+    } else {
+      parent.classList.toggle('pcoded-trigger');
+    }
   }
 
+  checkReportMenu() {
+    if (this.item.id !== 'report') {
+      return;
+    }
+
+    const url = this.router.url;
+
+    this.visible =
+      url.includes('/agent/alltransactionreport') ||
+      url.includes('/agent/cancellationreport') ||
+      url.includes('/agent/completereport') ||
+      url.includes('/agent/commissionreport');
+
+    console.log('REPORT MENU:', this.visible, url);
+  }
 }
