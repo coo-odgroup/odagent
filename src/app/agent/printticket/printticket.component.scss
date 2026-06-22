@@ -19,6 +19,7 @@
     display: none !important;
   }
 }
+
 .floating-print-btn {
   position: fixed;
   top: 80px;
@@ -29,8 +30,10 @@
 .floating-print-btn .btn {
   border-radius: 30px;
   padding: 10px 18px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-}@media (max-width: 768px) {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 768px) {
   .desktop-ticket {
     display: none !important;
   }
@@ -71,6 +74,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  justify-content: space-around;
 }
 
 .ticket-logo {
@@ -295,6 +299,8 @@
   font-weight: 800;
 }
 
+
+
 /* =========================
    FLOATING PRINT BUTTON
 ========================= */
@@ -341,4 +347,60 @@
   .mobile-ticket {
     display: none !important;
   }
+}
+
+
+.mobile-terms-card {
+  overflow: hidden;
+}
+
+.terms-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.terms-toggle-btn {
+  border: none;
+  background: #efc003;
+  color: #072c6b;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 13px;
+}
+
+.terms-content {
+  margin-top: 15px;
+}
+
+.terms-section {
+  border: 1px solid #edf0f5;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 15px;
+  background: #fafbfd;
+}
+
+.terms-section h5 {
+  color: #072c6b;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.terms-section p {
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.terms-section ol {
+  padding-left: 18px;
+}
+
+.terms-section li {
+  font-size: 13px;
+  line-height: 1.8;
+  margin-bottom: 6px;
 }
