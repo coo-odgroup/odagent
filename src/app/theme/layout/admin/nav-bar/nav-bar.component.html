@@ -99,6 +99,7 @@
       class="nav-item"
       *ngFor="let item of mobileMenus"
       (click)="goTo(item.route)"
+      [class.active]="router.url === item.route"
     >
       <i class="fa" [ngClass]="item.icon"></i>
       <span>{{ item.label }}</span>

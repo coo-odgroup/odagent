@@ -86,7 +86,7 @@ export class NavBarComponent implements OnInit {
   @Output() onNavHeaderMobCollapse = new EventEmitter();
 
   constructor(
-    private router: Router,
+    public router: Router,
     public balance: WalletbalanceService,
   ) {
     this.flatConfig = NextConfig.config;
