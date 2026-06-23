@@ -286,7 +286,7 @@ export class WalletComponent implements OnInit {
       if (resp.status == 1) {
         const cashfree = Cashfree({
           mode: 'sandbox',
-        });
+        }); 
 
         cashfree.checkout({
           paymentSessionId: resp.data.payment_session_id,

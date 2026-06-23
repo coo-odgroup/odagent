@@ -142,67 +142,67 @@
           </form>
         </div>
       </div> -->
+<form [formGroup]="searchForm">
+  <div class="wallet-filter-bar">
 
-      <div class="wallet-filter-bar">
-        <button
-          class="btn wallet-add-btn"
-          (click)="ResetAttributes(); OpenModal(content)"
-        >
-          Add Balance
-        </button>
+    <button
+      class="btn wallet-add-btn"
+      (click)="ResetAttributes(); OpenModal(content)"
+      type="button">
+      Add Balance
+    </button>
 
-        <input
-          type="date"
-          class="wallet-control"
-          formControlName="from_date"
-          [min]="minDate"
-          [max]="maxDate"
-        />
+    <input
+      type="date"
+      class="wallet-control"
+      formControlName="from_date"
+      [min]="minDate"
+      [max]="maxDate"
+    />
 
-        <input
-          type="date"
-          class="wallet-control"
-          formControlName="to_date"
-          [min]="searchForm.get('from_date')?.value || minDate"
-          [max]="maxDate"
-        />
+    <input
+      type="date"
+      class="wallet-control"
+      formControlName="to_date"
+      [min]="searchForm.get('from_date')?.value || minDate"
+      [max]="maxDate"
+    />
 
-        <input
-          type="text"
-          class="wallet-control"
-          placeholder="Search by Transaction Id"
-          formControlName="name"
-        />
+    <input
+      type="text"
+      class="wallet-control"
+      placeholder="Search by Transaction Id"
+      formControlName="name"
+    />
 
-        <select
-          class="wallet-control"
-          formControlName="rows_number"
-          (change)="search()"
-        >
-          <option value="" disabled selected>
-             Select Records
-          </option>
-          <option value="10">10</option>
-          <option value="25">25</option>
-          <option value="50">50</option>
-          <option value="100">100</option>
-          <option value="all">All</option>
-        </select>
+    <select
+      class="wallet-control"
+      formControlName="rows_number"
+      (change)="search()"
+    >
+      <option value="10">10</option>
+      <option value="25">25</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+      <option value="all">All</option>
+    </select>
 
-        <button type="button" class="btn wallet-search-btn" (click)="search()">
-          <i class="fas fa-search"></i>
-          Search
-        </button>
+    <button
+      type="button"
+      class="btn wallet-search-btn"
+      (click)="search()">
+      Search
+    </button>
 
-        <button
-          type="button"
-          class="btn wallet-refresh-btn"
-          (click)="refresh()"
-        >
-          <i class="fas fa-sync-alt"></i>
-          Refresh
-        </button>
-      </div>
+    <button
+      type="button"
+      class="btn wallet-refresh-btn"
+      (click)="refresh()">
+      Refresh
+    </button>
+
+  </div>
+</form>
       <!-- class="table-responsive" -->
       <!-- <div id="print-section">
         <table class="table table-striped table-bordered">
