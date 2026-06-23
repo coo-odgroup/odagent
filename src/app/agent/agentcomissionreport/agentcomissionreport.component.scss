@@ -4,17 +4,14 @@
 }
 
 .transaction-wrapper {
-
   padding: 25px;
 
   // background: #f7f9fc;
-
 }
 
 /* HEADER */
 
 .transaction-header {
-
   display: flex;
 
   justify-content: space-between;
@@ -26,11 +23,9 @@
   flex-wrap: wrap;
 
   // gap: 10px;
-
 }
 
 .trans-title {
-
   font-size: 26px;
 
   font-weight: 700;
@@ -38,19 +33,15 @@
   margin: 0;
 
   color: #24314f;
-
 }
 
 .top-buttons {
-
   display: flex;
 
   gap: 12px;
-
 }
 
 .top-btn {
-
   height: 44px;
 
   padding: 0 24px;
@@ -61,15 +52,12 @@
 
   font-size: 15px;
 
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
-
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
-
 
 /* SUMMARY */
 
 .summary-cards {
-
   display: grid;
 
   grid-template-columns: repeat(3, 1fr);
@@ -77,43 +65,35 @@
   gap: 18px;
 
   margin-bottom: 10px;
-
 }
 
 .summary-box {
-
   background: #fff;
 
   padding: 26px;
 
   border-radius: 16px;
 
-  box-shadow: 0 2px 12px rgba(0, 0, 0, .05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 
   border: 1px solid #dbe8ff;
 
-  transition: .25s;
-
+  transition: 0.25s;
 }
 
 .summary-box:hover {
-
   transform: translateY(-2px);
-
 }
 
 .summary-box span {
-
   font-size: 14px;
 
   color: #737373;
 
   display: block;
-
 }
 
 .summary-box h3 {
-
   margin-top: 12px;
 
   font-size: 30px;
@@ -121,19 +101,14 @@
   font-weight: 700;
 
   margin-bottom: 0;
-
 }
 
 .credit {
-
   color: #16a34a;
-
 }
 
 .balance {
-
   color: #2563eb;
-
 }
 
 /* FILTER */
@@ -145,27 +120,20 @@
   margin-bottom: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   border: 1px solid #dbe8ff;
-
 }
 
 .filter-card .row {
-
   row-gap: 14px;
-
 }
 
 .form-control {
-
   height: 48px;
 
   border-radius: 12px;
-
 }
 
 ng-select {
-
   display: block;
-
 }
 
 ::ng-deep .ng-select .ng-select-container {
@@ -175,23 +143,18 @@ ng-select {
 }
 
 ::ng-deep .ng-placeholder {
-
   color: #495057 !important;
-
 }
 
 .action-buttons {
-
   display: flex;
 
   gap: 15px;
 
   margin-top: 14px;
-
 }
 
 .action-buttons .btn {
-
   height: 44px;
 
   padding: 0 22px;
@@ -199,28 +162,23 @@ ng-select {
   font-weight: 600;
 
   border-radius: 10px;
-
 }
-
 
 /* REPORT CARD */
 
 .report-card {
-
   background: #fff;
 
   padding: 24px;
 
   border-radius: 18px;
 
-  box-shadow: 0 2px 12px rgba(0, 0, 0, .05);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 
   border: 1px solid #dbe8ff;
-
 }
 
 .report-head {
-
   display: flex;
 
   justify-content: space-between;
@@ -232,11 +190,9 @@ ng-select {
   flex-wrap: wrap;
 
   gap: 10px;
-
 }
 
 .report-head h4 {
-
   margin: 0;
 
   font-size: 40px;
@@ -244,35 +200,27 @@ ng-select {
   font-weight: 600;
 
   color: #24314f;
-
 }
 
 /* TABLE */
 
 .table-responsive-mobile {
-
   overflow: auto;
-
 }
 
 .table {
-
   min-width: 1400px;
 
   margin-bottom: 0;
 
   border-collapse: collapse;
-
 }
 
 .table thead {
-
   background: #eef4ff;
-
 }
 
 .table th {
-
   padding: 10px;
 
   font-size: 14px;
@@ -287,7 +235,6 @@ ng-select {
 }
 
 .table td {
-
   padding: 10px;
 
   border-top: 1px solid #efefef;
@@ -297,41 +244,33 @@ ng-select {
   font-size: 14px;
 
   white-space: nowrap;
-
 }
 
 .table tbody tr:hover {
-
   background: #fafcff;
-
 }
 
 /* AMOUNT */
 
 .amount-credit {
-
   color: #16a34a;
 
   font-weight: 700;
 
   font-size: 16px;
-
 }
 
 .amount-debit {
-
   color: #ef4444;
 
   font-weight: 700;
 
   font-size: 16px;
-
 }
 
 /* PAGINATION */
 
 .pagination-wrapper {
-
   display: flex;
 
   justify-content: space-between;
@@ -343,19 +282,15 @@ ng-select {
   gap: 20px;
 
   flex-wrap: wrap;
-
 }
 
 .pagination-left {
-
   font-size: 14px;
 
   color: #666;
-
 }
 
 .pagination {
-
   display: flex;
 
   gap: 8px;
@@ -363,11 +298,9 @@ ng-select {
   margin: 0;
 
   flex-wrap: wrap;
-
 }
 
 .pagination .page-link {
-
   min-width: 42px;
 
   height: 42px;
@@ -387,47 +320,35 @@ ng-select {
   font-weight: 600;
 
   cursor: pointer;
-
 }
 
 .pagination .page-link:hover {
-
   background: #f5f5f5;
-
 }
 
 .pagination .active {
-
   background: #071b48 !important;
 
   color: #fff !important;
 
   border-color: #071b48;
-
 }
 
 /* COLORS */
 
 .green {
-
   color: #16a34a !important;
-
 }
 
 .blue {
-
   color: #2563eb !important;
-
 }
 
 /* MOBILE */
 
-@media(max-width:991px) {
-
+@media (max-width: 991px) {
   .transaction-wrapper {
-
     padding: 12px;
-
   }
 
   .trans-title {
@@ -438,21 +359,15 @@ ng-select {
   }
 
   .summary-cards {
-
     grid-template-columns: 1fr;
-
   }
 
   .summary-box h3 {
-
     font-size: 34px;
-
   }
 
   .report-head h4 {
-
     font-size: 28px;
-
   }
 
   .top-buttons {
@@ -465,47 +380,33 @@ ng-select {
   }
 
   .action-buttons {
-
     display: grid;
 
     grid-template-columns: 1fr 1fr;
-
   }
 
   .pagination-wrapper {
-
     justify-content: center;
 
     text-align: center;
-
   }
 
   .pagination {
-
     justify-content: center;
-
   }
-
 }
 
-@media(max-width:768px) {
-
-  .filter-card .row>div {
-
+@media (max-width: 768px) {
+  .filter-card .row > div {
     margin-bottom: 12px;
-
   }
 
   .table {
-
     min-width: 1200px;
-
   }
-
 }
 
 .passenger-more {
-
   display: inline-flex;
 
   align-items: center;
@@ -529,11 +430,9 @@ ng-select {
   cursor: pointer;
 
   color: #173e77;
-
 }
 
 .table small {
-
   color: #777;
 
   font-size: 12px;
@@ -541,20 +440,15 @@ ng-select {
   display: block;
 
   margin-top: 3px;
-
 }
 
 .red {
-
   color: #ef4444;
 
   font-weight: 700;
-
 }
 
-
 @media (max-width: 768px) {
-
   .mobile-report-cards {
     display: flex;
     flex-direction: column;
@@ -566,7 +460,7 @@ ng-select {
     border: 1px solid #dbe5ff;
     border-radius: 20px;
     padding: 18px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   }
 
   .ticket-header {
@@ -651,6 +545,50 @@ ng-select {
     padding-top: 15px;
     border-top: 1px dashed #dbe5ff;
   }
+
+  .mobile-pagination-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .pagination-left {
+    font-size: 11px;
+    text-align: center;
+  }
+
+  .pagination-right {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    gap: 4px;
+    min-width: max-content;
+    padding-bottom: 4px;
+  }
+
+  .page-link {
+    min-width: 32px !important;
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+    border-radius: 8px;
+    padding: 0;
+  }
+
+  .page-item:first-child .page-link,
+  .page-item:last-child .page-link {
+    min-width: 45px !important;
+    width: auto;
+    padding: 0 8px;
+  }
 }
 
 .mobile-report-cards {
@@ -663,7 +601,7 @@ ng-select {
   border-radius: 22px;
   padding: 18px;
   margin-bottom: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .04);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .ticket-header {
@@ -726,7 +664,6 @@ ng-select {
 }
 
 @media (max-width: 768px) {
-
   .mobile-report-cards {
     margin: 0;
     padding: 0;
@@ -738,7 +675,6 @@ ng-select {
     background: transparent !important;
     padding: 0 !important;
   }
-
 }
 
 /* Mobile Filter Button */
@@ -756,13 +692,12 @@ ng-select {
   background: #173e77;
   color: #fff;
   font-size: 18px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Mobile */
 
 @media (max-width: 768px) {
-
   .filter-card {
     display: none;
   }
@@ -772,7 +707,7 @@ ng-select {
     margin-bottom: 15px;
   }
 
-  .filter-card .row>div {
+  .filter-card .row > div {
     margin-bottom: 12px;
   }
 
@@ -787,7 +722,6 @@ ng-select {
 }
 
 @media (max-width: 768px) {
-
   .summary-cards {
     display: flex;
     background: #173f7a;
@@ -815,7 +749,7 @@ ng-select {
     top: 15%;
     height: 70%;
     width: 1px;
-    background: rgba(255, 255, 255, .15);
+    background: rgba(255, 255, 255, 0.15);
   }
 
   .summary-box span {
@@ -870,6 +804,17 @@ ng-select {
 }
 
 .page-item.disabled .page-link {
-  opacity: .6;
+  opacity: 0.6;
   pointer-events: none;
+}
+
+.mobile-card-slno {
+  display: inline-block;
+  padding: 2px 8px;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  background: #a4c2e0;
+  color: #082c6a;
 }

@@ -662,9 +662,14 @@
 
   <!-- MOBILE WALLET TRANSACTIONS -->
   <div class="mobile-dashboard-cards d-md-none" *ngIf="showWalletTable">
-    <div class="mobile-card" *ngFor="let tx of walletTransactions">
+    <div class="mobile-card" *ngFor="let tx of walletTransactions; let i = index">
       <div class="mobile-card-top">
         <div class="mobile-info">
+            <div class="mobile-card-slno">
+              {{
+                i +1
+              }}
+            </div>
           <h4>
             <h4>
               {{
@@ -721,7 +726,7 @@
           {{ tx.transaction_id }}
         </div>
 
-        <div>Bal ₹{{ tx.balance | number: "1.2-2" }}</div>
+        <div>₹ {{ tx.balance | number: "1.2-2" }}</div>
       </div>
     </div>
   </div>
