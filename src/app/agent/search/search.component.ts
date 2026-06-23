@@ -167,7 +167,7 @@ export class SearchComponent implements ControlValueAccessor {
 
   isShown: boolean = false; // hidden by default
   mobileFilterOpen: boolean = false;
-  desktopFilterOpen: boolean = true;
+  desktopFilterOpen: boolean = false;
   boardingExpand: boolean = true;
   droppingExpand: boolean = false;
   busTypeExpand: boolean = false;

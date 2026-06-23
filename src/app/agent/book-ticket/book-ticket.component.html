@@ -1475,7 +1475,7 @@
                                   </tr>
 
                                   <tr>
-                                    <td class="text-left">Customet GST</td>
+                                    <td class="text-left">Customer GST</td>
                                     <td class="text-right">
                                       <b
                                         >+₹{{
@@ -1486,14 +1486,14 @@
                                   </tr>
 
                                   <!-- <tr>
-									  <td class="text-left">Transaction Fee</td>
-									  <td class="text-right"><b>+₹{{bookingdata.PriceArray.transactionFee}}</b></td>
-									</tr> -->
+                                        <td class="text-left">Transaction Fee</td>
+                                        <td class="text-right"><b>+₹{{bookingdata.PriceArray.transactionFee}}</b></td>
+                                      </tr> -->
 
                                   <tr *ngIf="applied_comission > 0">
                                     <td class="text-left">Commission</td>
                                     <td class="text-right">
-                                      <b>+₹{{ applied_comission }}</b>
+                                      <b>+₹{{ applied_comission| number:'1.2-2' }}</b>
                                     </td>
                                   </tr>
 
@@ -1502,7 +1502,7 @@
                                       <strong>Total Fare</strong>
                                     </td>
                                     <td class="text-right">
-                                      <strong>₹{{ payableAmount }}</strong>
+                                      <strong>₹{{ payableAmount | number:'1.2-2' }}</strong>
                                     </td>
                                   </tr>
                                 </tbody>
