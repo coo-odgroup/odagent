@@ -509,9 +509,12 @@ export class BookTicketComponent implements OnInit {
             let j_day = ('0' + j_date.getDate()).slice(-2);
             let journey_date = [j_day, j_mnth, j_date.getFullYear()].join('-');
 
+            const agentDetails = localStorage.getItem('USERRECORDS')
+
             const param = {
               transaction_id: this.bookTicketResponse.transaction_id,
               customer_comission: this.applied_comission,
+              agentdetails:agentDetails
             };
 
             //  console.log(JSON.stringify(param));

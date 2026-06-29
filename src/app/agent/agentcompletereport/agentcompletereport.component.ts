@@ -275,6 +275,7 @@ export class AgentcompletereportComponent implements OnInit {
 
   onSubmitOtp() {
     //  console.log(this.FinalcancelForm.value);
+    const agentDetails = localStorage.getItem('USERRECORDS');
 
     this.Otpsubmitted = true;
     // stop here if form is invalid
@@ -287,6 +288,7 @@ export class AgentcompletereportComponent implements OnInit {
         pnr: this.singleRecord.pnr,
         mobile: this.singleRecord.users.phone,
         otp: this.FinalcancelForm.value.otp,
+        agentDetails:agentDetails
       };
       // console.log(request);
       this.managebookingService.AgentCancelTicket(request).subscribe(
