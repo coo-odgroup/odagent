@@ -285,7 +285,7 @@ export class WalletComponent implements OnInit {
 
       if (resp.status == 1) {
         const cashfree = Cashfree({
-          mode: 'sandbox',
+          mode: 'production',
         }); 
 
         cashfree.checkout({
