@@ -3,19 +3,14 @@
     <div class="row">
       <div class="col-md-12">
         <ng-wizard [config]="config" (stepChanged)="stepChanged($event)">
-          <ng-wizard-step
-            [title]="'Passenger Details'"
-            [canEnter]="isValidFunctionReturnsObservable.bind(this)"
-            [canExit]="isValidFunctionReturnsBoolean.bind(this)"
-          >
+          <ng-wizard-step [title]="'Passenger Details'" [canEnter]="isValidFunctionReturnsObservable.bind(this)"
+            [canExit]="isValidFunctionReturnsBoolean.bind(this)">
             <form [formGroup]="bookForm1" (ngSubmit)="submitForm1()">
               <!-- Mobile version for passenger details step - added overlay sheet for mobile devices -->
               <div class="mobile-sheet">
                 <!-- HEADER - Dynamic bus details with back button to navigate to booking page -->
                 <div class="sheet-header">
-                  <span class="back-btn" (click)="goBack()"
-                    ><i class="fas fa-arrow-left"></i
-                  ></span>
+                  <span class="back-btn" (click)="goBack()"><i class="fas fa-arrow-left"></i></span>
                   <div class="header-center">
                     <div class="bus-name">{{ busRecord.busName }}</div>
                     <div class="route">{{ source }} → {{ destination }}</div>
@@ -39,13 +34,8 @@
                     </p>
 
                     <input class="input filled" formControlName="name" />
-                    <div
-                      *ngIf="submitted1 && GetcustomerInfo.controls.name.errors"
-                      class="invalid-feedback"
-                    >
-                      <div
-                        *ngIf="GetcustomerInfo.controls.name.errors.required"
-                      >
+                    <div *ngIf="submitted1 && GetcustomerInfo.controls.name.errors" class="invalid-feedback">
+                      <div *ngIf="GetcustomerInfo.controls.name.errors.required">
                         Name required
                       </div>
                       <div *ngIf="GetcustomerInfo.controls.name.errors.pattern">
@@ -54,15 +44,10 @@
                     </div>
 
                     <input class="input filled" formControlName="email" />
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         submitted1 && GetcustomerInfo.controls.email.errors
-                      "
-                      class="invalid-feedback"
-                    >
-                      <div
-                        *ngIf="GetcustomerInfo.controls.email.errors.required"
-                      >
+                      " class="invalid-feedback">
+                      <div *ngIf="GetcustomerInfo.controls.email.errors.required">
                         Email ID is required
                       </div>
                       <div *ngIf="GetcustomerInfo.controls.email.errors.email">
@@ -71,20 +56,13 @@
                     </div>
 
                     <input class="input filled" formControlName="phone" />
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         submitted1 && GetcustomerInfo.controls.phone.errors
-                      "
-                      class="invalid-feedback"
-                    >
-                      <div
-                        *ngIf="GetcustomerInfo.controls.phone.errors.required"
-                      >
+                      " class="invalid-feedback">
+                      <div *ngIf="GetcustomerInfo.controls.phone.errors.required">
                         Mobile no. is required
                       </div>
-                      <div
-                        *ngIf="GetcustomerInfo.controls.phone.errors.pattern"
-                      >
+                      <div *ngIf="GetcustomerInfo.controls.phone.errors.pattern">
                         Please, Enter 10 digit Mobile Number
                       </div>
                     </div>
@@ -93,130 +71,87 @@
                   <!-- PASSENGER INFO - Moved heading inside card, added validation messages -->
                   <div class="section">
                     <div formGroupName="bookingInfo">
-                      <div
-                        formArrayName="bookingDetail"
-                        *ngFor="
+                      <div formArrayName="bookingDetail" *ngFor="
                           let item of passengerFormGroup.controls;
                           let i = index
-                        "
-                      >
+                        ">
                         <h5 class="mb-3">Passenger Information</h5>
                         <div class="card" [formGroupName]="i">
                           <div class="card-head">
                             <span>Passenger-{{ i + 1 }}</span>
-                            <span
-                              >Seat No -
-                              {{ get_seatno(item.value.bus_seats_id) }}</span
-                            >
+                            <span>Seat No -
+                              {{ get_seatno(item.value.bus_seats_id) }}</span>
                           </div>
 
-                          <input
-                            class="input"
-                            formControlName="passenger_name"
-                            placeholder="Passenger Name"
-                          />
-                          <div
-                            *ngIf="
+                          <input class="input" formControlName="passenger_name" placeholder="Passenger Name" />
+                          <div *ngIf="
                               submitted1 &&
                               getPassengerFormGroup(i).controls[
                                 'passenger_name'
                               ].hasError('required')
-                            "
-                            class="invalid-feedback"
-                          >
+                            " class="invalid-feedback">
                             Name is required
                           </div>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               submitted1 &&
                               getPassengerFormGroup(i).controls[
                                 'passenger_name'
                               ].hasError('pattern')
-                            "
-                            class="invalid-feedback"
-                          >
+                            " class="invalid-feedback">
                             Alphabets only
                           </div>
 
                           <div class="gender">
                             <label>
-                              <input
-                                type="radio"
-                                value="M"
-                                formControlName="passenger_gender"
-                              />
+                              <input type="radio" value="M" formControlName="passenger_gender" />
                               Male
                             </label>
                             <label>
-                              <input
-                                type="radio"
-                                value="F"
-                                formControlName="passenger_gender"
-                              />
+                              <input type="radio" value="F" formControlName="passenger_gender" />
                               Female
                             </label>
                           </div>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               getPassengerFormGroup(i).controls[
                                 'passenger_gender'
                               ].hasError('GenderError')
-                            "
-                            class="invalid-feedback d-block"
-                          >
+                            " class="invalid-feedback d-block">
                             {{
-                              getPassengerFormGroup(i).controls[
-                                "passenger_gender"
-                              ].errors?.message
+                            getPassengerFormGroup(i).controls[
+                            "passenger_gender"
+                            ].errors?.message
                             }}
                           </div>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               submitted1 &&
                               getPassengerFormGroup(i).controls[
                                 'passenger_gender'
                               ].hasError('required')
-                            "
-                            class="invalid-feedback"
-                          >
+                            " class="invalid-feedback">
                             Gender is required
                           </div>
 
-                          <input
-                            class="input"
-                            type="number"
-                            (keydown)="onlyNumbers($event)"
-                            formControlName="passenger_age"
-                            placeholder="Passenger Age"
-                          />
-                          <div
-                            *ngIf="
+                          <input class="input" type="number" (keydown)="onlyNumbers($event)"
+                            formControlName="passenger_age" placeholder="Passenger Age" />
+                          <div *ngIf="
                               submitted1 &&
                               getPassengerFormGroup(i).controls['passenger_age']
                                 .errors?.required
-                            "
-                            class="invalid-feedback"
-                          >
+                            " class="invalid-feedback">
                             Age is required
                           </div>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               submitted1 &&
                               getPassengerFormGroup(i).controls['passenger_age']
                                 .errors?.min
-                            "
-                            class="invalid-feedback"
-                          >
+                            " class="invalid-feedback">
                             Age must be from 1 to 100
                           </div>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               submitted1 &&
                               getPassengerFormGroup(i).controls['passenger_age']
                                 .errors?.max
-                            "
-                            class="invalid-feedback"
-                          >
+                            " class="invalid-feedback">
                             Age must be from 1 to 100
                           </div>
                         </div>
@@ -224,12 +159,39 @@
                     </div>
                   </div>
                   <!-- FARE DISPLAY - Added separate card for base fare -->
-                  <div
-                    class="card p-3 d-flex flex-row justify-content-between align-items-center"
-                  >
+                  <!-- <div class="card p-3 d-flex flex-row justify-content-between align-items-center">
                     <span>Base Fare</span>
                     <div class="price">
                       ₹ {{ bookingdata.PriceArray.totalFare }}
+                    </div>
+                  </div> -->
+
+                  <div class="card p-3 shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="text-muted">Base Fare</span>
+                      <span>₹
+                              {{
+                              bookingdata.PriceArray.odbus_charges_ownerFare
+                              | number: "1.2-2"
+                              }}</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                      <span class="text-muted">Customer GST</span>
+                      <span>+ ₹
+                                {{
+                                bookingdata.PriceArray.customerGst
+                                | number: "1.2-2"
+                                }}</span>
+                    </div>
+
+                    <hr class="my-2">
+
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="fw-bold fs-5">Total Fare</span>
+                      <span class="fw-bold fs-4">
+                        ₹ {{ payableAmount | number: "1.2-2" }}
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -247,130 +209,89 @@
                     <hr />
 
                     <div formGroupName="bookingInfo">
-                      <div
-                        formArrayName="bookingDetail"
-                        *ngFor="
+                      <div formArrayName="bookingDetail" *ngFor="
                           let item of passengerFormGroup.controls;
                           let i = index
-                        "
-                      >
+                        ">
                         <div class="row" [formGroupName]="i">
                           <div class="col-md-3">
-                            <label>PASSENGER {{ i + 1 }}</label
-                            ><br />
-                            <ng-select
-                              [items]="genderArr"
-                              bindLabel="name"
-                              bindValue="value"
-                              placeholder="Select Gender"
-                              formControlName="passenger_gender"
-                              [clearable]="false"
-                            >
+                            <label>PASSENGER {{ i + 1 }}</label><br />
+                            <ng-select [items]="genderArr" bindLabel="name" bindValue="value"
+                              placeholder="Select Gender" formControlName="passenger_gender" [clearable]="false">
                             </ng-select>
-                            <div
-                              *ngIf="
+                            <div *ngIf="
                                 submitted1 &&
                                 getPassengerFormGroup(i).controls[
                                   'passenger_gender'
                                 ].hasError('required')
-                              "
-                              class="invalid-feedback"
-                            >
+                              " class="invalid-feedback">
                               Gender is required
                             </div>
-                            <div
-                              *ngIf="
+                            <div *ngIf="
                                 getPassengerFormGroup(i).controls[
                                   'passenger_gender'
                                 ].hasError('GenderError')
-                              "
-                              class="invalid-feedback"
-                            >
+                              " class="invalid-feedback">
                               {{
-                                getPassengerFormGroup(i).controls[
-                                  "passenger_gender"
-                                ].errors.message
+                              getPassengerFormGroup(i).controls[
+                              "passenger_gender"
+                              ].errors.message
                               }}
                             </div>
                           </div>
                           <div class="col-md-6">
-                            <label
-                              ><span class="grey">Seat No:</span>
-                              {{ get_seatno(item.value.bus_seats_id) }}</label
-                            ><br />
-                            <input
-                              type="text"
-                              formControlName="passenger_name"
-                              class="form-control"
-                              placeholder="Full Name"
-                            />
+                            <label><span class="grey">Seat No:</span>
+                              {{ get_seatno(item.value.bus_seats_id) }}</label><br />
+                            <input type="text" formControlName="passenger_name" class="form-control"
+                              placeholder="Full Name" />
 
-                            <div
-                              *ngIf="
+                            <div *ngIf="
                                 submitted1 &&
                                 getPassengerFormGroup(i).controls[
                                   'passenger_name'
                                 ].hasError('required')
-                              "
-                              class="invalid-feedback"
-                            >
+                              " class="invalid-feedback">
                               Name is required
                             </div>
 
-                            <div
-                              *ngIf="
+                            <div *ngIf="
                                 submitted1 &&
                                 getPassengerFormGroup(i).controls[
                                   'passenger_name'
                                 ].hasError('pattern')
-                              "
-                              class="invalid-feedback"
-                            >
+                              " class="invalid-feedback">
                               Alphabets only
                             </div>
                           </div>
 
                           <div class="col-md-3">
                             <label>&nbsp;</label><br />
-                            <input
-                              type="number"
-                              class="form-control"
-                              formControlName="passenger_age"
-                              placeholder="Passenger Age"
-                            />
+                            <input type="number" class="form-control" formControlName="passenger_age"
+                              placeholder="Passenger Age" />
 
-                            <div
-                              *ngIf="
+                            <div *ngIf="
                                 submitted1 &&
                                 getPassengerFormGroup(i).controls[
                                   'passenger_age'
                                 ].errors?.required
-                              "
-                              class="invalid-feedback"
-                            >
+                              " class="invalid-feedback">
                               Age is required
                             </div>
-                            <div
-                              *ngIf="
+                            <div *ngIf="
                                 submitted1 &&
                                 getPassengerFormGroup(i).controls[
                                   'passenger_age'
                                 ].errors?.min
-                              "
-                              class="invalid-feedback"
-                            >
+                              " class="invalid-feedback">
                               Age must be from 1 to 100
                             </div>
 
-                            <div
-                              *ngIf="
+                            <div *ngIf="
                                 submitted1 &&
                                 getPassengerFormGroup(i).controls[
                                   'passenger_age'
                                 ].errors?.max
-                              "
-                              class="invalid-feedback"
-                            >
+                              " class="invalid-feedback">
                               Age must be from 1 to 100
                             </div>
                           </div>
@@ -385,32 +306,20 @@
                       <div class="row padding" formGroupName="customerInfo">
                         <div class="col-md-4">
                           <label>Name</label><br />
-                          <input
-                            type="text"
-                            class="form-control"
-                            [readonly]="isnameReadOnly"
-                            formControlName="name"
-                            placeholder="Enter Your Name"
-                          />
+                          <input type="text" class="form-control" [readonly]="isnameReadOnly" formControlName="name"
+                            placeholder="Enter Your Name" />
 
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               submitted1 && GetcustomerInfo.controls.name.errors
-                            "
-                            class="invalid-feedback"
-                          >
-                            <div
-                              *ngIf="
+                            " class="invalid-feedback">
+                            <div *ngIf="
                                 GetcustomerInfo.controls.name.errors.required
-                              "
-                            >
+                              ">
                               Name required
                             </div>
-                            <div
-                              *ngIf="
+                            <div *ngIf="
                                 GetcustomerInfo.controls.name.errors.pattern
-                              "
-                            >
+                              ">
                               Alphabets only
                             </div>
                           </div>
@@ -418,36 +327,22 @@
 
                         <div class="col-md-4">
                           <label>Mobile No.</label><br />
-                          <input
-                            type="text"
-                            (keydown)="onlyNumbers($event)"
-                            maxlength="10"
-                            class="form-control"
-                            autocomplete="off"
-                            [readonly]="isphoneReadOnly"
-                            formControlName="phone"
-                            placeholder="Mobile Number"
-                          />
+                          <input type="text" (keydown)="onlyNumbers($event)" maxlength="10" class="form-control"
+                            autocomplete="off" [readonly]="isphoneReadOnly" formControlName="phone"
+                            placeholder="Mobile Number" />
 
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               submitted1 &&
                               GetcustomerInfo.controls.phone.errors
-                            "
-                            class="invalid-feedback"
-                          >
-                            <div
-                              *ngIf="
+                            " class="invalid-feedback">
+                            <div *ngIf="
                                 GetcustomerInfo.controls.phone.errors.required
-                              "
-                            >
+                              ">
                               Mobile no. is required
                             </div>
-                            <div
-                              *ngIf="
+                            <div *ngIf="
                                 GetcustomerInfo.controls.phone.errors.pattern
-                              "
-                            >
+                              ">
                               Please, Enter 10 digit Mobile Number
                             </div>
                           </div>
@@ -455,32 +350,20 @@
 
                         <div class="col-md-4">
                           <label>Email</label><br />
-                          <input
-                            type="text"
-                            class="form-control"
-                            [readonly]="ismailReadOnly"
-                            formControlName="email"
-                            placeholder="Email"
-                          />
-                          <div
-                            *ngIf="
+                          <input type="text" class="form-control" [readonly]="ismailReadOnly" formControlName="email"
+                            placeholder="Email" />
+                          <div *ngIf="
                               submitted1 &&
                               GetcustomerInfo.controls.email.errors
-                            "
-                            class="invalid-feedback"
-                          >
-                            <div
-                              *ngIf="
+                            " class="invalid-feedback">
+                            <div *ngIf="
                                 GetcustomerInfo.controls.email.errors.required
-                              "
-                            >
+                              ">
                               Email ID is required
                             </div>
-                            <div
-                              *ngIf="
+                            <div *ngIf="
                                 GetcustomerInfo.controls.email.errors.email
-                              "
-                            >
+                              ">
                               Email must be a valid email address
                             </div>
                           </div>
@@ -515,14 +398,11 @@
                         </h6>
                         <h6>
                           <b *ngIf="ub_seats != ''">
-                            Sleeper No. :- {{ ub_seats }}</b
-                          >
+                            Sleeper No. :- {{ ub_seats }}</b>
                           <span *ngIf="lb_seats != '' && ub_seats != ''">
                             <br />
                           </span>
-                          <b *ngIf="lb_seats != ''"
-                            >Seat No. :- {{ lb_seats }}</b
-                          >
+                          <b *ngIf="lb_seats != ''">Seat No. :- {{ lb_seats }}</b>
                         </h6>
 
                         <span class="font">From</span>
@@ -554,9 +434,32 @@
                             <h6>
                               ₹
                               {{
-                                bookingdata.PriceArray.odbus_charges_ownerFare
-                                  | number: "1.2-2"
+                              bookingdata.PriceArray.odbus_charges_ownerFare
+                              | number: "1.2-2"
                               }}
+                            </h6>
+                          </div>
+
+                          <div class="col-md-8">
+                            <h6>Customer GST</h6>
+                          </div>
+
+                          <div class="col-md-4">
+                            <h6>
+                              + ₹
+                              {{
+                              bookingdata.PriceArray.customerGst
+                              | number: "1.2-2"
+                              }}
+                            </h6>
+                          </div>
+                          <div class="col-md-8">
+                            <h6>Total</h6>
+                          </div>
+
+                          <div class="col-md-4">
+                            <h6>
+                              ₹ {{ payableAmount | number: "1.2-2" }}
                             </h6>
                           </div>
 
@@ -576,10 +479,7 @@
 
                         <div class="padding">
                           <div>
-                            <button
-                              type="submit"
-                              class="btn btn-warning proceed"
-                            >
+                            <button type="submit" class="btn btn-warning proceed">
                               PROCEED
                             </button>
                           </div>
@@ -592,19 +492,14 @@
             </form>
           </ng-wizard-step>
 
-          <ng-wizard-step
-            [title]="'Review Details'"
-            [canEnter]="isValidFunctionReturnsObservable.bind(this)"
-            [canExit]="isValidFunctionReturnsBoolean.bind(this)"
-          >
+          <ng-wizard-step [title]="'Review Details'" [canEnter]="isValidFunctionReturnsObservable.bind(this)"
+            [canExit]="isValidFunctionReturnsBoolean.bind(this)">
             <form [formGroup]="bookForm2" (ngSubmit)="submitForm2()">
               <!-- Mobile version for review details step - added overlay sheet for mobile devices -->
               <div class="mobile-sheet">
                 <!-- HEADER - Dynamic bus details with back button to previous step -->
                 <div class="sheet-header">
-                  <span class="back-btn" (click)="goBackStep()"
-                    ><i class="fas fa-arrow-left"></i
-                  ></span>
+                  <span class="back-btn" (click)="goBackStep()"><i class="fas fa-arrow-left"></i></span>
                   <div class="header-center">
                     <div class="bus-name">{{ busRecord.busName }}</div>
                     <div class="route">{{ source }} → {{ destination }}</div>
@@ -618,7 +513,7 @@
                 <div class="sheet-body">
                   <!-- JOURNEY DETAILS - Card with icons and journey info -->
                   <div class="card">
-                    
+
                     <h5>Journey Details</h5>
                     From
                     <div class="journey-item">
@@ -632,7 +527,7 @@
                     To
                     <div class="journey-item">
                       <i class="fas fa-map-marker-alt icon-color"></i>
-                     {{ destination }}
+                      {{ destination }}
                       <div class="sub">
                         {{ bookingdata.droppingPoint.droppingPoints }} -
                         {{ busRecord.arrivalTime }}
@@ -646,10 +541,10 @@
                     <div class="journey-item">
                       <i class="far fa-calendar-alt icon-color"></i>
                       {{
-                        entdate
-                          | date
-                            : "EEEE, d
-											MMMM , y"
+                      entdate
+                      | date
+                      : "EEEE, d
+                      MMMM , y"
                       }}
                       <div class="sub">
                         {{ passengerFormGroup.length }} Passenger(s)
@@ -660,13 +555,10 @@
                   <!-- PASSENGER DETAILS - List of passengers with seat and info -->
                   <div class="card">
                     <h5>Passenger Details</h5>
-                    <div
-                      *ngFor="
+                    <div *ngFor="
                         let dt of passengerData.bookingInfo.bookingDetail;
                         let i = index
-                      "
-                      class="passenger-row"
-                    >
+                      " class="passenger-row">
                       <div class="passenger-info">
                         <span>{{ dt.passenger_name }}</span>
                         <span>Seat: {{ get_seatno(dt.bus_seats_id) }}</span>
@@ -691,9 +583,9 @@
                     <div class="contact-item">
                       <span>Email:</span>
                       {{
-                        passengerData.customerInfo.email
-                          ? passengerData.customerInfo.email
-                          : "N/A"
+                      passengerData.customerInfo.email
+                      ? passengerData.customerInfo.email
+                      : "N/A"
                       }}
                     </div>
                     <p class="sub">
@@ -708,17 +600,10 @@
                       Agent Commission (Amount upto ₹
                       {{ bookTicketResponse.customer_comission }})
                     </h5>
-                    <input
-                      type="text"
-                      (keydown)="onlyNumbers($event)"
-                      (keydown)="onlyNumbers($event)"
-                      (input)="setCommission($event)"
-                      [value]="applied_comission"
-                      [max]="bookTicketResponse.customer_comission"
-                      maxlength="2"
-                      class="input"
-                      placeholder="Enter Commission"
-                    />
+                    <input type="text" (keydown)="onlyNumbers($event)" (keydown)="onlyNumbers($event)"
+                      (input)="setCommission($event)" [value]="applied_comission"
+                      [max]="bookTicketResponse.customer_comission" maxlength="2" class="input"
+                      placeholder="Enter Commission" />
                     <div *ngIf="commissionError" class="invalid-feedback">
                       Amount shouldn't be greater than max Commission Limit
                     </div>
@@ -729,22 +614,18 @@
                     <h5>Fare Details</h5>
                     <div class="fare-item">
                       <span>Base Fare</span>
-                      <span
-                        >₹
+                      <span>₹
                         {{
-                          bookingdata.PriceArray.odbus_charges_ownerFare
-                            | number: "1.2-2"
-                        }}</span
-                      >
+                        bookingdata.PriceArray.odbus_charges_ownerFare
+                        | number: "1.2-2"
+                        }}</span>
                     </div>
                     <div class="fare-item">
                       <span>Customer GST</span>
-                      <span style="color: green"
-                        >+ ₹
+                      <span style="color: green">+ ₹
                         {{
-                          bookingdata.PriceArray.customerGst | number: "1.2-2"
-                        }}</span
-                      >
+                        bookingdata.PriceArray.customerGst | number: "1.2-2"
+                        }}</span>
                     </div>
                     <div class="fare-item" *ngIf="applied_comission > 0">
                       <span>Commission</span>
@@ -759,21 +640,12 @@
                   <!-- TERMS - Terms and conditions checkbox -->
                   <div class="card">
                     <label class="terms">
-                      <input
-                        formControlName="tnc"
-                        #tnc
-                        id="tnc"
-                        type="checkbox"
-                        [checked]="tncStatus"
-                        (change)="tncStatusChange(tnc.checked)"
-                      />
+                      <input formControlName="tnc" #tnc id="tnc" type="checkbox" [checked]="tncStatus"
+                        (change)="tncStatusChange(tnc.checked)" />
                       &nbsp; I agree that I have read and understood the T&Cs
                       and the Privacy Policy
                     </label>
-                    <div
-                      *ngIf="submitted2 && bookForm2.controls.tnc.errors"
-                      class="invalid-feedback"
-                    >
+                    <div *ngIf="submitted2 && bookForm2.controls.tnc.errors" class="invalid-feedback">
                       <div *ngIf="bookForm2.controls.tnc.errors.required">
                         Agree the Terms & Conditions
                       </div>
@@ -786,14 +658,8 @@
                   <!-- PAYMENT - Make payment button -->
                   <div class="card">
                     <div class="payment_box">
-                      <input
-                        type="image"
-                        [disabled]="commissionError"
-                        name="submit"
-                        alt="Submit"
-                        style="cursor: pointer"
-                        src="../../../assets/img/makepayment.png"
-                      />
+                      <input type="image" [disabled]="commissionError" name="submit" alt="Submit"
+                        style="cursor: pointer" src="../../../assets/img/makepayment.png" />
                     </div>
                   </div>
                 </div>
@@ -866,13 +732,11 @@
                             <th>Age</th>
                           </thead>
                           <tbody>
-                            <tr
-                              *ngFor="
+                            <tr *ngFor="
                                 let dt of passengerData.bookingInfo
                                   .bookingDetail;
                                 let i = index
-                              "
-                            >
+                              ">
                               <td>{{ dt.passenger_name }}</td>
                               <td>{{ get_seatno(dt.bus_seats_id) }}</td>
                               <td>{{ dt.passenger_gender }}</td>
@@ -902,9 +766,9 @@
                               </td>
                               <td>
                                 {{
-                                  passengerData.customerInfo.email
-                                    ? passengerData.customerInfo.email
-                                    : "N/A"
+                                passengerData.customerInfo.email
+                                ? passengerData.customerInfo.email
+                                : "N/A"
                                 }}
                               </td>
                               <td>&nbsp;</td>
@@ -913,9 +777,7 @@
                         </table>
 
                         <p class="roboto">
-                          <img
-                            src="../../../assets/img/Icon awesome-hashtag.svg"
-                          />
+                          <img src="../../../assets/img/Icon awesome-hashtag.svg" />
                           will receive booking details in this mobile number &
                           email address
                         </p>
@@ -930,15 +792,9 @@
                       <hr />
                       <div class="row padding">
                         <div class="col-md-3">
-                          <input
-                            type="text"
-                            (keydown)="onlyNumbers($event)"
-                            (input)="setCommission($event)"
-                            [value]="applied_comission"
-                            class="form-control"
-                            autocomplete="off"
-                            placeholder="Enter Commission"
-                          />
+                          <input type="text" (keydown)="onlyNumbers($event)" (input)="setCommission($event)"
+                            [value]="applied_comission" class="form-control" autocomplete="off"
+                            placeholder="Enter Commission" />
 
                           <div *ngIf="commissionError" class="invalid-feedback">
                             Amount shouldn't be greater than max Commission
@@ -961,13 +817,11 @@
 
                           <div class="col-md-4">
                             <h6>
-                              <strong
-                                >₹
+                              <strong>₹
                                 {{
-                                  bookingdata.PriceArray.odbus_charges_ownerFare
-                                    | number: "1.2-2"
-                                }}</strong
-                              >
+                                bookingdata.PriceArray.odbus_charges_ownerFare
+                                | number: "1.2-2"
+                                }}</strong>
                             </h6>
                           </div>
 
@@ -975,22 +829,17 @@
                             <h6>Customer GST</h6>
                           </div>
 
-                          <div
-                            class="col-md-4"
-                            style="
+                          <div class="col-md-4" style="
                               color: green;
                               font-weight: bold;
                               font-style: italic;
-                            "
-                          >
+                            ">
                             <h6>
-                              <strong
-                                >+ ₹
+                              <strong>+ ₹
                                 {{
-                                  bookingdata.PriceArray.customerGst
-                                    | number: "1.2-2"
-                                }}</strong
-                              >
+                                bookingdata.PriceArray.customerGst
+                                | number: "1.2-2"
+                                }}</strong>
                             </h6>
                           </div>
 
@@ -1004,12 +853,10 @@
 
                           <div class="col-md-4" *ngIf="applied_comission > 0">
                             <h6>
-                              <strong
-                                >+ ₹
+                              <strong>+ ₹
                                 {{
-                                  applied_comission | number: "1.2-2"
-                                }}</strong
-                              >
+                                applied_comission | number: "1.2-2"
+                                }}</strong>
                             </h6>
                           </div>
 
@@ -1023,28 +870,15 @@
                         </div>
 
                         <label class="terms">
-                          <input
-                            formControlName="tnc"
-                            #tnc
-                            id="tnc"
-                            type="checkbox"
-                            [checked]="tncStatus"
-                            (change)="tncStatusChange(tnc.checked)"
-                          />
+                          <input formControlName="tnc" #tnc id="tnc" type="checkbox" [checked]="tncStatus"
+                            (change)="tncStatusChange(tnc.checked)" />
                           &nbsp;
-                          <a
-                            style="color: #daad23"
-                            target="_blank"
-                            routerLink="/privacy-policy"
-                            >I agree that I have read and understood the T&Cs
+                          <a style="color: #daad23" target="_blank" routerLink="/privacy-policy">I agree that I have
+                            read and understood the T&Cs
                             and the Privacy Policy
-                          </a></label
-                        >
+                          </a></label>
 
-                        <div
-                          *ngIf="submitted2 && bookForm2.controls.tnc.errors"
-                          class="invalid-feedback"
-                        >
+                        <div *ngIf="submitted2 && bookForm2.controls.tnc.errors" class="invalid-feedback">
                           <div *ngIf="bookForm2.controls.tnc.errors.required">
                             Agree the Terms & Conditions
                           </div>
@@ -1057,14 +891,8 @@
                       <div class="col-md-4">
                         <div class="payment_box">
                           <!-- make-payment -->
-                          <input
-                            type="image"
-                            [disabled]="commissionError"
-                            name="submit"
-                            alt="Submit"
-                            style="cursor: pointer"
-                            src="../../../assets/img/makepayment.png"
-                          />
+                          <input type="image" [disabled]="commissionError" name="submit" alt="Submit"
+                            style="cursor: pointer" src="../../../assets/img/makepayment.png" />
                         </div>
                       </div>
                     </div>
@@ -1087,10 +915,7 @@
                 <!-- HEADER -->
                 <div class="ticket-header">
                   <div class="logo-row">
-                    <img
-                      src="../../assets/img/email-logo.png"
-                      class="ticket-logo"
-                    />
+                    <img src="../../assets/img/email-logo.png" class="ticket-logo" />
                     <div>
                       <h2>ODBUS E-Ticket</h2>
                       <p>Electronic Reservation Slip</p>
@@ -1197,10 +1022,7 @@
                 <div class="ticket-card">
                   <div class="section-title">Passenger Details</div>
 
-                  <div
-                    class="passenger-item"
-                    *ngFor="let dt of passengerData.bookingInfo.bookingDetail"
-                  >
+                  <div class="passenger-item" *ngFor="let dt of passengerData.bookingInfo.bookingDetail">
                     <div class="passenger-left">
                       <i class="fas fa-user-circle"></i>
                       <span>{{ dt.passenger_name }}</span>
@@ -1218,12 +1040,8 @@
                   <div class="section-title">Scan Ticket</div>
 
                   <div class="qr-wrapper">
-                    <ngx-qrcode
-                      [elementType]="elementType"
-                      [errorCorrectionLevel]="correctionLevel"
-                      [value]="qrcode"
-                      [width]="220"
-                    >
+                    <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="qrcode"
+                      [width]="220">
                     </ngx-qrcode>
                   </div>
                 </div>
@@ -1242,8 +1060,8 @@
                       <span>Base Fare</span>
                       <strong>
                         ₹{{
-                          bookingdata.PriceArray.odbus_charges_ownerFare
-                            | number: "1.2-2"
+                        bookingdata.PriceArray.odbus_charges_ownerFare
+                        | number: "1.2-2"
                         }}
                       </strong>
                     </div>
@@ -1252,7 +1070,7 @@
                       <span>GST (5%)</span>
                       <strong>
                         + ₹{{
-                          bookingdata.PriceArray.customerGst | number: "1.2-2"
+                        bookingdata.PriceArray.customerGst | number: "1.2-2"
                         }}
                       </strong>
                     </div>
@@ -1274,10 +1092,7 @@
                       <tbody>
                         <tr>
                           <td>
-                            <img
-                              src="../../assets/img/email-logo.png"
-                              class="od-logo"
-                            />
+                            <img src="../../assets/img/email-logo.png" class="od-logo" />
                           </td>
                           <td>
                             <span>ODBUS</span> e-Ticketing Service<br />
@@ -1315,7 +1130,7 @@
                                   </th>
                                   <th scope="col" style="color: #000">
                                     Bus Name: {{ busRecord.busName }} - ({{
-                                      busRecord.busNumber
+                                    busRecord.busNumber
                                     }})
                                   </th>
                                 </tr>
@@ -1343,24 +1158,24 @@
                                 <tr>
                                   <td>
                                     From: {{ source }} ({{
-                                      bookingdata.boardingPoint.boardingPoints
+                                    bookingdata.boardingPoint.boardingPoints
                                     }})
                                   </td>
                                   <td>
                                     To: {{ destination }} ({{
-                                      bookingdata.droppingPoint.droppingPoints
+                                    bookingdata.droppingPoint.droppingPoints
                                     }})
                                   </td>
                                 </tr>
                                 <tr>
                                   <td>
                                     Boarding At :{{ source }} ({{
-                                      bookingdata.boardingPoint.boardingPoints
+                                    bookingdata.boardingPoint.boardingPoints
                                     }})
                                   </td>
                                   <td>
                                     Droping At: {{ destination }} ({{
-                                      bookingdata.droppingPoint.droppingPoints
+                                    bookingdata.droppingPoint.droppingPoints
                                     }})
                                   </td>
                                 </tr>
@@ -1392,13 +1207,8 @@
                               <tr>
                                 <td>
                                   <div class="col-md-3">
-                                    <ngx-qrcode
-                                      [elementType]="elementType"
-                                      [errorCorrectionLevel]="correctionLevel"
-                                      [value]="qrcode"
-                                      cssClass="bshadow"
-                                      [width]="200"
-                                    ></ngx-qrcode>
+                                    <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel"
+                                      [value]="qrcode" cssClass="bshadow" [width]="200"></ngx-qrcode>
                                   </div>
                                 </td>
                               </tr>
@@ -1414,12 +1224,10 @@
                       <h3>PASSENGER DETAILS:</h3>
                       <table class="table table-bordered">
                         <thead>
-                          <tr
-                            style="
+                          <tr style="
                               color: black !important;
                               background-color: #fff !important;
-                            "
-                          >
+                            ">
                             <th scope="col">Sl.</th>
                             <th scope="col">Name</th>
                             <th scope="col">Age</th>
@@ -1428,13 +1236,11 @@
                           </tr>
                         </thead>
                         <tbody>
-                          <tr
-                            *ngFor="
+                          <tr *ngFor="
                               let dt of passengerData?.bookingInfo
                                 ?.bookingDetail;
                               let i = index
-                            "
-                          >
+                            ">
                             <th scope="row">{{ i + 1 }}</th>
                             <td>{{ dt.passenger_name }}</td>
                             <td>{{ dt.passenger_age }}</td>
@@ -1453,35 +1259,26 @@
                           <td style="width: 50%" vertical-align="top">
                             <div class="col-md-12 pl-0 odtext24 fare-backup">
                               <h3>FARE BREAKUP</h3>
-                              <table
-                                class="table table-bordered"
-                                cellpadding="0"
-                                cellspacing="0"
-                                border="1"
-                                style="width: 100%"
-                              >
+                              <table class="table table-bordered" cellpadding="0" cellspacing="0" border="1"
+                                style="width: 100%">
                                 <tbody>
                                   <tr>
                                     <td class="text-left">Base Fare</td>
                                     <td class="text-right">
-                                      <b
-                                        >₹{{
-                                          bookingdata.PriceArray
-                                            .odbus_charges_ownerFare
-                                            | number: "1.2-2"
-                                        }}</b
-                                      >
+                                      <b>₹{{
+                                        bookingdata.PriceArray
+                                        .odbus_charges_ownerFare
+                                        | number: "1.2-2"
+                                        }}</b>
                                     </td>
                                   </tr>
 
                                   <tr>
                                     <td class="text-left">Customer GST</td>
                                     <td class="text-right">
-                                      <b
-                                        >+₹{{
-                                          bookingdata.PriceArray.customerGst
-                                        }}</b
-                                      >
+                                      <b>+₹{{
+                                        bookingdata.PriceArray.customerGst
+                                        }}</b>
                                     </td>
                                   </tr>
 
@@ -1513,35 +1310,24 @@
                             <div class="col-md-12 odtext24 pr-0">
                               <h3>CANCELLATION POLICY</h3>
 
-                              <table
-                                class="table table-bordered odbus-journey"
-                                cellpadding="0"
-                                cellspacing="0"
-                                border="1"
-                                style="width: 100%"
-                              >
+                              <table class="table table-bordered odbus-journey" cellpadding="0" cellspacing="0"
+                                border="1" style="width: 100%">
                                 <thead>
-                                  <tr
-                                    style="
+                                  <tr style="
                                       color: black !important;
                                       background-color: #fff !important;
-                                    "
-                                  >
+                                    ">
                                     <th scope="col">Cancellation Time</th>
                                     <th scope="col">Cancellation Charges</th>
                                   </tr>
                                 </thead>
-                                <tbody
-                                  *ngIf="
+                                <tbody *ngIf="
                                     busRecord.cancellationDuration.length > 0
-                                  "
-                                >
-                                  <tr
-                                    *ngFor="
+                                  ">
+                                  <tr *ngFor="
                                       let can of busRecord.cancellationDuration;
                                       let i = index
-                                    "
-                                  >
+                                    ">
                                     <td>{{ can }} hr</td>
                                     <td>
                                       {{ busRecord.cancellationDuduction[i] }}%
