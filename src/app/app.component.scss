@@ -37,3 +37,55 @@
 {
     cursor: pointer;
 }
+custom-spinner{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:100%;
+    height:100%;
+}
+
+
+.bus-loader {
+    position: relative;
+    width: 60px;
+    height: 60px;
+}
+
+.loader-ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+
+    background: conic-gradient(#001b54 0deg 300deg,
+            transparent 300deg 360deg);
+
+    -webkit-mask: radial-gradient(farthest-side,
+            transparent calc(100% - 4px),
+            #000 calc(100% - 4px));
+
+    mask: radial-gradient(farthest-side,
+            transparent calc(100% - 4px),
+            #000 calc(100% - 4px));
+
+    animation: spin 0.9s linear infinite;
+}
+
+.bus-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: #0b1040;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
