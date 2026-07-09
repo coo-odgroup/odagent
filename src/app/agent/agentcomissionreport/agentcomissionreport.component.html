@@ -305,6 +305,13 @@
                 </td>
               </tr>
             </tbody>
+            <tbody *ngIf="completedata?.data?.data?.length === 0">
+              <tr>
+                <td colspan="12" class="text-center nodata">
+                  No data found
+                </td>
+              </tr>
+            </tbody>
           </table>
         </div>
 
@@ -503,7 +510,7 @@
 
         <!-- PAGINATION -->
 
-        <div class="pagination-wrapper">
+        <div class="pagination-wrapper" *ngIf="completedata?.data?.data?.length != 0">
           <div class="pagination-left">
             Showing {{ completedata?.data?.from }}-{{
               completedata?.data?.to
