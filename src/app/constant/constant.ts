@@ -38,8 +38,8 @@ export class Constants {
    //public static CONSUMER_BASE_URL:any ='http://192.168.29.17:4200/';
 
    //For AdGlob
-   public static BASE_URL:any ='https://odclient.adglob.in/api';
-   public static CONSUMER_API_URL:any ='https://odapi.adglob.in/api';
+   public static BASE_URL:any ='https://odapi.adglob.in/api';
+   public static CONSUMER_API_URL:any ='https://odclient.adglob.in/api';
    public static CONSUMER_BASE_URL:any ='https://odbus.adglob.in/';
 
 }
