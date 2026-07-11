@@ -103,6 +103,7 @@ export class AgentticketcancellationreportComponent implements OnInit {
         this.calculateSummary();
 
         this.spinner.hide();
+        this.showFilter = false;
       });
     } else {
       this.rs.cancelticketReport(data).subscribe((res) => {
@@ -110,6 +111,7 @@ export class AgentticketcancellationreportComponent implements OnInit {
         this.calculateSummary();
         // console.log(this.cancelticketdata);
         this.spinner.hide();
+        this.showFilter = false;
       });
     }
   }

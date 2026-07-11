@@ -44,6 +44,7 @@ export class WalletComponent implements OnInit {
   public paymentMessage = '';
   public paymentAmount: any = 0;
   public availableBalance: any = 0;
+  paymentmode = Constants.PAYMENT_MODE;
 
   wallet: AgentWallet[];
   walletRecord: AgentWallet;
@@ -285,7 +286,7 @@ export class WalletComponent implements OnInit {
 
       if (resp.status == 1) {
         const cashfree = Cashfree({
-          mode: 'production',
+          mode: this.paymentmode,
         }); 
 
         cashfree.checkout({

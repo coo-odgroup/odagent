@@ -25,12 +25,14 @@ export class Constants {
    //    public static BASE_URL:any ='https://provider.odbus.co.in/api';
    //    public static CONSUMER_API_URL:any ='https://consumer.odbus.co.in/api';
    //    public static CONSUMER_BASE_URL:any ='https://www.odbus.in/';
+   //    public static PAYMENT_MODE: any = 'production';
 
 
    //Fot Testing
    // public static BASE_URL: any = 'https://testingadminapi.odbus.co.in/api';
    // public static CONSUMER_API_URL: any = 'https://testing.odbus.co.in/api';
    // public static CONSUMER_BASE_URL: any = 'https://odtesting.odbus.co.in/';
+   // public static PAYMENT_MODE: any = 'sandbox';
 
    //FOR LOCAL
    //public static BASE_URL:any ='http://localhost:7001/ODBUS/odbusproviderbe/api';
@@ -38,8 +40,9 @@ export class Constants {
    //public static CONSUMER_BASE_URL:any ='http://192.168.29.17:4200/';
 
    //For AdGlob
-   public static BASE_URL:any ='https://odapi.adglob.in/api';
-   public static CONSUMER_API_URL:any ='https://odclient.adglob.in/api';
-   public static CONSUMER_BASE_URL:any ='https://odbus.adglob.in/';
+   public static BASE_URL: any = 'https://odapi.adglob.in/api';
+   public static CONSUMER_API_URL: any = 'https://odclient.adglob.in/api';
+   public static CONSUMER_BASE_URL: any = 'https://odbus.adglob.in/';
+   public static PAYMENT_MODE: any = 'sandbox';
 
 }

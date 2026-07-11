@@ -292,12 +292,7 @@
     <div class="header-actions">
       <button class="btn-export" (click)="exportexcel()">Export</button>
 
-      <button
-        class="btn-print"
-        printSectionId="print-section"
-        ngxPrint
-        [useExistingCss]="true"
-      >
+      <button class="btn-print" printSectionId="print-section" ngxPrint [useExistingCss]="true">
         Print
       </button>
     </div>
@@ -336,11 +331,7 @@
   <div class="filter-card">
     <form [formGroup]="searchFrom">
       <div class="filter-grid">
-        <input
-          type="date"
-          class="modern-input"
-          formControlName="rangeFromDate"
-        />
+        <input type="date" class="modern-input" formControlName="rangeFromDate" />
 
         <input type="date" class="modern-input" formControlName="rangeToDate" />
 
@@ -350,29 +341,13 @@
           <option value="journey">Journey Date</option>
         </select>
 
-        <input
-          type="text"
-          class="modern-input"
-          placeholder="Payment Id"
-          formControlName="payment_id"
-        />
+        <input type="text" class="modern-input" placeholder="Payment Id" formControlName="payment_id" />
 
-        <ng-select
-          [items]="locations"
-          bindLabel="name"
-          bindValue="id"
-          placeholder="Source"
-          formControlName="source_id"
-        >
+        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Source" formControlName="source_id">
         </ng-select>
 
-        <ng-select
-          [items]="locations"
-          bindLabel="name"
-          bindValue="id"
-          placeholder="Destination"
-          formControlName="destination_id"
-        >
+        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Destination"
+          formControlName="destination_id">
         </ng-select>
       </div>
 
@@ -387,11 +362,7 @@
           </button>
         </div>
 
-        <select
-          class="modern-input rows-dropdown"
-          formControlName="rows_number"
-          (change)="search()"
-        >
+        <select class="modern-input rows-dropdown" formControlName="rows_number" (change)="search()">
           <option value="10">10</option>
           <option value="25">25</option>
           <option value="50">50</option>
@@ -423,21 +394,17 @@
         </thead>
 
         <tbody>
-          <tr
-            *ngFor="let complete of cancelticketdata?.data?.data; let i = index"
-          >
+          <tr *ngFor="let complete of cancelticketdata?.data?.data; let i = index">
             <td>{{ i + 1 }}</td>
             <td>
               <strong>{{ complete.pnr }}</strong>
               <br />
-              <small
-                >DOJ :{{ complete.journey_dt | date: "dd MMM yyyy" }}</small
-              >
+              <small>DOJ :{{ complete.journey_dt | date: "dd MMM yyyy" }}</small>
             </td>
             <td>
               <span *ngFor="let fr of complete.from_location">{{
                 fr.name
-              }}</span>
+                }}</span>
               <br />
               <small>{{ complete.boarding_point }}</small>
             </td>
@@ -486,10 +453,7 @@
 
       <ul class="modern-pagination">
         <!-- PAGES -->
-        <li
-          *ngFor="let p of getVisiblePagesCancel()"
-          [class.active]="cancelticketdata?.data?.current_page === p"
-        >
+        <li *ngFor="let p of getVisiblePagesCancel()" [class.active]="cancelticketdata?.data?.current_page === p">
           <button *ngIf="p !== '...'" (click)="searchPageCancel(+p)">
             {{ p }}
           </button>
@@ -514,87 +478,70 @@
   </div>
 
   <!-- Filter Popup -->
-  <div class="filter-card" *ngIf="showFilter">
-    <!-- Date Row -->
-    <div class="date-row">
-      <div class="date-field">
-        <label class="mobile-label">From Date:</label>
-        <input
-          type="date"
-          class="mobile-input"
-          formControlName="rangeFromDate"
-        />
+  <form [formGroup]="searchFrom">
+    <div class="filter-card" *ngIf="showFilter">
+      <!-- Date Row -->
+      <div class="date-row">
+        <div class="date-field">
+          <label class="mobile-label">From Date:</label>
+          <input type="date" class="mobile-input" formControlName="rangeFromDate" />
+        </div>
+
+        <div class="date-field">
+          <label class="mobile-label">To Date:</label>
+          <input type="date" class="mobile-input" formControlName="rangeToDate" />
+        </div>
       </div>
 
-      <div class="date-field">
-        <label class="mobile-label">To Date:</label>
-        <input type="date" class="mobile-input" formControlName="rangeToDate" />
+      <!-- Range Type -->
+      <div class="date-type-field">
+        <label class="mobile-label">Date Type:</label>
+        <select class="mobile-input" formControlName="date_type">
+          <option value="" disabled>Select Date Type</option>
+          <option value="booking">Booking Date</option>
+          <option value="journey">Journey Date</option>
+        </select>
       </div>
-    </div>
 
-    <!-- Range Type -->
-    <div class="date-type-field">
-      <label class="mobile-label">Date Type:</label>
-      <select class="mobile-input" formControlName="date_type">
-        <option value="" disabled>Select Date Type</option>
-        <option value="booking">Booking Date</option>
-        <option value="journey">Journey Date</option>
+      <!-- Rows Number -->
+      <label class="mobile-label">Payment Id:</label>
+      <input type="text" class="modern-input" placeholder="Payment Id" formControlName="payment_id" />
+      <!-- Source -->
+      <div class="mobile-field">
+        <label class="mobile-label">Source:</label>
+        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Source"
+          formControlName="source_id">
+        </ng-select>
+      </div>
+
+      <!-- Destination -->
+      <div class="mobile-field">
+        <label class="mobile-label">Destination:</label>
+        <ng-select [items]="locations" bindLabel="name" bindValue="id" placeholder="Select Destination"
+          formControlName="destination_id">
+        </ng-select>
+      </div>
+
+      <label class="mobile-label">Select Records:</label>
+      <select class="mobile-input" formControlName="rows_number">
+        <option value="10">10 Records</option>
+        <option value="25">25 Records</option>
+        <option value="50">50 Records</option>
+        <option value="100">100 Records</option>
+        <option value="all">All Records</option>
       </select>
-    </div>
+      <!-- Buttons -->
+      <div class="filter-actions">
+        <button type="button" class="btn-refresh" (click)="refresh()">
+          Refresh
+        </button>
 
-    <!-- Rows Number -->
-    <label class="mobile-label">Payment Id:</label>
-    <input
-      type="text"
-      class="modern-input"
-      placeholder="Payment Id"
-      formControlName="payment_id"
-    />
-    <!-- Source -->
-    <div class="mobile-field">
-      <label class="mobile-label">Source:</label>
-      <ng-select
-        [items]="locations"
-        bindLabel="name"
-        bindValue="id"
-        placeholder="Select Source"
-        formControlName="source_id"
-      >
-      </ng-select>
+        <button type="button" class="btn-search" (click)="search()">
+          Search
+        </button>
+      </div>
     </div>
-
-    <!-- Destination -->
-    <div class="mobile-field">
-      <label class="mobile-label">Destination:</label>
-      <ng-select
-        [items]="locations"
-        bindLabel="name"
-        bindValue="id"
-        placeholder="Select Destination"
-        formControlName="destination_id"
-      >
-      </ng-select>
-    </div>
-
-    <label class="mobile-label">Select Records:</label>
-    <select class="mobile-input" formControlName="rows_number">
-      <option value="10">10 Records</option>
-      <option value="25">25 Records</option>
-      <option value="50">50 Records</option>
-      <option value="100">100 Records</option>
-      <option value="all">All Records</option>
-    </select>
-    <!-- Buttons -->
-    <div class="filter-actions">
-      <button type="button" class="btn-refresh" (click)="refresh()">
-        Refresh
-      </button>
-
-      <button type="button" class="btn-search" (click)="search()">
-        Search
-      </button>
-    </div>
-  </div>
+  </form>
 
   <!-- Summary -->
   <div class="summary-strip">
@@ -627,137 +574,118 @@
 
   <!-- Ticket Cards -->
 
-  <div
-    class="ticket-card"
-    *ngFor="let complete of cancelticketdata?.data?.data; let i = index"
-  >
-    <!-- Header -->
-    <div class="card-header-row">
-      <span class="ticket-id"> {{ i + 1 }} </span>
+  <!-- Ticket List -->
+  <ng-container *ngIf="cancelticketdata?.data?.data?.length > 0; else noData">
 
-      <h3 class="pnr-number">
-        {{ complete.pnr }}
+    <div class="ticket-card" *ngFor="let complete of cancelticketdata?.data?.data; let i = index">
+      <!-- Header -->
+      <div class="card-header-row">
+        <span class="ticket-id">{{ i + 1 }}</span>
 
-        <span class="journey-date mt-2">
-          {{ complete.journey_dt | date: "dd MMM yyyy" }}
-        </span>
-      </h3>
-    </div>
-
-    <!-- Route -->
-
-    <div class="route">
-      <div class="route-side">
-        <span class="route-city">
-          {{ complete.from_location[0]?.name }}
-        </span>
-
-        <span class="journey-date">
-          {{ complete.boarding_point }}
-        </span>
+        <h3 class="pnr-number">
+          {{ complete.pnr }}
+          <span class="journey-date mt-2">
+            {{ complete.journey_dt | date: "dd MMM yyyy" }}
+          </span>
+        </h3>
       </div>
 
-      <div class="arrow">To</div>
+      <!-- Route -->
+      <div class="route">
+        <div class="route-side">
+          <span class="route-city">{{ complete.from_location[0]?.name }}</span>
+          <span class="journey-date">{{ complete.boarding_point }}</span>
+        </div>
 
-      <div class="route-side">
-        <span class="route-city">
-          {{ complete.to_location[0]?.name }}
-        </span>
+        <div class="arrow">To</div>
 
-        <span class="journey-date">
-          {{ complete.dropping_point }}
-        </span>
-      </div>
-    </div>
-
-    <!-- Details -->
-
-    <!-- Expandable Area -->
-
-    <div class="details-grid expandable-section" *ngIf="expandedIndex === i">
-      <div>
-        <label>Bus</label>
-        <strong>{{ complete.bus?.name || "--" }}</strong>
+        <div class="route-side">
+          <span class="route-city">{{ complete.to_location[0]?.name }}</span>
+          <span class="journey-date">{{ complete.dropping_point }}</span>
+        </div>
       </div>
 
-      <div class="text-right">
-        <label>Bus Number</label>
-        <strong>{{ complete.bus?.bus_number || "--" }}</strong>
+      <!-- Expandable Area -->
+      <div class="details-grid expandable-section" *ngIf="expandedIndex === i">
+        <div>
+          <label>Bus</label>
+          <strong>{{ complete.bus?.name || "--" }}</strong>
+        </div>
+
+        <div class="text-right">
+          <label>Bus Number</label>
+          <strong>{{ complete.bus?.bus_number || "--" }}</strong>
+        </div>
+
+        <div>
+          <label>Seat</label>
+          <strong>{{ getSeatNames(complete) }}</strong>
+        </div>
+
+        <div class="text-right">
+          <label>Passenger</label>
+          <strong>{{ getPassengerNames(complete) }}</strong>
+        </div>
+
+        <div>
+          <label>Journey Date</label>
+          <strong>{{ complete.journey_dt | date: "dd MMM yyyy" }}</strong>
+        </div>
+
+        <div class="text-right">
+          <label>Cancel Date</label>
+          <strong>{{ complete.updated_at | date: "dd MMM yyyy" }}</strong>
+        </div>
       </div>
 
-      <div>
-        <label>Seat</label>
-        <strong>{{ getSeatNames(complete) }}</strong>
+      <div class="show-more-btn" (click)="toggleCard(i)">
+        {{ expandedIndex === i ? "Show Less ▲" : "Show More ▼" }}
       </div>
 
-      <div class="text-right">
-        <label>Passenger</label>
-        <strong>{{ getPassengerNames(complete) }}</strong>
-      </div>
+      <div class="ticket-divider"></div>
 
-      <div>
-        <label>Journey Date</label>
-        <strong>
-          {{ complete.journey_dt | date: "dd MMM yyyy" }}
-        </strong>
-      </div>
+      <div class="amount-grid">
+        <div>
+          <label>Total Amount</label><br />
+          <strong class="fare-amount">₹{{ complete.total_fare }}</strong>
+        </div>
 
-      <div class="text-right">
-        <label>Cancel Date</label>
-        <strong>
-          {{ complete.updated_at | date: "dd MMM yyyy" }}
-        </strong>
-      </div>
-    </div>
-
-    <!-- Show More -->
-
-    <div class="show-more-btn" (click)="toggleCard(i)">
-      {{ expandedIndex === i ? "Show Less ▲" : "Show More ▼" }}
-    </div>
-
-    <!-- Divider -->
-
-    <div class="ticket-divider"></div>
-
-    <!-- Amount Section -->
-
-    <div class="amount-grid">
-      <div>
-        <label>Total Amount</label> <br>
-
-        <strong class="fare-amount"> ₹{{ complete.total_fare }} </strong>
-      </div>
-
-      <div class="text-right">
-        <label>Refund Amount</label>
-
-        <strong class="refund-amount"> ₹{{ complete.refund_amount }} </strong>
+        <div class="text-right">
+          <label>Refund Amount</label>
+          <strong class="refund-amount">₹{{ complete.refund_amount }}</strong>
+        </div>
       </div>
     </div>
-  </div>
+
+  </ng-container>
+
+  <!-- No Record Found -->
+  <ng-template #noData>
+    <div class="text-center py-4">
+      <h5>No Record Found</h5>
+    </div>
+  </ng-template>
 
   <!-- Footer -->
 
-  <div class="showing">
-    Showing
-    {{ cancelticketdata?.data?.from }}
-    -
-    {{ cancelticketdata?.data?.to }}
-    of
-    {{ cancelticketdata?.data?.total }}
-  </div>
+  <div *ngIf="cancelticketdata?.data?.data?.length !== 0">
+    <div class="showing">
+      Showing
+      {{ cancelticketdata?.data?.from }}
+      -
+      {{ cancelticketdata?.data?.to }}
+      of
+      {{ cancelticketdata?.data?.total }}
+    </div>
 
-  <div class="mobile-pagination">
-    <ng-container *ngFor="let p of getVisiblePagesCancel()">
-      <button
-        *ngIf="p !== '...'"
-        [class.active]="cancelticketdata?.data?.current_page === p"
-        (click)="searchPageCancel(+p)"
-      >
-        {{ p }}
-      </button>
-      <button *ngIf="p === '...'" disabled>...</button>
-    </ng-container>
+    <div class="mobile-pagination">
+      <ng-container *ngFor="let p of getVisiblePagesCancel()">
+        <button *ngIf="p !== '...'" [class.active]="cancelticketdata?.data?.current_page === p"
+          (click)="searchPageCancel(+p)">
+          {{ p }}
+        </button>
+        <button *ngIf="p === '...'" disabled>...</button>
+      </ng-container>
+    </div>
   </div>
 </div>

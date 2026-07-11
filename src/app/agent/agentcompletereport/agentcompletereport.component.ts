@@ -167,12 +167,14 @@ export class AgentcompletereportComponent implements OnInit {
         this.completedata = res.data;
         // console.log( this.completedata);
         this.spinner.hide();
+        this.showFilter = false;
       });
     } else {
       this.rs.completeReport(data).subscribe((res) => {
         this.completedata = res.data;
         // console.log( this.completedata);
         this.spinner.hide();
+        this.showFilter = false;
       });
     }
   }

@@ -2025,10 +2025,8 @@
      ===================================== -->
 
 <div class="mobile-ticket-wrapper d-block d-md-none">
-  <div
-    class="simple-ticket-card"
-    *ngFor="let complete of completedata?.data.data; let i = index"
-  >
+  <ng-container *ngIf="completedata?.data?.data?.length > 0; else noRecordFound">
+  <div class="simple-ticket-card" *ngFor="let complete of completedata?.data.data; let i = index">
     <div class="ticket-count">{{ i + 1 }}</div>
 
     <!-- TOP -->
@@ -2216,4 +2214,10 @@
       </ng-container>
     </div>
   </div>
+  </ng-container>
+  <ng-template #noRecordFound>
+    <div class="text-center py-4">
+      <h5>No Record Found</h5>
+    </div>
+  </ng-template>
 </div>
