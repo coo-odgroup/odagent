@@ -37,6 +37,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { DeleteUserComponent } from './delete-user/delete-user.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +56,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     NavRightComponent,
     ConfigurationComponent,
     ToggleFullScreenDirective,
+    DeleteUserComponent,
+    PrivacyPolicyComponent,
   ],
   imports: [
     BrowserModule,
