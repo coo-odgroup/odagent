@@ -227,14 +227,14 @@
                     </span>
                     <span
                       *ngIf="
-                        page.payment_via == '' && page.transaction_type == 'd'
+                        page.payment_via == null && page.transaction_type == 'd'
                       "
                     >
                       Ticket Book
                     </span>
                     <span
                       *ngIf="
-                        page.payment_via != '' && page.transaction_type == 'c'
+                        page.payment_via != null && page.transaction_type == 'c'
                       "
                     >
                       Wallet Recharge

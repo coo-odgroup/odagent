@@ -108,7 +108,7 @@ export class WalletComponent implements OnInit {
     this.searchForm = this.fb.group({
       bus_operator_id: [null],
       name: [null],
-      payment_via: [''],
+      payment_via: [null],
       from_date: [null],
       to_date: [null],
       rows_number: Constants.RecordLimit,
@@ -245,7 +245,7 @@ export class WalletComponent implements OnInit {
     this.searchForm = this.fb.group({
       name: [null],
       from_date: [null],
-      payment_via: [''],
+      payment_via: [null],
       to_date: [null],
       rows_number: Constants.RecordLimit,
       user_id: localStorage.getItem('USERID'),
@@ -287,7 +287,7 @@ export class WalletComponent implements OnInit {
       if (resp.status == 1) {
         const cashfree = Cashfree({
           mode: this.paymentmode,
-        }); 
+        });
 
         cashfree.checkout({
           paymentSessionId: resp.data.payment_session_id,
