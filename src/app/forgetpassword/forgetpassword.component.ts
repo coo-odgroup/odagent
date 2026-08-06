@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { LoginService } from '../services/login.service';
 import { Login } from '../model/login';
 import { RoleService } from '.././services/role.service';
@@ -75,6 +75,26 @@ export class ForgetpasswordComponent implements OnInit {
 
     }
 
+  }
+
+  emailOrMobileValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+
+      if (!value) {
+        return null;
+      }
+
+      // Email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      // 10-digit mobile (India)
+      const mobileRegex = /^[6-9]\d{9}$/;
+
+      return (emailRegex.test(value) || mobileRegex.test(value))
+        ? null
+        : { invalidInput: true };
+    };
   }
 
   onSubmitOtp() {
@@ -172,25 +192,38 @@ export class ForgetpasswordComponent implements OnInit {
     this.onSubmit();
   }
 
-  maskEmail(email: string): string {
-    if (!email) return '';
-
-    const [username, domain] = email.split('@');
-
-    if (username.length <= 4) {
-      return username.charAt(0) + '****@' + domain;
-    }
-
-    const first = username.slice(0, 2);
-    const last = username.slice(-2);
-
-    return `${first}****${last}@${domain}`;
+  maskEmail(value: string): string {
+  if (!value) {
+    return '';
   }
+
+  // Mobile number
+  if (/^\d{10}$/.test(value)) {
+    return value.substring(0, 2) + '******' + value.substring(8);
+  }
+
+  // Not an email
+  if (!value.includes('@')) {
+    return value;
+  }
+
+  // Email
+  const [username, domain] = value.split('@');
+
+  if (username.length <= 4) {
+    return username.charAt(0) + '****@' + domain;
+  }
+
+  const first = username.slice(0, 2);
+  const last = username.slice(-2);
+
+  return `${first}****${last}@${domain}`;
+}
 
   ngOnInit(): void {
 
     this.forgotPasswordForm = this.fb.group({
-      email: [null, [Validators.required, Validators.email]],
+      email: [null, [Validators.required, this.emailOrMobileValidator()]],
     });
 
     this.otpForm = this.fb.group({
