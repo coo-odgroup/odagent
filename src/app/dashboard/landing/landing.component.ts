@@ -366,7 +366,7 @@ export class LandingComponent implements OnInit {
     this.ds.lastWalletTransactions(data).subscribe((res) => {
       this.walletTransactions = res.data;
 
-      console.log(this.walletTransactions);
+      // console.log(this.walletTransactions);
     });
   }
   formatDate(date: Date): string {

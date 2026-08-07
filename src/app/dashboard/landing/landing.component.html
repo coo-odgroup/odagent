@@ -1,70 +1,4 @@
 <div class="main_box">
-  <!-- <div class="row">
-    <div class="col-xl-12">
-      <app-card [hidHeader]="true" [options]="false">
-       
-        <div class="btn-group btn-group-toggle float-right" ngbRadioGroup name="ticketSize" data-toggle="buttons">
-          
-          <label ngbButtonLabel class="btn btn-info">
-            Today
-            <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('Today')" />
-            <i class="feather icon-align-justify m-0"></i>
-          </label>
-
-          
-          <label ngbButtonLabel class="btn btn-info">
-            This Week
-            <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('This Week')" />
-            <i class="feather icon-menu m-0"></i>
-          </label>
-
-         
-          <label ngbButtonLabel class="btn btn-info">
-            This Month
-            <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="getall('This Month')" />
-            <i class="feather icon-grid m-0"></i>
-          </label>
-
-          
-          <label ngbButtonLabel class="btn btn-info">
-            Custom
-
-            <input ngbButton type="radio" class="dateRange" name="dateRange" (click)="toggleCustomDate()" />
-
-            <i class="feather icon-calendar m-0"></i>
-          </label>
-        </div>
-
-       
-        <div class="custom-date-wrapper mt-3" *ngIf="showCustomDate">
-          <div class="custom-date-box">
-            <label>From Date</label>
-
-            <div class="custom-date-input">
-              <input type="date" class="form-control custom-native-date" [(ngModel)]="customFromDate"
-                onclick="this.showPicker()" />
-            </div>
-          </div>
-
-          <div class="custom-date-box">
-            <label>To Date</label>
-
-            <div class="custom-date-input">
-              <input type="date" class="form-control custom-native-date" [(ngModel)]="customToDate"
-                onclick="this.showPicker()" />
-            </div>
-          </div>
-
-          
-          <div class="custom-date-btn">
-            <button class="btn btn-primary" (click)="applyCustomDate()">
-              Apply
-            </button>
-          </div>
-        </div>
-      </app-card>
-    </div>
-  </div> -->
 
   <div class="row">
     <div class="col-xl-12">
@@ -272,33 +206,6 @@
     </div>
   </div>
   <!-- end -->
-  <!-- <div class="col-md-3">
-            <app-card [hidHeader]="true" cardClass="bg-c-yellow text-white widget-visitor-card" blockClass="text-center">
-                <h2 class="text-white">{{dashboarddata.upcoming_pnr}}</h2>
-                <h6 class="text-white">Commission From Customer</h6>
-                <i class="feather icon-file-text"></i>
-              </app-card>
-          
-        </div> -->
-
-  <!-- <div class="col-xl-12">
-          <app-card cardTitle="{{RangeText}} Ticket Statistics" [options]="false">
-            <lib-highcharts-angular [Highcharts]="Highcharts" [options]="barBasicChartOptions" style="width: 100%; height: 450px; display: block;"></lib-highcharts-angular>
-          </app-card>
-        </div>
-   
-        <div class="col-md-6">
-            <app-card class="booking_device_height" cardTitle="Booking By Device {{RangeText}}" [options]="false">
-              <app-apex-chart chartID="pie-chart-2-cac" [chartConfig]="this.pie2CAC" style="height: 400px"></app-apex-chart>
-            </app-card>
-          </div>
-          <div class="col-md-6">
-            <app-card cardTitle="Weekly PNR Statistics" [options]="false">
-              <div #barBasicChart>
-                <chart id="bar_basic_chart" [type]="'bar'" [data]="barBasicChartData" [options]="barBasicChartOption"></chart>
-              </div>
-            </app-card>
-          </div> -->
   <div class="row">
     <div class="container" *ngIf="RoleType == 1">
       <div class="row">
@@ -348,153 +255,6 @@
       </div>
     </div>
   </div>
-  <!-- <div class="row">
-    <div class="col-md-6">
-      <app-card cardTitle="{{ RangeText }} Ticket Statistics" [options]="false">
-        <lib-highcharts-angular
-          [Highcharts]="Highcharts"
-          [options]="barBasicChartOptions"
-          style="width: 100%; height: 450px; display: block"
-        ></lib-highcharts-angular>
-      </app-card>
-    </div>
-
-    <div class="col-md-6">
-      <app-card
-        class="booking_device_height"
-        cardTitle="Booking By Device {{ RangeText }}"
-        [options]="false"
-      >
-        <app-apex-chart
-          chartID="pie-chart-2-cac"
-          [chartConfig]="this.pie2CAC"
-          style="height: 400px"
-        ></app-apex-chart>
-      </app-card>
-    </div>
-
-    <div class="col-md-6">
-      <app-card cardTitle="Weekly PNR Statistics" [options]="false">
-        <div #barBasicChart>
-          <chart
-            id="bar_basic_chart"
-            [type]="'bar'"
-            [data]="barBasicChartData"
-            [options]="barBasicChartOption"
-          ></chart>
-        </div>
-      </app-card>
-    </div>
-  </div> -->
-  <!-- <div class="row">  
-    <div class="col-xl-12 col-md-12">
-      <div *ngIf="showWalletTable">
-        <app-card cardTitle="Last 10 Wallet Transactions" cardClass="table-card" blockClass="p-0">
-          <div class="table-responsive d-none d-md-block">
-            <table class="table table-hover mb-0 wallet-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Transaction ID</th>
-                  <th>Date</th>
-                  <th>Type</th>
-                  <th>Amount</th>
-                  <th>Balance</th>
-                  <th>Remarks</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr *ngFor="let tx of walletTransactions; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td class="pnr-cell">{{ tx.transaction_id }}</td>
-                  <td>{{ tx.created_at | date: "dd MMM yyyy HH:mm" }}</td>
-                  <td>
-                    <span [class.badge-success]="tx.transaction_type == 'c'"
-                      [class.badge-danger]="tx.transaction_type == 'd'" class="badge">
-                      {{ tx.transaction_type == "c" ? "Credit" : "Debit" }}
-                    </span>
-                  </td>
-                  <td>{{ tx.amount | number: "1.2-2" }}</td>
-                  <td>{{ tx.balance | number: "1.2-2" }}</td>
-                  <td>
-                    {{
-                    tx.remarks
-                    ? tx.remarks
-                    : tx.type == "Commission"
-                    ? "Ticket Commission"
-                    : tx.transaction_type == "d"
-                    ? "PNR Booked"
-                    : tx.payment_via == "Cashfree"
-                    ? "Wallet Recharge"
-                    : "-"
-                    }}
-                  </td>
-                </tr>
-
-                <tr *ngIf="walletTransactions?.length == 0">
-                  <td colspan="7" class="empty-row">
-                    No wallet transactions found
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </app-card>
-      </div>
-      <div *ngIf="showBookingTable">
-        <app-card cardTitle="Booking Details" cardClass="table-card" blockClass="p-0">
-          <div class="table-responsive d-none d-md-block">
-            <table class="table table-hover mb-0">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Booking Date</th>
-                  <th>PNR</th>
-                  <th>Transaction ID</th>
-                  <th>Bus Name Number</th>
-                  <th>Route</th>
-                  <th>Passenger</th>
-                  <th>Customer Comm.</th>
-                  <th>ODBUS Comm.</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr *ngFor="let booking of bookingDetails; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ booking.booking_date | date: "dd MMM yyyy" }}</td>
-                  <td>
-                    {{ booking.pnr }} <br /><small class="text-muted">{{
-                      booking.journey_dt | date: "dd MMM yyyy"
-                      }}</small>
-                  </td>
-                  <td>{{ booking.transaction_id || "--" }}</td>
-                  <td>
-                    <strong>{{ booking.bus_name || "-" }}</strong>
-                    <br />
-                    <small class="text-muted">
-                      {{ booking.bus_number || "-" }}
-                    </small>
-                  </td>
-                  <td>{{ booking.route }}</td>
-                  <td>{{ booking.passenger_name || "-" }}</td>
-                  <td>{{ booking.customer_comission | number: "1.2-2" }}</td>
-                  <td>{{ booking.agent_commission | number: "1.2-2" }}</td>
-                  <td>{{ booking.amount | number: "1.2-2" }}</td>
-                </tr>
-
-                <tr *ngIf="bookingDetails?.length == 0">
-                  <td colspan="9" class="empty-row">No bookings found</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </app-card>
-      </div>
-    </div>
-  </div> -->
 
   <div class="row d-none d-md-flex">
     <div class="col-xl-12 col-md-12">
@@ -671,17 +431,15 @@
               }}
             </div>
           <h4>
-            <h4>
-              {{
-                 tx.type == "Refund"
-                 ? "Ticket Cancel Refund"
-                 : tx.type == "Commission"
-                  ? "Ticket Commission"
-                  : tx.transaction_type == "c"
-                    ? "Wallet Recharge"
-                    : "Ticket Book"
-              }}
-            </h4>
+            {{
+                tx.type == "Refund"
+                ? "Ticket Cancel Refund"
+                : tx.type == "Commission"
+                ? "Ticket Commission"
+                : tx.transaction_type == "c"
+                  ? "Wallet Recharge"
+                  : "Ticket Book"
+            }}
           </h4>
 
           <p>
