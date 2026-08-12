@@ -34,11 +34,12 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { PathLocationStrategy , LocationStrategy } from '@angular/common';
 import { AuthInterceptor } from './shared/auth.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { DeleteUserComponent } from './delete-user/delete-user.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { LandingComponent } from './landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     ToggleFullScreenDirective,
     DeleteUserComponent,
     PrivacyPolicyComponent,
+    LandingComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     NgxSpinnerModule,
   ],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    { provide: LocationStrategy, useClass: PathLocationStrategy  },
     NavigationItem,
     Routeguard,
     {
