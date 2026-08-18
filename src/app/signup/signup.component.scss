@@ -367,10 +367,18 @@ input {
 /* --- Hero Section --- */
 .hero {
     position: relative;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
     overflow: hidden;
+
+    background-image: url('/assets/images/hero_bg.png');
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
+
+
 
 @media (min-width: 1024px) {
     .hero {
@@ -408,9 +416,9 @@ input {
     display: inline-block;
     padding: 0.25rem 1rem;
     border-radius: 9999px;
-    background-color: rgba(249, 115, 22, 0.1);
-    border: 1px solid rgba(249, 115, 22, 0.2);
-    color: #fb923c;
+    background-color: #009fff;
+    border: 1px solid #fff;
+    color: #fff;
     font-size: 0.75rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -433,7 +441,7 @@ input {
 }
 
 .text-orange {
-    color: #f97316;
+    color: #009fff;
 }
 
 .hero-desc {
@@ -576,7 +584,7 @@ input {
 }
 
 .stat-value.orange {
-    color: #ea580c;
+    color: #009fff;
 }
 
 .stat-value.green {
