@@ -339,6 +339,7 @@ input {
     transition: background-color 0.2s;
     border: 1px solid #002179;
     cursor: pointer;
+    background: #fff;
 }
 
 .btn-login:hover {
@@ -414,14 +415,14 @@ input {
 
 .badge {
     display: inline-block;
-    padding: 0.25rem 1rem;
+    padding: 10px 15px;
     border-radius: 9999px;
-    background-color: #009fff;
-    border: 1px solid #fff;
-    color: #fff;
+    background-color: #ffffff;
+    border: 1px solid #0080ff;
+    color: #002179;
     font-size: 0.75rem;
     font-weight: 700;
-    text-transform: uppercase;
+    // text-transform: uppercase;
     letter-spacing: 0.1em;
     margin-bottom: 1.5rem;
 }
@@ -446,7 +447,7 @@ input {
 
 .hero-desc {
     font-size: 1.125rem;
-    color: #d1d5db;
+    color: #ffffff;
     margin-bottom: 2rem;
     max-width: 42rem;
     margin-left: auto;
@@ -465,7 +466,7 @@ input {
     justify-content: center;
     gap: 1rem;
     font-size: 0.875rem;
-    color: #9ca3af;
+    color: #ffffff;
 }
 
 @media (min-width: 1024px) {
