@@ -1,0 +1,158 @@
+<!-- <div class="auth-wrapper" style="background-image:url(../../assets/images/agent_bg.png)">
+    <div class="auth-content text-center">
+      <img src="assets/images/odbus-logo.svg" alt="" class="img-fluid mb-4">
+      <div class="card borderless">
+        <div class="row align-items-center text-center">
+          <div class="col-md-12">
+            <div class="card-body">
+                    <h4 class="mb-3 f-w-400">Agent Login</h4>
+                    <form [formGroup]="form" class="editForm" novalidate>
+                      <div class=" mb-3">
+                        <input type="email" class="form-control" formControlName="email" placeholder="Email address">
+                        <span class="text-danger"
+                                *ngIf="form.controls['email'].touched && form.controls['email'].hasError('required')">
+                                Email is required! </span>
+                      </div>
+                      <div class=" mb-3">
+                        <div class="input-group password-toggle-group">
+                          <input [type]="fieldTextType ? 'text' : 'password'" class="form-control" formControlName="password" placeholder="Password">
+                          <div class="input-group-append">
+                            <button class="input-group-text password-toggle-btn" type="button" (click)="toggleFieldTextType()">
+                              <i class="fa" [ngClass]="{
+                                'fa-eye-slash': !fieldTextType,
+                                'fa-eye': fieldTextType
+                              }"></i>
+                            </button>
+                          </div>
+                        </div>
+                        <span class="text-danger"
+                                *ngIf="form.controls['password'].touched && form.controls['password'].hasError('required')">
+                                Password is required! </span>
+                      </div>
+
+                      <div class="form-group text-left mt-2">
+                        <a class="formlink" routerLink="/forget-password">Forgot Password ?</a>
+                      </div>
+
+                      <button class="btn btn-block btn-primary mb-4" [disabled]="!form.valid" type="button" (click)="check_credentials()">Login</button>
+                      <p class="text-center">Don't have an account? <a class="formlink" routerLink="/signup">Signup</a> </p>
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+<div
+  class="auth-wrapper"
+  style="background-image: url(../../assets/images/agent_bg.png)"
+>
+  <div class="overlay"></div>
+
+  <div class="auth-content text-center">
+    <img
+      src="assets/images/odbus-logo.svg"
+      alt="ODBUS"
+      class="logo img-fluid"
+    />
+
+    <div class="login-card">
+      <h3 class="login-title">Agent Login</h3>
+      <p class="login-subtitle">Access your dashboard and manage bookings</p>
+
+      <form [formGroup]="form" class="editForm" novalidate>
+        <!-- <div class="form-group mb-3">
+          <input type="email" class="form-control custom-input" formControlName="email" placeholder="Email Address">
+
+          <span class="text-danger" *ngIf="form.controls['email'].touched &&
+                               form.controls['email'].hasError('required')">
+            Email is required
+          </span>
+        </div> -->
+
+        <div class="form-group mb-3">
+          <input
+            type="text"
+            class="form-control custom-input"
+            formControlName="email"
+            placeholder="Email Address or Mobile Number"
+          />
+
+          <span
+            class="text-danger"
+            *ngIf="
+              form.controls['email'].touched &&
+              form.controls['email'].hasError('required')
+            "
+          >
+            Email Address or Mobile Number is required
+          </span>
+
+          <span
+            class="text-danger"
+            *ngIf="
+              form.controls['email'].touched &&
+              form.controls['email'].hasError('pattern')
+            "
+          >
+            Please enter a valid Email Address or Mobile Number
+          </span>
+        </div>
+
+        <div class="form-group mb-3">
+          <div class="input-group">
+            <input
+              [type]="fieldTextType ? 'text' : 'password'"
+              class="form-control custom-input"
+              formControlName="password"
+              placeholder="Password"
+            />
+
+            <button
+              type="button"
+              class="input-group-text eye-btn"
+              (click)="toggleFieldTextType()"
+            >
+              <i
+                class="fa"
+                [class.fa-eye]="fieldTextType"
+                [class.fa-eye-slash]="!fieldTextType"
+              ></i>
+            </button>
+          </div>
+
+          <span
+            class="text-danger"
+            *ngIf="
+              form.controls['password'].touched &&
+              form.controls['password'].hasError('required')
+            "
+          >
+            Password is required
+          </span>
+        </div>
+
+        <div class="text-end mb-4">
+          <a class="formlink" routerLink="/forget-password">
+            Forgot Password?
+          </a>
+        </div>
+
+        <button
+          class="login-btn w-100"
+          [disabled]="!form.valid"
+          type="button"
+          (click)="check_credentials()"
+        >
+          Login
+        </button>
+
+        <div class="signup-text mt-4">
+          Don't have an account?
+          <a class="formlink" routerLink="/signup"> Signup </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
