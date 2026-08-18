@@ -1,5 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  QueryList,
+  ViewChildren
+} from '@angular/core';
+
+import {
+  FormBuilder,
+  FormGroup,
+  Validators
+} from '@angular/forms';
+
 import { LoginService } from '../services/login.service';
 import { Login } from '../model/login';
 import { RoleService } from '.././services/role.service';
@@ -19,6 +31,15 @@ export class LoginComponent implements OnInit {
   fieldTextType = false;
 
   public saveUsername: boolean;
+
+  forgotOtp: string = '';
+
+  forgotOtpBoxes: string[] = ['', '', '', '', '', ''];
+
+  otpBoxes = [0, 1, 2, 3, 4, 5];
+
+  @ViewChildren('forgotOtpInput')
+  forgotOtpInputs!: QueryList<ElementRef>;
   /* ==========================================================
    AUTH PAGE STATE
    ========================================================== */
@@ -41,7 +62,14 @@ export class LoginComponent implements OnInit {
 
   public signupOtp: string = '';
 
+  public signupOtpBoxes: string[] = ['', '', '', '', '', ''];
+
   public signupOtpVerified: boolean = false;
+
+  
+
+  @ViewChildren('otpInput')
+  otpInputs!: QueryList<ElementRef>;
 
 
   /* ==========================================================
@@ -65,7 +93,7 @@ export class LoginComponent implements OnInit {
 
   public forgotForm: FormGroup;
 
-  public forgotOtp: string = '';
+  // public forgotOtp: string = '';
 
   public forgotOtpVerified: boolean = false;
 
@@ -261,6 +289,9 @@ export class LoginComponent implements OnInit {
 
     this.signupOtp = '';
 
+    this.signupOtpBoxes =
+      ['', '', '', '', '', ''];
+
   }
 
 
@@ -334,311 +365,586 @@ export class LoginComponent implements OnInit {
    SIGNUP OTP
    ========================================================== */
 
-generateSignupOtp() {
+  generateSignupOtp() {
 
-  if (this.signupForm.invalid) {
+    if (this.signupForm.invalid) {
 
-    this.signupForm.markAllAsTouched();
+      this.signupForm.markAllAsTouched();
 
-    return;
+      return;
 
-  }
-
-
-  /*
-   * IMPORTANT:
-   *
-   * PUT YOUR ACTUAL SIGNUP / SEND OTP API HERE.
-   *
-   * Example:
-   *
-   * this.loginService.generateSignupOtp(
-   *   this.signupForm.value.mobile
-   * ).subscribe(res => {
-   *
-   * });
-   */
+    }
 
 
-  console.log(
-    'Generate Signup OTP',
-    this.signupForm.value
-  );
+    /*
+     * IMPORTANT:
+     *
+     * PUT YOUR ACTUAL SIGNUP / SEND OTP API HERE.
+     *
+     * Example:
+     *
+     * this.loginService.generateSignupOtp(
+     *   this.signupForm.value.mobile
+     * ).subscribe(res => {
+     *
+     * });
+     */
 
 
-  // TEMPORARY UI FLOW
-  // After API successfully sends OTP:
-  this.authView = 'signupOtp';
+    console.log(
+      'Generate Signup OTP',
+      this.signupForm.value
+    );
 
-}
 
+    // TEMPORARY UI FLOW
 
-verifySignupOtp() {
+    this.signupOtp = '';
 
-  if (!this.signupOtp || this.signupOtp.length !== 6) {
+    this.signupOtpBoxes =
+      ['', '', '', '', '', ''];
 
-    return;
+    this.authView = 'signupOtp';
 
   }
 
 
-  /*
-   * PUT YOUR ACTUAL OTP VERIFY API HERE.
-   *
-   * Example:
-   *
-   * this.loginService.verifySignupOtp(
-   *   this.signupForm.value.mobile,
-   *   this.signupOtp
-   * ).subscribe(res => {
-   *
-   *   if (res.status == 1) {
-   *
-   *     this.authView = 'signupKyc';
-   *
-   *   }
-   *
-   * });
-   */
+  verifySignupOtp() {
+
+    if (!this.signupOtp || this.signupOtp.length !== 6) {
+
+      return;
+
+    }
 
 
-  console.log(
-    'Verify Signup OTP:',
-    this.signupOtp
-  );
+    /*
+     * PUT YOUR ACTUAL OTP VERIFY API HERE.
+     *
+     * Example:
+     *
+     * this.loginService.verifySignupOtp(
+     *   this.signupForm.value.mobile,
+     *   this.signupOtp
+     * ).subscribe(res => {
+     *
+     *   if (res.status == 1) {
+     *
+     *     this.authView = 'signupKyc';
+     *
+     *   }
+     *
+     * });
+     */
 
 
-  // TEMPORARY UI FLOW
-  this.signupOtpVerified = true;
+    console.log(
+      'Verify Signup OTP:',
+      this.signupOtp
+    );
 
-  this.authView = 'signupKyc';
 
-}
+    // TEMPORARY UI FLOW
+    this.signupOtpVerified = true;
 
-resendSignupOtp() {
+    this.authView = 'signupKyc';
 
-  /*
-   * PUT YOUR ACTUAL RESEND OTP API HERE.
-   */
-
-  console.log(
-    'Resend Signup OTP'
-  );
-
-}
-
-/* ==========================================================
-   KYC FILES
-   ========================================================== */
-
-onPanFileSelected(event: any) {
-
-  const file = event.target.files?.[0];
-
-  if (!file) {
-    return;
   }
 
-  this.panFile = file;
+  resendSignupOtp() {
 
-  this.panFileName = file.name;
+    /*
+     * PUT YOUR ACTUAL RESEND OTP API HERE.
+     */
 
-}
+    console.log(
+      'Resend Signup OTP'
+    );
 
-
-onAadhaarFileSelected(event: any) {
-
-  const file = event.target.files?.[0];
-
-  if (!file) {
-    return;
   }
+  onOtpInput(event: Event, index: number) {
 
-  this.aadhaarFile = file;
+    const input = event.target as HTMLInputElement;
 
-  this.aadhaarFileName = file.name;
+    const value = input.value
+      .replace(/\D/g, '')
+      .slice(-1);
 
-}
+    input.value = value;
 
-submitSignup() {
+    this.signupOtpBoxes[index] = value;
 
-  if (this.kycForm.invalid) {
+    this.signupOtp =
+      this.signupOtpBoxes.join('');
 
-    this.kycForm.markAllAsTouched();
+    if (value && index < 5) {
 
-    return;
+      setTimeout(() => {
+
+        const inputs =
+          this.otpInputs.toArray();
+
+        inputs[index + 1]?.nativeElement.focus();
+
+      });
+
+    }
 
   }
 
 
-  const registrationData = {
+  onOtpKeydown(
+    event: KeyboardEvent,
+    index: number
+  ) {
 
-    ...this.signupForm.value,
+    const input =
+      event.target as HTMLInputElement;
 
-    ...this.kycForm.value,
+    if (event.key === 'Backspace') {
 
-    panDocument: this.panFile,
+      if (input.value) {
 
-    aadhaarDocument: this.aadhaarFile
+        input.value = '';
 
-  };
+        this.signupOtpBoxes[index] = '';
 
+        this.signupOtp =
+          this.signupOtpBoxes.join('');
 
-  console.log(
-    'FINAL REGISTRATION DATA:',
-    registrationData
-  );
-
-
-  /*
-   * PUT YOUR ACTUAL REGISTRATION API HERE.
-   *
-   * Because PAN/Aadhaar documents are files,
-   * this will most likely need FormData.
-   */
+        return;
+      }
 
 
-}
+      if (index > 0) {
 
-/* ==========================================================
-   FORGOT PASSWORD FLOW
-   ========================================================== */
+        const inputs =
+          this.otpInputs.toArray();
 
-openForgotPassword() {
+        const previousInput =
+          inputs[index - 1]?.nativeElement;
 
-  this.authView = 'forgot';
+        if (previousInput) {
 
-  this.forgotOtp = '';
+          previousInput.value = '';
 
-}
+          this.signupOtpBoxes[index - 1] = '';
 
+          this.signupOtp =
+            this.signupOtpBoxes.join('');
 
-backToForgot() {
+          setTimeout(() => {
+            previousInput.focus();
+          });
 
-  this.authView = 'forgot';
+        }
 
-}
+      }
 
-generateForgotOtp() {
-
-  if (this.forgotForm.invalid) {
-
-    this.forgotForm.markAllAsTouched();
-
-    return;
+    }
 
   }
 
 
-  /*
-   * PUT YOUR ACTUAL FORGOT PASSWORD
-   * SEND OTP API HERE.
-   */
+  onOtpPaste(event: ClipboardEvent) {
+
+    event.preventDefault();
+
+    const pastedText =
+      event.clipboardData
+        ?.getData('text')
+        .replace(/\D/g, '')
+        .slice(0, 6);
+
+    if (!pastedText) {
+      return;
+    }
 
 
-  console.log(
-    'Generate Forgot Password OTP',
-    this.forgotForm.value.mobile
-  );
+    const inputs =
+      this.otpInputs.toArray();
 
 
-  // TEMPORARY UI FLOW
+    this.signupOtpBoxes =
+      ['', '', '', '', '', ''];
 
-  this.authView = 'forgotOtp';
 
-}
+    pastedText
+      .split('')
+      .forEach((digit, index) => {
 
-verifyForgotOtp() {
+        this.signupOtpBoxes[index] = digit;
 
-  if (!this.forgotOtp || this.forgotOtp.length !== 6) {
+        if (inputs[index]) {
+          inputs[index].nativeElement.value = digit;
+        }
 
-    return;
+      });
+
+
+    this.signupOtp =
+      this.signupOtpBoxes.join('');
+
+
+    const focusIndex =
+      Math.min(pastedText.length, 5);
+
+
+    setTimeout(() => {
+
+      inputs[focusIndex]?.nativeElement.focus();
+
+    });
+
+  }
+  /* ==========================================================
+     KYC FILES
+     ========================================================== */
+
+  onPanFileSelected(event: any) {
+
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    this.panFile = file;
+
+    this.panFileName = file.name;
 
   }
 
 
-  /*
-   * PUT YOUR ACTUAL FORGOT PASSWORD
-   * OTP VERIFICATION API HERE.
-   */
+  onAadhaarFileSelected(event: any) {
+
+    const file = event.target.files?.[0];
+
+    if (!file) {
+      return;
+    }
+
+    this.aadhaarFile = file;
+
+    this.aadhaarFileName = file.name;
+
+  }
+
+  submitSignup() {
+
+    if (this.kycForm.invalid) {
+
+      this.kycForm.markAllAsTouched();
+
+      return;
+
+    }
 
 
-  console.log(
-    'Verify Forgot OTP:',
-    this.forgotOtp
-  );
+    const registrationData = {
+
+      ...this.signupForm.value,
+
+      ...this.kycForm.value,
+
+      panDocument: this.panFile,
+
+      aadhaarDocument: this.aadhaarFile
+
+    };
 
 
-  // TEMPORARY UI FLOW
+    console.log(
+      'FINAL REGISTRATION DATA:',
+      registrationData
+    );
 
-  this.forgotOtpVerified = true;
 
-  this.authView = 'newPassword';
+    /*
+     * PUT YOUR ACTUAL REGISTRATION API HERE.
+     *
+     * Because PAN/Aadhaar documents are files,
+     * this will most likely need FormData.
+     */
 
-}
 
-resendForgotOtp() {
+  }
 
-  /*
-   * PUT YOUR ACTUAL RESEND OTP API HERE.
-   */
+  /* ==========================================================
+     FORGOT PASSWORD FLOW
+     ========================================================== */
 
-  console.log(
-    'Resend Forgot Password OTP'
-  );
+  openForgotPassword() {
 
-}
+    this.authView = 'forgot';
 
-createNewPassword() {
-
-  if (this.passwordForm.invalid) {
-
-    this.passwordForm.markAllAsTouched();
-
-    return;
+    this.forgotOtp = '';
 
   }
 
 
-  const passwordData = {
+  backToForgot() {
 
-    mobile: this.forgotForm.value.mobile,
+    this.authView = 'forgot';
 
-    otp: this.forgotOtp,
+  }
 
-    password: this.passwordForm.value.password
+  generateForgotOtp() {
 
-  };
+    if (this.forgotForm.invalid) {
 
+      this.forgotForm.markAllAsTouched();
 
-  console.log(
-    'Reset Password Data:',
-    passwordData
-  );
+      return;
 
-
-  /*
-   * PUT YOUR ACTUAL RESET PASSWORD API HERE.
-   *
-   * Example:
-   *
-   * this.loginService.resetPassword(
-   *   passwordData
-   * ).subscribe(res => {
-   *
-   *   if (res.status == 1) {
-   *
-   *     this.authView = 'login';
-   *
-   *     this.forgotForm.reset();
-   *     this.passwordForm.reset();
-   *     this.forgotOtp = '';
-   *
-   *   }
-   *
-   * });
-   */
+    }
 
 
-}
+    /*
+     * PUT YOUR ACTUAL FORGOT PASSWORD
+     * SEND OTP API HERE.
+     */
+
+
+    console.log(
+      'Generate Forgot Password OTP',
+      this.forgotForm.value.mobile
+    );
+
+
+    // TEMPORARY UI FLOW
+
+    this.authView = 'forgotOtp';
+
+  }
+
+  verifyForgotOtp() {
+
+    if (!this.forgotOtp || this.forgotOtp.length !== 6) {
+
+      return;
+
+    }
+
+
+    /*
+     * PUT YOUR ACTUAL FORGOT PASSWORD
+     * OTP VERIFICATION API HERE.
+     */
+
+
+    console.log(
+      'Verify Forgot OTP:',
+      this.forgotOtp
+    );
+
+
+    // TEMPORARY UI FLOW
+
+    this.forgotOtpVerified = true;
+
+    this.authView = 'newPassword';
+
+  }
+
+  resendForgotOtp() {
+
+    /*
+     * PUT YOUR ACTUAL RESEND OTP API HERE.
+     */
+
+    console.log(
+      'Resend Forgot Password OTP'
+    );
+
+  }
+
+
+  onForgotOtpInput(event: Event, index: number) {
+
+    const input = event.target as HTMLInputElement;
+
+    // Keep only numbers
+    const value = input.value.replace(/\D/g, '').slice(-1);
+
+    // Set the current box value
+    input.value = value;
+
+    // Store value
+    this.forgotOtpBoxes[index] = value;
+
+    // Create complete OTP
+    this.forgotOtp = this.forgotOtpBoxes.join('');
+
+    // Move to next box
+    if (value && index < 5) {
+
+      setTimeout(() => {
+
+        const inputs = this.forgotOtpInputs.toArray();
+
+        inputs[index + 1]?.nativeElement.focus();
+
+      });
+
+    }
+  }
+
+
+  onForgotOtpKeydown(
+    event: KeyboardEvent,
+    index: number
+  ) {
+
+    const input = event.target as HTMLInputElement;
+
+    // BACKSPACE
+    if (event.key === 'Backspace') {
+
+      // If current box has value, clear it
+      if (input.value) {
+
+        input.value = '';
+
+        this.forgotOtpBoxes[index] = '';
+
+        this.forgotOtp =
+          this.forgotOtpBoxes.join('');
+
+        return;
+      }
+
+      // If current box is empty, move to previous box
+      if (index > 0) {
+
+        const inputs =
+          this.forgotOtpInputs.toArray();
+
+        const previousInput =
+          inputs[index - 1]?.nativeElement;
+
+        if (previousInput) {
+
+          previousInput.value = '';
+
+          this.forgotOtpBoxes[index - 1] = '';
+
+          this.forgotOtp =
+            this.forgotOtpBoxes.join('');
+
+          setTimeout(() => {
+            previousInput.focus();
+          });
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+  onForgotOtpPaste(event: ClipboardEvent) {
+
+    event.preventDefault();
+
+    const pastedText =
+      event.clipboardData
+        ?.getData('text')
+        .replace(/\D/g, '')
+        .slice(0, 6);
+
+    if (!pastedText) {
+      return;
+    }
+
+    const inputs =
+      this.forgotOtpInputs.toArray();
+
+    // Clear existing boxes
+    this.forgotOtpBoxes =
+      ['', '', '', '', '', ''];
+
+    // Put pasted digits into boxes
+    pastedText
+      .split('')
+      .forEach((digit, index) => {
+
+        this.forgotOtpBoxes[index] = digit;
+
+        if (inputs[index]) {
+          inputs[index].nativeElement.value = digit;
+        }
+
+      });
+
+    // Create complete OTP
+    this.forgotOtp =
+      this.forgotOtpBoxes.join('');
+
+    // Focus last entered / next box
+    const focusIndex =
+      Math.min(pastedText.length, 5);
+
+    setTimeout(() => {
+
+      inputs[focusIndex]?.nativeElement.focus();
+
+    });
+
+  }
+
+  createNewPassword() {
+
+    if (this.passwordForm.invalid) {
+
+      this.passwordForm.markAllAsTouched();
+
+      return;
+
+    }
+
+
+    const passwordData = {
+
+      mobile: this.forgotForm.value.mobile,
+
+      otp: this.forgotOtp,
+
+      password: this.passwordForm.value.password
+
+    };
+
+
+    console.log(
+      'Reset Password Data:',
+      passwordData
+    );
+
+
+    /*
+     * PUT YOUR ACTUAL RESET PASSWORD API HERE.
+     *
+     * Example:
+     *
+     * this.loginService.resetPassword(
+     *   passwordData
+     * ).subscribe(res => {
+     *
+     *   if (res.status == 1) {
+     *
+     *     this.authView = 'login';
+     *
+     *     this.forgotForm.reset();
+     *     this.passwordForm.reset();
+     *     this.forgotOtp = '';
+     *
+     *   }
+     *
+     * });
+     */
+
+
+  }
 }

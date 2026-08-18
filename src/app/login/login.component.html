@@ -200,12 +200,6 @@
           </div>
 
 
-          <!-- OTP Login -->
-          <button type="button" class="secondary-btn" (click)="openLoginOtp()">
-            Login with OTP
-          </button>
-
-
           <!-- Signup -->
           <div class="auth-switch">
 
@@ -222,8 +216,8 @@
         </form>
 
         <div class="secure-text">
-          <i class="fa fa-shield"></i>
-          Secure ODBUS Partner Portal
+          <i class="fa fa-copyright"></i>
+          All rights reserved. ODBUS 2024
         </div>
 
       </ng-container>
@@ -433,12 +427,11 @@
 
           <label>Enter OTP</label>
 
-          <div class="otp-input-wrapper">
+          <div class="otp-boxes">
 
-            <i class="fa fa-key"></i>
-
-            <input type="text" maxlength="6" [(ngModel)]="signupOtp" [ngModelOptions]="{standalone: true}"
-              placeholder="Enter 6-digit OTP" inputmode="numeric" />
+            <input *ngFor="let box of otpBoxes; let i = index" #otpInput type="text" maxlength="1" inputmode="numeric"
+              autocomplete="off" class="otp-box" (input)="onOtpInput($event, i)" (keydown)="onOtpKeydown($event, i)"
+              (paste)="onOtpPaste($event)" />
 
           </div>
 
@@ -712,12 +705,12 @@
 
           <label>Verification OTP</label>
 
-          <div class="otp-input-wrapper">
+          <!-- SIX OTP BOXES -->
+          <div class="otp-boxes">
 
-            <i class="fa fa-key"></i>
-
-            <input type="text" maxlength="6" [(ngModel)]="forgotOtp" [ngModelOptions]="{standalone: true}"
-              placeholder="Enter 6-digit OTP" inputmode="numeric" />
+            <input *ngFor="let box of otpBoxes; let i = index" #forgotOtpInput type="text" maxlength="1"
+              inputmode="numeric" autocomplete="off" class="otp-box" (input)="onForgotOtpInput($event, i)"
+              (keydown)="onForgotOtpKeydown($event, i)" (paste)="onForgotOtpPaste($event)" />
 
           </div>
 

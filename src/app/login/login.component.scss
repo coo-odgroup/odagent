@@ -941,56 +941,67 @@
 }
 
 
-.otp-input-wrapper {
-    width: 100%;
-    height: 56px;
+/* ============================================================
+   OTP 6 DIGIT BOXES
+   ============================================================ */
 
+.otp-boxes {
     display: flex;
 
     align-items: center;
+    justify-content: flex-start;
 
-    gap: 12px;
+    gap: 10px;
 
-    padding: 0 16px;
-
-    border: 1px solid #d0d5dd;
-
-    border-radius: 10px;
+    width: 100%;
 
     margin-bottom: 18px;
 }
 
 
-.otp-input-wrapper:focus-within {
-    border-color: #2f6fed;
+.otp-box {
+    width: 58px;
+    height: 58px;
 
-    box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.10);
-}
+    flex: 0 0 58px;
 
+    border: 1px solid #d0d5dd;
 
-.otp-input-wrapper i {
-    color: #98a2b3;
-}
+    border-radius: 10px;
 
+    background: #ffffff;
 
-.otp-input-wrapper input {
-    width: 100%;
+    outline: none;
 
-    height: 100%;
-
-    border: 0;
-
-    outline: 0;
+    text-align: center;
 
     color: #101828;
 
-    background: transparent;
-
-    font-size: 18px;
+    font-size: 21px;
 
     font-weight: 700;
 
-    letter-spacing: 5px;
+    transition: all 0.2s ease;
+}
+
+
+.otp-box::selection {
+    background: transparent;
+}
+
+
+.otp-box:focus {
+    border-color: #2f6fed;
+
+    box-shadow:
+        0 0 0 3px rgba(47, 111, 237, 0.10);
+
+    background: #f8fbff;
+}
+
+
+.otp-box:not(:placeholder-shown) {
+    border-color: #98b6e8;
 }
 
 
