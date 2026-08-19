@@ -24,7 +24,7 @@ import { FirsttimeRechargeComponent } from './firsttime-recharge/firsttime-recha
   
     PrintticketComponent,
               FirsttimeResetPasswordComponent,
-              AccountSuspendedComponent,
+              // AccountSuspendedComponent,
               FirsttimeRechargeComponent
   ],
   imports: [
