@@ -12,16 +12,12 @@ import { BookingComponent } from './booking/booking.component';
 import { AgentprofileComponent } from './agentprofile/agentprofile.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { PrintticketComponent } from './printticket/printticket.component';
-import { FirsttimeResetPasswordComponent } from './firsttime-reset-password/firsttime-reset-password.component';
 
 
 
 @NgModule({
-  declarations: [
-    
-  
-    PrintticketComponent,
-              FirsttimeResetPasswordComponent,              
+  declarations: [ 
+    PrintticketComponent                    
   ],
   imports: [
     CommonModule,

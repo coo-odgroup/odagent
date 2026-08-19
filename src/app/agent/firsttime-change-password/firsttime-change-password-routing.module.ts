@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { FirsttimeRechargeComponent } from './firsttime-recharge.component';
+import { FirsttimeChangePasswordComponent } from './firsttime-change-password.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: FirsttimeRechargeComponent
+    component: FirsttimeChangePasswordComponent
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class  FirsttimeRechargeRoutingModule { }
+export class  FirsttimeChangePasswordRoutingModule { }

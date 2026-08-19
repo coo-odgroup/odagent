@@ -113,6 +113,13 @@ const routes: Routes = [
             (module) => module.FirsttimeRechargeModule,
           ),
       },
+      {
+        path: 'first-change-password',
+        loadChildren: () =>
+          import('./firsttime-change-password/firsttime-change-password.module').then(
+            (module) => module.FirsttimeChangePasswordModule,
+          ),
+      },
   
     ],
   },
