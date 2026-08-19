@@ -292,7 +292,7 @@
 
               <i class="fa fa-user input-icon"></i>
 
-              <input type="text" formControlName="name" placeholder="Enter your full name" />
+              <input type="text" formControlName="fullname" placeholder="Enter your full name" />
 
             </div>
 
@@ -310,7 +310,7 @@
 
               <span class="country-code">+91</span>
 
-              <input type="text" formControlName="mobile" placeholder="Enter mobile number" maxlength="10" />
+              <input type="number" formControlName="mobileNo" placeholder="Enter mobile number" maxlength="10" />
 
             </div>
 
@@ -328,7 +328,7 @@
 
               <i class="fa fa-envelope input-icon"></i>
 
-              <input type="email" formControlName="signupEmail" placeholder="Enter email address" />
+              <input type="email" formControlName="email" placeholder="Enter email address" />
 
             </div>
 
@@ -346,7 +346,7 @@
 
               <i class="fa fa-map-marker input-icon"></i>
 
-              <input type="text" formControlName="city" placeholder="Enter operating city" />
+              <input type="text" formControlName="location" placeholder="Enter operating city" />
 
             </div>
 
@@ -416,7 +416,7 @@
           <p>
             Enter the OTP sent to
             <strong>
-              +91 {{ signupForm.value.mobile }}
+              +91 {{ signupForm.value.mobileNo }}
             </strong>
           </p>
 
