@@ -12,6 +12,8 @@ import { BookingComponent } from './booking/booking.component';
 import { AgentprofileComponent } from './agentprofile/agentprofile.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { PrintticketComponent } from './printticket/printticket.component';
+import { FirsttimeResetPasswordComponent } from './firsttime-reset-password/firsttime-reset-password.component';
+import { AccountSuspendedComponent } from './account-suspended/account-suspended.component';
 
 
 
@@ -19,7 +21,9 @@ import { PrintticketComponent } from './printticket/printticket.component';
   declarations: [
     
   
-    PrintticketComponent
+    PrintticketComponent,
+              FirsttimeResetPasswordComponent,
+              AccountSuspendedComponent
   ],
   imports: [
     CommonModule,
