@@ -96,7 +96,7 @@ const routes: Routes = [
         canActivate: [Routeguard],
       },
       {
-        path: 'account',
+        path: 'misc',
         loadChildren: () =>
           import('./agent/agent.module').then((module) => module.AgentModule),
          canActivate: [Routeguard],

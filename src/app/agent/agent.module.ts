@@ -13,8 +13,6 @@ import { AgentprofileComponent } from './agentprofile/agentprofile.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { PrintticketComponent } from './printticket/printticket.component';
 import { FirsttimeResetPasswordComponent } from './firsttime-reset-password/firsttime-reset-password.component';
-import { AccountSuspendedComponent } from './account-suspended/account-suspended.component';
-import { FirsttimeRechargeComponent } from './firsttime-recharge/firsttime-recharge.component';
 
 
 
@@ -23,9 +21,7 @@ import { FirsttimeRechargeComponent } from './firsttime-recharge/firsttime-recha
     
   
     PrintticketComponent,
-              FirsttimeResetPasswordComponent,
-              // AccountSuspendedComponent,
-              FirsttimeRechargeComponent
+              FirsttimeResetPasswordComponent,              
   ],
   imports: [
     CommonModule,

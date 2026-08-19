@@ -106,6 +106,13 @@ const routes: Routes = [
             (module) => module.AccountSuspendedModule,
           ),
       },
+      {
+        path: 'first-time-recharge',
+        loadChildren: () =>
+          import('./firsttime-recharge/firsttime-recharge.module').then(
+            (module) => module.FirsttimeRechargeModule,
+          ),
+      },
   
     ],
   },
