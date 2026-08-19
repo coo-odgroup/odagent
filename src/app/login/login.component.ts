@@ -19,12 +19,21 @@ import { Router } from '@angular/router';
 import { NotificationService } from '../services/notification.service';
 import { Constants } from '../constant/constant';
 import { EncryptionService } from '../encrypt.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  private apiURL = Constants.BASE_URL;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
+
   public form: FormGroup;
   public loginRecord: Login;
   usertypes: [];
@@ -66,7 +75,7 @@ export class LoginComponent implements OnInit {
 
   public signupOtpVerified: boolean = false;
 
-  
+
 
   @ViewChildren('otpInput')
   otpInputs!: QueryList<ElementRef>;
@@ -111,7 +120,7 @@ export class LoginComponent implements OnInit {
     this.saveUsername = value;
   }
 
-  constructor(public router: Router, protected fb: FormBuilder, private loginService: LoginService, private notificationService: NotificationService, private notify: NotificationService, private roleService: RoleService, private enc: EncryptionService) {
+  constructor(public router: Router, protected fb: FormBuilder, private loginService: LoginService, private notificationService: NotificationService, private notify: NotificationService, private roleService: RoleService, private enc: EncryptionService, private http: HttpClient) {
 
     this.roleService.getRoles().subscribe(
       res => {
@@ -153,12 +162,12 @@ export class LoginComponent implements OnInit {
 
     this.signupForm = this.fb.group({
 
-      name: [
+      fullname: [
         null,
         Validators.required
       ],
 
-      mobile: [
+      mobileNo: [
         null,
         [
           Validators.required,
@@ -166,7 +175,7 @@ export class LoginComponent implements OnInit {
         ]
       ],
 
-      signupEmail: [
+      email: [
         null,
         [
           Validators.required,
@@ -174,7 +183,7 @@ export class LoginComponent implements OnInit {
         ]
       ],
 
-      city: [
+      location: [
         null,
         Validators.required
       ],
@@ -365,6 +374,8 @@ export class LoginComponent implements OnInit {
    SIGNUP OTP
    ========================================================== */
 
+  userId: any;
+
   generateSignupOtp() {
 
     if (this.signupForm.invalid) {
@@ -376,36 +387,44 @@ export class LoginComponent implements OnInit {
     }
 
 
-    /*
-     * IMPORTANT:
-     *
-     * PUT YOUR ACTUAL SIGNUP / SEND OTP API HERE.
-     *
-     * Example:
-     *
-     * this.loginService.generateSignupOtp(
-     *   this.signupForm.value.mobile
-     * ).subscribe(res => {
-     *
-     * });
-     */
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
 
+    const data = {
+      fullname: this.signupForm.value.fullname,
+      email: this.signupForm.value.email,
+      mobileNo: this.signupForm.value.mobileNo,
+      location: this.signupForm.value.location
+    };
+
+    this.http.post(
+      this.apiURL + '/agentRegd',
+      data,
+      { headers: headers }
+    ).subscribe(
+      (res: any) => {
+        console.log('Agent Regd API Response:', res);
+        if (res.status == 1) {
+          this.userId = res.userId;
+
+          this.signupOtp = '';
+
+          this.signupOtpBoxes =
+            ['', '', '', '', '', ''];
+
+          this.authView = 'signupOtp';
+        }
+      },
+      (error: any) => {
+        console.error('Agent Regd API Error:', error);
+      }
+    );
 
     console.log(
       'Generate Signup OTP',
       this.signupForm.value
     );
-
-
-    // TEMPORARY UI FLOW
-
-    this.signupOtp = '';
-
-    this.signupOtpBoxes =
-      ['', '', '', '', '', ''];
-
-    this.authView = 'signupOtp';
-
   }
 
 
@@ -418,24 +437,34 @@ export class LoginComponent implements OnInit {
     }
 
 
-    /*
-     * PUT YOUR ACTUAL OTP VERIFY API HERE.
-     *
-     * Example:
-     *
-     * this.loginService.verifySignupOtp(
-     *   this.signupForm.value.mobile,
-     *   this.signupOtp
-     * ).subscribe(res => {
-     *
-     *   if (res.status == 1) {
-     *
-     *     this.authView = 'signupKyc';
-     *
-     *   }
-     *
-     * });
-     */
+    const data = {
+      userId: this.userId,
+      type: 1,
+      otp: this.signupOtp
+    };
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json'
+    });
+
+    this.http.post(
+      this.apiURL + '/agentRegdOtpVerify',
+      data,
+      { headers: headers }
+    ).subscribe(
+      (res: any) => {
+
+        console.log('Agent Regd OTP Verify Response:', res);
+
+        if (res.status == 1) {
+          this.authView = 'signupKyc';
+        }
+
+      },
+      (error: any) => {
+        console.error('Agent Regd OTP Verify Error:', error);
+      }
+    );
 
 
     console.log(
