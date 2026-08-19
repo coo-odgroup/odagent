@@ -99,6 +99,27 @@ const routes: Routes = [
             (module) => module.AgentprofileModule,
           ),
       },
+      {
+        path: 'account-suspended',
+        loadChildren: () =>
+          import('./account-suspended/account-suspended.module').then(
+            (module) => module.AccountSuspendedModule,
+          ),
+      },
+      {
+        path: 'first-time-recharge',
+        loadChildren: () =>
+          import('./firsttime-recharge/firsttime-recharge.module').then(
+            (module) => module.FirsttimeRechargeModule,
+          ),
+      },
+      {
+        path: 'first-change-password',
+        loadChildren: () =>
+          import('./firsttime-change-password/firsttime-change-password.module').then(
+            (module) => module.FirsttimeChangePasswordModule,
+          ),
+      },
   
     ],
   },

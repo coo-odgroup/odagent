@@ -95,6 +95,12 @@ const routes: Routes = [
           import('./agent/agent.module').then((module) => module.AgentModule),
         canActivate: [Routeguard],
       },
+      {
+        path: 'misc',
+        loadChildren: () =>
+          import('./agent/agent.module').then((module) => module.AgentModule),
+         canActivate: [Routeguard],
+      },
     ],
   },
 ];
