@@ -99,6 +99,13 @@ const routes: Routes = [
             (module) => module.AgentprofileModule,
           ),
       },
+      {
+        path: 'account-suspended',
+        loadChildren: () =>
+          import('./account-suspended/account-suspended.module').then(
+            (module) => module.AccountSuspendedModule,
+          ),
+      },
   
     ],
   },

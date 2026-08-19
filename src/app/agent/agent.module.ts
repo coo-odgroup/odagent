@@ -14,6 +14,7 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { PrintticketComponent } from './printticket/printticket.component';
 import { FirsttimeResetPasswordComponent } from './firsttime-reset-password/firsttime-reset-password.component';
 import { AccountSuspendedComponent } from './account-suspended/account-suspended.component';
+import { FirsttimeRechargeComponent } from './firsttime-recharge/firsttime-recharge.component';
 
 
 
@@ -23,7 +24,8 @@ import { AccountSuspendedComponent } from './account-suspended/account-suspended
   
     PrintticketComponent,
               FirsttimeResetPasswordComponent,
-              AccountSuspendedComponent
+              AccountSuspendedComponent,
+              FirsttimeRechargeComponent
   ],
   imports: [
     CommonModule,
