@@ -1,1 +1,90 @@
-<p>account-suspended works!</p>
+<div class="account-suspended-overlay">
+
+    <div class="account-suspended-modal">
+
+        <!-- Logout -->
+        <button type="button" class="suspended-logout-btn" (click)="logout()">
+
+            <i class="fa fa-sign-out"></i>
+            Logout
+
+        </button>
+
+        <!-- Lock Icon -->
+        <div class="suspended-icon">
+            <i class="fa fa-lock"></i>
+        </div>
+
+        <!-- Heading -->
+        <h2 class="suspended-title">
+            Account Access Suspended
+        </h2>
+
+        <p class="suspended-description">
+            Your agent account was automatically suspended because
+            no bookings were made for over
+            <strong>3 months (90 days).</strong>
+        </p>
+
+        <!-- Wallet Balance -->
+        <div class="wallet-info-box">
+
+            <div class="wallet-balance-row">
+                <span>Retained Wallet Balance:</span>
+                <strong>Rs 340.00</strong>
+            </div>
+
+            <p>
+                Note: Your existing balance remains safe and will be restored
+                immediately upon account reactivation.
+            </p>
+
+        </div>
+
+        <!-- Reactivation -->
+        <div class="reactivation-box">
+
+            <h4>
+                <span class="reactivation-icon">⚡</span>
+                Reactivation Requirement
+            </h4>
+
+            <p>
+                To reactivate your partner account and restore full access to
+                booking functionality, complete a minimum wallet recharge.
+            </p>
+
+            <!-- Recharge -->
+            <div class="recharge-input">
+
+                <span class="currency">
+                    Rs
+                </span>
+
+                <input type="number" value="100" min="100" aria-label="Recharge amount" placeholder="Enter amount">
+
+            </div>
+            <!-- Reactivate -->
+            <button type="button" class="reactivate-btn">
+
+                <i class="fa fa-credit-card"></i>
+                Reactivate Account Now
+
+            </button>
+
+        </div>
+
+        <!-- Support -->
+        <div class="suspended-support">
+
+            Need help? Contact ODBUS Partner Support at
+
+            <a href="mailto:support@odbus.in">
+                support@odbus.in
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

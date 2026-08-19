@@ -1,1 +1,474 @@
-<p>firsttime-recharge works!</p>
+<div class="wallet-modal-overlay">
+
+    <div class="wallet-recharge-modal">
+
+        <!-- ==================================================
+             HEADER
+        ================================================== -->
+
+        <div class="wallet-modal-header">
+
+            <div class="wallet-header-left">
+
+                <div class="wallet-header-icon">
+                    <i class="fa fa-credit-card"></i>
+                </div>
+
+                <div class="wallet-header-content">
+
+                    <h2>
+                        First-Time Wallet Recharge
+                    </h2>
+
+                    <p>
+                        Activate your agent booking portal and unlock ticketing permissions
+                    </p>
+
+                </div>
+
+            </div>
+
+            <button type="button" class="wallet-close-btn" (click)="closeWalletModal()">
+
+                <i class="fa fa-times"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- ==================================================
+             ACTIVATION NOTICE
+        ================================================== -->
+
+        <div class="activation-notice">
+
+            <span class="activation-notice-icon">
+                ✨
+            </span>
+
+            <div class="activation-text">
+
+                <strong>
+                    Mandatory Account Activation:
+                </strong>
+
+                Complete an initial top-up of ₹2,000 or more to activate
+                instant PNR generation and receive your welcome bonus of
+                10% extra.
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             MAIN BODY
+        ================================================== -->
+
+        <div class="wallet-modal-body">
+
+
+            <!-- ==================================================
+                 LEFT SIDE
+            ================================================== -->
+
+            <div class="wallet-left-section">
+
+
+                <!-- EMAIL + CONTACT -->
+
+                <div class="wallet-contact-row">
+
+
+                    <!-- EMAIL -->
+
+                    <div class="wallet-contact-card">
+
+                        <div class="contact-label">
+                            EMAIL ID
+                        </div>
+
+                        <div class="contact-value">
+
+                            <i class="fa fa-lock"></i>
+
+                            <span>
+                                name@example.com
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CONTACT -->
+
+                    <div class="wallet-contact-card">
+
+                        <div class="contact-label">
+                            CONTACT NO.
+                        </div>
+
+                        <div class="contact-value">
+
+                            <i class="fa fa-phone contact-icon"></i>
+
+                            <span>
+                                9999998741
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================================
+                     RECHARGE AMOUNT
+                ================================================== -->
+
+                <div class="wallet-form-group">
+
+                    <label class="wallet-form-label">
+
+                        Recharge Amount
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+
+                    <div class="wallet-amount-input">
+
+                        <div class="rupee-icon">
+                            ₹
+                        </div>
+
+                        <input type="number" [(ngModel)]="rechargeAmount" min="2000" step="1"
+                            placeholder="Enter amount">
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================================
+                     QUICK SELECT
+                ================================================== -->
+
+                <div class="quick-select-row">
+
+                    <span class="quick-select-label">
+                        Quick Select:
+                    </span>
+
+
+                    <button type="button" class="quick-amount-btn" [class.active]="rechargeAmount === 1000"
+                        (click)="addRechargeAmount(1000)">
+
+                        + ₹1,000
+
+                    </button>
+
+
+                    <button type="button" class="quick-amount-btn" [class.active]="rechargeAmount === 2000"
+                        (click)="addRechargeAmount(2000)">
+
+                        + ₹2,000
+
+                    </button>
+
+
+                    <button type="button" class="quick-amount-btn" [class.active]="rechargeAmount === 5000"
+                        (click)="addRechargeAmount(5000)">
+
+                        + ₹5,000
+
+                    </button>
+
+
+                    <button type="button" class="quick-amount-btn" [class.active]="rechargeAmount === 10000"
+                        (click)="addRechargeAmount(10000)">
+
+                        + ₹10,000
+
+                    </button>
+
+
+                    <button type="button" class="quick-amount-btn" [class.active]="rechargeAmount === 25000"
+                        (click)="addRechargeAmount(25000)">
+
+                        + ₹25,000
+
+                    </button>
+
+                </div>
+
+
+                <!-- ==================================================
+                     REMARK
+                ================================================== -->
+
+                <div class="wallet-form-group remarks-group">
+
+                    <label class="wallet-form-label">
+
+                        Remark / Notes
+
+                        <span class="optional">
+                            (Optional)
+                        </span>
+
+                    </label>
+
+
+                    <textarea [(ngModel)]="remarks"
+                        placeholder="Enter remarks (e.g., Initial agent activation wallet credit)...">
+                    </textarea>
+
+                </div>
+
+
+                <!-- ==================================================
+                     PAYMENT CHANNELS
+                ================================================== -->
+
+                <div class="payment-channel-box">
+
+                    <div class="payment-channel-title">
+                        SUPPORTED PAYMENT CHANNELS
+                    </div>
+
+
+                    <div class="payment-channel-list">
+
+
+                        <div class="payment-channel-item">
+
+                            <span class="payment-check">
+                                ✓
+                            </span>
+
+                            <span>
+                                UPI
+                                <span class="channel-small">
+                                    (Instant - Free)
+                                </span>
+                            </span>
+
+                        </div>
+
+
+                        <div class="payment-channel-item">
+
+                            <span class="payment-check">
+                                ✓
+                            </span>
+
+                            <span>
+                                Net Banking
+                                <span class="channel-small">
+                                    (Charges May Apply)
+                                </span>
+                            </span>
+
+                        </div>
+
+
+                        <div class="payment-channel-item">
+
+                            <span class="payment-check">
+                                ✓
+                            </span>
+
+                            <span>
+                                Debit/Credit Cards
+                                <span class="channel-small">
+                                    (Charges May Apply)
+                                </span>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ==================================================
+                 RIGHT SIDE - TERMS
+            ================================================== -->
+
+            <div class="terms-condition-box">
+
+
+                <!-- TERMS HEADER -->
+
+                <div class="terms-header">
+
+                    <div class="terms-icon">
+
+                        <i class="fa fa-credit-card"></i>
+
+                    </div>
+
+                    <h3>
+                        Terms &amp; Conditions
+                    </h3>
+
+                </div>
+
+
+                <!-- ==================================================
+                     SCROLLABLE CONTENT
+                ================================================== -->
+
+                <div class="terms-scroll-area">
+
+
+                    <!-- TERM 1 -->
+
+                    <div class="terms-item">
+
+                        <h4>
+                            1. WALLET RECHARGE &amp; PAYMENT INSTRUMENTS
+                        </h4>
+
+                        <p>
+                            Agents can add funds to their wallet using payment
+                            methods available on the platform, including UPI,
+                            Net Banking, Credit/Debit Cards, and supported
+                            corporate gateways. Availability may vary based
+                            on service provider schedules and regulatory
+                            guidelines.
+                        </p>
+
+                    </div>
+
+
+                    <!-- TERM 2 -->
+
+                    <div class="terms-item">
+
+                        <h4>
+                            2. PAYMENT CONFIRMATION &amp; SETTLEMENT
+                        </h4>
+
+                        <p>
+                            Wallet balance will be credited immediately upon
+                            successful gateway authorization. In case of bank
+                            server delays or transient network issues, please
+                            allow up to 15 minutes before re-initiating payment.
+                        </p>
+
+                    </div>
+
+
+                    <!-- TERM 3 -->
+
+                    <div class="terms-item">
+
+                        <h4>
+                            3. NON-REFUNDABLE NATURE OF OPERATIONAL BALANCE
+                        </h4>
+
+                        <p>
+                            Recharged wallet funds are designated solely for
+                            inventory booking and ticketing operations on the
+                            platform. Direct withdrawals to bank accounts
+                            require compliance validation and standard account
+                            settlement timelines.
+                        </p>
+
+                    </div>
+
+
+                    <!-- TERM 4 -->
+
+                    <div class="terms-item">
+
+                        <h4>
+                            4. AUTOMATED DEDUCTIONS &amp; CANCELLATION REFUNDS
+                        </h4>
+
+                        <p>
+                            Booking amounts will be deducted immediately at
+                            checkout. Eligible ticket cancellation refunds and
+                            commission rebates will be re-credited to this
+                            wallet balance automatically.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ==================================================
+                     AGREEMENT
+                ================================================== -->
+
+                <div class="terms-agreement">
+
+                    <label class="terms-checkbox">
+
+                        <input type="checkbox" [(ngModel)]="termsAccepted">
+
+                        <span class="custom-checkbox"></span>
+
+                        <span class="agreement-text">
+
+                            I agree to the
+
+                            <a href="javascript:void(0)">
+                                Terms &amp; Conditions
+                            </a>
+
+                            and Agent Onboarding Policy
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ==================================================
+             FOOTER
+        ================================================== -->
+
+        <div class="wallet-modal-footer">
+
+            <button type="button" class="wallet-close-text" (click)="closeWalletModal()">
+
+                Close
+
+            </button>
+
+
+            <button type="button" class="make-payment-btn" [disabled]="!termsAccepted || rechargeAmount < 2000"
+                (click)="makePayment()">
+
+                <i class="fa fa-lock"></i>
+
+                <span>
+                    Make Payment
+                    (₹{{ rechargeAmount | number }})
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>

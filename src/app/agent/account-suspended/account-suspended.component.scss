@@ -1,0 +1,540 @@
+/* =========================================
+   FULL SCREEN ACCOUNT SUSPENDED MODAL
+========================================= */
+
+.account-suspended-overlay {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 25px;
+    box-sizing: border-box;
+
+    /* Dark + blur background */
+    background: rgba(8, 15, 28, 0.72);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* Prevent scrolling behind modal */
+    overflow: hidden;
+}
+
+
+/* =========================================
+   MODAL CARD
+========================================= */
+
+.account-suspended-modal {
+    position: relative;
+
+    width: 100%;
+    max-width: 520px;
+
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    padding: 48px 48px 40px;
+
+    box-sizing: border-box;
+
+    text-align: center;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.30);
+
+    animation: suspendedModalIn 0.25s ease-out;
+}
+
+
+/* =========================================
+   MODAL ANIMATION
+========================================= */
+
+@keyframes suspendedModalIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(0.97);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+
+/* =========================================
+   LOGOUT BUTTON
+========================================= */
+
+.suspended-logout-btn {
+    position: absolute;
+
+    top: 17px;
+    right: 18px;
+
+    height: 34px;
+
+    padding: 0 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    border: 1px solid #e0e3e7;
+    border-radius: 6px;
+
+    background: #ffffff;
+
+    color: #596675;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.suspended-logout-btn i {
+    font-size: 13px;
+}
+
+.suspended-logout-btn:hover {
+    color: #1b47e5;
+    border-color: #1b2fe5;
+    background: #f4fcff;
+}
+
+
+/* =========================================
+   LOCK ICON
+========================================= */
+
+.suspended-icon {
+    width: 80px;
+    height: 80px;
+
+    margin: 0 auto 22px;
+
+    border-radius: 50%;
+
+    background: #fde7e5;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.suspended-icon i {
+    font-size: 34px;
+    color: #e5231b;
+}
+
+
+/* =========================================
+   TITLE
+========================================= */
+
+.suspended-title {
+    margin: 0 0 8px;
+
+    font-size: 28px;
+    line-height: 1.25;
+
+    font-weight: 700;
+
+    color: #e5231b;
+}
+
+
+/* =========================================
+   DESCRIPTION
+========================================= */
+
+.suspended-description {
+    margin: 0 auto 25px;
+
+    max-width: 430px;
+
+    font-size: 15px;
+    line-height: 1.55;
+
+    color: #46566a;
+}
+
+.suspended-description strong {
+    color: #26384e;
+}
+
+
+/* =========================================
+   WALLET BOX
+========================================= */
+
+.wallet-info-box {
+    width: 100%;
+
+    padding: 16px;
+
+    margin-bottom: 24px;
+
+    box-sizing: border-box;
+
+    text-align: left;
+
+    background: #e9ebed;
+
+    border: 1px solid #c9cdd1;
+
+    border-radius: 6px;
+}
+
+.wallet-balance-row {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 6px;
+}
+
+.wallet-balance-row span {
+    font-size: 14px;
+    color: #536273;
+}
+
+.wallet-balance-row strong {
+    font-size: 14px;
+
+    color: #111111;
+
+    white-space: nowrap;
+}
+
+.wallet-info-box p {
+    margin: 0;
+
+    font-size: 13px;
+    line-height: 1.55;
+
+    color: #536273;
+}
+
+
+/* =========================================
+   REACTIVATION BOX
+========================================= */
+
+.reactivation-box {
+    width: 100%;
+
+    padding: 17px;
+
+    box-sizing: border-box;
+
+    text-align: left;
+
+    background: #fafbfc;
+
+    border: 1px solid #d9dfe5;
+
+    border-radius: 7px;
+}
+
+.reactivation-box h4 {
+    margin: 0 0 7px;
+
+    text-align: center;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    color: #171717;
+}
+
+.reactivation-icon {
+    color: #1b47e5;
+
+    font-size: 17px;
+
+    margin-right: 3px;
+}
+
+.reactivation-box>p {
+    margin: 0 8px 15px;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+
+    color: #536273;
+
+    text-align: left;
+}
+
+
+/* =========================================
+   RECHARGE INPUT
+========================================= */
+
+.recharge-input {
+    height: 48px;
+
+    display: flex;
+
+    align-items: stretch;
+
+    margin-bottom: 16px;
+
+    border: 1px solid #d7dde3;
+
+    border-radius: 7px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+}
+
+.recharge-input .currency {
+    min-width: 40px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 10px;
+
+    font-size: 14px;
+
+    color: #4c5968;
+
+    background: #f8f9fa;
+
+    border-right: 1px solid #d7dde3;
+}
+
+.recharge-input input {
+    width: 100%;
+    min-width: 0;
+
+    border: 0;
+
+    outline: none;
+
+    padding: 0 16px;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    color: #111111;
+
+    background: #ffffff;
+}
+
+
+/* =========================================
+   REACTIVATE BUTTON
+========================================= */
+
+.reactivate-btn {
+    width: 100%;
+
+    height: 48px;
+
+    border: 0;
+
+    border-radius: 7px;
+
+    background: #1b58e5;
+
+    color: #ffffff;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    transition: all 0.2s ease;
+}
+
+.reactivate-btn i {
+    font-size: 19px;
+}
+
+.reactivate-btn:hover {
+    background: #2365ff;
+
+    box-shadow:
+        0 5px 14px rgba(229, 35, 27, 0.22);
+}
+
+
+/* =========================================
+   SUPPORT
+========================================= */
+
+.suspended-support {
+    margin-top: 28px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    color: #536273;
+}
+
+.suspended-support a {
+    color: #1b58e5;
+
+    text-decoration: none;
+}
+
+.suspended-support a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 767px) {
+
+    .account-suspended-overlay {
+        padding: 15px;
+    }
+
+    .account-suspended-modal {
+        max-width: 100%;
+
+        max-height: calc(100vh - 30px);
+
+        padding: 38px 20px 28px;
+
+        border-radius: 13px;
+    }
+
+
+    /* Logout */
+
+    .suspended-logout-btn {
+        top: 12px;
+        right: 12px;
+
+        height: 30px;
+
+        padding: 0 9px;
+
+        font-size: 11px;
+    }
+
+
+    /* Lock */
+
+    .suspended-icon {
+        width: 68px;
+        height: 68px;
+
+        margin-bottom: 18px;
+    }
+
+    .suspended-icon i {
+        font-size: 29px;
+    }
+
+
+    /* Title */
+
+    .suspended-title {
+        font-size: 23px;
+    }
+
+
+    /* Description */
+
+    .suspended-description {
+        font-size: 14px;
+
+        line-height: 1.5;
+
+        margin-bottom: 20px;
+    }
+
+
+    /* Wallet */
+
+    .wallet-info-box {
+        padding: 14px;
+
+        margin-bottom: 18px;
+    }
+
+    .wallet-balance-row {
+        align-items: flex-start;
+    }
+
+    .wallet-balance-row span,
+    .wallet-balance-row strong {
+        font-size: 13px;
+    }
+
+    .wallet-info-box p {
+        font-size: 12px;
+    }
+
+
+    /* Reactivation */
+
+    .reactivation-box {
+        padding: 14px;
+    }
+
+    .reactivation-box>p {
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+
+    /* Button */
+
+    .reactivate-btn {
+        font-size: 16px;
+    }
+
+
+    /* Support */
+
+    .suspended-support {
+        margin-top: 22px;
+
+        font-size: 12px;
+    }
+
+}
