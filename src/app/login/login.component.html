@@ -17,7 +17,7 @@
     <div class="visual-content">
 
       <div class="visual-brand">
-        <img src="assets/images/odbus-logo.svg" alt="ODBUS" />
+        <img src="assets/images/odbus_logo.webp" alt="ODBUS" />
       </div>
 
       <div class="visual-text">
@@ -740,6 +740,10 @@
            FORGOT PASSWORD - CREATE NEW PASSWORD
            ===================================================== -->
       <ng-container *ngIf="authView === 'newPassword'">
+        <button type="button" class="back-home" (click)="backToForgot()">
+            <i class="fa fa-arrow-left"></i>
+            Back
+          </button>
 
         <div class="auth-header">
 
