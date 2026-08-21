@@ -98,7 +98,6 @@
         <div class="nav-links">
             <a href="#features">Features</a>
             <a href="#earnings">Earnings</a>
-            <a href="#routes">Routes</a>
             <a href="#faq">FAQ</a>
         </div>
         <div class="nav-actions">
@@ -107,6 +106,69 @@
         </div>
     </div>
 </nav>
+
+<!-- ================= MOBILE AGENT HERO ================= -->
+<section class="mobile-agent-hero">
+
+    <!-- Mobile Logo -->
+    <div class="mobile-agent-top">
+
+        <img src="assets/images/odbus_logo.webp" alt="ODBUS Agent" class="mobile-agent-logo">
+
+        <button class="mobile-nav-login">
+            Login
+        </button>
+
+    </div>
+    <!-- Mobile Hero Gradient Box -->
+    <div class="mobile-agent-box">
+
+        <!-- Small Badge -->
+        <div class="mobile-agent-badge">
+            Odisha's Premier Travel Agent Network
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="mobile-agent-title">
+            Seats That Pay
+            <span>Higher.</span>
+            <br>
+            <strong>Earn More Every Ticket.</strong>
+        </h1>
+
+        <!-- Description -->
+        <p class="mobile-agent-desc">
+            Maximize agency revenue with ODBUS.
+            Access 1,000+ regional bus operators with
+            99.99% seat assurance. Stack commissions
+            on tickets, insurance, and cancellation
+            protection.
+        </p>
+
+        <!-- Features -->
+        <div class="mobile-agent-features">
+
+            <div class="mobile-feature-item">
+                <span>●</span>
+                Free Registration
+            </div>
+
+            <div class="mobile-feature-item">
+                <span>●</span>
+                Zero Setup Fees
+            </div>
+
+            <div class="mobile-feature-item">
+                <span>●</span>
+                2-Minute Activation
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ================= END MOBILE AGENT HERO ================= -->
 
 <!-- Hero Section -->
 <section class="hero">
@@ -245,7 +307,8 @@
 <!-- Profit Stacking Visual -->
 <section class="profit-stacking gradient-bg">
     <div class="container">
-        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem;">The Revenue Stacking Advantage</h2>
+        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem; color: #ffffff;">The Revenue Stacking
+            Advantage</h2>
         <div class="stack-grid">
             <div class="stack-card">
                 <div class="stack-icon orange">1</div>
@@ -280,7 +343,7 @@
 
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon icon-orange">&#128187;</div>
+                <div class="feature-icon icon-orange"><i class="fas fa-home"></i></div>
                 <h4 class="feature-title">Unified Dashboard</h4>
                 <p class="feature-desc">Access 1,000+ local operators from one login. No more juggling multiple portals.
                 </p>
@@ -298,7 +361,7 @@
                     double-bookings.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon icon-purple">&#128176;</div>
+                <div class="feature-icon icon-purple"><i class="fas fa-coins"></i></div>
                 <h4 class="feature-title">Instant Wallet</h4>
                 <p class="feature-desc">Commissions credited instantly. Rapid refunds automated back to your agency
                     wallet.</p>
@@ -307,29 +370,6 @@
     </div>
 </section>
 
-<!-- Regional Route Network -->
-<section id="routes" class="section-padding">
-    <div class="container">
-        <div class="route-header-flex">
-            <div style="max-width: 36rem;">
-                <h2 class="section-title" style="text-align: left; margin-bottom: 1rem;">Deepest Route Penetration in
-                    Odisha</h2>
-                <p class="section-desc" style="margin-left: 0;">Sell tickets for the routes your customers actually
-                    take. From coastal urban centers to interior industrial districts.</p>
-            </div>
-            <div class="route-tabs" id="routeTabs">
-                <button onclick="switchRoute('coastal', event)" class="route-tab active">Coastal</button>
-                <button onclick="switchRoute('western', event)" class="route-tab">Western</button>
-                <button onclick="switchRoute('southern', event)" class="route-tab">Southern</button>
-                <button onclick="switchRoute('interstate', event)" class="route-tab">Interstate</button>
-            </div>
-        </div>
-
-        <div id="routeGrid" class="route-grid">
-            <!-- Dynamic Content -->
-        </div>
-    </div>
-</section>
 
 <!-- Onboarding Process -->
 <section class="section-padding" style="background-color: #ffffff;">
@@ -365,7 +405,7 @@
 </section>
 
 <!-- FAQ Accordion -->
-<section id="faq" class="section-padding">
+<!-- <section id="faq" class="section-padding">
     <div class="container">
         <h2 class="section-title" style="margin-bottom: 3rem;">Frequently Asked Questions</h2>
         <div class="faq-wrapper">
@@ -413,7 +453,370 @@
             </div>
         </div>
     </div>
+</section> -->
+
+<!-- ================= FAQ SECTION ================= -->
+<section id="faq" class="odb-faq-section section-padding">
+
+    <div class="container">
+
+        <!-- FAQ Heading -->
+        <h2 class="odb-faq-title">
+            FAQs Related to Bus Tickets Booking
+        </h2>
+
+
+        <!-- FAQ Tabs -->
+        <div class="odb-faq-tabs">
+
+            <button class="odb-faq-tab" [class.active]="isFaqTabActive('general')" (click)="switchFaqTab('general')">
+                General
+            </button>
+
+            <button class="odb-faq-tab" [class.active]="isFaqTabActive('ticket')" (click)="switchFaqTab('ticket')">
+                Ticket Related
+            </button>
+
+            <button class="odb-faq-tab" [class.active]="isFaqTabActive('payment')" (click)="switchFaqTab('payment')">
+                Payment
+            </button>
+
+            <button class="odb-faq-tab" [class.active]="isFaqTabActive('cancellation')"
+                (click)="switchFaqTab('cancellation')">
+                Cancellation and Refund
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             GENERAL
+        ================================================== -->
+
+        <div class="odb-faq-panel active" id="faq-general">
+
+            <div class="odb-faq-item active">
+
+                <button class="odb-faq-question" (click)="toggleFaq(0)">
+
+                    <span>What is an e-ticket?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(0)">
+                    An e-ticket, also known as an electronic ticket,
+                    is an electronic document that contains the details
+                    of your bus ticket, like a unique confirmation number
+                    issued by the bus operator for the booking you have made,
+                    along with other details like your departure date, time,
+                    boarding point, conductor number and so on.
+                    It is important to carry a print-out of the e-ticket
+                    along with a valid photo-id proof at the time of bus departure.
+                </div>
+
+            </div>
+
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" (click)="toggleFaq(1)">
+
+                    <span>
+                        What are the advantages of purchasing a bus ticket with ODBUS?
+                    </span>
+
+                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(1)"
+                        [class.fa-angle-up]="isFaqQuestionActive(1)">
+                    </i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(1)">
+
+                    ODBUS provides access to a wide range of bus operators,
+                    convenient online booking, secure payments and easy
+                    ticket management.
+
+                </div>
+
+            </div>
+
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>
+                        Do I need to create an account to book bus tickets on ODBUS?
+                    </span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    You can create an account with ODBUS to manage your bookings
+                    and access your ticket information conveniently.
+                </div>
+
+            </div>
+
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>Does booking online cost me more?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    Online booking allows you to conveniently compare buses,
+                    routes and fares before completing your booking.
+                </div>
+
+            </div>
+
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>Can I book a multi-city trip?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    Multi-city booking availability depends on the routes
+                    and operators available on ODBUS.
+                </div>
+
+            </div>
+
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>
+                        While travelling with an infant on the bus,
+                        is there anything special I must know?
+                    </span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    Please check the applicable operator rules and requirements
+                    before travelling with an infant.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             TICKET RELATED
+        ================================================== -->
+
+        <div class="odb-faq-panel" id="faq-ticket">
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>How can I book a bus ticket?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    Select your source, destination and journey date,
+                    choose your preferred bus and seat, and complete
+                    the booking process.
+                </div>
+
+            </div>
+
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>How can I download my bus ticket?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    Your ticket details can be accessed from your booking
+                    information after successful booking.
+                </div>
+
+            </div>
+
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>Can I change my boarding point?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    Boarding point changes depend on the bus operator's
+                    policies and availability.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PAYMENT
+        ================================================== -->
+
+        <div class="odb-faq-panel" id="faq-payment">
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>What payment methods are available?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    Available payment methods are displayed during
+                    the checkout process.
+                </div>
+
+            </div>
+
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>What happens if my payment fails?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    If your payment fails, please check your bank or
+                    payment provider and try again. If money was deducted,
+                    the transaction will be handled according to the
+                    applicable payment and refund process.
+                </div>
+
+            </div>
+
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>Will I receive confirmation after payment?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    A successful booking confirmation is provided after
+                    the payment and ticket issuance process is completed.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CANCELLATION
+        ================================================== -->
+
+        <div class="odb-faq-panel" id="faq-cancellation">
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>How can I cancel my bus ticket?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    You can cancel your booking through the available
+                    booking management or cancellation options.
+                    Cancellation charges depend on the operator's policy.
+                </div>
+
+            </div>
+
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>How long does a refund take?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    Refund processing time depends on the payment method,
+                    bank and applicable operator cancellation policy.
+                </div>
+
+            </div>
+
+
+            <div class="odb-faq-item">
+
+                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+
+                    <span>What happens if the operator cancels my bus?</span>
+
+                    <i class="fa fa-angle-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer">
+                    In case of operator cancellation, the applicable refund
+                    or alternate arrangement will be handled according to
+                    the operator's policy.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 </section>
+<!-- ================= END FAQ SECTION ================= -->
 
 <!-- Footer -->
 <footer class="footer">
