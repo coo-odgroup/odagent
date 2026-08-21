@@ -493,15 +493,17 @@
              GENERAL
         ================================================== -->
 
-        <div class="odb-faq-panel active" id="faq-general">
+        <div class="odb-faq-panel" *ngIf="isFaqTabActive('general')">
 
-            <div class="odb-faq-item active">
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(0)">
 
                 <button class="odb-faq-question" (click)="toggleFaq(0)">
 
                     <span>What is an e-ticket?</span>
 
-                    <i class="fa fa-angle-down"></i>
+                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(0)"
+                        [class.fa-angle-up]="isFaqQuestionActive(0)">
+                    </i>
 
                 </button>
 
@@ -546,17 +548,19 @@
 
             <div class="odb-faq-item">
 
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+                <button class="odb-faq-question" (click)="toggleFaq(2)">
 
                     <span>
                         Do I need to create an account to book bus tickets on ODBUS?
                     </span>
 
-                    <i class="fa fa-angle-down"></i>
+                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(2)"
+                        [class.fa-angle-up]="isFaqQuestionActive(2)">
+                    </i>
 
                 </button>
 
-                <div class="odb-faq-answer">
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(2)">
                     You can create an account with ODBUS to manage your bookings
                     and access your ticket information conveniently.
                 </div>
@@ -566,15 +570,17 @@
 
             <div class="odb-faq-item">
 
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+                <button class="odb-faq-question" (click)="toggleFaq(3)">
 
                     <span>Does booking online cost me more?</span>
 
-                    <i class="fa fa-angle-down"></i>
+                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(3)"
+                        [class.fa-angle-up]="isFaqQuestionActive(3)">
+                    </i>
 
                 </button>
 
-                <div class="odb-faq-answer">
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(3)">
                     Online booking allows you to conveniently compare buses,
                     routes and fares before completing your booking.
                 </div>
@@ -584,15 +590,17 @@
 
             <div class="odb-faq-item">
 
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+                <button class="odb-faq-question" (click)="toggleFaq(4)">
 
                     <span>Can I book a multi-city trip?</span>
 
-                    <i class="fa fa-angle-down"></i>
+                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(4)"
+                        [class.fa-angle-up]="isFaqQuestionActive(4)">
+                    </i>
 
                 </button>
 
-                <div class="odb-faq-answer">
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(4)">
                     Multi-city booking availability depends on the routes
                     and operators available on ODBUS.
                 </div>
@@ -602,211 +610,22 @@
 
             <div class="odb-faq-item">
 
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
+                <button class="odb-faq-question" (click)="toggleFaq(5)">
 
                     <span>
                         While travelling with an infant on the bus,
                         is there anything special I must know?
                     </span>
 
-                    <i class="fa fa-angle-down"></i>
+                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(5)"
+                        [class.fa-angle-up]="isFaqQuestionActive(5)">
+                    </i>
 
                 </button>
 
-                <div class="odb-faq-answer">
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(5)">
                     Please check the applicable operator rules and requirements
                     before travelling with an infant.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             TICKET RELATED
-        ================================================== -->
-
-        <div class="odb-faq-panel" id="faq-ticket">
-
-            <div class="odb-faq-item">
-
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
-
-                    <span>How can I book a bus ticket?</span>
-
-                    <i class="fa fa-angle-down"></i>
-
-                </button>
-
-                <div class="odb-faq-answer">
-                    Select your source, destination and journey date,
-                    choose your preferred bus and seat, and complete
-                    the booking process.
-                </div>
-
-            </div>
-
-
-            <div class="odb-faq-item">
-
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
-
-                    <span>How can I download my bus ticket?</span>
-
-                    <i class="fa fa-angle-down"></i>
-
-                </button>
-
-                <div class="odb-faq-answer">
-                    Your ticket details can be accessed from your booking
-                    information after successful booking.
-                </div>
-
-            </div>
-
-
-            <div class="odb-faq-item">
-
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
-
-                    <span>Can I change my boarding point?</span>
-
-                    <i class="fa fa-angle-down"></i>
-
-                </button>
-
-                <div class="odb-faq-answer">
-                    Boarding point changes depend on the bus operator's
-                    policies and availability.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             PAYMENT
-        ================================================== -->
-
-        <div class="odb-faq-panel" id="faq-payment">
-
-            <div class="odb-faq-item">
-
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
-
-                    <span>What payment methods are available?</span>
-
-                    <i class="fa fa-angle-down"></i>
-
-                </button>
-
-                <div class="odb-faq-answer">
-                    Available payment methods are displayed during
-                    the checkout process.
-                </div>
-
-            </div>
-
-
-            <div class="odb-faq-item">
-
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
-
-                    <span>What happens if my payment fails?</span>
-
-                    <i class="fa fa-angle-down"></i>
-
-                </button>
-
-                <div class="odb-faq-answer">
-                    If your payment fails, please check your bank or
-                    payment provider and try again. If money was deducted,
-                    the transaction will be handled according to the
-                    applicable payment and refund process.
-                </div>
-
-            </div>
-
-
-            <div class="odb-faq-item">
-
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
-
-                    <span>Will I receive confirmation after payment?</span>
-
-                    <i class="fa fa-angle-down"></i>
-
-                </button>
-
-                <div class="odb-faq-answer">
-                    A successful booking confirmation is provided after
-                    the payment and ticket issuance process is completed.
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
-             CANCELLATION
-        ================================================== -->
-
-        <div class="odb-faq-panel" id="faq-cancellation">
-
-            <div class="odb-faq-item">
-
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
-
-                    <span>How can I cancel my bus ticket?</span>
-
-                    <i class="fa fa-angle-down"></i>
-
-                </button>
-
-                <div class="odb-faq-answer">
-                    You can cancel your booking through the available
-                    booking management or cancellation options.
-                    Cancellation charges depend on the operator's policy.
-                </div>
-
-            </div>
-
-
-            <div class="odb-faq-item">
-
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
-
-                    <span>How long does a refund take?</span>
-
-                    <i class="fa fa-angle-down"></i>
-
-                </button>
-
-                <div class="odb-faq-answer">
-                    Refund processing time depends on the payment method,
-                    bank and applicable operator cancellation policy.
-                </div>
-
-            </div>
-
-
-            <div class="odb-faq-item">
-
-                <button class="odb-faq-question" onclick="toggleOdbFaq(this)">
-
-                    <span>What happens if the operator cancels my bus?</span>
-
-                    <i class="fa fa-angle-down"></i>
-
-                </button>
-
-                <div class="odb-faq-answer">
-                    In case of operator cancellation, the applicable refund
-                    or alternate arrangement will be handled according to
-                    the operator's policy.
                 </div>
 
             </div>

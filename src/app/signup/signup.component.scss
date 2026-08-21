@@ -1195,109 +1195,198 @@ input {
 ========================================================= */
 
 .odb-faq-section {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-    background: #ffffff;
-}
-
-
-.odb-faq-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    padding: 80px 0 90px;
+    background:
+        linear-gradient(180deg,
+            #ffffff 0%,
+            #f8fbff 55%,
+            #f4f9ff 100%);
 }
 
 
 /* =========================================================
-   TABS
+   CONTAINER
+========================================================= */
+
+.odb-faq-section .container {
+    // max-width: 1140px;
+    // margin: 0 auto;
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.odb-faq-title {
+    position: relative;
+
+    margin: 0 0 12px;
+
+    text-align: center;
+
+    color: #092b63;
+
+    font-size: 32px;
+    line-height: 1.25;
+    font-weight: 700;
+
+    letter-spacing: -0.4px;
+}
+
+
+/* Small premium accent */
+
+.odb-faq-title::after {
+    content: "";
+
+    display: block;
+
+    width: 55px;
+    height: 4px;
+
+    margin: 15px auto 0;
+
+    border-radius: 10px;
+
+    background: linear-gradient(90deg,
+            #16b9ff 0%,
+            #0057d1 100%);
+}
+
+
+/* =========================================================
+   TABS WRAPPER
 ========================================================= */
 
 .odb-faq-tabs {
     display: flex;
-    align-items: stretch;
+    justify-content: center;
+    align-items: center;
 
-    width: 100%;
+    gap: 10px;
 
-    border-bottom: 1px solid #e5e7eb;
+    margin: 38px auto 28px;
 
-    overflow-x: auto;
+    padding: 7px;
 
-    scrollbar-width: none;
-}
+    width: fit-content;
+    max-width: 100%;
 
-.odb-faq-tabs::-webkit-scrollbar {
-    display: none;
-}
+    border: 1px solid #dcecff;
 
+    border-radius: 50px;
 
-.odb-faq-tab {
-    position: relative;
+    background: #ffffff;
 
-    flex: 0 0 auto;
+    box-shadow:
+        0 8px 25px rgba(0, 57, 130, 0.07);
 
-    padding: 13px 18px;
-
-    border: none;
-
-    background: transparent;
-
-    color: #111827;
-
-    font-size: 14px;
-
-    font-weight: 500;
-
-    cursor: pointer;
-
-    white-space: nowrap;
-
-    transition: all 0.2s ease;
-}
-
-
-.odb-faq-tab:hover {
-    color: #002980;
-}
-
-
-/* Active yellow bottom line */
-
-.odb-faq-tab.active {
-    color: #002a81;
-
-    font-weight: 700;
-
-    background: #f8f8f8;
-}
-
-
-.odb-faq-tab.active::after {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-    right: 0;
-
-    bottom: 0;
-
-    height: 3px;
-
-    background: #002a81;
+    overflow: hidden;
 }
 
 
 /* =========================================================
-   FAQ PANELS
+   TAB
 ========================================================= */
 
-.odb-faq-panel {
-    display: none;
+.odb-faq-tab {
+    position: relative;
+
+    min-height: 42px;
+
+    padding: 10px 22px;
+
+    border: none;
+    border-radius: 30px;
+
+    background: transparent;
+
+    color: #29466d;
+
+    font-family: inherit;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
 }
 
 
-.odb-faq-panel.active {
-    display: block;
+/* Hover */
+
+.odb-faq-tab:hover {
+    color: #0057b8;
+
+    background: #eef7ff;
+}
+
+
+/* =========================================================
+   ACTIVE TAB
+========================================================= */
+
+.odb-faq-tab.active {
+    color: #ffffff;
+
+    background: linear-gradient(100deg,
+            #16b9ff 0%,
+            #0088df 45%,
+            #0052bd 100%);
+
+    box-shadow:
+        0 5px 14px rgba(0, 105, 205, 0.25);
+
+    transform: translateY(-1px);
+}
+
+
+/* Remove old underline */
+
+.odb-faq-tab.active::after {
+    display: none !important;
+}
+
+
+/* =========================================================
+   FAQ PANEL
+========================================================= */
+
+/*
+   IMPORTANT:
+   Angular uses *ngIf to show/hide panels.
+   Therefore DO NOT use display:none here.
+*/
+
+.odb-faq-panel {
+    width: 100%;
+
+    margin: 0 auto;
+
+    animation: faqPanelIn 0.25s ease;
+}
+
+
+@keyframes faqPanelIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
 }
 
 
@@ -1306,20 +1395,63 @@ input {
 ========================================================= */
 
 .odb-faq-item {
-    border-bottom: 1px solid #e5e7eb;
+    position: relative;
+
+    width: 100%;
+
+    margin-bottom: 12px;
+
+    overflow: hidden;
+
+    border: 1px solid #e3edf8;
+
+    border-radius: 12px;
 
     background: #ffffff;
+
+    box-shadow:
+        0 3px 14px rgba(12, 57, 108, 0.045);
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+
+/* Hover */
+
+.odb-faq-item:hover {
+    border-color: #c9e4fb;
+
+    box-shadow:
+        0 8px 24px rgba(12, 75, 140, 0.08);
+
+    transform: translateY(-1px);
 }
 
 
 /* =========================================================
-   QUESTION
+   ACTIVE FAQ ITEM
+========================================================= */
+
+.odb-faq-item.active {
+    border-color: #b8dcfa;
+
+    box-shadow:
+        0 8px 28px rgba(0, 91, 173, 0.09);
+}
+
+
+/* =========================================================
+   QUESTION BUTTON
 ========================================================= */
 
 .odb-faq-question {
-    width: 100%;
+    position: relative;
 
-    min-height: 60px;
+    width: 100%;
+    min-height: 64px;
 
     display: flex;
 
@@ -1327,59 +1459,93 @@ input {
 
     justify-content: space-between;
 
-    gap: 20px;
+    gap: 25px;
 
-    padding: 15px 8px;
+    padding: 17px 22px;
 
     border: none;
 
     background: #ffffff;
 
-    color: #002a81;
+    color: #123d70;
+
+    font-family: inherit;
 
     font-size: 15px;
+    font-weight: 600;
 
-    font-weight: 500;
+    line-height: 1.45;
 
     text-align: left;
 
     cursor: pointer;
 
-    transition: all 0.2s ease;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease;
 }
 
+
+/* Question hover */
 
 .odb-faq-question:hover {
-    color: #002980;
+    background: #f8fcff;
 
-    background: #fafafa;
-}
-
-
-.odb-faq-question span {
-    flex: 1;
+    color: #0058b8;
 }
 
 
 /* =========================================================
-   ARROW
+   QUESTION TEXT
 ========================================================= */
 
-.odb-faq-question i {
-    flex: 0 0 auto;
+.odb-faq-question span {
+    flex: 1;
 
-    color: #002980;
-
-    font-size: 13px;
-
-    transition: transform 0.25s ease;
+    min-width: 0;
 }
 
 
-.odb-faq-item.active .odb-faq-question i {
-    transform: rotate(180deg);
+/* =========================================================
+   ARROW CIRCLE
+========================================================= */
 
-    color: #009ce0;
+.odb-faq-question i {
+    flex: 0 0 30px;
+
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #edf7ff;
+
+    color: #0057b8;
+
+    font-size: 12px;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+
+/* Active arrow */
+
+.odb-faq-item.active .odb-faq-question i {
+    background: linear-gradient(135deg,
+            #16b9ff,
+            #0057d1);
+
+    color: #ffffff;
+
+    transform: rotate(180deg);
 }
 
 
@@ -1388,20 +1554,57 @@ input {
 ========================================================= */
 
 .odb-faq-answer {
-    display: none;
+    padding: 0 70px 22px 22px;
 
-    padding: 0 45px 22px 0;
-
-    color: #4b5563;
+    color: #536b86;
 
     font-size: 14px;
 
     line-height: 1.8;
+
+    background: #ffffff;
 }
 
 
+/* Small blue line before answer */
+
 .odb-faq-item.active .odb-faq-answer {
-    display: block;
+    position: relative;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .odb-faq-section {
+        padding: 65px 20px 70px;
+    }
+
+    .odb-faq-section .container {
+        max-width: 100%;
+    }
+
+    .odb-faq-title {
+        font-size: 28px;
+    }
+
+    .odb-faq-tabs {
+        max-width: 100%;
+
+        overflow-x: auto;
+
+        justify-content: flex-start;
+
+        scrollbar-width: none;
+    }
+
+    .odb-faq-tabs::-webkit-scrollbar {
+        display: none;
+    }
+
 }
 
 /* --- Footer --- */
@@ -2070,70 +2273,109 @@ input {
    MOBILE FAQ - ODBUS STYLE
 ===================================================== */
 
+    /* -----------------------------------------------------
+       SECTION
+    ----------------------------------------------------- */
+
     .odb-faq-section {
-        padding: 34px 0 40px !important;
-        background: #ffffff;
+        padding: 42px 0 48px !important;
+
+        background:
+            linear-gradient(180deg,
+                #ffffff 0%,
+                #f7fbff 100%);
     }
 
 
     /* -----------------------------------------------------
-   Heading
------------------------------------------------------ */
+       CONTAINER
+    ----------------------------------------------------- */
+
+    .odb-faq-section .container {
+        width: 100% !important;
+
+        max-width: 100% !important;
+
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+
+
+    /* -----------------------------------------------------
+       HEADING
+    ----------------------------------------------------- */
 
     .odb-faq-title {
-        font-size: 20px !important;
+        margin: 0 0 10px !important;
+
+        color: #092b63 !important;
+
+        font-size: 21px !important;
+
         line-height: 1.35 !important;
-        font-weight: 500 !important;
 
-        color: #002980 !important;
+        font-weight: 700 !important;
 
-        margin: 0 0 22px !important;
+        text-align: left !important;
+    }
 
-        text-align: left;
+
+    .odb-faq-title::after {
+        width: 42px;
+
+        height: 3px;
+
+        margin: 10px 0 0;
     }
 
 
     /* -----------------------------------------------------
-   Tabs - 2 x 2
------------------------------------------------------ */
+       TABS - 2 X 2
+    ----------------------------------------------------- */
 
     .odb-faq-tabs {
         display: grid !important;
 
         grid-template-columns: 1fr 1fr !important;
 
-        gap: 10px !important;
+        gap: 9px !important;
 
-        width: 100%;
+        width: 100% !important;
+
+        margin: 24px 0 20px !important;
+
+        padding: 0 !important;
 
         border: none !important;
 
-        overflow: visible !important;
+        border-radius: 0 !important;
 
-        margin-bottom: 14px;
+        background: transparent !important;
+
+        box-shadow: none !important;
+
+        overflow: visible !important;
     }
 
 
+    /* -----------------------------------------------------
+       TAB
+    ----------------------------------------------------- */
+
     .odb-faq-tab {
-        width: 100%;
+        width: 100% !important;
 
-        min-height: 42px;
+        min-height: 44px;
 
-        padding: 8px 10px !important;
+        padding: 8px 8px !important;
 
-        display: flex;
+        border: 1px solid #cfe2f8 !important;
 
-        align-items: center;
+        border-radius: 24px !important;
 
-        justify-content: center;
+        background: #f5faff !important;
 
-        border: 1px solid #002b858a !important;
-
-        border-radius: 22px !important;
-
-        background: #0071e033 !important;
-
-        color: #002980 !important;
+        color: #123d70 !important;
 
         font-size: 12px !important;
 
@@ -2143,201 +2385,139 @@ input {
 
         text-align: center;
 
-        position: relative;
+        box-shadow:
+            0 2px 8px rgba(0, 70, 140, 0.04);
+
+        transform: none !important;
     }
 
 
-
-    .odb-faq-tab.active::after {
-        display: none !important;
-    }
-
-
-    /* Active tab */
+    /* -----------------------------------------------------
+       ACTIVE TAB
+    ----------------------------------------------------- */
 
     .odb-faq-tab.active {
-        background: linear-gradient(90deg, #16b9ff 0%, #0057d1 100%) !important;
+        border-color: transparent !important;
 
-        border-color: #002980 !important;
+        background: linear-gradient(100deg,
+                #16b9ff 0%,
+                #007ddd 50%,
+                #0052bd 100%) !important;
 
         color: #ffffff !important;
 
-        font-weight: 600 !important;
+        box-shadow:
+            0 5px 14px rgba(0, 101, 195, 0.20) !important;
     }
 
 
     /* -----------------------------------------------------
-   FAQ Panel
------------------------------------------------------ */
+       FAQ PANEL
+    ----------------------------------------------------- */
 
     .odb-faq-panel {
-        width: 100%;
-    }
-
-
-    /* -----------------------------------------------------
-   FAQ Item
------------------------------------------------------ */
-
-    .odb-faq-item {
-        width: 100%;
-
-        border-bottom: 1px solid #e5e5e5 !important;
-
-        border-radius: 0 !important;
-
-        background: #ffffff !important;
-    }
-
-
-    /* -----------------------------------------------------
-   Question
------------------------------------------------------ */
-
-    .odb-faq-question {
-        width: 100%;
-
-        min-height: 60px;
-
-        padding: 14px 28px 14px 28px !important;
-
-        display: flex;
-
-        align-items: center;
-
-        justify-content: space-between;
-
-        gap: 12px;
-
-        border: none !important;
-
-        background: #ffffff !important;
-
-        color: #111111 !important;
-
-        font-size: 14px !important;
-
-        font-weight: 400 !important;
-
-        line-height: 1.45;
-
-        text-align: left;
-    }
-
-
-    /* Question text */
-
-    .odb-faq-question span {
-        flex: 1;
-
-        min-width: 0;
-    }
-
-
-    /* Arrow */
-
-    .odb-faq-question i {
-        flex: 0 0 auto;
-
-        color: #002980 !important;
-
-        font-size: 11px !important;
-
-        transition: transform 0.25s ease;
-    }
-
-
-    /* Active arrow */
-
-    .odb-faq-item.active .odb-faq-question i {
-        color: #002980 !important;
-
-        transform: rotate(180deg);
-    }
-
-
-    /* -----------------------------------------------------
-   Answer
------------------------------------------------------ */
-
-    .odb-faq-answer {
-        padding: 0 28px 18px 28px !important;
-
-        font-size: 13px !important;
-
-        line-height: 1.6;
-
-        color: #555555;
-    }
-
-
-    /* -----------------------------------------------------
-   Container Mobile
------------------------------------------------------ */
-
-    .odb-faq-section .container {
         width: 100% !important;
 
-        max-width: 100% !important;
+        padding: 0 !important;
 
-        padding-left: 0 !important;
-
-        padding-right: 0 !important;
+        margin: 0 !important;
     }
 
 
-    /* Heading needs side spacing */
+    /* -----------------------------------------------------
+       FAQ ITEM
+    ----------------------------------------------------- */
 
-    .odb-faq-title {
-        padding-left: 1rem !important;
+    .odb-faq-item {
+        margin-bottom: 9px !important;
 
-        padding-right: 1rem !important;
+        border: 1px solid #e1ebf5 !important;
+
+        border-radius: 11px !important;
+
+        background: #ffffff !important;
+
+        box-shadow:
+            0 3px 12px rgba(20, 70, 120, 0.045) !important;
     }
 
 
-    /* Tabs need side spacing */
-
-    .odb-faq-tabs {
-        padding-left: 1rem !important;
-
-        padding-right: 1rem !important;
+    .odb-faq-item:hover {
+        transform: none !important;
     }
 
 
-    /* FAQ list */
+    /* -----------------------------------------------------
+       QUESTION
+    ----------------------------------------------------- */
 
-    .odb-faq-panel {
-        padding-left: 0;
+    .odb-faq-question {
+        min-height: 58px !important;
 
-        padding-right: 16px;
+        padding: 13px 15px !important;
+
+        gap: 10px !important;
+
+        color: #153d68 !important;
+
+        font-size: 13.5px !important;
+
+        font-weight: 600 !important;
+
+        line-height: 1.45 !important;
+
+        background: #ffffff !important;
     }
 
-    /* Footer */
 
-    .footer {
-        padding: 15px;
+    /* -----------------------------------------------------
+       QUESTION TEXT
+    ----------------------------------------------------- */
+
+    .odb-faq-question span {
+        padding-right: 3px;
     }
 
 
-    .footer-grid {
-        gap: 28px;
+    /* -----------------------------------------------------
+       ARROW
+    ----------------------------------------------------- */
+
+    .odb-faq-question i {
+        flex: 0 0 27px !important;
+
+        width: 27px !important;
+        height: 27px !important;
+
+        background: #edf7ff !important;
+
+        color: #0057b8 !important;
+
+        font-size: 10px !important;
     }
 
 
-    .footer-text {
-        font-size: 13px;
+    .odb-faq-item.active .odb-faq-question i {
+        background: linear-gradient(135deg,
+                #16b9ff,
+                #0057d1) !important;
+
+        color: #ffffff !important;
     }
 
 
-    .footer-list {
-        font-size: 13px;
-    }
+    /* -----------------------------------------------------
+       ANSWER
+    ----------------------------------------------------- */
 
-    .footer-bottom {
-        padding: 10px;
-        border-radius: 10px;
-        background: linear-gradient(90deg, #00a1e4 0%, #003c8f 100%);
-        font-weight: 600;
+    .odb-faq-answer {
+        padding: 0 15px 17px 15px !important;
+
+        color: #586f88 !important;
+
+        font-size: 12.5px !important;
+
+        line-height: 1.65 !important;
     }
 
 }
