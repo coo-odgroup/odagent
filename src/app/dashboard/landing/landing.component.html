@@ -1,583 +1,769 @@
-<div class="main_box">
+<div class="agent-dashboard-new">
 
-  <div class="row">
-    <div class="col-xl-12">
-      <div class="dashboard-filter-card">
-        <div class="filter-header">
-          <div class="filter-title">
-            <h4>
-              <i class="feather icon-bar-chart-2"></i>
-              {{ RangeText }}
-            </h4>
+  <!-- =========================================================
+       HERO / ROUTE PROMOTION + QUICK SEARCH
+       ========================================================= -->
+  <section class="agent-hero">
+
+    <div class="hero-content">
+
+      <!-- =====================================================
+         LEFT : AGENT EXCLUSIVE OFFERS
+         ===================================================== -->
+      <div class="hero-offers-section">
+
+        <!-- HEADER -->
+        <div class="hero-offers-header">
+
+          <div class="hero-offers-title">
+            <i class="fa fa-tag"></i>
+            <span>Agent Exclusive Offers</span>
           </div>
 
-          <div
-            class="filter-tabs btn-group btn-group-toggle"
-            ngbRadioGroup
-            name="ticketSize"
-          >
-            <label
-              ngbButtonLabel
-              class="btn filter-btn"
-              [class.active]="selectedRange === 'Today'"
-            >
-              <i class="feather icon-sun"></i>
-              <span>Today</span>
+          <button class="hero-offers-view">
+            View All
+            <i class="fa fa-arrow-right"></i>
+          </button>
 
-              <input ngbButton type="radio" (click)="getall('Today')" />
-            </label>
-
-            <label
-              ngbButtonLabel
-              class="btn filter-btn"
-              [class.active]="selectedRange === 'This Week'"
-            >
-              <i class="feather icon-calendar"></i>
-              <span>This Week</span>
-              <input
-                ngbButton
-                type="radio"
-                class="dateRange"
-                name="dateRange"
-                (click)="getall('This Week')"
-              />
-            </label>
-
-            <label
-              ngbButtonLabel
-              class="btn filter-btn"
-              [class.active]="selectedRange === 'This Month'"
-            >
-              <i class="feather icon-grid"></i>
-              <span>This Month</span>
-              <input
-                ngbButton
-                type="radio"
-                class="dateRange"
-                name="dateRange"
-                (click)="getall('This Month')"
-              />
-            </label>
-
-            <label
-              ngbButtonLabel
-              class="btn filter-btn"
-              [class.active]="selectedRange === 'Custom'"
-            >
-              <i class="feather icon-sliders"></i>
-              <span>Custom</span>
-              <input
-                ngbButton
-                type="radio"
-                class="dateRange"
-                name="dateRange"
-                (click)="toggleCustomDate()"
-              />
-            </label>
-          </div>
         </div>
 
-        <div class="custom-filter-box" *ngIf="showCustomDate">
-          <div class="custom-date-box">
-            <label>From Date:</label>
 
-            <input
-              type="date"
-              class="form-control custom-native-date"
-              [(ngModel)]="customFromDate"
-              onclick="this.showPicker()"
-            />
-          </div>
+        <!-- COUPON AREA -->
+        <div class="hero-coupon-area">
 
-          <div class="custom-date-box">
-            <label>To Date:</label>
+          <!-- LEFT ARROW -->
+          <button class="hero-coupon-arrow hero-coupon-prev">
+            <i class="fa fa-chevron-left"></i>
+          </button>
 
-            <input
-              type="date"
-              class="form-control custom-native-date"
-              [(ngModel)]="customToDate"
-              onclick="this.showPicker()"
-            />
-          </div>
 
-          <div class="custom-date-btn">
-            <button class="btn apply-filter-btn" (click)="applyCustomDate()">
-              Apply Filter
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+          <!-- COUPON -->
+          <div class="hero-coupon-slider">
 
-  <div class="row desktop_summary" *ngIf="dashboarddata">
-    <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card
-        [hidHeader]="true"
-        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-blue"
-        blockClass="text-center"
-      >
-        <h2 class="text-white">{{ animatedTodayPnr }}</h2>
-        <h6 class="text-white">Total PNR</h6>
-        <i class="feather icon-file-text"></i>
-      </app-card>
-    </div>
+            <div class="hero-coupon-track">
 
-    <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card
-        [hidHeader]="true"
-        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-green"
-        blockClass="text-center"
-      >
-        <h2 class="text-white">{{ animatedUpcomingPnr }}</h2>
-        <h6 class="text-white">Upcoming PNR</h6>
-        <i class="fa fa-ticket" aria-hidden="true"></i>
-      </app-card>
-    </div>
 
-    <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card
-        [hidHeader]="true"
-        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-sky"
-        blockClass="text-center"
-      >
-        <h2 class="text-white">{{ animatedSales | number: "1.2-2" }}</h2>
-        <h6 class="text-white">Sales</h6>
-        <i class="feather icon-bar-chart-2"></i>
-      </app-card>
-    </div>
+              <!-- COUPON 1 -->
+              <div class="hero-coupon-slide">
 
-    <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card
-        [hidHeader]="true"
-        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-coral"
-        blockClass="text-center"
-      >
-        <h2 class="text-white">
-          {{ animatedOdbusCommission | number: "1.2-2" }}
-        </h2>
-        <h6 class="text-white">ODBUS Comm.</h6>
-        <i class="fa fa-inr"></i>
-      </app-card>
-    </div>
+                <img src="assets/images/amazon_slider.png" alt="Agent Exclusive Offer" />
 
-    <div class="col-lg col-md-4 col-sm-6 col-6">
-      <app-card
-        [hidHeader]="true"
-        cardClass="text-white widget-visitor-card dashboard-card dashboard-card-purple"
-        blockClass="text-center"
-      >
-        <h2 class="text-white">
-          {{ animatedCustomerCommission | number: "1.2-2" }}
-        </h2>
-        <h6 class="text-white">Customer Comm.</h6>
-        <i class="fas fa-rupee-sign"></i>
-      </app-card>
-    </div>
-  </div>
+              </div>
 
-  <!-- for mobile -->
 
-  <!-- MOBILE DASHBOARD SUMMARY -->
-  <div class="dashboard-summary-mobile d-md-none" *ngIf="dashboarddata">
-    <div class="summary-items">
-      <span>PNR</span>
-      <b>{{ animatedTodayPnr }}</b>
-    </div>
+              <!-- COUPON 2 -->
+              <div class="hero-coupon-slide">
 
-    <div class="summary-items">
-      <span>Upcoming</span>
-      <b>{{ animatedUpcomingPnr }}</b>
-    </div>
+                <img src="assets/images/tata_slider.png" alt="Agent Exclusive Offer" />
 
-    <div class="summary-items">
-      <span>Sales</span>
-      <b>{{ animatedSales | number: "1.0-0" }}</b>
-    </div>
+              </div>
 
-    <div class="summary-items">
-      <span>ODBUS</span>
-      <b>{{ animatedOdbusCommission | number: "1.0-0" }}</b>
-    </div>
 
-    <div class="summary-items">
-      <span>Customer</span>
-      <b>{{ animatedCustomerCommission | number: "1.0-0" }}</b>
-    </div>
-  </div>
-  <!-- end -->
-  <div class="row">
-    <div class="container" *ngIf="RoleType == 1">
-      <div class="row">
-        <div class="col-md-12 col-xl-4">
-          <app-card
-            [hidHeader]="true"
-            cardClass="bg-c-blue order-card borderless"
-          >
-            <h6 class="text-white">Sales {{ RangeText }}</h6>
-            <h2 class="text-white">
-              <span *ngFor="let book_pft of dashboarddata.booking_profit">
-                <i class="fas fa-rupee-sign"></i>
-                {{ dashboarddata.sales_data[0].today_amount || "0" }}
-              </span>
-            </h2>
-            <i class="card-icon feather icon-filter"></i>
-          </app-card>
-        </div>
+              <!-- COUPON 3 -->
+              <div class="hero-coupon-slide">
 
-        <div class="col-md-6 col-xl-4">
-          <app-card
-            [hidHeader]="true"
-            cardClass="bg-c-blue order-card borderless"
-          >
-            <h6 class="text-white">Booking Profit {{ RangeText }}</h6>
-            <h2 class="text-white">
-              <span *ngFor="let book_pft of dashboarddata.booking_profit">
-                <i class="fas fa-rupee-sign"></i>
-                {{ book_pft.odbus_amount || "0" }}
-              </span>
-            </h2>
-            <i class="card-icon feather icon-users"></i>
-          </app-card>
-        </div>
-        <div class="col-md-6 col-xl-4">
-          <app-card
-            [hidHeader]="true"
-            cardClass="bg-c-green order-card borderless"
-          >
-            <h6 class="text-white">Cancellation Profit {{ RangeText }}</h6>
-            <h2 class="text-white">
-              {{ dashboarddata.cancellation_profit || "0" }}
-            </h2>
-            <i class="card-icon feather icon-radio"></i>
-          </app-card>
-        </div>
-      </div>
-    </div>
-  </div>
+                <img src="assets/images/kiwi_slider.png" alt="Agent Exclusive Offer" />
 
-  <div class="row d-none d-md-flex">
-    <div class="col-xl-12 col-md-12">
-      <div *ngIf="showWalletTable">
-        <app-card
-          cardTitle="Last 10 Wallet Transactions"
-          cardClass="modern-table-card"
-          blockClass="p-3"
-        >
-          <div class="table-responsive">
-            <table class="modern-agent-table wallet-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Transaction ID</th>
-                  <th>Date</th>
-                  <th>Type</th>
-                  <th>Amount</th>
-                  <th>Balance</th>
-                  <th>Remarks</th>
-                </tr>
-              </thead>
+              </div>
 
-              <tbody>
-                <tr *ngFor="let tx of walletTransactions; let i = index">
-                  <td>{{ i + 1 }}</td>
-
-                  <td>{{ tx.transaction_id }}</td>
-
-                  <td>
-                    {{ tx.created_at | date: "dd MMM yyyy HH:mm" }}
-                  </td>
-
-                  <td>
-                    <span
-                      [class.badge-success]="tx.transaction_type == 'c'"
-                      [class.badge-danger]="tx.transaction_type == 'd'"
-                      class="badge"
-                    >
-                      {{ tx.transaction_type == "c" ? "Credit" : "Debit" }}
-                    </span>
-                  </td>
-
-                  <td>
-                    {{ tx.amount | number: "1.2-2" }}
-                  </td>
-
-                  <td>
-                    {{ tx.balance | number: "1.2-2" }}
-                  </td>
-
-                  <td>
-                    {{
-                      tx.remarks
-                        ? tx.remarks
-                        : tx.type == "Refund"
-                          ? "Ticket Cancel Refund"
-                          : tx.type == "Commission"
-                            ? "Ticket Commission"
-                            : tx.transaction_type == "d"
-                              ? "PNR Booked"
-                              : tx.payment_via == "Cashfree"
-                                ? "Wallet Recharge"
-                                : "-"
-                    }}
-                  </td>
-                </tr>
-
-                <tr *ngIf="walletTransactions?.length == 0">
-                  <td colspan="7" class="empty-row">
-                    No wallet transactions found
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </app-card>
-      </div>
-      <div *ngIf="showBookingTable">
-        <app-card
-          cardTitle="Booking Details"
-          cardClass="modern-table-card"
-          blockClass="p-3"
-        >
-          <div class="table-responsive">
-            <table class="modern-agent-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Booking Date</th>
-                  <th>PNR</th>
-                  <th>Transaction ID</th>
-                  <th>Bus Name Number</th>
-                  <th>Route</th>
-                  <th>Passenger</th>
-                  <th>Customer Comm.</th>
-                  <th>ODBUS Comm.</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr *ngFor="let booking of bookingDetails; let i = index">
-                  <td>{{ i + 1 }}</td>
-
-                  <td>
-                    {{ booking.booking_date | date: "dd MMM yyyy" }}
-                  </td>
-
-                  <td>
-                    {{ booking.pnr }}
-                    <br />
-                    <small class="text-muted">
-                      {{ booking.journey_dt | date: "dd MMM yyyy" }}
-                    </small>
-                  </td>
-
-                  <td>
-                    {{ booking.transaction_id || "--" }}
-                  </td>
-
-                  <td>
-                    <strong>
-                      {{ booking.bus_name || "-" }}
-                    </strong>
-
-                    <br />
-
-                    <small class="text-muted">
-                      {{ booking.bus_number || "-" }}
-                    </small>
-                  </td>
-
-                  <td>
-                    {{ booking.route }}
-                  </td>
-
-                  <td>
-                    {{ booking.passenger_name || "-" }}
-                  </td>
-
-                  <td>
-                    {{ booking.customer_comission | number: "1.2-2" }}
-                  </td>
-
-                  <td>
-                    {{ booking.agent_commission | number: "1.2-2" }}
-                  </td>
-
-                  <td>
-                    {{ booking.amount | number: "1.2-2" }}
-                  </td>
-                </tr>
-
-                <tr *ngIf="bookingDetails?.length == 0">
-                  <td colspan="10" class="empty-row">No bookings found</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </app-card>
-      </div>
-    </div>
-  </div>
-
-  <!-- MOBILE WALLET TRANSACTIONS -->
-  <div class="mobile-dashboard-cards d-md-none" *ngIf="showWalletTable">
-    <div class="mobile-card" *ngFor="let tx of walletTransactions; let i = index">
-      <div class="mobile-card-top">
-        <div class="mobile-info">
-            <div class="mobile-card-slno">
-              {{
-                i +1
-              }}
             </div>
-          <h4>
-            {{
-                tx.type == "Refund"
-                ? "Ticket Cancel Refund"
-                : tx.type == "Commission"
-                ? "Ticket Commission"
-                : tx.transaction_type == "c"
-                  ? "Wallet Recharge"
-                  : "Ticket Book"
-            }}
-          </h4>
+
+          </div>
+
+
+          <!-- RIGHT ARROW -->
+          <button class="hero-coupon-arrow hero-coupon-next">
+            <i class="fa fa-chevron-right"></i>
+          </button>
+
+        </div>
+
+
+        <!-- SLIDER DOTS -->
+        <div class="hero-coupon-dots">
+
+          <span class="hero-coupon-dot"></span>
+          <span class="hero-coupon-dot"></span>
+          <span class="hero-coupon-dot"></span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =====================================================
+         RIGHT : QUICK ROUTE SEARCH
+         ===================================================== -->
+      <div class="hero-search-box">
+
+        <!-- SEARCH HEADER -->
+        <div class="hero-search-header">
+
+          <div class="hero-search-title">
+
+            <i class="fa fa-bolt"></i>
+
+            <span>
+              QUICK ROUTE SEARCH
+            </span>
+
+          </div>
+
+          <small>
+            GDS Inventory Live
+          </small>
+
+        </div>
+
+
+        <!-- SEARCH BODY -->
+        <div class="hero-search-body">
+
+          <!-- FROM / TO -->
+          <div class="hero-search-row">
+
+            <div class="hero-search-field">
+
+              <label>
+                FROM SOURCE
+              </label>
+
+              <input type="text" value="Delhi" placeholder="From Source" />
+
+            </div>
+
+
+            <div class="hero-search-field">
+
+              <label>
+                TO DESTINATION
+              </label>
+
+              <input type="text" value="Jaipur" placeholder="To Destination" />
+
+            </div>
+
+          </div>
+
+
+          <!-- JOURNEY DATE -->
+          <div class="hero-search-field hero-search-date">
+
+            <label>
+              JOURNEY DATE
+            </label>
+
+            <input type="text" [value]="'Today (' + formatDate(today) + ')'" readonly />
+
+          </div>
+
+
+          <!-- SEARCH BUTTON -->
+          <button class="hero-search-btn">
+
+            <i class="fa fa-search"></i>
+
+            <span>
+              Search Buses & Apply Offers
+            </span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================================================
+       KPI SUMMARY
+       ========================================================= -->
+  <section class="dashboard-kpi-grid" *ngIf="dashboarddata">
+
+    <!-- TODAY PNR -->
+    <div class="kpi-card">
+
+      <span class="kpi-label">
+        Today's PNR
+      </span>
+
+      <strong class="kpi-value">
+        {{ animatedTodayPnr }}
+      </strong>
+
+    </div>
+
+
+    <!-- UPCOMING PNR -->
+    <div class="kpi-card">
+
+      <span class="kpi-label">
+        Upcoming PNR
+      </span>
+
+      <strong class="kpi-value">
+        {{ animatedUpcomingPnr }}
+      </strong>
+
+    </div>
+
+
+    <!-- SALES -->
+    <div class="kpi-card">
+
+      <span class="kpi-label">
+        Today's Sales
+      </span>
+
+      <strong class="kpi-value">
+        ₹{{ animatedSales | number:"1.2-2" }}
+      </strong>
+
+    </div>
+
+
+    <!-- COMMISSION -->
+    <div class="kpi-card">
+
+      <span class="kpi-label">
+        Commission
+      </span>
+
+      <strong class="kpi-value">
+        ₹{{ animatedOdbusCommission | number:"1.2-2" }}
+      </strong>
+
+    </div>
+
+
+    <!-- WALLET -->
+    <div class="kpi-card wallet-kpi">
+
+      <span class="kpi-label">
+        Wallet Balance
+      </span>
+
+      <strong class="kpi-value">
+        ₹{{ dashboarddata?.wallet_balance || dashboarddata?.wallet || "0.00" }}
+      </strong>
+
+      <div class="wallet-kpi-bottom">
+
+        <a href="javascript:void(0)">
+          + Add money
+        </a>
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       QUICK ACTIONS
+       ========================================================= -->
+  <section class="quick-actions-card">
+
+    <div class="section-heading-row">
+
+      <h3>
+        QUICK ACTIONS
+      </h3>
+
+      <button>
+        Customize
+      </button>
+
+    </div>
+
+
+    <div class="quick-actions-grid">
+
+      <button class="quick-action-item quick-blue">
+        <i class="fa fa-search"></i>
+        <span>Search Bus</span>
+      </button>
+
+      <button class="quick-action-item quick-green">
+        <i class="fa fa-ticket"></i>
+        <span>Book Ticket</span>
+      </button>
+
+      <button class="quick-action-item quick-indigo">
+        <i class="fa fa-clipboard"></i>
+        <span>My PNRs</span>
+      </button>
+
+      <button class="quick-action-item quick-purple">
+        <i class="fa fa-wallet"></i>
+        <span>Add Money</span>
+      </button>
+
+      <button class="quick-action-item quick-red">
+        <i class="fa fa-undo"></i>
+        <span>Cancel / Refund</span>
+      </button>
+
+      <button class="quick-action-item quick-orange">
+        <i class="fa fa-file-text-o"></i>
+        <span>Statement</span>
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       SALES TREND + IMPORTANT ALERTS
+       ========================================================= -->
+  <section class="analytics-grid">
+
+    <!-- SALES CHART -->
+    <div class="sales-chart-card">
+
+      <div class="analytics-header">
+
+        <div>
+          <h3>
+            Sales & Commission Trend
+          </h3>
 
           <p>
-            {{ tx.created_at | date: "dd MMM yyyy" }}
+            Weekly revenue analytics
           </p>
         </div>
 
-        <div class="mobile-right">
-          <div class="plus-amount" *ngIf="tx.transaction_type == 'c'">
-            +{{ tx.amount | number: "1.2-2" }}
-          </div>
+        <div class="analytics-total">
 
-          <div class="minus-amount" *ngIf="tx.transaction_type == 'd'">
-            -{{ tx.amount | number: "1.2-2" }}
-          </div>
+          <strong>
+            ₹{{ animatedSales | number:"1.2-2" }}
+          </strong>
 
-          <label class="mobile-credit-badge" *ngIf="tx.transaction_type == 'c'">
-            <i class="fa fa-arrow-down"></i>
-            {{ tx.type == "Commission" ? "Commission" : "Credit" }}
-          </label>
+          <span>
+            +8.4%
+          </span>
 
-          <label class="mobile-debit-badge" *ngIf="tx.transaction_type == 'd'">
-            <i class="fa fa-arrow-up"></i>
-            Debit
-          </label>
-        </div>
-      </div>
+          <small>
+            Commission:
+            ₹{{ animatedOdbusCommission | number:"1.2-2" }}
+          </small>
 
-      <div class="mobile-pnr">
-        {{
-          tx.type == "Refund"
-          ? "Canceled Ticket Refund"
-          : tx.type == "Commission"
-            ? "Commission earned from ticket booking"
-            : tx.remarks ||
-              (tx.transaction_type == "d" ? "PNR Booked" : "Wallet Recharge")
-        }}
-      </div>
-
-      <div class="mobile-bottom">
-        <div>
-          {{ tx.transaction_id }}
         </div>
 
-        <div>₹ {{ tx.balance | number: "1.2-2" }}</div>
       </div>
+
+
+      <div class="sales-chart">
+
+        <svg viewBox="0 0 700 220" preserveAspectRatio="none">
+
+          <path class="sales-line" d="M 20,170
+               Q 105,65 185,110
+               T 350,55
+               T 490,145
+               T 680,75" />
+
+          <circle cx="20" cy="170" r="6" class="chart-point" />
+
+          <circle cx="185" cy="110" r="6" class="chart-point" />
+
+          <circle cx="350" cy="55" r="6" class="chart-point" />
+
+          <circle cx="490" cy="145" r="6" class="chart-point" />
+
+          <circle cx="680" cy="75" r="7" class="chart-point-last" />
+
+        </svg>
+
+      </div>
+
+
+      <div class="chart-days">
+        <span>Mon</span>
+        <span>Tue</span>
+        <span>Wed</span>
+        <span>Thu</span>
+        <span>Fri</span>
+        <span>Sat</span>
+        <span>Sun</span>
+      </div>
+
     </div>
-  </div>
 
-  <!-- MOBILE BOOKING DETAILS -->
-  <div class="mobile-dashboard-cards d-md-none" *ngIf="showBookingTable">
-    <div
-      class="mobile-card"
-      *ngFor="let booking of bookingDetails; let i = index"
-    >
-      <!-- TOP SECTION -->
-      <div class="mobile-card-top">
-        <div class="mobile-info">
-          <h4>{{ booking.pnr }}</h4>
-          <p>{{ booking.booking_date | date: "dd MMM yyyy" }}</p>
-        </div>
 
-        <div class="mobile-right">
-          <div class="plus-amount">₹{{ booking.amount | number: "1.2-2" }}</div>
-        </div>
+
+    <!-- ALERTS -->
+    <div class="alerts-card">
+
+      <div class="analytics-header alerts-header">
+
+        <h3>
+          Important Alerts
+        </h3>
+
+        <a href="javascript:void(0)">
+          View all
+        </a>
+
       </div>
 
-      <!-- ROUTE + MORE -->
-      <div class="booking-route-row">
-        <div class="mobile-pnr">
-          {{ booking.route }}
-        </div>
 
-        <button class="more-btn" (click)="toggleBooking(i)">
-          {{ expandedBooking === i ? "Less" : "More" }}
+      <div class="alerts-list">
 
-          <i
-            class="fa"
-            [ngClass]="{
-              'fa-chevron-down': expandedBooking !== i,
-              'fa-chevron-up': expandedBooking === i
-            }"
-          >
-          </i>
-        </button>
-      </div>
+        <div class="alert-item alert-warning">
 
-      <!-- EXPANDABLE SECTION -->
-
-      <div class="booking-extra" [class.expanded]="expandedBooking === i">
-        <div class="booking-extra-content">
-          <div class="detail-row">
-            <span>Transaction ID</span>
-            <strong>{{ booking.transaction_id || "--" }}</strong>
+          <div class="alert-icon">
+            <i class="fa fa-exclamation-triangle"></i>
           </div>
 
-          <div class="detail-row">
-            <span>Bus</span>
-            <strong>{{ booking.bus_name || "-" }}</strong>
-          </div>
-
-          <div class="detail-row">
-            <span>Bus Number</span>
-            <strong>{{ booking.bus_number || "-" }}</strong>
-          </div>
-
-          <div class="detail-row">
-            <span>Journey Date</span>
+          <div>
             <strong>
-              {{ booking.journey_dt | date: "dd MMM yyyy" }}
+              Low Wallet Balance
             </strong>
+
+            <p>
+              Wallet is below ₹2,000 threshold.
+            </p>
           </div>
 
-          <div class="detail-row">
-            <span>Customer Comm.</span>
+        </div>
+
+
+        <div class="alert-item alert-danger">
+
+          <div class="alert-icon">
+            <i class="fa fa-clock-o"></i>
+          </div>
+
+          <div>
             <strong>
-              ₹{{ booking.customer_comission | number: "1.2-2" }}
+              Refund Pending
             </strong>
+
+            <p>
+              3 refund actions require your confirmation.
+            </p>
           </div>
 
-          <div class="detail-row">
-            <span>ODBUS Comm.</span>
-            <strong> ₹{{ booking.agent_commission | number: "1.2-2" }} </strong>
+        </div>
+
+
+        <div class="alert-item alert-success">
+
+          <div class="alert-icon">
+            <i class="fa fa-bolt"></i>
           </div>
+
+          <div>
+            <strong>
+              Special Incentive Active
+            </strong>
+
+            <p>
+              Extra 2% commission unlocked on sleepers.
+            </p>
+
+          </div>
+
         </div>
+
       </div>
 
-      <!-- BOTTOM -->
-
-      <div class="mobile-bottom">
-        <div>
-          {{ booking.passenger_name || "-" }}
-        </div>
-
-        <div>
-          Total Comm ₹{{ getTotalCommission(booking) | number: "1.2-2" }}
-        </div>
-      </div>
     </div>
-  </div>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       UPCOMING JOURNEYS + RECENT BOOKINGS
+       ========================================================= -->
+  <section class="operations-grid">
+
+    <!-- UPCOMING JOURNEYS -->
+    <div class="upcoming-card">
+
+      <div class="table-section-header">
+
+        <h3>
+          Upcoming Journeys
+        </h3>
+
+        <a href="javascript:void(0)">
+          View all
+        </a>
+
+      </div>
+
+
+      <div class="upcoming-table-wrapper">
+
+        <table class="upcoming-table">
+
+          <thead>
+            <tr>
+              <th>PNR</th>
+              <th>Passenger</th>
+              <th>Route</th>
+              <th>Departure</th>
+              <th>Seats</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+
+          <tbody>
+
+            <tr *ngFor="let booking of bookingDetails | slice:0:5">
+
+              <td class="pnr-value">
+                {{ booking.pnr || "--" }}
+              </td>
+
+              <td class="passenger-value">
+                {{ booking.passenger_name || "--" }}
+              </td>
+
+              <td>
+                {{ booking.route || "--" }}
+              </td>
+
+              <td>
+                {{
+                booking.departure_time ||
+                booking.departure ||
+                "--"
+                }}
+              </td>
+
+              <td class="seat-value">
+                {{
+                booking.seats ||
+                booking.seat_no ||
+                booking.seat_numbers ||
+                "--"
+                }}
+              </td>
+
+              <td>
+
+                <span class="status-badge status-confirmed" *ngIf="!booking.status || booking.status === 'Confirmed'">
+                  Confirmed
+                </span>
+
+                <span class="status-badge status-pending" *ngIf="booking.status === 'Pending'">
+                  Pending
+                </span>
+
+                <span class="status-badge status-cancelled" *ngIf="booking.status === 'Cancelled'">
+                  Cancelled
+                </span>
+
+              </td>
+
+            </tr>
+
+
+            <tr *ngIf="bookingDetails?.length === 0">
+
+              <td colspan="6" class="empty-table">
+                No upcoming journeys found
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- RECENT BOOKINGS -->
+    <div class="recent-bookings-card">
+
+      <div class="recent-bookings-header">
+
+        <div>
+
+          <h3>
+            Recent Bookings
+          </h3>
+
+          <p>
+            Your latest booking activity
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="recent-bookings-list">
+
+        <div class="recent-booking-item" *ngFor="let booking of bookingDetails | slice:0:3">
+
+          <div class="recent-booking-top">
+
+            <div class="recent-route">
+              {{ booking.route || "Route unavailable" }}
+            </div>
+
+            <span class="recent-booking-tag">
+              {{ booking.status || "BOOKED" }}
+            </span>
+
+          </div>
+
+
+          <div class="recent-booking-bottom">
+
+            <span>
+              {{
+              booking.journey_dt
+              ? (booking.journey_dt | date:"dd MMM yyyy")
+              : "Recent booking"
+              }}
+            </span>
+
+            <button>
+              Book Now
+              <i class="fa fa-chevron-right"></i>
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="recent-empty" *ngIf="bookingDetails?.length === 0">
+          No recent bookings found
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       WALLET TRANSACTIONS
+       ========================================================= -->
+  <section class="wallet-transactions-card">
+
+    <div class="wallet-table-header">
+
+      <h3>
+        Last 10 Wallet Transactions
+      </h3>
+
+      <a href="javascript:void(0)">
+        View statement
+      </a>
+
+    </div>
+
+
+    <div class="wallet-table-wrapper">
+
+      <table class="wallet-new-table">
+
+        <thead>
+
+          <tr>
+            <th>Transaction ID</th>
+            <th>Date & Time</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Balance</th>
+            <th>Remarks</th>
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr *ngFor="let tx of walletTransactions | slice:0:10">
+
+            <td class="transaction-id">
+              {{ tx.transaction_id }}
+            </td>
+
+            <td>
+              {{ tx.created_at | date:"dd MMM yyyy HH:mm" }}
+            </td>
+
+            <td>
+
+              <span class="wallet-type credit" *ngIf="tx.transaction_type === 'c'">
+                Credit
+              </span>
+
+              <span class="wallet-type debit" *ngIf="tx.transaction_type === 'd'">
+                Debit
+              </span>
+
+            </td>
+
+            <td class="wallet-amount credit-amount" *ngIf="tx.transaction_type === 'c'">
+              ₹{{ tx.amount | number:"1.2-2" }}
+            </td>
+
+            <td class="wallet-amount debit-amount" *ngIf="tx.transaction_type === 'd'">
+              -₹{{ tx.amount | number:"1.2-2" }}
+            </td>
+
+            <td class="wallet-balance">
+              ₹{{ tx.balance | number:"1.2-2" }}
+            </td>
+
+            <td class="wallet-remarks">
+
+              {{
+              tx.remarks
+              ? tx.remarks
+              : tx.type === "Refund"
+              ? "Ticket Cancel Refund"
+              : tx.type === "Commission"
+              ? "Ticket Commission"
+              : tx.transaction_type === "d"
+              ? "PNR Booked"
+              : tx.payment_via === "Cashfree"
+              ? "Wallet Recharge"
+              : "-"
+              }}
+
+            </td>
+
+          </tr>
+
+
+          <tr *ngIf="walletTransactions?.length === 0">
+
+            <td colspan="6" class="empty-table">
+              No wallet transactions found
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </section>
+
 </div>
