@@ -624,8 +624,8 @@ input {
 
 /* --- Revenue Simulator --- */
 .section-padding {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
 
 .section-header {
@@ -637,6 +637,7 @@ input {
     font-size: 1.875rem;
     font-weight: 700;
     margin-bottom: 1rem;
+    color: #092b63 !important;
 }
 
 .section-desc {
@@ -1195,7 +1196,7 @@ input {
 ========================================================= */
 
 .odb-faq-section {
-    padding: 80px 0 90px;
+    // padding: 80px 0 90px;
     background:
         linear-gradient(180deg,
             #ffffff 0%,
@@ -1659,8 +1660,27 @@ input {
     font-size: 1.25rem;
 }
 
+.footer-socials a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #009ce0;
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .footer-socials a:hover {
     color: #ffffff;
+    background: #008dcc;
 }
 
 .footer-title {
@@ -1677,6 +1697,11 @@ input {
     gap: 0.75rem;
 }
 
+.footer-list a {
+    color: inherit;
+    text-decoration: none;
+}
+
 .footer-list a:hover {
     color: #ffffff;
 }
@@ -1687,7 +1712,6 @@ input {
     font-size: 0.75rem;
     background: none;
 }
-
 
 /* =========================================================
    MOBILE AGENT VERSION
@@ -2316,16 +2340,12 @@ input {
 
         font-weight: 700 !important;
 
-        text-align: left !important;
+        text-align: center !important;
     }
 
 
     .odb-faq-title::after {
-        width: 42px;
-
-        height: 3px;
-
-        margin: 10px 0 0;
+       display: none;
     }
 
 
@@ -2397,7 +2417,6 @@ input {
     ----------------------------------------------------- */
 
     .odb-faq-tab.active {
-        border-color: transparent !important;
 
         background: linear-gradient(100deg,
                 #16b9ff 0%,
