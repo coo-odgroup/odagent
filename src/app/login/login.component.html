@@ -1,11 +1,9 @@
 <div class="auth-page">
-
   <!-- =========================================================
        LEFT VISUAL PANEL
        Future image can be added inside .auth-visual-image
        ========================================================= -->
   <div class="auth-visual">
-
     <div class="visual-gradient"></div>
 
     <!-- FUTURE IMAGE AREA
@@ -15,7 +13,6 @@
     </div>
 
     <div class="visual-content">
-
       <div class="visual-brand">
         <img src="assets/images/odbus_logo.webp" alt="ODBUS" />
       </div>
@@ -30,13 +27,12 @@
         </h1>
 
         <p>
-          Manage bookings, passengers and your business
-          from one powerful partner platform.
+          Manage bookings, passengers and your business from one powerful
+          partner platform.
         </p>
       </div>
 
       <div class="visual-features">
-
         <div class="visual-feature">
           <div class="feature-icon">
             <i class="fa fa-ticket"></i>
@@ -66,7 +62,6 @@
             <span>Expand your business with ODBUS</span>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -81,24 +76,18 @@
         Partner Support
       </span>
     </div>
-
   </div>
-
 
   <!-- =========================================================
        RIGHT AUTH PANEL
        ========================================================= -->
   <div class="auth-panel">
-
     <div class="auth-container">
-
       <!-- =====================================================
            LOGIN
            ===================================================== -->
       <ng-container *ngIf="authView === 'login'">
-
         <div class="auth-header">
-
           <button type="button" class="back-home" routerLink="/">
             <i class="fa fa-arrow-left"></i>
             Back to home
@@ -106,131 +95,137 @@
 
           <h2>Welcome back</h2>
 
-          <p>
-            Sign in to continue managing your bookings
-          </p>
-
+          <p>Sign in to continue managing your bookings</p>
         </div>
 
-
         <form [formGroup]="form" class="auth-form" novalidate>
-
           <!-- Email / Mobile -->
           <div class="form-field">
-
-            <label>
-              Email Address or Mobile Number
-            </label>
+            <label> Email Address or Mobile Number </label>
 
             <div class="input-wrapper">
-
               <i class="fa fa-user input-icon"></i>
 
-              <input type="text" formControlName="email" placeholder="Enter email or mobile number"
-                autocomplete="username" />
-
+              <input
+                type="text"
+                formControlName="email"
+                placeholder="Enter email or mobile number"
+                autocomplete="username"
+              />
             </div>
 
-            <span class="field-error" *ngIf="
+            <span
+              class="field-error"
+              *ngIf="
                 form.controls['email'].touched &&
                 form.controls['email'].hasError('required')
-              ">
+              "
+            >
               Email Address or Mobile Number is required
             </span>
 
-            <span class="field-error" *ngIf="
+            <span
+              class="field-error"
+              *ngIf="
                 form.controls['email'].touched &&
                 form.controls['email'].hasError('pattern')
-              ">
+              "
+            >
               Please enter a valid Email Address or Mobile Number
             </span>
-
           </div>
-
 
           <!-- Password -->
           <div class="form-field">
-
             <label>Password</label>
 
             <div class="input-wrapper">
-
               <i class="fa fa-lock input-icon"></i>
 
-              <input [type]="fieldTextType ? 'text' : 'password'" formControlName="password"
-                placeholder="Enter password" autocomplete="current-password" />
+              <input
+                [type]="fieldTextType ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Enter password"
+                autocomplete="current-password"
+              />
 
-              <button type="button" class="password-toggle" (click)="toggleFieldTextType()">
-                <i class="fa" [class.fa-eye]="fieldTextType" [class.fa-eye-slash]="!fieldTextType"></i>
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="toggleFieldTextType()"
+              >
+                <i
+                  class="fa"
+                  [class.fa-eye]="fieldTextType"
+                  [class.fa-eye-slash]="!fieldTextType"
+                ></i>
               </button>
-
             </div>
 
-            <span class="field-error" *ngIf="
+            <span
+              class="field-error"
+              *ngIf="
                 form.controls['password'].touched &&
                 form.controls['password'].hasError('required')
-              ">
+              "
+            >
               Password is required
             </span>
-
           </div>
-
 
           <!-- Forgot password -->
           <div class="form-options">
-
             <span></span>
 
-            <button type="button" class="text-link" (click)="openForgotPassword()">
+            <button
+              type="button"
+              class="text-link"
+              (click)="openForgotPassword()"
+            >
               Forgot Password?
             </button>
-
           </div>
 
-
           <!-- Login -->
-          <button type="button" class="primary-btn" [disabled]="!form.valid" (click)="check_credentials()">
+          <button
+            type="button"
+            class="primary-btn"
+            [disabled]="!form.valid"
+            (click)="check_credentials()"
+          >
             Login
           </button>
-
 
           <!-- Divider -->
           <div class="auth-divider">
             <span>or</span>
           </div>
 
-
           <!-- Signup -->
           <div class="auth-switch">
+            <span> Don't have an account? </span>
 
-            <span>
-              Don't have an account?
-            </span>
-
-            <button type="button" class="text-link strong" (click)="openSignup()">
+            <button
+              type="button"
+              class="text-link strong"
+              (click)="openSignup()"
+            >
               Create Account
             </button>
-
           </div>
-
         </form>
 
         <div class="secure-text">
           <i class="fa fa-copyright"></i>
           All rights reserved. ODBUS 2024
         </div>
-
       </ng-container>
-
-
 
       <!-- =====================================================
            CREATE ACCOUNT - STEP 1
            ===================================================== -->
       <ng-container *ngIf="authView === 'signup'">
-
         <div class="auth-header">
-
           <button type="button" class="back-home" (click)="backToLogin()">
             <i class="fa fa-arrow-left"></i>
             Back to login
@@ -238,16 +233,11 @@
 
           <h2>Create Account</h2>
 
-          <p>
-            Start your journey as an ODBUS partner
-          </p>
-
+          <p>Start your journey as an ODBUS partner</p>
         </div>
-
 
         <!-- Progress -->
         <div class="step-progress">
-
           <div class="step active">
             <span>1</span>
             <div>
@@ -275,133 +265,118 @@
               <small>KYC details</small>
             </div>
           </div>
-
         </div>
 
-
         <form [formGroup]="signupForm" class="auth-form" novalidate>
-
           <!-- Name -->
           <div class="form-field">
-
-            <label>
-              Full Name <span>*</span>
-            </label>
+            <label> Full Name <span>*</span> </label>
 
             <div class="input-wrapper">
-
               <i class="fa fa-user input-icon"></i>
 
-              <input type="text" formControlName="fullname" placeholder="Enter your full name" />
-
+              <input
+                type="text"
+                formControlName="fullname"
+                placeholder="Enter your full name"
+              />
             </div>
-
           </div>
-
 
           <!-- Mobile -->
           <div class="form-field">
-
-            <label>
-              Mobile Number <span>*</span>
-            </label>
+            <label> Mobile Number <span>*</span> </label>
 
             <div class="input-wrapper">
-
               <span class="country-code">+91</span>
 
-              <input type="number" formControlName="mobileNo" placeholder="Enter mobile number" maxlength="10" />
-
+              <!-- <input type="number" formControlName="mobileNo" placeholder="Enter mobile number" maxlength="10" /> -->
+              <input
+                type="text"
+                formControlName="mobileNo"
+                placeholder="Enter mobile number"
+                maxlength="10"
+                inputmode="numeric"
+                (input)="allowOnlyNumbers($event)"
+              />
             </div>
-
           </div>
-
 
           <!-- Email -->
           <div class="form-field">
-
-            <label>
-              Email Address <span>*</span>
-            </label>
+            <label> Email Address <span>*</span> </label>
 
             <div class="input-wrapper">
-
               <i class="fa fa-envelope input-icon"></i>
 
-              <input type="email" formControlName="email" placeholder="Enter email address" />
-
+              <input
+                type="email"
+                formControlName="email"
+                placeholder="Enter email address"
+                (blur)="checkEmailExist()"
+              />
             </div>
-
           </div>
-
 
           <!-- City -->
           <div class="form-field">
-
-            <label>
-              Operating City <span>*</span>
-            </label>
+            <label> Operating City <span>*</span> </label>
 
             <div class="input-wrapper">
-
               <i class="fa fa-map-marker input-icon"></i>
 
-              <input type="text" formControlName="location" placeholder="Enter operating city" />
-
+              <input
+                type="text"
+                formControlName="location"
+                placeholder="Enter operating city"
+              />
             </div>
-
           </div>
-
 
           <!-- Business -->
           <div class="form-field">
-
-            <label>
-              Business Name
-            </label>
+            <label> Business Name </label>
 
             <div class="input-wrapper">
-
               <i class="fa fa-building input-icon"></i>
 
-              <input type="text" formControlName="businessName" placeholder="Enter business name" />
-
+              <input
+                type="text"
+                formControlName="businessName"
+                placeholder="Enter business name"
+              />
             </div>
-
           </div>
 
-
           <!-- Get OTP -->
-          <button type="button" class="primary-btn" [disabled]="!signupForm.valid" (click)="generateSignupOtp()">
+          <button
+            type="button"
+            class="primary-btn"
+            [disabled]="!signupForm.valid"
+            (click)="generateSignupOtp()"
+          >
             Get OTP
           </button>
-
         </form>
 
-
         <div class="auth-switch">
+          <span> Already have an account? </span>
 
-          <span>
-            Already have an account?
-          </span>
-
-          <button type="button" class="text-link strong" (click)="backToLogin()">
+          <button
+            type="button"
+            class="text-link strong"
+            (click)="backToLogin()"
+          >
             Sign in
           </button>
-
         </div>
-
       </ng-container>
-
-
 
       <!-- =====================================================
            CREATE ACCOUNT - OTP
            ===================================================== -->
       <ng-container *ngIf="authView === 'signupOtp'">
-
         <div class="auth-header">
-
           <button type="button" class="back-home" (click)="backToSignup()">
             <i class="fa fa-arrow-left"></i>
             Back
@@ -415,55 +390,52 @@
 
           <p>
             Enter the OTP sent to
-            <strong>
-              +91 {{ signupForm.value.mobileNo }}
-            </strong>
+            <strong> +91 {{ signupForm.value.mobileNo }} </strong>
           </p>
-
         </div>
 
-
         <div class="otp-section">
-
           <label>Enter OTP</label>
 
           <div class="otp-boxes">
-
-            <input *ngFor="let box of otpBoxes; let i = index" #otpInput type="text" maxlength="1" inputmode="numeric"
-              autocomplete="off" class="otp-box" (input)="onOtpInput($event, i)" (keydown)="onOtpKeydown($event, i)"
-              (paste)="onOtpPaste($event)" />
-
+            <input
+              *ngFor="let box of otpBoxes; let i = index"
+              #otpInput
+              type="text"
+              maxlength="1"
+              inputmode="numeric"
+              autocomplete="off"
+              class="otp-box"
+              (input)="onOtpInput($event, i)"
+              (keydown)="onOtpKeydown($event, i)"
+              (paste)="onOtpPaste($event)"
+            />
           </div>
 
-
-          <button type="button" class="primary-btn" [disabled]="signupOtp.length !== 6" (click)="verifySignupOtp()">
+          <button
+            type="button"
+            class="primary-btn"
+            [disabled]="signupOtp.length !== 6"
+            (click)="verifySignupOtp()"
+          >
             Verify & Continue
           </button>
 
-
           <div class="resend-row">
-
             <span>Didn't receive OTP?</span>
 
             <button type="button" class="text-link" (click)="resendSignupOtp()">
               Resend OTP
             </button>
-
           </div>
-
         </div>
-
       </ng-container>
-
-
 
       <!-- =====================================================
            CREATE ACCOUNT - KYC / DOCUMENTS
            ===================================================== -->
       <ng-container *ngIf="authView === 'signupKyc'">
-
         <div class="auth-header">
-
           <button type="button" class="back-home" (click)="backToSignupOtp()">
             <i class="fa fa-arrow-left"></i>
             Back
@@ -471,15 +443,10 @@
 
           <h2>Complete your profile</h2>
 
-          <p>
-            Provide your business and KYC details
-          </p>
-
+          <p>Provide your business and KYC details</p>
         </div>
 
-
         <div class="step-progress compact">
-
           <div class="step completed">
             <span>
               <i class="fa fa-check"></i>
@@ -501,121 +468,103 @@
               <small>Complete profile</small>
             </div>
           </div>
-
         </div>
 
-
         <form [formGroup]="kycForm" class="auth-form" novalidate>
-
           <!-- PAN -->
           <div class="form-field">
-
-            <label>
-              PAN Card Number <span>*</span>
-            </label>
+            <label> PAN Card Number <span>*</span> </label>
 
             <div class="input-wrapper">
-
               <i class="fa fa-credit-card input-icon"></i>
 
-              <input type="text" formControlName="pan" placeholder="Enter PAN number" />
-
+              <input
+                type="text"
+                formControlName="pan"
+                placeholder="Enter PAN number"
+              />
             </div>
-
           </div>
-
 
           <!-- Aadhaar -->
           <div class="form-field">
-
-            <label>
-              Aadhaar Number <span>*</span>
-            </label>
+            <label> Aadhaar Number <span>*</span> </label>
 
             <div class="input-wrapper">
-
               <i class="fa fa-id-card input-icon"></i>
 
-              <input type="text" formControlName="aadhaar" placeholder="Enter Aadhaar number" maxlength="12" />
-
+              <input
+                type="text"
+                formControlName="aadhaar"
+                placeholder="Enter Aadhaar number"
+                maxlength="12"
+              />
             </div>
-
           </div>
-
 
           <!-- PAN document -->
           <div class="form-field">
-
-            <label>
-              Upload PAN Document
-            </label>
+            <label> Upload PAN Document </label>
 
             <div class="file-input">
-
-              <input type="file" (change)="onPanFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png" />
+              <input
+                type="file"
+                (change)="onPanFileSelected($event)"
+                accept=".pdf,.jpg,.jpeg,.png"
+              />
 
               <i class="fa fa-upload"></i>
 
               <span>
-                {{ panFileName || 'Choose PAN document' }}
+                {{ panFileName || "Choose PAN document" }}
               </span>
-
             </div>
-
           </div>
-
 
           <!-- Aadhaar document -->
           <div class="form-field">
-
-            <label>
-              Upload Aadhaar Document
-            </label>
+            <label> Upload Aadhaar Document </label>
 
             <div class="file-input">
-
-              <input type="file" (change)="onAadhaarFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png" />
+              <input
+                type="file"
+                (change)="onAadhaarFileSelected($event)"
+                accept=".pdf,.jpg,.jpeg,.png"
+              />
 
               <i class="fa fa-upload"></i>
 
               <span>
-                {{ aadhaarFileName || 'Choose Aadhaar document' }}
+                {{ aadhaarFileName || "Choose Aadhaar document" }}
               </span>
-
             </div>
-
           </div>
 
-
           <div class="info-box">
-
             <i class="fa fa-info-circle"></i>
 
             <span>
-              Please make sure the details and documents
-              match your government ID.
+              Please make sure the details and documents match your government
+              ID.
             </span>
-
           </div>
 
-
-          <button type="button" class="primary-btn" [disabled]="!kycForm.valid" (click)="submitSignup()">
+          <button
+            type="button"
+            class="primary-btn"
+            [disabled]="!kycForm.valid"
+            (click)="submitSignup()"
+          >
             Complete Registration
           </button>
-
         </form>
-
       </ng-container>
-
-
 
       <!-- =====================================================
            FORGOT PASSWORD - MOBILE
            ===================================================== -->
       <ng-container *ngIf="authView === 'forgot'">
-
         <div class="auth-header">
-
           <button type="button" class="back-home" (click)="backToLogin()">
             <i class="fa fa-arrow-left"></i>
             Back to login
@@ -627,61 +576,53 @@
 
           <h2>Reset Password</h2>
 
-          <p>
-            Enter your registered mobile number
-            to recover your account.
-          </p>
-
+          <p>Enter your registered mobile number to recover your account.</p>
         </div>
-
 
         <form [formGroup]="forgotForm" class="auth-form">
-
           <div class="form-field">
-
-            <label>
-              Mobile Number <span>*</span>
-            </label>
+            <label> Mobile Number <span>*</span> </label>
 
             <div class="input-wrapper">
-
               <span class="country-code">+91</span>
 
-              <input type="text" formControlName="mobile" placeholder="Enter mobile number" maxlength="10" />
-
+              <input
+                type="text"
+                formControlName="mobile"
+                placeholder="Enter mobile number"
+                maxlength="10"
+              />
             </div>
-
           </div>
 
-
-          <button type="button" class="primary-btn" [disabled]="!forgotForm.valid" (click)="generateForgotOtp()">
+          <button
+            type="button"
+            class="primary-btn"
+            [disabled]="!forgotForm.valid"
+            (click)="generateForgotOtp()"
+          >
             Get OTP
           </button>
-
         </form>
 
-
         <div class="auth-switch">
-
           Remember your password?
 
-          <button type="button" class="text-link strong" (click)="backToLogin()">
+          <button
+            type="button"
+            class="text-link strong"
+            (click)="backToLogin()"
+          >
             Login here
           </button>
-
         </div>
-
       </ng-container>
-
-
 
       <!-- =====================================================
            FORGOT PASSWORD - OTP
            ===================================================== -->
       <ng-container *ngIf="authView === 'forgotOtp'">
-
         <div class="auth-header">
-
           <button type="button" class="back-home" (click)="backToForgot()">
             <i class="fa fa-arrow-left"></i>
             Back
@@ -694,59 +635,58 @@
           <h2>Enter OTP</h2>
 
           <p>
-            We've sent a verification code to your
-            registered mobile number.
+            We've sent a verification code to your registered mobile number.
           </p>
-
         </div>
 
-
         <div class="otp-section">
-
           <label>Verification OTP</label>
 
           <!-- SIX OTP BOXES -->
           <div class="otp-boxes">
-
-            <input *ngFor="let box of otpBoxes; let i = index" #forgotOtpInput type="text" maxlength="1"
-              inputmode="numeric" autocomplete="off" class="otp-box" (input)="onForgotOtpInput($event, i)"
-              (keydown)="onForgotOtpKeydown($event, i)" (paste)="onForgotOtpPaste($event)" />
-
+            <input
+              *ngFor="let box of otpBoxes; let i = index"
+              #forgotOtpInput
+              type="text"
+              maxlength="1"
+              inputmode="numeric"
+              autocomplete="off"
+              class="otp-box"
+              (input)="onForgotOtpInput($event, i)"
+              (keydown)="onForgotOtpKeydown($event, i)"
+              (paste)="onForgotOtpPaste($event)"
+            />
           </div>
 
-
-          <button type="button" class="primary-btn" [disabled]="forgotOtp.length !== 6" (click)="verifyForgotOtp()">
+          <button
+            type="button"
+            class="primary-btn"
+            [disabled]="forgotOtp.length !== 6"
+            (click)="verifyForgotOtp()"
+          >
             Verify OTP
           </button>
 
-
           <div class="resend-row">
-
             <span>Didn't receive OTP?</span>
 
             <button type="button" class="text-link" (click)="resendForgotOtp()">
               Resend OTP
             </button>
-
           </div>
-
         </div>
-
       </ng-container>
-
-
 
       <!-- =====================================================
            FORGOT PASSWORD - CREATE NEW PASSWORD
            ===================================================== -->
       <ng-container *ngIf="authView === 'newPassword'">
         <button type="button" class="back-home" (click)="backToForgot()">
-            <i class="fa fa-arrow-left"></i>
-            Back
-          </button>
+          <i class="fa fa-arrow-left"></i>
+          Back
+        </button>
 
         <div class="auth-header">
-
           <div class="otp-icon success">
             <i class="fa fa-check"></i>
           </div>
@@ -754,80 +694,85 @@
           <h2>Create new password</h2>
 
           <p>
-            Your OTP has been verified.
-            Create a new password for your account.
+            Your OTP has been verified. Create a new password for your account.
           </p>
-
         </div>
 
-
         <form [formGroup]="passwordForm" class="auth-form">
-
           <!-- New Password -->
           <div class="form-field">
-
-            <label>
-              New Password <span>*</span>
-            </label>
+            <label> New Password <span>*</span> </label>
 
             <div class="input-wrapper">
-
               <i class="fa fa-lock input-icon"></i>
 
-              <input [type]="newPasswordVisible ? 'text' : 'password'" formControlName="password"
-                placeholder="Enter new password" />
+              <input
+                [type]="newPasswordVisible ? 'text' : 'password'"
+                formControlName="password"
+                placeholder="Enter new password"
+              />
 
-              <button type="button" class="password-toggle" (click)="newPasswordVisible = !newPasswordVisible">
-                <i class="fa" [class.fa-eye]="newPasswordVisible" [class.fa-eye-slash]="!newPasswordVisible"></i>
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="newPasswordVisible = !newPasswordVisible"
+              >
+                <i
+                  class="fa"
+                  [class.fa-eye]="newPasswordVisible"
+                  [class.fa-eye-slash]="!newPasswordVisible"
+                ></i>
               </button>
-
             </div>
-
           </div>
-
 
           <!-- Confirm Password -->
           <div class="form-field">
-
-            <label>
-              Confirm Password <span>*</span>
-            </label>
+            <label> Confirm Password <span>*</span> </label>
 
             <div class="input-wrapper">
-
               <i class="fa fa-lock input-icon"></i>
 
-              <input [type]="confirmPasswordVisible ? 'text' : 'password'" formControlName="confirmPassword"
-                placeholder="Confirm new password" />
+              <input
+                [type]="confirmPasswordVisible ? 'text' : 'password'"
+                formControlName="confirmPassword"
+                placeholder="Confirm new password"
+              />
 
-              <button type="button" class="password-toggle" (click)="confirmPasswordVisible = !confirmPasswordVisible">
-                <i class="fa" [class.fa-eye]="confirmPasswordVisible"
-                  [class.fa-eye-slash]="!confirmPasswordVisible"></i>
+              <button
+                type="button"
+                class="password-toggle"
+                (click)="confirmPasswordVisible = !confirmPasswordVisible"
+              >
+                <i
+                  class="fa"
+                  [class.fa-eye]="confirmPasswordVisible"
+                  [class.fa-eye-slash]="!confirmPasswordVisible"
+                ></i>
               </button>
-
             </div>
 
-            <span class="field-error" *ngIf="
+            <span
+              class="field-error"
+              *ngIf="
                 passwordForm.hasError('passwordMismatch') &&
                 passwordForm.get('confirmPassword')?.touched
-              ">
+              "
+            >
               Passwords do not match
             </span>
-
           </div>
 
-
-          <button type="button" class="primary-btn" [disabled]="!passwordForm.valid" (click)="createNewPassword()">
+          <button
+            type="button"
+            class="primary-btn"
+            [disabled]="!passwordForm.valid"
+            (click)="createNewPassword()"
+          >
             Create New Password
           </button>
-
         </form>
-
       </ng-container>
-
-
     </div>
-
   </div>
-
 </div>

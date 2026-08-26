@@ -9,6 +9,9 @@ export interface Login {
     user_type:any;
     role_id:any;
     user_bus_operator:user_bus_operator;
+    is_password_changed:any;
+    is_email_verified:any;
+    is_first_recharge_done:any;
 }
 export interface Role{
     id:any,
