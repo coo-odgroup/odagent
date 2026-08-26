@@ -1,4 +1,4 @@
-<div class="text-center btn btn-info form-control admin-type"><b style="color: rgb(0, 255, 42);">Hi </b> <small>{{adminType}}</small></div>
+<!-- <div class="text-center btn btn-info form-control admin-type"><b style="color: rgb(0, 255, 42);">Hi </b> <small>{{adminType}}</small></div> -->
 <perfect-scrollbar *ngIf="this.flatConfig['layout'] === 'vertical'" (clickOutside)="navMob()" [excludeBeforeClick]="true" [exclude]="'#mobile-collapse'" id="nav-ps-flat-able" ngClass="flat-able-scroll" [style.max-width]="'300px'" [usePSClass]="'flat-able'" [disabled]="null">
   <div class="navbar-content ">
   
@@ -12,12 +12,74 @@
     
   </div>
 
-  <div *ngIf="roleId!=1 && roleId!=2" class="border-box" >
+  <!-- <div *ngIf="roleId!=1 && roleId!=2" class="border-box" >
     <img src="/assets/images/calling_woman_vector.png" style="width: 100%; margin-left: -6px;" >
     <div class="col-12 text-center ft-18 lead"><a href="mailto:support@odbus.in"><i class="fa fa-envelope"></i> agent@odbus.in</a></div>
     <div class="col-12 text-center ft-18 lead"><a href="tel:095839 18888"><i class="fa fa-phone"></i> 095839 18888</a></div>
-  </div>
+  </div> -->
   
+
+<div *ngIf="roleId != 1 && roleId != 2" class="border-box support-box">
+  <!-- SUPPORT TITLE -->
+  <div class="support-heading">
+    <span class="support-icon">
+      <i class="fa fa-headphones"></i>
+    </span>
+
+    <div>
+      <strong>Need Help?</strong>
+      <small>We're here for you</small>
+    </div>
+  </div>
+
+
+  <!-- CONTACT OPTIONS -->
+  <div class="support-contact-list">
+
+    <!-- EMAIL -->
+    <a
+      href="mailto:agent@odbus.in"
+      class="support-contact-item"
+    >
+      <span class="support-contact-icon email-icon">
+        <i class="fa fa-envelope"></i>
+      </span>
+
+      <span class="support-contact-content">
+        <strong>agent@odbus.in</strong>
+      </span>
+
+      <i class="fa fa-chevron-right support-arrow"></i>
+    </a>
+
+
+    <!-- PHONE -->
+    <a
+      href="tel:09583918888"
+      class="support-contact-item"
+    >
+      <span class="support-contact-icon phone-icon">
+        <i class="fa fa-phone"></i>
+      </span>
+
+      <span class="support-contact-content">
+        <strong>095839 18888</strong>
+      </span>
+
+      <i class="fa fa-chevron-right support-arrow"></i>
+    </a>
+
+  </div>
+
+
+  <!-- AVAILABILITY -->
+  <div class="support-status">
+    <span class="support-status-dot"></span>
+    <span>Support team available</span>
+  </div>
+
+</div>
+
   
 </perfect-scrollbar>
 

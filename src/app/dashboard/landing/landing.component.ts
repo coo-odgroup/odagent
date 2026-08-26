@@ -4,6 +4,7 @@ import {
   ViewEncapsulation,
   ElementRef,
   ViewChild,
+  HostListener,
 } from '@angular/core';
 
 import { DashboardService } from '../../services/dashboard.service';
@@ -41,6 +42,9 @@ export class LandingComponent implements OnInit {
 
   public RoleType: any;
   @ViewChild('barBasicChart') barBasicChart: ElementRef; // used barStackedChart, barHorizontalChart
+
+  @ViewChild('journeyDatePicker')
+  journeyDatePicker!: ElementRef<HTMLInputElement>;
   public barBasicChartTag: CanvasRenderingContext2D;
 
   dashboarddata: any;
@@ -223,6 +227,8 @@ export class LandingComponent implements OnInit {
       rangeFrom: '',
       rangeTo: '',
     };
+
+    this.setDefaultJourneyDate();
 
     this.getall('Today');
     this.showWalletTable = true;
@@ -443,6 +449,61 @@ export class LandingComponent implements OnInit {
   selectedRange = 'Today';
   today = new Date();
 
+  // ============================================================
+  // QUICK ROUTE SEARCH
+  // ============================================================
+
+  fromSource: string = 'Delhi';
+  toDestination: string = 'Jaipur';
+
+  showSourceDropdown = false;
+  showDestinationDropdown = false;
+
+
+  // CITY LIST
+  sourceCities: string[] = [
+    'Delhi',
+    'Jaipur',
+    'Agra',
+    'Gurgaon',
+    'Noida',
+    'Chandigarh',
+    'Amritsar',
+    'Lucknow',
+    'Kanpur',
+    'Varanasi',
+    'Haridwar',
+    'Dehradun',
+    'Kota',
+    'Ajmer',
+    'Udaipur',
+    'Jodhpur',
+    'Ahmedabad',
+    'Mumbai',
+    'Pune',
+    'Indore',
+    'Bhopal',
+    'Surat',
+    'Vadodara',
+    'Bengaluru',
+    'Hyderabad',
+    'Chennai',
+    'Kolkata',
+  ];
+
+
+  filteredSourceCities: string[] = [...this.sourceCities];
+  filteredDestinationCities: string[] = [...this.sourceCities];
+
+
+  // ============================================================
+  // JOURNEY DATE
+  // ============================================================
+
+  journeyDate: string = '';
+  journeyDateDisplay: string = '';
+  minimumJourneyDate: string = '';
+
   maxDate = {
     year: this.today.getFullYear(),
     month: this.today.getMonth() + 1,
@@ -547,4 +608,251 @@ export class LandingComponent implements OnInit {
       });
     });
   }
+
+  // ============================================================
+  // QUICK ROUTE SEARCH - DATE
+  // ============================================================
+
+  setDefaultJourneyDate(): void {
+
+    const today = new Date();
+
+    const year =
+      today.getFullYear();
+
+    const month =
+      String(today.getMonth() + 1).padStart(2, '0');
+
+    const day =
+      String(today.getDate()).padStart(2, '0');
+
+
+    this.journeyDate =
+      `${year}-${month}-${day}`;
+
+
+    this.minimumJourneyDate =
+      this.journeyDate;
+
+
+    this.journeyDateDisplay =
+      this.formatDate(today);
+  }
+
+  openJourneyDatePicker(): void {
+
+    if (!this.journeyDatePicker) {
+      return;
+    }
+
+    const dateInput = this.journeyDatePicker.nativeElement as any;
+
+    try {
+
+      // Chrome / Edge / modern browsers
+      if (typeof dateInput.showPicker === 'function') {
+
+        dateInput.showPicker();
+
+      } else {
+
+        // Fallback
+        dateInput.focus();
+        dateInput.click();
+
+      }
+
+    } catch (error) {
+
+      // Fallback if showPicker is blocked
+      dateInput.focus();
+      dateInput.click();
+
+    }
+
+  }
+
+  onJourneyDateChange(event: any): void {
+
+    const selectedDate =
+      event.target.value;
+
+    if (!selectedDate) {
+      return;
+    }
+
+    this.journeyDate =
+      selectedDate;
+
+    const date =
+      new Date(selectedDate + 'T00:00:00');
+
+    this.journeyDateDisplay =
+      this.formatDate(date);
+  }
+
+  // ============================================================
+  // QUICK ROUTE SEARCH - SOURCE
+  // ============================================================
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+
+    const target =
+      event.target as HTMLElement;
+
+
+    // If click happened inside Source/Destination field,
+    // keep the dropdown open.
+    if (
+      target.closest('.autocomplete-field')
+    ) {
+      return;
+    }
+
+
+    // Otherwise close both dropdowns.
+    this.showSourceDropdown = false;
+
+    this.showDestinationDropdown = false;
+  }
+
+  openSourceDropdown(): void {
+
+    this.showSourceDropdown = true;
+    this.showDestinationDropdown = false;
+
+    this.filterSourceCities();
+  }
+
+
+
+  filterSourceCities(): void {
+
+    const search =
+      this.fromSource
+        .trim()
+        .toLowerCase();
+
+
+    if (!search) {
+
+      this.filteredSourceCities =
+        [...this.sourceCities];
+
+      return;
+    }
+
+
+    this.filteredSourceCities =
+      this.sourceCities.filter(city =>
+        city.toLowerCase().includes(search)
+      );
+  }
+
+
+
+  selectSourceCity(city: string): void {
+
+    this.fromSource =
+      city;
+
+    this.showSourceDropdown =
+      false;
+  }
+
+  // ============================================================
+  // QUICK ROUTE SEARCH - DESTINATION
+  // ============================================================
+
+  openDestinationDropdown(): void {
+
+    this.showDestinationDropdown = true;
+    this.showSourceDropdown = false;
+
+    this.filterDestinationCities();
+  }
+
+
+
+  filterDestinationCities(): void {
+
+    const search =
+      this.toDestination
+        .trim()
+        .toLowerCase();
+
+
+    if (!search) {
+
+      this.filteredDestinationCities =
+        [...this.sourceCities];
+
+      return;
+    }
+
+
+    this.filteredDestinationCities =
+      this.sourceCities.filter(city =>
+        city.toLowerCase().includes(search)
+      );
+  }
+
+
+
+  selectDestinationCity(city: string): void {
+
+    this.toDestination =
+      city;
+
+    this.showDestinationDropdown =
+      false;
+  }
+
+  // ============================================================
+  // QUICK ROUTE SEARCH - SEARCH
+  // ============================================================
+
+  searchBuses(): void {
+
+    if (!this.fromSource.trim()) {
+
+      alert('Please select From Source');
+
+      return;
+    }
+
+
+    if (!this.toDestination.trim()) {
+
+      alert('Please select To Destination');
+
+      return;
+    }
+
+
+    if (!this.journeyDate) {
+
+      alert('Please select Journey Date');
+
+      return;
+    }
+
+
+    console.log('SEARCH REQUEST');
+
+    console.log({
+      from: this.fromSource,
+      to: this.toDestination,
+      journeyDate: this.journeyDate
+    });
+
+
+    // ------------------------------------------------------------
+    // NEXT STEP:
+    // Call your bus-search API / navigate to bus-search page here.
+    // ------------------------------------------------------------
+  }
+
 }
+

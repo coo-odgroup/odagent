@@ -1,5 +1,5 @@
 .wallet-bg{
-    background: #323232;
+    background: linear-gradient(90deg, #00a1e4 0%, #003c8f 100%) !important;
     color: #ffffff;
     padding:5px 15px !important;
     line-height: 32px !important;
@@ -7,11 +7,12 @@
     margin-right: 25px;
     height:42px !important;
     margin-top: 8px;
+    border: 1px solid #00a0e3;
 }
 
 .wallet-bg i{
     font-size:32px;
-    color: yellowgreen;
+    color: rgb(255, 255, 255);
     margin-right:8px;
     float: left;
 }
