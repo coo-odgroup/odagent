@@ -103,9 +103,14 @@
         }
 
         > a {
-          background: $primary-color;
+          // background: $primary-color;
+          background: #00a0e3 !important;
           color: #fff;
         }
+      }
+
+      li.ng-star-inserted.active a.nav-link{
+        background: #00a0e3 !important;
       }
 
       &.pcoded-trigger,

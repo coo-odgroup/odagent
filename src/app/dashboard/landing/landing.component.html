@@ -115,47 +115,104 @@
         <!-- SEARCH BODY -->
         <div class="hero-search-body">
 
+
           <!-- FROM / TO -->
           <div class="hero-search-row">
 
-            <div class="hero-search-field">
+
+            <!-- FROM SOURCE -->
+            <div class="hero-search-field autocomplete-field">
 
               <label>
                 FROM SOURCE
               </label>
 
-              <input type="text" value="Delhi" placeholder="From Source" />
+              <input type="text" [(ngModel)]="fromSource" placeholder="From Source" autocomplete="off"
+                (click)="$event.stopPropagation(); openSourceDropdown()" (focus)="openSourceDropdown()"
+                (input)="filterSourceCities()" />
+
+
+              <!-- SOURCE DROPDOWN -->
+              <div class="route-dropdown" *ngIf="showSourceDropdown">
+
+                <div class="route-dropdown-item" *ngFor="let city of filteredSourceCities"
+                  (mousedown)="selectSourceCity(city)">
+
+                  <i class="fa fa-map-marker-alt"></i>
+
+                  <span>
+                    {{ city }}
+                  </span>
+
+                </div>
+
+
+                <div class="route-dropdown-empty" *ngIf="filteredSourceCities.length === 0">
+                  No cities found
+                </div>
+
+              </div>
 
             </div>
 
 
-            <div class="hero-search-field">
+
+            <!-- TO DESTINATION -->
+            <div class="hero-search-field autocomplete-field">
 
               <label>
                 TO DESTINATION
               </label>
 
-              <input type="text" value="Jaipur" placeholder="To Destination" />
+              <input type="text" [(ngModel)]="toDestination" placeholder="To Destination" autocomplete="off"
+                (focus)="openDestinationDropdown()" (input)="filterDestinationCities()" />
+
+
+              <!-- DESTINATION DROPDOWN -->
+              <div class="route-dropdown" *ngIf="showDestinationDropdown">
+
+                <div class="route-dropdown-item" *ngFor="let city of filteredDestinationCities"
+                  (mousedown)="selectDestinationCity(city)">
+
+                  <i class="fa fa-map-marker-alt"></i>
+
+                  <span>
+                    {{ city }}
+                  </span>
+
+                </div>
+
+
+                <div class="route-dropdown-empty" *ngIf="filteredDestinationCities.length === 0">
+                  No cities found
+                </div>
+
+              </div>
 
             </div>
 
           </div>
 
-
           <!-- JOURNEY DATE -->
-          <div class="hero-search-field hero-search-date">
+          <div class="hero-search-field hero-search-date date-field" (click)="openJourneyDatePicker()">
 
             <label>
               JOURNEY DATE
             </label>
 
-            <input type="text" [value]="'Today (' + formatDate(today) + ')'" readonly />
+            <!-- Visible date -->
+            <input type="text" [value]="journeyDateDisplay" readonly tabindex="-1" />
+
+            <!-- Real date picker -->
+            <input #journeyDatePicker type="date" class="real-date-picker" [value]="journeyDate"
+              [min]="minimumJourneyDate" (change)="onJourneyDateChange($event)" />
 
           </div>
 
 
+
           <!-- SEARCH BUTTON -->
-          <button class="hero-search-btn">
+          <button class="hero-search-btn" type="button" (click)="searchBuses()">
 
             <i class="fa fa-search"></i>
 

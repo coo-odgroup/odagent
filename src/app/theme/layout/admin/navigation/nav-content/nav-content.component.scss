@@ -1,0 +1,318 @@
+/* ============================================================
+   SUPPORT BOX — CLEAR & VISIBLE
+   ============================================================ */
+
+.support-box {
+    position: relative;
+
+    padding: 14px 12px 13px;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background: linear-gradient(145deg,
+            #0755a5 0%,
+            #0a68b8 100%);
+
+    border: 1px solid #00a0e3;
+
+    box-shadow:
+        0 8px 20px rgba(0, 38, 90, 0.18);
+
+    color: #ffffff;
+}
+
+
+/* ============================================================
+   SUPPORT IMAGE
+   ============================================================ */
+
+.support-image {
+    width: 100%;
+
+    height: 92px;
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: center;
+
+    margin-bottom: 5px;
+
+    overflow: hidden;
+}
+
+.support-image img {
+    width: 125px;
+
+    max-width: 80%;
+
+    height: auto;
+
+    display: block;
+
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   SUPPORT HEADING
+   ============================================================ */
+
+.support-heading {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: 2px 0 13px;
+}
+
+.support-icon {
+    width: 40px;
+
+    height: 40px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.16);
+
+    border: 1px solid #00a0e3;
+
+    color: #ffffff;
+
+    font-size: 11px;
+}
+
+.support-heading div {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+.support-heading strong {
+    color: #facc15;
+
+    font-size: 22px;
+
+    line-height: 1.1;
+
+    font-weight: 800;
+}
+
+.support-heading small {
+    margin-top: 3px;
+
+    color: rgb(255, 255, 255);
+
+    font-size: 13px;
+
+    line-height: 1;
+
+    font-weight: 500;
+}
+
+
+/* ============================================================
+   CONTACT LIST
+   ============================================================ */
+
+.support-contact-list {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
+}
+
+
+/* ============================================================
+   CONTACT ITEM
+   ============================================================ */
+
+.support-contact-item {
+    width: 100%;
+
+    min-height: 50px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 8px 9px;
+
+    border-radius: 8px;
+
+    text-decoration: none !important;
+
+    background: rgba(255, 255, 255, 0.11);
+
+    border: 1px solid #00a0e3;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.support-contact-item:hover {
+    background: rgba(255, 255, 255, 0.19);
+
+    border-color: rgba(255, 255, 255, 0.30);
+
+    transform: translateY(-1px);
+}
+
+
+/* ============================================================
+   CONTACT ICON
+   ============================================================ */
+
+.support-contact-icon {
+    width: 29px;
+
+    height: 29px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 7px;
+
+    color: #ffffff;
+
+    font-size: 11px;
+}
+
+.email-icon {
+    background: rgba(37, 99, 235, 0.80);
+}
+
+.phone-icon {
+    background: rgba(16, 185, 129, 0.80);
+}
+
+
+/* ============================================================
+   CONTACT TEXT
+   ============================================================ */
+
+.support-contact-content {
+    min-width: 0;
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+.support-contact-content small {
+    color: rgba(255, 255, 255, 0.70);
+
+    font-size: 8px;
+
+    line-height: 1;
+
+    font-weight: 600;
+
+    margin-bottom: 5px;
+}
+
+.support-contact-content strong {
+    display: block;
+
+    width: 100%;
+
+    // overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: #ffffff;
+
+    font-size: 15px;
+
+    line-height: 1;
+
+    font-weight: 500;
+}
+
+
+/* ============================================================
+   ARROW
+   ============================================================ */
+
+.support-arrow {
+    flex-shrink: 0;
+
+    color: rgba(255, 255, 255, 0.60);
+
+    font-size: 8px;
+}
+
+
+/* ============================================================
+   SUPPORT STATUS
+   ============================================================ */
+
+.support-status {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 11px;
+
+    padding-top: 9px;
+
+    border-top: 1px solid #00a0e3;
+
+    color: rgb(255, 255, 255);
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+.support-status-dot {
+    width: 6px;
+
+    height: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #22c55e;
+
+    box-shadow:
+        0 0 0 3px rgba(34, 197, 94, 0.15);
+}

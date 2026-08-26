@@ -71,7 +71,8 @@ ngb-datepicker.dropdown-menu.show {
 
 .pcoded-navbar {
     margin-top: 68px !important;
-    background-color: #020f25;
+    background: linear-gradient(0deg, #00a1e4 0%, #003c8f 100%) !important;
+    // background-color: #020f25;
 }
 .pulse-button {
     background: #072c6b !important;
@@ -79,8 +80,13 @@ ngb-datepicker.dropdown-menu.show {
 
 .pcoded-header{
     // background: #203058 !important;
-    background: #efc003  !important;
-    border-bottom: 1px solid #e5e5e5;
+    background: #ffffff  !important;
+    border-bottom: 1px solid #0099dd;
+    border-radius: 0 0 10px 10px;
+}
+
+.dropdown-menu-right.profile-notification.dropdown-menu.show{
+    border-radius: 10px !important;
 }
 
 
@@ -140,11 +146,20 @@ ngb-datepicker.dropdown-menu.show {
     height: auto !important;
 }
 
-.border-box{
-    background: #031738;
+// .border-box{
+//     background: #031738;
+//     padding: 12px;
+//     margin:12px;
+//     border-radius:8px ;
+// }
+
+
+.border-box {
+    background: #9ac0ff1f;
     padding: 12px;
-    margin:12px;
-    border-radius:8px ;
+    margin: 12px;
+    border-radius: 8px;
+    border: 1px solid #00a0e3;
 }
 
 .ft-18 {
