@@ -1,522 +1,170 @@
 <div class="route-page" (click)="closeSourceDropdown()">
 
-
-    <!-- ==========================================================
-       PAGE HEADER
-       ========================================================== -->
-
+    <!-- PAGE HEADER -->
     <div class="route-page-header">
-
         <div class="route-header-left">
-
             <div class="route-header-icon">
-
                 <i class="fa fa-road"></i>
-
             </div>
-
 
             <div>
-
-                <h1>
-                    Route Listing
-                </h1>
-
-                <p>
-                    Search and explore available bus routes
-                </p>
-
+                <h1>Route Listing</h1>
+                <p>Search and explore available bus routes</p>
             </div>
-
         </div>
-
-
-        <div class="route-count">
-
-            <strong>
-                {{ filteredRoutes.length }}
-            </strong>
-
-            <span>
-                Routes
-            </span>
-
-        </div>
-
     </div>
 
-
-
-    <!-- ==========================================================
-       SEARCH
-       ========================================================== -->
-
+    <!-- SEARCH -->
     <section class="route-search-card" (click)="$event.stopPropagation()">
-
-
-        <div class="route-search-heading">
-
-            <div class="route-search-heading-icon">
-
-                <i class="fa fa-search"></i>
-
-            </div>
-
-
-            <div>
-
-                <h2>
-                    Find Your Route
-                </h2>
-
-                <p>
-                    Search available routes by source city
-                </p>
-
-            </div>
-
-        </div>
-
-
 
         <div class="route-search-row">
 
-
-            <!-- ======================================================
-           SOURCE CITY
-           ====================================================== -->
-
             <div class="route-search-field">
-
-                <label>
-                    SOURCE CITY
-                </label>
-
+                <label>SOURCE CITY</label>
 
                 <div class="route-input-wrapper">
-
-                    <i class="fa fa-map-marker"></i>
-
+                    <i class="fa fa-map-marker-alt"></i>
 
                     <input type="text" [(ngModel)]="sourceSearch" placeholder="Search source city" autocomplete="off"
                         (focus)="openSourceDropdown()" (input)="filterSourceCities()"
                         (click)="$event.stopPropagation()" />
 
-
                     <button type="button" class="route-input-clear" *ngIf="sourceSearch" (click)="clearSearch()">
-
                         <i class="fa fa-times"></i>
-
                     </button>
-
                 </div>
 
-
-
-                <!-- ====================================================
-             CITY DROPDOWN
-             ==================================================== -->
-
+                <!-- CITY DROPDOWN -->
                 <div class="route-city-dropdown" *ngIf="showSourceDropdown">
-
-
-                    <div class="route-city-dropdown-title">
-
-                        <span>
-
-                            <i class="fa fa-map-marker"></i>
-
-                            Select Source City
-
-                        </span>
-
-
-                        <small>
-                            {{ filteredLocations.length }} results
-                        </small>
-
-                    </div>
-
-
 
                     <div class="route-city-item" *ngFor="let city of filteredLocations"
                         (mousedown)="selectSourceCity(city)">
 
-
                         <div class="city-item-icon">
-
-                            <i class="fa fa-map-marker"></i>
-
+                            <i class="fa fa-map-marker-alt"></i>
                         </div>
-
 
                         <div class="city-item-content">
-
-                            <strong>
-                                {{ city.name }}
-                            </strong>
-
-
-                            <span *ngIf="city.synonym">
-
-                                {{ city.synonym }}
-
-                            </span>
-
+                            {{ city.name }}
+                            <span *ngIf="city.synonym">{{ city.synonym }}</span>
                         </div>
 
-
-                        <i class="fa fa-chevron-right city-arrow">
-                        </i>
-
+                        <i class="fa fa-chevron-right city-arrow"></i>
                     </div>
 
-
-
-                    <!-- EMPTY -->
                     <div class="route-city-empty" *ngIf="filteredLocations.length === 0">
 
-                        <i class="fa fa-map-marker"></i>
-
-                        <strong>
-                            No cities found
-                        </strong>
-
-                        <span>
-                            Try another city name
-                        </span>
-
+                        <i class="fa fa-map-marker-alt"></i>
+                        <strong>No cities found</strong>
+                        <span>Try another city name</span>
                     </div>
 
-
                 </div>
-
             </div>
-
-
-
-            <!-- ======================================================
-           SEARCH BUTTON
-           ====================================================== -->
 
             <button type="button" class="route-search-button" (click)="searchRoutes()">
 
                 <i class="fa fa-search"></i>
-
-                <span>
-                    Search Routes
-                </span>
-
+                <span>Search Routes</span>
             </button>
 
-
         </div>
-
-
 
         <!-- SEARCH RESULT -->
         <div class="route-search-result" *ngIf="isSearching">
-
-
             <div>
-
                 <i class="fa fa-check-circle"></i>
 
                 <span>
-
                     Showing routes from
-
-                    <strong>
-                        {{ sourceSearch }}
-                    </strong>
-
+                    <strong>{{ sourceSearch }}</strong>
                 </span>
-
             </div>
 
-
             <button type="button" (click)="clearSearch()">
-
                 Clear Search
-
                 <i class="fa fa-times"></i>
-
             </button>
-
         </div>
-
 
     </section>
 
-
-
-    <!-- ==========================================================
-       ROUTE HEADER
-       ========================================================== -->
-
+    <!-- ROUTE HEADER -->
     <div class="route-section-header">
 
         <div>
-
-            <span class="section-eyebrow">
-                AVAILABLE ROUTES
-            </span>
-
+            <span class="section-eyebrow">AVAILABLE ROUTES</span>
 
             <h2>
                 {{ isSearching ? 'Matching Routes' : 'Popular Routes' }}
             </h2>
-
         </div>
 
-
         <div class="section-total">
-
-            <strong>
-                {{ filteredRoutes.length }}
-            </strong>
-
-            <span>
-                available
-            </span>
-
+            <strong>{{ filteredRoutes.length }}</strong>
+            <span>Available</span>
         </div>
 
     </div>
 
-
-
-    <!-- ==========================================================
-       ROUTE GRID
-       ========================================================== -->
-
+    <!-- ROUTE GRID -->
     <section class="route-grid">
-
-
-        <!-- ========================================================
-         ROUTE CARD
-         WHOLE CARD IS CLICKABLE
-         ======================================================== -->
 
         <article class="route-card" *ngFor="let route of filteredRoutes" (click)="openRoute(route)" tabindex="0"
             role="button" (keydown.enter)="openRoute(route)" (keydown.space)="openRoute(route)">
 
-
-            <!-- ======================================================
-           MAIN ROUTE
-           ====================================================== -->
-
             <div class="route-main">
 
-
-                <!-- SOURCE -->
+                <!-- FROM -->
                 <div class="route-location">
-
                     <div class="route-location-icon source">
-
-                        <i class="fa fa-map-marker"></i>
-
+                        <i class="fa fa-map-marker-alt"></i>
                     </div>
-
 
                     <div class="route-location-text">
-
-                        <span>
-                            FROM
-                        </span>
-
-                        <strong>
-                            {{ route.source }}
-                        </strong>
-
+                        {{ route.source }}
                     </div>
-
                 </div>
 
-
-
-                <!-- CONNECTOR -->
-                <div class="route-connector">
-
-
-                    <div class="connector-line left"></div>
-
-
-                    <div class="route-bus-icon">
-
-                        <i class="fa fa-bus"></i>
-
-                    </div>
-
-
-                    <div class="connector-line right"></div>
-
-
+                <!-- SIMPLE ARROW -->
+                <div class="route-connector" aria-hidden="true">
+                    <span class="route-arrow">
+                        <i class="fa fa-long-arrow-right"></i>
+                    </span>
                 </div>
 
-
-
-                <!-- DESTINATION -->
+                <!-- TO -->
                 <div class="route-location destination">
-
-
                     <div class="route-location-text">
-
-                        <span>
-                            TO
-                        </span>
-
-                        <strong>
-                            {{ route.destination }}
-                        </strong>
-
+                        {{ route.destination }}
                     </div>
-
-
-                    <div class="route-location-icon destination">
-
-                        <i class="fa fa-location-arrow"></i>
-
-                    </div>
-
-
                 </div>
 
-
             </div>
-
-
-
-            <!-- ======================================================
-           ROUTE DETAILS
-           
-           JOURNEY LEFT
-           AVAILABLE BUS RIGHT
-           ====================================================== -->
-
-            <div class="route-card-info">
-
-
-                <!-- JOURNEY -->
-                <div class="route-info-item">
-
-                    <div class="route-info-icon">
-
-                        <i class="fa fa-clock-o"></i>
-
-                    </div>
-
-
-                    <div>
-
-                        <span>
-                            JOURNEY
-                        </span>
-
-                        <strong>
-                            {{ route.duration }}
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- DIVIDER -->
-                <div class="route-info-divider"></div>
-
-
-
-                <!-- AVAILABLE BUS -->
-                <div class="route-info-item bus-info">
-
-                    <div class="route-info-icon">
-
-                        <i class="fa fa-bus"></i>
-
-                    </div>
-
-
-                    <div>
-
-                        <span>
-                            AVAILABLE BUSES
-                        </span>
-
-                        <strong>
-                            {{ route.buses }}
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-            </div>
-
-
-
-            <!-- CLICK HINT -->
-            <div class="route-card-hint">
-
-                <span>
-                    Select this route to continue
-                </span>
-
-                <i class="fa fa-arrow-right"></i>
-
-            </div>
-
 
         </article>
 
-
-
-        <!-- ========================================================
-         EMPTY STATE
-         ======================================================== -->
-
-        <div class="route-empty-state" *ngIf="!isLoadingRoutes &&
-             filteredRoutes.length === 0">
-
+        <!-- EMPTY STATE -->
+        <div class="route-empty-state" *ngIf="!isLoadingRoutes && filteredRoutes.length === 0">
 
             <div class="route-empty-icon">
-
                 <i class="fa fa-road"></i>
-
             </div>
 
-
-            <h3>
-                No Routes Found
-            </h3>
-
+            <h3>No Routes Found</h3>
 
             <p>
-
                 No routes are available from
-
-                <strong>
-                    {{ sourceSearch }}
-                </strong>
-
+                <strong>{{ sourceSearch }}</strong>
             </p>
 
-
             <button type="button" (click)="clearSearch()">
-
                 <i class="fa fa-refresh"></i>
-
                 View All Routes
-
             </button>
-
 
         </div>
 
-
     </section>
-
 
 </div>

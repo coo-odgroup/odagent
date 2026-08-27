@@ -24,13 +24,7 @@
 }
 
 
-.route-page *,
-.route-page *::before,
-.route-page *::after {
 
-    box-sizing: border-box;
-
-}
 
 
 .route-page button,
@@ -654,25 +648,6 @@
 }
 
 
-.city-item-content strong {
-
-    display: block;
-
-    overflow: hidden;
-
-    color: #1e293b;
-
-    font-size: 11px;
-
-    font-weight: 800;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-
-}
-
-
 .city-item-content span {
 
     display: block;
@@ -681,7 +656,7 @@
 
     color: #94a3b8;
 
-    font-size: 8px;
+    font-size: 12px;
 
 }
 
@@ -873,7 +848,7 @@
 
     display: flex;
 
-    align-items: baseline;
+    align-items: center;
 
     gap: 4px;
 
@@ -895,7 +870,7 @@
 
     color: #94a3b8;
 
-    font-size: 8px;
+    font-size: 12px;
 
     font-weight: 600;
 
@@ -912,14 +887,9 @@
 .route-grid {
 
     width: 100%;
-
     display: grid;
-
-    grid-template-columns:
-        repeat(3,
-            minmax(0, 1fr));
-
-    gap: 15px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
 
 }
 
@@ -933,24 +903,8 @@
 
 .route-card {
 
-    position: relative;
-
-    min-width: 0;
-
-    padding: 16px;
-
-    background: #ffffff;
-
-    border: 1px solid #d6e3ee;
-
-    border-radius: 13px;
-
-    overflow: hidden;
 
     cursor: pointer;
-
-    box-shadow:
-        0 3px 12px rgba(15, 23, 42, 0.035);
 
     transition:
         transform .2s ease,
@@ -960,33 +914,12 @@
 }
 
 
-.route-card::before {
 
-    content: '';
-
-    position: absolute;
-
-    top: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 3px;
-
-    background:
-        linear-gradient(90deg,
-            #08a0d8,
-            #07539d);
-
-}
 
 
 .route-card:hover {
 
     transform: translateY(-3px);
-
-    border-color: #9bcce9;
 
     box-shadow:
         0 10px 25px rgba(15, 23, 42, 0.09);
@@ -1005,38 +938,44 @@
 
 }
 
-
 /* ============================================================
    MAIN ROUTE AREA
    ============================================================ */
 
+.route-card {
+    min-width: 0;
+    cursor: pointer;
+    border-radius: 12px;
+}
+
+.route-card:hover .route-main {
+    transform: translateY(-2px);
+    border-color: #8bc7ef;
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.07);
+}
+
+.route-card:focus {
+    outline: none;
+}
+
+.route-card:focus .route-main {
+    border-color: #078dcc;
+    box-shadow: 0 0 0 3px rgba(7, 141, 204, 0.12);
+}
 
 .route-main {
-
     width: 100%;
-
-    min-height: 94px;
-
-    padding: 14px 11px;
-
+    min-height: 73px;
+    padding: 13px 12px;
+    box-sizing: border-box;
     display: grid;
-
-    grid-template-columns:
-        minmax(95px, 1fr) minmax(80px, .8fr) minmax(95px, 1fr);
-
+    grid-template-columns: minmax(110px, 1fr) 72px minmax(110px, 1fr);
     align-items: center;
-
-    gap: 8px;
-
-    border-radius: 10px;
-
-    background:
-        linear-gradient(135deg,
-            #f8fbff,
-            #f1f8fd);
-
-    border: 1px solid #e0ebf4;
-
+    gap: 10px;
+    border: 1px solid #79b4f1;
+    border-radius: 11px;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    background: linear-gradient(135deg, #11adea2e 0%, #f2f9ff 100%);
 }
 
 
@@ -1044,335 +983,114 @@
    LOCATION
    ============================================================ */
 
-
 .route-location {
-
     min-width: 0;
-
     display: flex;
-
     align-items: center;
-
     gap: 9px;
-
 }
-
 
 .route-location.destination {
-
     justify-content: flex-end;
-
     text-align: right;
-
 }
-
 
 .route-location-icon {
-
-    width: 34px;
-
-    height: 34px;
-
-    flex-shrink: 0;
-
+    width: 28px;
+    height: 28px;
+    flex: 0 0 28px;
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    border-radius: 9px;
-
-    font-size: 12px;
-
-}
-
-
-.route-location-icon.source {
-
-    background: #e5f5ff;
-
+    border-radius: 50%;
+    background: #eef8ff;
     color: #078dcc;
-
+    font-size: 11px;
+    box-shadow: inset 0 0 0 1px #d8edf9;
 }
-
-
-.route-location-icon.destination {
-
-    background: #eaf0ff;
-
-    color: #315fd4;
-
-}
-
 
 .route-location-text {
-
     min-width: 0;
-
-}
-
-
-.route-location-text span {
-
-    display: block;
-
-    margin-bottom: 4px;
-
-    color: #8ca0b1;
-
-    font-size: 7px;
-
-    font-weight: 800;
-
-    letter-spacing: .6px;
-
-}
-
-
-.route-location-text strong {
-
-    display: block;
-
     overflow: hidden;
-
-    color: #0f172a;
-
-    font-size: 13px;
-
-    line-height: 1.15;
-
-    font-weight: 800;
-
+    color: #00257c;
+    font-size: 14px;
+    line-height: 1.25;
+    font-weight: 700;
     text-overflow: ellipsis;
-
     white-space: nowrap;
-
 }
 
 
 /* ============================================================
-   CONNECTOR
+   SIMPLE ROUTE ARROW
    ============================================================ */
-
 
 .route-connector {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 5px;
-
-}
-
-
-.connector-line {
-
-    flex: 1;
-
-    height: 1px;
-
-    background:
-        repeating-linear-gradient(90deg,
-            #b6cbdc 0,
-            #b6cbdc 5px,
-            transparent 5px,
-            transparent 8px);
-
-}
-
-
-.route-bus-icon {
-
-    width: 34px;
-
-    height: 34px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background: #ffffff;
-
-    border: 1px solid #c9ddea;
-
-    color: #0756a0;
-
-    font-size: 12px;
-
-    box-shadow:
-        0 3px 7px rgba(15, 23, 42, 0.07);
-
-}
-
-
-/* ============================================================
-   JOURNEY + AVAILABLE BUS
-
-   LEFT / RIGHT
-   ============================================================ */
-
-
-.route-card-info {
-
     width: 100%;
-
-    min-height: 58px;
-
-    margin-top: 12px;
-
-    padding: 10px 5px;
-
     display: flex;
-
     align-items: center;
-
-}
-
-
-.route-info-item {
-
-    flex: 1;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 9px;
-
-}
-
-
-.route-info-item.bus-info {
-
-    justify-content: flex-end;
-
-}
-
-
-.route-info-icon {
-
-    width: 30px;
-
-    height: 30px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
-    align-items: center;
-
     justify-content: center;
-
-    border-radius: 8px;
-
-    background: #eff7ff;
-
-    color: #087bc4;
-
-    font-size: 12px;
-
 }
 
-
-.route-info-item span {
-
-    display: block;
-
-    margin-bottom: 3px;
-
-    color: #94a3b8;
-
-    font-size: 7px;
-
-    font-weight: 800;
-
-    letter-spacing: .5px;
-
-}
-
-
-.route-info-item strong {
-
-    display: block;
-
-    color: #0f172a;
-
-    font-size: 12px;
-
+.route-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #078dcc;
+    font-size: 19px;
     line-height: 1;
-
-    font-weight: 800;
-
+    transition:
+        transform .2s ease,
+        color .2s ease;
 }
 
-
-.route-info-divider {
-
-    width: 1px;
-
-    height: 30px;
-
-    margin: 0 13px;
-
-    background: #dce7ef;
-
+.route-card:hover .route-arrow {
+    transform: translateX(3px);
+    color: #0756a0;
 }
 
 
 /* ============================================================
-   CLICK HINT
+   RESPONSIVE ROUTE CARDS
    ============================================================ */
 
-
-.route-card-hint {
-
-    min-height: 30px;
-
-    padding-top: 9px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    border-top: 1px solid #edf2f6;
-
-    color: #7890a3;
-
-    font-size: 8px;
-
-    font-weight: 600;
-
+@media (max-width: 1100px) {
+    .route-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
+@media (max-width: 700px) {
+    .route-page {
+        padding: 18px 14px 30px;
+    }
 
-.route-card-hint i {
+    .route-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
 
-    color: #078dcc;
+    .route-main {
+        grid-template-columns: minmax(100px, 1fr) 48px minmax(100px, 1fr);
+        min-height: 68px;
+        padding: 11px 10px;
+    }
 
-    font-size: 10px;
+    .route-location-text {
+        font-size: 13px;
+    }
 
-    transition:
-        transform .2s ease;
+    .route-location-icon {
+        width: 26px;
+        height: 26px;
+        flex-basis: 26px;
+        font-size: 10px;
+    }
 
+    .route-arrow {
+        font-size: 17px;
+    }
 }
-
-
-.route-card:hover .route-card-hint i {
-
-    transform: translateX(4px);
-
-}
-
 
 /* ============================================================
    EMPTY STATE
@@ -1487,3 +1205,234 @@
 }
 
 
+/* ============================================================
+   TABLET
+   ============================================================ */
+
+@media (max-width: 1100px) {
+
+    .route-page {
+        padding: 20px 18px 35px;
+    }
+
+    .route-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ============================================================
+   MOBILE
+   ============================================================ */
+
+@media (max-width: 700px) {
+
+    .route-page {
+        padding: 16px 12px 28px;
+    }
+
+    .route-page-header {
+        margin-bottom: 14px;
+    }
+
+    .route-header-left {
+        gap: 10px;
+    }
+
+    .route-header-icon {
+        width: 38px;
+        height: 38px;
+        flex-basis: 38px;
+        border-radius: 10px;
+        font-size: 15px;
+    }
+
+    .route-header-left h1 {
+        font-size: 19px;
+    }
+
+    .route-header-left p {
+        margin-top: 3px;
+        font-size: 9px;
+    }
+
+
+    /* Search */
+
+    .route-search-card {
+        padding: 13px;
+        margin-bottom: 20px;
+        border-radius: 12px;
+    }
+
+    .route-search-row {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+
+    .route-search-field label {
+        margin-bottom: 6px;
+        font-size: 8px;
+    }
+
+    .route-input-wrapper {
+        height: 45px;
+        padding: 0 12px;
+    }
+
+    .route-input-wrapper input {
+        font-size: 12px;
+    }
+
+    .route-search-button {
+        height: 44px;
+        font-size: 10px;
+    }
+
+
+    /* Dropdown */
+
+    .route-city-dropdown {
+        max-height: 270px;
+        border-radius: 10px;
+    }
+
+    .route-city-item {
+        min-height: 45px;
+        padding: 6px 8px;
+    }
+
+    .city-item-content {
+        font-size: 12px;
+    }
+
+    .city-item-content span {
+        font-size: 10px;
+    }
+
+
+    /* Search result */
+
+    .route-search-result {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+        font-size: 9px;
+    }
+
+    .route-search-result button {
+        align-self: flex-end;
+    }
+
+
+    /* Section */
+
+    .route-section-header {
+        margin-bottom: 10px;
+    }
+
+    .section-eyebrow {
+        font-size: 7px;
+    }
+
+    .route-section-header h2 {
+        font-size: 16px;
+    }
+
+    .section-total strong {
+        font-size: 15px;
+    }
+
+    .section-total span {
+        font-size: 10px;
+    }
+
+
+    /* One card per row */
+
+    .route-grid {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+
+    .route-main {
+        min-height: 68px;
+        padding: 11px 10px;
+        grid-template-columns: minmax(0, 1fr) 42px minmax(0, 1fr);
+        gap: 6px;
+    }
+
+    .route-location {
+        gap: 7px;
+    }
+
+    .route-location-icon {
+        width: 27px;
+        height: 27px;
+        flex-basis: 27px;
+        border-radius: 8px;
+        font-size: 11px;
+    }
+
+    .route-location-text {
+        font-size: 13px;
+    }
+
+    .route-arrow {
+        font-size: 16px;
+    }
+
+
+    /* Empty state */
+
+    .route-empty-state {
+        padding: 45px 15px;
+    }
+
+}
+
+
+/* ============================================================
+   VERY SMALL PHONES
+   ============================================================ */
+
+@media (max-width: 380px) {
+
+    .route-page {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .route-header-left h1 {
+        font-size: 18px;
+    }
+
+    .route-header-left p {
+        font-size: 8px;
+    }
+
+    .route-search-card {
+        padding: 11px;
+    }
+
+    .route-main {
+        grid-template-columns: minmax(0, 1fr) 34px minmax(0, 1fr);
+        padding: 10px 8px;
+    }
+
+    .route-location-icon {
+        width: 25px;
+        height: 25px;
+        flex-basis: 25px;
+    }
+
+    .route-location-text {
+        font-size: 12px;
+    }
+
+    .route-arrow {
+        font-size: 15px;
+    }
+
+}
