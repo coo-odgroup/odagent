@@ -12,6 +12,7 @@ import { BookingComponent } from './booking/booking.component';
 import { AgentprofileComponent } from './agentprofile/agentprofile.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { PrintticketComponent } from './printticket/printticket.component';
+import { RouteListComponent } from './route-list/route-list.component';
 
 
 

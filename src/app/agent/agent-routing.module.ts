@@ -120,6 +120,13 @@ const routes: Routes = [
             (module) => module.FirsttimeChangePasswordModule,
           ),
       },
+       {
+        path: 'route-list',
+        loadChildren: () =>
+          import('./route-list/route-list.module').then(
+            (module) => module.RouteListModule,
+          ),
+      },
   
     ],
   },
