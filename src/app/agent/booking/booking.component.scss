@@ -221,6 +221,7 @@ ngb-datepicker.dropdown-menu.show {
     .clean-booking-card {
         flex-direction: column;
         gap: 14px;
+        background: #ffffff29;
     }
 
     .clean-field,
@@ -246,6 +247,8 @@ ngb-datepicker.dropdown-menu.show {
     .clean-booking-card-wrapper {
         padding: 18px;
         height: auto;
+        background: linear-gradient(90deg, #00a1e4 0%, #003c8f 100%);
+        margin-top: 10px;
     }
 }
 
