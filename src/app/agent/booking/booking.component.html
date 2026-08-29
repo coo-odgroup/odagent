@@ -1,193 +1,236 @@
-<!-- <div class="row">
-    <div class="col-sm-12">
-        <div class="search-box">
-        <div class=" mb-3">
-            <div class="row p-0">
-                <div class="col-12">
-                    <h2>Online Bus Tickets Booking</h2>
+<div class="agent-home-page">
+
+  <!-- =======================================================
+       HERO SECTION
+       Visible on DESKTOP only
+  ======================================================== -->
+
+  <section class="agent-hero">
+
+    <div class="agent-hero-overlay"></div>
+
+    <div class="agent-hero-content">
+
+      <div class="hero-text">
+
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Odisha's Premier Travel Agent Network
+        </div>
+
+        <h1 class="hero-title">
+          Seats That Pay Higher.
+          <span>Earn More Every Ticket.</span>
+        </h1>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       BOOKING SEARCH
+  ======================================================== -->
+
+  <section class="booking-search-section">
+
+    <div class="booking-search-container">
+
+      <div class="clean-booking-card-wrapper">
+
+        <!-- Hidden autofill fields -->
+        <input type="text" autocomplete="username" style="display: none" />
+        <input type="password" autocomplete="new-password" style="display: none" />
+
+        <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
+
+          <div class="clean-booking-card">
+
+            <!-- =================================================
+                 FROM
+            ================================================== -->
+
+            <div class="clean-field from-field">
+
+              <label>From</label>
+
+              <div class="clean-input">
+
+                <div class="clean-icon">
+                  <img src="../../../assets/img/Icon-metro-location.svg" alt="Location" />
                 </div>
-                <div class="col-12">
 
-                    <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
-                        <div class="hero-banner-inner-srchbus">
-                            <div class="row no-gutters">
-                               
-                                <div class="col-md-10">
-                                    <div class="row no-gutters">
-                                        <div class="col-md-4 pr-1">
-                                            <label><b>From</b></label>
-                                            <div class="input-group mb-3 d-block">
-        
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text pr-0" id="basic-addon1"><img src="../../../assets/img/Icon-metro-location.svg"></span>
-                                                
-                                                    <input autocomplete="off" id="typeahead-template" type="text" class="form-control"  [ngbTypeahead]="search" [resultTemplate]="rt" 
-                                                    [inputFormatter]="formatter" [ngModel]="swapsource" placeholder="Enter Source" formControlName="source" (selectItem)="tabChange('to')"/>
-        
-                                                    <ng-template #rt let-r="result" let-t="term">
-                                                        <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
-                                                    </ng-template>
-                                                
-                                                
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 pr-1 to_dest_block">
-                                            <label><b>To</b></label>
-                                           
-                                            <div class="input-group mb-3 d-block">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text pr-0" id="basic-addon2"><img
-                                                            src="../../../assets/img/Icon-metro-location.svg"></span>
-        
-                                                            <input autocomplete="off" id="to" type="text" class="form-control"  [ngbTypeahead]="search" 
-                                                            [resultTemplate]="rt2" [inputFormatter]="formatter" [ngModel]="swapdestination" formControlName="destination" placeholder="Enter Destination"
-                                                            (selectItem)="tabChange('entryDate')"
-                                                            />
-                                                          
-                                                                <ng-template #rt2 let-r="result" let-t="term">
-                                                                    <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
-                                                                </ng-template>
-                                                            
-                                                            
-                                                </div>
-                                               
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 date_inp">
-                                            <label><b>Date of Journey</b></label>
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text calendar pr-0" id="basic-addon3" (click)="d.toggle()" ><img src="assets/img/Icon-metro-calendar.svg"></span>
-                                                </div>
-                                                <input type="text" autocomplete="off" readonly 
-                                                id="entryDate" class="form-control calendar rounded-0" formControlName="entry_date"  
-                                                placeholder="Journey Date" aria-label="Journey Date" 
-                                                aria-describedby="basic-addon3" ngbDatepicker (click)="d.toggle()" #d="ngbDatepicker" [min]="dtconfig.minDate" [max]="dtconfig.maxDate">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <p style="opacity: 0;">Search</p>
-                                    <div class="bus_search">
-                                        <button type="submit"  class="btn">Search</button>
-                                    </div>
-                                </div>
-                            
-                            </div>
-                        </div>
-                    </form>
+                <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text"
+                  class="form-control" [ngbTypeahead]="search" [resultTemplate]="rt" [inputFormatter]="formatter"
+                  [ngModel]="swapsource" placeholder="Enter Source" formControlName="source"
+                  (selectItem)="tabChange('to')" />
 
-                   
-                </div>                   
+                <ng-template #rt let-r="result" let-t="term">
+                  <ngb-highlight [result]="r.name" [term]="t">
+                  </ngb-highlight>
+                </ng-template>
+
+              </div>
+
             </div>
-        </div>
-    </div>
-    </div>
-</div> -->
 
-<div class="clean-booking-wrapper">
-  <div class="clean-booking-card-wrapper">
-    <input type="text" autocomplete="username" style="display: none" />
-    <input type="password" autocomplete="new-password" style="display: none" />
-    <form [formGroup]="searchForm" (ngSubmit)="submitForm()">
-      <div class="clean-booking-card">
-        <!-- FROM -->
-        <div class="clean-field from-field">
-          <label>From</label>
-          <div class="clean-input">
-            <div class="clean-icon">
-              <img src="../../../assets/img/Icon-metro-location.svg" />
+
+            <!-- =================================================
+                 TO
+            ================================================== -->
+
+            <div class="clean-field to-field">
+
+              <button type="button" class="mobile-swap-circle" (click)="swap()"
+                aria-label="Swap source and destination">
+
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+
+                  <path d="M16 3L21 8L16 13" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+
+                  <path d="M21 8H7" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round" />
+
+                  <path d="M8 21L3 16L8 11" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round" />
+
+                  <path d="M3 16H17" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round" />
+
+                </svg>
+
+              </button>
+
+
+              <label>To</label>
+
+              <div class="clean-input">
+
+                <div class="clean-icon">
+                  <img src="../../../assets/img/Icon-metro-location.svg" alt="Location" />
+                </div>
+
+                <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="to" type="text"
+                  class="form-control" [ngbTypeahead]="search" [resultTemplate]="rt2" [inputFormatter]="formatter"
+                  [ngModel]="swapdestination" formControlName="destination" placeholder="Enter Destination"
+                  (selectItem)="tabChange('entryDate')" />
+
+                <ng-template #rt2 let-r="result" let-t="term">
+                  <ngb-highlight [result]="r.name" [term]="t">
+                  </ngb-highlight>
+                </ng-template>
+
+              </div>
+
             </div>
-            <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text"
-              class="form-control" [ngbTypeahead]="search" [resultTemplate]="rt" [inputFormatter]="formatter"
-              [ngModel]="swapsource" placeholder="Enter Source" formControlName="source"
-              (selectItem)="tabChange('to')" />
-            <ng-template #rt let-r="result" let-t="term">
-              <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
-            </ng-template>
+
+
+            <!-- =================================================
+                 DATE
+            ================================================== -->
+
+            <div class="clean-field date-field">
+
+              <label>Date of Journey</label>
+
+              <div class="clean-input">
+
+                <div class="clean-icon calendar-icon" (click)="d.toggle()">
+
+                  <img src="assets/img/Icon-metro-calendar.svg" alt="Calendar" />
+
+                </div>
+
+                <input type="text" autocomplete="off" readonly id="entryDate" class="form-control"
+                  formControlName="entry_date" placeholder="Journey Date" ngbDatepicker (click)="d.toggle()"
+                  #d="ngbDatepicker" [min]="dtconfig.minDate" [max]="dtconfig.maxDate" />
+
+              </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 SEARCH BUTTON
+            ================================================== -->
+
+            <div class="search-btn-wrap">
+
+              <button type="submit" class="clean-search-btn">
+
+                <i class="feather icon-search"></i>
+
+                <span>Search</span>
+
+              </button>
+
+            </div>
+
           </div>
-        </div>
 
-        <!-- TO -->
-        <div class="clean-field to-field">
-          <!-- SWAP BUTTON -->
-          <!-- <button type="button" class="floating-swap-btn" (click)="swap()">
-            ⇄
-          </button> -->
-          <button type="button" class="mobile-swap-circle" (click)="swap()">
+        </form>
 
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-              <path d="M16 3L21 8L16 13" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-
-              <path d="M21 8H7" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round" />
-
-              <path d="M8 21L3 16L8 11" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round"
-                stroke-linejoin="round" />
-
-              <path d="M3 16H17" stroke="#072c6b" stroke-width="2.5" stroke-linecap="round" />
-            </svg>
-
-          </button>
-          <label>To</label>
-          <div class="clean-input">
-            <div class="clean-icon">
-              <img src="../../../assets/img/Icon-metro-location.svg" />
-            </div>
-
-            <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" id="to" type="text"
-              class="form-control" [ngbTypeahead]="search" [resultTemplate]="rt2" [inputFormatter]="formatter"
-              [ngModel]="swapdestination" formControlName="destination" placeholder="Enter Destination"
-              (selectItem)="tabChange('entryDate')" />
-
-            <ng-template #rt2 let-r="result" let-t="term">
-              <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>
-            </ng-template>
-          </div>
-        </div>
-
-        <!-- DATE -->
-        <div class="clean-field date-field">
-          <label>Date of Journey</label>
-
-          <div class="clean-input">
-            <div class="clean-icon" (click)="d.toggle()">
-              <img src="assets/img/Icon-metro-calendar.svg" />
-            </div>
-
-            <input type="text" autocomplete="off" readonly id="entryDate" class="form-control"
-              formControlName="entry_date" placeholder="Journey Date" ngbDatepicker (click)="d.toggle()"
-              #d="ngbDatepicker" [min]="dtconfig.minDate" [max]="dtconfig.maxDate" />
-          </div>
-        </div>
-
-        <!-- BUTTON -->
-        <div class="search-btn-wrap">
-          <button type="submit" class="clean-search-btn">Search</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="recent-search-wrapper" *ngIf="recentSearches && recentSearches.length > 0">
-  <div class="recent-title">Recent Searches</div>
-
-  <div class="recent-search-container">
-    <div class="recent-card" *ngFor="let item of recentSearches" (click)="searchRecent(item)">
-      <div class="recent-icon">
-        <i class="fa fa-history"></i>
       </div>
 
-      <div class="recent-content">
-        <div class="recent-route">{{ item.from }} → {{ item.to }}</div>
-
-        <div class="recent-date">
-          {{ formatRecentDate(item.date) }}
-        </div>
-      </div>
     </div>
-  </div>
+
+  </section>
+
+
+  <!-- =======================================================
+       RECENT SEARCHES
+  ======================================================== -->
+
+  <section class="recent-search-wrapper" *ngIf="recentSearches && recentSearches.length > 0">
+
+    <div class="recent-header">
+
+      <div class="recent-heading">
+
+        <span class="recent-heading-line"></span>
+
+        <div>
+
+          <h2 class="recent-title">
+            Recent Searches
+          </h2>
+
+          <p class="recent-subtitle">
+            Quickly continue your previous searches
+          </p>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="recent-search-container">
+
+      <div class="recent-card" *ngFor="let item of recentSearches" (click)="searchRecent(item)">
+
+        <div class="recent-icon">
+          <i class="fa fa-history"></i>
+        </div>
+
+        <div class="recent-content">
+
+          <div class="recent-route">
+            {{ item.from }} → {{ item.to }}
+          </div>
+
+          <div class="recent-date">
+            {{ formatRecentDate(item.date) }}
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
 </div>

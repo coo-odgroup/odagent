@@ -1,480 +1,1229 @@
-// ::ng-deep .sml_input
-// {
-// height: calc(1.5em + 1rem);
-// padding:0px 10px;
-// }
+/* ============================================================
+   AGENT HOME PAGE
+============================================================ */
 
-// .search-box{
-//     background:#323232;
-//     padding: 20px;
-//     border-radius: 8px;
-// }
-
-// .search-box h2{
-//     font-size: 32px;
-//     color: #ffffff;
-//     text-align: center;
-//     margin-bottom:25px;
-// }
-
-// .hero-banner-inner-srchbus label{
-//     color: #ffffff;
-// }
-
-// .input-group-prepend {
-//     margin-right: 0px !important;
-// }
-// .form-control[readonly] {
-//     background-color: #ffffff;
-//     opacity: 1;
-// }
-
-// .hero-banner-inner-srchbus input {
-//     height: 50px;
-//     border-bottom-left-radius: 0px;
-//     border-top-left-radius: 0px;
-// }
-
-// span#basic-addon2 img {
-//     position: relative;
-//     right: 0px !important;
-// }
-// .to_dest_block input {
-//     padding-left: 10px !important;
-// }
-
-// ngb-datepicker.dropdown-menu.show {
-//     position: absolute !important;
-//     z-index: 99999;
-//     margin-top: 18%;
-//     transform: none !important;
-// }
-
-
-
-.clean-booking-wrapper {
+.agent-home-page {
     width: 100%;
-    // padding: 10px 0 20px;
+    min-height: 100%;
+    background: #ffffff;
 }
 
-/* CARD WRAPPER */
+
+/* ============================================================
+   DESKTOP HERO
+============================================================ */
+
+.agent-hero {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    min-height: 400px;
+
+    background-image: url('/assets/images/hero_bg.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+}
+
+
+/* ============================================================
+   HERO OVERLAY
+============================================================ */
+
+.agent-hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(90deg,
+            rgba(1, 8, 27, 0.97) 0%,
+            rgba(2, 14, 40, 0.93) 25%,
+            rgba(2, 21, 52, 0.72) 45%,
+            rgba(2, 25, 57, 0.35) 62%,
+            rgba(0, 15, 40, 0.05) 80%,
+            rgba(0, 10, 30, 0) 100%);
+
+    z-index: 1;
+}
+
+
+/* ============================================================
+   HERO CONTENT
+============================================================ */
+
+.agent-hero-content {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 55px 60px 120px;
+}
+
+
+.hero-text {
+    width: 58%;
+    max-width: 700px;
+}
+
+
+/* ============================================================
+   HERO BADGE
+============================================================ */
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 17px;
+    margin-bottom: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #0bb5f2;
+    border-radius: 30px;
+
+    color: #063a80;
+
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+
+.hero-badge-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #08aaf0;
+
+    box-shadow:
+        0 0 0 4px rgba(8, 170, 240, 0.15);
+}
+
+
+/* ============================================================
+   HERO TITLE
+============================================================ */
+
+.hero-title {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: clamp(42px, 4.2vw, 62px);
+    line-height: 1.07;
+
+    font-weight: 800;
+
+    letter-spacing: -1.7px;
+}
+
+
+.hero-title span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #0aaef3;
+}
+
+
+/* ============================================================
+   BOOKING SEARCH SECTION
+============================================================ */
+
+.booking-search-section {
+    position: relative;
+
+    z-index: 20;
+
+    margin-top: -88px;
+
+    padding: 0 28px;
+}
+
+
+.booking-search-container {
+    width: 100%;
+    max-width: 1350px;
+
+    margin: 0 auto;
+}
+
+
+/* ============================================================
+   BOOKING WHITE CARD
+============================================================ */
 
 .clean-booking-card-wrapper {
-    background: #343a65;
-    // border-radius: 22px;
-    padding: 110px 22px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
-    // height: 320px;
+    width: 100%;
+
+    padding: 24px 26px;
+
+    background: rgba(255, 255, 255, 0.98);
+
+    border: 1px solid rgba(4, 120, 190, 0.14);
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 18px 45px rgba(0, 45, 105, 0.16);
 }
 
-/* CARD */
+
+/* ============================================================
+   BOOKING FORM
+============================================================ */
 
 .clean-booking-card {
-    border-radius: 18px;
+    width: 100%;
+
     display: flex;
-    align-items: end;
+
+    align-items: flex-end;
+
     gap: 14px;
+
     position: relative;
-    padding: 10px;
-    border: 1px solid #d9dde5;
 }
 
-/* FIELD */
+
+/* ============================================================
+   FIELDS
+============================================================ */
 
 .clean-field {
     flex: 1;
+
+    min-width: 0;
+
     position: relative;
 }
 
-/* LABEL */
 
 .clean-field label {
     display: block;
-    margin-bottom: 10px;
-    font-size: 14px;
+
+    margin: 0 0 8px 3px;
+
+    color: #103e7c;
+
+    font-size: 13px;
     font-weight: 700;
-    color: #ffffff;
 }
 
-/* INPUT */
+
+/* ============================================================
+   INPUT
+============================================================ */
 
 .clean-input {
-    height: 50px;
-    border: 1px solid #d9dde5;
-    border-radius: 12px;
+    width: 100%;
+
+    height: 52px;
+
     display: flex;
     align-items: center;
+
     overflow: hidden;
-    background: #fff;
-    transition: 0.3s;
+
+    background: #ffffff;
+
+    border: 1px solid #dbe4ed;
+
+    border-radius: 12px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
+
 
 .clean-input:hover {
-    border-color: #bcc4d4;
+    border-color: #9ed8f4;
 }
+
 
 .clean-input:focus-within {
-    border-color: #f2c300;
-    box-shadow: 0 0 0 4px rgba(242, 195, 0, 0.12);
+    border-color: #079fdf;
+
+    box-shadow:
+        0 0 0 4px rgba(0, 159, 223, 0.10);
 }
 
-/* ICON */
+
+/* ============================================================
+   INPUT ICON
+============================================================ */
 
 .clean-icon {
-    width: 54px;
-    min-width: 54px;
+    width: 52px;
+    min-width: 52px;
+    height: 100%;
+
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-/* INPUT FIELD */
+
+.clean-icon img {
+    width: 21px;
+    height: 21px;
+
+    object-fit: contain;
+}
+
+
+.calendar-icon {
+    cursor: pointer;
+}
+
+
+/* ============================================================
+   INPUT FIELD
+============================================================ */
 
 .clean-input input {
-    border: none !important;
-    box-shadow: none !important;
-    background: transparent !important;
+    width: 100%;
+
     height: 50px;
-    padding: 0;
-    font-size: 15px;
+
+    padding: 0 12px 0 0;
+
+    border: none !important;
+    outline: none !important;
+
+    box-shadow: none !important;
+
+    background: transparent !important;
+
     color: #24314f;
+
+    font-size: 14px;
+    font-weight: 500;
 }
 
-/* FLOATING SWAP BUTTON */
 
-// .floating-swap-btn {
-//     position: absolute;
-//     left: -30px;
-//     top: 32px;
-//     padding: 5px;
-//     width: 43px;
-//     height: auto;
-//     border-radius: 50%;
-//     border: 4px solid #fff;
-//     background: #f2c300;
-//     color: #082c74;
-//     font-size: 18px;
-//     font-weight: 700;
-//     cursor: pointer;
-//     z-index: 10;
-//     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-//     transition: 0.3s;
-// }
+.clean-input input::placeholder {
+    color: #7d8998;
+    opacity: 1;
+}
 
-// .floating-swap-btn:hover {
-//     transform: rotate(180deg);
-// }
 
-/* DATE */
+/* ============================================================
+   SWAP BUTTON
+============================================================ */
+
+.mobile-swap-circle {
+    position: absolute;
+
+    left: -28px;
+    bottom: 4px;
+
+    z-index: 50;
+
+    width: 43px;
+    height: 43px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 3px solid #ffffff;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(135deg,
+            #20c5ff 0%,
+            #e7f9ff 100%);
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 15px rgba(0, 70, 135, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.mobile-swap-circle:hover {
+    transform: scale(1.08);
+
+    background:
+        linear-gradient(135deg,
+            #08aaf1 0%,
+            #ffffff 100%);
+}
+
+
+.mobile-swap-circle:focus {
+    outline: none;
+}
+
+
+.mobile-swap-circle svg {
+    display: block;
+}
+
+
+/* ============================================================
+   DATE FIELD
+============================================================ */
 
 .date-field {
-    max-width: 320px;
+    flex: 0 0 230px;
+
+    max-width: 230px;
 }
 
-/* BUTTON */
+
+/* ============================================================
+   SEARCH BUTTON
+============================================================ */
 
 .search-btn-wrap {
-    width: 220px;
+    flex: 0 0 180px;
+
+    width: 180px;
 }
+
 
 .clean-search-btn {
     width: 100%;
-    height: 50px;
-    border: none;
+
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 0;
+
+    border: 1px solid #ffffff;
+
     border-radius: 12px;
-    background: #f2c300;
-    color: #082c74;
-    font-size: 16px;
+
+    background:
+        linear-gradient(100deg,
+            #08b5f2 0%,
+            #087fd1 52%,
+            #063da1 100%);
+
+    color: #ffffff;
+
+    font-size: 15px;
     font-weight: 700;
-    transition: 0.3s;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 7px 18px rgba(0, 100, 190, 0.18);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
+
 
 .clean-search-btn:hover {
-    background: #ffd633;
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 24px rgba(0, 100, 190, 0.25);
 }
 
-/* DATEPICKER */
+
+.clean-search-btn:active {
+    transform: translateY(0);
+}
+
+
+.clean-search-btn i {
+    font-size: 16px;
+}
+
+
+/* ============================================================
+   RECENT SEARCHES
+============================================================ */
+
+.recent-search-wrapper {
+    width: 100%;
+
+    max-width: 1350px;
+
+    margin: 0 auto;
+
+    padding: 34px 28px 45px;
+}
+
+
+/* ============================================================
+   RECENT HEADER
+============================================================ */
+
+.recent-header {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+
+.recent-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.recent-heading-line {
+    width: 4px;
+    height: 40px;
+
+    border-radius: 4px;
+
+    background:
+        linear-gradient(180deg,
+            #08b5f2 0%,
+            #0878d0 100%);
+}
+
+
+.recent-title {
+    margin: 0;
+    padding: 0;
+
+    border: none;
+
+    color: #0a3778;
+
+    font-size: 21px;
+    line-height: 1.2;
+
+    font-weight: 800;
+}
+
+
+.recent-subtitle {
+    margin: 4px 0 0;
+
+    color: #7b899a;
+
+    font-size: 12px;
+}
+
+
+/* ============================================================
+   RECENT SEARCH GRID
+============================================================ */
+
+.recent-search-container {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5,
+            minmax(0, 1fr));
+
+    gap: 14px;
+}
+
+
+/* ============================================================
+   RECENT CARD
+============================================================ */
+
+.recent-card {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 13px 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #dcecf8;
+
+    border-radius: 14px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 5px 18px rgba(0, 60, 130, 0.07);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.recent-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #94d9f6;
+
+    box-shadow:
+        0 9px 25px rgba(0, 80, 150, 0.12);
+}
+
+
+/* ============================================================
+   RECENT ICON
+============================================================ */
+
+.recent-icon {
+    width: 44px;
+    min-width: 44px;
+
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(135deg,
+            #17c2ff 0%,
+            #e8faff 100%);
+
+    color: #063f8c;
+
+    font-size: 20px;
+}
+
+
+/* ============================================================
+   RECENT CONTENT
+============================================================ */
+
+.recent-content {
+    min-width: 0;
+
+    overflow: hidden;
+}
+
+
+.recent-route {
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+    color: #0a3678;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+.recent-date {
+    margin-top: 4px;
+
+    color: #7b8795;
+
+    font-size: 11px;
+
+    font-weight: 500;
+}
+
+
+/* ============================================================
+   DATEPICKER
+============================================================ */
 
 ngb-datepicker.dropdown-menu.show {
     position: absolute !important;
+
     z-index: 99999;
+
     transform: none !important;
 }
 
-/* MOBILE */
 
-@media(max-width:991px) {
+/* ============================================================
+   LARGE DESKTOP
+============================================================ */
 
-    .booking-top-content {
-        margin-bottom: 18px;
+@media (min-width: 1400px) {
+
+    .agent-hero {
+        min-height: 460px;
     }
 
-    .booking-top-content h2 {
-        font-size: 30px;
+    .agent-hero-content {
+        padding-left: 70px;
+        padding-right: 70px;
     }
 
-    .booking-top-content p {
-        font-size: 14px;
-        padding: 0 10px;
+    .booking-search-section {
+        margin-top: -92px;
     }
+}
+
+
+/* ============================================================
+   TABLET / SMALL DESKTOP
+============================================================ */
+
+@media (max-width: 1200px) {
+
+    .agent-hero {
+        background-position: 58% center;
+    }
+
+    .hero-text {
+        width: 62%;
+    }
+
+    .hero-title {
+        font-size: 47px;
+    }
+
+    .date-field {
+        flex-basis: 205px;
+        max-width: 205px;
+    }
+
+    .search-btn-wrap {
+        flex-basis: 155px;
+        width: 155px;
+    }
+
+    .recent-search-container {
+        grid-template-columns:
+            repeat(3,
+                minmax(0, 1fr));
+    }
+}
+
+
+/* ============================================================
+   MOBILE
+   IMPORTANT:
+   HERO IS COMPLETELY REMOVED
+============================================================ */
+
+@media (max-width: 991px) {
+
+    /* --------------------------------------------------------
+       REMOVE HERO COMPLETELY
+    -------------------------------------------------------- */
+
+    .agent-hero {
+        display: none !important;
+    }
+
+    .agent-hero-overlay {
+        display: none !important;
+    }
+
+    .agent-hero-content {
+        display: none !important;
+    }
+
+
+    /* --------------------------------------------------------
+       BOOKING SECTION
+       NO OVERLAP ON MOBILE
+    -------------------------------------------------------- */
+
+    .booking-search-section {
+        position: relative;
+
+        z-index: 10;
+
+        margin-top: 0 !important;
+
+        padding: 12px 12px 0;
+
+        background:linear-gradient(90deg, #00a1e4 0%, #003c8f 100%);
+    }
+
+
+    .booking-search-container {
+        width: 100%;
+
+        max-width: 100%;
+
+        margin: 0;
+    }
+
+
+    /* --------------------------------------------------------
+       WHITE SEARCH CARD
+    -------------------------------------------------------- */
+
+    .clean-booking-card-wrapper {
+        width: 100%;
+
+        padding: 16px 14px;
+
+        background: #ffffff;
+
+        border: 1px solid #e1edf7;
+
+        border-radius: 17px;
+
+        box-shadow:
+            0 8px 25px rgba(0, 61, 120, 0.10);
+    }
+
 
     .clean-booking-card {
+        width: 100%;
+
+        display: flex;
+
         flex-direction: column;
-        gap: 14px;
-        background: #ffffff29;
+
+        align-items: stretch;
+
+        gap: 11px;
     }
+
+
+    /* --------------------------------------------------------
+       FIELDS
+    -------------------------------------------------------- */
 
     .clean-field,
     .date-field,
     .search-btn-wrap {
         width: 100%;
+
         max-width: 100%;
+
+        flex: none;
     }
 
-    // .floating-swap-btn {
-    //     left: 80%;
-    //     top: -15px;
-    //     transform: rotate(90deg);
-    //     width: 43px;
-    //     height: 43px;
-    //     padding: 0;
-    // }
 
-    // .floating-swap-btn:hover {
-    //     transform: rotate(270deg);
-    // }
-
-    .clean-booking-card-wrapper {
-        padding: 18px;
-        height: auto;
-        background: linear-gradient(90deg, #00a1e4 0%, #003c8f 100%);
-        margin-top: 10px;
+    .clean-field {
+        position: relative;
     }
-}
 
 
-/* RECENT SEARCH */
+    .clean-field label {
+        display: block;
 
-.recent-search-wrapper {
+        margin:
+            0 0 6px 2px;
 
-    padding: 20px;
+        color: #103e7c;
 
-    margin-top: 10px;
+        font-size: 11px;
 
-}
-
-.recent-title {
-
-    font-size: 18px;
-
-    font-weight: 700;
-
-    color: #082c74;
-
-    margin-bottom: 18px;
-
-    padding-left: 14px;
-
-    border-left: 4px solid #f2c300;
-
-}
-
-.recent-search-container {
-
-    display: grid;
-
-    grid-template-columns: repeat(5, 1fr);
-
-    gap: 18px;
-
-}
-
-.recent-card {
-
-    background: #fff;
-
-    border: 1px solid #ececec;
-
-    border-radius: 18px;
-
-    padding: 16px 18px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
-    cursor: pointer;
-
-    transition: .3s;
-
-}
-
-.recent-card:hover {
-
-    transform: translateY(-3px);
-
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
-
-}
-
-.recent-icon {
-
-    width: 46px;
-
-    height: 46px;
-
-    border-radius: 14px;
-
-    background: #fff2cc;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 22px;
-
-    color: #f2c300;
-
-    flex-shrink: 0;
-
-}
-
-.recent-content {
-
-    overflow: hidden;
-
-}
-
-.recent-route {
-
-    font-size: 15px;
-
-    font-weight: 700;
-
-    color: #0c1f5a;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
-
-}
-
-.recent-date {
-
-    font-size: 13px;
-
-    margin-top: 4px;
-
-    color: #666;
-
-}
-
-/* MOBILE */
-
-@media(max-width:991px) {
-
-    .recent-date {
-        font-size: 10px;
+        font-weight: 700;
     }
+
+
+    /* --------------------------------------------------------
+       INPUT
+    -------------------------------------------------------- */
+
+    .clean-input {
+        width: 100%;
+
+        height: 48px;
+
+        background: #ffffff;
+
+        border:
+            1px solid #d7e3ee;
+
+        border-radius: 11px;
+
+        box-shadow: none;
+    }
+
+
+    .clean-input:hover {
+        border-color: #b7d9ed;
+    }
+
+
+    .clean-input:focus-within {
+        border-color: #079fdf;
+
+        box-shadow:
+            0 0 0 3px rgba(0, 159, 223, 0.08);
+    }
+
+
+    .clean-icon {
+        width: 46px;
+
+        min-width: 46px;
+    }
+
+
+    .clean-icon img {
+        width: 19px;
+
+        height: 19px;
+    }
+
+
+    .clean-input input {
+        width: 100%;
+
+        height: 46px;
+
+        padding:
+            0 9px 0 0;
+
+        font-size: 13px;
+    }
+
+
+    /* --------------------------------------------------------
+       SWAP BUTTON
+       SITS BETWEEN FROM AND TO
+    -------------------------------------------------------- */
+
+    .mobile-swap-circle {
+        left: auto;
+
+        right: 14px;
+
+        top: -16px;
+
+        bottom: auto;
+
+        width: 37px;
+
+        height: 37px;
+
+        border:
+            2px solid #ffffff;
+
+        background:
+            linear-gradient(135deg,
+                #20c5ff 0%,
+                #e7f9ff 100%);
+
+        box-shadow:
+            0 4px 12px rgba(0, 70, 135, 0.20);
+    }
+
+
+    .mobile-swap-circle svg {
+        width: 17px;
+
+        height: 17px;
+
+        transform:
+            rotate(90deg);
+    }
+
+
+    /* --------------------------------------------------------
+       SEARCH BUTTON
+    -------------------------------------------------------- */
+
+    .search-btn-wrap {
+        margin-top: 1px;
+    }
+
+
+    .clean-search-btn {
+        width: 100%;
+
+        height: 48px;
+
+        border-radius: 11px;
+
+        border: none;
+
+        background:
+            linear-gradient(100deg,
+                #08b5f2 0%,
+                #087fd1 55%,
+                #063da1 100%);
+
+        color: #ffffff;
+
+        font-size: 14px;
+
+        font-weight: 700;
+
+        box-shadow:
+            0 6px 15px rgba(0, 105, 190, 0.18);
+    }
+
+
+    .clean-search-btn i {
+        font-size: 15px;
+    }
+
+
+    /* --------------------------------------------------------
+       RECENT SEARCH
+    -------------------------------------------------------- */
+
+    .recent-search-wrapper {
+        width: 100%;
+
+        max-width: 100%;
+
+        margin: 0;
+
+        padding:
+            20px 12px 30px;
+
+        background: #ffffff;
+    }
+
+
+    .recent-header {
+        margin-bottom: 14px;
+    }
+
+
+    .recent-heading {
+        gap: 9px;
+    }
+
+
+    .recent-heading-line {
+        width: 4px;
+
+        height: 31px;
+    }
+
+
+    .recent-title {
+        font-size: 17px;
+
+        line-height: 1.2;
+    }
+
+
+    .recent-subtitle {
+        display: none;
+    }
+
+
+    /* --------------------------------------------------------
+       RECENT CARDS
+    -------------------------------------------------------- */
+
+    .recent-search-container {
+        display: flex;
+
+        width: 100%;
+
+        overflow-x: auto;
+
+        gap: 10px;
+
+        padding-bottom: 5px;
+
+        scrollbar-width: none;
+    }
+
+
+    .recent-search-container::-webkit-scrollbar {
+        display: none;
+    }
+
+
+    .recent-card {
+        min-width: 240px;
+
+        flex-shrink: 0;
+
+        padding:
+            10px 12px;
+
+        border-radius: 12px;
+
+        box-shadow:
+            0 4px 14px rgba(0, 60, 130, 0.06);
+    }
+
+
+    .recent-icon {
+        width: 38px;
+
+        min-width: 38px;
+
+        height: 38px;
+
+        border-radius: 10px;
+
+        font-size: 17px;
+    }
+
 
     .recent-route {
         font-size: 12px;
     }
 
-    .recent-search-container {
 
-        display: flex;
+    .recent-date {
+        margin-top: 3px;
 
-        overflow-x: auto;
+        font-size: 10px;
+    }
+}
 
-        gap: 12px;
 
-        scrollbar-width: none;
+/* ============================================================
+   SMALL MOBILE
+============================================================ */
 
-        padding-bottom: 8px;
+@media (max-width: 480px) {
 
+    .booking-search-section {
+        padding:
+            10px;
     }
 
-    .recent-search-container::-webkit-scrollbar {
 
-        display: none;
+    .clean-booking-card-wrapper {
+        padding:
+            15px 13px;
 
+        border-radius: 16px;
     }
+
+
+    .clean-booking-card {
+        gap: 10px;
+    }
+
+
+    .clean-field label {
+        font-size: 11px;
+
+        margin-bottom: 6px;
+    }
+
+
+    .clean-input {
+        height: 47px;
+
+        border-radius: 11px;
+    }
+
+
+    .clean-input input {
+        height: 45px;
+
+        font-size: 13px;
+    }
+
+
+    .clean-icon {
+        width: 45px;
+
+        min-width: 45px;
+    }
+
+
+    .clean-search-btn {
+        height: 48px;
+    }
+
+
+    .mobile-swap-circle {
+        right: 13px;
+
+        top: -15px;
+
+        width: 36px;
+
+        height: 36px;
+    }
+
+
+    .recent-search-wrapper {
+        padding:
+            20px 9px 30px;
+    }
+
+
+    .recent-title {
+        font-size: 17px;
+    }
+
 
     .recent-card {
-        padding: 10px 12px;
-        min-width: 200px;
-        border-radius: 12px;
-        flex-shrink: 0;
+        min-width: 230px;
+    }
+}
+
+
+/* ============================================================
+   VERY SMALL DEVICES
+============================================================ */
+
+@media (max-width: 360px) {
+
+    .clean-booking-card-wrapper {
+        padding:
+            14px 11px;
     }
 
-    .recent-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        font-size: 18px;
+
+    .booking-search-section {
+        padding-left: 7px;
+        padding-right: 7px;
     }
 
-}
 
-/* ===================================
-   MOBILE SWAP BUTTON
-=================================== */
-
-
-.mobile-swap-circle {
-    position: absolute;
-    left: -30px;
-    top: 32px;
-    padding: 0;
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: 4px solid #fff;
-    background: #f2c300;
-    // color: #082c74;
-    font-size: 18px;
-    font-weight: 700;
-    cursor: pointer;
-    z-index: 99;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-    transition: 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.mobile-swap-circle:focus,
-.mobile-swap-circle:hover {
-    outline: none;
-    background: #efc003;
-}
-
-.mobile-modify-actions {
-    display: block;
-}
-
-.mobile-update-btn {
-    width: 100%;
-    height: 52px;
-    border-radius: 14px;
-    font-weight: 700;
-    font-size: 16px;
-}
+    .clean-input {
+        height: 46px;
+    }
 
 
+    .clean-input input {
+        height: 44px;
 
-@media(max-width:768px) {
-    .mobile-swap-circle {
-        top: -14px;
-        right: 20px;
-        left: auto;
-        transform: rotate(90deg);
+        font-size: 12px;
+    }
+
+
+    .clean-search-btn {
+        height: 46px;
+    }
+
+
+    .recent-card {
+        min-width: 215px;
     }
 }

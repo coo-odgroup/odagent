@@ -362,7 +362,7 @@
       </button>
 
       <button class="quick-action-item quick-orange">
-        <i class="fa fa-file-text-o"></i>
+        <i class="fa fa-file"></i>
         <span>Statement</span>
       </button>
 
@@ -822,4 +822,857 @@
 </div>
 
 
+<!-- =========================================================
+     MOBILE DASHBOARD ONLY
+     ========================================================= -->
+
+<div class="mobile-dashboard">
+
+  <!-- ================= MOBILE HERO ================= -->
+
+  <section class="mobile-hero">
+
+    <!-- OFFER HEADER -->
+    <div class="mobile-offer-header">
+
+      <div class="mobile-offer-title">
+        <i class="fa fa-tag"></i>
+        <span>Agent Exclusive Offers</span>
+      </div>
+
+      <button type="button">
+        View All
+        <i class="fa fa-arrow-right"></i>
+      </button>
+
+    </div>
+
+
+    <!-- COUPON -->
+    <div class="mobile-coupon-wrapper">
+
+      <button class="mobile-coupon-arrow left">
+        <i class="fa fa-chevron-left"></i>
+      </button>
+
+
+      <div class="mobile-coupon-slider">
+
+        <div class="mobile-coupon-track">
+
+          <div class="mobile-coupon-card">
+            <img
+              src="assets/images/amazon_slider.png"
+              alt="Amazon Offer"
+            />
+          </div>
+
+          <div class="mobile-coupon-card">
+            <img
+              src="assets/images/tata_slider.png"
+              alt="Tata Offer"
+            />
+          </div>
+
+          <div class="mobile-coupon-card">
+            <img
+              src="assets/images/kiwi_slider.png"
+              alt="Kiwi Offer"
+            />
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <button class="mobile-coupon-arrow right">
+        <i class="fa fa-chevron-right"></i>
+      </button>
+
+    </div>
+
+
+    <!-- DOTS -->
+    <div class="mobile-coupon-dots">
+      <span class="active"></span>
+      <span></span>
+      <span></span>
+    </div>
+
+
+    <!-- ================= QUICK SEARCH ================= -->
+
+    <div class="mobile-route-search">
+
+      <div class="mobile-route-title">
+
+        <div>
+          <i class="fa fa-bolt"></i>
+          QUICK ROUTE SEARCH
+        </div>
+
+      </div>
+
+
+      <div class="mobile-route-body">
+
+        <!-- FROM / TO -->
+
+        <div class="mobile-route-row">
+
+          <!-- FROM -->
+
+          <div class="mobile-route-field autocomplete-field">
+
+            <label>FROM SOURCE</label>
+
+            <input
+              type="text"
+              [(ngModel)]="fromSource"
+              placeholder="Delhi"
+              autocomplete="off"
+              (click)="$event.stopPropagation(); openSourceDropdown()"
+              (focus)="openSourceDropdown()"
+              (input)="filterSourceCities()"
+            />
+
+            <div
+              class="route-dropdown"
+              *ngIf="showSourceDropdown"
+            >
+
+              <div
+                class="route-dropdown-item"
+                *ngFor="let city of filteredSourceCities"
+                (mousedown)="selectSourceCity(city)"
+              >
+                <i class="fa fa-map-marker-alt"></i>
+                {{ city }}
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- TO -->
+
+          <div class="mobile-route-field autocomplete-field">
+
+            <label>TO DESTINATION</label>
+
+            <input
+              type="text"
+              [(ngModel)]="toDestination"
+              placeholder="Jaipur"
+              autocomplete="off"
+              (focus)="openDestinationDropdown()"
+              (input)="filterDestinationCities()"
+            />
+
+            <div
+              class="route-dropdown"
+              *ngIf="showDestinationDropdown"
+            >
+
+              <div
+                class="route-dropdown-item"
+                *ngFor="let city of filteredDestinationCities"
+                (mousedown)="selectDestinationCity(city)"
+              >
+                <i class="fa fa-map-marker-alt"></i>
+                {{ city }}
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- DATE -->
+
+        <div
+          class="mobile-route-field mobile-date-field"
+          (click)="openJourneyDatePicker()"
+        >
+
+          <label>JOURNEY DATE</label>
+
+          <input
+            type="text"
+            [value]="journeyDateDisplay"
+            readonly
+          />
+
+          <input
+            #mobileJourneyDatePicker
+            type="date"
+            class="hidden-date-picker"
+            [value]="journeyDate"
+            [min]="minimumJourneyDate"
+            (change)="onJourneyDateChange($event)"
+          />
+
+        </div>
+
+
+        <!-- SEARCH BUTTON -->
+
+        <button
+          type="button"
+          class="mobile-search-button"
+          (click)="searchBuses()"
+        >
+
+          <i class="fa fa-search"></i>
+
+          Search Buses & Apply Offers
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       MOBILE KPI
+       ========================================================= -->
+
+  <section
+    class="mobile-kpi-grid"
+    *ngIf="dashboarddata"
+  >
+
+    <div class="mobile-kpi-card">
+
+      <span>Today's PNR</span>
+
+      <strong>
+        {{ animatedTodayPnr }}
+      </strong>
+
+    </div>
+
+
+    <div class="mobile-kpi-card">
+
+      <span>Upcoming PNR</span>
+
+      <strong>
+        {{ animatedUpcomingPnr }}
+      </strong>
+
+    </div>
+
+
+    <div class="mobile-kpi-card">
+
+      <span>Today's Sales</span>
+
+      <strong>
+        ₹{{ animatedSales | number:"1.2-2" }}
+      </strong>
+
+    </div>
+
+
+    <div class="mobile-kpi-card">
+
+      <span>Commission</span>
+
+      <strong>
+        ₹{{ animatedOdbusCommission | number:"1.2-2" }}
+      </strong>
+
+    </div>
+
+
+    <div class="mobile-kpi-card mobile-wallet-card">
+
+      <div>
+
+        <span>Wallet Balance</span>
+
+        <strong>
+          ₹{{ dashboarddata?.wallet_balance || dashboarddata?.wallet || "0.00" }}
+        </strong>
+
+      </div>
+
+      <a href="javascript:void(0)">
+        + Add money
+      </a>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       QUICK ACTIONS
+       ========================================================= -->
+
+  <section class="mobile-dashboard-card">
+
+    <div class="mobile-card-heading">
+
+      <div>
+        <h3>Quick Actions</h3>
+        <span>Frequently used actions</span>
+      </div>
+
+      <button>Customize</button>
+
+    </div>
+
+
+    <div class="mobile-actions">
+
+      <button>
+        <i class="fa fa-search"></i>
+        <span>Search Bus</span>
+      </button>
+
+      <button>
+        <i class="fa fa-ticket"></i>
+        <span>Book Ticket</span>
+      </button>
+
+      <button>
+        <i class="fa fa-list"></i>
+        <span>My PNRs</span>
+      </button>
+
+      <button>
+        <i class="fa fa-wallet"></i>
+        <span>Add Money</span>
+      </button>
+
+      <button>
+        <i class="fa fa-undo"></i>
+        <span>Cancel / Refund</span>
+      </button>
+
+      <button>
+        <i class="fa fa-file"></i>
+        <span>Statement</span>
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       SALES
+       ========================================================= -->
+
+  <section class="mobile-dashboard-card">
+
+    <div class="mobile-card-heading">
+
+      <div>
+        <h3>Sales & Commission Trend</h3>
+        <span>Weekly revenue analytics</span>
+      </div>
+
+      <strong>
+        ₹{{ animatedSales | number:"1.2-2" }}
+      </strong>
+
+    </div>
+
+
+    <div class="mobile-chart">
+
+      <svg
+        viewBox="0 0 700 220"
+        preserveAspectRatio="none"
+      >
+
+        <path
+          d="M20 175
+             Q100 75 180 115
+             T340 55
+             T490 150
+             T680 70"
+        />
+
+        <circle cx="20" cy="175" r="6"></circle>
+        <circle cx="180" cy="115" r="6"></circle>
+        <circle cx="340" cy="55" r="6"></circle>
+        <circle cx="490" cy="150" r="6"></circle>
+        <circle cx="680" cy="70" r="7"></circle>
+
+      </svg>
+
+    </div>
+
+
+    <div class="mobile-chart-labels">
+
+      <span>Mon</span>
+      <span>Tue</span>
+      <span>Wed</span>
+      <span>Thu</span>
+      <span>Fri</span>
+      <span>Sat</span>
+      <span>Sun</span>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       IMPORTANT ALERTS
+       ========================================================= -->
+
+  <section class="mobile-dashboard-card">
+
+    <div class="mobile-card-heading">
+
+      <div>
+        <h3>Important Alerts</h3>
+        <span>Things that need your attention</span>
+      </div>
+
+      <a href="javascript:void(0)">
+        View all
+      </a>
+
+    </div>
+
+
+    <div class="mobile-alerts">
+
+      <div class="mobile-alert warning">
+
+        <div class="mobile-alert-icon">
+          <i class="fa fa-exclamation-triangle"></i>
+        </div>
+
+        <div>
+
+          <strong>Low Wallet Balance</strong>
+
+          <span>
+            Wallet is below ₹2,000 threshold.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="mobile-alert danger">
+
+        <div class="mobile-alert-icon">
+          <i class="fa fa-clock-o"></i>
+        </div>
+
+        <div>
+
+          <strong>Refund Pending</strong>
+
+          <span>
+            3 refund actions require your confirmation.
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="mobile-alert success">
+
+        <div class="mobile-alert-icon">
+          <i class="fa fa-bolt"></i>
+        </div>
+
+        <div>
+
+          <strong>Special Incentive Active</strong>
+
+          <span>
+            Extra 2% commission unlocked on sleepers.
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       UPCOMING JOURNEYS
+       ========================================================= -->
+
+  <section class="mobile-dashboard-card">
+
+    <div class="mobile-card-heading">
+
+      <div>
+        <h3>Upcoming Journeys</h3>
+        <span>Your upcoming bus journeys</span>
+      </div>
+
+      <a href="javascript:void(0)">
+        View all
+      </a>
+
+    </div>
+
+
+    <div class="mobile-journey-list">
+
+      <div
+        class="mobile-journey-card"
+        *ngFor="let booking of bookingDetails | slice:0:5"
+      >
+
+        <div class="mobile-journey-top">
+
+          <div>
+
+            <strong>
+              {{ booking.route || "Route unavailable" }}
+            </strong>
+
+            <small>
+              PNR: {{ booking.pnr || "--" }}
+            </small>
+
+          </div>
+
+          <span class="confirmed">
+            {{ booking.status || "Confirmed" }}
+          </span>
+
+        </div>
+
+
+        <div class="mobile-journey-details">
+
+          <div>
+            <small>Passenger</small>
+            <strong>
+              {{ booking.passenger_name || "--" }}
+            </strong>
+          </div>
+
+          <div>
+            <small>Departure</small>
+            <strong>
+              {{
+                booking.departure_time ||
+                booking.departure ||
+                "--"
+              }}
+            </strong>
+          </div>
+
+          <div>
+            <small>Seats</small>
+            <strong>
+              {{
+                booking.seats ||
+                booking.seat_no ||
+                booking.seat_numbers ||
+                "--"
+              }}
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="mobile-empty-state"
+        *ngIf="bookingDetails?.length === 0"
+      >
+        No upcoming journeys found
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       RECENT BOOKINGS
+       ========================================================= -->
+
+  <section class="mobile-dashboard-card">
+
+    <div class="mobile-card-heading">
+
+      <div>
+        <h3>Recent Bookings</h3>
+        <span>Your latest booking activity</span>
+      </div>
+
+    </div>
+
+
+    <div class="mobile-recent-list">
+
+      <div
+        class="mobile-recent-card"
+        *ngFor="let booking of bookingDetails | slice:0:4"
+      >
+
+        <div class="mobile-recent-icon">
+          <i class="fa fa-ticket"></i>
+        </div>
+
+
+        <div class="mobile-recent-content">
+
+          <strong>
+            {{ booking.route || "Route unavailable" }}
+          </strong>
+
+          <small>
+            {{
+              booking.journey_dt
+              ? (booking.journey_dt | date:"dd MMM yyyy")
+              : "Recent booking"
+            }}
+          </small>
+
+        </div>
+
+
+        <span>
+          {{ booking.status || "BOOKED" }}
+        </span>
+
+      </div>
+
+
+      <div
+        class="mobile-empty-state"
+        *ngIf="bookingDetails?.length === 0"
+      >
+        No recent bookings found
+      </div>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================================================
+       LAST WALLET TRANSACTIONS
+       ========================================================= -->
+
+  <section class="mobile-transactions-card">
+
+    <!-- HEADER -->
+
+    <div class="mobile-transactions-header">
+
+      <div class="mobile-transactions-heading">
+
+        <div class="mobile-transactions-heading-icon">
+          <i class="fa fa-exchange"></i>
+        </div>
+
+        <div>
+
+          <h3>Last Transactions</h3>
+
+          <span>
+            Recent wallet activity
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <a href="javascript:void(0)">
+        View All
+        <i class="fa fa-chevron-right"></i>
+      </a>
+
+    </div>
+
+
+
+    <!-- TRANSACTIONS -->
+
+    <div class="mobile-transactions-list">
+
+      <div
+        class="mobile-transaction-card"
+        *ngFor="
+          let tx of walletTransactions | slice:0:10;
+          let i = index
+        "
+      >
+
+        <!-- TOP -->
+
+        <div class="transaction-card-top">
+
+          <div class="transaction-number">
+            {{ i + 1 }}
+          </div>
+
+
+          <div
+            class="transaction-amount credit"
+            *ngIf="tx.transaction_type === 'c'"
+          >
+            +₹{{ tx.amount | number:"1.2-2" }}
+          </div>
+
+
+          <div
+            class="transaction-amount debit"
+            *ngIf="tx.transaction_type === 'd'"
+          >
+            -₹{{ tx.amount | number:"1.2-2" }}
+          </div>
+
+        </div>
+
+
+
+        <!-- TITLE -->
+
+        <div class="transaction-card-main">
+
+          <div class="transaction-card-title">
+
+            <h4>
+
+              {{
+                tx.type === "Refund"
+                ? "Ticket Cancel Refund"
+                : tx.type === "Commission"
+                ? "Ticket Commission"
+                : tx.transaction_type === "d"
+                ? "Ticket Booking"
+                : "Wallet Recharge"
+              }}
+
+            </h4>
+
+            <span>
+              {{ tx.created_at | date:"dd MMM yyyy" }}
+            </span>
+
+          </div>
+
+
+          <span
+            class="transaction-status credit"
+            *ngIf="tx.transaction_type === 'c'"
+          >
+            <i class="fa fa-arrow-down"></i>
+            Credit
+          </span>
+
+
+          <span
+            class="transaction-status debit"
+            *ngIf="tx.transaction_type === 'd'"
+          >
+            <i class="fa fa-arrow-up"></i>
+            Debit
+          </span>
+
+        </div>
+
+
+
+        <!-- REMARK -->
+
+        <div class="transaction-remark">
+
+          {{
+            tx.remarks
+            ? tx.remarks
+            : tx.type === "Refund"
+            ? "Ticket Cancel Refund"
+            : tx.type === "Commission"
+            ? "Ticket Commission"
+            : tx.transaction_type === "d"
+            ? "PNR Booked"
+            : tx.payment_via === "Cashfree"
+            ? "Wallet Recharge"
+            : "-"
+          }}
+
+        </div>
+
+
+
+        <!-- DIVIDER -->
+
+        <div class="transaction-divider"></div>
+
+
+
+        <!-- FOOTER -->
+
+        <div class="transaction-card-footer">
+
+          <span>
+            {{ tx.transaction_id }}
+          </span>
+
+          <strong>
+            ₹{{ tx.balance | number:"1.2-2" }}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- EMPTY -->
+
+      <div
+        class="mobile-transactions-empty"
+        *ngIf="walletTransactions?.length === 0"
+      >
+
+        <i class="fa fa-wallet"></i>
+
+        <strong>No wallet transactions found</strong>
+
+        <span>
+          Your recent wallet activity will appear here.
+        </span>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
 
