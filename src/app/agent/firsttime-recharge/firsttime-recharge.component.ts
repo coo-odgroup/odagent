@@ -19,6 +19,7 @@ export class FirsttimeRechargeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(localStorage.getItem('USERID'));
   }
 
   // Quick select amount
