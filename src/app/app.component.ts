@@ -80,16 +80,16 @@ export class AppComponent implements OnInit {
         }
 
         // 2. Email
-        // if (Number(user.is_email_verified) === 0) {
-        //   this.router.navigate(['/agent/verify-email']);
-        //   return;
-        // }
-
-        // 3. First recharge
-        if (Number(user.is_first_recharge_done) === 0) {
-          this.router.navigate(['/agent/first-time-recharge']);
+        if (Number(user.is_email_verified) === 0) {
+          this.router.navigate(['/agent/verify-email']);
           return;
         }
+
+        // 3. First recharge
+        // if (Number(user.is_first_recharge_done) === 0) {
+        //   this.router.navigate(['/agent/first-time-recharge']);
+        //   return;
+        // }
 
         // All completed
         // User can access the requested page

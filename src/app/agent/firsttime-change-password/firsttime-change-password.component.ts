@@ -55,11 +55,11 @@ export class FirsttimeChangePasswordComponent implements OnInit {
 
         console.log(response);
 
-        if (response.status === 1) {
+        if (response.status === true) {
           this.notify.notify(response.message, 'Success');
 
-          // Go to first recharge
-          this.router.navigate(['/agent/first-time-recharge']);
+          this.logout()
+          this.router.navigate(['/login']);
         } else {
           this.notify.notify(response.message, 'Error');
         }

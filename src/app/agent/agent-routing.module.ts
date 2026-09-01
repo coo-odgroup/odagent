@@ -127,7 +127,14 @@ const routes: Routes = [
             (module) => module.RouteListModule,
           ),
       },
-  
+      {
+        path: 'verify-email',
+        loadChildren: () =>
+          import('./verify-email/verify-email.module').then(
+            (module) => module.VerifyEmailModule,
+          ),
+      },
+
     ],
   },
 ];
