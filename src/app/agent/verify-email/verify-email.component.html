@@ -1,0 +1,96 @@
+<div class="change-password-overlay">
+  <div class="change-password-modal">
+    <!-- Header -->
+    <div class="change-password-header">
+      <div class="change-password-header-left">
+        <div>
+          <h2>Verify Your Email</h2>
+          <p>Please verify your email address to continue</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="change-password-body">
+      <div class="change-password-form">
+        <!-- Email -->
+        <div class="password-form-group">
+          <label>
+            Email Address
+            <span>*</span>
+          </label>
+
+          <div class="password-input email-input" [class.editing]="isEmailEditable">
+            <i class="fa fa-envelope password-left-icon"></i>
+
+            <input
+              #emailInput
+              type="email"
+              [(ngModel)]="email"
+              placeholder="Enter email address"
+              autocomplete="email"
+              [disabled]="otpSent"
+              [readonly]="!isEmailEditable"
+            />
+
+            <i
+              class="fa fa-edit password-right-icon"
+              (click)="editEmail()"
+              [class.active-edit]="isEmailEditable"
+              *ngIf="!otpSent"
+            ></i>
+          </div>
+        </div>
+
+        <!-- OTP -->
+        <div class="password-form-group" *ngIf="otpSent">
+          <label>
+            Enter OTP
+            <span>*</span>
+          </label>
+
+          <div class="password-input">
+            <i class="fa fa-key password-left-icon"></i>
+
+            <input
+              type="text"
+              [(ngModel)]="otp"
+              placeholder="Enter OTP"
+              maxlength="6"
+              inputmode="numeric"
+              autocomplete="one-time-code"
+            />
+          </div>
+
+          <div class="password-match-error" *ngIf="otpError">
+            <i class="fa fa-exclamation-circle"></i>
+
+            {{ otpError }}
+          </div>
+        </div>
+
+        <!-- Resend OTP -->
+        <div class="resend-otp" *ngIf="otpSent">
+          <span>Didn't receive the OTP?</span>
+
+          <a href="javascript:void(0)" (click)="sendOtp()"> Resend OTP </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="change-password-footer">
+      <!-- ONE BUTTON ONLY -->
+      <button
+        type="button"
+        class="verify-email-btn password-submit-btn"
+        [disabled]="!otpSent ? !email : !otp || otp.length !== 6"
+        (click)="otpSent ? verifyOtp() : sendOtp()"
+      >
+        <i class="fa" [ngClass]="otpSent ? 'fa-check' : 'fa-paper-plane'"></i>
+
+        {{ otpSent ? "Verify OTP" : "Send OTP" }}
+      </button>
+    </div>
+  </div>
+</div>
