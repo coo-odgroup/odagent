@@ -20,16 +20,25 @@
             <span>*</span>
           </label>
 
-          <div class="password-input">
+          <div class="password-input email-input" [class.editing]="isEmailEditable">
             <i class="fa fa-envelope password-left-icon"></i>
 
             <input
+              #emailInput
               type="email"
               [(ngModel)]="email"
               placeholder="Enter email address"
               autocomplete="email"
               [disabled]="otpSent"
+              [readonly]="!isEmailEditable"
             />
+
+            <i
+              class="fa fa-edit password-right-icon"
+              (click)="editEmail()"
+              [class.active-edit]="isEmailEditable"
+              *ngIf="!otpSent"
+            ></i>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Constants } from '../../constant/constant';
@@ -15,6 +15,10 @@ export class VerifyEmailComponent implements OnInit {
 
   otpSent: boolean = false;
   otpError: string = '';
+
+  isEmailEditable: boolean = false;
+
+  @ViewChild('emailInput') emailInput!: ElementRef;
 
   private apiURL = Constants.BASE_URL;
 
@@ -145,5 +149,13 @@ export class VerifyEmailComponent implements OnInit {
     sessionStorage.clear();
 
     this.router.navigate(['/login']);
+  }
+
+  editEmail() {
+    this.isEmailEditable = true;
+
+    setTimeout(() => {
+      this.emailInput.nativeElement.focus();
+    });
   }
 }

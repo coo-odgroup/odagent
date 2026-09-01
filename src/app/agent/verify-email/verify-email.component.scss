@@ -336,6 +336,21 @@
     flex-shrink: 0;
 }
 
+/* Right Lock */
+
+.password-right-icon {
+
+    width: 44px;
+
+    color: #7d8da3;
+
+    font-size: 15px;
+
+    text-align: center;
+
+    flex-shrink: 0;
+}
+
 
 /* Input */
 
@@ -680,4 +695,43 @@
 
 .resend-otp a:hover {
   text-decoration: underline;
+}
+
+.email-input {
+  position: relative;
+}
+
+/* Default readonly state */
+.email-input input {
+  background-color: #f1f1f1;
+  color: #888;
+  border-right: 1px solid #ddd;
+  cursor: not-allowed;
+  transition: all 0.3s ease;
+}
+
+/* Show readonly/disabled appearance */
+.email-input input[readonly] {
+  background-color: #f1f1f1;
+  color: #888;
+  cursor: not-allowed;
+}
+
+/* After clicking Edit */
+.email-input.editing input {
+  background-color: #fff;
+  color: #333;
+  cursor: text;
+}
+
+/* Edit icon */
+.password-right-icon {
+  cursor: pointer;
+  color: #777;
+  transition: 0.3s;
+}
+
+/* Edit mode icon */
+.password-right-icon.active-edit {
+  color: #333;
 }
