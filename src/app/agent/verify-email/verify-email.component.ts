@@ -62,6 +62,21 @@ export class VerifyEmailComponent implements OnInit {
           if (response.status === true) {
             this.otpSent = true;
 
+            const updatedEmail = this.email;
+
+            const userRecords = JSON.parse(
+              localStorage.getItem('USERRECORDS') || '{}'
+            );
+
+            if (userRecords && userRecords.id) {
+              userRecords.email = updatedEmail;
+
+              localStorage.setItem(
+                'USERRECORDS',
+                JSON.stringify(userRecords)
+              );
+            }
+
             this.notify.notify(
               response.message || 'OTP sent successfully.',
               'Success',
@@ -119,8 +134,7 @@ export class VerifyEmailComponent implements OnInit {
               'Success',
             );
 
-            this.logout();
-            // this.router.navigate(['/agent/first-time-recharge']);
+            this.router.navigate(['/agent/first-time-recharge']);
           } else {
             this.otpError = response.message || 'Invalid OTP.';
 

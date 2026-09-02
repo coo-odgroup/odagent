@@ -334,6 +334,7 @@ export class LoginComponent implements OnInit {
             this.authView = 'signupOtp';
 
             this.notify.notify(res.message, 'Success');
+            console.log(res.message);
           } else {
             this.notify.notify(res.message, 'Error');
           }

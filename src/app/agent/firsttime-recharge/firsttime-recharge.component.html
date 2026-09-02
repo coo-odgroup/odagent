@@ -94,7 +94,7 @@
                             <i class="fa fa-lock"></i>
 
                             <span>
-                                name@example.com
+                                {{ userEmail || "-" }}
                             </span>
 
                         </div>
@@ -115,7 +115,7 @@
                             <i class="fa fa-phone contact-icon"></i>
 
                             <span>
-                                9999998741
+                                {{ userMobile || "-" }}
                             </span>
 
                         </div>
@@ -167,14 +167,6 @@
                     </span>
 
 
-                    <button type="button" class="quick-amount-btn" [class.active]="rechargeAmount === 1000"
-                        (click)="addRechargeAmount(1000)">
-
-                        + ₹1,000
-
-                    </button>
-
-
                     <button type="button" class="quick-amount-btn" [class.active]="rechargeAmount === 2000"
                         (click)="addRechargeAmount(2000)">
 
@@ -203,6 +195,13 @@
                         (click)="addRechargeAmount(25000)">
 
                         + ₹25,000
+
+                    </button>
+
+                    <button type="button" class="quick-amount-btn" [class.active]="rechargeAmount === 49999"
+                        (click)="addRechargeAmount(49999)">
+
+                        + ₹49,999
 
                     </button>
 
