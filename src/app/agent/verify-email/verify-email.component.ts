@@ -53,6 +53,8 @@ export class VerifyEmailComponent implements OnInit {
       email: this.email,
     };
 
+    console.log('Sending OTP with data:', data);
+
     this.http
       .post(this.apiURL + '/send-email-otp', data, this.httpOptions)
       .subscribe(
@@ -121,6 +123,8 @@ export class VerifyEmailComponent implements OnInit {
       email: this.email,
       otp: this.otp,
     };
+
+    console.log('Verifying OTP with data:', data);
 
     this.http
       .post(this.apiURL + '/verify-email-otp', data, this.httpOptions)
