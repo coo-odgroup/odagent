@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationdataService } from '../../services/locationdata.service';
 import { NotificationService } from '../../services/notification.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Constants } from 'src/app/constant/constant';
+import { HttpClient } from '@angular/common/http';
 
 interface RouteItem {
   id: number;
@@ -12,9 +15,12 @@ interface RouteItem {
 @Component({
   selector: 'app-route-list',
   templateUrl: './route-list.component.html',
-  styleUrls: ['./route-list.component.scss']
+  styleUrls: ['./route-list.component.scss'],
 })
 export class RouteListComponent implements OnInit {
+  public searchForm!: FormGroup;
+
+  apiUrl = Constants.BASE_URL;
 
   locationList: any[] = [];
   filteredLocations: any[] = [];
@@ -22,8 +28,10 @@ export class RouteListComponent implements OnInit {
   sourceSearch = '';
   showSourceDropdown = false;
 
-  routes: RouteItem[] = [];
-  filteredRoutes: RouteItem[] = [];
+  selectedLocation: any = null;
+
+  routes: any[] = [];
+  filteredRoutes: any[] = [];
 
   isSearching = false;
   isLoadingRoutes = false;
@@ -31,12 +39,18 @@ export class RouteListComponent implements OnInit {
   constructor(
     private router: Router,
     private locationService: LocationdataService,
-    private notify: NotificationService
-  ) { }
+    private notify: NotificationService,
+    private http: HttpClient,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
+    this.searchForm = this.fb.group({
+      route_id: [null],
+      location_id: [null],
+    });
+
     this.loadLocations();
-    this.loadRoutes();
   }
 
   loadLocations(): void {
@@ -46,16 +60,13 @@ export class RouteListComponent implements OnInit {
           this.locationList = res.data || [];
           this.filteredLocations = this.locationList.slice(0, 10);
         } else {
-          this.notify.notify(
-            res.message || 'Unable to load cities.',
-            'Error'
-          );
+          this.notify.notify(res.message || 'Unable to load cities.', 'Error');
         }
       },
       (error) => {
         console.error('Location API error:', error);
         this.notify.notify('Unable to load cities.', 'Error');
-      }
+      },
     );
   }
 
@@ -71,13 +82,9 @@ export class RouteListComponent implements OnInit {
 
     this.filteredLocations = this.locationList
       .filter((city: any) => {
-        const name = city?.name
-          ? String(city.name).toLowerCase()
-          : '';
+        const name = city?.name ? String(city.name).toLowerCase() : '';
 
-        const synonym = city?.synonym
-          ? String(city.synonym).toLowerCase()
-          : '';
+        const synonym = city?.synonym ? String(city.synonym).toLowerCase() : '';
 
         return name.includes(term) || synonym.includes(term);
       })
@@ -88,15 +95,36 @@ export class RouteListComponent implements OnInit {
     this.showSourceDropdown = true;
 
     if (!this.sourceSearch) {
-      this.filteredLocations = this.locationList.slice(0, 10);
+      // this.filteredLocations = this.locationList.slice(0, 10);
+      this.filteredLocations = this.locationList;
     } else {
       this.filterSourceCities();
     }
   }
 
   selectSourceCity(city: any): void {
+    // console.log('Selected City:', city);
+
     this.sourceSearch = city.name;
+
+    this.selectedLocation = city;
+
+    // Set selected location ID in form
+    this.searchForm.patchValue({
+      location_id: city.id,
+    });
+
     this.showSourceDropdown = false;
+  }
+
+  onSourceInput(): void {
+    this.selectedLocation = null;
+
+    this.searchForm.patchValue({
+      location_id: null,
+    });
+
+    this.filterSourceCities();
   }
 
   closeSourceDropdown(): void {
@@ -105,45 +133,51 @@ export class RouteListComponent implements OnInit {
     }, 120);
   }
 
-  loadRoutes(): void {
-    this.isLoadingRoutes = true;
-
-    this.routes = [
-      { id: 1, source: 'Delhi', destination: 'Jaipur' },
-      { id: 2, source: 'Delhi', destination: 'Lucknow' },
-      { id: 3, source: 'Mumbai', destination: 'Pune' },
-      { id: 4, source: 'Mumbai', destination: 'Goa' },
-      { id: 5, source: 'Bangalore', destination: 'Chennai' },
-      { id: 6, source: 'Hyderabad', destination: 'Bangalore' },
-      { id: 7, source: 'Ahmedabad', destination: 'Mumbai' },
-      { id: 8, source: 'Kolkata', destination: 'Bhubaneswar' }
-    ];
-
-    this.filteredRoutes = [...this.routes];
-    this.isLoadingRoutes = false;
-  }
-
   searchRoutes(): void {
-    const searchTerm = (this.sourceSearch || '').trim().toLowerCase();
+    if (!this.searchForm.value.location_id) {
+      this.notify.notify(
+        'Please select a source city from the dropdown.',
+        'Error',
+      );
 
-    if (!searchTerm) {
-      this.filteredRoutes = [...this.routes];
-      this.isSearching = false;
       return;
     }
 
-    this.filteredRoutes = this.routes.filter(
-      route => route.source.toLowerCase().includes(searchTerm)
-    );
+    this.isLoadingRoutes = true;
 
     this.isSearching = true;
 
-    if (!this.filteredRoutes.length) {
-      this.notify.notify(
-        `No routes found for ${this.sourceSearch}.`,
-        'Error'
-      );
-    }
+    const formData = this.searchForm.value;
+
+    // console.log('Search API Payload:', formData);
+
+    this.http.post(this.apiUrl + '/getlocation', formData).subscribe(
+      (res: any) => {
+
+        this.isLoadingRoutes = false;
+
+        if (res && res.data) {
+          const apiData = res.data || [];
+
+          // Convert nested array into a normal array
+          this.routes = apiData.flat();
+
+          this.filteredRoutes = [...this.routes];
+
+        } else {
+          this.routes = [];
+          this.filteredRoutes = [];
+        }
+      },
+      (err) => {
+        this.isLoadingRoutes = false;
+
+        console.error('API Error:', err);
+
+        this.routes = [];
+        this.filteredRoutes = [];
+      },
+    );
   }
 
   clearSearch(): void {
@@ -161,7 +195,7 @@ export class RouteListComponent implements OnInit {
     if (!sourceLocation) {
       this.notify.notify(
         `Source city "${route.source}" was not found.`,
-        'Error'
+        'Error',
       );
       return;
     }
@@ -169,7 +203,7 @@ export class RouteListComponent implements OnInit {
     if (!destinationLocation) {
       this.notify.notify(
         `Destination city "${route.destination}" was not found.`,
-        'Error'
+        'Error',
       );
       return;
     }
@@ -193,16 +227,16 @@ export class RouteListComponent implements OnInit {
 
     const searchName = cityName.trim().toLowerCase();
 
-    return this.locationList.find((city: any) => {
-      const name = city?.name
-        ? String(city.name).trim().toLowerCase()
-        : '';
+    return (
+      this.locationList.find((city: any) => {
+        const name = city?.name ? String(city.name).trim().toLowerCase() : '';
 
-      const synonym = city?.synonym
-        ? String(city.synonym).trim().toLowerCase()
-        : '';
+        const synonym = city?.synonym
+          ? String(city.synonym).trim().toLowerCase()
+          : '';
 
-      return name === searchName || synonym === searchName;
-    }) || null;
+        return name === searchName || synonym === searchName;
+      }) || null
+    );
   }
 }

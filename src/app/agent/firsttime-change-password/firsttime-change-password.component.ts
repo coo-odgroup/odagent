@@ -16,7 +16,17 @@ export class FirsttimeChangePasswordComponent implements OnInit {
   showNewPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
-  constructor(private router: Router, private http: HttpClient, private notify: NotificationService) {}
+  passwordChangedSuccessfully: boolean = false;
+
+  redirectSeconds: number = 10;
+
+  private redirectTimer: any;
+
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private notify: NotificationService,
+  ) {}
 
   private apiURL = Constants.BASE_URL;
   httpOptions = {
@@ -45,37 +55,49 @@ export class FirsttimeChangePasswordComponent implements OnInit {
     const data = {
       userId: localStorage.getItem('USERID'),
       newPassword: this.newPassword,
-      confirmPassword: this.confirmPassword
+      confirmPassword: this.confirmPassword,
     };
 
     console.log('New Password:', this.newPassword);
 
     this.http.post(this.apiURL + '/change-first-password', data).subscribe(
       (response: any) => {
-
         console.log(response);
 
         if (response.status === true) {
-          this.notify.notify(response.message, 'Success');
-
-          this.logout()
-          this.router.navigate(['/login']);
+          this.passwordChangedSuccessfully = true;
+          this.startRedirectTimer();
         } else {
           this.notify.notify(response.message, 'Error');
         }
       },
       (error) => {
-
         console.error('Change password error:', error);
 
         if (error.error && error.error.message) {
           this.notify.notify(error.error.message, 'Error');
         } else {
-          this.notify.notify('Something went wrong. Please try again.', 'Error');
-
+          this.notify.notify(
+            'Something went wrong. Please try again.',
+            'Error',
+          );
         }
       },
     );
+  }
+
+  startRedirectTimer(): void {
+    this.redirectSeconds = 10;
+
+    this.redirectTimer = setInterval(() => {
+      this.redirectSeconds--;
+
+      if (this.redirectSeconds <= 0) {
+        clearInterval(this.redirectTimer);
+
+        this.logout();
+      }
+    }, 1000);
   }
 
   logout(): void {
