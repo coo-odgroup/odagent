@@ -16,24 +16,6 @@ export class Constants {
    public static USER_ID: any = "";
    public static MASTER_SETTING_USER_ID: any = 1;
 
-<<<<<<< HEAD
-   //For Live
-   public static BASE_URL:any ='https://provider.odbus.co.in/api';
-   public static CONSUMER_API_URL:any ='https://consumer.odbus.co.in/api';
-   public static CONSUMER_BASE_URL:any ='https://www.odbus.in/';
-   public static PAYMENT_MODE: any = 'production';
-
-   //FOR LOCAL
-   // public static BASE_URL:any ='http://localhost:7001/ODBUS/odbusproviderbe/api';
-   // public static CONSUMER_API_URL:any ='http://localhost:7001/ODBUS/odbusconsumerbe/api';
-   // public static CONSUMER_BASE_URL:any ='http://192.168.29.17:4200/';
-   // public static PAYMENT_MODE: any = 'sandbox';
-
-   //For AdGlob
-   // public static BASE_URL: any = 'https://odapi.adglob.in/api';
-   // public static CONSUMER_API_URL: any = 'https://odclient.adglob.in/api';
-   // public static CONSUMER_BASE_URL: any = 'https://odbus.adglob.in/';
-=======
    // For Live
    // public static BASE_URL:any ='https://provider.odbus.co.in/api';
    // public static CONSUMER_API_URL:any ='https://consumer.odbus.co.in/api';
@@ -44,7 +26,6 @@ export class Constants {
    // public static BASE_URL:any ='http://localhost:7001/ODBUS/odbusproviderbe/api';
    // public static CONSUMER_API_URL:any ='http://localhost:7001/ODBUS/odbusconsumerbe/api';
    // public static CONSUMER_BASE_URL:any ='http://192.168.29.17:4200/';
->>>>>>> 3547798a944ec2571f602f3ce65e380404040f90
    // public static PAYMENT_MODE: any = 'sandbox';
 
    // For AdGlob

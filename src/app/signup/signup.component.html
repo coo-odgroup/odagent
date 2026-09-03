@@ -96,13 +96,14 @@
             <img src="assets/images/odbus_logo.webp" alt="ODBUS Business Partner" class="nav-logo">
         </div>
         <div class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#earnings">Earnings</a>
+            <a href="#home">Home</a>
+            <a href="#earnings">How Much You Earn</a>
+            <a href="#features">Why ODBUS</a>
             <a href="#faq">FAQ</a>
         </div>
         <div class="nav-actions">
+            <a href="#register" class="btn-primary">Become an Agent</a>
             <button class="btn-login">Agent Login</button>
-            <a href="#register" class="btn-primary">Register Now</a>
         </div>
     </div>
 </nav>
@@ -125,24 +126,21 @@
 
         <!-- Small Badge -->
         <div class="mobile-agent-badge">
-            Odisha's Premier Travel Agent Network
+            Odisha’s No. 1 Online Bus Ticket Booking Platform
         </div>
 
         <!-- Main Heading -->
         <h1 class="mobile-agent-title">
-            Seats That Pay
-            <span>Higher.</span>
+            Your Shop Already Has the
+            <span>Customers.</span>
             <br>
-            <strong>Earn More Every Ticket.</strong>
+            <strong>Now Earn on Every Bus Ticket.</strong>
         </h1>
 
         <!-- Description -->
         <p class="mobile-agent-desc">
-            Maximize agency revenue with ODBUS.
-            Access 1,000+ regional bus operators with
-            99.99% seat assurance. Stack commissions
-            on tickets, insurance, and cancellation
-            protection.
+            Add bus ticket booking to your existing business and earn with every booking—without the need to build a new
+            customer base.
         </p>
 
         <!-- Features -->
@@ -150,18 +148,44 @@
 
             <div class="mobile-feature-item">
                 <span>●</span>
-                Free Registration
+                ₹0 Joining Fee
             </div>
 
             <div class="mobile-feature-item">
                 <span>●</span>
-                Zero Setup Fees
+                No Investment Required
             </div>
 
             <div class="mobile-feature-item">
                 <span>●</span>
-                2-Minute Activation
+                Commission Credited Instantly
             </div>
+
+        </div>
+
+        <!-- Mobile Action Buttons -->
+        <div class="mobile-hero-action-buttons">
+
+            <a href="#" class="mobile-hero-action-btn mobile-agent-btn">
+                <span class="mobile-btn-icon">
+                    <i class="fas fa-user-tie"></i>
+                </span>
+
+                <span class="mobile-btn-text">
+                    Become an ODBUS Agent
+                </span>
+            </a>
+
+
+            <a href="#" class="mobile-hero-action-btn mobile-whatsapp-btn">
+                <span class="mobile-btn-icon">
+                    <i class="fab fa-whatsapp"></i>
+                </span>
+
+                <span class="mobile-btn-text">
+                    Ask Us on WhatsApp
+                </span>
+            </a>
 
         </div>
 
@@ -174,24 +198,47 @@
 <section class="hero">
     <div class="container hero-layout">
         <div class="hero-content">
-            <span class="badge">Odisha's Premier Travel Agent Network</span>
+            <span class="badge">Odisha’s No. 1 Online Bus Ticket Booking Platform</span>
             <h1 class="hero-title">
-                Seats That Pay Higher. <br>
-                <span class="text-orange">Earn More Every Ticket.</span>
+                Your Shop Already Has the Customers<br>
+                <span class="text-orange">Now Earn on Every Bus Ticket.</span>
             </h1>
             <p class="hero-desc">
-                Maximize agency revenue with ODBUS. Access 1,000+ regional bus operators with 99.99% seat assurance.
-                Stack commissions on tickets, insurance, and cancellation protection.
+                Add bus ticket booking to your existing business and earn with every booking—without the need to build a
+                new customer base.
             </p>
             <div class="hero-features">
-                <div>● Free Registration</div>
-                <div>● Zero Setup Fees</div>
-                <div>● 2-Minute Activation</div>
+                <div>● ₹0 Joining Fee</div>
+                <div>● No Investment Required</div>
+                <div>● Commission Credited Instantly</div>
+            </div>
+
+            <!-- ACTION BUTTONS -->
+            <div class="hero-action-buttons">
+
+                <a href="#" class="hero-action-btn hero-agent-btn">
+                    <span class="hero-btn-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </span>
+                    <span>Become an ODBUS Agent</span>
+                </a>
+
+                <a href="#" class="hero-action-btn hero-whatsapp-btn">
+                    <span class="hero-btn-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </span>
+                    <span>Ask Us on WhatsApp</span>
+                </a>
+
             </div>
         </div>
 
-        <!-- Registration Form -->
-        <!-- <div id="register" class="hero-form-wrapper">
+
+
+    </div>
+
+    <!-- Registration Form -->
+    <!-- <div id="register" class="hero-form-wrapper">
             <div class="glass-card">
                 <h3 class="form-title">Start Earning Today</h3>
                 <p class="form-subtitle">Join 5,000+ successful ODBUS travel partners.</p>
@@ -218,117 +265,547 @@
                 </form>
             </div>
         </div> -->
-    </div>
+
 </section>
 
 <!-- Stats Banner -->
 <div class="stats-banner">
-    <div class="container">
-        <div class="stats-grid">
-            <div>
-                <div class="stat-value">1,000+</div>
-                <div class="stat-label">Bus Operators</div>
+
+    <div class="stats-slider">
+
+        <div class="stats-track" [style.transform]="'translateX(-' + (currentStatIndex * (100 / visibleStats)) + '%)'">
+
+            <div class="stat-slide">
+                <div class="stat-value">800+</div>
+                <div class="stat-label">BUS OPERATORS</div>
             </div>
-            <div>
-                <div class="stat-value">500+</div>
-                <div class="stat-label">Daily Routes</div>
+
+            <div class="stat-slide">
+                <div class="stat-value">2,500</div>
+                <div class="stat-label">BUS ACROSS ODISHA</div>
             </div>
-            <div>
-                <div class="stat-value orange">99.99%</div>
-                <div class="stat-label">Assured Seats</div>
+
+            <div class="stat-slide">
+                <div class="stat-value">3,000+</div>
+                <div class="stat-label">ROUTES</div>
             </div>
-            <div>
-                <div class="stat-value green">₹45k+</div>
-                <div class="stat-label">Monthly Goal</div>
+
+            <div class="stat-slide">
+                <div class="stat-value">25+ LAKHS</div>
+                <div class="stat-label">CUSTOMER SERVED</div>
             </div>
-            <div class="stat-span-2">
-                <div class="stat-value">24/7</div>
-                <div class="stat-label">Agent Support</div>
+
+            <div class="stat-slide">
+                <div class="stat-value">24X7</div>
+                <div class="stat-label">AGENT SUPPORT</div>
             </div>
+
+            <div class="stat-slide">
+                <div class="stat-value">INSTANT</div>
+                <div class="stat-label">BOOKING</div>
+            </div>
+
+            <div class="stat-slide">
+                <div class="stat-value">ASSURED</div>
+                <div class="stat-label">SEATS</div>
+            </div>
+
+            <div class="stat-slide">
+                <div class="stat-value">INSTANT</div>
+                <div class="stat-label">TRIP DETAILS</div>
+            </div>
+
+            <div class="stat-slide">
+                <div class="stat-value">FAST</div>
+                <div class="stat-label">REFUNDS</div>
+            </div>
+
         </div>
+
     </div>
+
+    <!-- Slider Indicator -->
+    <div class="stats-slider-indicator">
+
+        <span *ngFor="let dot of [0,1,2,3,4]" class="stats-dot" [class.active]="statsPage === dot">
+        </span>
+
+    </div>
+
 </div>
 
 <!-- Revenue Simulator Section -->
 <section id="earnings" class="section-padding">
+
     <div class="container">
+
+        <!-- Section Header -->
         <div class="section-header">
-            <h2 class="section-title">Calculate Your Earning Potential</h2>
-            <p class="section-desc">See how ODBUS commission stacking turns a single ticket booking into a massive
-                revenue stream for your agency.</p>
+            <h2 class="section-title">Calculate What You'd Earn</h2>
+
+            <p class="section-desc">
+                Move the slider to the number of bookings you expect to complete each day.
+                <br>
+                The calculation uses our published commission slabs so you can check every rupee of it.
+            </p>
         </div>
 
+
+        <!-- Calculator -->
         <div class="calculator-grid">
+
+
+            <!-- LEFT: CALCULATOR -->
             <div class="calc-box">
-                <div>
-                    <div class="slider-header">
-                        <span>Tickets Booked Daily</span>
-                        <span id="ticketCountLabel" class="slider-val">15</span>
+
+                <!-- Booking Header -->
+                <div class="slider-header">
+
+                    <div>
+                        <div class="calc-label-main">
+                            Bookings Per Day
+                        </div>
+
+                        <div class="booking-monthly-label">
+                            <span id="monthlyBookingCount">240</span>
+                            bookings a month
+                        </div>
                     </div>
-                    <input type="range" id="ticketSlider" min="1" max="100" value="15" class="range-slider">
+
+                    <span id="ticketCountLabel" class="slider-val">
+                        8
+                    </span>
+
                 </div>
 
+
+                <!-- Booking Slider -->
+                <div class="booking-slider-wrapper">
+
+                    <input type="range" id="ticketSlider" min="1" max="30" value="8" class="range-slider"
+                        [style.background]="sliderBackground" (input)="onBookingSliderChange($event)">
+
+                </div>
+
+
+                <!-- Milestone Strip -->
+                <div class="milestone-section">
+
+                    <div class="milestone-header">
+
+                        <span class="milestone-title">
+                            YOUR BONUS THIS MONTH
+                        </span>
+
+                        <span id="bonusProgressText" class="milestone-progress">
+                            0 more bookings this month unlocks +₹200
+                        </span>
+
+                    </div>
+
+
+                    <div class="milestone-track">
+
+                        <!-- 25 -->
+                        <div class="milestone-item">
+                            <div class="milestone-dot"></div>
+
+                            <div class="milestone-bookings">
+                                25
+                            </div>
+
+                            <div class="milestone-bonus">
+                                ₹200
+                            </div>
+                        </div>
+
+
+                        <!-- 50 -->
+                        <div class="milestone-item">
+                            <div class="milestone-dot"></div>
+
+                            <div class="milestone-bookings">
+                                50
+                            </div>
+
+                            <div class="milestone-bonus">
+                                ₹450
+                            </div>
+                        </div>
+
+
+                        <!-- 100 -->
+                        <div class="milestone-item">
+                            <div class="milestone-dot"></div>
+
+                            <div class="milestone-bookings">
+                                100
+                            </div>
+
+                            <div class="milestone-bonus">
+                                ₹800
+                            </div>
+                        </div>
+
+
+                        <!-- 200 -->
+                        <div class="milestone-item">
+                            <div class="milestone-dot"></div>
+
+                            <div class="milestone-bookings">
+                                200
+                            </div>
+
+                            <div class="milestone-bonus">
+                                ₹1,800
+                            </div>
+                        </div>
+
+
+                        <!-- 350 -->
+                        <div class="milestone-item">
+                            <div class="milestone-dot"></div>
+
+                            <div class="milestone-bookings">
+                                350
+                            </div>
+
+                            <div class="milestone-bonus">
+                                ₹3,500
+                            </div>
+                        </div>
+
+
+                        <!-- 500 -->
+                        <div class="milestone-item">
+                            <div class="milestone-dot"></div>
+
+                            <div class="milestone-bookings">
+                                500
+                            </div>
+
+                            <div class="milestone-bonus">
+                                ₹5,500
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Calculation Details -->
                 <div class="calc-details">
+
+
+                    <!-- Row 1 -->
                     <div class="calc-row">
+
                         <div>
-                            <div class="calc-label">Base Commission</div>
-                            <div class="calc-sublabel">~8% per ticket fare (Avg ₹850)</div>
+                            <div class="calc-label">
+                                ODBUS Commission
+                            </div>
+
+                            <div class="calc-sublabel">
+                                Your 50% share on every seat
+                            </div>
                         </div>
-                        <div id="baseCommVal" class="calc-val">₹1,020</div>
+
+                        <div id="baseCommVal" class="calc-val">
+                            ₹4,800
+                        </div>
+
                     </div>
+
+
+                    <!-- Row 2 -->
                     <div class="calc-row green">
+
                         <div>
-                            <div class="calc-label" style="color: #166534;">Add-on Bonuses</div>
-                            <div class="calc-sublabel green">Insurance + Cancellation Stacking</div>
+                            <div class="calc-label" style="color: #166534;">
+                                Counter Service Charge
+                            </div>
+
+                            <div class="calc-sublabel green">
+                                What you collect per booking
+                            </div>
                         </div>
-                        <div id="addonCommVal" class="calc-val green">+₹255</div>
+
+                        <div id="addonCommVal" class="calc-val green">
+                            +₹6,000
+                        </div>
+
                     </div>
+
+
+                    <!-- Row 3 -->
+                    <div class="calc-row blue">
+
+                        <div>
+                            <div class="calc-label" style="color: #006fc9;">
+                                Monthly Booking Bonus
+                            </div>
+
+                            <div class="calc-sublabel">
+                                Paid when you cross a monthly target
+                            </div>
+                        </div>
+
+                        <div id="monthlyBonusVal" class="calc-val blue">
+                            +₹1,800
+                        </div>
+
+                    </div>
+
+
+                    <!-- Daily Earning -->
                     <div class="calc-total">
-                        <div class="total-label">Estimated Daily Profit</div>
-                        <div id="totalDailyProfit" class="total-amount">₹1,275</div>
+
+                        <div class="total-label">
+                            ESTIMATED DAILY EARNING
+                        </div>
+
+                        <div id="totalDailyProfit" class="total-amount">₹45</div>
+
                     </div>
+
                 </div>
+
+
+                <!-- 150 Booking Signboard Message -->
+                <div id="signboardMessage" class="signboard-message">
+
+                    <span class="signboard-icon">
+                        ★
+                    </span>
+
+                    <span>
+                        At this level you also qualify for a lit ODBUS signboard.
+                    </span>
+
+                </div>
+
             </div>
 
+
+            <!-- RIGHT: MONTHLY EARNINGS -->
             <div class="chart-wrapper">
-                <div class="chart-container">
+
+                <!-- <div class="chart-container">
+
+                   
                     <canvas id="incomeChart"></canvas>
-                </div>
+
+                </div> -->
+
+
                 <div class="chart-stats">
-                    <div class="chart-label">Projected Monthly Earnings</div>
-                    <div id="monthlyProfit" class="chart-val">₹38,250</div>
-                    <p class="chart-note">*Estimates based on average ticket values and full margin stacking.</p>
+
+                    <div class="chart-label">
+                        Projected Monthly Earnings
+                    </div>
+
+                    <div id="monthlyProfit" class="chart-val">
+                        ₹12,600
+                    </div>
+
+                    <p class="chart-note">
+                        Estimates based on a ₹500 average operator fare and our published commission slabs.
+                        Your actual earnings vary with fare mix and booking volume.
+                    </p>
+
+
+                    <button type="button" class="earning-cta">
+                        Start Earning This Month
+                    </button>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
 </section>
 
 <!-- Profit Stacking Visual -->
 <section class="profit-stacking gradient-bg">
     <div class="container">
-        <h2 class="section-title" style="text-align: center; margin-bottom: 3rem; color: #ffffff !important;">The Revenue Stacking
-            Advantage</h2>
-        <div class="stack-grid">
-            <div class="stack-card">
-                <div class="stack-icon orange">1</div>
-                <h4 class="stack-title">Base Commission</h4>
-                <p class="stack-desc">Guaranteed percentage payouts on every AC, Sleeper, and Seater ticket across all
-                    operators.</p>
-            </div>
-            <div class="stack-card">
-                <div class="stack-icon blue">2</div>
-                <h4 class="stack-title">Insurance Bonus</h4>
-                <p class="stack-desc">Earn lucrative add-on commissions on every travel insurance policy issued at
-                    checkout.</p>
-            </div>
-            <div class="stack-card">
-                <div class="stack-icon green">3</div>
-                <h4 class="stack-title">Protection Stack</h4>
-                <p class="stack-desc">Earn extra revenue by protecting customer bookings against last-minute trip
-                    cancellations.</p>
-            </div>
+
+        <!-- Section Header -->
+        <div class="stack-section-header">
+            <h2 class="section-title">
+                More Ways to Earn From Every Booking
+            </h2>
+
+            <p class="stack-section-desc">
+                Earn commission on every ticket, unlock monthly bonuses, and earn even when a ticket is cancelled.
+            </p>
         </div>
+
+
+        <!-- Cards -->
+        <div class="stack-grid">
+
+            <!-- CARD 1 -->
+            <div class="stack-card">
+
+                <div class="stack-card-top">
+
+                    <div class="stack-icon orange">
+                        <i class="fas fa-ticket-alt"></i>
+                    </div>
+
+                    <div class="stack-earning">
+
+                        <div class="stack-label">
+                            COMMISSION
+                        </div>
+
+                        <div class="stack-value-row">
+                            <span class="stack-value">50%</span>
+
+                            <span class="stack-value-text">
+                                commission on every ticket
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stack-card-content">
+
+                    <h4 class="stack-title">
+                        Earn Commission On Every Ticket
+                    </h4>
+
+                    <p class="stack-desc">
+                        Earn a 50% commission share on every successful bus ticket booking.
+                        Book AC, sleeper and seater tickets across 800+ bus operators.
+                    </p>
+
+                </div>
+
+
+                <div class="stack-card-bottom">
+                    Your commission is credited to your agent wallet when the booking is confirmed.
+                </div>
+
+            </div>
+
+
+            <!-- CARD 2 -->
+            <div class="stack-card">
+
+                <div class="stack-card-top">
+
+                    <div class="stack-icon blue">
+                        <i class="fas fa-gift"></i>
+                    </div>
+
+                    <div class="stack-earning">
+
+                        <div class="stack-label">
+                            MONTHLY BONUS
+                        </div>
+
+                        <div class="stack-value-row">
+                            <span class="stack-value">
+                                ₹5,500
+                            </span>
+
+                            <span class="stack-value-text">
+                                top monthly bonus
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stack-card-content">
+
+                    <h4 class="stack-title">
+                        Hit Your Target. Earn A Bonus.
+                    </h4>
+
+                    <p class="stack-desc">
+                        Reach your monthly booking target and earn an additional bonus
+                        on top of your commission.
+                    </p>
+
+                </div>
+
+
+                <div class="stack-card-bottom">
+                    Plus 10% extra on your first wallet recharge of ₹2,000 or more.
+                </div>
+
+            </div>
+
+
+            <!-- CARD 3 -->
+            <div class="stack-card">
+
+                <div class="stack-card-top">
+
+                    <div class="stack-icon green">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+
+                    <div class="stack-earning">
+
+                        <div class="stack-label">
+                            CANCELLATIONS
+                        </div>
+
+                        <div class="stack-value-row">
+                            <span class="stack-value">
+                                20%
+                            </span>
+
+                            <span class="stack-value-text">
+                                of the applicable cancellation charge
+                            </span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="stack-card-content">
+
+                    <h4 class="stack-title">
+                        Earn Even When Tickets Are Cancelled.
+                    </h4>
+
+                    <p class="stack-desc">
+                        When a passenger cancels a ticket, you can earn 20% of the
+                        applicable cancellation charge, subject to the cancellation terms.
+                    </p>
+
+                </div>
+
+
+                <div class="stack-card-bottom">
+                    Actual cancellation charges and agent earnings vary by ticket and cancellation terms.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Policy -->
+        <div class="stack-policy-note">
+            Commission rates, bonus targets and cancellation earnings are subject to ODBUS Commission Policy.
+        </div>
+
     </div>
 </section>
 
