@@ -53,6 +53,8 @@ export class VerifyEmailComponent implements OnInit {
       email: this.email,
     };
 
+    console.log('Sending OTP with data:', data);
+
     this.http
       .post(this.apiURL + '/send-email-otp', data, this.httpOptions)
       .subscribe(
@@ -61,6 +63,21 @@ export class VerifyEmailComponent implements OnInit {
 
           if (response.status === true) {
             this.otpSent = true;
+
+            const updatedEmail = this.email;
+
+            const userRecords = JSON.parse(
+              localStorage.getItem('USERRECORDS') || '{}'
+            );
+
+            if (userRecords && userRecords.id) {
+              userRecords.email = updatedEmail;
+
+              localStorage.setItem(
+                'USERRECORDS',
+                JSON.stringify(userRecords)
+              );
+            }
 
             this.notify.notify(
               response.message || 'OTP sent successfully.',
@@ -107,6 +124,8 @@ export class VerifyEmailComponent implements OnInit {
       otp: this.otp,
     };
 
+    console.log('Verifying OTP with data:', data);
+
     this.http
       .post(this.apiURL + '/verify-email-otp', data, this.httpOptions)
       .subscribe(
@@ -119,8 +138,7 @@ export class VerifyEmailComponent implements OnInit {
               'Success',
             );
 
-            this.logout();
-            // this.router.navigate(['/agent/first-time-recharge']);
+            this.router.navigate(['/agent/first-time-recharge']);
           } else {
             this.otpError = response.message || 'Invalid OTP.';
 
