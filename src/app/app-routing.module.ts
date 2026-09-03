@@ -13,18 +13,18 @@ const routes: Routes = [
     path: '',
     //component: LoginComponent,
     children: [
-      {
-        path: '',
-        redirectTo: 'signup',
-        pathMatch: 'full',
-      },
+      // {
+      //   path: '',
+      //   redirectTo: 'signup',
+      //   pathMatch: 'full',
+      // },
       {
         path: 'login',
         loadChildren: () =>
           import('./login/login.module').then((module) => module.LoginModule),
       },
       {
-        path: 'signup',
+        path: '',
         loadChildren: () =>
           import('./signup/signup.module').then(
             (module) => module.SignupModule,

@@ -20,7 +20,10 @@
             <span>*</span>
           </label>
 
-          <div class="password-input email-input" [class.editing]="isEmailEditable">
+          <div
+            class="password-input email-input"
+            [class.editing]="isEmailEditable"
+          >
             <i class="fa fa-envelope password-left-icon"></i>
 
             <input
@@ -71,9 +74,15 @@
 
         <!-- Resend OTP -->
         <div class="resend-otp" *ngIf="otpSent">
-          <span>Didn't receive the OTP?</span>
+          <span *ngIf="resendTimer > 0">
+            Resend OTP available in {{ resendTimer }} seconds
+          </span>
 
-          <a href="javascript:void(0)" (click)="sendOtp()"> Resend OTP </a>
+          <ng-container *ngIf="resendTimer === 0">
+            <span>Didn't receive the OTP?</span>
+
+            <a href="javascript:void(0)" (click)="sendOtp()"> Resend OTP </a>
+          </ng-container>
         </div>
       </div>
     </div>

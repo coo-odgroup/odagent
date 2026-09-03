@@ -64,19 +64,18 @@ export class VerifyEmailComponent implements OnInit {
           if (response.status === true) {
             this.otpSent = true;
 
+            this.startResendTimer();
+
             const updatedEmail = this.email;
 
             const userRecords = JSON.parse(
-              localStorage.getItem('USERRECORDS') || '{}'
+              localStorage.getItem('USERRECORDS') || '{}',
             );
 
             if (userRecords && userRecords.id) {
               userRecords.email = updatedEmail;
 
-              localStorage.setItem(
-                'USERRECORDS',
-                JSON.stringify(userRecords)
-              );
+              localStorage.setItem('USERRECORDS', JSON.stringify(userRecords));
             }
 
             this.notify.notify(
@@ -175,5 +174,25 @@ export class VerifyEmailComponent implements OnInit {
     setTimeout(() => {
       this.emailInput.nativeElement.focus();
     });
+  }
+
+  resendTimer: number = 0;
+  timerInterval: any;
+
+  startResendTimer(): void {
+    // Clear existing timer
+    if (this.timerInterval) {
+      clearInterval(this.timerInterval);
+    }
+
+    this.resendTimer = 60;
+
+    this.timerInterval = setInterval(() => {
+      if (this.resendTimer > 0) {
+        this.resendTimer--;
+      } else {
+        clearInterval(this.timerInterval);
+      }
+    }, 1000);
   }
 }
