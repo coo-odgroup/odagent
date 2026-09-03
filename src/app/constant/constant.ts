@@ -17,16 +17,16 @@ export class Constants {
    public static MASTER_SETTING_USER_ID: any = 1;
 
    //For Live
-   // public static BASE_URL:any ='https://provider.odbus.co.in/api';
-   // public static CONSUMER_API_URL:any ='https://consumer.odbus.co.in/api';
-   // public static CONSUMER_BASE_URL:any ='https://www.odbus.in/';
-   // public static PAYMENT_MODE: any = 'production';
+   public static BASE_URL:any ='https://provider.odbus.co.in/api';
+   public static CONSUMER_API_URL:any ='https://consumer.odbus.co.in/api';
+   public static CONSUMER_BASE_URL:any ='https://www.odbus.in/';
+   public static PAYMENT_MODE: any = 'production';
 
    //FOR LOCAL
-   public static BASE_URL:any ='http://localhost:7001/ODBUS/odbusproviderbe/api';
-   public static CONSUMER_API_URL:any ='http://localhost:7001/ODBUS/odbusconsumerbe/api';
-   public static CONSUMER_BASE_URL:any ='http://192.168.29.17:4200/';
-   public static PAYMENT_MODE: any = 'sandbox';
+   // public static BASE_URL:any ='http://localhost:7001/ODBUS/odbusproviderbe/api';
+   // public static CONSUMER_API_URL:any ='http://localhost:7001/ODBUS/odbusconsumerbe/api';
+   // public static CONSUMER_BASE_URL:any ='http://192.168.29.17:4200/';
+   // public static PAYMENT_MODE: any = 'sandbox';
 
    //For AdGlob
    // public static BASE_URL: any = 'https://odapi.adglob.in/api';
