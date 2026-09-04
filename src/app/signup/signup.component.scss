@@ -2304,60 +2304,156 @@ input {
 }
 
 /* --- Features Grid --- */
+/* =========================================================
+   WHY ODBUS / FEATURES SECTION
+========================================================= */
+
+.features-section {
+    padding-top: 3.6rem;
+    padding-bottom: 4rem;
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   SECTION HEADER
+========================================================= */
+
+#features .section-header {
+    margin-bottom: 3.1rem;
+    text-align: center;
+}
+
+#features .section-title {
+    margin-bottom: 0.7rem;
+    color: #092b63 !important;
+}
+
+#features .section-desc {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+
+    color: #4b5563;
+
+    font-size: 0.875rem;
+    line-height: 1.65;
+}
+
+
+/* =========================================================
+   FEATURES GRID
+========================================================= */
+
 .features-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 22px;
+
+    align-items: stretch;
 }
 
-@media (min-width: 768px) {
-    .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
 
-@media (min-width: 1024px) {
-    .features-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
+/* =========================================================
+   FEATURE CARD
+========================================================= */
 
 .feature-card {
-    padding: 2rem;
-    border-radius: 1rem;
-    background-color: #f9fafb;
-    transition: background-color 0.3s, box-shadow 0.3s;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    height: 350px;
+    min-height: 350px;
+
+    padding: 28px 26px 24px;
+
+    border-radius: 16px;
+
+    background: #f9fafb;
+
+    border: 1px solid #eef2f6;
+
+    box-shadow:
+        0 5px 18px rgba(0, 45, 90, 0.035);
+
+    transition:
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+
+    text-align: center;
+    align-items: center;
 }
+
+
+/* HOVER */
 
 .feature-card:hover {
-    background-color: #ffffff;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+
+    background: #ffffff;
+
+    border-color: #d9edf8;
+
+    box-shadow:
+        0 14px 30px rgba(0, 65, 120, 0.10);
 }
 
+
+/* =========================================================
+   FEATURE ICON
+========================================================= */
+
 .feature-icon {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 0.75rem;
+    width: 54px;
+    height: 54px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.5rem;
-    font-size: 1.5rem;
-    transition: background-color 0.3s, color 0.3s;
+
+    flex-shrink: 0;
+
+    margin-bottom: 21px;
+
+    border-radius: 13px;
+
+    font-size: 21px;
+
+    transition:
+        transform 0.25s ease,
+        background-color 0.25s ease,
+        color 0.25s ease;
 }
 
+
+.feature-card:hover .feature-icon {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   ICON COLORS
+========================================================= */
+
 .icon-orange {
-    background-color: #ffedd5;
-    color: #ea580c;
+    background-color: #fff0dd;
+    color: #f97316;
 }
 
 .feature-card:hover .icon-orange {
-    background-color: #ea580c;
+    background-color: #f97316;
     color: #ffffff;
 }
 
+
 .icon-green {
-    background-color: #dcfce7;
+    background-color: #dcfce9;
     color: #16a34a;
 }
 
@@ -2366,8 +2462,9 @@ input {
     color: #ffffff;
 }
 
+
 .icon-blue {
-    background-color: #dbeafe;
+    background-color: #dcecff;
     color: #2563eb;
 }
 
@@ -2376,8 +2473,9 @@ input {
     color: #ffffff;
 }
 
+
 .icon-purple {
-    background-color: #f3e8ff;
+    background-color: #f1e5ff;
     color: #9333ea;
 }
 
@@ -2386,16 +2484,219 @@ input {
     color: #ffffff;
 }
 
-.feature-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.75rem;
+
+/* =========================================================
+   SMALL LABEL
+========================================================= */
+
+.feature-top-label {
+    margin-bottom: 5px;
+
+    color: #0060a8;
+
+    font-size: 10px;
+    line-height: 1.2;
+
+    font-weight: 800;
+
+    letter-spacing: 0.07em;
+
+    text-transform: none;
 }
 
+
+/* =========================================================
+   BIG HIGHLIGHT
+========================================================= */
+
+.feature-highlight {
+    margin: 0 0 16px;
+
+    color: #003c8f;
+
+    font-size: 1.34rem;
+    line-height: 1.15;
+
+    font-weight: 600;
+
+    letter-spacing: -0.02em;
+}
+
+
+/* =========================================================
+   MAIN HEADLINE
+========================================================= */
+
+.feature-title {
+    margin: 0 0 9px;
+
+    color: #14213d;
+
+    font-size: 1rem;
+
+    line-height: 1.35;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
 .feature-desc {
-    font-size: 0.875rem;
-    color: #6b7280;
-    line-height: 1.625;
+    margin: 0;
+
+    color: #607086;
+
+    font-size: 0.77rem;
+
+    line-height: 1.65;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   BOTTOM BENEFIT
+========================================================= */
+
+.feature-bottom-text {
+    width: 100%;
+
+    margin-top: auto;
+    padding-top: 15px;
+
+    border-top: 1px solid #dceaf3;
+
+    color: #00579b;
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    font-weight: 700;
+
+    text-align: center;
+
+    min-height: 45px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1023px) {
+
+    .features-section {
+        padding-top: 3.2rem;
+        padding-bottom: 3.5rem;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+
+    .feature-card {
+        min-height: 340px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .features-section {
+        padding-top: 2.8rem;
+        padding-bottom: 3rem;
+    }
+
+    #features .section-header {
+        margin-bottom: 2rem;
+        padding: 0 0.5rem;
+    }
+
+    #features .section-title {
+        font-size: 1.55rem;
+        line-height: 1.25;
+    }
+
+    #features .section-desc {
+        font-size: 0.74rem;
+        line-height: 1.6;
+    }
+
+
+    .features-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+
+    .feature-card {
+        min-height: 0;
+
+        padding: 22px 20px 20px;
+
+        border-radius: 14px;
+    }
+
+
+    .feature-icon {
+        width: 48px;
+        height: 48px;
+
+        margin-bottom: 18px;
+
+        border-radius: 12px;
+
+        font-size: 19px;
+    }
+
+
+    .feature-top-label {
+        font-size: 9px;
+        letter-spacing: 0.06em;
+    }
+
+
+    .feature-highlight {
+        margin-bottom: 13px;
+
+        font-size: 1.2rem;
+    }
+
+
+    .feature-title {
+        margin-bottom: 8px;
+
+        font-size: 1rem;
+        line-height: 1.35;
+    }
+
+
+    .feature-desc {
+        font-size: 0.74rem;
+        line-height: 1.6;
+    }
+
+
+    .feature-bottom-text {
+        // margin-top: 18px;
+
+        // padding-top: 12px;
+
+        font-size: 9px;
+    }
+
 }
 
 /* --- Route Network --- */
@@ -2568,6 +2869,7 @@ input {
 .step-title {
     font-weight: 700;
     margin-bottom: 0.5rem;
+    font-size: 16px;
 }
 
 .step-desc {
@@ -2590,6 +2892,183 @@ input {
     .step-line::after {
         display: none;
     }
+}
+
+
+/* =========================================================
+   ONBOARDING CONTENT ADDITIONS
+========================================================= */
+
+.onboarding-sub-note {
+    margin: 6px 0 0;
+
+    color: #607086;
+
+    font-size: 0.82rem;
+    line-height: 1.6;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   STEP DESCRIPTION
+========================================================= */
+
+.step-desc {
+    max-width: 270px;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   BONUS MESSAGE
+========================================================= */
+
+.onboarding-bonus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    max-width: 700px;
+
+    margin: 2.4rem auto 0;
+    padding: 11px 18px;
+
+    border: 1px solid #f2dfaa;
+    border-radius: 10px;
+
+    background: #fffaf0;
+
+    color: #765500;
+
+    font-size: 0.8rem;
+    line-height: 1.5;
+    font-weight: 600;
+    text-align: center;
+}
+
+
+.onboarding-bonus i {
+    color: #e4a400;
+
+    font-size: 14px;
+
+    flex-shrink: 0;
+}
+
+
+.onboarding-bonus strong {
+    color: #00579b;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.onboarding-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 1.5rem;
+}
+
+
+.onboarding-btn {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-width: 210px;
+
+    padding: 12px 22px;
+
+    border-radius: 9px;
+
+    font-size: 0.82rem;
+    font-weight: 700;
+
+    box-shadow:
+        0 7px 18px rgba(0, 96, 168, 0.18);
+}
+
+
+.onboarding-btn i {
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   MICRO COPY
+========================================================= */
+
+.onboarding-micro-copy {
+    margin: 8px 0 0;
+
+    color: #7b8798;
+
+    font-size: 12px;
+    line-height: 1.5;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .onboarding-sub-note {
+        font-size: 0.74rem;
+        line-height: 1.55;
+    }
+
+
+    .step-desc {
+        max-width: 300px;
+    }
+
+
+    .onboarding-bonus {
+        margin-top: 2rem;
+
+        padding: 10px 14px;
+
+        font-size: 0.7rem;
+    }
+
+
+    .onboarding-cta {
+        margin-top: 1.25rem;
+    }
+
+
+    .onboarding-btn {
+        min-width: 200px;
+
+        padding: 11px 19px;
+
+        font-size: 0.78rem;
+    }
+
+
+    .onboarding-micro-copy {
+        font-size: 9px;
+    }
+
 }
 
 /* --- FAQ Accordion --- */
