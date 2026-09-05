@@ -1453,6 +1453,63 @@ export class SearchComponent implements ControlValueAccessor {
     this.mobileBookingStep = step;
   }
 
+
+  busDetailsCache: { [key: number]: any } = {};
+
+  loadBusDetails(i: any, type: string) {
+
+    const busId = this.buslist[i].busId;
+
+    // Check if this bus data is already available
+    if (this.busDetailsCache[busId]) {
+      this.showBusDetails(i, type);
+
+      return;
+    }
+    this.spinner.show();
+
+    this.listingService.getBusFacilities(busId).subscribe((res: any) => {
+
+      if (res.status === '1') {
+        this.spinner.hide();
+
+        // Store only res.data
+        this.busDetailsCache[busId] = res.data;
+        this.showBusDetails(i, type);
+      }
+    });
+  }
+
+
+  showBusDetails(i: any, type: string) {
+
+    switch (type) {
+
+      case 'amenities':
+        this.showAllAmenity(i);
+        break;
+
+      case 'safety':
+        this.safety(i);
+        break;
+
+      case 'photos':
+        this.bus_pic(i);
+        break;
+
+      case 'reviews':
+        this.reviews(i);
+        break;
+
+      case 'policy':
+        this.booking_policy(i);
+        break;
+    }
+  }
+
+
+
+
   showAllAmenity(id: any) {
     this.currentSeatlayoutIndex = false;
 
@@ -1524,71 +1581,58 @@ export class SearchComponent implements ControlValueAccessor {
 
     this.busPhotoshow = id;
 
-    let busRecord = this.buslist[id];
+    const busRecord = this.buslist[id];
+    const busId = busRecord.busId;
 
-    if (busRecord.busPhotos.length > 0) {
-      busRecord.busPhotos.forEach((sf) => {
-        if (sf.bus_image_1 != '' && sf.bus_image_1 != null) {
-          const src = sf.bus_image_1;
-          const caption = '';
-          const thumb = sf.bus_image_1;
-          const album = {
-            src: src,
-            caption: caption,
-            thumb: thumb,
-          };
-          this._albums.push(album);
+    const gallery = this.busDetailsCache[busId]?.gallery || [];
+
+    if (gallery.length > 0) {
+
+      gallery.forEach((sf: any) => {
+
+        if (sf.bus_image_1) {
+          this._albums.push({
+            src: sf.bus_image_1,
+            caption: '',
+            thumb: sf.bus_image_1
+          });
         }
 
-        if (sf.bus_image_2 != '' && sf.bus_image_2 != null) {
-          const src = sf.bus_image_2;
-          const caption = '';
-          const thumb = sf.bus_image_2;
-          const album = {
-            src: src,
-            caption: caption,
-            thumb: thumb,
-          };
-          this._albums.push(album);
+        if (sf.bus_image_2) {
+          this._albums.push({
+            src: sf.bus_image_2,
+            caption: '',
+            thumb: sf.bus_image_2
+          });
         }
 
-        if (sf.bus_image_3 != '' && sf.bus_image_3 != null) {
-          const src = sf.bus_image_3;
-          const caption = '';
-          const thumb = sf.bus_image_3;
-          const album = {
-            src: src,
-            caption: caption,
-            thumb: thumb,
-          };
-          this._albums.push(album);
+        if (sf.bus_image_3) {
+          this._albums.push({
+            src: sf.bus_image_3,
+            caption: '',
+            thumb: sf.bus_image_3
+          });
         }
 
-        if (sf.bus_image_4 != '' && sf.bus_image_4 != null) {
-          const src = sf.bus_image_4;
-          const caption = '';
-          const thumb = sf.bus_image_4;
-          const album = {
-            src: src,
-            caption: caption,
-            thumb: thumb,
-          };
-          this._albums.push(album);
+        if (sf.bus_image_4) {
+          this._albums.push({
+            src: sf.bus_image_4,
+            caption: '',
+            thumb: sf.bus_image_4
+          });
         }
 
-        if (sf.bus_image_5 != '' && sf.bus_image_5 != null) {
-          const src = sf.bus_image_5;
-          const caption = '';
-          const thumb = sf.bus_image_5;
-          const album = {
-            src: src,
-            caption: caption,
-            thumb: thumb,
-          };
-          this._albums.push(album);
+        if (sf.bus_image_5) {
+          this._albums.push({
+            src: sf.bus_image_5,
+            caption: '',
+            thumb: sf.bus_image_5
+          });
         }
+
       });
     }
+
 
     this.reviewShow = '';
     this.amenityShow = '';

@@ -24,10 +24,18 @@ export class ListingService {
   constructor(private httpClient: HttpClient) { }
 
   getlist(src:any,dest:any,dt:any): Observable<any> {
-    return this.httpClient.get<any>(this.apiURL + '/Listing?source='+src+'&destination='+dest+'&entry_date='+dt+'&user_id='+this.USER_ID,this.httpOptions)
+    return this.httpClient.get<any>(this.apiURL + '/v1/busListing?source='+src+'&destination='+dest+'&entry_date='+dt+'&user_id='+this.USER_ID,this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
+  }
+
+  getBusFacilities(id: any): Observable<any> {
+    let reqData = { 'id': id };
+    return this.httpClient.post<any>(this.apiURL + '/v1/busfacilities', reqData, this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      )
   }
 
   errorHandler(error:HttpErrorResponse) {

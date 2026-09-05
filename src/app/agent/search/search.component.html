@@ -488,7 +488,7 @@
                           <div class="col-md-12">
                             <div class="row">
                               <div class="col-md-4">
-                                <div class="bus-dtl-btm-panel-left">
+                                <!-- <div class="bus-dtl-btm-panel-left">
                                   <ul *ngIf="bus.amenity.length != 0">
                                     <li *ngFor="
                                         let nm of bus.amenity | slice: 0 : show;
@@ -510,25 +510,25 @@
                                       Via : {{ bus.via }}
                                     </li>
                                   </ul>
-                                </div>
+                                </div> -->
                               </div>
                               <div class="col-md-8">
                                 <div class="bus-dtl-btm-panel-right">
                                   <ul>
                                     <li class="cursor">
-                                      <a (click)="showAllAmenity(i)">Amenities</a>
+                                      <a (click)="loadBusDetails(i, 'amenities')">Amenities</a>
                                     </li>
                                     <li class="cursor">
-                                      <a (click)="safety(i)">Safety</a>
+                                      <a (click)="loadBusDetails(i, 'safety')">Safety</a>
                                     </li>
                                     <li class="cursor">
-                                      <a (click)="bus_pic(i)">Bus Photos</a>
+                                      <a (click)="loadBusDetails(i, 'photos')">Bus Photos</a>
                                     </li>
                                     <li class="cursor">
-                                      <a (click)="reviews(i)">Reviews</a>
+                                      <a (click)="loadBusDetails(i, 'reviews')">Reviews</a>
                                     </li>
                                     <li class="cursor">
-                                      <a (click)="booking_policy(i)">Booking Policies</a>
+                                      <a (click)="loadBusDetails(i, 'policy')">Booking Policies</a>
                                     </li>
                                   </ul>
                                 </div>
@@ -933,10 +933,10 @@
                       </div>
 
                       <div class="safety_box">
-                        <div *ngIf="bus.amenity.length != 0" class="bus-dtl-btm-panel-left">
-                          <div *ngFor="let nm of bus.amenity; let am = index" class="p-2 flex-fill de-angu">
-                            <div *ngIf="nm && nm.amenity_image != ''">
-                              <img src="{{ nm.amenity_image }}" class="iconsize" />
+                        <div *ngIf="busDetailsCache[bus.busId]?.amenities?.length > 0" class="bus-dtl-btm-panel-left">
+                          <div *ngFor="let nm of busDetailsCache[bus.busId].amenities; let am = index" class="p-2 flex-fill de-angu">
+                            <div *ngIf="nm && nm.amenities_image != ''">
+                              <img src="{{ nm.amenities_image }}" class="iconsize" />
                               <p class="safety_span">{{ nm.name }}</p>
                             </div>
                           </div>
@@ -952,8 +952,8 @@
                       </div>
 
                       <div class="safety_box">
-                        <div *ngIf="bus.safety.length != 0; else safeiconempty">
-                          <div *ngFor="let sf of bus.safety; let i = index" class="p-2 flex-fill de-angu">
+                        <div *ngIf="busDetailsCache[bus.busId]?.amenities?.length > 0">
+                          <div *ngFor="let sf of busDetailsCache[bus.busId].safety; let i = index" class="p-2 flex-fill de-angu">
                             <!-- <img src = "{{url_path.safety_url}}{{ sf.safety.safety_image }}" class="iconsize" /> -->
                             <img src="{{ sf.safety_image }}" class="iconsize" />
                             <!-- <img [attr.src]="getImagePath(bus.safetyIcon[i])"> -->
@@ -970,8 +970,8 @@
                         </button>
                       </div>
                       <div class="safety_box">
-                        <div *ngIf="bus.busPhotos.length != 0; else busphotoempty">
-                          <div *ngFor="let sf of bus.busPhotos">
+                        <div *ngIf="busDetailsCache[bus.busId]?.gallery?.length > 0; else busphotoempty">
+                          <div *ngFor="let sf of busDetailsCache[bus.busId].gallery">
                             <div class="flex-fill de-angu-bus">
                               <img *ngIf="
                                   sf.bus_image_1 != '' && sf.bus_image_1 != null
@@ -1013,7 +1013,7 @@
 
                       <ng-template #reviewempty>No bus reviews available...</ng-template>
 
-                      <div class="safety_box1" *ngIf="bus.reviews.length > 0; else reviewempty">
+                      <div class="safety_box1" *ngIf="busDetailsCache[bus.busId]?.reviews?.length > 0; else reviewempty">
                         <div class="row safety_box-flex">
                           <div class="col-md-4 de-angu1 no-bg">
                             <div class="review" id="review">
@@ -1108,7 +1108,7 @@
                             </div>
                           </div>
 
-                          <div class="col-md-4 testimonials-clean" *ngFor="let rv of bus.reviews">
+                          <div class="col-md-4 testimonials-clean" *ngFor="let rv of busDetailsCache[bus.busId].reviews">
                             <div class="de-angu1 border">
                               <div class="author item">
                                 <img class="rounded-circle" *ngIf="
@@ -1135,133 +1135,243 @@
                         </div>
                       </div>
                     </div>
-                    <div id="booking_policy{{ i }}" *ngIf="policyShow === i">
-                      <div align="right" class="bt-close">
-                        <button (click)="closeTab(i)" class="btn btn-default btn-xs">
-                          <i class="fa fa-close"></i> Close
-                        </button>
-                      </div>
-                      <ul class="ul-booking nav1 nav-pills1" ngbNav #policynav="ngbNav" [activeId]="5">
-                        <li class="active" [ngbNavItem]="5">
-                          <a data-toggle="pill" ngbNavLink>Cancellation Policy</a>
-                          <ng-template ngbNavContent>
-                            <div class="policy_box">
-                              <div class="row">
-                                <div class="col-md-7">
-                                  <div class="safety_box">
-                                    <h1 class="policy-h1">
-                                      Your current ticket cancellation charges
-                                    </h1>
-                                  </div>
-                                  <div class="safety_box">
-                                    <table class="table">
-                                      <thead>
+                    <div id="booking_policy{{i}}" *ngIf="policyShow === i">
+
+    <div align="right" class="bt-close">
+        <button (click)="closeTab(i)" class="btn btn-default btn-xs">
+            <i class="fa fa-close"></i> Close
+        </button>
+    </div>
+
+    <ul class="ul-booking nav1 nav-pills1" ngbNav #policynav="ngbNav" [activeId]="5">
+
+        <!-- Cancellation Policy -->
+        <li class="active" [ngbNavItem]="5">
+
+            <a data-toggle="pill" ngbNavLink>
+                Cancellation Policy
+            </a>
+
+            <ng-template ngbNavContent>
+
+                <div class="policy_box">
+
+                    <div class="row">
+
+                        <!-- Cancellation Slabs -->
+                        <div class="col-md-6">
+
+                            <div class="safety_box2">
+
+                                <h1 class="policy-h1">
+                                    Your current ticket
+                                    cancellation charges
+                                </h1>
+
+                            </div>
+
+                            <div class="safety_box2">
+
+                                <table class="table">
+
+                                    <thead>
                                         <tr>
-                                          <th>Cancellation Time</th>
-                                          <th>Cancellation Charges</th>
+                                            <th>Cancellation Time</th>
+                                            <th>Cancellation Charges</th>
                                         </tr>
-                                      </thead>
-                                      <tbody *ngIf="
-                                          bus.cancellationDuration.length > 0
+                                    </thead>
+
+                                    <tbody *ngIf="
+                                            busDetailsCache[bus.busId]
+                                                ?.cancellation_policy
+                                                ?.cancellation_slab_info
+                                                ?.length > 0
                                         ">
+
                                         <tr *ngFor="
-                                            let can of bus.cancellationDuration;
-                                            let i = index
-                                          ">
-                                          <td>{{ can }} hr</td>
-                                          <td>
-                                            {{ bus.cancellationDuduction[i] }}%
-                                          </td>
+                                                let can of busDetailsCache[bus.busId]
+                                                    .cancellation_policy
+                                                    .cancellation_slab_info
+                                            ">
+
+                                            <td>
+                                                {{ can.duration }} hr
+                                            </td>
+
+                                            <td>
+                                                {{ can.deduction }}%
+                                            </td>
+
                                         </tr>
-                                      </tbody>
-                                    </table>
-                                  </div>
+
+                                    </tbody>
+
+                                </table>
+
+                                <div class="no-available" *ngIf="
+                                        !busDetailsCache[bus.busId]
+                                            ?.cancellation_policy
+                                            ?.cancellation_slab_info?.length
+                                    ">
+                                    No cancellation policy available...
                                 </div>
-                                <div class="col-md-5">
-                                  <div class="safety_box" [innerHTML]="
-                                      getContent(bus.cancellationPolicyContent)
-                                    "></div>
-                                </div>
-                              </div>
+
                             </div>
-                          </ng-template>
-                        </li>
-                        <li [ngbNavItem]="6">
-                          <a data-toggle="pill" ngbNavLink>Travel Related Policy</a>
-                          <ng-template ngbNavContent>
-                            <div class="policy_box">
-                              <div class="row pol-box">
-                                <div class="col-md-1">
-                                  <i class="fas fa-child"></i>
-                                </div>
-                                <div class="col-md-11 p-0">
-                                  <h5>Child Passenger Policy</h5>
-                                  <p>
-                                    Children above the age of 5 will need a
-                                    ticket.
-                                  </p>
-                                </div>
-                              </div>
-                              <hr />
-                              <div class="row pol-box">
-                                <div class="col-md-1">
-                                  <i class="fas fa-suitcase-rolling"></i>
-                                </div>
-                                <div class="col-md-11 p-0">
-                                  <h5>Luggage Policy</h5>
-                                  <p>
-                                    2 pieces of luggage will be accepted free of
-                                    charge per passenger. Excess items will be
-                                    chargeable Excess baggage over 15 kgs per
-                                    passenger will be chargeable.
-                                  </p>
-                                </div>
-                              </div>
-                              <hr />
-                              <div class="row pol-box">
-                                <div class="col-md-1">
-                                  <i class="fas fa-paw"></i>
-                                </div>
-                                <div class="col-md-11 p-0">
-                                  <h5>Pets Policy</h5>
-                                  <p>Pets are not allowed.</p>
-                                </div>
-                              </div>
-                              <hr />
-                              <div class="row pol-box">
-                                <div class="col-md-1">
-                                  <i class="fas fa-glass-martini-alt"></i>
-                                </div>
-                                <div class="col-md-11 p-0">
-                                  <h5>Liquor Policy</h5>
-                                  <p>
-                                    Carrying or consuming liquor inside the bus
-                                    is prohibited. Bus operator reserves the
-                                    right to deboard drunk passengers.
-                                  </p>
-                                </div>
-                              </div>
-                              <hr />
-                              <div class="row pol-box">
-                                <div class="col-md-1">
-                                  <i class="fas fa-history"></i>
-                                </div>
-                                <div class="col-md-11 p-0">
-                                  <h5>Pick Up Time Policy</h5>
-                                  <p>
-                                    Bus operator is not obligated to wait beyond
-                                    the scheduled departure time of the bus. No
-                                    refund request will be entertained for late
-                                    arriving passengers.
-                                  </p>
-                                </div>
-                              </div>
+
+                        </div>
+
+                        <!-- Cancellation Policy Content -->
+                        <div class="col-md-6">
+
+                            <div class="safety_box" [innerHTML]="
+                                    getContent(
+                                        busDetailsCache[bus.busId]
+                                            ?.cancellation_policy
+                                            ?.cancellation_policy_desc
+                                    )
+                                ">
                             </div>
-                          </ng-template>
-                        </li>
-                      </ul>
-                      <div [ngbNavOutlet]="policynav"></div>
+
+                        </div>
+
                     </div>
+
+                </div>
+
+            </ng-template>
+
+        </li>
+
+
+        <!-- Travel Related Policy -->
+        <li [ngbNavItem]="6">
+
+            <a data-toggle="pill" ngbNavLink>
+                Travel Related Policy
+            </a>
+
+            <ng-template ngbNavContent>
+
+                <div class="policy_box">
+
+                    <div class="row pol-box">
+
+                        <div class="col-md-1">
+                            <i class="fas fa-child"></i>
+                        </div>
+
+                        <div class="col-md-11 p-0">
+
+                            <h5>Child Passenger Policy</h5>
+
+                            <p>
+                                Children above the age of 2 will need a ticket
+                                (As per Bus Operator).
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row pol-box">
+
+                        <div class="col-md-1">
+                            <i class="fas fa-suitcase-rolling"></i>
+                        </div>
+
+                        <div class="col-md-11 p-0">
+
+                            <h5>Luggage Policy</h5>
+
+                            <p>
+                                2 pieces of luggage will be accepted free of
+                                charge per passenger. Excess items will be
+                                chargeable. Excess baggage over 15 kgs per
+                                passenger will be chargeable.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row pol-box">
+
+                        <div class="col-md-1">
+                            <i class="fas fa-paw"></i>
+                        </div>
+
+                        <div class="col-md-11 p-0">
+
+                            <h5>Pets Policy</h5>
+
+                            <p>
+                                Pets are not allowed.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row pol-box">
+
+                        <div class="col-md-1">
+                            <i class="fas fa-glass-martini-alt"></i>
+                        </div>
+
+                        <div class="col-md-11 p-0">
+
+                            <h5>Liquor Policy</h5>
+
+                            <p>
+                                Carrying or consuming liquor inside the bus is
+                                prohibited. Bus operator reserves the right to
+                                deboard drunk passengers.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <hr>
+
+                    <div class="row pol-box">
+
+                        <div class="col-md-1">
+                            <i class="fas fa-history"></i>
+                        </div>
+
+                        <div class="col-md-11 p-0">
+
+                            <h5>Pick Up Time Policy</h5>
+
+                            <p>
+                                Bus operator is not obligated to wait beyond
+                                the scheduled departure time of the bus.
+                                No refund request will be entertained for
+                                late arriving passengers.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </ng-template>
+
+        </li>
+
+    </ul>
+
+    <div [ngbNavOutlet]="policynav"></div>
+
+</div>
                   </div>
                 </div>
               </div>

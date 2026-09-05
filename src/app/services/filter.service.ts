@@ -27,7 +27,7 @@ export class FilterService {
   getlist(params :any): Observable<any> {
 
     //console.log(this.apiURL + '/Filter?'+ params);
-    return this.httpClient.post<any>(this.apiURL + '/Filter',JSON.stringify(params),this.httpOptions)
+    return this.httpClient.post<any>(this.apiURL + '/v1/Filter',JSON.stringify(params),this.httpOptions)
     .pipe(
       catchError(this.errorHandler)
     )
