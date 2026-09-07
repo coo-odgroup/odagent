@@ -16,6 +16,7 @@ import { NotificationService } from '../services/notification.service';
 import { Constants } from '../constant/constant';
 import { EncryptionService } from '../encrypt.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -56,7 +57,9 @@ export class LoginComponent implements OnInit {
     | 'signupKyc'
     | 'forgot'
     | 'forgotOtp'
-    | 'newPassword' = 'login';
+    | 'newPassword'
+    | 'passwordResetSuccess'
+    | 'documentUploadSuccess' = 'login';
 
   /* ==========================================================
      SIGNUP
@@ -110,6 +113,16 @@ export class LoginComponent implements OnInit {
     this.saveUsername = value;
   }
 
+  // Forgot Password
+
+  OtpData: any = null;
+
+  email_id: string = '';
+
+  timeLeft: number = 0;
+
+  interval: any = null;
+
   constructor(
     public router: Router,
     protected fb: FormBuilder,
@@ -119,6 +132,7 @@ export class LoginComponent implements OnInit {
     private roleService: RoleService,
     private enc: EncryptionService,
     private http: HttpClient,
+    private spinner: NgxSpinnerService,
   ) {
     this.roleService.getRoles().subscribe((res) => {
       this.usertypes = res.data;
@@ -184,7 +198,7 @@ export class LoginComponent implements OnInit {
 
     this.passwordForm = this.fb.group(
       {
-        password: [null, [Validators.required, Validators.minLength(6)]],
+        password: [null, [Validators.required, Validators.minLength(8)]],
 
         confirmPassword: [null, Validators.required],
       },
@@ -274,11 +288,9 @@ export class LoginComponent implements OnInit {
 
           if (this.loginRecord.is_password_changed == 0) {
             this.router.navigate(['/agent/first-change-password']);
-          }
-          else if (this.loginRecord.is_first_recharge_done == 0) {
+          } else if (this.loginRecord.is_first_recharge_done == 0) {
             this.router.navigate(['/agent/first-time-recharge']);
-          }
-          else {
+          } else {
             this.router.navigate(['/dashboard/landing']);
           }
           // var ROLE_ID = localStorage.getItem("ROLE_ID");
@@ -333,8 +345,10 @@ export class LoginComponent implements OnInit {
 
             this.authView = 'signupOtp';
 
+            this.startResendTimer();
+
             this.notify.notify(res.message, 'Success');
-            console.log(res.message);
+            // console.log(res.message);
           } else {
             this.notify.notify(res.message, 'Error');
           }
@@ -378,13 +392,35 @@ export class LoginComponent implements OnInit {
       );
   }
 
-  resendSignupOtp() {
-    /*
-     * PUT YOUR ACTUAL RESEND OTP API HERE.
-     */
+  resendSignupOtp(): void {
+    if (this.resendTimer > 0) {
+      return;
+    }
 
-    console.log('Resend Signup OTP');
+    const payload = {
+      userId: this.userId,
+    };
+
+    this.http.post(this.apiURL + '/agentRegdSendOtp', payload).subscribe(
+      (response: any) => {
+        console.log('Resend OTP Response:', response);
+
+        if (response.status) {
+          this.startResendTimer();
+          console.log('Signup OTP resent successfully');
+          this.notify.notify(response.message, 'Success');
+        } else {
+          console.error(response.message);
+          this.notify.notify(response.message, 'Error');
+        }
+      },
+      (error) => {
+        console.error('Error resending Signup OTP:', error);
+        this.notify.notify('Failed to resend OTP. Please try again.', 'Error');
+      },
+    );
   }
+
   onOtpInput(event: Event, index: number) {
     const input = event.target as HTMLInputElement;
 
@@ -516,15 +552,6 @@ export class LoginComponent implements OnInit {
       aadhaarDocument: this.aadhaarFile,
     };
 
-    // console.log('FINAL REGISTRATION DATA:', registrationData);
-
-    /*
-     * PUT YOUR ACTUAL REGISTRATION API HERE.
-     *
-     * Because PAN/Aadhaar documents are files,
-     * this will most likely need FormData.
-     */
-
     const formData = new FormData();
 
     formData.append('agentId', this.userId);
@@ -533,21 +560,21 @@ export class LoginComponent implements OnInit {
     formData.append('adhaarNo', registrationData.aadhaar);
     formData.append('adhaarImage', registrationData.aadhaarDocument);
 
-    this.http
-      .post(this.apiURL + '/agentUpdateData', formData)
-      .subscribe(
-        (res: any) => {
-          if (res.status == 1 || res.status === true) {
-            this.notify.notify(res.message, 'Success');
-            window.location.reload();
-          } else {
-            this.notify.notify(res.message, 'Error');
-          }
-        },
-        (error: any) => {
-          console.error('Agent Update Error:', error);
+    this.http.post(this.apiURL + '/agentUpdateData', formData).subscribe(
+      (res: any) => {
+        if (res.status == 1 || res.status === true) {
+          this.notify.notify(res.message, 'Success');
+          // window.location.reload();
+          this.authView = 'documentUploadSuccess';
+          this.startLoginRedirect();
+        } else {
+          this.notify.notify(res.message, 'Error');
         }
-      );
+      },
+      (error: any) => {
+        console.error('Agent Update Error:', error);
+      },
+    );
   }
 
   /* ==========================================================
@@ -558,29 +585,64 @@ export class LoginComponent implements OnInit {
     this.authView = 'forgot';
 
     this.forgotOtp = '';
+    this.forgotOtpVerified = false;
+
+    this.forgotForm.reset();
+    this.passwordForm.reset();
   }
 
   backToForgot() {
     this.authView = 'forgot';
+
+    this.forgotOtp = '';
+    this.forgotOtpVerified = false;
   }
 
   generateForgotOtp() {
     if (this.forgotForm.invalid) {
       this.forgotForm.markAllAsTouched();
-
       return;
     }
 
-    /*
-     * PUT YOUR ACTUAL FORGOT PASSWORD
-     * SEND OTP API HERE.
-     */
+    const data = {
+      mobile: this.forgotForm.value.mobile,
+    };
 
-    // console.log('Generate Forgot Password OTP', this.forgotForm.value.mobile);
+    this.spinner.show();
 
-    // TEMPORARY UI FLOW
+    this.loginService.sendForgotPassOtp(data).subscribe(
+      (res: any) => {
+        console.log('Forgot Password OTP Response:', res.status);
+        if (res.status == true || res.status == 1) {
+          this.OtpData = res;
 
-    this.authView = 'forgotOtp';
+          // Reset OTP
+          this.forgotOtp = '';
+
+          // Move to OTP screen
+          this.authView = 'forgotOtp';
+
+          // Start resend timer
+          this.startForgotOtpTimer();
+
+          this.notify.notify('OTP has been sent successfully', 'Success');
+          this.spinner.hide();
+        } else {
+          this.notify.notify(res.message, 'Error');
+        }
+
+        this.spinner.hide();
+      },
+
+      (error: any) => {
+        this.spinner.hide();
+
+        this.notify.notify(
+          error?.error?.message || 'Something went wrong',
+          'Error',
+        );
+      },
+    );
   }
 
   verifyForgotOtp() {
@@ -588,26 +650,69 @@ export class LoginComponent implements OnInit {
       return;
     }
 
-    /*
-     * PUT YOUR ACTUAL FORGOT PASSWORD
-     * OTP VERIFICATION API HERE.
-     */
+    const data = {
+      userId: this.OtpData.userId,
+      otp: this.forgotOtp,
+    };
 
-    console.log('Verify Forgot OTP:', this.forgotOtp);
+    this.spinner.show();
 
-    // TEMPORARY UI FLOW
+    this.loginService.verifyForgotPassOtp(data).subscribe(
+      (res: any) => {
+        if (res.status == 1) {
+          this.forgotOtpVerified = true;
 
-    this.forgotOtpVerified = true;
+          this.authView = 'newPassword';
 
-    this.authView = 'newPassword';
+          // localStorage.setItem('OtpData', JSON.stringify(this.OtpData));
+
+          this.notify.notify('OTP verified successfully', 'Success');
+        } else {
+          this.notify.notify(res.message, 'Error');
+        }
+
+        this.spinner.hide();
+      },
+
+      (error: any) => {
+        this.spinner.hide();
+
+        this.notify.notify(
+          error?.error?.message || 'OTP verification failed',
+          'Error',
+        );
+      },
+    );
   }
 
   resendForgotOtp() {
-    /*
-     * PUT YOUR ACTUAL RESEND OTP API HERE.
-     */
+    if (this.timeLeft > 0) {
+      return;
+    }
 
-    console.log('Resend Forgot Password OTP');
+    if (this.forgotForm.invalid) {
+      return;
+    }
+
+    this.generateForgotOtp();
+  }
+
+  startForgotOtpTimer() {
+    // Clear existing timer
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+
+    this.timeLeft = 60;
+
+    this.interval = setInterval(() => {
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        clearInterval(this.interval);
+        this.interval = null;
+      }
+    }, 1000);
   }
 
   onForgotOtpInput(event: Event, index: number) {
@@ -712,41 +817,63 @@ export class LoginComponent implements OnInit {
   createNewPassword() {
     if (this.passwordForm.invalid) {
       this.passwordForm.markAllAsTouched();
-
       return;
     }
 
     const passwordData = {
-      mobile: this.forgotForm.value.mobile,
-
-      otp: this.forgotOtp,
-
-      password: this.passwordForm.value.password,
+      userId: this.OtpData.userId,
+      newPassword: this.passwordForm.value.password,
+      confirmPassword: this.passwordForm.value.confirmPassword,
     };
 
-    console.log('Reset Password Data:', passwordData);
+    this.spinner.show();
 
-    /*
-     * PUT YOUR ACTUAL RESET PASSWORD API HERE.
-     *
-     * Example:
-     *
-     * this.loginService.resetPassword(
-     *   passwordData
-     * ).subscribe(res => {
-     *
-     *   if (res.status == 1) {
-     *
-     *     this.authView = 'login';
-     *
-     *     this.forgotForm.reset();
-     *     this.passwordForm.reset();
-     *     this.forgotOtp = '';
-     *
-     *   }
-     *
-     * });
-     */
+    this.loginService.resetPass(passwordData).subscribe(
+      (res: any) => {
+        if (res.status == 1) {
+          this.notify.notify('Password reset successfully', 'Success');
+
+          // Reset all data
+          this.forgotForm.reset();
+          this.passwordForm.reset();
+
+          this.forgotOtp = '';
+          this.forgotOtpVerified = false;
+
+          this.OtpData = null;
+
+          // Clear timer
+          if (this.interval) {
+            clearInterval(this.interval);
+            this.interval = null;
+          }
+
+          this.timeLeft = 0;
+
+          // Go to login screen
+          // this.authView = 'login';
+
+          this.authView = 'passwordResetSuccess';
+
+          setTimeout(() => {
+            this.goToLogin();
+          }, 5000);
+        } else {
+          this.notify.notify(res.message, 'Error');
+        }
+
+        this.spinner.hide();
+      },
+
+      (error: any) => {
+        this.spinner.hide();
+
+        this.notify.notify(
+          error?.error?.message || 'Unable to reset password',
+          'Error',
+        );
+      },
+    );
   }
 
   checkEmailExist() {
@@ -780,5 +907,48 @@ export class LoginComponent implements OnInit {
     this.signupForm
       .get('mobileNo')
       ?.setValue(event.target.value, { emitEvent: false });
+  }
+
+  resendTimer: number = 60;
+  private resendInterval: any;
+
+  startResendTimer(): void {
+    this.resendTimer = 60;
+
+    clearInterval(this.resendInterval);
+
+    this.resendInterval = setInterval(() => {
+      this.resendTimer--;
+
+      if (this.resendTimer <= 0) {
+        clearInterval(this.resendInterval);
+        this.resendTimer = 0;
+      }
+    }, 1000);
+  }
+
+  redirectCountdown: number = 10;
+  redirectInterval: any;
+
+  startLoginRedirect(): void {
+    this.redirectCountdown = 10;
+
+    this.redirectInterval = setInterval(() => {
+      this.redirectCountdown--;
+
+      if (this.redirectCountdown <= 0) {
+        clearInterval(this.redirectInterval);
+
+        this.goToLogin();
+      }
+    }, 1000);
+  }
+
+  goToLogin(): void {
+    if (this.redirectInterval) {
+      clearInterval(this.redirectInterval);
+    }
+
+    this.authView = 'login';
   }
 }

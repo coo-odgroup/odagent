@@ -424,7 +424,18 @@
           <div class="resend-row">
             <span>Didn't receive OTP?</span>
 
-            <button type="button" class="text-link" (click)="resendSignupOtp()">
+            <!-- Countdown -->
+            <span class="otp-timer" *ngIf="resendTimer > 0">
+              Resend OTP in {{ resendTimer }}s
+            </span>
+
+            <!-- Resend Button -->
+            <button
+              *ngIf="resendTimer === 0"
+              type="button"
+              class="text-link"
+              (click)="resendSignupOtp()"
+            >
               Resend OTP
             </button>
           </div>
@@ -558,6 +569,43 @@
             Complete Registration
           </button>
         </form>
+      </ng-container>
+
+      <!-- =====================================================
+     DOCUMENT UPLOAD SUCCESS
+     ===================================================== -->
+
+      <ng-container *ngIf="authView === 'documentUploadSuccess'">
+        <div class="auth-header document-upload-success">
+          <!-- Success Icon -->
+          <div class="otp-icon success">
+            <i class="fa fa-check"></i>
+          </div>
+
+          <h2>Registration Completed Successfully!</h2>
+
+          <p>
+            Your account has been created and your documents have been submitted
+            successfully. You can now log in to your account.
+          </p>
+
+          <!-- Countdown -->
+          <div class="redirect-message">
+            <i class="fa fa-clock-o"></i>
+
+            Redirecting to login in
+            <strong>{{ redirectCountdown }}</strong> seconds...
+          </div>
+        </div>
+
+        <!-- Login Button -->
+
+        <div class="success-action">
+          <button type="button" class="primary-btn" (click)="goToLogin()">
+            <i class="fa fa-sign-in"></i>
+            Login to Your Account
+          </button>
+        </div>
       </ng-container>
 
       <!-- =====================================================
@@ -772,6 +820,38 @@
             Create New Password
           </button>
         </form>
+      </ng-container>
+
+      <!-- =====================================================
+          PASSWORD RESET SUCCESS
+          ===================================================== -->
+      <ng-container *ngIf="authView === 'passwordResetSuccess'">
+        <div class="auth-header password-success">
+          <div class="otp-icon success">
+            <i class="fa fa-check"></i>
+          </div>
+
+          <h2>Password Reset Successfully!</h2>
+
+          <p>
+            Your password has been changed successfully. You can now log in
+            using your new password.
+          </p>
+
+          <!-- Countdown -->
+          <div class="redirect-message">
+            <i class="fa fa-clock-o"></i>
+            Redirecting to login in
+            <strong>{{ redirectCountdown }}</strong> seconds...
+          </div>
+        </div>
+
+        <div class="success-action">
+          <button type="button" class="primary-btn" (click)="goToLogin()">
+            <i class="fa fa-sign-in"></i>
+            Login with New Password
+          </button>
+        </div>
       </ng-container>
     </div>
   </div>
