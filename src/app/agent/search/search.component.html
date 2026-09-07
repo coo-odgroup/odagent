@@ -1414,7 +1414,7 @@
             </div>
           </div>
 
-          <button type="button" class="btn btn-warning btn-sm mobile-modify-btn" (click)="toggleShow()">
+          <button type="button" class="btn-sm mobile-modify-btn" (click)="toggleShow()">
             {{ isShown ? "Close" : "Modify" }}
           </button>
         </div>
@@ -1478,7 +1478,7 @@
               <!-- <button type="button" class="btn btn-light mobile-swap-btn" (click)="swap()">
                 Swap
               </button> -->
-              <button type="submit" class="btn btn-warning mobile-update-btn">
+              <button type="submit" class="mobile-update-btn">
                 Update Search
               </button>
             </div>
@@ -1517,7 +1517,7 @@
       <div *ngFor="let bus of buslist; let i = index">
         <div class="de-angu1">
           <div class="assured-badge" *ngIf="true">
-            <img src="assets/images/right.png" alt="" />
+            <img src="assets/images/right_white.png" alt="" />
             <span>ASSURED</span>
           </div>
 
@@ -1570,7 +1570,7 @@
             </button>
 
             <!-- NORMAL -->
-            <button id="showbtn{{ i }}" class="btn btn-warning btn-sm"
+            <button id="showbtn{{ i }}" class="btn btn-warning btn-sm vw_seat"
               *ngIf="bus.totalSeats > 0 && !isTimeExceeded(bus)" (click)="ShowLayout(i)">
               View Seat
             </button>
