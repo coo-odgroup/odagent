@@ -1128,226 +1128,642 @@
     </div>
 </section> -->
 
-<!-- ================= FAQ SECTION ================= -->
-<section id="faq" class="odb-faq-section section-padding">
-
+<!-- =========================================================
+     ODBUS FAQ SECTION
+========================================================= -->
+<section class="odb-faq-section">
     <div class="container">
 
-        <!-- FAQ Heading -->
-        <h2 class="odb-faq-title">
-            FAQs Related to Bus Tickets Booking
-        </h2>
+        <!-- FAQ HEADING -->
+        <div class="odb-faq-header">
+            <h2 class="odb-faq-title">Frequently Asked Questions</h2>
+        </div>
 
 
-        <!-- FAQ Tabs -->
+        <!-- =====================================================
+         FAQ TABS
+    ====================================================== -->
         <div class="odb-faq-tabs">
 
-            <button class="odb-faq-tab" [class.active]="isFaqTabActive('general')" (click)="switchFaqTab('general')">
-                General
+            <!-- TAB 1 -->
+            <button type="button" class="odb-faq-tab" [class.active]="isFaqTabActive('general')"
+                (click)="switchFaqTab('general')">
+                Getting Started
             </button>
 
-            <button class="odb-faq-tab" [class.active]="isFaqTabActive('ticket')" (click)="switchFaqTab('ticket')">
-                Ticket Related
+            <!-- TAB 2 -->
+            <button type="button" class="odb-faq-tab" [class.active]="isFaqTabActive('earnings')"
+                (click)="switchFaqTab('earnings')">
+                Earnings &amp; Payouts
             </button>
 
-            <button class="odb-faq-tab" [class.active]="isFaqTabActive('payment')" (click)="switchFaqTab('payment')">
-                Payment
+            <!-- TAB 3 -->
+            <button type="button" class="odb-faq-tab" [class.active]="isFaqTabActive('wallet')"
+                (click)="switchFaqTab('wallet')">
+                Wallet &amp; Money
             </button>
 
-            <button class="odb-faq-tab" [class.active]="isFaqTabActive('cancellation')"
-                (click)="switchFaqTab('cancellation')">
-                Cancellation and Refund
+            <!-- TAB 4 -->
+            <button type="button" class="odb-faq-tab" [class.active]="isFaqTabActive('support')"
+                (click)="switchFaqTab('support')">
+                Support &amp; Operations
             </button>
 
         </div>
 
 
-        <!-- =================================================
-             GENERAL
-        ================================================== -->
-
+        <!-- =====================================================
+         TAB 1 - GETTING STARTED
+    ====================================================== -->
         <div class="odb-faq-panel" *ngIf="isFaqTabActive('general')">
 
+            <!-- FAQ 1 -->
             <div class="odb-faq-item" [class.active]="isFaqQuestionActive(0)">
 
-                <button class="odb-faq-question" (click)="toggleFaq(0)">
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(0)">
 
-                    <span>What is an e-ticket?</span>
+                    <span>Who can become an ODBUS agent?</span>
 
-                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(0)"
-                        [class.fa-angle-up]="isFaqQuestionActive(0)">
-                    </i>
+                    <i class="fa fa-chevron-down"></i>
 
                 </button>
 
                 <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(0)">
-                    An e-ticket, also known as an electronic ticket,
-                    is an electronic document that contains the details
-                    of your bus ticket, like a unique confirmation number
-                    issued by the bus operator for the booking you have made,
-                    along with other details like your departure date, time,
-                    boarding point, conductor number and so on.
-                    It is important to carry a print-out of the e-ticket
-                    along with a valid photo-id proof at the time of bus departure.
-                </div>
 
+                    Anyone running a physical shop in Odisha with internet, a laptop/desktop, and a printer can become
+                    an ODBUS agent. No prior travel-industry experience is required.
+
+                </div>
             </div>
 
 
-            <div class="odb-faq-item">
+            <!-- FAQ 2 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(1)">
 
-                <button class="odb-faq-question" (click)="toggleFaq(1)">
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(1)">
 
-                    <span>
-                        What are the advantages of purchasing a bus ticket with ODBUS?
-                    </span>
+                    <span>Is there a joining fee or any investment?</span>
 
-                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(1)"
-                        [class.fa-angle-up]="isFaqQuestionActive(1)">
-                    </i>
+                    <i class="fa fa-chevron-down"></i>
 
                 </button>
 
                 <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(1)">
 
-                    ODBUS provides access to a wide range of bus operators,
-                    convenient online booking, secure payments and easy
-                    ticket management.
+                    No. Registration is free and there is no investment at any stage. You load money into your wallet
+                    only to pay for the tickets you book — that money goes into your customers' tickets, not to ODBUS as
+                    a fee.
 
                 </div>
-
             </div>
 
 
-            <div class="odb-faq-item">
+            <!-- FAQ 3 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(2)">
 
-                <button class="odb-faq-question" (click)="toggleFaq(2)">
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(2)">
 
-                    <span>
-                        Do I need to create an account to book bus tickets on ODBUS?
-                    </span>
+                    <span>What documents do you need, and how long does activation take?</span>
 
-                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(2)"
-                        [class.fa-angle-up]="isFaqQuestionActive(2)">
-                    </i>
+                    <i class="fa fa-chevron-down"></i>
 
                 </button>
 
                 <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(2)">
-                    You can create an account with ODBUS to manage your bookings
-                    and access your ticket information conveniently.
-                </div>
 
+                    You only need your PAN and Aadhaar. Verification is instant, and your account goes live after email
+                    confirmation—you can book tickets the same day.
+
+                </div>
             </div>
 
 
-            <div class="odb-faq-item">
+            <!-- FAQ 4 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(3)">
 
-                <button class="odb-faq-question" (click)="toggleFaq(3)">
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(3)">
 
-                    <span>Does booking online cost me more?</span>
+                    <span>What if my documents don't verify the first time?</span>
 
-                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(3)"
-                        [class.fa-angle-up]="isFaqQuestionActive(3)">
-                    </i>
+                    <i class="fa fa-chevron-down"></i>
 
                 </button>
 
                 <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(3)">
-                    Online booking allows you to conveniently compare buses,
-                    routes and fares before completing your booking.
-                </div>
 
+                    You'll be asked to submit them again with the correct details. Nothing is lost and there's no
+                    waiting period — just re-enter and continue.
+
+                </div>
             </div>
 
 
-            <div class="odb-faq-item">
+            <!-- FAQ 5 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(4)">
 
-                <button class="odb-faq-question" (click)="toggleFaq(4)">
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(4)">
 
-                    <span>Can I book a multi-city trip?</span>
+                    <span>I run more than one shop. Do I need separate accounts?</span>
 
-                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(4)"
-                        [class.fa-angle-up]="isFaqQuestionActive(4)">
-                    </i>
+                    <i class="fa fa-chevron-down"></i>
 
                 </button>
 
                 <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(4)">
-                    Multi-city booking availability depends on the routes
-                    and operators available on ODBUS.
-                </div>
 
+                    No. One ODBUS agent account covers all your shops, with bookings, wallet, commissions,
+                    cancellations, and refunds managed in one place.
+
+                </div>
             </div>
 
+        </div>
 
-            <div class="odb-faq-item">
 
-                <button class="odb-faq-question" (click)="toggleFaq(5)">
+        <!-- =====================================================
+         TAB 2 - EARNINGS & PAYOUTS
+    ====================================================== -->
+        <div class="odb-faq-panel" *ngIf="isFaqTabActive('earnings')">
 
-                    <span>
-                        While travelling with an infant on the bus,
-                        is there anything special I must know?
-                    </span>
+            <!-- FAQ 1 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(0)">
 
-                    <i class="fa" [class.fa-angle-down]="!isFaqQuestionActive(5)"
-                        [class.fa-angle-up]="isFaqQuestionActive(5)">
-                    </i>
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(0)">
+
+                    <span>How is my commission calculated?</span>
+
+                    <i class="fa fa-chevron-down"></i>
 
                 </button>
 
-                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(5)">
-                    Please check the applicable operator rules and requirements
-                    before travelling with an infant.
-                </div>
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(0)">
 
+                    You earn a 50% share commission on every non-cancelled PNR. Your earnings are tracked automatically
+                    in your agent account.
+
+                </div>
             </div>
+
+
+            <!-- FAQ 2 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(1)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(1)">
+
+                    <span>When do I get my commission?</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(1)">
+
+                    Immediately. Your commission is credited to your ODBUS wallet the moment a booking is confirmed — no
+                    weekly or monthly settlement — and it's available for your next booking straight away.
+
+                </div>
+            </div>
+
+
+            <!-- FAQ 3 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(2)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(2)">
+
+                    <span>Can I earn more than the standard commission?</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(2)">
+
+                    Yes. Earn more by booking more, completing monthly bonus targets, using periodic wallet recharge
+                    offers, and maintaining strong booking volume to unlock exclusive ODBUS commission rates.
+
+                </div>
+            </div>
+
+
+            <!-- FAQ 4 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(3)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(3)">
+
+                    <span>How does the monthly booking bonus work?</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(3)">
+
+                    Monthly booking bonuses are based on completed journeys and credited to your wallet the following
+                    month. For bonus slabs and detailed terms, please refer to the Commission Policy shared with you.
+
+                </div>
+            </div>
+
+
+            <!-- FAQ 5 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(4)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(4)">
+
+                    <span>What happens to my commission if my customer cancels?</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(4)">
+
+                    Your commission on the booking is reversed, and you earn 20% of the cancellation charge instead. So
+                    a cancellation doesn't erase your work — you keep a share of it. Cancellations aren't permitted
+                    within 12 hours of departure.
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+         TAB 3 - WALLET & MONEY
+    ====================================================== -->
+        <div class="odb-faq-panel" *ngIf="isFaqTabActive('wallet')">
+
+            <!-- FAQ 1 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(0)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(0)">
+
+                    <span>How do I add money, and is there a charge?</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(0)">
+
+                    By UPI, Net Banking, debit card or credit card. Recharges are instant — no waiting for a working
+                    day.
+
+                </div>
+            </div>
+
+
+            <!-- FAQ 2 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(1)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(1)">
+
+                    <span>Is there a minimum balance?</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(1)">
+
+                    There's no minimum to maintain. Your balance just has to cover the ticket you're booking — if it's
+                    short, the booking won't go through, and the wallet can never go negative. You're never in debt to
+                    ODBUS.
+
+                </div>
+            </div>
+
+
+            <!-- FAQ 3 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(2)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(2)">
+
+                    <span>Is there an offer on my first recharge?</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(2)">
+
+                    Yes. Recharge ₹2,000 or more within your first 10 days and we add a 10% bonus to your wallet —
+                    recharge ₹2,500 and you receive ₹250. It's credited automatically.
+
+                </div>
+            </div>
+
+
+            <!-- FAQ 4 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(3)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(3)">
+
+                    <span>Can I get my wallet money back?</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(3)">
+
+                    Wallet balance is non-refundable and cannot be withdrawn as cash. Please use it for future bookings.
+
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+         TAB 4 - SUPPORT & OPERATIONS
+    ====================================================== -->
+        <div class="odb-faq-panel" *ngIf="isFaqTabActive('support')">
+
+            <!-- FAQ 1 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(0)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(0)">
+
+                    <span>Who handles it if a bus is late or my customer has a problem during the journey?</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(0)">
+
+                    We do. ODBUS runs a 24×7 support team handling booking queries, cancellations, refunds and journey
+                    issues for your customers at any hour, in Odia, Hindi or English. You aren't expected to resolve
+                    operator problems or process refunds yourself.
+
+                </div>
+            </div>
+
+
+            <!-- FAQ 2 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(1)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(1)">
+
+                    <span>Do I need training? I'm not very technical.</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(1)">
+
+                    No prior experience needed. We train you on booking and cancellation in the Agent Dashboard, and the
+                    flow is the same few steps every time: search the route, pick seats, enter passenger details,
+                    confirm, print. If you can use a browser, you can issue a ticket. There's a mobile app as well as
+                    the web dashboard.
+
+                </div>
+            </div>
+
+
+            <!-- FAQ 3 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(2)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(2)">
+
+                    <span>Why would customers book through me instead of using the ODBUS app themselves?</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(2)">
+
+                    Many of your customers prefer to pay cash, want help choosing the right bus and boarding point, want
+                    a printed ticket in hand, and want someone they know to be accountable if something goes wrong.
+                    That's what you provide — while ODBUS advertises across Odisha on Google, YouTube and Meta so people
+                    are looking for ODBUS tickets in the first place.
+
+                </div>
+            </div>
+
+
+            <!-- FAQ 4 -->
+            <div class="odb-faq-item" [class.active]="isFaqQuestionActive(3)">
+
+                <button type="button" class="odb-faq-question" (click)="toggleFaq(3)">
+
+                    <span>What do I get besides commission?</span>
+
+                    <i class="fa fa-chevron-down"></i>
+
+                </button>
+
+                <div class="odb-faq-answer" *ngIf="isFaqQuestionActive(3)">
+
+                    An authorised ODBUS Agent certificate on activation, training on the dashboard, 24×7 support for
+                    your customers, and — once you cross 150 bookings a month for three consecutive months — a lit ODBUS
+                    signboard installed at your shop at our cost.
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- ================= END FAQ SECTION ================= -->
+
+
+<!-- =========================================================
+     ODBUS AGENT CTA SECTION
+========================================================= -->
+<section class="odbus-agent-cta">
+
+    <div class="odbus-agent-cta-container">
+
+        <!-- Heading -->
+        <h2 class="odbus-agent-cta-title">
+            Your Customers Are Already Travelling.
+            <span>Start Booking Their Tickets.</span>
+        </h2>
+
+        <!-- Description -->
+        <p class="odbus-agent-cta-description">
+            Registration is free, your PAN and Aadhaar are verified instantly,
+            and you can book your first ticket today.
+        </p>
+
+        <!-- Recharge Offer -->
+        <div class="odbus-agent-cta-offer">
+            <i class="fa fa-star"></i>
+
+            <span>
+                Recharge <strong>₹2,000+</strong> in your first
+                <strong>10 days</strong> — we add a
+                <strong>10% bonus</strong> to your wallet
+            </span>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="odbus-agent-cta-buttons">
+
+            <!-- Primary -->
+            <button type="button" class="odbus-agent-cta-primary">
+
+                <i class="fa fa-user"></i>
+                <span>Become an ODBUS Agent</span>
+
+            </button>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer"
+                class="odbus-agent-cta-whatsapp">
+
+                <i class="fab fa-whatsapp"></i>
+                <span>Ask Us on WhatsApp</span>
+
+            </a>
+
+        </div>
+
+        <!-- Supporting Text -->
+        <div class="odbus-agent-cta-micro">
+
+            <span>
+                <i class="fa fa-circle"></i>
+                No joining fee.
+            </span>
+
+            <span>
+                <i class="fa fa-circle"></i>
+                No investment.
+            </span>
+
+            <span>
+                <i class="fa fa-circle"></i>
+                Nothing to install.
+            </span>
 
         </div>
 
     </div>
 
 </section>
-<!-- ================= END FAQ SECTION ================= -->
 
 <!-- Footer -->
 <footer class="footer">
     <div class="container">
+
         <div class="footer-grid">
+
+            <!-- BRAND -->
             <div class="footer-brand-col">
-                <div class="footer-logo">ODBUS</div>
-                <p class="footer-text">
-                    ODBUS is Odisha’s leading digital bus ticketing ecosystem, connecting 1,000+ operators to a
-                    nationwide network of travel partners. Established in 2015 to revolutionize regional travel
-                    connectivity.
-                </p>
-                <div class="footer-socials">
-                    <a href="#">f</a>
-                    <a href="#">in</a>
-                    <a href="#">x</a>
+
+                <div class="footer-logo">
+                    <img src="assets/images/odbus_logo.webp" alt="ODBUS">
                 </div>
+
+                <p class="footer-text">
+                    ODBUS is Odisha's online bus ticketing platform, connecting 800+
+                    operators and 2,500 buses across 3,000+ routes. Operating since 2015
+                    and trusted by more than 25 lakh customers.
+                </p>
+
+                <div class="footer-socials">
+                    <a href="#" aria-label="Facebook">f</a>
+                    <a href="#" aria-label="LinkedIn">in</a>
+                    <a href="#" aria-label="X">x</a>
+                </div>
+
             </div>
+
+
+            <!-- B2B LINKS -->
             <div>
-                <h4 class="footer-title">Contact Us</h4>
+                <h4 class="footer-title">
+                    B2B Quick Links
+                </h4>
+
                 <ul class="footer-list">
-                    <li>9583918888 / 9438654942</li>
-                    <li>support@odbus.in</li>
-                    <li>Bhubaneswar, Odisha</li>
+                    <li>
+                        <a href="#">How Much You Earn</a>
+                    </li>
+
+                    <li>
+                        <a href="#">Why ODBUS</a>
+                    </li>
+
+                    <li>
+                        <a href="#">FAQs</a>
+                    </li>
+
+                    <li>
+                        <a href="#">ODBUS</a>
+                    </li>
                 </ul>
             </div>
+
+
+            <!-- INFO LINKS -->
             <div>
-                <h4 class="footer-title">B2B Quick Links</h4>
+                <h4 class="footer-title">
+                    Info Links
+                </h4>
+
                 <ul class="footer-list">
-                    <li><a href="#">Agent Agreement</a></li>
-                    <li><a href="#">Commission Policy</a></li>
-                    <li><a href="#">Help Desk</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
+                    <li>
+                        <a href="#">Agent Agreement</a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Privacy Policy
+                            <span class="footer-link-note">
+                                (Connected to ODBUS Privacy Policy)
+                            </span>
+                        </a>
+                    </li>
                 </ul>
             </div>
+
+
+            <!-- CONTACT -->
+            <div>
+                <h4 class="footer-title">
+                    Contact Us
+                </h4>
+
+                <ul class="footer-list">
+                    <li>
+                        <a href="tel:9583918888">
+                            9583918888
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://wa.me/919583918888" target="_blank" rel="noopener noreferrer">
+                            WhatsApp: 9583918888
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="mailto:support@odbus.in">
+                            support@odbus.in
+                        </a>
+                    </li>
+
+                    <li>
+                        Bhubaneswar, Odisha
+                    </li>
+                </ul>
+            </div>
+
         </div>
+
+
+        <!-- FOOTER BOTTOM -->
         <div class="footer-bottom">
-            &copy; 2026 OD Tours & Travels Private Limited. All Rights Reserved.
+            &copy; 2026 ODBUS Agent (Powered By ODBUS). All Rights Reserved.
         </div>
+
     </div>
 </footer>
 <script>
