@@ -328,7 +328,7 @@ input[type="radio"]:checked {
 }
 
 .icon-color {
-    color: #efc003;
+    color: #0048a6;
     font-size: 18px;
     margin-right: 4px;
 }
@@ -542,7 +542,7 @@ input[type="radio"]:checked {
 }
 
 .fare-item.total {
-    border-top: 1px solid #efc003;
+    border-top: 1px solid #eee;
     font-weight: bold;
     font-size: 16px;
 }
@@ -564,14 +564,14 @@ input[type="radio"]:checked {
 
 /* HEADER */
 .sheet-header {
-    background: #efc003;
+    background: linear-gradient(135deg, #00a9eb 0%, #007fd3 50%, #003b9b 100%);
     padding: 12px;
     display: flex;
     align-items: center;
 }
 
 .sheet-header span {
-    color: #1b2155;
+    color: #ffffff !important;
     font-weight: bold;
 }
 
@@ -586,19 +586,19 @@ input[type="radio"]:checked {
 }
 
 .bus-name {
-    color: #072c6b;
+    color: #ffffff;
     font-size: 18px;
     font-weight: 800;
 }
 
 .route {
-    color: #323232 !important;
+    color: #ffffff !important;
     font-size: 15px;
     font-weight: 600;
 }
 
 .date {
-    color: #323232 !important;
+    color: #ffffff !important;
     font-size: 15px;
     font-weight: 600;
 }
@@ -649,7 +649,7 @@ h5 {
     border-bottom: 2px solid #7e829f;
     padding: 10px;
     margin-bottom: 12px;
-    background: #fff9e2;
+    background: #e3f2ff;
     color: #1b2155;
     font-weight: 600;
     font-size: inherit;
