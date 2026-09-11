@@ -58,24 +58,24 @@
 }
 
 .ng-wizard-theme-arrows>ul.step-anchor>li.active>a {
-    border-color: #efc003 !important;
-    color: #072c6b !important;
+    border-color: #006ecf!important;
+    color: #ffffff !important;
     z-index: 1;
-    background: #efc003 !important
+    background: #006ecf!important
 }
 
 .ng-wizard-theme-arrows>ul.step-anchor>li.active>a:after {
-    border-left: 30px solid #efc003 !important
+    border-left: 30px solid #006ecf!important
 }
 
 .ng-wizard-theme-arrows>ul.step-anchor>li.done>a {
     border-color: transparent !important;
-    color: #072c6b !important;
-    background: #efc003 !important
+    color: #ffffff !important;
+    background: #006ecf!important
 }
 
 .ng-wizard-theme-arrows>ul.step-anchor>li.done>a:after {
-    border-left: 30px solid #efc003
+    border-left: 30px solid #006ecf
 }
 
 .ng-wizard-theme-arrows>ul.step-anchor>li.danger>a {
