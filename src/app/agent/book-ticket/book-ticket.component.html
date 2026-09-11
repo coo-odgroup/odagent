@@ -464,16 +464,16 @@
                           </div>
 
                           <!-- <div class="col-md-8"><h6>Service Charges</h6></div>
-		   
+
 						   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.odbusServiceCharges }} </h6></div> -->
-                          <!-- 	   
-					   
+                          <!--
+
 						   <div class="col-md-8"><h6>Transaction Fee</h6></div>
-		   
+
 						   <div class="col-md-4"><h6>+ ₹ {{ bookingdata.PriceArray.transactionFee }}</h6></div>
-		   
+
 						 <div class="col-md-8"><h5>Total</h5></div>
-		   
+
 						   <div class="col-md-4"><h5>₹ {{ bookingdata.PriceArray.totalFare }}</h5></div> -->
                         </div>
 
@@ -844,7 +844,7 @@
                           </div>
 
                           <!-- <div class="col-md-8"><h6>Transaction Fee</h6></div>
-			
+
 							<div class="col-md-4"><h6><strong>+ ₹ {{ bookingdata.PriceArray.transactionFee }}</strong></h6></div> -->
 
                           <div class="col-md-8" *ngIf="applied_comission > 0">
@@ -907,7 +907,7 @@
               <!-- <div class="col-md-12" style="text-align: center;">
 				<img src="../../../assets/img/odbus-logo.svg" alt="logo-ODBUS" title="Logo" />
 
-				
+
 			</div> -->
 
               <!-- MOBILE TICKET -->
@@ -1321,7 +1321,7 @@
                                     <th scope="col">Cancellation Charges</th>
                                   </tr>
                                 </thead>
-                                <tbody *ngIf="
+                                <!-- <tbody *ngIf="
                                     busRecord.cancellationDuration.length > 0
                                   ">
                                   <tr *ngFor="
@@ -1333,7 +1333,7 @@
                                       {{ busRecord.cancellationDuduction[i] }}%
                                     </td>
                                   </tr>
-                                </tbody>
+                                </tbody> -->
                               </table>
                             </div>
                           </td>

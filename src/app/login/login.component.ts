@@ -612,7 +612,6 @@ export class LoginComponent implements OnInit {
 
     this.loginService.sendForgotPassOtp(data).subscribe(
       (res: any) => {
-        console.log('Forgot Password OTP Response:', res.status);
         if (res.status == true || res.status == 1) {
           this.OtpData = res;
 
