@@ -85,7 +85,7 @@ label {
 }
 
 hr {
-    border: 1px solid #efc003;
+    border: 1px solid rgb(0, 67, 149);
 }
 
 span {
@@ -93,7 +93,7 @@ span {
 }
 
 .font {
-    color: #efc003;
+    color: #0097d7;
     font-size: 15px;
 }
 
@@ -112,7 +112,9 @@ span {
 .proceed {
     width: 100%;
     font-weight: 600;
-    color: #072c6b;
+    color: #ffffff;
+    background: linear-gradient(135deg, #00a9eb 0%, #007fd3 50%, #003b9b 100%) !important;
+    border: none !important;
 }
 
 .img1 {
