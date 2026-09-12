@@ -5,6 +5,7 @@ import { Signup } from '../model/signup';
 import { Router } from '@angular/router';
 import { NotificationService } from '../services/notification.service';
 import { Constants } from '../constant/constant';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -12,6 +13,7 @@ import { Constants } from '../constant/constant';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit, OnDestroy {
+  private apiurl = Constants.BASE_URL;
   public form: FormGroup;
   public signupRecord: Signup;
   public activeFaqTab: string = 'general';
@@ -80,7 +82,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     { bookings: 500, bonus: 5500 }
   ];
 
-  constructor(public router: Router, protected fb: FormBuilder, private signupService: SignupService, private notificationService: NotificationService, private notify: NotificationService) { }
+  constructor(public router: Router, protected fb: FormBuilder, private signupService: SignupService, private notificationService: NotificationService, private notify: NotificationService, private http: HttpClient) { }
 
 
   ngOnInit() {
@@ -96,6 +98,10 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     // Start earning calculator
     this.calculateEarnings();
+
+    setTimeout(() => {
+      this.fetchFaqs();
+    }, 2000);
   }
 
   // =========================================================
@@ -607,6 +613,36 @@ export class SignupComponent implements OnInit, OnDestroy {
   // CHECK ACTIVE QUESTION
   isFaqQuestionActive(index: number): boolean {
     return this.activeFaqQuestion === index;
+  }
+
+  // FAQ
+  faqs: any[] = [];
+  activeTab: number = 0;
+  openIndex: number[] = [];
+  private fetchFaqs(): void {
+    const storageKey = 'faqs_data';
+
+    // Check localStorage first
+    const cachedFaqs = localStorage.getItem(storageKey);
+
+    if (cachedFaqs) {
+      this.faqs = JSON.parse(cachedFaqs);
+      this.openIndex = this.faqs.map(() => 0);
+      return;
+    }
+
+    this.http.post(this.apiurl + '/getagantfaqs', {}).subscribe({
+      next: (res: any) => {
+        this.faqs = res.data;
+        this.openIndex = this.faqs.map(() => 0);
+
+        // Save to localStorage
+        localStorage.setItem(storageKey, JSON.stringify(this.faqs));
+      },
+      // error: () => {
+      //   this.spinner.hide();
+      // }
+    });
   }
 
 }
