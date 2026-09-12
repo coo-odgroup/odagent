@@ -570,6 +570,7 @@ input[type="radio"]:checked {
     padding: 12px;
     display: flex;
     align-items: center;
+    border-radius: 0 0 10px 10px;
 }
 
 .sheet-header span {
@@ -699,11 +700,13 @@ h5 {
 
 /* BUTTON */
 .proceed-btn {
-    width: 100%;
+  width: 100%;
     height: 50px;
-    background: #efc003;
+    background: linear-gradient(135deg, #00a9eb 0%, #007fd3 50%, #003b9b 100%);
     border: none;
     font-weight: bold;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
 }
 
 .ticket-header {
