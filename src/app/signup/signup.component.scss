@@ -4015,7 +4015,7 @@ input {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: #009ce0;
+
     color: #ffffff;
 
     display: flex;
@@ -4027,11 +4027,43 @@ input {
     line-height: 1;
     padding: 0;
     box-sizing: border-box;
+
+    transition: all 0.25s ease;
 }
 
+/* Facebook */
+.footer-socials a:nth-child(1) {
+    background: #1877F2;
+}
+
+/* Instagram */
+.footer-socials a:nth-child(2) {
+    background: linear-gradient(45deg,
+            #F58529 0%,
+            #DD2A7B 45%,
+            #8134AF 75%,
+            #515BD4 100%);
+}
+
+/* Pinterest */
+.footer-socials a:nth-child(3) {
+    background: #E60023;
+}
+
+/* Keep icons white */
+.footer-socials a i {
+    color: #ffffff;
+}
+
+/* Hover */
 .footer-socials a:hover {
     color: #ffffff;
-    background: #008dcc;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+}
+
+.footer-socials a:hover i {
+    color: #ffffff;
 }
 
 .footer-title {
@@ -4958,4 +4990,13 @@ input {
         line-height: 1.65 !important;
     }
 
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+section[id] {
+    scroll-margin-top: 80px;
 }

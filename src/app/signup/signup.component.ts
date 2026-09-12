@@ -29,6 +29,40 @@ export class SignupComponent implements OnInit, OnDestroy {
   public totalStatsPages: number = 5;
 
   // =========================================================
+  // NAVIGATION - SMOOTH SCROLL TO SECTION
+  // =========================================================
+  scrollToSection(sectionId: string, event: Event): void {
+    event.preventDefault();
+
+    const section = document.getElementById(sectionId);
+
+    if (!section) {
+      return;
+    }
+
+    const navbar = document.querySelector('.navbar') as HTMLElement | null;
+    const navbarHeight = navbar ? navbar.offsetHeight : 0;
+
+    const sectionTop =
+      section.getBoundingClientRect().top +
+      window.pageYOffset -
+      navbarHeight -
+      10;
+
+    window.scrollTo({
+      top: sectionTop,
+      behavior: 'smooth'
+    });
+
+    // URL mein #faq / #earnings etc. show nahi hoga
+    window.history.replaceState(
+      null,
+      '',
+      window.location.pathname + window.location.search
+    );
+  }
+
+  // =========================================================
   // EARNING CALCULATOR
   // =========================================================
 

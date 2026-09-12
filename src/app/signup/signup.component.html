@@ -92,17 +92,26 @@
             <span class="brand-subtitle">BUSINESS PARTNER</span>
         </div> -->
     <div class="nav-brand">
-      <img
-        src="assets/images/odbus_logo.webp"
-        alt="ODBUS Business Partner"
-        class="nav-logo"
-      />
+      <a href="javascript:void(0)" (click)="scrollToSection('home', $event)">
+        <img src="assets/images/odbus_logo.webp" alt="ODBUS Business Partner" class="nav-logo" />
+      </a>
     </div>
     <div class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#earnings">How Much You Earn</a>
-      <a href="#features">Why ODBUS</a>
-      <a href="#faq">FAQ</a>
+      <a href="javascript:void(0)" (click)="scrollToSection('home', $event)">
+        Home
+      </a>
+
+      <a href="javascript:void(0)" (click)="scrollToSection('earnings', $event)">
+        How Much You Earn
+      </a>
+
+      <a href="javascript:void(0)" (click)="scrollToSection('features', $event)">
+        Why ODBUS
+      </a>
+
+      <a href="javascript:void(0)" (click)="scrollToSection('faq', $event)">
+        FAQ
+      </a>
     </div>
     <div class="nav-actions">
       <a href="/login" class="btn-primary">Become an Agent</a>
@@ -116,11 +125,7 @@
 <section class="mobile-agent-hero">
   <!-- Mobile Logo -->
   <div class="mobile-agent-top">
-    <img
-      src="assets/images/odbus_logo.webp"
-      alt="ODBUS Agent"
-      class="mobile-agent-logo"
-    />
+    <img src="assets/images/odbus_logo.webp" alt="ODBUS Agent" class="mobile-agent-logo" />
 
     <button class="mobile-nav-login">Login</button>
   </div>
@@ -186,12 +191,10 @@
 <!-- ================= END MOBILE AGENT HERO ================= -->
 
 <!-- Hero Section -->
-<section class="hero">
+<section id="home" class="hero">
   <div class="container hero-layout">
     <div class="hero-content">
-      <span class="badge"
-        >Odisha’s No. 1 Online Bus Ticket Booking Platform</span
-      >
+      <span class="badge">Odisha’s No. 1 Online Bus Ticket Booking Platform</span>
       <h1 class="hero-title">
         Your Shop Already Has the Customers<br />
         <span class="text-orange">Now Earn on Every Bus Ticket.</span>
@@ -258,12 +261,9 @@
 <!-- Stats Banner -->
 <div class="stats-banner">
   <div class="stats-slider">
-    <div
-      class="stats-track"
-      [style.transform]="
+    <div class="stats-track" [style.transform]="
         'translateX(-' + currentStatIndex * (100 / visibleStats) + '%)'
-      "
-    >
+      ">
       <div class="stat-slide">
         <div class="stat-value">800+</div>
         <div class="stat-label">BUS OPERATORS</div>
@@ -313,11 +313,7 @@
 
   <!-- Slider Indicator -->
   <div class="stats-slider-indicator">
-    <span
-      *ngFor="let dot of [0, 1, 2, 3, 4]"
-      class="stats-dot"
-      [class.active]="statsPage === dot"
-    >
+    <span *ngFor="let dot of [0, 1, 2, 3, 4]" class="stats-dot" [class.active]="statsPage === dot">
     </span>
   </div>
 </div>
@@ -358,16 +354,8 @@
 
         <!-- Booking Slider -->
         <div class="booking-slider-wrapper">
-          <input
-            type="range"
-            id="ticketSlider"
-            min="1"
-            max="30"
-            value="8"
-            class="range-slider"
-            [style.background]="sliderBackground"
-            (input)="onBookingSliderChange($event)"
-          />
+          <input type="range" id="ticketSlider" min="1" max="30" value="8" class="range-slider"
+            [style.background]="sliderBackground" (input)="onBookingSliderChange($event)" />
         </div>
 
         <!-- Milestone Strip -->
@@ -760,10 +748,7 @@
 </section>
 
 <!-- Onboarding Process -->
-<section
-  class="section-padding onboarding-section"
-  style="background-color: #ffffff"
->
+<section class="section-padding onboarding-section" style="background-color: #ffffff">
   <div class="container">
     <div class="section-header">
       <h2 class="section-title">How to Start Earning</h2>
@@ -853,7 +838,7 @@
 <!-- =========================================================
      ODBUS FAQ SECTION
 ========================================================= -->
-<section class="odb-faq-section">
+<section id="faq" class="odb-faq-section">
   <div class="container">
     <!-- FAQ HEADING -->
     <div class="odb-faq-header">
@@ -862,48 +847,29 @@
 
     <!-- FAQ TABS -->
     <div class="odb-faq-tabs" role="tablist">
-      <button
-        *ngFor="let cat of faqs; let i = index"
-        type="button"
-        role="tab"
-        class="odb-faq-tab"
-        [class.active]="activeTab === i"
-        (click)="activeTab = i"
-        [attr.aria-selected]="activeTab === i"
-        [attr.aria-controls]="'faq-panel-' + i"
-        [attr.id]="'faq-tab-' + i"
-      >
+      <button *ngFor="let cat of faqs; let i = index" type="button" role="tab" class="odb-faq-tab"
+        [class.active]="activeTab === i" (click)="activeTab = i" [attr.aria-selected]="activeTab === i"
+        [attr.aria-controls]="'faq-panel-' + i" [attr.id]="'faq-tab-' + i">
         {{ cat.category_name }}
       </button>
     </div>
 
     <!-- FAQ CONTENT -->
     <div class="odb-faq-panel">
-      <div
-        *ngFor="let faq of faqs[activeTab]?.faqs; let j = index"
-        class="odb-faq-item"
-        [class.active]="openIndex[activeTab] === j"
-      >
+      <div *ngFor="let faq of faqs[activeTab]?.faqs; let j = index" class="odb-faq-item"
+        [class.active]="openIndex[activeTab] === j">
         <!-- QUESTION -->
-        <button
-          type="button"
-          class="odb-faq-question"
+        <button type="button" class="odb-faq-question"
           (click)="openIndex[activeTab] = openIndex[activeTab] === j ? -1 : j"
-          [attr.aria-expanded]="openIndex[activeTab] === j"
-          [attr.aria-controls]="'faq-answer-' + activeTab + '-' + j"
-        >
+          [attr.aria-expanded]="openIndex[activeTab] === j" [attr.aria-controls]="'faq-answer-' + activeTab + '-' + j">
           <span>{{ faq.title }}</span>
 
           <i class="fa fa-chevron-down"></i>
         </button>
 
         <!-- ANSWER -->
-        <div
-          class="odb-faq-answer"
-          [attr.id]="'faq-answer-' + activeTab + '-' + j"
-          [style.display]="openIndex[activeTab] === j ? 'block' : 'none'"
-          [innerHTML]="faq.content"
-        ></div>
+        <div class="odb-faq-answer" [attr.id]="'faq-answer-' + activeTab + '-' + j"
+          [style.display]="openIndex[activeTab] === j ? 'block' : 'none'" [innerHTML]="faq.content"></div>
       </div>
     </div>
   </div>
@@ -947,12 +913,7 @@
       </button>
 
       <!-- WhatsApp -->
-      <a
-        href="https://wa.me/919999999999"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="odbus-agent-cta-whatsapp"
-      >
+      <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" class="odbus-agent-cta-whatsapp">
         <i class="fab fa-whatsapp"></i>
         <span>Ask Us on WhatsApp</span>
       </a>
@@ -995,9 +956,17 @@
         </p>
 
         <div class="footer-socials">
-          <a href="#" aria-label="Facebook">f</a>
-          <a href="#" aria-label="LinkedIn">in</a>
-          <a href="#" aria-label="X">x</a>
+          <a href="#" aria-label="Facebook">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+
+          <a href="#" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+
+          <a href="#" aria-label="Pinterest">
+            <i class="fab fa-pinterest-p"></i>
+          </a>
         </div>
       </div>
 
@@ -1007,19 +976,27 @@
 
         <ul class="footer-list">
           <li>
-            <a href="#">How Much You Earn</a>
+            <a href="javascript:void(0)" (click)="scrollToSection('earnings', $event)">
+              How Much You Earn
+            </a>
           </li>
 
           <li>
-            <a href="#">Why ODBUS</a>
+            <a href="javascript:void(0)" (click)="scrollToSection('features', $event)">
+              Why ODBUS
+            </a>
           </li>
 
           <li>
-            <a href="#">FAQs</a>
+            <a href="javascript:void(0)" (click)="scrollToSection('faq', $event)">
+              FAQs
+            </a>
           </li>
 
           <li>
-            <a href="#">ODBUS</a>
+            <a href="javascript:void(0)" (click)="scrollToSection('home', $event)">
+              ODBUS
+            </a>
           </li>
         </ul>
       </div>
@@ -1054,11 +1031,7 @@
           </li>
 
           <li>
-            <a
-              href="https://wa.me/919583918888"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href="https://wa.me/919583918888" target="_blank" rel="noopener noreferrer">
               WhatsApp: 9583918888
             </a>
           </li>
