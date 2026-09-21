@@ -81,18 +81,18 @@ const AgentItems = [
             url: 'agent/alltransactionreport',
           },
           {
-            id: 'cancellationreport',
-            title: 'Cancellation Report',
-            type: 'item',
-            icon: 'feather icon-x-circle',
-            url: 'agent/cancellationreport',
-          },
-          {
             id: 'completereport',
             title: 'Complete Report',
             type: 'item',
             icon: 'feather icon-check-circle',
             url: 'agent/completereport',
+          },
+          {
+            id: 'cancellationreport',
+            title: 'Cancellation Report',
+            type: 'item',
+            icon: 'feather icon-x-circle',
+            url: 'agent/cancellationreport',
           },
           {
             id: 'commissionreport',
