@@ -87,8 +87,8 @@ export class NavCollapseComponent implements OnInit {
 
     this.visible =
       url.includes('/agent/alltransactionreport') ||
-      url.includes('/agent/cancellationreport') ||
       url.includes('/agent/completereport') ||
+      url.includes('/agent/cancellationreport') ||
       url.includes('/agent/commissionreport');
 
     // console.log('REPORT MENU:', this.visible, url);

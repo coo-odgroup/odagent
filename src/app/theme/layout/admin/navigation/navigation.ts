@@ -74,7 +74,7 @@ const AgentItems = [
         icon: 'feather icon-thermometer',
         children: [
           {
-            id: 'walletreport',
+            id: 'alltransactionreport',
             title: 'All Transaction Report',
             type: 'item',
             icon: 'feather icon-file-text',

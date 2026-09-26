@@ -25,7 +25,7 @@ export class Constants {
    // FOR LOCAL
    // public static BASE_URL:any ='http://localhost:7001/ODBUS/odbusproviderbe/api';
    // public static CONSUMER_API_URL:any ='http://localhost:7001/ODBUS/odbusconsumerbe/api';
-   // public static CONSUMER_BASE_URL:any ='http://192.168.29.17:4200/';
+   // public static CONSUMER_BASE_URL:any ='http://localhost:4200/';
    // public static PAYMENT_MODE: any = 'sandbox';
 
    // For AdGlob

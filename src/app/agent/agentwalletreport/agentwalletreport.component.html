@@ -225,6 +225,9 @@
                     <span *ngIf="page.type == 'Refund'">
                       Ticket Cancel Refund
                     </span>
+                    <span *ngIf="page.type == 'CancelCommission'">
+                      Cancel Commission Received
+                    </span>
                     <span
                       *ngIf="
                         page.payment_via == null && page.transaction_type == 'd'
