@@ -11,7 +11,7 @@
           <div class="col-12">
             <form [formGroup]="searchFrom">
               <div class="row align-items-end">
-                
+
                 <div class="col-md-4 col-sm-12">
                   <div class="row">
                     <div class="col-12">
@@ -40,7 +40,7 @@
                   </div>
                 </div>
 
-               
+
                 <div class="col-md-2 col-sm-12">
                   <div class="form-group">
                     <select
@@ -53,7 +53,7 @@
                   </div>
                 </div>
 
-                
+
                 <div class="col-md-3 col-sm-12">
                   <div class="form-group">
                     <ng-select
@@ -69,7 +69,7 @@
                   </div>
                 </div>
 
-                
+
                 <div class="col-md-3 col-sm-12">
                   <div class="form-group">
                     <ng-select
@@ -162,7 +162,7 @@
 
                 DOB-{{ complete.created_at | date: "dd/MM/yyyy HH:mm:ss" }}
 
-                
+
               </td>
               <td>
                 <strong
@@ -343,7 +343,7 @@
           <div class="pagination-wrapper" *ngIf="completedata?.data.links">
             <nav class="pagination-nav">
               <ul class="pagination pagination-sm mb-0 hide_print">
-                
+
                 <li
                   class="page-item"
                   [class.disabled]="completedata.data.current_page == 1"
@@ -351,7 +351,7 @@
                   <a class="page-link" (click)="onFirstPageComplete()">First</a>
                 </li>
 
-                
+
                 <li
                   class="page-item"
                   [class.disabled]="!completedata.data.prev_page_url"
@@ -361,7 +361,7 @@
                   >
                 </li>
 
-             
+
                 <li
                   class="page-item"
                   *ngFor="let b of completedata.data.links; let i = index"
@@ -376,7 +376,7 @@
                   </a>
                 </li>
 
-                
+
                 <li
                   class="page-item"
                   [class.disabled]="!completedata.data.next_page_url"
@@ -384,7 +384,7 @@
                   <a class="page-link" (click)="onNextPageComplete()">Next</a>
                 </li>
 
-               
+
                 <li
                   class="page-item"
                   [class.disabled]="
@@ -691,7 +691,7 @@
                               </div>
                             </div>
 
-                            
+
 
                             <table style="width: 100%; margin-top: 20px">
                               <tr>
@@ -754,7 +754,7 @@
                                             >
                                           </td>
                                         </tr>
-                                        
+
 
                                         <tr
                                           *ngIf="
@@ -1042,7 +1042,7 @@
                       </div>
                       <div class="mobile-ticket-page">
                         <div class="mobile-ticket-card">
-                        
+
 
                           <div class="ticket-top">
                             <img
@@ -1058,13 +1058,13 @@
                             </div>
                           </div>
 
-                         
+
 
                           <div class="ticket-status confirmed">
                             BOOKING CONFIRMED
                           </div>
 
-                         
+
 
                           <div class="ticket-box">
                             <div class="section-title">
@@ -1175,7 +1175,7 @@
                             </div>
                           </div>
 
-                       
+
 
                           <div class="ticket-box">
                             <div class="section-title">
@@ -1266,7 +1266,7 @@
                             </div>
                           </div>
 
-                         
+
 
                           <div class="ticket-box">
                             <div class="section-title">
@@ -1315,7 +1315,7 @@
                             </div>
                           </div>
 
-                      
+
 
                           <div class="ticket-box qr-box">
                             <div class="section-title">
@@ -1336,7 +1336,7 @@
                             </div>
                           </div>
 
-                      
+
 
                           <div class="ticket-box">
                             <div class="section-title">
@@ -1406,7 +1406,7 @@
               </div>
             </div>
           </div>
-          
+
 
           <div class="modal-footer desktop-modal-footer">
             <button
@@ -1432,7 +1432,7 @@
             </button>
           </div>
 
-         
+
         </ng-template>  -->
 
       <ng-template #cancelTicketTab let-modal>
@@ -2163,7 +2163,7 @@
         {{ complete.users?.name }}
       </div>
 
-      <div class="user-phone " (click)="copyMessage(complete.users.phone)"  >
+      <div class="user-phone" (click)="copyMessage(complete.users.phone)">
         <i class="fa fa-phone mr-1"></i>
         {{ complete.users?.phone }}
       </div>

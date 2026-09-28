@@ -162,7 +162,6 @@ export class BookTicketComponent implements OnInit {
       console.log('UPPER BERTH', this.bookingdata.Upperberth);
       console.log('LOWER BERTH', this.bookingdata.Lowerberth);
 
-
       this.USERRECORDS = JSON.parse(this.USERRECORDS);
       this.busRecord = JSON.parse(this.busRecord);
       this.genderRestrictSeats = JSON.parse(this.genderRestrictSeats);
@@ -348,9 +347,14 @@ export class BookTicketComponent implements OnInit {
     return this.fb.group(
       {
         bus_seats_id: [seat],
+        // passenger_name: [
+        //   null,
+        //   [Validators.required, Validators.pattern("^[a-zA-Z \-']+")],
+        // ],
         passenger_name: [
           null,
-          [Validators.required, Validators.pattern("^[a-zA-Z \-']+")],
+          [Validators.required],
+          // [Validators.required, Validators.pattern(/^[a-zA-Z \-']+$/)],
         ],
         passenger_gender: [null, Validators.required],
         passenger_age: [
@@ -509,12 +513,12 @@ export class BookTicketComponent implements OnInit {
             let j_day = ('0' + j_date.getDate()).slice(-2);
             let journey_date = [j_day, j_mnth, j_date.getFullYear()].join('-');
 
-            const agentDetails = localStorage.getItem('USERRECORDS')
+            const agentDetails = localStorage.getItem('USERRECORDS');
 
             const param = {
               transaction_id: this.bookTicketResponse.transaction_id,
               customer_comission: this.applied_comission,
-              agentdetails:agentDetails
+              agentdetails: agentDetails,
             };
 
             //  console.log(JSON.stringify(param));
@@ -676,5 +680,35 @@ export class BookTicketComponent implements OnInit {
 
   goBackStep() {
     this.ngWizardService.previous();
+  }
+
+  onlyText(event: any, index: number, fieldName: any): void {
+    const value = event.target.value.replace(/[^a-zA-Z ]/g, '');
+
+    event.target.value = value;
+
+    this.getPassengerFormGroup(index)
+      .get(fieldName)
+      ?.setValue(value, { emitEvent: false });
+  }
+
+  copyPassengerDataToAll(event: any): void {
+    const checked = event.target.checked;
+
+    const firstPassenger = this.passengerFormGroup.at(0).value;
+
+    for (let i = 1; i < this.passengerFormGroup.length; i++) {
+      if (checked) {
+        this.passengerFormGroup.at(i).patchValue({
+          passenger_name: firstPassenger.passenger_name,
+          passenger_age: firstPassenger.passenger_age,
+        });
+      } else {
+        this.passengerFormGroup.at(i).patchValue({
+          passenger_name: null,
+          passenger_age: null,
+        });
+      }
+    }
   }
 }

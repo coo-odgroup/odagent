@@ -219,6 +219,16 @@
                           >
                             Age must be from 1 to 100
                           </div>
+                          <div class="card-head">
+                            <span>&nbsp;</span>
+                            <label *ngIf="i === 0">
+                              <input
+                                type="checkbox"
+                                (change)="copyPassengerDataToAll($event)"
+                              />
+                              Duplicate Passenger 1 Info
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -291,43 +301,7 @@
                         "
                       >
                         <div class="row" [formGroupName]="i">
-                          <!-- <div class="col-md-8">
-                            <label
-                              >PASSENGER {{ i + 1 }} <span class="grey">( Seat No:
-                              {{ get_seatno(item.value.bus_seats_id) }} )</span></label
-                            ><br />
-                            <input
-                              type="text"
-                              formControlName="passenger_name"
-                              class="form-control"
-                              placeholder="Full Name"
-                            />
-
-                            <div
-                              *ngIf="
-                                submitted1 &&
-                                getPassengerFormGroup(i).controls[
-                                  'passenger_name'
-                                ].hasError('required')
-                              "
-                              class="invalid-feedback"
-                            >
-                              Name is required
-                            </div>
-
-                            <div
-                              *ngIf="
-                                submitted1 &&
-                                getPassengerFormGroup(i).controls[
-                                  'passenger_name'
-                                ].hasError('pattern')
-                              "
-                              class="invalid-feedback"
-                            >
-                              Alphabets only
-                            </div>
-                          </div> -->
-                          <div class="col-md-8">
+                          <div class="col-md-7">
                             <label> PASSENGER {{ i + 1 }} </label>
 
                             <div class="input-group passenger-input">
@@ -346,6 +320,7 @@
                                 formControlName="passenger_name"
                                 class="form-control"
                                 placeholder="Full Name"
+                                (input)="onlyText($event, i, 'passenger_name')"
                               />
                             </div>
 
@@ -380,6 +355,9 @@
                               class="form-control"
                               formControlName="passenger_age"
                               placeholder="Passenger Age"
+                              min="1"
+                              max="100"
+                              step="1"
                             />
 
                             <div
@@ -417,8 +395,20 @@
                               Age must be from 1 to 100
                             </div>
                           </div>
-                          <div class="col-md-2">
-                            <label>&nbsp;</label><br />
+                          <div class="col-md-3">
+                            <label *ngIf="i === 0; else emptyLabel">
+                              <input
+                                type="checkbox"
+                                (change)="copyPassengerDataToAll($event)"
+                              />
+                              Duplicate Passenger 1 Info
+                            </label>
+
+                            <ng-template #emptyLabel>
+                              <label>&nbsp;</label>
+                            </ng-template>
+
+                            <br />
                             <ng-select
                               [items]="genderArr"
                               bindLabel="name"
@@ -471,6 +461,7 @@
                             [readonly]="isnameReadOnly"
                             formControlName="name"
                             placeholder="Enter Your Name"
+                            (input)="onlyText($event, 1, 'name')"
                           />
 
                           <div
