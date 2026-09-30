@@ -40,6 +40,13 @@ const AgentItems = [
         url: 'dashboard/landing',
       },
       {
+        id: 'route-list',
+        title: 'Search Route',
+        type: 'item',
+        icon: 'feather icon-search',
+        url: 'agent/route-list',
+      },
+      {
         id: 'booking',
         title: 'Book Ticket',
         type: 'item',

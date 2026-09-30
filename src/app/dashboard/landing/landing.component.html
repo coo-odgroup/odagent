@@ -15,10 +15,10 @@
             <span>Agent Exclusive Offers</span>
           </div>
 
-          <button class="hero-offers-view">
+          <!-- <button class="hero-offers-view">
             View All
             <i class="fa fa-arrow-right"></i>
-          </button>
+          </button> -->
         </div>
 
         <!-- COUPON AREA -->
@@ -262,21 +262,21 @@
     <div class="section-heading-row">
       <h3>QUICK ACTIONS</h3>
 
-      <button>Customize</button>
+      <!-- <button>Customize</button> -->
     </div>
 
     <div class="quick-actions-grid">
-      <button class="quick-action-item quick-blue">
+      <button class="quick-action-item quick-blue" (click)="searchRouteLink()">
         <i class="fa fa-search"></i>
-        <span>Search Bus</span>
+        <span>Search Route</span>
       </button>
 
-      <button class="quick-action-item quick-green">
+      <button class="quick-action-item quick-green" (click)="bookTicketLink()">
         <i class="fa fa-ticket"></i>
         <span>Book Ticket</span>
       </button>
 
-      <button class="quick-action-item quick-indigo">
+      <button class="quick-action-item quick-indigo" (click)="myPnrsLink()">
         <i class="fa fa-clipboard"></i>
         <span>My PNRs</span>
       </button>
@@ -286,12 +286,12 @@
         <span>Add Money</span>
       </button>
 
-      <button class="quick-action-item quick-red">
+      <button class="quick-action-item quick-red" (click)="cancelRefundLink()">
         <i class="fa fa-undo"></i>
         <span>Cancel / Refund</span>
       </button>
 
-      <button class="quick-action-item quick-orange">
+      <button class="quick-action-item quick-orange" (click)="statementLink()">
         <i class="fa fa-file"></i>
         <span>Statement</span>
       </button>
@@ -361,23 +361,28 @@
       <div class="analytics-header alerts-header">
         <h3>Important Alerts</h3>
 
-        <a href="javascript:void(0)"> View all </a>
+        <a
+          [routerLink]="['/agent/notification']"
+          routerLinkActive="router-link-active"
+        >
+          View all
+        </a>
       </div>
 
       <div class="alerts-list">
-        <div class="alert-item alert-warning">
+        <div class="alert-item alert-warning" *ngIf="wallet_balance < 1000">
           <div class="alert-icon">
             <i class="fa fa-exclamation-triangle"></i>
           </div>
 
           <div>
-            <strong> Low Wallet Balance </strong>
+            <strong>Low Wallet Balance</strong>
 
-            <p>Wallet is below ₹2,000 threshold.</p>
+            <p>Wallet is below ₹{{ wallet_balance }} threshold.</p>
           </div>
         </div>
 
-        <div class="alert-item alert-danger">
+        <!-- <div class="alert-item alert-danger">
           <div class="alert-icon">
             <i class="fa fa-undo"></i>
           </div>
@@ -399,7 +404,7 @@
 
             <p>Extra 2% commission unlocked on sleepers.</p>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </section>
@@ -413,7 +418,12 @@
       <div class="table-section-header">
         <h3>Upcoming Journeys</h3>
 
-        <a href="javascript:void(0)"> View all </a>
+        <a
+          [routerLink]="['/agent/completereport']"
+          routerLinkActive="router-link-active"
+        >
+          View all
+        </a>
       </div>
 
       <div class="upcoming-table-wrapper">
@@ -423,8 +433,8 @@
               <th>PNR</th>
               <th>Passenger</th>
               <th>Route</th>
-              <th>Departure</th>
-              <th>Seats</th>
+              <!-- <th>Departure</th> -->
+              <!-- <th>Seats</th> -->
               <th>Status</th>
             </tr>
           </thead>
@@ -443,7 +453,7 @@
                 {{ booking.route || "--" }}
               </td>
 
-              <td>
+              <!-- <td>
                 {{ booking.departure_time || booking.departure || "--" }}
               </td>
 
@@ -454,7 +464,7 @@
                     booking.seat_numbers ||
                     "--"
                 }}
-              </td>
+              </td> -->
 
               <td>
                 <span
@@ -524,10 +534,10 @@
               }}
             </span>
 
-            <button>
+            <!-- <button>
               Book Now
               <i class="fa fa-chevron-right"></i>
-            </button>
+            </button> -->
           </div>
         </div>
 
@@ -545,7 +555,12 @@
     <div class="wallet-table-header">
       <h3>Last 10 Wallet Transactions</h3>
 
-      <a href="javascript:void(0)"> View statement </a>
+      <a
+        [routerLink]="['/agent/alltransactionreport']"
+        routerLinkActive="router-link-active"
+      >
+        View statement
+      </a>
     </div>
 
     <div class="wallet-table-wrapper">
@@ -646,10 +661,10 @@
         <span>Agent Exclusive Offers</span>
       </div>
 
-      <button type="button">
+      <!-- <button type="button">
         View All
         <i class="fa fa-arrow-right"></i>
-      </button>
+      </button> -->
     </div>
 
     <!-- COUPON -->
@@ -708,13 +723,14 @@
             <input
               type="text"
               [(ngModel)]="fromSource"
-              placeholder="Delhi"
+              placeholder="From Source"
               autocomplete="off"
               (click)="$event.stopPropagation(); openSourceDropdown()"
               (focus)="openSourceDropdown()"
               (input)="filterSourceCities()"
             />
 
+            <!-- SOURCE DROPDOWN -->
             <div class="route-dropdown" *ngIf="showSourceDropdown">
               <div
                 class="route-dropdown-item"
@@ -722,7 +738,17 @@
                 (mousedown)="selectSourceCity(city)"
               >
                 <i class="fa fa-map-marker-alt"></i>
-                {{ city }}
+
+                <span>
+                  {{ city.name }}
+                </span>
+              </div>
+
+              <div
+                class="route-dropdown-empty"
+                *ngIf="filteredSourceCities.length === 0"
+              >
+                No cities found
               </div>
             </div>
           </div>
@@ -735,12 +761,14 @@
             <input
               type="text"
               [(ngModel)]="toDestination"
-              placeholder="Jaipur"
+              placeholder="To Destination"
               autocomplete="off"
+              (click)="$event.stopPropagation(); openDestinationDropdown()"
               (focus)="openDestinationDropdown()"
               (input)="filterDestinationCities()"
             />
 
+            <!-- DESTINATION DROPDOWN -->
             <div class="route-dropdown" *ngIf="showDestinationDropdown">
               <div
                 class="route-dropdown-item"
@@ -748,7 +776,17 @@
                 (mousedown)="selectDestinationCity(city)"
               >
                 <i class="fa fa-map-marker-alt"></i>
-                {{ city }}
+
+                <span>
+                  {{ city.name }}
+                </span>
+              </div>
+
+              <div
+                class="route-dropdown-empty"
+                *ngIf="filteredDestinationCities.length === 0"
+              >
+                No cities found
               </div>
             </div>
           </div>
@@ -848,21 +886,21 @@
         <span>Frequently used actions</span>
       </div>
 
-      <button>Customize</button>
+      <!-- <button>Customize</button> -->
     </div>
 
     <div class="mobile-actions">
-      <button>
+      <button (click)="searchRouteLink()">
         <i class="fa fa-search"></i>
-        <span>Search Bus</span>
+        <span>Search Route</span>
       </button>
 
-      <button>
+      <button (click)="bookTicketLink()">
         <i class="fa fa-ticket"></i>
         <span>Book Ticket</span>
       </button>
 
-      <button>
+      <button (click)="myPnrsLink()">
         <i class="fa fa-list"></i>
         <span>My PNRs</span>
       </button>
@@ -872,12 +910,12 @@
         <span>Add Money</span>
       </button>
 
-      <button>
+      <button (click)="cancelRefundLink()">
         <i class="fa fa-undo"></i>
         <span>Cancel / Refund</span>
       </button>
 
-      <button>
+      <button (click)="statementLink()">
         <i class="fa fa-file"></i>
         <span>Statement</span>
       </button>
@@ -938,7 +976,12 @@
         <span>Things that need your attention</span>
       </div>
 
-      <a href="javascript:void(0)"> View all </a>
+      <a
+        [routerLink]="['/agent/notification']"
+        routerLinkActive="router-link-active"
+      >
+        View all
+      </a>
     </div>
 
     <div class="mobile-alerts">
@@ -991,7 +1034,12 @@
         <span>Your upcoming bus journeys</span>
       </div>
 
-      <a href="javascript:void(0)"> View all </a>
+      <a
+        [routerLink]="['/agent/completereport']"
+        routerLinkActive="router-link-active"
+      >
+        View all
+      </a>
     </div>
 
     <div class="mobile-journey-list">
@@ -1021,7 +1069,7 @@
             </strong>
           </div>
 
-          <div>
+          <!-- <div>
             <small>Departure</small>
             <strong>
               {{ booking.departure_time || booking.departure || "--" }}
@@ -1035,7 +1083,7 @@
                 booking.seats || booking.seat_no || booking.seat_numbers || "--"
               }}
             </strong>
-          </div>
+          </div> -->
         </div>
       </div>
 

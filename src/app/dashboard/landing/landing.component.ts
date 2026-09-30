@@ -19,6 +19,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { LocationdataService } from 'src/app/services/locationdata.service';
 import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification.service';
+import { WalletbalanceService } from 'src/app/services/walletbalance.service';
+import { Observable, throwError } from 'rxjs';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -84,6 +86,7 @@ export class LandingComponent implements OnInit {
     private locationService: LocationdataService,
     private router: Router,
     private notify: NotificationService,
+    public balance: WalletbalanceService,
   ) {
     this.RoleType = localStorage.getItem('ROLE_ID');
     this.isCollapsed = false;
@@ -233,6 +236,9 @@ export class LandingComponent implements OnInit {
   }
   ngAfterViewInit() {}
 
+  user_id:any;
+  wallet_balance:any;
+
   ngOnInit() {
     const data = {
       rangeFor: '',
@@ -260,6 +266,15 @@ export class LandingComponent implements OnInit {
         this.filteredDestinationCities = [...this.sourceCities];
       } else {
         this.notify.notify(res.message, 'Error');
+      }
+    });
+
+    this.user_id = localStorage.getItem('USERID');
+    this.balance.getWalletBalance(this.user_id).subscribe((res) => {
+      if (res.status == 1) {
+        if (res.data.length > 0) {
+          this.wallet_balance = res.data[0].balance;
+        }
       }
     });
   }
@@ -439,7 +454,7 @@ export class LandingComponent implements OnInit {
     this.ds.bookingDetails(data).subscribe({
       next: (res) => {
         this.bookingDetails = res.data;
-        this.spinner.hide(); // Hide after all data loads
+        this.spinner.hide();
       },
       error: () => {
         this.spinner.hide();
@@ -789,5 +804,25 @@ export class LandingComponent implements OnInit {
     searches = searches.slice(0, 5);
 
     localStorage.setItem(`recentSearches_${userId}`, JSON.stringify(searches));
+  }
+
+  searchRouteLink() {
+    this.router.navigate(['agent/route-list']);
+  }
+
+  bookTicketLink() {
+    this.router.navigate(['agent/booking']);
+  }
+
+  myPnrsLink() {
+    this.router.navigate(['agent/completereport']);
+  }
+
+  cancelRefundLink() {
+    this.router.navigate(['agent/cancellationreport']);
+  }
+
+  statementLink() {
+    this.router.navigate(['agent/alltransactionreport']);
   }
 }
