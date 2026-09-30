@@ -16,6 +16,9 @@ HC_drilldown(Highcharts);
 import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { LocationdataService } from 'src/app/services/locationdata.service';
+import { Router } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification.service';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -68,10 +71,19 @@ export class LandingComponent implements OnInit {
   pnr_date: any;
   pnr_label: any;
 
+  sourceCities: any[] = [];
+  filteredSourceCities: any[] = [];
+  filteredDestinationCities: any[] = [];
+
+  location_list: any;
+
   constructor(
     private spinner: NgxSpinnerService,
     private http: HttpClient,
     private ds: DashboardService,
+    private locationService: LocationdataService,
+    private router: Router,
+    private notify: NotificationService,
   ) {
     this.RoleType = localStorage.getItem('ROLE_ID');
     this.isCollapsed = false;
@@ -219,7 +231,7 @@ export class LandingComponent implements OnInit {
       ],
     };
   }
-  ngAfterViewInit() { }
+  ngAfterViewInit() {}
 
   ngOnInit() {
     const data = {
@@ -236,6 +248,20 @@ export class LandingComponent implements OnInit {
     this.loadWalletTransactions();
     this.operatordata();
     this.pnrstaticsdata('Today');
+
+    this.locationService.all().subscribe((res) => {
+      if (res.status == 1) {
+        this.location_list = res.data;
+
+        // Use API locations for quick search
+        this.sourceCities = this.location_list;
+
+        this.filteredSourceCities = [...this.sourceCities];
+        this.filteredDestinationCities = [...this.sourceCities];
+      } else {
+        this.notify.notify(res.message, 'Error');
+      }
+    });
   }
 
   animateValue(
@@ -449,60 +475,16 @@ export class LandingComponent implements OnInit {
   selectedRange = 'Today';
   today = new Date();
 
-  // ============================================================
-  // QUICK ROUTE SEARCH
-  // ============================================================
-
-  fromSource: string = 'Delhi';
-  toDestination: string = 'Jaipur';
+  fromSource: string = '';
+  toDestination: string = '';
 
   showSourceDropdown = false;
   showDestinationDropdown = false;
 
-
-  // CITY LIST
-  sourceCities: string[] = [
-    'Delhi',
-    'Jaipur',
-    'Agra',
-    'Gurgaon',
-    'Noida',
-    'Chandigarh',
-    'Amritsar',
-    'Lucknow',
-    'Kanpur',
-    'Varanasi',
-    'Haridwar',
-    'Dehradun',
-    'Kota',
-    'Ajmer',
-    'Udaipur',
-    'Jodhpur',
-    'Ahmedabad',
-    'Mumbai',
-    'Pune',
-    'Indore',
-    'Bhopal',
-    'Surat',
-    'Vadodara',
-    'Bengaluru',
-    'Hyderabad',
-    'Chennai',
-    'Kolkata',
-  ];
-
-
-  filteredSourceCities: string[] = [...this.sourceCities];
-  filteredDestinationCities: string[] = [...this.sourceCities];
-
-
-  // ============================================================
-  // JOURNEY DATE
-  // ============================================================
-
   journeyDate: string = '';
   journeyDateDisplay: string = '';
   minimumJourneyDate: string = '';
+  maximumJourneyDate: any = '';
 
   maxDate = {
     year: this.today.getFullYear(),
@@ -532,21 +514,8 @@ export class LandingComponent implements OnInit {
       return;
     }
 
-    // const from =
-    //   this.customFromDate.year +
-    //   '-' +
-    //   ('0' + this.customFromDate.month).slice(-2) +
-    //   '-' +
-    //   ('0' + this.customFromDate.day).slice(-2);
     const from = this.customFromDate;
     const to = this.customToDate;
-
-    // const to =
-    //   this.customToDate.year +
-    //   '-' +
-    //   ('0' + this.customToDate.month).slice(-2) +
-    //   '-' +
-    //   ('0' + this.customToDate.day).slice(-2);
 
     const data = {
       rangeFor: 'Custom',
@@ -556,10 +525,6 @@ export class LandingComponent implements OnInit {
       USERID: localStorage.getItem('USERID'),
     };
 
-    // this.RangeText =
-    //   this.formatCustomDate(this.customFromDate) +
-    //   ' - ' +
-    //   this.formatCustomDate(this.customToDate);
     this.RangeText =
       this.formatDate(new Date(this.customFromDate)) +
       ' - ' +
@@ -609,38 +574,36 @@ export class LandingComponent implements OnInit {
     });
   }
 
-  // ============================================================
-  // QUICK ROUTE SEARCH - DATE
-  // ============================================================
-
   setDefaultJourneyDate(): void {
-
     const today = new Date();
 
-    const year =
-      today.getFullYear();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
 
-    const month =
-      String(today.getMonth() + 1).padStart(2, '0');
+    this.journeyDate = `${year}-${month}-${day}`;
 
-    const day =
-      String(today.getDate()).padStart(2, '0');
+    // Minimum = today
+    this.minimumJourneyDate = this.journeyDate;
 
+    // Maximum = today + 30 days
+    const maxDate = new Date(today);
+    maxDate.setDate(maxDate.getDate() + 30);
 
-    this.journeyDate =
-      `${year}-${month}-${day}`;
+    this.maximumJourneyDate = this.formatInputDate(maxDate);
 
+    this.journeyDateDisplay = this.formatDate(today);
+  }
 
-    this.minimumJourneyDate =
-      this.journeyDate;
+  formatInputDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
 
-
-    this.journeyDateDisplay =
-      this.formatDate(today);
+    return `${year}-${month}-${day}`;
   }
 
   openJourneyDatePicker(): void {
-
     if (!this.journeyDatePicker) {
       return;
     }
@@ -648,68 +611,44 @@ export class LandingComponent implements OnInit {
     const dateInput = this.journeyDatePicker.nativeElement as any;
 
     try {
-
       // Chrome / Edge / modern browsers
       if (typeof dateInput.showPicker === 'function') {
-
         dateInput.showPicker();
-
       } else {
-
         // Fallback
         dateInput.focus();
         dateInput.click();
-
       }
-
     } catch (error) {
-
       // Fallback if showPicker is blocked
       dateInput.focus();
       dateInput.click();
-
     }
-
   }
 
   onJourneyDateChange(event: any): void {
-
-    const selectedDate =
-      event.target.value;
+    const selectedDate = event.target.value;
 
     if (!selectedDate) {
       return;
     }
 
-    this.journeyDate =
-      selectedDate;
+    this.journeyDate = selectedDate;
 
-    const date =
-      new Date(selectedDate + 'T00:00:00');
+    const date = new Date(selectedDate + 'T00:00:00');
 
-    this.journeyDateDisplay =
-      this.formatDate(date);
+    this.journeyDateDisplay = this.formatDate(date);
   }
-
-  // ============================================================
-  // QUICK ROUTE SEARCH - SOURCE
-  // ============================================================
 
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: MouseEvent): void {
-
-    const target =
-      event.target as HTMLElement;
-
+    const target = event.target as HTMLElement;
 
     // If click happened inside Source/Destination field,
     // keep the dropdown open.
-    if (
-      target.closest('.autocomplete-field')
-    ) {
+    if (target.closest('.autocomplete-field')) {
       return;
     }
-
 
     // Otherwise close both dropdowns.
     this.showSourceDropdown = false;
@@ -718,141 +657,137 @@ export class LandingComponent implements OnInit {
   }
 
   openSourceDropdown(): void {
-
     this.showSourceDropdown = true;
     this.showDestinationDropdown = false;
 
     this.filterSourceCities();
   }
 
-
-
   filterSourceCities(): void {
-
-    const search =
-      this.fromSource
-        .trim()
-        .toLowerCase();
-
+    const search = this.fromSource.trim().toLowerCase();
 
     if (!search) {
-
-      this.filteredSourceCities =
-        [...this.sourceCities];
-
+      this.filteredSourceCities = [...this.sourceCities];
       return;
     }
 
-
-    this.filteredSourceCities =
-      this.sourceCities.filter(city =>
-        city.toLowerCase().includes(search)
-      );
+    this.filteredSourceCities = this.sourceCities.filter(
+      (v: any) =>
+        v.name.toLowerCase().includes(search) ||
+        (v.synonym && v.synonym.toLowerCase().includes(search)),
+    );
   }
 
-
-
-  selectSourceCity(city: string): void {
-
-    this.fromSource =
-      city;
-
-    this.showSourceDropdown =
-      false;
+  selectSourceCity(city: any): void {
+    this.fromSource = city.name;
+    this.showSourceDropdown = false;
   }
-
-  // ============================================================
-  // QUICK ROUTE SEARCH - DESTINATION
-  // ============================================================
 
   openDestinationDropdown(): void {
-
     this.showDestinationDropdown = true;
     this.showSourceDropdown = false;
 
     this.filterDestinationCities();
   }
 
-
-
   filterDestinationCities(): void {
-
-    const search =
-      this.toDestination
-        .trim()
-        .toLowerCase();
-
+    const search = this.toDestination.trim().toLowerCase();
 
     if (!search) {
-
-      this.filteredDestinationCities =
-        [...this.sourceCities];
-
+      this.filteredDestinationCities = [...this.sourceCities];
       return;
     }
 
-
-    this.filteredDestinationCities =
-      this.sourceCities.filter(city =>
-        city.toLowerCase().includes(search)
-      );
+    this.filteredDestinationCities = this.sourceCities.filter(
+      (v: any) =>
+        v.name.toLowerCase().includes(search) ||
+        (v.synonym && v.synonym.toLowerCase().includes(search)),
+    );
   }
 
-
-
-  selectDestinationCity(city: string): void {
-
-    this.toDestination =
-      city;
-
-    this.showDestinationDropdown =
-      false;
+  selectDestinationCity(city: any): void {
+    this.toDestination = city.name;
+    this.showDestinationDropdown = false;
   }
-
-  // ============================================================
-  // QUICK ROUTE SEARCH - SEARCH
-  // ============================================================
 
   searchBuses(): void {
-
     if (!this.fromSource.trim()) {
-
-      alert('Please select From Source');
-
+      this.notify.notify('Please select From Source', 'Error');
       return;
     }
-
 
     if (!this.toDestination.trim()) {
-
-      alert('Please select To Destination');
-
+      this.notify.notify('Please select From Destination', 'Error');
       return;
     }
 
+    if (
+      this.fromSource.trim().toLowerCase() ===
+      this.toDestination.trim().toLowerCase()
+    ) {
+      this.notify.notify('Source and Destination cannot be same', 'Error');
+      return;
+    }
 
     if (!this.journeyDate) {
-
-      alert('Please select Journey Date');
-
+      this.notify.notify('Please select Journey Date', 'Error');
       return;
     }
 
+    const [year, month, day] = this.journeyDate.split('-');
 
-    console.log('SEARCH REQUEST');
+    const formattedDate = `${day}-${month}-${year}`;
 
-    console.log({
-      from: this.fromSource,
-      to: this.toDestination,
-      journeyDate: this.journeyDate
-    });
+    const source = {
+      name: this.fromSource.trim(),
+    };
 
+    const destination = {
+      name: this.toDestination.trim(),
+    };
 
-    // ------------------------------------------------------------
-    // NEXT STEP:
-    // Call your bus-search API / navigate to bus-search page here.
-    // ------------------------------------------------------------
+    // Same as your BookingComponent
+    this.locationService.setSource(source);
+    this.locationService.setDestination(destination);
+    this.locationService.setDate(formattedDate);
+
+    // Save recent search
+    this.saveQuickRouteSearch(source, destination, formattedDate);
+
+    // Go to listing
+    this.router.navigate(['agent/listing']);
   }
 
-}
+  saveQuickRouteSearch(source: any, destination: any, date: string): void {
+    const userId = localStorage.getItem('USERID');
 
+    let searches = JSON.parse(
+      localStorage.getItem(`recentSearches_${userId}`) || '[]',
+    );
+
+    searches.unshift({
+      from: source.name,
+      to: destination.name,
+
+      sourceObj: source,
+      destinationObj: destination,
+
+      date: date,
+    });
+
+    // Remove duplicate searches
+    searches = searches.filter(
+      (item, index, self) =>
+        index ===
+        self.findIndex(
+          (x) =>
+            x.from === item.from && x.to === item.to && x.date === item.date,
+        ),
+    );
+
+    // Keep only latest 5
+    searches = searches.slice(0, 5);
+
+    localStorage.setItem(`recentSearches_${userId}`, JSON.stringify(searches));
+  }
+}
