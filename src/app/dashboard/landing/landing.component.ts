@@ -8,12 +8,12 @@ import {
 } from '@angular/core';
 
 import { DashboardService } from '../../services/dashboard.service';
-import ApexCharts from 'apexcharts/dist/apexcharts.common.js';
+// import ApexCharts from 'apexcharts/dist/apexcharts.common.js';
 import * as Highcharts from 'highcharts';
 import HC_drilldown from 'highcharts/modules/drilldown';
 HC_drilldown(Highcharts);
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { LocationdataService } from 'src/app/services/locationdata.service';
@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 import { NotificationService } from 'src/app/services/notification.service';
 import { WalletbalanceService } from 'src/app/services/walletbalance.service';
 import { Observable, throwError } from 'rxjs';
+import { Constants } from 'src/app/constant/constant';
 @Component({
   selector: 'app-landing',
   templateUrl: './landing.component.html',
@@ -44,6 +45,14 @@ export class LandingComponent implements OnInit {
   public isSubMail: string;
   public barBasicChartData: any;
   public barBasicChartOption: any;
+
+  private apiURL = Constants.BASE_URL;
+  private UPLOAD_URL = Constants.BASE_URL.replace(/\/api$/, '');
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
 
   public RoleType: any;
   @ViewChild('barBasicChart') barBasicChart: ElementRef; // used barStackedChart, barHorizontalChart
@@ -236,8 +245,8 @@ export class LandingComponent implements OnInit {
   }
   ngAfterViewInit() {}
 
-  user_id:any;
-  wallet_balance:any;
+  user_id: any;
+  wallet_balance: any;
 
   ngOnInit() {
     const data = {
@@ -277,6 +286,8 @@ export class LandingComponent implements OnInit {
         }
       }
     });
+
+    this.getAgentCouponSlider();
   }
 
   animateValue(
@@ -824,5 +835,20 @@ export class LandingComponent implements OnInit {
 
   statementLink() {
     this.router.navigate(['agent/alltransactionreport']);
+  }
+
+  agentCouponSliderData: any[] = [];
+
+  getAgentCouponSlider(): void {
+    this.http.post<any>(this.apiURL + '/agentCouponSlider', {}).subscribe(
+      (response) => {
+        if (response.status == '1') {
+          this.agentCouponSliderData = response.data || [];
+        }
+      },
+      (error) => {
+        console.error('Agent Slider Error:', error);
+      },
+    );
   }
 }

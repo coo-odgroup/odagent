@@ -31,27 +31,13 @@
           <!-- COUPON -->
           <div class="hero-coupon-slider">
             <div class="hero-coupon-track">
-              <!-- COUPON 1 -->
-              <div class="hero-coupon-slide">
+              <div
+                class="hero-coupon-slide"
+                *ngFor="let slider of agentCouponSliderData"
+              >
                 <img
-                  src="assets/images/amazon_slider.png"
-                  alt="Agent Exclusive Offer"
-                />
-              </div>
-
-              <!-- COUPON 2 -->
-              <div class="hero-coupon-slide">
-                <img
-                  src="assets/images/tata_slider.png"
-                  alt="Agent Exclusive Offer"
-                />
-              </div>
-
-              <!-- COUPON 3 -->
-              <div class="hero-coupon-slide">
-                <img
-                  src="assets/images/kiwi_slider.png"
-                  alt="Agent Exclusive Offer"
+                  [src]="UPLOAD_URL + '/' + slider.image_path + slider.file_name"
+                  [alt]="slider.alt_tag || 'Agent Exclusive Offer'"
                 />
               </div>
             </div>
@@ -65,9 +51,7 @@
 
         <!-- SLIDER DOTS -->
         <div class="hero-coupon-dots">
-          <span class="hero-coupon-dot"></span>
-          <span class="hero-coupon-dot"></span>
-          <span class="hero-coupon-dot"></span>
+          <span class="hero-coupon-dot" *ngFor="let slider of agentCouponSliderData"></span>
         </div>
       </div>
 
