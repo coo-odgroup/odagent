@@ -76,7 +76,7 @@ h6 {
 }
 
 label {
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 hr {
@@ -1026,4 +1026,12 @@ h5 {
 .passenger-input .form-control {
   height: 40px;
   border-radius: 0 5px 5px 0;
+}
+
+.dup-box {
+  text-align: right;
+}
+
+.dup-box input {
+  margin-left: 5px;
 }

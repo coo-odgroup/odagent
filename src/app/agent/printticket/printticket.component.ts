@@ -6,6 +6,8 @@ import {
   NgxQrcodeErrorCorrectionLevels,
 } from '@techiediaries/ngx-qrcode';
 
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-printticket',
   templateUrl: './printticket.component.html',
@@ -54,6 +56,7 @@ export class PrintticketComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private busService: BusService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -151,5 +154,9 @@ export class PrintticketComponent implements OnInit {
   `);
 
     popupWindow?.document.close();
+  }
+
+  back(): void {
+    this.router.navigate(['/agent/completereport']);
   }
 }

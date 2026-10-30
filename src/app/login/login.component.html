@@ -715,10 +715,28 @@
             Verify OTP
           </button>
 
-          <div class="resend-row">
+          <!-- <div class="resend-row">
             <span>Didn't receive OTP?</span>
 
             <button type="button" class="text-link" (click)="resendForgotOtp()">
+              Resend OTP
+            </button>
+          </div> -->
+          <div class="resend-row">
+            <span *ngIf="timeLeft === 0">Didn't receive OTP?</span>
+
+            <!-- Countdown -->
+            <span class="otp-timer" *ngIf="timeLeft > 0">
+              Resend OTP in {{ timeLeft }}s
+            </span>
+
+            <!-- Resend Button -->
+            <button
+              *ngIf="timeLeft === 0"
+              type="button"
+              class="text-link"
+              (click)="resendForgotOtp()"
+            >
               Resend OTP
             </button>
           </div>

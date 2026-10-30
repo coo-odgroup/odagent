@@ -301,8 +301,27 @@
                         "
                       >
                         <div class="row" [formGroupName]="i">
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <label> PASSENGER {{ i + 1 }} </label>
+                              </div>
+                              <div class="col-md-6 dup-box">
+                                <label *ngIf="i === 0; else emptyLabel">
+                                  Duplicate Passenger 1 Info
+                                  <input
+                                    type="checkbox"
+                                    (change)="copyPassengerDataToAll($event)"
+                                  />
+                                </label>
+
+                                <ng-template #emptyLabel>
+                                  <label>&nbsp;</label>
+                                </ng-template>
+                              </div>
+                            </div>
+                          </div>
                           <div class="col-md-7">
-                            <label> PASSENGER {{ i + 1 }} </label>
 
                             <div class="input-group passenger-input">
                               <span class="input-group-addon seat-box">
@@ -349,7 +368,6 @@
                             </div>
                           </div>
                           <div class="col-md-2">
-                            <label>&nbsp;</label><br />
                             <input
                               type="number"
                               class="form-control"
@@ -396,19 +414,6 @@
                             </div>
                           </div>
                           <div class="col-md-3">
-                            <label *ngIf="i === 0; else emptyLabel">
-                              <input
-                                type="checkbox"
-                                (change)="copyPassengerDataToAll($event)"
-                              />
-                              Duplicate Passenger 1 Info
-                            </label>
-
-                            <ng-template #emptyLabel>
-                              <label>&nbsp;</label>
-                            </ng-template>
-
-                            <br />
                             <ng-select
                               [items]="genderArr"
                               bindLabel="name"

@@ -297,7 +297,7 @@
                   <span *ngIf="!page.reference_id"> ----- </span>
                 </td>
 
-                <td class="amount-cell">₹{{ page.amount }}.00</td>
+                <td class="amount-cell">₹{{ page.amount | number:'1.2-2' }}</td>
 
                 <td>
                   <span *ngIf="page.status == 1" class="wallet-status success">
