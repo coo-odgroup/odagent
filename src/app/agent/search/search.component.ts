@@ -664,25 +664,25 @@ export class SearchComponent implements ControlValueAccessor {
               }
             });
 
-            /////////// logic for double sleeper single booking restrict /////////
+            /////////// logic for double sleeper single booking restrict //////////
 
-            this.seatsLayoutRecord.upper_berth.filter((at) => {
-              if (
-                t.colNumber == at.colNumber &&
-                (t.rowNumber - at.rowNumber == -1 ||
-                  t.rowNumber - at.rowNumber == 1) &&
-                at.seatText != '' &&
-                t.seatText != at.seatText &&
-                at.bus_seats
-              ) {
-                if (ubnames.indexOf(at.seatText) === -1) {
-                  this.dualsleeper_warning =
-                    'Double sleeper auto-selected as Single booking not allowed. Continue or pick a different seat/sleeper or Bus.';
-                }
-                at['linkedseat'] = t;
-                this.double_sleeper_restrict.push(at);
-              }
-            });
+            // this.seatsLayoutRecord.upper_berth.filter((at) => {
+            //   if (
+            //     t.colNumber == at.colNumber &&
+            //     (t.rowNumber - at.rowNumber == -1 ||
+            //       t.rowNumber - at.rowNumber == 1) &&
+            //     at.seatText != '' &&
+            //     t.seatText != at.seatText &&
+            //     at.bus_seats
+            //   ) {
+            //     if (ubnames.indexOf(at.seatText) === -1) {
+            //       this.dualsleeper_warning =
+            //         'Double sleeper auto-selected as Single booking not allowed. Continue or pick a different seat/sleeper or Bus.';
+            //     }
+            //     at['linkedseat'] = t;
+            //     this.double_sleeper_restrict.push(at);
+            //   }
+            // });
 
             ////////////////////////////////////////////////////
           }
