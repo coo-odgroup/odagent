@@ -234,7 +234,7 @@
       </strong>
 
       <div class="wallet-kpi-bottom">
-        <a href="javascript:void(0)"> + Add money </a>
+        <a href="javascript:void(0)" (click)="openAddMoneyModal()"> + Add money </a>
       </div>
     </div>
   </section>
@@ -265,7 +265,7 @@
         <span>My PNRs</span>
       </button>
 
-      <button class="quick-action-item quick-purple">
+      <button class="quick-action-item quick-purple" (click)="openAddMoneyModal()">
         <i class="fa fa-wallet"></i>
         <span>Add Money</span>
       </button>

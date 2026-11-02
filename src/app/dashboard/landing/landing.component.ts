@@ -851,4 +851,10 @@ export class LandingComponent implements OnInit {
       },
     );
   }
+
+  openAddMoneyModal() {
+    this.router.navigate(['/agent/wallet'], {
+      queryParams: { openModal: true }
+    });
+  }
 }

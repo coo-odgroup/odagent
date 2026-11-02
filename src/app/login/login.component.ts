@@ -140,6 +140,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (history.state.openSignup === true) {
+      this.openSignup();
+    }
     /* ==========================================================
        LOGIN FORM
        ========================================================== */

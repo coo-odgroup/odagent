@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent implements OnInit, OnDestroy {
   private apiurl = Constants.BASE_URL;
@@ -51,14 +51,14 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     window.scrollTo({
       top: sectionTop,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
 
     // URL mein #faq / #earnings etc. show nahi hoga
     window.history.replaceState(
       null,
       '',
-      window.location.pathname + window.location.search
+      window.location.pathname + window.location.search,
     );
   }
 
@@ -80,7 +80,7 @@ export class SignupComponent implements OnInit, OnDestroy {
     'linear-gradient(to right, #009ce0 0%, #009ce0 24.14%, #dbeef7 24.14%, #dbeef7 100%)';
 
   // Agent gets 50% of ODBUS commission
-  public agentCommissionShare: number = 0.50;
+  public agentCommissionShare: number = 0.5;
 
   // Counter service charge per booking
   public serviceChargePerBooking: number = 25;
@@ -113,15 +113,21 @@ export class SignupComponent implements OnInit, OnDestroy {
     { bookings: 100, bonus: 800 },
     { bookings: 200, bonus: 1800 },
     { bookings: 350, bonus: 3500 },
-    { bookings: 500, bonus: 5500 }
+    { bookings: 500, bonus: 5500 },
   ];
 
-  constructor(public router: Router, protected fb: FormBuilder, private signupService: SignupService, private notificationService: NotificationService, private notify: NotificationService, private http: HttpClient) { }
-
+  constructor(
+    public router: Router,
+    protected fb: FormBuilder,
+    private signupService: SignupService,
+    private notificationService: NotificationService,
+    private notify: NotificationService,
+    private http: HttpClient,
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
-      phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
     });
 
     // Set visible stats according to screen size
@@ -143,7 +149,6 @@ export class SignupComponent implements OnInit, OnDestroy {
   // =========================================================
 
   startStatsSlider(): void {
-
     // Clear existing interval first
     if (this.statsInterval) {
       clearInterval(this.statsInterval);
@@ -151,28 +156,20 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     // Slide every 3 seconds
     this.statsInterval = setInterval(() => {
-
       const maxIndex = this.totalStats - this.visibleStats;
 
       if (this.currentStatIndex < maxIndex) {
-
         this.currentStatIndex++;
         this.updateStatsPage();
-
       } else {
-
         // Start again from first stat
         this.currentStatIndex = 0;
         this.statsPage = 0;
-
-
       }
-
     }, 3000);
   }
 
   updateStatsPage(): void {
-
     const maxIndex = this.totalStats - this.visibleStats;
 
     if (maxIndex <= 0) {
@@ -180,37 +177,26 @@ export class SignupComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.statsPage = Math.round(
-      (this.currentStatIndex / maxIndex) * 4
-    );
-
+    this.statsPage = Math.round((this.currentStatIndex / maxIndex) * 4);
   }
-
 
   // =========================================================
   // RESPONSIVE VISIBLE STATS
   // =========================================================
 
   updateVisibleStats(): void {
-
     const width = window.innerWidth;
 
     if (width <= 767) {
-
       // Mobile = 2 stats
       this.visibleStats = 2;
-
     } else if (width <= 1023) {
-
       // Tablet = 4 stats
       this.visibleStats = 4;
-
     } else {
-
       // Desktop = 5 stats
       this.visibleStats = 5;
     }
-
 
     // Make sure index never goes outside the range
 
@@ -222,14 +208,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     this.updateStatsPage();
   }
 
-
-
   // =========================================================
   // EARNING CALCULATION
   // =========================================================
 
   calculateEarnings(): void {
-
     // -------------------------------------------------------
     // 1. Get bookings per day
     // -------------------------------------------------------
@@ -247,37 +230,29 @@ export class SignupComponent implements OnInit, OnDestroy {
       this.sliderProgress +
       '%, #dbeef7 100%)';
 
-
     // -------------------------------------------------------
     // 2. Monthly bookings / PNRs
     // -------------------------------------------------------
 
     this.monthlyBookings = bookings * 30;
 
-
     // -------------------------------------------------------
     // 3. ODBUS commission per seat
     // -------------------------------------------------------
 
-    this.odbusCommission =
-      this.operatorFare * this.odbusCommissionRate;
-
+    this.odbusCommission = this.operatorFare * this.odbusCommissionRate;
 
     // -------------------------------------------------------
     // 4. Agent commission = 50% of ODBUS commission
     // -------------------------------------------------------
 
-    this.agentCommission =
-      this.odbusCommission * this.agentCommissionShare;
-
+    this.agentCommission = this.odbusCommission * this.agentCommissionShare;
 
     // -------------------------------------------------------
     // 5. Monthly agent commission
     // -------------------------------------------------------
 
-    this.monthlyCommission =
-      this.monthlyBookings * this.agentCommission;
-
+    this.monthlyCommission = this.monthlyBookings * this.agentCommission;
 
     // -------------------------------------------------------
     // 6. Monthly service charge
@@ -285,7 +260,6 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     this.monthlyServiceCharge =
       this.monthlyBookings * this.serviceChargePerBooking;
-
 
     // -------------------------------------------------------
     // 7. Find highest bonus tier reached
@@ -299,19 +273,14 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     this.nextBonusAmount = 0;
 
-
     for (let i = 0; i < this.bonusMilestones.length; i++) {
-
       const milestone = this.bonusMilestones[i];
 
       if (this.monthlyBookings >= milestone.bookings) {
-
         // Highest achieved tier
         this.monthlyBonus = milestone.bonus;
         this.currentBonusTier = milestone.bookings;
-
       } else {
-
         // First upcoming tier
         this.nextBonusTier = milestone.bookings;
         this.nextBonusAmount = milestone.bonus;
@@ -320,24 +289,18 @@ export class SignupComponent implements OnInit, OnDestroy {
       }
     }
 
-
     // -------------------------------------------------------
     // 8. Daily earning
     // -------------------------------------------------------
 
-    this.dailyEarning =
-      this.agentCommission + this.serviceChargePerBooking;
-
+    this.dailyEarning = this.agentCommission + this.serviceChargePerBooking;
 
     // -------------------------------------------------------
     // 9. Monthly earning
     // -------------------------------------------------------
 
     this.monthlyEarning =
-      this.monthlyCommission +
-      this.monthlyServiceCharge +
-      this.monthlyBonus;
-
+      this.monthlyCommission + this.monthlyServiceCharge + this.monthlyBonus;
 
     // -------------------------------------------------------
     // 10. Update HTML
@@ -347,101 +310,73 @@ export class SignupComponent implements OnInit, OnDestroy {
   }
 
   onBookingSliderChange(event: Event): void {
+    const slider = event.target as HTMLInputElement;
 
-    const slider =
-      event.target as HTMLInputElement;
-
-    this.bookingsPerDay =
-      Number(slider.value);
+    this.bookingsPerDay = Number(slider.value);
 
     this.calculateEarnings();
-
   }
-
 
   // =========================================================
   // UPDATE CALCULATOR UI
   // =========================================================
 
   updateCalculatorUI(): void {
-
     // Booking count
-    const ticketCountLabel =
-      document.getElementById('ticketCountLabel');
+    const ticketCountLabel = document.getElementById('ticketCountLabel');
 
     if (ticketCountLabel) {
-      ticketCountLabel.innerText =
-        this.bookingsPerDay.toString();
+      ticketCountLabel.innerText = this.bookingsPerDay.toString();
     }
-
 
     // Monthly booking count
-    const monthlyBookingCount =
-      document.getElementById('monthlyBookingCount');
+    const monthlyBookingCount = document.getElementById('monthlyBookingCount');
 
     if (monthlyBookingCount) {
-      monthlyBookingCount.innerText =
-        this.monthlyBookings.toString();
+      monthlyBookingCount.innerText = this.monthlyBookings.toString();
     }
-
 
     // ODBUS / Agent commission
-    const baseCommVal =
-      document.getElementById('baseCommVal');
+    const baseCommVal = document.getElementById('baseCommVal');
 
     if (baseCommVal) {
-      baseCommVal.innerText =
-        this.formatCurrency(this.monthlyCommission);
+      baseCommVal.innerText = this.formatCurrency(this.monthlyCommission);
     }
 
-
     // Service charge
-    const addonCommVal =
-      document.getElementById('addonCommVal');
+    const addonCommVal = document.getElementById('addonCommVal');
 
     if (addonCommVal) {
       addonCommVal.innerText =
         '+' + this.formatCurrency(this.monthlyServiceCharge);
     }
 
-
     // Monthly bonus
-    const monthlyBonusVal =
-      document.getElementById('monthlyBonusVal');
+    const monthlyBonusVal = document.getElementById('monthlyBonusVal');
 
     if (monthlyBonusVal) {
-      monthlyBonusVal.innerText =
-        '+' + this.formatCurrency(this.monthlyBonus);
+      monthlyBonusVal.innerText = '+' + this.formatCurrency(this.monthlyBonus);
     }
-
 
     // Daily earning
-    const totalDailyProfit =
-      document.getElementById('totalDailyProfit');
+    const totalDailyProfit = document.getElementById('totalDailyProfit');
 
     if (totalDailyProfit) {
-      totalDailyProfit.innerText =
-        this.formatCurrency(this.dailyEarning);
+      totalDailyProfit.innerText = this.formatCurrency(this.dailyEarning);
     }
-
 
     // Monthly earning
-    const monthlyProfit =
-      document.getElementById('monthlyProfit');
+    const monthlyProfit = document.getElementById('monthlyProfit');
 
     if (monthlyProfit) {
-      monthlyProfit.innerText =
-        this.formatCurrency(this.monthlyEarning);
+      monthlyProfit.innerText = this.formatCurrency(this.monthlyEarning);
     }
-
 
     // Bonus progress text
     this.updateBonusProgress();
 
-
     // Milestone highlight
     this.updateMilestoneHighlight();
-
 
     // Signboard message
     this.updateSignboardMessage();
@@ -452,9 +387,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   // =========================================================
 
   formatCurrency(value: number): string {
-
     return '₹' + Math.round(value).toLocaleString('en-IN');
-
   }
 
   // =========================================================
@@ -462,85 +395,58 @@ export class SignupComponent implements OnInit, OnDestroy {
   // =========================================================
 
   updateBonusProgress(): void {
-
-    const bonusProgressText =
-      document.getElementById('bonusProgressText');
+    const bonusProgressText = document.getElementById('bonusProgressText');
 
     if (!bonusProgressText) {
       return;
     }
 
-
     // If all milestones achieved
     if (this.nextBonusTier === 0) {
-
       bonusProgressText.innerText =
         'You have unlocked the maximum monthly bonus of ₹5,500';
 
       return;
     }
 
-
-    const remaining =
-      this.nextBonusTier - this.monthlyBookings;
-
+    const remaining = this.nextBonusTier - this.monthlyBookings;
 
     bonusProgressText.innerText =
       remaining +
       ' more bookings this month unlocks +' +
       this.formatCurrency(this.nextBonusAmount);
-
   }
-
 
   // =========================================================
   // MILESTONE HIGHLIGHT
   // =========================================================
 
   updateMilestoneHighlight(): void {
-
-    const milestoneItems =
-      document.querySelectorAll('.milestone-item');
-
+    const milestoneItems = document.querySelectorAll('.milestone-item');
 
     milestoneItems.forEach((item: Element, index: number) => {
-
-      const milestone =
-        this.bonusMilestones[index];
+      const milestone = this.bonusMilestones[index];
 
       if (!milestone) {
         return;
       }
 
-
       item.classList.remove('achieved');
       item.classList.remove('current');
       item.classList.remove('upcoming');
 
-
       if (this.monthlyBookings >= milestone.bookings) {
-
         item.classList.add('achieved');
-
       } else {
-
         item.classList.add('upcoming');
-
       }
-
 
       // Highest currently achieved tier
-      if (
-        this.currentBonusTier === milestone.bookings
-      ) {
-
+      if (this.currentBonusTier === milestone.bookings) {
         item.classList.remove('achieved');
         item.classList.add('current');
-
       }
-
     });
-
   }
 
   // =========================================================
@@ -548,17 +454,13 @@ export class SignupComponent implements OnInit, OnDestroy {
   // =========================================================
 
   updateSignboardMessage(): void {
-
-    const signboardMessage =
-      document.getElementById('signboardMessage');
+    const signboardMessage = document.getElementById('signboardMessage');
 
     if (!signboardMessage) {
       return;
     }
 
-
     if (this.monthlyBookings >= 150) {
-
       signboardMessage.style.display = 'flex';
 
       signboardMessage.innerHTML = `
@@ -567,61 +469,47 @@ export class SignupComponent implements OnInit, OnDestroy {
           At this level you also qualify for a lit ODBUS signboard.
         </span>
       `;
-
     } else {
-
       signboardMessage.style.display = 'none';
-
     }
-
   }
 
   // Detect screen resize
   @HostListener('window:resize')
   onWindowResize(): void {
-
     this.updateVisibleStats();
-
   }
-
 
   // =========================================================
   // STOP SLIDER WHEN COMPONENT IS DESTROYED
   // =========================================================
 
   ngOnDestroy(): void {
-
     if (this.statsInterval) {
       clearInterval(this.statsInterval);
     }
-
   }
   ResetForm() {
     this.form = this.fb.group({
-      phone: ['', [Validators.required, Validators.pattern("^[0-9]{10}$")]],
+      phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
     });
   }
   check_credentials() {
     const data = {
       phone: this.form.value.phone,
     };
-    this.signupService.signup(data).subscribe(
-      res => {
-
-        if (res.status == 1) {
-          this.signupRecord = res.data;
-          //console.log(res.data);
-          localStorage.setItem("USERRECORDS", JSON.stringify(this.signupRecord));
-          localStorage.setItem("USERID", JSON.stringify(this.signupRecord.id));
-          localStorage.setItem("PHONE", JSON.stringify(this.signupRecord.phone));
-          this.router.navigate(['otp']);
-
-        } else {
-          this.notify.notify(res.message, "Error");
-        }
-
-      },
-    );
+    this.signupService.signup(data).subscribe((res) => {
+      if (res.status == 1) {
+        this.signupRecord = res.data;
+        //console.log(res.data);
+        localStorage.setItem('USERRECORDS', JSON.stringify(this.signupRecord));
+        localStorage.setItem('USERID', JSON.stringify(this.signupRecord.id));
+        localStorage.setItem('PHONE', JSON.stringify(this.signupRecord.phone));
+        this.router.navigate(['otp']);
+      } else {
+        this.notify.notify(res.message, 'Error');
+      }
+    });
   }
 
   // FAQ TAB
@@ -679,4 +567,9 @@ export class SignupComponent implements OnInit, OnDestroy {
     });
   }
 
+  navigateToSignup() {
+    this.router.navigate(['/login'], {
+      state: { openSignup: true },
+    });
+  }
 }

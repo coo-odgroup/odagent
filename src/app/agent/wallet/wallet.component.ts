@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { NotificationService } from '../../services/notification.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -123,6 +123,25 @@ export class WalletComponent implements OnInit {
     this.search();
   }
 
+  ngAfterViewInit() {
+    this.route.queryParams.subscribe((params) => {
+      this.spinner.hide();
+
+      if (params['openModal'] === 'true') {
+        setTimeout(() => {
+          this.ResetAttributes();
+          this.OpenModal(this.content);
+
+          this.router.navigate([], {
+            relativeTo: this.route,
+            queryParams: {},
+            replaceUrl: true,
+          });
+        }, 100);
+      }
+    });
+  }
+
   expandedWalletIndex: number | null = null;
 
   toggleWallet(index: number) {
@@ -165,6 +184,13 @@ export class WalletComponent implements OnInit {
       scrollable: true,
       size: 'xl',
     });
+  }
+
+  @ViewChild('content') content: any;
+
+  openAddMoneyModal() {
+    this.ResetAttributes();
+    this.OpenModal(this.content);
   }
 
   ResetAttributes() {
