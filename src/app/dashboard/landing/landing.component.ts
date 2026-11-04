@@ -261,8 +261,8 @@ export class LandingComponent implements OnInit {
     this.showWalletTable = true;
     this.showBookingTable = false;
     this.loadWalletTransactions();
-    this.operatordata();
-    this.pnrstaticsdata('Today');
+    // this.operatordata();
+    // this.pnrstaticsdata('Today');
 
     this.locationService.all().subscribe((res) => {
       if (res.status == 1) {

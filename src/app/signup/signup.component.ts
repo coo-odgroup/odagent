@@ -549,14 +549,14 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     if (cachedFaqs) {
       this.faqs = JSON.parse(cachedFaqs);
-      this.openIndex = this.faqs.map(() => 0);
+      // this.openIndex = this.faqs.map(() => 0);
       return;
     }
 
     this.http.post(this.apiurl + '/getagantfaqs', {}).subscribe({
       next: (res: any) => {
         this.faqs = res.data;
-        this.openIndex = this.faqs.map(() => 0);
+        // this.openIndex = this.faqs.map(() => 0);
 
         // Save to localStorage
         localStorage.setItem(storageKey, JSON.stringify(this.faqs));
