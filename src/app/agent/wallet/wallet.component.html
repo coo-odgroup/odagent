@@ -263,6 +263,7 @@
                 <th>Amount</th>
                 <th>Status</th>
                 <th>Message</th>
+                <th style="width: 100px;">Actions</th>
               </tr>
             </thead>
 
@@ -313,6 +314,17 @@
                   <strong>
                     {{ page.remarks ? page.remarks : "Wallet Recharge" }}
                   </strong>
+                </td>
+
+                <td>
+                  <i
+                    *ngIf="
+                      (page.reference_id && page.reference_id.trim() !== '' && page.payment_via === 'cashfree')
+                      || (page.transaction_id && page.transaction_id.startsWith('WALLET_'))
+                    "
+                    class="fa fa-eye view-icon"
+                    (click)="viewPaymentDetails(page.transaction_id)"
+                  ></i>
                 </td>
               </tr>
             </tbody>
@@ -664,6 +676,403 @@
             </li>
           </ul>
         </nav>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade transaction-details-modal"
+  id="transactionDetailsModal"
+  tabindex="-1"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-content">
+      <!-- MODAL HEADER -->
+      <div class="modal-header">
+        <div>
+          <h5 class="modal-title">Transaction Details</h5>
+          <p class="modal-subtitle">
+            Transaction and cancellation/refund information
+          </p>
+        </div>
+
+        <button
+          type="button"
+          class="modal-close-btn"
+          aria-label="Close"
+          (click)="closeTransactionModal()"
+        >
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+
+      <!-- MODAL BODY -->
+      <div class="modal-body">
+        <div class="transaction-modal-page">
+          <!-- NO DETAILS AVAILABLE -->
+          <div
+            class="section-card no-details"
+            *ngIf="!transaction_details && !refund_details"
+          >
+            <div class="text-center">
+              <i
+                class="fa fa-info-circle"
+                style="font-size: 35px; color: #f0ad4e"
+              >
+              </i>
+
+              <h3>No Transaction Details Found</h3>
+
+              <p>
+                Payment and refund information is currently unavailable for this
+                order.
+              </p>
+            </div>
+          </div>
+
+          <!-- TRANSACTION DETAILS -->
+          <div class="section-card" *ngIf="transaction_details">
+            <div class="section-heading">
+              <div class="section-heading-left">
+                <div class="section-icon green">
+                  <i class="fa fa-credit-card"></i>
+                </div>
+
+                <div>
+                  <h3>Transaction Details</h3>
+                  <span>Payment transaction information</span>
+                </div>
+              </div>
+
+              <span
+                class="status"
+                [ngClass]="
+                  transaction_details?.payment_status?.toLowerCase() ===
+                  'success'
+                    ? 'success'
+                    : 'warning'
+                "
+              >
+                <i class="fa fa-check-circle"></i>
+                {{ transaction_details?.payment_status || "N/A" }}
+              </span>
+            </div>
+
+            <div class="sub-heading">Payment Created</div>
+
+            <div class="payment-information">
+              <!-- COMMON PAYMENT INFORMATION -->
+              <div class="payment-column">
+                <div class="payment-row">
+                  <label>Order ID</label>
+                  <strong>
+                    {{ transaction_details?.order_id || "-" }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Payment Amount</label>
+                  <strong>
+                    ₹{{ transaction_details?.payment_amount || "0.00" }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Currency</label>
+                  <strong>
+                    {{ transaction_details?.payment_currency || "-" }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Payment Status</label>
+                  <strong>
+                    {{ transaction_details?.payment_status || "-" }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Payment Mode</label>
+                  <strong>
+                    {{ transaction_details?.payment_group || "-" }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Payment Date</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_completion_time
+                        ? (transaction_details.payment_completion_time
+                          | date: "dd MMM yyyy, hh:mm a")
+                        : "-"
+                    }}
+                  </strong>
+                </div>
+              </div>
+
+              <!-- CREDIT CARD -->
+              <div
+                class="payment-column"
+                *ngIf="transaction_details?.payment_group === 'credit_card'"
+              >
+                <div class="payment-row">
+                  <label>Bank</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.card
+                        ?.card_bank_name || "-"
+                    }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Card Type</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.card?.card_type ||
+                        "-"
+                    }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Card Country</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.card?.card_country ||
+                        "-"
+                    }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Card Network</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.card?.card_network ||
+                        "-"
+                    }}
+                  </strong>
+                </div>
+              </div>
+
+              <!-- DEBIT CARD -->
+              <div
+                class="payment-column"
+                *ngIf="transaction_details?.payment_group === 'debit_card'"
+              >
+                <div class="payment-row">
+                  <label>Bank</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.card
+                        ?.card_bank_name || "-"
+                    }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Card Type</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.card?.card_type ||
+                        "-"
+                    }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Card Country</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.card?.card_country ||
+                        "-"
+                    }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Card Network</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.card?.card_network ||
+                        "-"
+                    }}
+                  </strong>
+                </div>
+              </div>
+
+              <!-- NET BANKING -->
+              <div
+                class="payment-column"
+                *ngIf="transaction_details?.payment_group === 'net_banking'"
+              >
+                <div class="payment-row">
+                  <label>Bank</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.netbanking
+                        ?.netbanking_bank_name || "-"
+                    }}
+                  </strong>
+                </div>
+              </div>
+
+              <!-- UPI -->
+              <div
+                class="payment-column"
+                *ngIf="transaction_details?.payment_group === 'upi'"
+              >
+                <div class="payment-row">
+                  <label>UPI ID</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.upi?.upi_id || "-"
+                    }}
+                  </strong>
+                </div>
+              </div>
+
+              <!-- UPI CREDIT CARD -->
+              <div
+                class="payment-column"
+                *ngIf="transaction_details?.payment_group === 'upi_credit_card'"
+              >
+                <div class="payment-row">
+                  <label>UPI ID</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.upi?.upi_id || "-"
+                    }}
+                  </strong>
+                </div>
+              </div>
+
+              <!-- WALLET -->
+              <div
+                class="payment-column"
+                *ngIf="transaction_details?.payment_group === 'wallet'"
+              >
+                <div class="payment-row">
+                  <label>Payment Provider</label>
+                  <strong>
+                    {{
+                      transaction_details?.payment_method?.app?.provider || "-"
+                    }}
+                  </strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CANCELLATION & REFUND -->
+          <div class="section-card refund-section" *ngIf="refund_details">
+            <div class="section-heading">
+              <div class="section-heading-left">
+                <div class="section-icon orange">
+                  <i class="fa fa-undo"></i>
+                </div>
+
+                <div>
+                  <h3>Cancellation & Refund</h3>
+                  <span>Refund transaction information</span>
+                </div>
+              </div>
+
+              <span
+                class="status"
+                [ngClass]="
+                  refund_details?.refund_status?.toLowerCase() === 'success'
+                    ? 'success'
+                    : 'warning'
+                "
+              >
+                <i class="fa fa-undo"></i>
+                REFUND {{ refund_details?.refund_status || "N/A" }}
+              </span>
+            </div>
+
+            <div class="sub-heading">Refund Information</div>
+
+            <div class="payment-information">
+              <!-- LEFT COLUMN -->
+              <div class="payment-column">
+                <div class="payment-row">
+                  <label>Refund ID</label>
+                  <strong>
+                    {{ refund_details?.refund_id || "-" }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Order ID</label>
+                  <strong>
+                    {{ refund_details?.order_id || "-" }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Refund Amount</label>
+                  <strong>
+                    ₹{{ refund_details?.refund_amount || "0.00" }}
+                  </strong>
+                </div>
+              </div>
+
+              <!-- RIGHT COLUMN -->
+              <div class="payment-column">
+                <div class="payment-row">
+                  <label>Processed At</label>
+                  <strong>
+                    {{
+                      refund_details?.created_at
+                        ? (refund_details.created_at
+                          | date: "dd MMM yyyy, hh:mm a")
+                        : "-"
+                    }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Currency</label>
+                  <strong>
+                    {{ refund_details?.refund_currency || "-" }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Refund Status</label>
+                  <strong>
+                    {{ refund_details?.refund_status || "-" }}
+                  </strong>
+                </div>
+
+                <div class="payment-row">
+                  <label>Description</label>
+                  <strong>
+                    {{ refund_details?.status_description || "-" }}
+                  </strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MODAL FOOTER -->
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-outline"
+          (click)="closeTransactionModal()"
+        >
+          <i class="fa fa-times"></i>
+          Close
+        </button>
       </div>
     </div>
   </div>

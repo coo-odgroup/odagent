@@ -23,6 +23,7 @@ declare var Cashfree: any;
   styleUrls: ['./wallet.component.scss'],
 })
 export class WalletComponent implements OnInit {
+  apiURL = Constants.BASE_URL;
   public form: FormGroup;
 
   public formConfirm: FormGroup;
@@ -386,5 +387,89 @@ export class WalletComponent implements OnInit {
     if (pageLink?.url) {
       this.search(pageLink.url);
     }
+  }
+
+  transaction_details: any = null;
+  refund_details: any = null;
+
+  viewPaymentDetails(orderId: string): void {
+    this.spinner.show();
+
+    const payload = {
+      order_id: orderId,
+    };
+
+    this.http.post(this.apiURL + '/transaction-details', payload).subscribe(
+      (response: any) => {
+        // console.log('Transaction Details Response:', response);
+
+        this.transaction_details =
+          response.transaction_details &&
+          response.transaction_details.length > 0
+            ? response.transaction_details[0]
+            : null;
+
+        this.refund_details =
+          response.refund_details && response.refund_details.length > 0
+            ? response.refund_details[0]
+            : null;
+
+        this.spinner.hide();
+
+        // Open modal even when API returns empty arrays
+        const modal = document.getElementById('transactionDetailsModal');
+
+        if (modal) {
+          modal.classList.add('show');
+          modal.style.display = 'block';
+          modal.setAttribute('aria-hidden', 'false');
+          modal.setAttribute('aria-modal', 'true');
+
+          document.body.classList.add('modal-open');
+
+          // Create backdrop
+          const existingBackdrop = document.querySelector('.modal-backdrop');
+
+          if (!existingBackdrop) {
+            const backdrop = document.createElement('div');
+            backdrop.className = 'modal-backdrop fade show';
+            document.body.appendChild(backdrop);
+          }
+        } else {
+          console.error('Transaction details modal not found');
+        }
+      },
+      (error) => {
+        this.spinner.hide();
+
+        console.error('Transaction API Error:', error);
+
+        alert('Unable to fetch transaction details. Please try again.');
+      },
+    );
+  }
+
+  closeTransactionModal(): void {
+    const modal = document.getElementById('transactionDetailsModal');
+
+    if (modal) {
+      modal.classList.remove('show');
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      modal.removeAttribute('aria-modal');
+    }
+
+    // Remove all Bootstrap backdrops
+    document.querySelectorAll('.modal-backdrop').forEach((backdrop) => {
+      backdrop.remove();
+    });
+
+    // Restore body scrolling
+    document.body.classList.remove('modal-open');
+    document.body.style.removeProperty('padding-right');
+
+    // Clear details
+    this.transaction_details = null;
+    this.refund_details = null;
   }
 }
