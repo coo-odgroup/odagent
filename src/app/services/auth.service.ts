@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';   
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import {  Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import {Constants} from '../constant/constant';
@@ -12,10 +12,12 @@ export class AuthService {
 
   private apiURL = Constants.CONSUMER_API_URL;
 
-  params={
-    "client_id": "odbusSasAgent" ,
-    "password": "Admin@2010"
-  }
+  // params={
+  //   "client_id": "odbusSasAgent" ,
+  //   "password": "Admin@2010"
+  // }
+
+  params={}
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -23,24 +25,24 @@ export class AuthService {
     })
   }
 
-  
+
 
   constructor(private httpClient: HttpClient) { }
 
-  getToken(): Observable<any> { 
+  getToken(): Observable<any> {
      return this.httpClient.post<any>(this.apiURL + '/ClientLogin' , JSON.stringify(this.params) ,this.httpOptions)
      .pipe(
        catchError(this.errorHandler)
      )
    }
- 
+
    errorHandler(error:HttpErrorResponse) {
     let errorMessage :any;
     if(error.error instanceof HttpErrorResponse) {
       errorMessage = error.error.message;
     } else {
       errorMessage = error;
-      
+
       //`Error Code: ${error.status}\nMessage: ${error.message}`;
     }
     return throwError(errorMessage);

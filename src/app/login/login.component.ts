@@ -134,9 +134,9 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
     private spinner: NgxSpinnerService,
   ) {
-    this.roleService.getRoles().subscribe((res) => {
-      this.usertypes = res.data;
-    });
+    // this.roleService.getRoles().subscribe((res) => {
+    //   this.usertypes = res.data;
+    // });
   }
 
   ngOnInit() {

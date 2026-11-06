@@ -572,4 +572,8 @@ export class SignupComponent implements OnInit, OnDestroy {
       state: { openSignup: true },
     });
   }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
 }
